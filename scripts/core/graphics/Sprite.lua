@@ -287,9 +287,11 @@ function Sprite:draw(renderer)
   if self.texture == nil then
     return
   end
-  if self.texture ~= renderer.batch:getTexture() then
+  if not renderer:batchPossible(self) then
     renderer:clearBatch()
-    renderer.batch:setTexture(self.texture)
+    renderer.batchTexture = self.texture
+    local hsv = renderer.batchHSV
+    hsv[1], hsv[2], hsv[3] = self.hsv.h, self.hsv.s, self.hsv.v
   end
   renderer.batch:setColor(self.color.red, self.color.green, self.color.blue, self.color.alpha)
   renderer.batch:add(self.quad, self.position.x, self.position.y, 

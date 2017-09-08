@@ -222,7 +222,7 @@
 					  "green": 255,
 					  "blue": 255,
 					  "alpha": 255,
-					  "hue": 120,
+					  "hue": 90,
 					  "saturation": 100,
 					  "brightness": 100
 					},
@@ -299,7 +299,7 @@
 					  "green": 255,
 					  "blue": 255,
 					  "alpha": 255,
-					  "hue": 240,
+					  "hue": 180,
 					  "saturation": 100,
 					  "brightness": 100
 					},

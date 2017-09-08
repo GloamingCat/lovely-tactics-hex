@@ -19,8 +19,9 @@ local rotate = math.rotate
 
 -- Constants
 local blankTexture = lgraphics.newImage(love.image.newImageData(1, 1))
+local spriteShader = lgraphics.newShader('shaders/sprite.glsl')
 
-local Renderer = class(Transformable, Colored)
+local Renderer = class(Transformable)
 
 ---------------------------------------------------------------------------------------------------
 -- Initialization
@@ -38,6 +39,7 @@ function Renderer:init(size, minDepth, maxDepth, order)
   self.batch = lgraphics.newSpriteBatch(blankTexture, size, 'dynamic')
   self.canvas = lgraphics.newCanvas(1, 1)
   self.order = order
+  self.batchHSV = {0, 1, 1}
   self:activate()
   self:resizeCanvas()
 end
@@ -154,7 +156,9 @@ function Renderer:draw()
     self:redrawCanvas()
   end
   local r, g, b, a = lgraphics.getColor()
+  local shader = lgraphics.getShader()
   lgraphics.setColor(self:getRGBA())
+  spriteShader:send('phsv', {self:getHSV()})
   lgraphics.draw(self.canvas, 0, 0)
   lgraphics.setColor(r, g, b, a)
 end
@@ -167,6 +171,8 @@ function Renderer:redrawCanvas()
   local sx = ScreenManager.scaleX * self.scaleX
   local sy = ScreenManager.scaleY * self.scaleY
   local firstCanvas = lgraphics.getCanvas()
+  local firstShader = lgraphics.getShader()
+  lgraphics.setShader(spriteShader)
   lgraphics.push()
   lgraphics.setCanvas(self.canvas)
   lgraphics.translate(-ox, -oy)
@@ -180,6 +186,7 @@ function Renderer:redrawCanvas()
     local list = self.list[i]
     if list then
       if not started then
+        self.batchTexture = blankTexture
         self.batch:setTexture(blankTexture)
         started = true
       end
@@ -188,6 +195,7 @@ function Renderer:redrawCanvas()
   end
   self:clearBatch()
   lgraphics.setCanvas(firstCanvas)
+  lgraphics.setShader(firstShader)
   lgraphics.pop()
   self.toDraw = nil
   self.needsRedraw = false
@@ -206,8 +214,9 @@ end
 -- Draws current and clears.
 function Renderer:clearBatch()
   if self.batch and self.toDraw.size > 0 then
-    -- TODO: attach mesh from sprites in the toDraw list
-    love.graphics.draw(self.batch)
+    spriteShader:send('phsv', self.batchHSV)
+    self.batch:setTexture(self.batchTexture)
+    lgraphics.draw(self.batch)
     self.batch:clear()
     self.toDraw.size = 0
   end
@@ -216,6 +225,7 @@ end
 -- @param(list : Sprite Table) list of sprites to be sorted
 function Renderer:sortList(list)
   local texture = self.batch:getTexture()
+  local hsv = self
   local n = #list
   local l = 1
   local r = n
@@ -238,6 +248,14 @@ function Renderer:sortList(list)
       r = n
     end
   until l >= r
+end
+
+function Renderer:batchPossible(sprite)
+  if sprite.texture ~= self.batchTexture then
+    return false
+  end
+  local hsv1, hsv2 = sprite.hsv, self.batchHSV
+  return hsv1.h == hsv2[1] and hsv1.s == hsv2[2] and hsv1.v == hsv2[3]
 end
 
 return Renderer

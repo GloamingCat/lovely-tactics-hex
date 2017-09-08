@@ -567,8 +567,8 @@
 					  "blue": 255,
 					  "alpha": 255,
 					  "hue": 0,
-					  "saturation": 50,
-					  "brightness": 100
+					  "saturation": 75,
+					  "brightness": 75
 					},
 					"animation": {
 						"duration": 60,
@@ -833,8 +833,8 @@
 					  "blue": 255,
 					  "alpha": 255,
 					  "hue": 0,
-					  "saturation": 50,
-					  "brightness": 100
+					  "saturation": 75,
+					  "brightness": 75
 					},
 					"animation": {
 						"duration": 60,
