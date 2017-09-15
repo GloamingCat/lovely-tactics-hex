@@ -24,6 +24,10 @@ local round = math.round
 local time = love.timer.getDelta
 local tile2Pixel = math.field.tile2Pixel
 
+-- Constants
+local animSets = Config.animations.sets
+local pph = Config.grid.pixelsPerHeight
+
 local CharacterBase = class(DirectedObject)
 
 ---------------------------------------------------------------------------------------------------
@@ -62,9 +66,14 @@ function CharacterBase:initializeGraphics(animations, dir, initAnim, transform)
   DirectedObject.initializeGraphics(self, animations.default, dir, initAnim, transform)
   self.animationSets = {}
   local default = self.animationData
-  for k, v in pairs(animations) do
-    self:initializeAnimationTable(v)
-    self.animationSets[k] = self.animationData
+  for i = 1, #animSets do
+    local k = animSets[i]
+    if animations[k] then
+      self:initializeAnimationTable(animations[k])
+      self.animationSets[k] = self.animationData
+    else
+      self.animationSets[k] = {}
+    end
   end
   self.animationData = default
 end
@@ -153,14 +162,19 @@ end
 
 -- Override.
 function CharacterBase:getHeight(dx, dy)
-  x, y = x or 0, y or 0
+  dx, dy = dx or 0, dy or 0
   for i = 1, #self.collisionTiles do
     local tile = self.collisionTiles[i]
-    if tile.dx == x and tile.dy == y then
+    if tile.dx == dx and tile.dy == dy then
       return tile.height
     end
   end
   return 0
+end
+
+function CharacterBase:getPixelHeight(dx, dy)
+  local h = self:getHeight(dx, dy)
+  return h * pph
 end
 
 ---------------------------------------------------------------------------------------------------

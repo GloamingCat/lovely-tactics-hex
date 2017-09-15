@@ -28,7 +28,8 @@
 		"battleCursorID": 30,
 		"tileCursorID": 31,
 		"tileID": 32,
-		"statusBalloonID": 33
+		"balloonID": 33,
+    "sets": ["default", "battle", "sleep"]
 	},
 	"battle": {
 		"overpassAllies": false,

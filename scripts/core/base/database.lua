@@ -22,7 +22,7 @@ for i = 1, #db do
   Database[file] = toArray({}, data)
 end
 -- System files
-local sys = {'attributes', 'elements', 'regions', 'variables'}
+local sys = {'attributes', 'elements', 'regions', 'equipTypes', 'variables'}
 for i = 1, #sys do
   local file = sys[i]
   local data = JSON.load('data/system/' .. file)

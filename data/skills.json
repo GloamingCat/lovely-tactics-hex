@@ -77,7 +77,7 @@
 			},
 			"elements": [
 			  {
-				"id": 0,
+				"id": 1,
 				"value": 100
 			  }
 			],
@@ -106,8 +106,8 @@
 			"effects": [
 			  {
 			  	"key": "hp",
-				"successRate": "(a.prem() * 2 - b.evdm()) / b.evdm() * 50",
-				"basicResult": "(a.atkm() * 2 - b.defm()) * rand(80, 120) / 100"
+          "successRate": "(a.prem() * 2 - b.evdm()) / b.evdm() * 50",
+          "basicResult": "(a.atkm() * 2 - b.defm()) * rand(80, 120) / 100"
 			  }
 			],
 			"costs": [],
@@ -126,7 +126,7 @@
 			},
 			"elements": [
 			  {
-				"id": 1,
+				"id": 2,
 				"value": 100
 			  }
 			],
@@ -180,11 +180,11 @@
 			},
 			"elements": [
 			  {
-				"id": 1,
+				"id": 2,
 				"value": 100
 			  },
 			  {
-				"id": 5,
+				"id": 6,
 				"value": 100
 			  }
 			],
@@ -212,9 +212,9 @@
 			},
 			"effects": [
 			  {
-			  	"key": "hp",
-				"successRate": "((a.prem() * 2 - b.evdm()) / b.evdm()) * 50",
-				"basicResult": "(a.atkm() * 2 - b.defm()) * rand(80, 120) / 100"
+          "key": "hp",
+          "successRate": "((a.prem() * 2 - b.evdm()) / b.evdm()) * 50",
+          "basicResult": "(a.atkm() * 2 - b.defm()) * rand(80, 120) / 100"
 			  }
 			],
 			"costs": [
@@ -239,11 +239,11 @@
 			},
 			"elements": [
 			  {
-				"id": 1,
+				"id": 2,
 				"value": 100
 			  },
 			  {
-				"id": 6,
+				"id": 7,
 				"value": 100
 			  }
 			],
@@ -297,8 +297,8 @@
 			},
 			"elements": [
 			  {
-				"id": 1,
-				"value": 100
+          "id": 2,
+          "value": 100
 			  }
 			],
 			"statusAdd": [],
@@ -310,7 +310,7 @@
 		"name": "Poison",
 		"data": {
 			"id": 7,
-			"type": 2,
+			"type": 1,
 			"description": "Poisons an enemy.",
 			"icon": {
 			  "id": 27,
@@ -327,7 +327,7 @@
 			"costs": [
 			  {
 			  	"key": "sp",
-				"value": "10"
+          "value": "10"
 			  }
 			],
 			"restriction": 1,
@@ -339,20 +339,20 @@
 			"battleAnim": {
 				"loadID": -1,
 				"castID": -1,
-				"centerID": -1,
-				"individualID": 5,
+				"centerID": 6,
+				"individualID": -1,
 				"mirror": true
 			},
 			"elements": [
 			  {
-				"id": 1,
-				"value": 100
+          "id": 2,
+          "value": 100
 			  }
 			],
 			"statusAdd": [
 				{
 					"id": 1,
-					"rate": "80"
+					"rate": "100"
 				}
 			],
 			"statusRemove": [],

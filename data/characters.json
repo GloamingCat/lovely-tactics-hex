@@ -54,7 +54,13 @@
 								"name": "KO",
 								"id": 15,
 							}
-						]
+						],
+            "sleep": [
+							{
+								"name": "Idle",
+								"id": 37,
+							}
+            ]
 					},
 					"transform":  {
 					  "offsetX": 0,
@@ -131,7 +137,13 @@
 								"name": "KO",
 								"id": 22,
 							}
-						]
+						],
+            "sleep": [
+							{
+								"name": "Idle",
+								"id": 38,
+							}
+            ]
 					},
 					"transform":  {
 					  "offsetX": 0,
@@ -209,7 +221,13 @@
 								"name": "KO",
 								"id": 15,
 							}
-						]
+						],
+            "sleep": [
+							{
+								"name": "Idle",
+								"id": 37,
+							}
+            ]
 					},
 					"transform":  {
 					  "offsetX": 0,
@@ -286,7 +304,13 @@
 								"name": "KO",
 								"id": 22,
 							}
-						]
+						],
+            "sleep": [
+							{
+								"name": "Idle",
+								"id": 38,
+							}
+            ]
 					},
 					"transform":  {
 					  "offsetX": 0,

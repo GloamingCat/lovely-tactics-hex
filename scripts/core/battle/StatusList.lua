@@ -13,6 +13,7 @@ local List = require('core/datastruct/List')
 
 -- Alias
 local copyTable = util.copyTable
+local rand = love.math.random
 
 local StatusList = class(List)
 
@@ -21,20 +22,24 @@ local StatusList = class(List)
 ---------------------------------------------------------------------------------------------------
 
 -- Constructor.
--- @param(persistentData : table) the battler's saved data (optional)
+-- @param(battler : BattlerBase) the battler whose this list belongs to
 -- @param(initialStatus : table) the array with the battler's initiat status (optional)
-function StatusList:init(initialStatus, persistentData)
+function StatusList:init(battler, initialStatus)
   List.init(self)
-  if persistentData then
-    for i = 1, #persistentData.status do
-      local s = persistentData.status[i]
-      self:add(Status.fromData(s.id, s.state, self))
-    end
-  elseif initialStatus then
+  self.battler = battler
+  if initialStatus then
     for i = 1, #initialStatus do
-      self:add(Status(initialStatus[i], nil, self))
+      local s = initialStatus[i]
+      local r = rand(100)
+      if r <= (s.rate or 100) then
+        self:addStatus(s.id, s.state)
+      end
     end
   end
+end
+
+function StatusList:__tostring()
+  return 'Status' .. getmetatable(List).__tostring(self)
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -43,29 +48,47 @@ end
 
 -- Add a new status.
 -- @param(id : number) the status' ID
--- @param(char : Character) the character with the status
-function StatusList:addStatus(id, char)
-  local data = Database.status[id + 1]
+-- @param(state : table) the status persistent data
+-- @ret(Status) newly added status
+function StatusList:addStatus(id, state)
+  local data = Database.status[id]
   local s = self:findStatus(id)
   if s and not data.cumulative then
     s.state.lifeTime = 0
   else
-    s = Status.fromData(id, nil, char)
+    s = Status.fromData(data, state, self.battler)
     self:add(s)
-    char.balloon:addStatus(s.data.icon)
+    s:onAdd()
+    if s.data.charAnim ~= '' then
+      local top = self:getTopStatus()
+      if s.data.priority >= top.data.priority then
+        top:removeGraphics()
+        s:setGraphics()
+      end
+    end
   end
   return s
 end
 -- Removes a status from the list.
-function StatusList:removeStatus(id, char)
-  local status = self:findStatus(id)
+-- @param(status : Status or number) the status to be removed or its ID
+-- @ret(Status) the removed status
+function StatusList:removeStatus(status)
+  if type(status) == 'number' then
+    status = self:findStatus(status)
+  end
   if status then
-    local icon = status.data.icon
-    while status do
-      self:removeElement(status)
-      status = self:findStatus(id)
-    end
-    char.balloon:removeStatus(icon)
+    self:removeElement(status)
+    status:onRemove()
+    return status
+  end
+end
+-- Removes all status instances of the given ID.
+-- @param(id : number) status' ID on database
+function StatusList:removeAllStatus(id)
+  local status = self:findStatus(id)
+  while status do
+    self:removeStatus(status)
+    status = self:findStatus(id)
   end
 end
 
@@ -115,16 +138,22 @@ end
 -- Status effects
 ---------------------------------------------------------------------------------------------------
 
+-- Gets the total attribute bonus given by the current status effects.
+-- @param(name : string) the attribute's key
+-- @ret(number) the additive bonus
+-- @ret(number) multiplicative bonus
 function StatusList:attBonus(name)
   local mul = 1
   local add = 0
   for i = 1, #self do
-    add = add + self[i].attAdd[name] or 0
-    mul = mul + self[i].attMul[name] or 0
+    add = add + (self[i].attAdd[name] or 0)
+    mul = mul + (self[i].attMul[name] or 0)
   end
   return add, mul
 end
-
+-- Gets the total element factors given by the current status effects.
+-- @param(id : number) the element's ID (position in the elements database)
+-- @ret(number) the element bonus
 function StatusList:elementBonus(id)
   local e = 0
   for i = 1, #self do
@@ -132,8 +161,18 @@ function StatusList:elementBonus(id)
   end
   return e
 end
-
+-- Checks if there's a deactivating status (like sleep or paralizis).
+-- @ret(boolean)
 function StatusList:isDeactive()
+  for i = 1, #self do
+    if self[i].data.deactivate then
+      return true
+    end
+  end
+  return false
+end
+-- Checks if there's a status that is equivalent to KO.
+function StatusList:isDead()
   for i = 1, #self do
     if self[i].data.deactivate then
       return true
@@ -147,27 +186,15 @@ end
 ---------------------------------------------------------------------------------------------------
 
 -- Callback for when the character finished using a skill.
-function StatusList:onSkillUseStart(char, input)
+function StatusList:onSkillUse(input)
   for status in self:iterator() do
-    status:onSkillUseStart(char, input)
-  end
-end
--- Callback for when the character finished using a skill.
-function StatusList:onSkillUseEnd(char, input)
-  for status in self:iterator() do
-    status:onSkillUseEnd(char, input)
-  end
-end
--- Callback for when the characters starts receiving a skill's effect.
-function StatusList:onSkillEffectStart(char, input, results)
-  for status in self:iterator() do
-    status:onSkillEffectStart(char, input, results)
+    status:onSkillUse(input)
   end
 end
 -- Callback for when the characters ends receiving a skill's effect.
-function StatusList:onSkillEffectEnd(char, input, results)
+function StatusList:onSkillEffect(input, results)
   for status in self:iterator() do
-    status:onSkillEffectEnd(char, input, results)
+    status:onSkillEffect(input, results)
   end
 end
 
@@ -175,27 +202,35 @@ end
 -- Turn Callbacks
 ---------------------------------------------------------------------------------------------------
 
-function StatusList:onTurnStart(char, partyTurn)
-  for status in self:iterator() do
-    status:onTurnStart(char, partyTurn)
+function StatusList:onTurnStart(partyTurn)
+  local i = 1
+  while i <= self.size do
+    local status = self[i]
+    status.state.lifeTime = status.state.lifeTime + 1
+    status:onTurnStart(partyTurn)
+    if status.state.lifeTime > status.duration then
+      self:removeStatus(status)
+    else
+      i = i + 1
+    end
   end
 end
 
-function StatusList:onTurnEnd(char, partyTurn)
+function StatusList:onTurnEnd(partyTurn)
   for status in self:iterator() do
-    status:onTurnEnd(char, partyTurn)
+    status:onTurnEnd(partyTurn)
   end
 end
 
-function StatusList:onSelfTurnStart(char)
+function StatusList:onSelfTurnStart()
   for status in self:iterator() do
-    status:onSelfTurnStart(char)
+    status:onSelfTurnStart()
   end
 end
 
-function StatusList:onTurnEnd(char, result)
+function StatusList:onSelfTurnEnd(result)
   for status in self:iterator() do
-    status:onSelfTurnEnd(char, result)
+    status:onSelfTurnEnd(result)
   end
 end
 
@@ -203,17 +238,23 @@ end
 -- Other Callbacks
 ---------------------------------------------------------------------------------------------------
 
-function StatusList:onBattleStart(char)
+function StatusList:onKO()
   for status in self:iterator() do
-    status:onBattleStart(char)
+    status:onKO()
   end
 end
 
-function StatusList:onBattleEnd(char)
+function StatusList:onBattleStart()
+  for status in self:iterator() do
+    status:onBattleStart()
+  end
+end
+
+function StatusList:onBattleEnd()
   local i = 1
   while i < #self do
     if self[i].data.removeOnBattleEnd then
-      self[i]:remove(char)
+      self:removeStatus(self[i])
     else
       i = i + 1
     end

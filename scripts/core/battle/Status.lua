@@ -18,12 +18,12 @@ local Status = class()
 ---------------------------------------------------------------------------------------------------
 
 -- Constructor.
--- @param(id : number) the ID of the status in the database
+-- @param(data : table) status' data from database file
 -- @param(state : table) the persistent state of the status
--- @param(char : Character) the character with the status
-function Status:init(data, state, char)
+-- @param(battler : Battler) the battler with the status
+function Status:init(data, state, battler)
   -- General
-  self.character = char
+  self.battler = battler
   self.data = data
   self.state = state or { lifeTime = 0 }
   if self.data.duration >= 0 then
@@ -49,77 +49,59 @@ function Status:init(data, state, char)
   end
 end
 -- Creates the status from its ID in the database, loading the correct script.
--- @param(id : number) the ID of the status in the database
+-- @param(data : table) status' data from database file
 -- @param(state : table) the persistent state of the status
--- @param(char : Character) the character with the status
-function Status.fromData(id, state, char)
-  local data = Database.status[id]
+-- @param(battler : Battler) the battler with the status
+function Status.fromData(data, state, battler)
   if data.script.path ~= '' then
     local class = require('custom/' .. data.script.path)
-    return class(data, state, char)
+    return class(data, state, battler)
   else
-    return Status(data, state, char)
+    return Status(data, state, battler)
   end
-end
-
----------------------------------------------------------------------------------------------------
--- General
----------------------------------------------------------------------------------------------------
-
--- Removes this status from the character's status list.
--- @param(char : Character) the character with the status
-function Status:remove(char)
-  char.battler.statusList:removeElement(self)
 end
 -- String representation.
 function Status:__tostring()
-  return 'Status: ' .. self.id .. ' (' .. self.data.name .. ')'
+  return 'Status: ' .. self.data.id .. ' (' .. self.data.name .. ')'
+end
+
+---------------------------------------------------------------------------------------------------
+-- Graphics
+---------------------------------------------------------------------------------------------------
+
+function Status:setGraphics()
+  self.battler.character:setAnimations(self.data.charAnim)
+end
+
+function Status:removeGraphics()
+  self.battler.character:setAnimations('default')
+  self.battler.character:setAnimations('battle')
 end
 
 ---------------------------------------------------------------------------------------------------
 -- Turn Callbacks
 ---------------------------------------------------------------------------------------------------
 
-function Status:onTurnStart(char, partyTurn)
-  self.state.lifeTime = self.state.lifeTime + 1
-  if self.state.lifeTime > self.duration then
-    self:remove(char)
-  end
-end
-
-function Status:onTurnEnd(char, partyTurn)
-end
-
-function Status:onSelfTurnStart(char)
-end
-
-function Status:onSelfTurnEnd(char, result)
-end
+function Status:onTurnStart(partyTurn) end
+function Status:onTurnEnd(partyTurn) end
+function Status:onSelfTurnStart() end
+function Status:onSelfTurnEnd() end
 
 ---------------------------------------------------------------------------------------------------
 -- Skill Callbacks
 ---------------------------------------------------------------------------------------------------
 
-function Status:onSkillUseStart(char, input)
-end
-
-function Status:onSkillUseEnd(char, input)
-end
-
-function Status:onSkillEffectStart(char, input, results)
-end
-
-function Status:onSkillEffectEnd(char, input, results)
-end
+function Status:onSkillUse(input) end
+function Status:onSkillEffect(input, results) end
 
 ---------------------------------------------------------------------------------------------------
 -- Other Callbacks
 ---------------------------------------------------------------------------------------------------
 
-function Status:onBattleStart(char)
-end
-
-function Status:onBattleEnd(char)
-end
+function Status:onAdd() end
+function Status:onRemove() end
+function Status:onKO() end
+function Status:onBattleStart() end
+function Status:onBattleEnd() end
 
 return Status

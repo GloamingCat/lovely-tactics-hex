@@ -49,16 +49,17 @@ end
 -- Checks if battler is still alive by its HP.
 -- @ret(boolean) true if HP greater then zero, false otherwise
 function Battler:isAlive()
-  return self.state.hp > 0
+  return self.state.hp > 0 and not self.statusList:isDead()
 end
 -- Sets its life points to 0.
 function Battler:kill()
   self.state.hp = 0
+  self.statusList:onKO()
 end
 -- Checks if the character is considered active in the battle.
 -- @ret(boolean)
 function Battler:isActive()
-  return self:isAlive()
+  return self:isAlive() and not self.statusList:isDeactive()
 end
 -- Converting to string.
 -- @ret(string) a string representation
@@ -115,29 +116,29 @@ end
 ---------------------------------------------------------------------------------------------------
 
 -- Callback for when a new turn begins.
-function Battler:onTurnStart(char, partyTurn)
+function Battler:onTurnStart(partyTurn)
   if self.AI and self.AI.onTurnStart then
-    self.AI:onTurnStart(char, partyTurn)
+    self.AI:onTurnStart(partyTurn)
   end
-  self.statusList:onTurnStart(char, partyTurn)
+  self.statusList:onTurnStart(partyTurn)
   if partyTurn then
     self.steps = self.maxSteps()
   end
 end
 -- Callback for when a turn ends.
-function Battler:onTurnEnd(char, partyTurn)
+function Battler:onTurnEnd(partyTurn)
   if self.AI and self.AI.onTurnEnd then
-    self.AI:onTurnEnd(char, partyTurn)
+    self.AI:onTurnEnd(partyTurn)
   end
-  self.statusList:onTurnEnd(char, partyTurn)
+  self.statusList:onTurnEnd(partyTurn)
 end
 -- Callback for when this battler's turn starts.
-function Battler:onSelfTurnStart(char)
-  self.statusList:onSelfTurnStart(char)
+function Battler:onSelfTurnStart()
+  self.statusList:onSelfTurnStart()
 end
 -- Callback for when this battler's turn ends.
-function Battler:onSelfTurnEnd(char, result)
-  self.statusList:onSelfTurnEnd(char, result)
+function Battler:onSelfTurnEnd(result)
+  self.statusList:onSelfTurnEnd(result)
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -145,25 +146,17 @@ end
 ---------------------------------------------------------------------------------------------------
 
 -- Callback for when the character finished using a skill.
-function Battler:onSkillUseStart(input)
-  self.statusList:onSkillUseStart(input.user, input)
-end
--- Callback for when the character finished using a skill.
-function Battler:onSkillUseEnd(input)
+function Battler:onSkillUse(input)
   local costs = input.action.costs
   for i = 1, #costs do
     local value = costs[i].cost(self.att)
     self:damage(costs[i].key, value)
   end
-  self.statusList:onSkillUseEnd(input.user, input)
-end
--- Callback for when the characters starts receiving a skill's effect.
-function Battler:onSkillEffectStart(char, input, dmg)
-  self.statusList:onSkillEffectStart(char, input, dmg)
+  self.statusList:onSkillUse(input)
 end
 -- Callback for when the characters ends receiving a skill's effect.
-function Battler:onSkillEffectEnd(char, input, dmg)
-  self.statusList:onSkillEffectEnd(char, input, dmg)
+function Battler:onSkillEffect(input, results)
+  self.statusList:onSkillEffect(input, results)
 end
 
 ---------------------------------------------------------------------------------------------------

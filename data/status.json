@@ -9,6 +9,7 @@
 			  	"row": 0
 			},
 			"priority": 100,
+      "visible": true,
 			"script": {
 			  "path": "status/Poison.lua",
 			  "param": ""
@@ -19,6 +20,7 @@
 			"deactivate": false,
 			"debuff": true,
 			"cumulative": false,
+      "removeOnKO": true,
 			"removeOnBattleEnd": false,
 			"attributes": [],
 			"elements": [],
@@ -36,6 +38,7 @@
 			  "row": 0
 			},
 			"priority": 99,
+      "visible": true,
 			"script": {
 			  "path": "",
 			  "param": ""
@@ -46,6 +49,7 @@
 			"deactivate": true,
 			"debuff": true,
 			"cumulative": false,
+      "removeOnKO": true,
 			"removeOnBattleEnd": true,
 			"attributes": [],
 			"elements": [],

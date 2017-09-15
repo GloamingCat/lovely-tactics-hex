@@ -213,8 +213,8 @@ function Character:damage(skill, origin, results)
   self:turnToTile(origin.x, origin.y)
   local pos = self.position
   FieldManager.fiberList:fork(function()
-    for i = 1, #results.status do
-      local s = Database.status[results.status[i]]
+    for i = 1, #results.statusAdd do
+      local s = Database.status[results.statusAdd[i]]
       if s.animID >= 0 then
         BattleManager:playAnimation(s.animID, pos.x, pos.y, pos.z - 1)
       end

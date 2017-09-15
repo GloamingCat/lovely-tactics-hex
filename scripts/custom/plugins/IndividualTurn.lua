@@ -10,7 +10,7 @@ System of turns per characters instead of per party.
 -- Imports
 local TurnManager = require('core/battle/TurnManager')
 local Battler = require('core/battle/Battler')
-local Status = require('core/battle/Status')
+local StatusList = require('core/battle/StatusList')
 local BattleAction = require('core/battle/action/BattleAction')
 local SkillAction = require('core/battle/action/SkillAction')
 local WaitAction = require('core/battle/action/WaitAction')
@@ -29,7 +29,6 @@ local yield = coroutine.yield
 local time = love.timer.getDelta
 
 -- Parameters
-local turnBarAnim = args.turnBarAnim
 local turnLimit = args.turnLimit
 local attName = args.attName
 
@@ -57,16 +56,7 @@ end
 function TurnManager:getNextTurn()
   local turnQueue = self:getTurnQueue()
   local currentCharacter, iterations = turnQueue:front()
-  if turnBarAnim then
-    local i = 0
-    while i < iterations do
-      i = i + time() * 60
-      self:incrementTurnCount(time() * 60)
-      yield()
-    end
-  else
-    self:incrementTurnCount(iterations)
-  end
+  self:incrementTurnCount(iterations)
   return currentCharacter, iterations
 end
 -- Sorts the characters according to which one's turn will star first.
@@ -120,21 +110,30 @@ function Battler:remainingTurnCount()
   return (turnLimit - self.turnCount) / self.att[attName]()
 end
 -- Override. Decrements turn count.
-function Battler:onSelfTurnEnd(char, result)
+local Battler_turnEnd = Battler.onSelfTurnEnd
+function Battler:onSelfTurnEnd(result)
   local stepCost = self.steps / self.maxSteps()
   local cost = result.timeCost or 0
   self:decrementTurnCount(ceil((stepCost + cost) * turnLimit / 2))
+  Battler_turnEnd(self, result)
 end
 
 ---------------------------------------------------------------------------------------------------
--- Status
+-- StatusList
 ---------------------------------------------------------------------------------------------------
 
 -- Override.
-function Status:onTurnStart(char, partyTurn)
-  self.state.lifeTime = self.state.lifeTime + _G.TurnManager.iterations
-  if self.state.lifeTime > self.duration then
-    self:remove(char)
+function StatusList:onTurnStart(partyTurn)
+  local i = 1
+  while i <= self.size do
+    local status = self[i]
+    status.state.lifeTime = status.state.lifeTime + _G.TurnManager.iterations
+    status:onTurnStart(partyTurn)
+    if status.state.lifeTime > status.duration then
+      self:removeStatus(status)
+    else
+      i = i + 1
+    end
   end
 end
 
@@ -175,7 +174,7 @@ end
 local WaitAction_confirm = WaitAction.onConfirm
 function WaitAction:onConfirm(...)
   local result = WaitAction_confirm(self, ...)
-    result.timeCost = 50
+  result.timeCost = 50
   return result
 end
 

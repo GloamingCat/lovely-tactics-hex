@@ -14,7 +14,8 @@ return  {
   popup_healhp = default_font,
   popup_healsp = default_font,
   popup_miss = default_font,
-  popup_status = default_font,
+  popup_status_add = default_font,
+  popup_status_remove = default_font,
   fps = love.graphics.newFont('fonts/FogSans.otf', 12),
   
   -- Settings

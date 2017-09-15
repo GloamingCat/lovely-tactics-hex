@@ -29,13 +29,7 @@ function Balloon:init(...)
   self.loop = 2
   self.state = 0
   self.iconAnim = nil
-end
--- Sets the icon animation.
--- @param(anim : Animation)
-function Balloon:setIcon(anim)
-  self.duration = self.balloonDuration * 2 + anim.duration
-  self.iconAnim = anim
-  anim.paused = false
+  self.height = self.data.height / self.data.rows
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -79,6 +73,26 @@ function Balloon:updateWait()
     self:reset()
     self:show()
   end
+end
+
+---------------------------------------------------------------------------------------------------
+-- General
+---------------------------------------------------------------------------------------------------
+
+-- Sets the icon animation.
+-- @param(anim : Animation)
+function Balloon:setIcon(anim)
+  self.duration = self.balloonDuration * 2 + anim.duration
+  self.iconAnim = anim
+  anim.paused = false
+end
+-- Updates position to follow character's.
+-- @param(Character)
+function Balloon:updatePosition(char)
+  local p = char.position
+  local h = char:getPixelHeight()
+  self.sprite:setXYZ(p.x, p.y - h, p.z)
+  self.iconAnim.sprite:setXYZ(p.x, p.y - h - self.height / 2, p.z)
 end
 -- Overrides Animation:onEnd.
 -- Sets state and the sprite animation ends.

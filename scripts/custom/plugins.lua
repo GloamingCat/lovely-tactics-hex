@@ -3,8 +3,8 @@
 
 Insert in the plugins list the plugin names to be loaded and their arguments.
 Example:
-  { 'plugin1', on = true, a = 10, b = 'hello' }
-The second value may be nil/empty if it is not used in the plugin.
+  { 'plugin1', on = true, 
+  a = 10, b = 'hello' }
 
 =================================================================================================]]
 
@@ -13,27 +13,17 @@ local killCheat = { 'KillCheat', on = true,
 
 local individualTurn = { 'IndividualTurn', on = true,
   attName = 'agi',
-  turnLimit = 2000,
-  turnBarAnim = false }
+  turnLimit = 2000 }
 
 local controlZone = { 'ControlZone', on = false }
 
 local removeStatusOnDamage = { 'RemoveStatusOnDamage', on = true }
 
+local statusBalloon = { 'StatusBalloon', on = true }
+
 ---------------------------------------------------------------------------------------------------
 -- Plugin list
 ---------------------------------------------------------------------------------------------------
 
-local plugins = { killCheat, individualTurn, controlZone, removeStatusOnDamage }
+return { killCheat, individualTurn, controlZone, statusBalloon, removeStatusOnDamage }
 
----------------------------------------------------------------------------------------------------
--- Load
----------------------------------------------------------------------------------------------------
-
-for i = 1, #plugins do
-  args = plugins[i]
-  if args.on then
-    require('custom/plugins/' .. args[1])
-  end
-end
-args = nil

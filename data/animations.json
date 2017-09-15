@@ -582,6 +582,44 @@
 					}
 				}
 			},
+      {
+				"name": "Lancer - Sleep",
+				"data": {
+					"id": 37,
+					"path": "Character/Lancer/ko.png",
+					"x": 0,
+					"y": 0,
+					"width": 70,
+					"height": 480,
+					"cols": 1,
+					"rows": 8,
+					"transform": {
+					  "offsetX": 35,
+					  "offsetY": 46,
+					  "offsetDepth": 0,
+					  "scaleX": 100,
+					  "scaleY": 100,
+					  "rotation": 0,
+					  "red": 255,
+					  "green": 255,
+					  "blue": 255,
+					  "alpha": 255,
+					  "hue": 0,
+					  "saturation": 100,
+					  "brightness": 100
+					},
+					"animation": {
+						"duration": 60,
+						"loop": 1,
+						"allRows": false,
+						"script": {
+							"path": "",
+							"param": ""
+						},
+						"audio": []
+					}
+				}
+      },
 			{
 				"name": "Mage - Idle",
 				"data": {
@@ -847,7 +885,45 @@
 						"audio": []
 					}
 				}
-			}
+			},
+      {
+				"name": "Mage - Sleep",
+				"data": {
+					"id": 38,
+					"path": "Character/Mage/ko.png",
+					"x": 0,
+					"y": 0,
+					"width": 40,
+					"height": 400,
+					"cols": 1,
+					"rows": 8,
+					"transform": {
+					  "offsetX": 20,
+					  "offsetY": 42,
+					  "offsetDepth": 0,
+					  "scaleX": 100,
+					  "scaleY": 100,
+					  "rotation": 0,
+					  "red": 255,
+					  "green": 255,
+					  "blue": 255,
+					  "alpha": 255,
+					  "hue": 0,
+					  "saturation": 100,
+					  "brightness": 100
+					},
+					"animation": {
+						"duration": 60,
+						"loop": 1,
+						"allRows": false,
+						"script": {
+							"path": "",
+							"param": ""
+						},
+						"audio": []
+					}
+				}
+      }
 		]
 	},
 	{
@@ -1375,7 +1451,7 @@
 				}
 			},
 			{
-				"name": "Status Balloon",
+				"name": "Balloon",
 				"data": {
 					"id": 33,
 					"path": "GUI/balloon.png",
@@ -1405,7 +1481,7 @@
 						"loop": 1,
 						"allRows": false,
 						"script": {
-							"path": "StatusBalloon.lua",
+							"path": "Balloon.lua",
 							"param": ""
 						},
 						"audio": []

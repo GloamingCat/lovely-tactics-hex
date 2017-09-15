@@ -79,7 +79,7 @@ end
 -- Checks if sprite is visible on screen.
 -- @ret(boolean) true if visible, false otherwise
 function Sprite:isVisible()
-  return self.visible
+  return self.visible and self.quad and self.texture
 end
 -- Sets if sprite is visible
 -- @param(value : boolean) if visible
@@ -162,6 +162,11 @@ function Sprite:setRotation(angle)
   end
   self.rotation = angle
 end
+
+---------------------------------------------------------------------------------------------------
+-- Bounding box
+---------------------------------------------------------------------------------------------------
+
 -- Gets the extreme values for the bounding box.
 function Sprite:totalBounds()
   local _, _, w, h = self.quad:getViewport()

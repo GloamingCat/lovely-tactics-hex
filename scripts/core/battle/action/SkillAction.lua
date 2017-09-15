@@ -51,8 +51,10 @@ function SkillAction:init(skillID)
   if data.type == 0 then
     color = 'general'
   elseif data.type == 1 then
+    self.offensive = true
     color = 'attack'
   elseif data.type == 2 then
+    self.suportive = true
     color = 'support'
   end
   BattleAction.init(self, data.range, data.radius, color)
@@ -71,12 +73,19 @@ function SkillAction:init(skillID)
       cost = loadformula(data.costs[i].value, 'action, att'),
       key = data.costs[i].key }
   end
-  -- Status chances
-  self.status = {}
-  for i = 1, #(data.status or {}) do
-    self.status[i] = {
-      rate = loadformula(data.status[i].rate, 'action, a, b, rand'),
-      id = data.status[i].id }
+  -- Status to add
+  self.statusAdd = {}
+  for i = 1, #(data.statusAdd or {}) do
+    self.statusAdd[i] = {
+      rate = loadformula(data.statusAdd[i].rate, 'action, a, b, rand'),
+      id = data.statusAdd[i].id }
+  end
+  -- Status to remove
+  self.statusRemove = {}
+  for i = 1, #(data.statusRemove or {}) do
+    self.statusRemove[i] = {
+      rate = loadformula(data.statusRemove[i].rate, 'action, a, b, rand'),
+      id = data.statusRemove[i].id }
   end
   -- Store elements
   local e = {}
@@ -136,9 +145,8 @@ function SkillAction:execute(input)
   local result = moveInput:execute(moveInput)
   if result.executed then    
     -- Skill use
-    input.user.battler:onSkillUseStart(input)
     self:use(input)
-    input.user.battler:onSkillUseEnd(input)
+    input.user.battler:onSkillUse(input)
     return BattleAction.execute(self, input)
   else
     return { executed = false, endCharacterTurn = true }
@@ -163,31 +171,20 @@ end
 -- @ret(boolean) true if there's a damage
 function SkillAction:calculateEffectResults(input, targetChar, rand)
   rand = rand or random
-  local dmg = false
   local points = {}
   for i = 1, #self.effects do
     local r = self:calculateEffectResult(self.effects[i], input, targetChar, rand)
     if r then
-      dmg = dmg or r > 0
       points[#points + 1] = { value = r,
         key = self.effects[i].key }
     end
   end
-  local status = {}
-  if self.status then
-    for i = 1, #self.status do
-      local s = self.status[i]
-      local r = s.rate(self, input.user.battler.att, targetChar.battler.att, rand)
-      if rand() * 100 <= r then
-        status[#status + 1] = s.id
-        s = Database.status[s.id + 1]
-        dmg = dmg or s.debuff
-      end
-    end
-  end
-  local results = { damage = dmg,
+  local statusAdd = self:calculateStatusResult(self.statusAdd, input.user, targetChar, rand)
+  local statusRm = self:calculateStatusResult(self.statusRemove, input.user, targetChar, rand)
+  local results = { damage = (#points > 0 or #statusAdd > 0 or #statusRm > 0) and self.offensive,
     points = points,
-    status = status }
+    statusAdd = statusAdd,
+    statusRemove = statusRm }
   return results
 end
 -- Calculates the final damage / heal for the target from an specific effect.
@@ -205,6 +202,15 @@ function SkillAction:calculateEffectResult(effect, input, targetChar, rand)
   end
   local result = effect.basicResult(self, input.user.battler.att, 
     targetChar.battler.att, rand)
+  if self.offensive then
+    if result < 0 then
+      return 0
+    end
+  else
+    if result > 0 then
+      return 0
+    end
+  end
   local bonus = 0
   local skillElements = self.elementFactors
   local target = targetChar.battler
@@ -213,6 +219,21 @@ function SkillAction:calculateEffectResult(effect, input, targetChar, rand)
   end
   bonus = result * bonus
   return round(bonus + result)
+end
+-- @param(status : table) array with skill's status info
+-- @param(user : Character)
+-- @param(target : Character)
+-- @param(rand : function)
+function SkillAction:calculateStatusResult(status, user, target, rand)
+  local result = {}
+  for i = 1, #status do
+    local s = status[i]
+    local r = s.rate(self, user.battler.att, target.battler.att, rand)
+    if rand() * 100 <= r then
+      result[#result + 1] = s.id
+    end
+  end
+  return result
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -271,8 +292,7 @@ end
 -- @param(originTile : ObjectTile) the user's original tile
 function SkillAction:singleTargetAnimation(input, targetChar, originTile)
   local results = self:calculateEffectResults(input, targetChar)
-  targetChar.battler:onSkillEffectStart(targetChar, input, results)
-  if #results.points == 0 and #results.status == 0 then
+  if #results.points == 0 and #results.statusAdd == 0 and #results.statusRemove == 0 then
     -- Miss
     local pos = targetChar.position
     local popupText = PopupText(pos.x, pos.y - 20, pos.z - 10)
@@ -300,7 +320,7 @@ function SkillAction:singleTargetAnimation(input, targetChar, originTile)
       targetChar:playAnimation(targetChar.idleAnim)
     end
   end
-  targetChar.battler:onSkillEffectEnd(targetChar, input, results)
+  targetChar.battler:onSkillEffect(input, results)
   _G.Fiber:wait(targetTime)
 end
 -- Applies results on the given battler and creates a popup for each value.
@@ -321,12 +341,20 @@ function SkillAction:popupResults(char, results)
     end
     char.battler:damage(points.key, points.value)
   end
-  for i = 1, #results.status do
-    local id = results.status[i]
-    local s = char.battler.statusList:addStatus(id, char)
-    local popupName = 'popup_status' .. id
-    local color = Color[popupName] or Color.popup_status
-    local font = Font[popupName] or Font.popup_status
+  for i = 1, #results.statusAdd do
+    local id = results.statusAdd[i]
+    local s = char.battler.statusList:addStatus(id)
+    local popupName = 'popup_status_add' .. id
+    local color = Color[popupName] or Color.popup_status_add
+    local font = Font[popupName] or Font.popup_status_add
+    popupText:addLine('+' .. s.data.name, color, font)
+  end
+  for i = 1, #results.statusRemove do
+    local id = results.statusRemove[i]
+    local s = char.battler.statusList:removeAllStatus(id)
+    local popupName = 'popup_status_remove' .. id
+    local color = Color[popupName] or Color.popup_status_remove
+    local font = Font[popupName] or Font.popup_status_remove
     popupText:addLine('+' .. s.data.name, color, font)
   end
   popupText:popup()

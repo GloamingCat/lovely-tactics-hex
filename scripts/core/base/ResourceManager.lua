@@ -1,4 +1,12 @@
 
+--[[===============================================================================================
+
+ResourceManager
+---------------------------------------------------------------------------------------------------
+
+
+=================================================================================================]]
+
 -- Imports
 local Sprite = require('core/graphics/Sprite')
 local Animation = require('core/graphics/Animation')
@@ -19,11 +27,35 @@ local ResourceManager = class()
 -- Image
 ---------------------------------------------------------------------------------------------------
 
-function ResourceManager:loadQuad(data, texture)
+-- Overrides LÖVE's newImage function to use cache.
+-- @param(path : string) image's path relative to main path
+-- @ret(Image) to image store in the path
+function ResourceManager:loadTexture(path)
+  if type(path) == 'string' then
+    path = 'images/' .. path:gsub('\\', '/')
+    local img = ImageCache[path]
+    if img then
+      return img
+    else
+      img = newImage(path)
+      img:setFilter('linear', 'nearest')
+      ImageCache[path] = img
+    end
+  end
+  return newImage(path)
+end
+-- @param(data : table) table with spritesheet's x, y, width, height, cols, rows and path to image
+-- @param(texture : Image) (optional, may be loaded from data's image path)
+-- @param(col : number) initial column (optional, 0 by default)
+-- @param(row : number) initial row (optional, 0 by default)
+-- @ret(Quad)
+-- @ret(Image)
+function ResourceManager:loadQuad(data, texture, col, row)
   texture = texture or self:loadTexture(data.path)
   local w = data.width / data.cols
   local h = data.height / data.rows
-  local quad = newQuad(data.x, data.y, w, h, texture:getWidth(), texture:getHeight())
+  col, row = col or 0, row or 0
+  local quad = newQuad(data.x + col * w, data.y + row * h, w, h, texture:getWidth(), texture:getHeight())
   return quad, texture
 end
 -- Creates an animation from an animation data.
@@ -38,7 +70,7 @@ function ResourceManager:loadAnimation(data, dest)
       local quad = newQuad(0, 0, w, h, w, h)
       dest = Sprite(dest, texture, quad)
     end
-    return Animation(dest)
+    return Static(dest)
   elseif type(data) == 'number' then
     data = Database.animations[data]
   end
@@ -53,24 +85,26 @@ function ResourceManager:loadAnimation(data, dest)
   end
   return AnimClass(dest, data)
 end
--- Overrides LÖVE's newImage function to use cache.
--- @param(path : string) image's path relative to main path
--- @ret(Image) to image store in the path
-function ResourceManager:loadTexture(path)
-  if type(path) == 'string' then
-    path = 'images/' .. string.gsub(path, '\\', '/')
-    local img = ImageCache[path]
-    if img then
-      return img
-    else
-      img = newImage(path)
-      img:setFilter('linear', 'nearest')
-      ImageCache[path] = img
-    end
-  end
-  return newImage(path)
+-- Loads a sprite for an icon.
+-- @param(icon : table) icon's data (animation ID, col and row)
+-- @param(renderer : Renderer) renderer of the icon (FieldManager's or GUIManager's)
+-- @ret(Sprite)
+function ResourceManager:loadIcon(icon, renderer)
+  local data = Database.animations[icon.id]
+  local quad, texture = self:loadQuad(data, nil, icon.col, icon.row)
+  return Sprite(renderer, texture, quad)
 end
-
+-- Loads an icon as a single-sprite animation.
+-- Loads a sprite for an icon.
+-- @param(icon : table) icon's data (animation ID, col and row)
+-- @param(renderer : Renderer) renderer of the icon (FieldManager's or GUIManager's)
+-- @ret(Animation)
+function ResourceManager:loadIconAnimation(icon, renderer)
+  local sprite = self:loadIcon(icon, renderer)
+  return Static(sprite)
+end
+-- Clears Image cache table.
+-- Only use this if there is no other reference to the images.
 function ResourceManager:clearImageCache()
   for k in pairs(ImageCache) do
     ImageCache[k] = nil
@@ -96,6 +130,13 @@ function ResourceManager:loadFont(path, size)
     FontCache[key] = font
   end
   return font
+end
+-- Clears Font cache table.
+-- Only use this if there is no other reference to the fonts.
+function ResourceManager:clearFontCache()
+  for k in pairs(FontCache) do
+    FontCache[k] = nil
+  end
 end
 
 return ResourceManager

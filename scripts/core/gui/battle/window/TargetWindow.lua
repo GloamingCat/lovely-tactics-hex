@@ -43,7 +43,7 @@ function TargetWindow:createContent(width, height)
   local posName = Vector(x, y)
   self.textName = SimpleText('', posName, w, 'center')
   self.content:add(self.textName)
-  -- State values texts  
+  -- State values texts
   local posHP = Vector(x, y + 15)
   self.textHP = self:addStateVariable(Config.attributes[hpName].shortName, posHP, w)
   local posSP = Vector(x, y + 25)
@@ -89,7 +89,8 @@ end
 
 -- Calculates the height given the shown variables.
 function TargetWindow:calculateHeight()
-  return self:vpadding() * 2 + 35
+  -- Margin + name + HP&SP
+  return self:vpadding() * 2 + 15 + 20
 end
 -- String representation.
 function TargetWindow:__tostring()

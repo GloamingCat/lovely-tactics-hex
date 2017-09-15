@@ -36,5 +36,6 @@ return {
   popup_healhp = {red = 76, green = 255, blue = 76, alpha = 255},
   popup_healsp = {red = 76, green = 76, blue = 255, alpha = 255},
   popup_miss = {red = 204, green = 204, blue = 204, alpha = 255},
-  popup_status = {red = 255, green = 255, blue = 255, alpha = 255},
+  popup_status_add = {red = 255, green = 255, blue = 255, alpha = 255},
+  popup_status_remove = {red = 255, green = 255, blue = 255, alpha = 255}
 }

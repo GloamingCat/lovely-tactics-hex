@@ -94,7 +94,7 @@ end
 -- Creates the initial status list.
 function BattlerBase:initializeStatusList(initialStatus)
   initialStatus = self.save and self.save.status
-  self.statusList = StatusList(initialStatus)
+  self.statusList = StatusList(self, initialStatus)
 end
 -- Initializes inventory from the given initial items slots.
 function BattlerBase:initializeInventory(items)
@@ -167,14 +167,18 @@ end
 -- Elements
 ---------------------------------------------------------------------------------------------------
 
-function BattlerBase:element(i)
-  return self.elementFactors[i] + self.statusList:elementBonus(i)
+-- Gets an element multiplying factor.
+-- @param(id : number) the element's ID (position in the elements database)
+function BattlerBase:element(id)
+  return self.elementFactors[id] + self.statusList:elementBonus(id)
 end
 
 ---------------------------------------------------------------------------------------------------
 -- Save
 ---------------------------------------------------------------------------------------------------
 
+-- Creates a table that stores the battler's current state to be saved.
+-- @ret(table)
 function BattlerBase:createPersistentData()
   local data = {}
   data.level = self.level

@@ -19,6 +19,7 @@ function GameManager:init()
   self.cleanTime = 300
   self.cleanCount = 0
   self.startedProfi = false
+  --PROFI = require('core/base/ProFi')
 end
 -- Starts the game.
 function GameManager:start(arg)
@@ -47,7 +48,9 @@ function GameManager:update(dt)
   self.cleanCount = self.cleanCount + 1
   if self.cleanCount >= self.cleanTime then
     self.cleanCount = 0
-    --self:updateProfi()
+    if PROFI then
+      self:updateProfi()
+    end
     collectgarbage('collect')
   end
 end

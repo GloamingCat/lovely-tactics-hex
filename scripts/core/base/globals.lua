@@ -32,7 +32,14 @@ KeyMap  = require('conf/KeyMap')
 -- Plugins
 ---------------------------------------------------------------------------------------------------
 
-require('custom/plugins')
+local plugins = require('custom/plugins')
+for i = 1, #plugins do
+  args = plugins[i]
+  if args.on then
+    require('custom/plugins/' .. args[1])
+  end
+end
+args = nil
 
 ---------------------------------------------------------------------------------------------------
 -- Managers
@@ -48,9 +55,3 @@ GUIManager      = require('core/gui/GUIManager')()
 BattleManager   = require('core/battle/BattleManager')()
 TroopManager    = require('core/battle/TroopManager')()
 TurnManager     = require('core/battle/TurnManager')()
-
----------------------------------------------------------------------------------------------------
--- Profile
----------------------------------------------------------------------------------------------------
-
-PROFI = require('core/base/ProFi')

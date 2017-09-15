@@ -91,4 +91,3 @@ end
 function love.mousemoved(x, y)
   InputManager.mouse:onMove(x, y)
 end
-
