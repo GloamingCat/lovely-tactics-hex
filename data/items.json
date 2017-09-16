@@ -9,7 +9,7 @@
 					"description": "Cures 200HP.",
 					"icon": {
 						"id": 25,
-						"col": 0,
+						"col": 1,
 						"row": 0
 					},
 					"price": 15,
@@ -44,7 +44,7 @@
 					"description": "Cures 100SP.",
 					"icon": {
 						"id": 25,
-						"col": 0,
+						"col": 1,
 						"row": 1
 					},
 					"price": 15,
@@ -79,7 +79,7 @@
 					"description": "Cures 200HP.",
 					"icon": {
 						"id": 25,
-						"col": 0,
+						"col": 1,
 						"row": 3
 					},
 					"price": 15,

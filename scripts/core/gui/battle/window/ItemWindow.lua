@@ -32,8 +32,13 @@ end
 -- @param(id : number) the item ID
 function ItemWindow:createButton(itemSlot)
   local item = Database.items[itemSlot.id]
-  local button = Button(self, item.name, nil, self.onButtonConfirm, nil, 'gui_medium')
+  local icon = item.icon.id >= 0 and 
+    ResourceManager:loadIconAnimation(item.icon, GUIManager.renderer)
+  local button = Button(self, item.name, icon, self.onButtonConfirm, self.buttonEnabled, 'gui_medium')
   button.item = item
+  local id = item.use.skillID
+  id = id >= 0 and id or defaultSkillID
+  button.skill = ItemAction:fromData(id, button.item)
   self:createButtonInfo(button, itemSlot.count, 'gui_medium')
 end
 
@@ -46,11 +51,16 @@ end
 function ItemWindow:onButtonConfirm(button)
   local id = button.item.use.skillID
   id = id >= 0 and id or defaultSkillID
-  local skill = ItemAction:fromData(id, button.item)
-  self:selectAction(skill)
+  self:selectAction(button.skill)
   if self.result and self.result.executed and button.item.use.consume then
     self.inventory:removeItem(button.item.id)
   end
+end
+-- Tells if an item can be used.
+-- @param(button : Button) the button to check
+-- @ret(boolean)
+function ItemAction:buttonEnabled(button)
+  return button.skill:canExecute(TurnManager:currentCharacter())
 end
 -- Called when player cancels.
 function ItemWindow:onCancel()
@@ -63,7 +73,7 @@ end
 
 -- New button width.
 function ItemWindow:buttonWidth()
-  return 120
+  return 144
 end
 -- New col count.
 function ItemWindow:colCount()
@@ -71,7 +81,7 @@ function ItemWindow:colCount()
 end
 -- New row count.
 function ItemWindow:rowCount()
-  return 8
+  return 7
 end
 -- String identifier.
 function ItemWindow:__tostring()

@@ -40,6 +40,10 @@ function ListButtonWindow:createButton(element)
 end
 function ListButtonWindow:createButtonInfo(button, text, fontName)
   local width = self:buttonWidth()
+  if button.icon then
+    local _, _, w = button.icon.sprite.quad:getViewport()
+    width = width - w
+  end
   local p = self:hPadding()
   fontName = fontName or 'gui_button'
   local textSprite = SimpleText(text, nil, width - p, 'right', Font[fontName])

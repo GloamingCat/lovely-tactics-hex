@@ -356,7 +356,7 @@
 			"description": "Poisons an enemy.",
 			"icon": {
 			  "id": 27,
-			  "col": 0,
+			  "col": 2,
 			  "row": 0
 			},
 			"radius": 1,
@@ -410,7 +410,7 @@
 			"description": "Makes an enemy fall sleep.",
 			"icon": {
 			  "id": 27,
-			  "col": 0,
+			  "col": 3,
 			  "row": 0
 			},
 			"radius": 1,

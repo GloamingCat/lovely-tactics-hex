@@ -36,7 +36,7 @@ local Button = class(GridWidget)
 -- @param(enableCondition : function) the function that tells if 
 --  this button is enabled (optional)
 function Button:init(window, text, iconAnim, onConfirm, enableCondition, fontName)
-  GridWidget.init(self, window, index)
+  GridWidget.init(self, window)
   self.onConfirm = onConfirm or self.onConfirm
   self.enableCondition = enableCondition
   self:initializeContent(text, iconAnim, fontName)
