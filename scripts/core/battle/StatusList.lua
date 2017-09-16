@@ -52,22 +52,27 @@ end
 -- @ret(Status) newly added status
 function StatusList:addStatus(id, state)
   local data = Database.status[id]
-  local s = self:findStatus(id)
-  if s and not data.cumulative then
-    s.state.lifeTime = 0
+  local status = self:findStatus(id)
+  if status and not data.cumulative then
+    status.state.lifeTime = 0
   else
-    s = Status.fromData(data, state, self.battler)
-    self:add(s)
-    s:onAdd()
-    if s.data.charAnim ~= '' then
-      local top = self:getTopStatus()
-      if s.data.priority >= top.data.priority then
-        top:removeGraphics()
-        s:setGraphics()
+    local top = self:getTopStatus()
+    status = Status.fromData(data, state, self.battler)
+    self:add(status)
+    if status.onAdd then
+      status:onAdd()
+    end
+    if status.data.charAnim ~= '' then
+      if not top or status.data.priority >= top.data.priority then
+        if top then
+          top:removeGraphics()
+        end
+        print('add graphics')
+        status:addGraphics()
       end
     end
   end
-  return s
+  return status
 end
 -- Removes a status from the list.
 -- @param(status : Status or number) the status to be removed or its ID
@@ -77,8 +82,18 @@ function StatusList:removeStatus(status)
     status = self:findStatus(status)
   end
   if status then
+    local top = self:getTopStatus()
     self:removeElement(status)
-    status:onRemove()
+    if status.onRemove then
+      status:onRemove()
+    end
+    if top == status then
+      status:removeGraphics()
+      top = self:getTopStatus()
+      if top then
+        top:addGraphics()
+      end
+    end
     return status
   end
 end
@@ -174,7 +189,7 @@ end
 -- Checks if there's a status that is equivalent to KO.
 function StatusList:isDead()
   for i = 1, #self do
-    if self[i].data.deactivate then
+    if self[i].data.ko then
       return true
     end
   end
@@ -182,79 +197,19 @@ function StatusList:isDead()
 end
 
 ---------------------------------------------------------------------------------------------------
--- Skill Callbacks
+-- Callbacks
 ---------------------------------------------------------------------------------------------------
 
--- Callback for when the character finished using a skill.
-function StatusList:onSkillUse(input)
-  for status in self:iterator() do
-    status:onSkillUse(input)
-  end
-end
--- Callback for when the characters ends receiving a skill's effect.
-function StatusList:onSkillEffect(input, results)
-  for status in self:iterator() do
-    status:onSkillEffect(input, results)
-  end
-end
-
----------------------------------------------------------------------------------------------------
--- Turn Callbacks
----------------------------------------------------------------------------------------------------
-
-function StatusList:onTurnStart(partyTurn)
+function StatusList:callback(name, ...)
   local i = 1
+  name = 'on' .. name
   while i <= self.size do
-    local status = self[i]
-    status.state.lifeTime = status.state.lifeTime + 1
-    status:onTurnStart(partyTurn)
-    if status.state.lifeTime > status.duration then
-      self:removeStatus(status)
-    else
-      i = i + 1
-    end
-  end
-end
-
-function StatusList:onTurnEnd(partyTurn)
-  for status in self:iterator() do
-    status:onTurnEnd(partyTurn)
-  end
-end
-
-function StatusList:onSelfTurnStart()
-  for status in self:iterator() do
-    status:onSelfTurnStart()
-  end
-end
-
-function StatusList:onSelfTurnEnd(result)
-  for status in self:iterator() do
-    status:onSelfTurnEnd(result)
-  end
-end
-
----------------------------------------------------------------------------------------------------
--- Other Callbacks
----------------------------------------------------------------------------------------------------
-
-function StatusList:onKO()
-  for status in self:iterator() do
-    status:onKO()
-  end
-end
-
-function StatusList:onBattleStart()
-  for status in self:iterator() do
-    status:onBattleStart()
-  end
-end
-
-function StatusList:onBattleEnd()
-  local i = 1
-  while i < #self do
-    if self[i].data.removeOnBattleEnd then
-      self:removeStatus(self[i])
+    local s = self[i]
+    if s[name] then
+      s[name](s, ...)    
+      if self[i] == s then
+        i = i + 1
+      end
     else
       i = i + 1
     end

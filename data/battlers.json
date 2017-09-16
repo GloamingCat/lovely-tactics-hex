@@ -73,12 +73,12 @@
 				"evdm": 0,
 				"car": 0
 			},
-			"skills": [4, 6, 7],
+			"skills": [4, 6, 7, 8],
 			"items": [
 			  {
-				"id": 1,
-				"count": 3,
-				"rate": 100
+          "id": 1,
+          "count": 3,
+          "rate": 100
 			  }
 			],
 			"elements": [],
@@ -122,14 +122,14 @@
 			"skills": [],
 			"items": [
 			  {
-				"id": 1,
-				"count": 1,
-				"rate": 100
+          "id": 1,
+          "count": 1,
+          "rate": 100
 			  },
 			  {
-				"id": 1,
-				"count": 1,
-				"rate": 50
+          "id": 1,
+          "count": 1,
+          "rate": 50
 			  }
 			],
 			"elements": [],

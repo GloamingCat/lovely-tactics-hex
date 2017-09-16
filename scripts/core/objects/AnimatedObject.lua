@@ -60,9 +60,10 @@ end
 -- Play
 ---------------------------------------------------------------------------------------------------
 
--- [COROUTINE] Plays an animation by name.
+-- [COROUTINE] Plays an animation by name, ignoring if the animation is already playing.
 -- @param(name : string) animation's name
 -- @param(wait : boolean) true to wait until first loop finishes (optional)
+-- @ret(Animation)
 function AnimatedObject:playAnimation(name, wait, row)
   if self.animName == name then
     return self.animation
@@ -70,8 +71,12 @@ function AnimatedObject:playAnimation(name, wait, row)
     return self:replayAnimation(name, wait, row)
   end
 end
-
+-- [COROUTINE] Plays an animation by name.
+-- @param(name : string) animation's name (optional; current animation by default)
+-- @param(wait : boolean) true to wait until first loop finishes (optional)
+-- @ret(Animation)
 function AnimatedObject:replayAnimation(name, wait, row)
+  name = name or self.animName
   local data = self.animationData[name]
   assert(data, "Animation does not exist: " .. name)
   self.animName = name

@@ -45,7 +45,8 @@ end
 function Button:initializeContent(text, iconAnim, fontName)
   if text ~= '' then
     local width = self.window:buttonWidth()
-    self.textSprite = SimpleText(text, nil, width, nil, Font.gui_button)
+    fontName = fontName or 'gui_button'
+    self.textSprite = SimpleText(text, nil, width, 'left', Font[fontName])
     self.textSprite.sprite:setColor(Color.gui_text_default)
     self.content:add(self.textSprite)
   end
@@ -67,6 +68,10 @@ end
 function Button:setText(text)
   self.textSprite:setText(text)
   self.textSprite:redraw()
+end
+function Button:setInfoText(text)
+  self.infoText:setText(text)
+  self.infoText:redraw()
 end
 -- Converting to string.
 function Button:__tostring()
@@ -107,6 +112,10 @@ function Button:updateColor()
     local color = Color['gui_text_' .. name]
     self.textSprite.sprite:setColor(color)
   end
+  if self.infoText then
+    local color = Color['gui_text_' .. name]
+    self.infoText.sprite:setColor(color)
+  end
   if self.icon then
     local color = Color['gui_icon_' .. name]
     self.icon.sprite:setColor(color)
@@ -145,9 +154,12 @@ function Button:updatePosition(windowPos)
     self.icon.sprite:setXYZ(nil, pos.y + (self.window:buttonHeight() - h) / 2)
     pos:add(Vector(w - (self.icon.sprite.position.x - x), 0))
   end
+  pos.y = pos.y + 1
   if self.textSprite then
-    pos.y = pos.y + 1
     self.textSprite.sprite:setPosition(pos)
+  end
+  if self.infoText then
+    self.infoText.sprite:setPosition(pos)
   end
 end
 

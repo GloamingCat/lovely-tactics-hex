@@ -33,7 +33,7 @@ end
 function ObjectTile:isControlZone(you, noneighbours)
   local containsAlly, containsEnemy = false, false
   for char in self.characterList:iterator() do
-    if char.battler and char.battler:isAlive() then
+    if char.battler and char.battler:isActive() then
       if char.battler.party == you.party then
         containsAlly = true
       else

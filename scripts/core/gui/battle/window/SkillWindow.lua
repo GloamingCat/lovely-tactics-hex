@@ -14,6 +14,9 @@ local Button = require('core/gui/Button')
 local ActionWindow = require('core/gui/battle/window/ActionWindow')
 local ListButtonWindow = require('core/gui/ListButtonWindow')
 
+-- Constants
+local spName = Config.battle.attSP
+
 local SkillWindow = class(ActionWindow, ListButtonWindow)
 
 ---------------------------------------------------------------------------------------------------
@@ -27,8 +30,18 @@ end
 -- Creates a button from a skill ID.
 -- @param(skill : SkillAction) the SkillAction from battler's skill list
 function SkillWindow:createButton(skill)
-  local button = Button(self, skill.data.name, nil, self.onButtonConfirm, self.buttonEnabled)
+  local button = Button(self, skill.data.name, nil, self.onButtonConfirm, 
+    self.buttonEnabled, 'gui_medium')
   button.skill = skill
+  local char = TurnManager:currentCharacter()
+  local cost = 0
+  for i = 1, #skill.costs do
+    if skill.costs[i].key == spName then
+      cost = cost + skill.costs[i].cost(skill, char.battler.att)
+    end
+  end
+  local sp = Config.attributes[spName].shortName
+  self:createButtonInfo(button, cost .. sp, 'gui_medium')
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -57,11 +70,15 @@ end
 
 -- New button width.
 function SkillWindow:buttonWidth()
-  return 80
+  return 120
+end
+-- New col count.
+function SkillWindow:colCount()
+  return 2
 end
 -- New row count.
 function SkillWindow:rowCount()
-  return 6
+  return 8
 end
 -- String identifier.
 function SkillWindow:__tostring()

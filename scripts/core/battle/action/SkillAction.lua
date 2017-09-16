@@ -308,7 +308,7 @@ function SkillAction:singleTargetAnimation(input, targetChar, originTile)
       BattleManager:playAnimation(self.data.battleAnim.individualID,
         pos.x, pos.y, pos.z - 10, mirror)
     end
-    if results.damage and wasAlive then
+    if results.damage and self.data.damageAnim and wasAlive then
       if self.data.radius > 1 then
         originTile = input.target
       end
@@ -355,7 +355,7 @@ function SkillAction:popupResults(char, results)
     local popupName = 'popup_status_remove' .. id
     local color = Color[popupName] or Color.popup_status_remove
     local font = Font[popupName] or Font.popup_status_remove
-    popupText:addLine('+' .. s.data.name, color, font)
+    popupText:addLine('-' .. s.data.name, color, font)
   end
   popupText:popup()
 end

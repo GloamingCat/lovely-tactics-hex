@@ -32,6 +32,7 @@ function Status:init(data, state, battler)
     self.duration = math.huge
   end
   self.tags = TagMap(self.data.tags)
+  print(#self.data.tags)
   -- Attribute bonus
   self.attAdd = {}
   self.attMul = {}
@@ -69,39 +70,46 @@ end
 -- Graphics
 ---------------------------------------------------------------------------------------------------
 
-function Status:setGraphics()
+function Status:addGraphics()
   self.battler.character:setAnimations(self.data.charAnim)
+  self.battler.character:replayAnimation()
 end
 
 function Status:removeGraphics()
   self.battler.character:setAnimations('default')
   self.battler.character:setAnimations('battle')
+  self.battler.character:playAnimation(self.battler.character.animName)
 end
 
 ---------------------------------------------------------------------------------------------------
--- Turn Callbacks
+-- Turn callbacks
 ---------------------------------------------------------------------------------------------------
 
-function Status:onTurnStart(partyTurn) end
-function Status:onTurnEnd(partyTurn) end
-function Status:onSelfTurnStart() end
-function Status:onSelfTurnEnd() end
+function Status:onTurnStart(partyTurn)
+  self.state.lifeTime = self.state.lifeTime + 1
+  if self.state.lifeTime > self.duration then
+    self.battler.statusList:removeStatus(self)
+  end
+end
 
 ---------------------------------------------------------------------------------------------------
--- Skill Callbacks
+-- Skill callbacks
 ---------------------------------------------------------------------------------------------------
 
-function Status:onSkillUse(input) end
-function Status:onSkillEffect(input, results) end
+function Status:onSkillEffect(input, results)
+  if self.data.removeOnKO and results.damage and self.battler.state.hp == 0 then
+    self.battler.statusList:removeStatus(self)
+  end
+end
 
 ---------------------------------------------------------------------------------------------------
--- Other Callbacks
+-- Battle callbacks
 ---------------------------------------------------------------------------------------------------
 
-function Status:onAdd() end
-function Status:onRemove() end
-function Status:onKO() end
-function Status:onBattleStart() end
-function Status:onBattleEnd() end
+function Status:onBattleEnd()
+  if self.data.removeOnBattleEnd then
+    self.battler.statusList:removeStatus(self)
+  end
+end
 
 return Status

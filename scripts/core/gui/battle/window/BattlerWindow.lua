@@ -43,7 +43,7 @@ function BattlerWindow:init(GUI, character)
   self.simple, self.comp = simple, comp
   self.character = character
   local hsw = round(ScreenManager.width * 3 / 4)
-  local hsh = max(#simple, #comp) * 10 + 15 + 2 * self:vpadding()
+  local hsh = max(#simple, #comp) * 10 + 15 + 2 * self:vPadding()
   local margin = 80
   Window.init(self, GUI, hsw, hsh)
 end
@@ -61,13 +61,13 @@ function BattlerWindow:createContent(width, height)
     self.portraitAnim:setCol(0)
     sprite:setXYZ(0, 0, 0)
   end
-  local portrait = SimpleImage(sprite, self:hPadding() - self.width / 2, self:vpadding() - self.height / 2, 
-      nil, round(self.width / 3) - self:hPadding(), self.height - self:vpadding() * 2)
+  local portrait = SimpleImage(sprite, self:hPadding() - self.width / 2, self:vPadding() - self.height / 2, 
+      nil, round(self.width / 3) - self:hPadding(), self.height - self:vPadding() * 2)
   self.content:add(portrait)
   portrait:updatePosition(self.position)
   -- Content pos
   local x = round(self.width / 3 - self.width / 2)
-  local y = round(self:vpadding() - self.height / 2)
+  local y = round(self:vPadding() - self.height / 2)
   local w = round((self.width - self:hPadding()) / 3)
   -- Name
   local textName = SimpleText(self.character.battler.name, Vector(x, y), w)

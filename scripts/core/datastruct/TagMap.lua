@@ -16,12 +16,15 @@ local TagMap = class()
 function TagMap:init(tags)
   self.tags = {}
   for i = 1, #tags do
-    local arr = self.tags[tags[i].name]
+    local name = tags[i].name
+    local value = tags[i].value
+    local arr = self.tags[name]
     if not arr then
       arr = {}
-      self.tags[tags[i].name] = arr
+      self.tags[name] = arr
     end
-    arr[#arr + 1] = tags[i].value
+    arr[#arr + 1] = value
+    self[name] = self[name] or value
   end
 end
 

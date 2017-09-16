@@ -51,11 +51,6 @@ end
 function Battler:isAlive()
   return self.state.hp > 0 and not self.statusList:isDead()
 end
--- Sets its life points to 0.
-function Battler:kill()
-  self.state.hp = 0
-  self.statusList:onKO()
-end
 -- Checks if the character is considered active in the battle.
 -- @ret(boolean)
 function Battler:isActive()
@@ -120,7 +115,7 @@ function Battler:onTurnStart(partyTurn)
   if self.AI and self.AI.onTurnStart then
     self.AI:onTurnStart(partyTurn)
   end
-  self.statusList:onTurnStart(partyTurn)
+  self.statusList:callback('TurnStart', partyTurn)
   if partyTurn then
     self.steps = self.maxSteps()
   end
@@ -130,15 +125,15 @@ function Battler:onTurnEnd(partyTurn)
   if self.AI and self.AI.onTurnEnd then
     self.AI:onTurnEnd(partyTurn)
   end
-  self.statusList:onTurnEnd(partyTurn)
+  self.statusList:callback('TurnEnd', partyTurn)
 end
 -- Callback for when this battler's turn starts.
 function Battler:onSelfTurnStart()
-  self.statusList:onSelfTurnStart()
+  self.statusList:callback('SelfTurnStart')
 end
 -- Callback for when this battler's turn ends.
 function Battler:onSelfTurnEnd(result)
-  self.statusList:onSelfTurnEnd(result)
+  self.statusList:callback('SelfTurnEnd', result)
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -152,35 +147,36 @@ function Battler:onSkillUse(input)
     local value = costs[i].cost(self.att)
     self:damage(costs[i].key, value)
   end
-  self.statusList:onSkillUse(input)
+  self.statusList:callback('SkillUse', input)
 end
 -- Callback for when the characters ends receiving a skill's effect.
 function Battler:onSkillEffect(input, results)
-  self.statusList:onSkillEffect(input, results)
+  self.statusList:callback('SkillEffect', input, results)
 end
 
 ---------------------------------------------------------------------------------------------------
 -- Other callbacks
 ---------------------------------------------------------------------------------------------------
 
+-- Callback for when the character moves.
+-- @param(path : Path) the path that the battler just walked
+function Battler:onMove(path)
+  self.steps = self.steps - path.totalCost
+  self.statusList:callback('Move', path)
+end
 -- Callback for when the battle ends.
 function Battler:onBattleStart(char)
   if self.AI and self.AI.onBattleStart then
     self.AI:onBattleStart(char)
   end
-  self.statusList:onBattleStart(char)
+  self.statusList:callback('BattleStart', char)
 end
 -- Callback for when the battle ends.
 function Battler:onBattleEnd(char)
   if self.AI and self.AI.onBattleEnd then
-    self.AI:onBattleEnd(char)
+    self.AI:BattleEnd(char)
   end
-  self.statusList:onBattleEnd(char)
-end
--- Callback for when the character moves.
--- @param(path : Path) the path that the battler just walked
-function Battler:onMove(path)
-  self.steps = self.steps - path.totalCost
+  self.statusList:callback('BattleEnd', char)
 end
 
 return Battler

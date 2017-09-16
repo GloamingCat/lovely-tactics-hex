@@ -28,7 +28,7 @@ end
 function TextWindow:createContent()
   Window.createContent(self)
   self.simpleText = SimpleText(self.line, self:hPadding() - self.width / 2, 
-    self:vpadding() - self.height / 2, self.width - self:hPadding() * 2, self.align)
+    self:vPadding() - self.height / 2, self.width - self:hPadding() * 2, self.align)
   self.content:add(self.simpleText)
 end
 

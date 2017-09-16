@@ -1,5 +1,6 @@
 
 local default_font = love.graphics.newFont('fonts/FogSans.otf', 44)
+local medium_font = love.graphics.newFont('fonts/FogSans.otf', 39)
 local small_font = love.graphics.newFont('fonts/FogSans.otf', 33)
 
 return  {
@@ -9,6 +10,7 @@ return  {
   gui_button = default_font,
   gui_dialogue = default_font,
   gui_small = small_font,
+  gui_medium = medium_font,
   popup_dmghp = default_font,
   popup_dmgsp = default_font,
   popup_healhp = default_font,

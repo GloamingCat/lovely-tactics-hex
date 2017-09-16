@@ -53,7 +53,7 @@ function GridWindow:packWidgets()
   self.buttonMatrix.height = ceil(#self.buttonMatrix / self:colCount())
   if self:actualRowCount() > self:rowCount() then
     self.vSlider = self.vSlider or VSlider(self, Vector(self.width / 2 - self:hPadding(), 0), 
-      self.height - self:vpadding() * 2)
+      self.height - self:vPadding() * 2)
   elseif self.vSlider then
     self.vSlider:destroy()
     self.vSlider = nil
@@ -101,7 +101,7 @@ end
 -- Gets the total height of the window.
 -- @ret(number) the window's height in pixels
 function GridWindow:calculateHeight()
-  return self:vpadding() * 2 + self:rowCount() * self:buttonHeight()
+  return self:vPadding() * 2 + self:rowCount() * self:buttonHeight()
 end
 
 ---------------------------------------------------------------------------------------------------

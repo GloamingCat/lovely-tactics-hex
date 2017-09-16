@@ -163,7 +163,7 @@ function ObjectTile:collidesCharacters(char, other)
   if not other.battler then
     return true
   end
-  if not other.battler:isAlive() and overpassDeads then
+  if not other.battler:isActive() and overpassDeads then
     return false
   end
   if char.battler.party == other.battler.party and overpassAllies then

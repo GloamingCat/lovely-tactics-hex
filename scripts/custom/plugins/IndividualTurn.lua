@@ -65,7 +65,7 @@ end
 function TurnManager:getTurnQueue()
   local queue = PriorityQueue()
   for char in TroopManager.characterList:iterator() do
-    if char.battler:isAlive() then
+    if char.battler:isActive() then
       local time = char.battler:remainingTurnCount()
       queue:enqueue(char, time)
     end
@@ -204,7 +204,7 @@ function TargetWindow:createContent(width, height)
   -- Turn count text
   if self.showTC then
     local x = -self.width / 2 + self:hPadding()
-    local y = -self.height / 2 + self:vpadding()
+    local y = -self.height / 2 + self:vPadding()
     local w = self.width - self:hPadding() * 2
     local posTC = Vector(x, y + 35)
     self.textTC = SimpleText(Vocab.turnCount .. ':', posTC, w, 'left', Font.gui_small)

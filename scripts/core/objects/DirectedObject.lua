@@ -35,13 +35,10 @@ end
 -- Direction
 ---------------------------------------------------------------------------------------------------
 
--- [COROUTINE] Plays an animation by name.
--- @param(name : string) animation's name
--- @param(wait : boolean) true to wait until first loop finishes (optional)
--- @param(row : number) the row of the animation (optional)
-function DirectedObject:playAnimation(name, wait, row)
+-- Overrides AnimatedObject:replayAnimation.
+function DirectedObject:replayAnimation(name, wait, row)
   row = row or angle2Row(self.direction)
-  return AnimatedObject.playAnimation(self, name, wait, row)
+  return AnimatedObject.replayAnimation(self, name, wait, row)
 end
 -- Set's character direction
 -- @param(angle : number) angle in degrees

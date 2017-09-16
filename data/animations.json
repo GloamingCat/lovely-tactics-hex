@@ -205,7 +205,45 @@
 					"rows": 6,
 					"transform": {
 					  "offsetX": 48,
-					  "offsetY": 48,
+					  "offsetY": 72,
+					  "offsetDepth": 0,
+					  "scaleX": 50,
+					  "scaleY": 50,
+					  "rotation": 0,
+					  "red": 255,
+					  "green": 255,
+					  "blue": 255,
+					  "alpha": 255,
+					  "hue": 0,
+					  "saturation": 100,
+					  "brightness": 100
+					},
+					"animation": {
+						"duration": 30,
+						"loop": 0,
+						"allRows": true,
+						"script": {
+							"path": "",
+							"param": ""
+						},
+						"audio": []
+					}
+				}
+			},
+			{
+				"name": "Polen",
+				"data": {
+					"id": 39,
+					"path": "Battle/polen.png",
+					"x": 0,
+					"y": 0,
+					"width": 480,
+					"height": 384,
+					"cols": 5,
+					"rows": 4,
+					"transform": {
+					  "offsetX": 48,
+					  "offsetY": 72,
 					  "offsetDepth": 0,
 					  "scaleX": 50,
 					  "scaleY": 50,

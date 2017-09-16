@@ -31,6 +31,7 @@
 				"individualID": -1,
 				"mirror": true
 			},
+      "damageAnim": true,
 			"elements": [],
 			"statusAdd": [],
 			"statusRemove": [],
@@ -75,6 +76,7 @@
 				"individualID": -1,
 				"mirror": true
 			},
+      "damageAnim": true,
 			"elements": [
 			  {
 				"id": 1,
@@ -124,6 +126,7 @@
 				"individualID": -1,
 				"mirror": true
 			},
+      "damageAnim": true,
 			"elements": [
 			  {
 				"id": 2,
@@ -178,6 +181,7 @@
 				"individualID": -1,
 				"mirror": true
 			},
+      "damageAnim": true,
 			"elements": [
 			  {
 				"id": 2,
@@ -237,6 +241,7 @@
 				"individualID": -1,
 				"mirror": true
 			},
+      "damageAnim": true,
 			"elements": [
 			  {
 				"id": 2,
@@ -295,6 +300,7 @@
 				"individualID": 5,
 				"mirror": true
 			},
+      "damageAnim": true,
 			"elements": [
 			  {
           "id": 2,
@@ -343,6 +349,7 @@
 				"individualID": -1,
 				"mirror": true
 			},
+      "damageAnim": false,
 			"elements": [
 			  {
           "id": 2,
@@ -352,6 +359,60 @@
 			"statusAdd": [
 				{
 					"id": 1,
+					"rate": "100"
+				}
+			],
+			"statusRemove": [],
+			"tags": []
+		}
+	},
+	{
+		"name": "Sleeping Polen",
+		"data": {
+			"id": 8,
+			"type": 1,
+			"description": "Makes an enemy fall sleep.",
+			"icon": {
+			  "id": 27,
+			  "col": 0,
+			  "row": 0
+			},
+			"radius": 1,
+			"range": 3,
+			"script": {
+			  "path": "skill/CharacterOnly.lua",
+			  "param": "living enemy"
+			},
+			"effects": [],
+			"costs": [
+			  {
+			  	"key": "sp",
+          "value": "10"
+			  }
+			],
+			"restriction": 1,
+			"userAnim": {
+				"load": "",
+				"cast": "Skill2",
+				"stepOnCast": true
+			},
+			"battleAnim": {
+				"loadID": -1,
+				"castID": -1,
+				"centerID": 39,
+				"individualID": -1,
+				"mirror": true
+			},
+      "damageAnim": false,
+			"elements": [
+			  {
+          "id": 2,
+          "value": 100
+			  }
+			],
+			"statusAdd": [
+				{
+					"id": 2,
 					"rate": "100"
 				}
 			],

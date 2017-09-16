@@ -124,7 +124,7 @@ function Window:hPadding()
   return 8
 end
 -- Vertical padding.
-function Window:vpadding()
+function Window:vPadding()
   return 8
 end
 

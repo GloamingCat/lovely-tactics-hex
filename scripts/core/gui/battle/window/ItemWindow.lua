@@ -29,10 +29,10 @@ end
 -- @param(id : number) the item ID
 function ItemWindow:createButton(itemSlot)
   local item = Database.items[itemSlot.id + 1]
-  local name = item.name .. ' (' .. itemSlot.count .. ')'
-  local button = Button(self, name, nil, self.onButtonConfirm)
+  local button = Button(self, item.name, nil, self.onButtonConfirm, nil, 'gui_medium')
   button.item = item
   button.itemID = itemSlot.id
+  self:createButtonInfo(button, itemSlot.count, 'gui_medium')
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -59,11 +59,15 @@ end
 
 -- New button width.
 function ItemWindow:buttonWidth()
-  return 80
+  return 120
+end
+-- New col count.
+function ItemWindow:colCount()
+  return 2
 end
 -- New row count.
 function ItemWindow:rowCount()
-  return 6
+  return 8
 end
 -- String identifier.
 function ItemWindow:__tostring()

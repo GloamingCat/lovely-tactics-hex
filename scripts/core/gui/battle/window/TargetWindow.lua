@@ -37,7 +37,7 @@ function TargetWindow:createContent(width, height)
   Window.createContent(self, width, height)
   -- Top-left position
   local x = -self.width / 2 + self:hPadding()
-  local y = -self.height / 2 + self:vpadding()
+  local y = -self.height / 2 + self:vPadding()
   local w = self.width - self:hPadding() * 2
   -- Name text
   local posName = Vector(x, y)
@@ -90,7 +90,7 @@ end
 -- Calculates the height given the shown variables.
 function TargetWindow:calculateHeight()
   -- Margin + name + HP&SP
-  return self:vpadding() * 2 + 15 + 20
+  return self:vPadding() * 2 + 15 + 20
 end
 -- String representation.
 function TargetWindow:__tostring()
