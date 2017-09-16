@@ -177,7 +177,8 @@ function SkillAction:calculateEffectResults(input, targetChar, rand)
     local r = self:calculateEffectResult(self.effects[i], input, targetChar, rand)
     if r then
       points[#points + 1] = { value = r,
-        key = self.effects[i].key }
+        key = self.effects[i].key,
+        heal = self.effects[i].heal }
       dmg = dmg or not self.effects[i].heal
     end
   end

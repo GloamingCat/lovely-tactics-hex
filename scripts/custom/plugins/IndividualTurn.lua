@@ -112,9 +112,11 @@ end
 -- Override. Decrements turn count.
 local Battler_turnEnd = Battler.onSelfTurnEnd
 function Battler:onSelfTurnEnd(result)
-  local stepCost = self.steps / self.maxSteps()
+  local maxSteps = self.maxSteps()
+  local stepCost = (maxSteps - self.steps) / maxSteps
   local cost = result.timeCost or 0
-  self:decrementTurnCount(ceil((stepCost + cost) * turnLimit / 2))
+  local totalCost = ceil((stepCost + cost) / 2 * turnLimit)
+  self:decrementTurnCount(totalCost)
   Battler_turnEnd(self, result)
 end
 

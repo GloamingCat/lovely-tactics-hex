@@ -103,7 +103,9 @@ function Troop:removeMember(char)
   assert(i, 'Could not remove member ' .. char.key .. ': not in current list.')
   local member = self.current:remove(i)
   self.backup:add(member)
-  self:setMemberData(char.key, char.battler:createPersistentData())
+  if self.data.persistent then
+    self:setMemberData(char.key, char.battler:createPersistentData())
+  end
   TroopManager:removeCharacter(char)
 end
 -- Gets the characters in the field that are in this troop.

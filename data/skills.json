@@ -150,7 +150,8 @@
 			  {
 			  	"key": "hp",
           "successRate": "(a.prem() * 2 - b.evdm()) / b.evdm() * 50",
-          "basicResult": "(a.atkm() * 2 - b.defm()) * rand(80, 120) / 100"
+          "basicResult": "(a.atkm() * 2 - b.defm()) * rand(80, 120) / 100",
+          "heal": false
 			  }
 			],
 			"costs": [],

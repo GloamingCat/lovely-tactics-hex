@@ -33,7 +33,6 @@ function BattlerAI:init(key, battler, parallel)
   self.battler = battler
   self.parallel = parallel
 end
-
 -- String identifier.
 -- @ret(string)
 function BattlerAI:__tostring()
@@ -59,18 +58,7 @@ end
 -- @ret(number) action time cost
 function BattlerAI:runTurn()
   TurnManager:characterTurnStart()
-  local rule = nil
-  if self.parallel then
-    thread = thread or love.thread.newThread('core/Thread')
-    local channel = love.thread.newChannel()
-    thread:start(channel, self.nextRule, self, it, user)
-    while thread:isRunning() do
-      coroutine.yield()
-    end
-    rule = channel:peek()
-  else
-    rule = self:nextRule()
-  end
+  local rule = self:nextRule()
   local result = nil
   if rule:canExecute() then
     result = rule:execute()
