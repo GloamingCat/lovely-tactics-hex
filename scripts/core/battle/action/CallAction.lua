@@ -21,6 +21,7 @@ local CallAction = class(BattleAction)
 function CallAction:init()
   BattleAction.init(self, 0, 1, 'general')
   self.showTargetWindow = false
+  self.allTiles = true
 end
 
 ---------------------------------------------------------------------------------------------------

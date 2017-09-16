@@ -20,6 +20,7 @@ local VisualizeAction = class(BattleAction)
 -- Constructor.
 function VisualizeAction:init()
   BattleAction.init(self, 0, 1)
+  self.allTiles = true
 end
 
 ---------------------------------------------------------------------------------------------------

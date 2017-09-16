@@ -47,7 +47,8 @@ function SkillAction:init(skillID)
   self.data = data
   self.skillID = skillID
   BattleAction.init(self, data.range, data.radius)
-  self:setTypeColor(data.type)
+  self:setType(data.type)
+  self:setTargetType(data.targetType)
   -- Cost formulas
   self.costs = {}
   for i = 1, #data.costs do

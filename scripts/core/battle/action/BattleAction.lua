@@ -16,6 +16,7 @@ etc.
 local List = require('core/datastruct/List')
 
 -- Alias
+local mod1 = math.mod1
 local mathf = math.field
 local isnan = math.isnan
 
@@ -39,14 +40,24 @@ function BattleAction:init(range, radius, colorName)
 end
 -- Sets color according to action's type.
 -- @param(t : number)
-function BattleAction:setTypeColor(t)
+function BattleAction:setType(t)
+  self.offensive, self.support = false, false
   if t == 0 then
     self.colorName = 'general'
   elseif t == 1 then
     self.colorName = 'attack'
+    self.offensive = true
   elseif t == 2 then
     self.colorName = 'support'
+    self.support = true
   end
+end
+-- Target types (any tile, any character, living characters or dead characters).
+-- @param(t : number)
+function BattleAction:setTargetType(t)
+  self.allTiles = t == 0
+  self.living = t == 1 or t == 2
+  self.dead = t == 1 or t == 3
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -56,6 +67,11 @@ end
 -- Called when this action has been chosen.
 function BattleAction:onSelect(input)
   self:resetTileProperties(input)
+  if input.GUI and not self.allTiles then
+    self.index = 1
+    local queue = require('core/battle/ai/BattleTactics').closestCharacters(input)
+    self.characterTiles = queue:toList()
+  end
 end
 -- Called when the ActionGUI is open.
 -- By default, just updates the "selectable" field in all tiles for grid selecting.
@@ -221,7 +237,26 @@ end
 -- @param(tile : ObjectTile) the tile to check
 -- @ret(boolean) true if can be chosen, false otherwise
 function BattleAction:isSelectable(input, tile)
+  if input.user.battler.steps == 0 and not tile.gui.reachable then
+    return false
+  elseif self.allTiles then
+    return tile.gui.reachable
+  end
+  for char in tile.characterList:iterator() do
+    if self:isCharacterSelectable(input, char) then
+      return true
+    end
+  end
   return false
+end
+-- Tells if the given character is selectable.
+-- @param(char : Character) the character to check
+-- @ret(boolean) true if selectable, false otherwise
+function BattleAction:isCharacterSelectable(input, char)
+  local alive = char.battler:isAlive()
+  local ally = input.user.battler.party == char.battler.party
+  return (alive == self.living or (not alive) == self.dead) and 
+    (ally == self.support or (not ally) == self.offensive)
 end
 -- Called when players selects (highlights) a tile.
 -- @param(ActionInput : input) input with the tile as the target
@@ -258,13 +293,25 @@ end
 -- Gets the first selected target tile.
 -- @ret(ObjectTile) the first tile
 function BattleAction:firstTarget(input)
-  return input.user:getTile()
+  if self.characterTiles then
+    return self.characterTiles[1]
+  else
+    return input.user:getTile()
+  end
 end
 -- Gets the next target given the player's input.
 -- @param(dx : number) the input in axis x
 -- @param(dy : number) the input in axis y
 -- @ret(ObjectTile) the next tile
 function BattleAction:nextTarget(input, axisX, axisY)
+  if self.characterTiles then
+    if axisX > 0 or axisY > 0 then
+      self.index = mod1(self.index + 1, self.characterTiles.size)
+    else
+      self.index = mod1(self.index - 1, self.characterTiles.size)
+    end
+    return self.characterTiles[self.index]
+  end
   local h = input.target.layer.height
   if axisY > 0 then
     if h < #self.field.objectLayers then

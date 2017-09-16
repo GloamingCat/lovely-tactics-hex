@@ -17,7 +17,7 @@
 					"use": {
 						"skillID": -1,
             "skillType": -1, // 0 = General, 1 = Attack, 2 = Support, -1 = skill's default
-            "targetType": 0, // 0 = Living-only, 1 = dead-only, 2 = all, -1 = none
+            "targetType": 2, // 0 => Any tile, 1 => any character, 2 => Living only, 3 => dead only
 						"consume": true,
 						"status": [],
 						"effects": [
@@ -52,7 +52,7 @@
 					"use": {
 						"skillID": -1,
             "skillType": -1,
-            "targetType": 0,
+            "targetType": 2,
 						"consume": true,
 						"status": [],
 						"effects": [
@@ -87,7 +87,7 @@
 					"use": {
 						"skillID": -1,
             "skillType": -1,
-            "targetType": 0,
+            "targetType": 2,
 						"consume": true,
 						"status": [
               {

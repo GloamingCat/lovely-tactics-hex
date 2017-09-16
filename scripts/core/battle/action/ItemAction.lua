@@ -6,7 +6,7 @@ ItemAction
 
 =================================================================================================]]
 
-local SkillAction = require('core/battle/action/CharacterOnlySkill')
+local SkillAction = require('core/battle/action/SkillAction')
 
 local ItemAction = class(SkillAction)
 
@@ -20,21 +20,11 @@ function ItemAction:init(skillID, item)
     self:addEffects(item.use.effects)
     self:addStatus(item.use.status)
     if item.use.skillType >= 0 then
-      self:setTypeColor(item.use.skillType)
+      self:setType(item.use.skillType)
     end
-    self.living = item.use.targetType == 0 or item.use.targetType == 2
-    self.dead = item.use.targetType == 1 or item.use.targetType == 2
-  end
-end
-
-function ItemAction:isCharacterSelectable(input, char)
-  if char.battler.party ~= input.user.battler.party then
-    return false
-  end
-  if char.battler:isAlive() then
-    return self.living
-  else
-    return self.dead
+    if item.use.targetType >= 0 then
+      self:setTargetType(item.use.targetType)
+    end
   end
 end
 

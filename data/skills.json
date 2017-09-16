@@ -4,6 +4,7 @@
 		"data": {
 			"id": 9,
 			"type": 2,
+      "targetType": 1, // 0 => Any tile, 1 => any character, 2 => Living only, 3 => dead only
 			"description": "Cures 200HP.",
 			"icon": {
 			  "id": 27,
@@ -42,6 +43,7 @@
 		"data": {
 			"id": 1,
 			"type": 0,
+      "targetType": 1,
 			"description": "",
 			"icon": {
 				"id": -1,
@@ -80,6 +82,7 @@
 		"data": {
 			"id": 2,
 			"type": 1,
+      "targetType": 2,
 			"description": "Simple melee physical attack.",
 			"icon": {
 			  "id": 27,
@@ -89,8 +92,8 @@
 			"radius": 1,
 			"range": 1,
 			"script": {
-			  "path": "skill/CharacterOnly.lua",
-			  "param": "living enemy"
+			  "path": "",
+			  "param": ""
 			},
 			"effects": [
 			  {
@@ -130,6 +133,7 @@
 		"data": {
 			"id": 3,
 			"type": 1,
+      "targetType": 2,
 			"description": "Simple ranged magical attack.",
 			"icon": {
 			  "id": 27,
@@ -139,8 +143,8 @@
 			"radius": 1,
 			"range": 4,
 			"script": {
-			  "path": "skill/CharacterOnly.lua",
-			  "param": "living enemy"
+			  "path": "",
+			  "param": ""
 			},
 			"effects": [
 			  {
@@ -179,6 +183,7 @@
 		"data": {
 			"id": 4,
 			"type": 1,
+      "targetType": 0,
 			"description": "Attacks an area of 2 tiles of radius.",
 			"icon": {
 			  "id": 27,
@@ -188,7 +193,7 @@
 			"radius": 2,
 			"range": 4,
 			"script": {
-			  "path": "skill/AreaAttack.lua",
+			  "path": "",
 			  "param": ""
 			},
 			"effects": [
@@ -238,6 +243,7 @@
 		"data": {
 			"id": 5,
 			"type": 1,
+      "targetType": 0,
 			"description": "Attacks an area of 3 tiles of radius.",
 			"icon": {
 			  "id": 27,
@@ -247,7 +253,7 @@
 			"radius": 3,
 			"range": 4,
 			"script": {
-			  "path": "skill/AreaAttack.lua",
+			  "path": "",
 			  "param": ""
 			},
 			"effects": [
@@ -298,6 +304,7 @@
 		"data": {
 			"id": 6,
 			"type": 2,
+      "targetType": 2,
 			"description": "Cures a single ally character.",
 			"icon": {
 			  "id": 27,
@@ -307,8 +314,8 @@
 			"radius": 1,
 			"range": 3,
 			"script": {
-			  "path": "skill/CharacterOnly.lua",
-			  "param": "living ally"
+			  "path": "",
+			  "param": ""
 			},
 			"effects": [
 			  {
@@ -321,7 +328,7 @@
 			"costs": [
 			  {
 			  	"key": "sp",
-				"value": "10"
+          "value": "10"
 			  }
 			],
 			"restriction": 0,
@@ -353,6 +360,7 @@
 		"data": {
 			"id": 7,
 			"type": 1,
+      "targetType": 2,
 			"description": "Poisons an enemy.",
 			"icon": {
 			  "id": 27,
@@ -362,8 +370,8 @@
 			"radius": 1,
 			"range": 3,
 			"script": {
-			  "path": "skill/CharacterOnly.lua",
-			  "param": "living enemy"
+			  "path": "",
+			  "param": ""
 			},
 			"effects": [],
 			"costs": [
@@ -407,6 +415,7 @@
 		"data": {
 			"id": 8,
 			"type": 1,
+      "targetType": 2, 
 			"description": "Makes an enemy fall sleep.",
 			"icon": {
 			  "id": 27,
@@ -416,8 +425,8 @@
 			"radius": 1,
 			"range": 3,
 			"script": {
-			  "path": "skill/CharacterOnly.lua",
-			  "param": "living enemy"
+			  "path": "",
+			  "param": ""
 			},
 			"effects": [],
 			"costs": [

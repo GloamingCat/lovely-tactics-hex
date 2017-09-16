@@ -26,6 +26,7 @@ function MoveAction:init(range)
   BattleAction.init(self, range or 0, 1)
   self.showTargetWindow = false
   self.showStepWindow = true
+  self.allTiles = true
 end
 
 ---------------------------------------------------------------------------------------------------

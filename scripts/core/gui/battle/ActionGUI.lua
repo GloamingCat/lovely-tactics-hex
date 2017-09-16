@@ -143,7 +143,9 @@ function ActionGUI:endGridSelecting()
     yield()
   end
   FieldManager:hideGrid()
-  self.cursor:hide()
+  if self.cursor then
+    self.cursor:hide()
+  end
   self.gridSelecting = false
 end
 
