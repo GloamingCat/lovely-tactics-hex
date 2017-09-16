@@ -51,9 +51,9 @@ end
 function BattlerWindow:createContent(width, height)
   Window.createContent(self, width, height)
   -- Portrait
-  local sprite = self.character.portraits.status
+  local sprite = self.character.portraits.battler
   if sprite then
-    sprite = Sprite.fromQuad(sprite, GUIManager.renderer)
+    sprite = ResourceManager:loadIcon(sprite, GUIManager.renderer)
   else
     sprite = self.character.sprite:clone(GUIManager.renderer)
     self.portraitAnim = self.character.animation:clone(sprite)
