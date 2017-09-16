@@ -23,25 +23,34 @@ local BattleGUI = class(GUI)
 
 function BattleGUI:createWindows()
   self.name = 'Battle GUI'
+  self:createTurnWindow()
+  self:createSkillWindow()
+  self:createItemWindow()
+  -- Initial state
+  self.windowList:add(self.turnWindow)
+  self:setActiveWindow(self.turnWindow)
+end
+-- Creates window with main commands.
+function BattleGUI:createTurnWindow()
+  self.turnWindow = TurnWindow(self)
+  self.turnWindow:setPosition(Vector(-ScreenManager.width / 2 + self.turnWindow.width / 2 + 8, 
+      -ScreenManager.height / 2 + self.turnWindow.height / 2 + 8))
+end
+-- Creates window to use skill.
+function BattleGUI:createSkillWindow()
   local character = TurnManager:currentCharacter()
-  -- Skill Window
   local skillList = character.battler.skillList
   if not skillList:isEmpty() then
     self.skillWindow = SkillWindow(self, skillList)
   end
-  -- Item Window
+end
+-- Creates window to use item.
+function BattleGUI:createItemWindow()
   local inventory = TurnManager:currentTroop().inventory
   local itemList = inventory:getUsableItems(1)
   if #itemList > 0 then
     self.itemWindow = ItemWindow(self, inventory, itemList)
   end
-  -- Main Window
-  self.turnWindow = TurnWindow(self)
-  self.turnWindow:setPosition(Vector(-ScreenManager.width / 2 + self.turnWindow.width / 2 + 8, 
-      -ScreenManager.height / 2 + self.turnWindow.height / 2 + 8))
-  -- Initial state
-  self.windowList:add(self.turnWindow)
-  self:setActiveWindow(self.turnWindow)
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -49,10 +58,9 @@ end
 ---------------------------------------------------------------------------------------------------
 
 -- Overrides GUI:show.
-local old_show = BattleGUI.show
 function BattleGUI:show(...)
   FieldManager.renderer:moveToObject(TurnManager:currentCharacter())
-  old_show(self, ...)
+  GUI.show(self, ...)
 end
 
 return BattleGUI

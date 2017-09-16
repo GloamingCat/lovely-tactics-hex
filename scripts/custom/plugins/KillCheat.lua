@@ -16,7 +16,7 @@ local TurnManager = require('core/battle/TurnManager')
 local function killAll(party)
   for char in TroopManager.characterList:iterator() do
     if char.battler.party ~= party then
-      char.battler:kill()
+      char.battler.state.hp = 0
     end
   end
 end

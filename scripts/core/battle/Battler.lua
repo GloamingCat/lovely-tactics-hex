@@ -30,9 +30,9 @@ local Battler = class(BattlerBase)
 -- @param(character : Character)
 -- @param(troop : Troop)
 function Battler:init(data, character, save)
-  BattlerBase.init(self, data, save)
   self.party = character.party
   self.character = character
+  BattlerBase.init(self, data, save)
   -- Initialize AI
   local ai = data.scriptAI
   if ai.path ~= '' then

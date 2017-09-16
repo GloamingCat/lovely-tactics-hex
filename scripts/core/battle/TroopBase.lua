@@ -43,7 +43,7 @@ function TroopBase:initState(data)
   self.current = List(data.current)
   self.backup = List(data.backup)
   self.hidden = List(data.hidden)
-  self.inventory = Inventory(data.inventory)
+  self.inventory = Inventory(data.items)
   self.gold = data.gold
 end
 

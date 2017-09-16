@@ -1,5 +1,50 @@
 [
 	{
+		"name": "Use Item",
+		"data": {
+			"id": 9,
+			"type": 2,
+			"description": "Cures 200HP.",
+			"icon": {
+			  "id": 27,
+			  "col": 0,
+			  "row": 0
+			},
+			"radius": 1,
+			"range": 3,
+			"script": {
+			  "path": "",
+			  "param": ""
+			},
+			"effects": [
+			  {
+			  	"key": "hp",
+          "successRate": "100",
+          "basicResult": "-200"
+			  }
+			],
+			"costs": [],
+			"restriction": 0,
+			"userAnim": {
+				"load": "",
+				"cast": "Item",
+				"stepOnCast": true
+			},
+			"battleAnim": {
+				"loadID": -1,
+				"castID": -1,
+				"centerID": -1,
+				"individualID": 5,
+				"mirror": true
+			},
+      "damageAnim": false,
+			"elements": [],
+			"statusAdd": [],
+			"statusRemove": [],
+			"tags": []
+		}
+	},
+	{
 		"name": "Trade",
 		"data": {
 			"id": 1,

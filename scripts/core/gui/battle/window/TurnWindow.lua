@@ -15,7 +15,7 @@ local EscapeAction = require('core/battle/action/EscapeAction')
 local VisualizeAction = require('core/battle/action/VisualizeAction')
 local CallAction = require('core/battle/action/CallAction')
 local WaitAction = require('core/battle/action/WaitAction')
-local TradeSkill = require('custom/skill/TradeSkill')
+local ActionInput = require('core/battle/action/ActionInput')
 local BattleCursor = require('core/battle/BattleCursor')
 local Button = require('core/gui/Button')
 
@@ -32,7 +32,6 @@ local TurnWindow = class(ActionWindow)
 ---------------------------------------------------------------------------------------------------
 
 function TurnWindow:init(...)
-  self.tradeSkill = TradeSkill(Config.battle.tradeSkillID)
   self.moveAction = MoveAction()
   self.callAction = CallAction()
   self.escapeAction = EscapeAction()
@@ -40,21 +39,25 @@ function TurnWindow:init(...)
   self.waitAction = WaitAction()
   ActionWindow.init(self, ...)
 end
--- Overrides GridWindow:createButtons.
-function TurnWindow:createButtons()
+-- Overrides GridWindow:createContent.
+-- Creates character cursor and stores troop's data.
+function TurnWindow:createContent(...)
   local troop = TurnManager:currentTroop()
   self.backupBattlers = troop.backup
   self.currentBattlers = troop:currentCharacters(true)
+  ActionWindow.createContent(self, ...)
+  self.userCursor = BattleCursor()
+  self.content:add(self.userCursor)
+end
+-- Overrides GridWindow:createButtons.
+function TurnWindow:createButtons()
   Button(self, Vocab.attack, nil, self.onAttackAction, self.attackEnabled)
   Button(self, Vocab.move, nil, self.onMoveAction, self.moveEnabled)
   Button(self, Vocab.skill, nil, self.onSkill, self.skillEnabled)
   Button(self, Vocab.item, nil, self.onItem, self.itemEnabled)
-  Button(self, Vocab.trade, nil, self.onTradeAction, self.tradeEnabled)
   Button(self, Vocab.escape, nil, self.onEscapeAction, self.escapeEnabled)
-  Button(self, Vocab.wait, nil, self.onWait)
   Button(self, Vocab.callAlly, nil, self.onCallAllyAction, self.callAllyEnabled)
-  self.userCursor = BattleCursor()
-  self.content:add(self.userCursor)
+  Button(self, Vocab.wait, nil, self.onWait)
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -68,10 +71,6 @@ end
 -- "Move" button callback.
 function TurnWindow:onMoveAction(button)
   self:selectAction(self.moveAction)
-end
--- "Trade" button callback.
-function TurnWindow:onTradeAction(button)
-  self:selectAction(self.tradeSkill)
 end
 -- "Escape" button callback.
 function TurnWindow:onEscapeAction(button)
@@ -144,10 +143,6 @@ end
 function TurnWindow:itemEnabled(button)
   return self.GUI.itemWindow ~= nil
 end
--- Trade condition. Enabled if there are any characters nearby that have items.
-function TurnWindow:tradeEnabled(button)
-  return self:skillActionEnabled(button, self.tradeSkill)
-end
 -- Escape condition. Only escapes if the character is in a tile of their party.
 function TurnWindow:escapeEnabled()
   if not BattleManager.params.escapeEnabled and #self.currentBattlers == 1 then
@@ -164,20 +159,25 @@ function TurnWindow:callAllyEnabled()
 end
 -- Checks if a given skill action is enabled to use.
 function TurnWindow:skillActionEnabled(button, skill)
+  local field = FieldManager.currentField
+  local user = TurnManager:currentCharacter()
+  local tile = user:getTile()
+  local input = ActionInput(skill, user)
   if self:moveEnabled(button) then
-    return true
-  else
-    local user = TurnManager:currentCharacter()
-    local tile = user:getTile()
-    local field = FieldManager.currentField
-    local range = skill.data.range
-    for i, j in mathf.radiusIterator(range, tile.x, tile.y, field.sizeX, field.sizeY) do
-      if field:getObjectTile(i, j, tile.layer.height):hasEnemy(user.battler.party) then
+    for tile in field:gridIterator() do
+      if skill:isSelectable(input, tile) then
         return true
       end
     end
-    return false
   end
+  local range = skill.data.range
+  for i, j in mathf.radiusIterator(range, tile.x, tile.y, field.sizeX, field.sizeY) do
+    local tile = field:getObjectTile(i, j, tile.layer.height)
+    if skill:isSelectable(input, tile) then
+      return true
+    end
+  end
+  return false
 end
 
 ---------------------------------------------------------------------------------------------------

@@ -10,9 +10,12 @@ The GUI that is open to choose an item from character's inventory.
 -- Imports
 local ListButtonWindow = require('core/gui/ListButtonWindow')
 local ActionWindow = require('core/gui/battle/window/ActionWindow')
-local SkillAction = require('core/battle/action/SkillAction')
+local ItemAction = require('core/battle/action/ItemAction')
 local Vector = require('core/math/Vector')
 local Button = require('core/gui/Button')
+
+-- Constants
+local defaultSkillID = Config.battle.itemSkillID
 
 local ItemWindow = class(ActionWindow, ListButtonWindow)
 
@@ -28,10 +31,9 @@ end
 -- Creates a button from an item ID.
 -- @param(id : number) the item ID
 function ItemWindow:createButton(itemSlot)
-  local item = Database.items[itemSlot.id + 1]
+  local item = Database.items[itemSlot.id]
   local button = Button(self, item.name, nil, self.onButtonConfirm, nil, 'gui_medium')
   button.item = item
-  button.itemID = itemSlot.id
   self:createButtonInfo(button, itemSlot.count, 'gui_medium')
 end
 
@@ -42,10 +44,12 @@ end
 -- Called when player chooses an item.
 -- @param(button : Button) the button selected
 function ItemWindow:onButtonConfirm(button)
-  local skill = SkillAction.fromData(button.item.skillID)
+  local id = button.item.use.skillID
+  id = id >= 0 and id or defaultSkillID
+  local skill = ItemAction:fromData(id)
   self:selectAction(skill)
-  if self.result and self.result.executed then
-    self.inventory:removeItem(button.itemID)
+  if self.result and self.result.executed and button.item.use.consume then
+    self.inventory:removeItem(button.item.id)
   end
 end
 -- Called when player cancels.

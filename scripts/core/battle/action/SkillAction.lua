@@ -102,13 +102,13 @@ function SkillAction:init(skillID)
 end
 -- Creates an SkillAction given the skill's ID in the database, depending on the skill's script.
 -- @param(skillID : number) the skill's ID in database
-function SkillAction.fromData(skillID)
+function SkillAction:fromData(skillID, ...)
   local data = Database.skills[skillID]
   if data.script.path ~= '' then
     local class = require('custom/' .. data.script.path)
-    return class(skillID, data.script.param)
+    return class(skillID, ...)
   else
-    return SkillAction(skillID)
+    return self(skillID, ...)
   end
 end
 -- Converting to string.

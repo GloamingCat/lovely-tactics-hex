@@ -13,6 +13,9 @@ local List = require('core/datastruct/List')
 -- Alias
 local rand = love.math.random
 
+-- Constants
+local itemSkillID = Config.battle.itemSkillID
+
 local Inventory = class(List)
 
 ---------------------------------------------------------------------------------------------------
@@ -61,16 +64,6 @@ function Inventory:getSlot(id)
     end
   end
   return nil
-end
--- Gets the weight sum of all items.
--- @ret(number)
-function Inventory:getTotalWeight()
-  local sum = 0
-  for i = 1, self.size do
-    local item = Database.items[self[i].id + 1]
-    sum = sum + item.weight * self[i].count
-  end
-  return sum
 end
 -- Converting to string.
 -- @ret(string) A string representation
@@ -136,8 +129,9 @@ function Inventory:getUsableItems(restriction)
   local items = {}
   for itemSlot in self:iterator() do
     local item = Database.items[itemSlot.id]
-    if item.use.skillID >= 0 then
-      local skill = Database.skills[item.use.skillID]
+    if item.use then
+      local id = item.use.skillID >= 0 and item.use.skillID or itemSkillID
+      local skill = Database.skills[id]
       if skill.restriction == 0 or skill.restriction == restriction then
         items[#items + 1] = itemSlot
       end
@@ -149,7 +143,7 @@ end
 function Inventory:getSellableItems()
   local items = {}
   for itemSlot in self:iterator() do
-    local item = Database.items[itemSlot.id + 1]
+    local item = Database.items[itemSlot.id]
     if item.sellable then
       items[#items + 1] = itemSlot
     end

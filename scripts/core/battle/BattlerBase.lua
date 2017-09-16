@@ -47,8 +47,8 @@ function BattlerBase:init(data, save)
   self.tags = TagMap(data.tags)
   self:initializeSkillList(data.skills or {}, data.attackID)
   self:initializeElements(data.elements or {})
-  self:initializeStatusList(data.status or {})
   self:initializeInventory(data.items or {})
+  self:initializeStatusList(data.status or {})
   self:createAttributes()
   self:createStateValues(data.attributes, data.level)
 end
@@ -74,9 +74,9 @@ function BattlerBase:initializeSkillList(skills, attackID)
   self.skillList = List()
   for i = 1, #skills do
     local id = skills[i]
-    self.skillList:add(SkillAction.fromData(id))
+    self.skillList:add(SkillAction:fromData(id))
   end
-  self.attackSkill = SkillAction.fromData(attackID)
+  self.attackSkill = SkillAction:fromData(attackID)
 end
 -- Creates and sets and array of element factors.
 -- @param(elements : table) array of element factors 
@@ -98,7 +98,7 @@ function BattlerBase:initializeStatusList(initialStatus)
 end
 -- Initializes inventory from the given initial items slots.
 function BattlerBase:initializeInventory(items)
-  items = self.save and self.save.items
+  items = self.save and self.save.items or items
   self.inventory = Inventory(items)
 end
 
@@ -127,7 +127,6 @@ function BattlerBase:createAttributes()
   end
   self.jumpPoints = self.att[jumpName]
   self.maxSteps = self.att[stepName]
-  self.maxWeight = self.att[weightName]
   self.mhp = self.att[mhpName]
   self.msp = self.att[mspName]
 end
@@ -186,6 +185,7 @@ function BattlerBase:createPersistentData()
   data.state = self.state
   data.attBase = self.attBase
   data.elements = self.elementFactors
+  data.status = self.statusList:getState()
   return data
 end
 

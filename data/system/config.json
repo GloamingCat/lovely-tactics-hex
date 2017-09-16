@@ -34,12 +34,11 @@
 	"battle": {
 		"overpassAllies": false,
 		"overpassDeads": true,
-		"tradeSkillID": 1,
+    "itemSkillID": 9,
 		"attHP": "hp",
 		"attSP": "sp",
 		"attStep": "mov",
-		"attJump": "jmp",
-		"attWeight": "car"
+		"attJump": "jmp"
 	},
 	"troop": {
 		"initial": 1,
