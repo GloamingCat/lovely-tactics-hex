@@ -199,7 +199,7 @@ end
 function TroopManager:winnerParty()
   local currentParty = -1
   for bc in self.characterList:iterator() do
-    if bc.battler:isActive() then
+    if bc.battler:isAlive() then
       if currentParty == -1 then
         currentParty = bc.battler.party
       else

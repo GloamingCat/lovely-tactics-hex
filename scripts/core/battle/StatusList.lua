@@ -100,11 +100,14 @@ end
 -- Removes all status instances of the given ID.
 -- @param(id : number) status' ID on database
 function StatusList:removeAllStatus(id)
+  local all = {}
   local status = self:findStatus(id)
   while status do
     self:removeStatus(status)
+    all[#all + 1] = status
     status = self:findStatus(id)
   end
+  return all
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -130,7 +133,7 @@ end
 -- @ret(Status)
 function StatusList:findStatus(id)
   for status in self:iterator() do
-    if status.id == id then
+    if status.data.id == id then
       return status
     end
   end

@@ -38,6 +38,11 @@ function PopupText:init(x, y, z)
   self.lineCount = 0
   self.resources = {}
 end
+
+---------------------------------------------------------------------------------------------------
+-- Lines
+---------------------------------------------------------------------------------------------------
+
 -- Adds a new line.
 -- @param(text : string) the text content
 -- @param(color : table) the text color (red/green/blue/alpha table)
@@ -53,6 +58,33 @@ function PopupText:addLine(text, color, font)
   self.text = text
   self.resources[cl] = color
   self.resources[fl] = font
+end
+
+function PopupText:addDamage(points)  
+  local popupName = 'popup_dmg' .. points.key
+  self:addLine(points.value, Color[popupName], Font[popupName])
+end
+
+function PopupText:addHeal(points)
+  local popupName = 'popup_heal' .. points.key
+  self:addLine(points.value, Color[popupName], Font[popupName])
+end
+
+function PopupText:addStatus(s)
+  local popupName = 'popup_status_add' .. s.data.id
+  local color = Color[popupName] or Color.popup_status_add
+  local font = Font[popupName] or Font.popup_status_add
+  self:addLine('+' .. s.data.name, color, font)
+end
+
+function PopupText:removeStatus(all)
+  for i = 1, #all do
+    local s = all[i]
+    local popupName = 'popup_status_remove' .. s.data.id
+    local color = Color[popupName] or Color.popup_status_remove
+    local font = Font[popupName] or Font.popup_status_remove
+    self:addLine('-' .. s.data.name, color, font)
+  end
 end
 
 ---------------------------------------------------------------------------------------------------

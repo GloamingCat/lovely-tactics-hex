@@ -3,10 +3,10 @@
 		"name": "Potions",
 		"children": [
 			{
-				"name": "Potion",
+				"name": "Life Potion",
 				"data": {
 					"id": 1,
-					"description": "Cures 100HP.",
+					"description": "Cures 200HP.",
 					"icon": {
 						"id": 25,
 						"col": 0,
@@ -16,20 +16,87 @@
 					"sellable": true,
 					"use": {
 						"skillID": -1,
+            "skillType": -1, // 0 = General, 1 = Attack, 2 = Support, -1 = skill's default
+            "targetType": 0, // 0 = Living-only, 1 = dead-only, 2 = all, -1 = none
 						"consume": true,
-						"statusRemove": [],
-						"statusAdd": [],
-						"cure": [
+						"status": [],
+						"effects": [
 							{
 								"key": "hp",
-								"value": "100"
+                "successRate": "100",
+								"basicResult": "200",
+                "heal": true
 							}
 						]
 					},
-					"equip": {
-						"type": -1,
+					"tags": [
+						{
+							"name": "weight",
+							"value": "10"
+						}
+					]
+				}
+			},
+			{
+				"name": "Energy Potion",
+				"data": {
+					"id": 2,
+					"description": "Cures 100SP.",
+					"icon": {
+						"id": 25,
+						"col": 0,
+						"row": 1
+					},
+					"price": 15,
+					"sellable": true,
+					"use": {
+						"skillID": -1,
+            "skillType": -1,
+            "targetType": 0,
+						"consume": true,
 						"status": [],
-						"attributes": []
+						"effects": [
+							{
+								"key": "sp",
+                "successRate": "100",
+								"basicResult": "100",
+                "heal": true
+							}
+						]
+					},
+					"tags": [
+						{
+							"name": "weight",
+							"value": "10"
+						}
+					]
+				}
+			},
+			{
+				"name": "Antidote",
+				"data": {
+					"id": 3,
+					"description": "Cures 200HP.",
+					"icon": {
+						"id": 25,
+						"col": 0,
+						"row": 3
+					},
+					"price": 15,
+					"sellable": true,
+					"use": {
+						"skillID": -1,
+            "skillType": -1,
+            "targetType": 0,
+						"consume": true,
+						"status": [
+              {
+                "id": 1,
+                "rate": "100",
+                "add": false
+              }
+            ],
+						"effects": []
 					},
 					"tags": [
 						{
@@ -40,5 +107,44 @@
 				}
 			}
 		]
-	}
+	},
+  {
+    "name": "Weapons",
+    "children": [
+      {
+        "name": "Scythe",
+				"data": {
+					"id": 4,
+					"description": "Adds 5ATKP and 10ATKM.",
+					"icon": {
+						"id": 26,
+						"col": 0,
+						"row": 0
+					},
+					"price": 150,
+					"sellable": true,
+					"equip": {
+						"type": 1,
+						"status": [],
+						"attributes": [
+              {
+                "key": "atkp",
+                "value": "5"
+              },
+              {
+                "key": "atkm",
+                "value": "10"
+              }
+            ]
+					},
+					"tags": [
+						{
+							"name": "weight",
+							"value": "100"
+						}
+					]
+				}
+      }
+    ]
+  }
 ]

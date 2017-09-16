@@ -46,7 +46,7 @@ end
 function ItemWindow:onButtonConfirm(button)
   local id = button.item.use.skillID
   id = id >= 0 and id or defaultSkillID
-  local skill = ItemAction:fromData(id)
+  local skill = ItemAction:fromData(id, button.item)
   self:selectAction(skill)
   if self.result and self.result.executed and button.item.use.consume then
     self.inventory:removeItem(button.item.id)

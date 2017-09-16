@@ -16,13 +16,7 @@
 			  "path": "",
 			  "param": ""
 			},
-			"effects": [
-			  {
-			  	"key": "hp",
-          "successRate": "100",
-          "basicResult": "-200"
-			  }
-			],
+			"effects": [],
 			"costs": [],
 			"restriction": 0,
 			"userAnim": {
@@ -37,10 +31,9 @@
 				"individualID": 5,
 				"mirror": true
 			},
-      "damageAnim": false,
+      "damageAnim": true,
 			"elements": [],
-			"statusAdd": [],
-			"statusRemove": [],
+			"status": [],
 			"tags": []
 		}
 	},
@@ -78,8 +71,7 @@
 			},
       "damageAnim": true,
 			"elements": [],
-			"statusAdd": [],
-			"statusRemove": [],
+			"status": [],
 			"tags": []
 		}
 	},
@@ -103,8 +95,9 @@
 			"effects": [
 			  {
 			  	"key": "hp",
-				"successRate": "((a.prep() * 2 - b.evdp()) / b.evdp()) * 50",
-				"basicResult": "(a.atkp() * 2 - b.defp()) * rand(80, 120) / 100"
+          "successRate": "((a.prep() * 2 - b.evdp()) / b.evdp()) * 50",
+          "basicResult": "(a.atkp() * 2 - b.defp()) * rand(80, 120) / 100",
+          "heal": false
 			  }
 			],
 			"costs": [],
@@ -128,8 +121,7 @@
 				"value": 100
 			  }
 			],
-			"statusAdd": [],
-			"statusRemove": [],
+			"status": [],
 			"tags": []
 		}
 	},
@@ -178,8 +170,7 @@
 				"value": 100
 			  }
 			],
-			"statusAdd": [],
-			"statusRemove": [],
+			"status": [],
 			"tags": []
 		}
 	},
@@ -203,8 +194,9 @@
 			"effects": [
 			  {
 			  	"key": "hp",
-				"successRate": "((a.prem() * 2 - b.evdm()) / b.evdm()) * 50",
-				"basicResult": "(a.atkm() * 2 - b.defm()) * rand(80, 120) / 100"
+          "successRate": "((a.prem() * 2 - b.evdm()) / b.evdm()) * 50",
+          "basicResult": "(a.atkm() * 2 - b.defm()) * rand(80, 120) / 100",
+          "heal": false
 			  }
 			],
 			"costs": [
@@ -237,8 +229,7 @@
 				"value": 100
 			  }
 			],
-			"statusAdd": [],
-			"statusRemove": [],
+			"status": [],
 			"tags": []
 		}
 	},
@@ -263,7 +254,8 @@
 			  {
           "key": "hp",
           "successRate": "((a.prem() * 2 - b.evdm()) / b.evdm()) * 50",
-          "basicResult": "(a.atkm() * 2 - b.defm()) * rand(80, 120) / 100"
+          "basicResult": "(a.atkm() * 2 - b.defm()) * rand(80, 120) / 100",
+          "heal": false
 			  }
 			],
 			"costs": [
@@ -289,16 +281,15 @@
       "damageAnim": true,
 			"elements": [
 			  {
-				"id": 2,
-				"value": 100
+          "id": 2,
+          "value": 100
 			  },
 			  {
-				"id": 7,
-				"value": 100
+          "id": 7,
+          "value": 100
 			  }
 			],
-			"statusAdd": [],
-			"statusRemove": [],
+			"status": [],
 			"tags": []
 		}
 	},
@@ -322,8 +313,9 @@
 			"effects": [
 			  {
 			  	"key": "hp",
-				"successRate": "100",
-				"basicResult": "-(a.atkm() * 2 - b.defm()) * rand(80, 120) / 100"
+          "successRate": "100",
+          "basicResult": "(a.atkm() * 2 - b.defm()) * rand(80, 120) / 100",
+          "heal": true
 			  }
 			],
 			"costs": [
@@ -345,15 +337,14 @@
 				"individualID": 5,
 				"mirror": true
 			},
-      "damageAnim": true,
+      "damageAnim": false,
 			"elements": [
 			  {
           "id": 2,
           "value": 100
 			  }
 			],
-			"statusAdd": [],
-			"statusRemove": [],
+			"status": [],
 			"tags": []
 		}
 	},
@@ -394,20 +385,20 @@
 				"individualID": -1,
 				"mirror": true
 			},
-      "damageAnim": false,
+      "damageAnim": true,
 			"elements": [
 			  {
           "id": 2,
           "value": 100
 			  }
 			],
-			"statusAdd": [
+			"status": [
 				{
 					"id": 1,
-					"rate": "100"
+					"rate": "100",
+          "add": true
 				}
 			],
-			"statusRemove": [],
 			"tags": []
 		}
 	},
@@ -455,13 +446,13 @@
           "value": 100
 			  }
 			],
-			"statusAdd": [
+			"status": [
 				{
 					"id": 2,
-					"rate": "100"
+					"rate": "100",
+          "add": true
 				}
 			],
-			"statusRemove": [],
 			"tags": []
 		}
 	}

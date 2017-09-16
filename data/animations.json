@@ -257,7 +257,7 @@
 					  "brightness": 100
 					},
 					"animation": {
-						"duration": 30,
+						"duration": 60,
 						"loop": 0,
 						"allRows": true,
 						"script": {
@@ -1175,9 +1175,9 @@
 					"x": 0,
 					"y": 0,
 					"width": 48,
-					"height": 24,
+					"height": 96,
 					"cols": 2,
-					"rows": 1,
+					"rows": 4,
 					"transform": {
 					  "offsetX": 12,
 					  "offsetY": 12,
@@ -1192,16 +1192,6 @@
 					  "hue": 0,
 					  "saturation": 100,
 					  "brightness": 100
-					},
-					"animation": {
-						"duration": 60,
-						"loop": 1,
-						"allRows": false,
-						"script": {
-							"path": "",
-							"param": ""
-						},
-						"audio": []
 					}
 				}
 			},
@@ -1230,16 +1220,6 @@
 					  "hue": 0,
 					  "saturation": 100,
 					  "brightness": 100
-					},
-					"animation": {
-						"duration": 60,
-						"loop": 1,
-						"allRows": false,
-						"script": {
-							"path": "",
-							"param": ""
-						},
-						"audio": []
 					}
 				}
 			},
@@ -1268,16 +1248,6 @@
 					  "hue": 0,
 					  "saturation": 100,
 					  "brightness": 100
-					},
-					"animation": {
-						"duration": 60,
-						"loop": 1,
-						"allRows": false,
-						"script": {
-							"path": "",
-							"param": ""
-						},
-						"audio": []
 					}
 				}
 			}

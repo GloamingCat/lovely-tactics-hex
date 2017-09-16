@@ -37,6 +37,17 @@ function BattleAction:init(range, radius, colorName)
   self.showTargetWindow = true
   self.showStepWindow = false
 end
+-- Sets color according to action's type.
+-- @param(t : number)
+function BattleAction:setTypeColor(t)
+  if t == 0 then
+    self.colorName = 'general'
+  elseif t == 1 then
+    self.colorName = 'attack'
+  elseif t == 2 then
+    self.colorName = 'support'
+  end
+end
 
 ---------------------------------------------------------------------------------------------------
 -- Event handlers
