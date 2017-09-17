@@ -110,8 +110,13 @@ end
 -- @param(w : number) quad's new width
 -- @param(h : number) quad's new height
 function Sprite:setQuad(x, y, w, h)
-  self.quad:setViewport(x or 0, y or 0, 
-    w or self.texture:getWidth(), h or self.texture:getHeight())
+  if self.quad then
+    self.quad:setViewport(x or 0, y or 0, 
+      w or self.texture:getWidth(), h or self.texture:getHeight())
+  else
+    local tw, th = self.texture:getWidth(), self.texture:getHeight()
+    self.quad = Quad(x or 0, y or 0, w or tw, h or th, tw, th)
+  end
   self.renderer.needsRedraw = true
 end
 

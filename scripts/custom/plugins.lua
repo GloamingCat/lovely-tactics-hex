@@ -10,20 +10,25 @@ Example:
 
 local killCheat = { 'KillCheat', on = true,
   key = 'k' }
-
 local individualTurn = { 'IndividualTurn', on = true,
   attName = 'agi',
   turnLimit = 2000 }
-
+local individualItems = { 'IndividualItems', on = true,
+  attName = 'car',
+  skillID = 1 }
 local controlZone = { 'ControlZone', on = false }
-
 local removeStatusOnDamage = { 'RemoveStatusOnDamage', on = true }
-
 local statusBalloon = { 'StatusBalloon', on = true }
 
 ---------------------------------------------------------------------------------------------------
 -- Plugin list
 ---------------------------------------------------------------------------------------------------
 
-return { killCheat, individualTurn, controlZone, statusBalloon, removeStatusOnDamage }
+return { 
+  killCheat, 
+  individualTurn, 
+  controlZone, 
+  statusBalloon, 
+  removeStatusOnDamage,
+  individualItems }
 
