@@ -3,6 +3,7 @@
 -- Delta time
 ---------------------------------------------------------------------------------------------------
 
+-- Limits the delta time.
 local getDelta = love.timer.getDelta
 function love.timer.getDelta()
   local dt = getDelta()
@@ -32,7 +33,6 @@ end
 local function err(msg) 
   print(debug.traceback(msg, 2))  
 end
-
 -- Overrides Lua's native coroutine.create function to show errors inside the coroutine.
 -- @param(func : function) the coroutine's function
 -- @ret(coroutine) the newly created coroutine
@@ -65,7 +65,9 @@ function loadstring(str, ...)
     return func
   end
 end
-
+-- Creates a function with the given body and the given parameters.
+-- @param(body : string) the code of the body
+-- @param(param : string) the list of parameters separated by comma (without parens)
 function loadfunction(body, param)
   if param and param ~= '' then
     local funcString = 
@@ -77,7 +79,6 @@ function loadfunction(body, param)
     return loadstring(body)
   end
 end
-
 -- Generates a function from a formula in string.
 -- @param(formula : string) the formula expression
 -- @param(param : string) the param needed for the function (optional)

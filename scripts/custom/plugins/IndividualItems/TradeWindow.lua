@@ -148,7 +148,6 @@ function TradeWindow:removeItem(button, count)
   else
     self:removeButton(button.index)
     if #self.buttonMatrix == 0 then
-      self.cursor:hide()
       self:changeTradeWindow(self.left or self.right)
     end
   end

@@ -221,17 +221,17 @@ function GridWindow:onCancel()
 end
 -- Called when player moves cursor.
 function GridWindow:onMove(c, r, dx, dy)
-  local button = self:currentButton()
-  button:setSelected(false)
-  if button.enabled then
-    button.onMove(self, button, dx, dy)
-  end
+  local oldButton = self:currentButton()
   self.currentCol = c
   self.currentRow = r
-  button = self:currentButton()
-  button:setSelected(true)
-  if button.enabled then
-    button.onSelect(self, button)
+  local newButton = self:currentButton()
+  oldButton:setSelected(false)
+  newButton:setSelected(true)
+  if oldButton.enabled then
+    oldButton.onMove(self, oldButton, dx, dy)
+  end
+  if newButton.enabled then
+    newButton.onSelect(self, button)
   end
   self:updateViewport(c, r)
   if self.cursor then

@@ -29,7 +29,6 @@ function BattleGUI:createItemWindow()
   local character = TurnManager:currentCharacter()
   local inventory = character.battler.inventory
   local itemList = inventory:getUsableItems(1)
-  print(#itemList, #inventory)
   if #itemList > 0 then
     self.itemWindow = ItemWindow(self, inventory, itemList)
   end
