@@ -8,7 +8,7 @@
 			  	"col": 2,
 			  	"row": 0
 			},
-			"priority": 100,
+			"priority": 99,
       "visible": true,
 			"script": {
 			  "path": "status/Poison.lua",
@@ -37,7 +37,7 @@
 			  "col": 3,
 			  "row": 0
 			},
-			"priority": 99,
+			"priority": 100,
       "visible": true,
 			"script": {
 			  "path": "",
