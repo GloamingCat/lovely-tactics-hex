@@ -208,11 +208,8 @@ function TargetWindow:createContent(width, height)
     local x = -self.width / 2 + self:hPadding()
     local y = -self.height / 2 + self:vPadding()
     local w = self.width - self:hPadding() * 2
-    local posTC = Vector(x, y + 35)
-    self.textTC = SimpleText(Vocab.turnCount .. ':', posTC, w, 'left', Font.gui_small)
-    self.textTCValue = SimpleText('', posTC, w, 'right', Font.gui_small)
-    self.content:add(self.textTC)
-    self.content:add(self.textTCValue)
+    local pos = Vector(x, y + 35)
+    self.textTC = self:addStateVariable(Vocab.turnCount, pos, w)
   end
 end
 -- Override.
@@ -221,9 +218,14 @@ function TargetWindow:setBattler(battler)
   TargetWindow_setBattler(self, battler)
   -- Turn count value
   if self.showTC then
-    local tc = (battler.turnCount / _G.TurnManager.turnLimit * 100)
-    self.textTCValue:setText(string.format( '%3.0f', tc ) .. '%')
-    self.textTCValue:redraw()
+    if battler then
+      local tc = (battler.turnCount / _G.TurnManager.turnLimit * 100)
+      self.textTC:show()
+      self.textTC:setText(string.format( '%3.0f', tc ) .. '%')
+      self.textTC:redraw()
+    else
+      self.textTC:hide()
+    end
   end
 end
 

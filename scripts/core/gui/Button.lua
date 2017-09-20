@@ -25,7 +25,6 @@ local Button = class(GridWidget)
 -- @param(col : number) the column of the button in the window
 -- @param(row : number) the row of the button in the window
 -- @param(text : string) the text shown in the button
--- @param(fontName : string) the text's font (from Fonts folder)
 -- @param(iconAnim : Animation | string) the icon graphics or the path to the icon
 -- @param(onConfirm : function) the function called when
 --  player confirms (optinal)
@@ -35,6 +34,7 @@ local Button = class(GridWidget)
 --  player moves cursor (optional)
 -- @param(enableCondition : function) the function that tells if 
 --  this button is enabled (optional)
+-- @param(fontName : string) the text's font, from Fonts folder (optional, uses default)
 function Button:init(window, text, iconAnim, onConfirm, enableCondition, fontName)
   GridWidget.init(self, window)
   self.onConfirm = onConfirm or self.onConfirm

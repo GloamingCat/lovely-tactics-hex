@@ -10,6 +10,7 @@ Provides methods for battle's turn management.
 -- Imports
 local MoveAction = require('core/battle/action/MoveAction')
 local PathFinder = require('core/battle/ai/PathFinder')
+local IntroGUI = require('core/gui/battle/IntroGUI')
 local BattleGUI = require('core/gui/battle/BattleGUI')
 
 -- Alias
@@ -28,8 +29,9 @@ function TurnManager:init()
 end
 
 function TurnManager:introTurn()
+  self.party = TroopManager.playerParty
+  GUIManager:showGUIForResult(IntroGUI())
   self.party = TroopManager.playerParty - 1
-  -- TODO: execute RepositionAction
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -42,8 +44,7 @@ function TurnManager:currentCharacter()
 end
 -- Gets the current turn's troop.
 function TurnManager:currentTroop()
-  local char = self:currentCharacter()
-  return TroopManager.troops[char.battler.party]
+  return TroopManager.troops[self.party]
 end
 -- Gets the path matrix of the current character.
 function TurnManager:pathMatrix()

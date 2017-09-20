@@ -22,21 +22,49 @@ local CallWindow = class(GridWindow)
 ---------------------------------------------------------------------------------------------------
 
 -- Constructor.
-function CallWindow:init(GUI, troop)
+function CallWindow:init(GUI, troop, allMembers)
   self.troop = troop
+  self.allMembers = allMembers
   GridWindow.init(self, GUI)
 end
 -- Creates a button for each backup member.
 function CallWindow:createButtons()
+  if self.allMembers then
+    for i = 1, #self.troop.current do
+      local member = self.troop.current[i]
+      local battler = FieldManager:search(member.key).battler
+      self:createMemberButton(member, battler)
+    end
+  end
   for i = 1, #self.troop.backup do
     local member = self.troop.backup[i]
     local save = self.troop:getMemberData(member.key)
     local battler = BattlerBase:fromMember(member, save)
-    local button = Button(self, battler.data.name, nil, self.onButtonConfirm)
-    button.onSelect = self.onButtonSelect
-    button.battler = battler
-    button.memberKey = member.key
+    self:createMemberButton(member, battler)
   end
+  if self.allMembers and #self.troop.current > 1 then
+    self:createNoneButton()
+  end
+end
+-- @param(member : table) troop's member data
+-- @param(battler : BattlerBase) character's battler or battler base created from member
+-- @ret(Button)
+function CallWindow:createMemberButton(member, battler)
+  local button = Button(self, battler.data.name, nil, self.onButtonConfirm)
+  button.onSelect = self.onButtonSelect
+  button.battler = battler
+  button.memberKey = member.key
+  return button
+end
+-- @ret(Button)
+function CallWindow:createNoneButton()
+  local button = Button(self, Vocab.none, nil, self.onButtonConfirm)
+  button.onSelect = self.onButtonSelect
+  button.memberKey = ''
+  if self.GUI.targetWindow then
+    self.GUI.targetWindow:setVisible(false)
+  end
+  return button
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -50,7 +78,12 @@ end
 -- Select callback for each button, show the battler's info.
 function CallWindow:onButtonSelect(button)
   if self.GUI.targetWindow then
-    self.GUI.targetWindow:setBattler(button.battler)
+    if button.battler then 
+      self.GUI.targetWindow:setBattler(button.battler)
+      GUIManager.fiberList:fork(self.GUI.targetWindow.show, self.GUI.targetWindow)
+    else
+      GUIManager.fiberList:fork(self.GUI.targetWindow.hide, self.GUI.targetWindow)
+    end
   end
 end
 

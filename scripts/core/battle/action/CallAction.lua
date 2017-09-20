@@ -30,16 +30,17 @@ end
 
 -- Overrides BattleAction:onConfirm.
 function CallAction:onConfirm(input)
+  local troop = TroopManager.troops[(input.party or input.user.battler.party)]
   if input.GUI then
-    local troop = TurnManager:currentTroop()
-    local result = GUIManager:showGUIForResult(CallGUI(troop))
+    local result = GUIManager:showGUIForResult(CallGUI(troop, input.user == nil))
     if result ~= 0 then
       troop:callMember(result, input.target)
       input.GUI:endGridSelecting()
       return self:execute()
     end
+  else
+    troop:callMember(input.member, input.target)
   end
-  return nil
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -67,7 +68,7 @@ end
 
 -- Overrides BattleAction:isSelectable.
 function CallAction:isSelectable(input, tile)
-  return tile.party == input.user.battler.party and not tile:collides(0, 0)
+  return tile.party == (input.party or input.user.battler.party) and not tile:collides(0, 0)
 end
 
 return CallAction

@@ -41,13 +41,6 @@ function GridWindow:createContent()
   self.loopVertical = true
   self.loopHorizontal = true
   Window.createContent(self, self:calculateWidth(), self:calculateHeight())
-  local button = self:currentButton()
-  if button then
-    button:setSelected(true)
-    if button.enabled then
-      button.onSelect(self, button)
-    end
-  end
   self:packWidgets()
 end
 function GridWindow:packWidgets()
@@ -62,6 +55,16 @@ function GridWindow:packWidgets()
   self:updateViewport(self.currentCol, self.currentRow)
   if self.cursor then
     self.cursor:updatePosition()
+  end
+end
+function GridWindow:showContent()
+  Window.showContent(self)
+  local button = self:currentButton()
+  if button then
+    button:setSelected(true)
+    if button.enabled then
+      button.onSelect(self, button)
+    end
   end
 end
 
@@ -231,7 +234,7 @@ function GridWindow:onMove(c, r, dx, dy)
     oldButton.onMove(self, oldButton, dx, dy)
   end
   if newButton.enabled then
-    newButton.onSelect(self, button)
+    newButton.onSelect(self, newButton)
   end
   self:updateViewport(c, r)
   if self.cursor then

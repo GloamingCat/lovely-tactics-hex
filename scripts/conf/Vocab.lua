@@ -2,12 +2,17 @@
 return {
   -- Main Window
   items = 'Items',
+  equips = 'Equips',
   skills = 'Skills',
   states = 'States',
   party = 'Party',
   config = 'Settings',
   save = 'Save',
   quit = 'Quit',
+  
+  -- Battle intro Window
+  start = 'Start',
+  none = 'None',
   
   -- Turn Window
   attack = 'Attack',

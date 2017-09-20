@@ -18,7 +18,7 @@ local TileGraphics = require('core/field/TileGUI')
 
 -- Constants
 local defaultParams = { 
-  intro = false,
+  intro = true,
   gameOverCondition = 2, 
   escapeEnabled = true }
 
@@ -83,18 +83,17 @@ end
 function BattleManager:battleIntro()
   FieldManager.renderer:fadeout(0)
   FieldManager.renderer:fadein(nil, true)
-  local centers = TroopManager:getPartyCenters()
   local speed = 50
-  for i = 1, #centers do
+  for i = 1, #TroopManager.centers do
     if i ~= TroopManager.playerParty then
-      local p = centers[i]
+      local p = TroopManager.centers[i]
       FieldManager.renderer:moveToPoint(p.x, p.y, speed, true)
       _G.Fiber:wait(45)
     end
   end
-  local p = centers[TroopManager.playerParty]
+  local p = TroopManager.centers[TroopManager.playerParty]
   FieldManager.renderer:moveToPoint(p.x, p.y, speed, true)
-  _G.Fiber:wait(60)
+  _G.Fiber:wait(30)
 end
 -- Runs after winner was determined and battle loop ends.
 function BattleManager:battleEnd()

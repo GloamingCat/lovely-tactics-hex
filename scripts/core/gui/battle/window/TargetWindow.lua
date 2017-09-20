@@ -68,19 +68,28 @@ end
 
 -- Changes the window's content to show the given battler's stats.
 -- @param(battler : Battler)
-function TargetWindow:setBattler(battler)  
-  -- Name text
-  self.textName:setText(battler.data.name)
-  self.textName:redraw()
-  -- HP text
-  local textHP = battler.state[hpName] .. '/' .. battler.att[hpName]()
-  self.textHP:setText(textHP)
-  self.textHP:redraw()
-  -- SP text
-  local textSP = battler.state[spName] .. '/' .. battler.att[spName]()
-  self.textSP:setText(textSP)
-  self.textSP:redraw()
-  collectgarbage('collect')
+function TargetWindow:setBattler(battler)
+  if battler then
+    -- Name text
+    self.textName:show()
+    self.textName:setText(battler.data.name)
+    self.textName:redraw()
+    -- HP text
+    local textHP = battler.state[hpName] .. '/' .. battler.att[hpName]()
+    self.textHP:show()
+    self.textHP:setText(textHP)
+    self.textHP:redraw()
+    -- SP text
+    local textSP = battler.state[spName] .. '/' .. battler.att[spName]()
+    self.textSP:show()
+    self.textSP:setText(textSP)
+    self.textSP:redraw()
+    collectgarbage('collect')
+  else
+    self.textName:hide()
+    self.textHP:hide()
+    self.textSP:hide()
+  end
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -89,8 +98,8 @@ end
 
 -- Calculates the height given the shown variables.
 function TargetWindow:calculateHeight()
-  -- Margin + name + HP&SP
-  return self:vPadding() * 2 + 15 + 20
+  -- Margin + name + HP + SP
+  return self:vPadding() * 2 + 15 + 10 + 10
 end
 -- String representation.
 function TargetWindow:__tostring()

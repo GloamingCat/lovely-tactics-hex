@@ -63,6 +63,7 @@ function TroopManager:createTroops()
   for char in FieldManager.characterList:iterator() do
     self:createBattler(char)
   end
+  self.centers = self:getPartyCenters()
 end
 -- Creates the troop's characters.
 -- @param(troop : TroopManager)

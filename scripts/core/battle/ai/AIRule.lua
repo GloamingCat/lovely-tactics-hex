@@ -22,7 +22,7 @@ local AIRule = class()
 function AIRule:init(name, action)
   self.name = name
   if action then
-    self.input = ActionInput(action)
+    self.input = ActionInput(action, TurnManager:currentCharacter())
   end
 end
 

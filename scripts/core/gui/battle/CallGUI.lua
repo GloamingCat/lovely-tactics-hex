@@ -14,8 +14,9 @@ local TargetWindow = require('core/gui/battle/window/TargetWindow')
 
 local CallGUI = class(GUI)
 
-function CallGUI:init(troop)
+function CallGUI:init(troop, allMembers)
   self.troop = troop
+  self.allMembers = allMembers
   GUI.init(self)
 end
 
@@ -25,7 +26,7 @@ function CallGUI:createWindows()
   self.targetWindow = TargetWindow(self)
   self.windowList:add(self.targetWindow)
   -- List window
-  local callWindow = CallWindow(self, self.troop)
+  local callWindow = CallWindow(self, self.troop, self.allMembers)
   self.windowList:add(callWindow)
   self:setActiveWindow(callWindow)
 end

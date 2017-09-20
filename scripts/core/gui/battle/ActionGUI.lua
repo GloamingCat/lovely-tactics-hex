@@ -101,6 +101,7 @@ end
 -- Sets given tile as current target.
 -- @param(target : ObjectTile) the new target tile
 function ActionGUI:selectTarget(target)
+  target = target or self.input.target
   self.cursor:setTile(target)
   self.input.action:onDeselectTarget(self.input)
   self.input.target = target
@@ -127,7 +128,7 @@ function ActionGUI:startGridSelecting(target)
   end
   FieldManager:showGrid()
   self.cursor = self.cursor or BattleCursor()
-  self:selectTarget(target or self.input.action.target)
+  self:selectTarget(target)
   self.gridSelecting = true
 end
 -- Hides grid and cursor.

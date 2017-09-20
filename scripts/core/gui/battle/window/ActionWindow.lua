@@ -22,7 +22,7 @@ local ActionWindow = class(GridWindow)
 --  (must inherit from BattleAction) 
 function ActionWindow:selectAction(action)
   -- Executes action grid selecting.
-  local input = ActionInput(action, nil, nil, nil, self.GUI)
+  local input = ActionInput(action, TurnManager:currentCharacter(), nil, nil, self.GUI)
   action:onSelect(input)
   self.GUI:hide()
   local result = GUIManager:showGUIForResult(ActionGUI(input))
