@@ -34,12 +34,14 @@ function ActionWindow:selectAction(action)
     self.GUI:show()
   end
 end
-
 -- Closes this window to be replaced by another one.
 -- @param(window : GridWindow) the new active window
-function ActionWindow:changeWindow(window)
+function ActionWindow:changeWindow(window, showDescription)
   self:hide()
   self:removeSelf()
+  if showDescription then
+    self.GUI:showDescriptionWindow(window)
+  end
   window:insertSelf()
   window:show()
   window:activate()

@@ -82,11 +82,11 @@ function TurnWindow:onCallAllyAction(button)
 end
 -- "Skill" button callback. Opens Skill Window.
 function TurnWindow:onSkill(button)
-  self:changeWindow(self.GUI.skillWindow)
+  self:changeWindow(self.GUI.skillWindow, true)
 end
 -- "Item" button callback. Opens Item Window.
 function TurnWindow:onItem(button)
-  self:changeWindow(self.GUI.itemWindow)
+  self:changeWindow(self.GUI.itemWindow, true)
 end
 -- "Wait" button callback. End turn.
 function TurnWindow:onWait(button)

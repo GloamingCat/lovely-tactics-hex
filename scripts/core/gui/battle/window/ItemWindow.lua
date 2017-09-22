@@ -25,8 +25,14 @@ local ItemWindow = class(ActionWindow, ListButtonWindow)
 
 -- Constructor.
 function ItemWindow:init(GUI, inventory, itemList)
-  ListButtonWindow.init(self, itemList, GUI)
   self.inventory = inventory
+  local m = GUI:windowMargin()
+  local w = ScreenManager.width - GUI:windowMargin() * 2
+  local h = ScreenManager.height * 4 / 5 - self:vPadding() * 2 - m * 3
+  self.fitRowCount = math.floor(h / self:buttonHeight())
+  local fith = self.fitRowCount * self:buttonHeight() + self:vPadding() * 2
+  local pos = Vector(0, fith / 2 - ScreenManager.height / 2 + m / 2, 0)
+  ListButtonWindow.init(self, itemList, GUI, w, h, pos)
 end
 -- Creates a button from an item ID.
 -- @param(id : number) the item ID
@@ -36,9 +42,11 @@ function ItemWindow:createButton(itemSlot)
     ResourceManager:loadIconAnimation(item.icon, GUIManager.renderer)
   local button = Button(self, item.name, icon, self.onButtonConfirm, self.buttonEnabled, 'gui_medium')
   button.item = item
+  button.description = item.description
   local id = item.use.skillID
   id = id >= 0 and id or defaultSkillID
   button.skill = ItemAction:fromData(id, button.item)
+  button.onSelect = self.onButtonSelect
   self:createButtonInfo(button, itemSlot.count, 'gui_medium')
 end
 
@@ -46,6 +54,10 @@ end
 -- Input handlers
 ---------------------------------------------------------------------------------------------------
 
+-- Updates description when button is selected.
+function ItemWindow:onButtonSelect(button)
+  self.GUI.descriptionWindow:setText(button.description)
+end
 -- Called when player chooses an item.
 -- @param(button : Button) the button selected
 function ItemWindow:onButtonConfirm(button)
@@ -64,6 +76,7 @@ function ItemAction:buttonEnabled(button)
 end
 -- Called when player cancels.
 function ItemWindow:onCancel()
+  self.GUI:hideDescriptionWindow()
   self:changeWindow(self.GUI.turnWindow)
 end
 
@@ -73,7 +86,7 @@ end
 
 -- New button width.
 function ItemWindow:buttonWidth()
-  return 144
+  return (self.width - self:hPadding()) / 2
 end
 -- New col count.
 function ItemWindow:colCount()
@@ -81,7 +94,7 @@ function ItemWindow:colCount()
 end
 -- New row count.
 function ItemWindow:rowCount()
-  return 7
+  return self.fitRowCount
 end
 -- String identifier.
 function ItemWindow:__tostring()

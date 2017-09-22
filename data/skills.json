@@ -5,7 +5,7 @@
 			"id": 9,
 			"type": 2,
       "targetType": 1, // 0 => Any tile, 1 => any character, 2 => Living only, 3 => dead only
-			"description": "Cures 200HP.",
+			"description": "",
 			"icon": {
 			  "id": 27,
 			  "col": 0,
@@ -208,7 +208,7 @@
 			"costs": [
 			  {
 			  	"key": "sp",
-				"value": "15"
+          "value": "15"
 			  }
 			],
 			"restriction": 1,
@@ -227,12 +227,12 @@
       "damageAnim": true,
 			"elements": [
 			  {
-				"id": 2,
-				"value": 100
+          "id": 2,
+          "value": 100
 			  },
 			  {
-				"id": 6,
-				"value": 100
+          "id": 6,
+          "value": 100
 			  }
 			],
 			"status": [],
