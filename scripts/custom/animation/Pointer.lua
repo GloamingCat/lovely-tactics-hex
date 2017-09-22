@@ -4,10 +4,6 @@
 Pointer
 ---------------------------------------------------------------------------------------------------
 A sprite that points in a given direction (vertical or horizontal)
-Parameter examples for this script:
-  1) { "dx": 4 }
-  2) { "dy": 2 }
-  3) { "dx": 2, "dy": 2 }
 
 =================================================================================================]]
 
@@ -58,7 +54,7 @@ function Pointer:update()
     self.speedy = -self.speedy
     self.currentY = self.currentY + self.speedy * time() * 60
   end
-  self.sprite:setOffset(round(self.currentX), round(self.currentY))
+  self.sprite:setOffset(self.currentX, self.currentY)
 end
 
 return Pointer

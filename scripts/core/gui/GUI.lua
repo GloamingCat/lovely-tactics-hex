@@ -30,6 +30,9 @@ end
 function GUI:createWindows()
  -- Abstract.
 end
+function GUI:windowMargin()
+  return 6
+end
   
 ---------------------------------------------------------------------------------------------------
 -- General 

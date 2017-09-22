@@ -1,10 +1,15 @@
 
+local babypink = {red = 255, green = 142, blue = 240, alpha = 255}
+local babyblue = {red = 170, green = 183, blue = 255, alpha = 255}
+
 return {
   -- Common colors
   white = {red = 255, green = 255, blue = 255, alpha = 255},
   red = {red = 255, green = 0, blue = 0, alpha = 255},
   green = {red = 0, green = 255, blue = 0, alpha = 255},
   blue = {red = 0, green = 0, blue = 255, alpha = 255},
+  babypink = babypink,
+  babyblue = babyblue,
 
   -- Tile skill colors (selectable)
   tile_general = {red = 215, green = 127, blue = 215, alpha = 215},
@@ -23,10 +28,10 @@ return {
   -- GUI text colors
   gui_text_default = {red = 255, green = 255, blue = 255, alpha = 255},
   gui_text_disabled = {red = 100, green = 100, blue = 100, alpha = 153},
-  gui_text_highlight = {red = 240, green = 127, blue = 255, alpha = 255},
+  gui_text_highlight = babypink,
 
   -- GUI icon colors
-  gui_icon_default = {red = 230, green = 230, blue = 230, alpha = 230},
+  gui_icon_default = {red = 210, green = 210, blue = 210, alpha = 230},
   gui_icon_disabled = {red = 127, green = 127, blue = 127, alpha = 127},
   gui_icon_highlight = {red = 255, green = 255, blue = 255, alpha = 255},
 

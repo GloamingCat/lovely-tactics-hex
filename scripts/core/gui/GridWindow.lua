@@ -28,7 +28,7 @@ local GridWindow = class(Window)
 ---------------------------------------------------------------------------------------------------
 
 -- Overrides Window:createContent.
-function GridWindow:createContent()
+function GridWindow:createContent(width, height)
   self.buttonMatrix = Matrix2(self:colCount(), 1)
   self:createButtons()
   self.currentCol = 1
@@ -40,7 +40,7 @@ function GridWindow:createContent()
   end
   self.loopVertical = true
   self.loopHorizontal = true
-  Window.createContent(self, self:calculateWidth(), self:calculateHeight())
+  Window.createContent(self, width or self:calculateWidth(), height or self:calculateHeight())
   self:packWidgets()
 end
 function GridWindow:packWidgets()

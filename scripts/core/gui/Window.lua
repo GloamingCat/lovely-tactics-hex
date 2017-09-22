@@ -39,6 +39,8 @@ function Window:init(GUI, width, height, position)
   self.spriteGrid = SpriteGrid(self:getSkin(), Vector(0, 0, 1))
   self.GUI = GUI
   self.content = List()
+  self.width = width
+  self.height = height
   self:createContent(width, height)
   self:setPosition(position or Vector(0, 0, 0))
   self:setVisible(false)
