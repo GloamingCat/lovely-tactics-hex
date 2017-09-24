@@ -50,7 +50,7 @@ function TradeWindow:newItemButton(slot)
   button.item = item
   button.slot = slot
   button.onMove = self.onButtonMove
-  self:createButtonInfo(button, slot.count, 'gui_medium')
+  button:createButtonInfo(slot.count, 'gui_medium')
   return button
 end
 
@@ -91,15 +91,10 @@ end
 -- @param(window : TradeWindow) the other trade window
 function TradeWindow:changeTradeWindow(window)
   if window and #window.buttonMatrix > 0 then
-    local button = self:currentButton()
-    if button then
-      button:setSelected(false)
-    end
-    self.cursor:hide()
+    self:setSelectedButton(nil)
     self.GUI:setActiveWindow(window)
-    button = window:currentButton()
-    button:setSelected(true)
-    window.cursor:show()
+    local button = window:currentButton()
+    window:setSelectedButton(button)
   end
 end
 -- Shows the count window.

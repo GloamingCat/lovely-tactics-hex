@@ -83,6 +83,16 @@ end
 -- Draw in screen
 ---------------------------------------------------------------------------------------------------
 
+-- Gets the total width in world coordinates.
+-- @ret(number)
+function Text:getWidth()
+  local w = 0
+  for i = 1, #self.lines do
+    local line = self.lines[i]
+    w = max(w, line.buffer:getWidth() * self.scaleX)
+  end
+  return w
+end
 -- Gets the line offset in x according to the alingment.
 -- @param(w : number) line's width
 -- @ret(number) the x offset

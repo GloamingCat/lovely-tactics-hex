@@ -47,7 +47,7 @@ function ItemWindow:createButton(itemSlot)
   id = id >= 0 and id or defaultSkillID
   button.skill = ItemAction:fromData(id, button.item)
   button.onSelect = self.onButtonSelect
-  self:createButtonInfo(button, itemSlot.count, 'gui_medium')
+  button:createButtonInfo(itemSlot.count, 'gui_medium')
 end
 
 ---------------------------------------------------------------------------------------------------

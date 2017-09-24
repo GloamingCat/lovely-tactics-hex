@@ -53,7 +53,7 @@ function SkillWindow:createButton(skill)
     end
   end
   local sp = Config.attributes[spName].shortName
-  self:createButtonInfo(button, cost .. sp, 'gui_medium')
+  button:createButtonInfo(cost .. sp, 'gui_medium')
   button.onSelect = self.onButtonSelect
   return button
 end
