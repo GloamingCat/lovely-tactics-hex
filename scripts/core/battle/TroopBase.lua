@@ -8,6 +8,7 @@ Stores and manages the troop data and its members.
 =================================================================================================]]
 
 -- Imports
+local BattlerBase = require('core/battle/BattlerBase')
 local List = require('core/datastruct/List')
 local TagMap = require('core/datastruct/TagMap')
 local Inventory = require('core/battle/Inventory')
@@ -28,8 +29,8 @@ function TroopBase:init(data)
     self:initState(save or data)
     -- Member data table
     self.memberData = {}
-    self:setMembersData(self.current)
-    self:setMembersData(self.backup)
+    self:setMembersData(self.current, true)
+    self:setMembersData(self.backup, true)
     self:setMembersData(self.hidden)
   else
     self:initState(data)
@@ -110,11 +111,26 @@ function TroopBase:getMembersData(arr)
 end
 -- Stores members' data in the member's persistent data table.
 -- @param(arr : table) array of members
-function TroopBase:setMembersData(arr)
+function TroopBase:setMembersData(arr, init)
   for i = 1, #arr do
     local member = arr[i]
     self.memberData[member.key] = member
+    if init and not member.data then
+      member.data = self:newMemberData(member)
+    end
   end
+end
+-- Creates the initial persistent data for the given member.
+-- @param(member : table) member's data from troop
+-- @ret(table) member's persistent data to save
+function TroopBase:newMemberData(member)
+  local battlerID = member.battlerID
+  if battlerID < 0 then
+    local char = Database.characters[member.charID]
+    battlerID = char.battlerID
+  end
+  local battler = BattlerBase(Database.battlers[battlerID])
+  return battler:createPersistentData()
 end
 -- Creates the table to represent troop's persistent data.
 -- @param(saveFormation : boolean) true to saves modified grid formation (optional)

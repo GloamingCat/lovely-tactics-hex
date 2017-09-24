@@ -36,6 +36,7 @@
 			"skills": [],
 			"items": [],
 			"elements": [],
+      "equipment": [],
 			"tags": []
 		}
 	},
@@ -82,6 +83,7 @@
 			  }
 			],
 			"elements": [],
+      "equipment": [],
 			"tags": []
 		}
 	},
@@ -133,6 +135,7 @@
 			  }
 			],
 			"elements": [],
+      "equipment": [],
 			"tags": []
 		}
 	},
@@ -173,6 +176,7 @@
 			"skills":  [],
 			"items": [],
 			"elements": [],
+      "equipment": [],
 			"tags": []
 		}
 	}

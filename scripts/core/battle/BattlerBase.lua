@@ -39,6 +39,7 @@ local BattlerBase = class()
 
 -- Constructor.
 -- @param(data : table) battler's data from database
+-- @param(save : table) data from save, if any (optional)
 function BattlerBase:init(data, save)
   self.data = data
   self.save = save
@@ -140,11 +141,13 @@ function BattlerBase:createStateValues(attBase, level)
   if self.save then
     self.state = copyTable(self.save.state)
     self.attBase = copyTable(self.save.attBase)
+    self.equipment = copyTable(self.save.equipment)
     self.exp = self.save.exp
     self.level = self.save.level
     self.elementFactors = self.save.elements
   else
     self.state = {}
+    self.equipment = self.data.equipment
     self.attBase = {}
     for i = 1, #attConfig do
       local key = attConfig[i].key
@@ -179,14 +182,16 @@ end
 -- Creates a table that stores the battler's current state to be saved.
 -- @ret(table)
 function BattlerBase:createPersistentData()
-  local data = {}
-  data.level = self.level
-  data.exp = self.exp
-  data.state = self.state
-  data.attBase = self.attBase
-  data.elements = self.elementFactors
-  data.status = self.statusList:getState()
-  return data
+  return {
+    name = self.name,
+    level = self.level,
+    exp = self.exp,
+    state = self.state,
+    attBase = self.attBase,
+    elements = self.elementFactors,
+    equipment = self.equipment,
+    status = self.statusList:getState()
+  }
 end
 
 return BattlerBase
