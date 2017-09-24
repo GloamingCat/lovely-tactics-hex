@@ -10,7 +10,7 @@ Window that is shown in the beginning of the battle.
 -- Imports
 local Button = require('core/gui/Button')
 --local ItemGUI = require('core/gui/general/ItemGUI')
---local EquipGUI = require('core/gui/general/EquipGUI')
+local EquipGUI = require('core/gui/general/EquipGUI')
 local ActionGUI = require('core/gui/battle/ActionGUI')
 local PartyAction = require('core/battle/action/PartyAction')
 local ActionInput = require('core/battle/action/ActionInput')
@@ -27,7 +27,7 @@ function IntroWindow:createButtons()
   Button(self, Vocab.start, nil, self.onStart)
   Button(self, Vocab.party, nil, self.onParty)
   --Button(self, Vocab.items, nil, self.onItems)
-  --Button(self, Vocab.equips, nil, self.onEquips)
+  Button(self, Vocab.equips, nil, self.onEquips)
   --Button(self, Vocab.escape, nil, self.onEscape)
 end
 

@@ -13,6 +13,7 @@ return {
   -- Battle intro Window
   start = 'Start',
   none = 'None',
+  empty = 'Empty',
   
   -- Turn Window
   attack = 'Attack',

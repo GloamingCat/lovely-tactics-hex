@@ -18,7 +18,7 @@ local TileGraphics = require('core/field/TileGUI')
 
 -- Constants
 local defaultParams = { 
-  intro = true,
+  intro = false,
   gameOverCondition = 2, 
   escapeEnabled = true }
 
