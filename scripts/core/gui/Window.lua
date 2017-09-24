@@ -41,6 +41,7 @@ function Window:init(GUI, width, height, position)
   self.content = List()
   self.width = width
   self.height = height
+  self.active = false
   self:createContent(width, height)
   self:setPosition(position or Vector(0, 0, 0))
   self:setVisible(false)
@@ -77,6 +78,11 @@ end
 -- Sets this window as the active one.
 function Window:activate()
   self.GUI:setActiveWindow(self)
+end
+-- Activates/deactivates window.
+-- @param(value : boolean) true to activate, false to deactivate
+function Window:setActive(value)
+  self.active = value
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -196,18 +202,33 @@ end
 -- Checks if player pressed any GUI button.
 -- By default, only checks the "cancel" key.
 function Window:checkInput()
-  if InputManager.keys['cancel']:isTriggered() then
+  if InputManager.keys['confirm']:isTriggered() then
+    self:onConfirm()
+  elseif InputManager.keys['cancel']:isTriggered() then
     self:onCancel()
   elseif InputManager.keys['next']:isTriggered() then
     self:onNext()
   elseif InputManager.keys['prev']:isTriggered() then
     self:onPrev()
+  else
+    local dx, dy = InputManager:ortAxis(0.5, 0.0625)
+    if dx ~= 0 or dy ~= 0 then
+      self:onMove(dx, dy)
+    end
   end
+end
+-- Called when player presses "confirm" key.
+-- By default, only sets the result to 1.
+function Window:onConfirm()
+  self.result = 1
 end
 -- Called when player presses "cancel" key.
 -- By default, only dets the result to 0.
 function Window:onCancel()
   self.result = 0
+end
+-- Callod when player presses arrows.
+function Window:onMove(dx, dy)
 end
 -- Called when player presses "next" key.
 function Window:onNext()

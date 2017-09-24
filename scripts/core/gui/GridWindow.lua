@@ -43,6 +43,7 @@ function GridWindow:createContent(width, height)
   Window.createContent(self, width or self:calculateWidth(), height or self:calculateHeight())
   self:packWidgets()
 end
+-- Reposition widgets so they are aligned and inside the window and adjusts sliders.
 function GridWindow:packWidgets()
   self.buttonMatrix.height = ceil(#self.buttonMatrix / self:colCount())
   if self:actualRowCount() > self:rowCount() then
@@ -57,14 +58,42 @@ function GridWindow:packWidgets()
     self.cursor:updatePosition()
   end
 end
+
+---------------------------------------------------------------------------------------------------
+-- General
+---------------------------------------------------------------------------------------------------
+
+-- Overrides Window:setActive.
+-- Hides cursor and unselected button if deactivated.
+function GridWindow:setActive(value)
+  if self.active ~= value then
+    self.active = value
+    local button = self:currentButton()
+    if value then
+      if button then
+        button:setSelected(true)
+      end
+      if self.cursor then
+        self.cursor:show()
+      end
+    else
+      if self.cursor and not (button and button.selected) then
+        self.cursor:hide()
+      end
+    end
+  end
+end
+-- Overrides Window:showContent.
+-- Checks if there is a selected button to show/hide the cursor.
 function GridWindow:showContent()
   Window.showContent(self)
   local button = self:currentButton()
-  if button then
-    button:setSelected(true)
+  if button and button.selected then
     if button.enabled then
       button.onSelect(self, button)
     end
+  elseif self.cursor then
+    self.cursor:hide()
   end
 end
 
@@ -107,14 +136,6 @@ end
 function GridWindow:calculateHeight()
   return self:vPadding() * 2 + self:rowCount() * self:buttonHeight()
 end
-
----------------------------------------------------------------------------------------------------
--- Buttons
----------------------------------------------------------------------------------------------------
-
--- Adds the buttons of the window.
-function GridWindow:createButtons()
-end
 -- Gets the width of a single button.
 -- @ret(number) the width in pixels
 function GridWindow:buttonWidth()
@@ -125,7 +146,16 @@ end
 function GridWindow:buttonHeight()
   return 15
 end
--- Gets current selected button.
+
+---------------------------------------------------------------------------------------------------
+-- Buttons
+---------------------------------------------------------------------------------------------------
+
+-- Adds the buttons of the window.
+function GridWindow:createButtons()
+  -- Abstract.
+end
+-- Getscurrent selected button.
 -- @ret(Button) the selected button
 function GridWindow:currentButton()
   return self.buttonMatrix:get(self.currentCol, self.currentRow)
@@ -157,17 +187,26 @@ end
 function GridWindow:removeButton(pos)
   local last = #self.buttonMatrix
   assert(pos >= 1 and pos <= last, 'invalid button index: ' .. pos)
-  self.buttonMatrix[pos]:destroy()
+  local button = self.buttonMatrix[pos]
+  button:destroy()
   for i = pos, last - 1 do
     self.buttonMatrix[i] = self.buttonMatrix[i+1]
     self.buttonMatrix[i]:setIndex(i)
     self.buttonMatrix[i]:updatePosition(self.position)
   end
-  local button = self.buttonMatrix[last]
   self.buttonMatrix[last] = nil
   return button
 end
-
+-- Removes all buttons.
+function GridWindow:clearButtons()
+  local last = #self.buttonMatrix
+  for i = 1, last do
+    self.buttonMatrix[i]:destroy()
+    self.buttonMatrix[i] = nil
+  end
+end
+-- Sets the current selected button.
+-- @param(button : Button) nil to unselected all buttons
 function GridWindow:setSelectedButton(button)
   if button then
     button:setSelected(true)
@@ -185,25 +224,6 @@ end
 -- Input
 ---------------------------------------------------------------------------------------------------
 
--- Overrides Window:checkInput.
-function GridWindow:checkInput()
-  if InputManager.keys['confirm']:isTriggered() then
-    self:onConfirm()
-  elseif InputManager.keys['cancel']:isTriggered() then
-    self:onCancel()
-  elseif InputManager.keys['next']:isTriggered() then
-    self:onNext()
-  elseif InputManager.keys['prev']:isTriggered() then
-    self:onPrev()
-  else
-    local dx, dy = InputManager:ortAxis(0.5, 0.0625)
-    if dx ~= 0 or dy ~= 0 then
-      local c, r = self:movedCoordinates(self.currentCol, 
-        self.currentRow, dx, dy)
-      self:onMove(c, r, dx, dy)
-    end
-  end
-end
 -- Called when player confirms.
 function GridWindow:onConfirm()
   local button = self:currentButton()
@@ -220,7 +240,8 @@ function GridWindow:onCancel()
   Window.onCancel(self)
 end
 -- Called when player moves cursor.
-function GridWindow:onMove(c, r, dx, dy)
+function GridWindow:onMove(dx, dy)
+  local c, r = self:movedCoordinates(self.currentCol, self.currentRow, dx, dy)
   local oldButton = self:currentButton()
   self.currentCol = c
   self.currentRow = r

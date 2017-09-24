@@ -29,13 +29,18 @@ function ListButtonWindow:createButtons()
       self:createButton(self.list[i])
     end
   end
-  if self:buttonCount() == 0 then
-    self:addButton('', nil, function() end)
-  end
+  --if self:buttonCount() == 0 then
+  --  self:addButton('', nil, function() end)
+  --end
 end
 -- Creates a button from an element in the list.
 function ListButtonWindow:createButton(element)
   -- Abstract.
+end
+function ListButtonWindow:overrideButton(list)
+  self.list = list
+  self:clearButtons()
+  self:createButtons()
 end
 
 return ListButtonWindow

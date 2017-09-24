@@ -64,10 +64,10 @@ end
 -- Changes GUI's active window.
 function GUI:setActiveWindow(window)
   if self.activeWindow then
-    self.activeWindow.active = false
+    self.activeWindow:setActive(false)
   end
   self.activeWindow = window
-  window.active = true
+  window:setActive(true)
 end
 -- [COROUTINE] Waits until GUI closes and returns a result.
 -- @ret(unknown) the result of GUI (will never be nil)

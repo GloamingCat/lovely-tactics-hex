@@ -27,6 +27,7 @@ function EquipWindow:init(GUI, w, h, pos, rows, member)
   ListButtonWindow.init(self, Config.equipTypes, GUI, w, h, pos)
   self.member = member
   self:createEquipTexts()
+  self:setSelectedButton(nil)
 end
 -- @param(slot : table)
 function EquipWindow:createButton(slot)
@@ -36,7 +37,7 @@ function EquipWindow:createButton(slot)
     button.equipType = slot.key
   end
 end
-
+-- Creates the texts with the current character's equiped items.
 function EquipWindow:createEquipTexts()
   local x = 0
   for i = 1, #self.buttonMatrix do
@@ -54,7 +55,9 @@ function EquipWindow:createEquipTexts()
     self:createEquipText(button, name, x + 4, 'gui_medium')
   end
 end
--- @param(text : string)
+-- @param(button : Button)
+-- @param(name : string)
+-- @param(x : number)
 -- @param(fontName : string) (optional)
 function EquipWindow:createEquipText(button, name, x, fontName)
   local width = self:buttonWidth() - x
@@ -66,11 +69,30 @@ function EquipWindow:createEquipText(button, name, x, fontName)
   local pos = Vector(x, 0, 0)
   pos:add(button.text.relativePosition)
   fontName = fontName or 'gui_button'
-  local textSprite = SimpleText(name, pos, width - p - x, 'left', Font[fontName])
+  local textSprite = SimpleText(name, pos, width - p - x, 'left', fontName and Font[fontName])
   textSprite.sprite:setColor(Color.gui_text_default)
   button.infoText = textSprite
   textSprite:hide()
   button.content:add(textSprite)
+end
+
+function EquipWindow:setMember(member)
+  
+end
+
+
+----------------------------------------------------------------------------------------------------
+-- Button callbacks
+----------------------------------------------------------------------------------------------------
+
+function EquipWindow:onButtonConfirm(button)
+  --self:setSelectedButton(nil)
+  --self.GUI.itemWindow:activate()
+end
+
+function EquipWindow:onCancel()
+  self:setSelectedButton(nil)
+  self.GUI.listWindow:activate()
 end
 
 ---------------------------------------------------------------------------------------------------

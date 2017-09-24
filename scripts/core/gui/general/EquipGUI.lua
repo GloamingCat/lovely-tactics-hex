@@ -12,6 +12,7 @@ local Vector = require('core/math/Vector')
 local GUI = require('core/gui/GUI')
 local EquipWindow = require('core/gui/general/window/EquipWindow')
 local EquipListWindow = require('core/gui/general/window/EquipListWindow')
+local EquipItemWindow = require('core/gui/general/window/EquipItemWindow')
 local DescriptionWindow = require('core/gui/general/window/DescriptionWindow')
 
 local EquipGUI = class(GUI)
@@ -25,6 +26,7 @@ function EquipGUI:createWindows()
   self:createListWindow()
   self:createMainWindow()
   self:createDescriptionWindow()
+  self:createItemWindow()
 end
 
 function EquipGUI:createListWindow()
@@ -36,12 +38,10 @@ end
 
 function EquipGUI:createMainWindow()
   local member = self.listWindow.buttonMatrix[1].member
-  local w = ScreenManager.width - self.listWindow.width * 2 - self:windowMargin() * 3
+  local w = ScreenManager.width - self.listWindow.width * 2 - self:windowMargin() * 4
   local h = self.listWindow.height
-  local x = self.listWindow.width * 2 + self:windowMargin() - ScreenManager.width / 2
   local y = self:windowMargin() - ScreenManager.height / 2 + h / 2
-  local window = EquipWindow(self, w, h, Vector(x, y), self.listWindow.fitRowCount, member)
-  window:setSelectedButton(nil)
+  local window = EquipWindow(self, w, h, Vector(0, y), self.listWindow.fitRowCount, member)
   self.mainWindow = window
   self.windowList:add(window)
 end
@@ -52,6 +52,14 @@ function EquipGUI:createDescriptionWindow()
   local pos = Vector(0, ScreenManager.height / 2 - h / 2 - self:windowMargin())
   local window = DescriptionWindow(self, w, h, pos)
   self.descriptionWindow = window
+  self.windowList:add(window)
+end
+
+function EquipGUI:createItemWindow()
+  local w = self.listWindow.width
+  local h = self.listWindow.height
+  local window = EquipItemWindow(self, w, h, self.listWindow.fitRowCount, TurnManager:currentTroop())
+  self.itemWindow = window
   self.windowList:add(window)
 end
 
