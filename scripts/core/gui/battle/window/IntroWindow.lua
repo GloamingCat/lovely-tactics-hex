@@ -24,22 +24,21 @@ local IntroWindow = class(GridWindow)
 
 -- Creates a button for each backup member.
 function IntroWindow:createButtons()
-  Button(self, Vocab.start, nil, self.onStart)
-  Button(self, Vocab.party, nil, self.onParty)
-  --Button(self, Vocab.items, nil, self.onItems)
-  Button(self, Vocab.equips, nil, self.onEquips)
-  --Button(self, Vocab.escape, nil, self.onEscape)
+  self:createButton('start')
+  self:createButton('party')
+  self:createButton('items')
+  self:createButton('equips')
 end
 
 ---------------------------------------------------------------------------------------------------
 -- Callbacks
 ---------------------------------------------------------------------------------------------------
 
-function IntroWindow:onStart(button)
+function IntroWindow:startConfirm(button)
   self.result = 1
 end
 
-function IntroWindow:onParty(button)
+function IntroWindow:partyConfirm(button)
   -- Executes action grid selecting.
   local action = PartyAction()
   local input = ActionInput(action, nil, nil, nil, self.GUI)
@@ -52,13 +51,13 @@ function IntroWindow:onParty(button)
   self.GUI:show()
 end
 
-function IntroWindow:onItems(button)
+function IntroWindow:itemsConfirm(button)
   self.GUI:hide()
   GUIManager:showGUIForResult(ItemGUI())
   self.GUI:show()
 end
 
-function IntroWindow:onEquips(button)
+function IntroWindow:equipsConfirm(button)
   self.GUI:hide()
   GUIManager:showGUIForResult(EquipGUI())
   self.GUI:show()

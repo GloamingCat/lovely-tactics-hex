@@ -41,11 +41,13 @@ function WindowCursor:update()
   end
 end
 -- Updates position to the selected button.
-function WindowCursor:updatePosition()
+function WindowCursor:updatePosition(wpos)
   local button = self.window:currentButton()
   if button then
-    self.anim.sprite:setPosition(self.window.position + 
-      button:relativePosition() + self.displacement)
+    local pos = button:relativePosition()
+    pos:add(wpos)
+    pos:add(self.displacement)
+    self.anim.sprite:setPosition(pos)
   else
     self.anim.sprite:setVisible(false)
   end

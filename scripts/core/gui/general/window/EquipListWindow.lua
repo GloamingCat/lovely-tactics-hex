@@ -33,9 +33,10 @@ function EquipListWindow:init(GUI, troop)
   ListButtonWindow.init(self, list, GUI, w, fith, pos)
 end
 
-function EquipListWindow:createButton(member)
+function EquipListWindow:createListButton(member)
   local data = self.troop:getMemberData(member.key)
-  local button = Button(self, data.name, nil, self.onButtonConfirm)
+  local button = Button(self, self.onButtonConfirm)
+  button:createText(data.name)
   button.member = member
   button.onSelect = self.onButtonSelect
   return button

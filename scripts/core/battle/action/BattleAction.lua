@@ -237,9 +237,7 @@ end
 -- @param(tile : ObjectTile) the tile to check
 -- @ret(boolean) true if can be chosen, false otherwise
 function BattleAction:isSelectable(input, tile)
-  if input.user.battler.steps == 0 and not tile.gui.reachable then
-    return false
-  elseif self.allTiles then
+  if self.allTiles then
     return tile.gui.reachable
   end
   for char in tile.characterList:iterator() do

@@ -50,16 +50,16 @@ end
 -- @param(battler : BattlerBase) character's battler or battler base created from member
 -- @ret(Button)
 function CallWindow:createMemberButton(member, battler)
-  local button = Button(self, battler.data.name, nil, self.onButtonConfirm)
-  button.onSelect = self.onButtonSelect
+  local button = Button(self, self.onButtonConfirm, self.onButtonSelect)
+  button:createText(battler.data.name)
   button.battler = battler
   button.memberKey = member.key
   return button
 end
 -- @ret(Button)
 function CallWindow:createNoneButton()
-  local button = Button(self, Vocab.none, nil, self.onButtonConfirm)
-  button.onSelect = self.onButtonSelect
+  local button = Button(self, self.onButtonConfirm, self.onButtonSelect)
+  button:createText(Vocab.none)
   button.memberKey = ''
   if self.GUI.targetWindow then
     self.GUI.targetWindow:setVisible(false)

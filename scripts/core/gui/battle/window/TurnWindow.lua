@@ -51,13 +51,13 @@ function TurnWindow:createContent(...)
 end
 -- Overrides GridWindow:createButtons.
 function TurnWindow:createButtons()
-  Button(self, Vocab.attack, nil, self.onAttackAction, self.attackEnabled)
-  Button(self, Vocab.move, nil, self.onMoveAction, self.moveEnabled)
-  Button(self, Vocab.skill, nil, self.onSkill, self.skillEnabled)
-  Button(self, Vocab.item, nil, self.onItem, self.itemEnabled)
-  Button(self, Vocab.escape, nil, self.onEscapeAction, self.escapeEnabled)
-  Button(self, Vocab.callAlly, nil, self.onCallAllyAction, self.callAllyEnabled)
-  Button(self, Vocab.wait, nil, self.onWait)
+  self:createButton('attack')
+  self:createButton('move')
+  self:createButton('skill')
+  self:createButton('item')
+  self:createButton('escape')
+  self:createButton('callAlly')
+  self:createButton('wait')
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -65,35 +65,35 @@ end
 ---------------------------------------------------------------------------------------------------
 
 -- "Attack" button callback.
-function TurnWindow:onAttackAction(button)
+function TurnWindow:attackConfirm(button)
   self:selectAction(TurnManager:currentCharacter().battler.attackSkill)
 end
 -- "Move" button callback.
-function TurnWindow:onMoveAction(button)
+function TurnWindow:moveConfirm(button)
   self:selectAction(self.moveAction)
 end
 -- "Escape" button callback.
-function TurnWindow:onEscapeAction(button)
+function TurnWindow:escapeConfirm(button)
   self:selectAction(self.escapeAction)
 end
 -- "Call Ally" button callback.
-function TurnWindow:onCallAllyAction(button)
+function TurnWindow:callAllyConfirm(button)
   self:selectAction(self.callAction)
 end
 -- "Skill" button callback. Opens Skill Window.
-function TurnWindow:onSkill(button)
+function TurnWindow:skillConfirm(button)
   self:changeWindow(self.GUI.skillWindow, true)
 end
 -- "Item" button callback. Opens Item Window.
-function TurnWindow:onItem(button)
+function TurnWindow:itemConfirm(button)
   self:changeWindow(self.GUI.itemWindow, true)
 end
 -- "Wait" button callback. End turn.
-function TurnWindow:onWait(button)
+function TurnWindow:waitConfirm(button)
   self:selectAction(self.waitAction)
 end
 -- Overrides GridWindow:onCancel.
-function TurnWindow:onCancel()
+function TurnWindow:cancelConfirm()
   self:selectAction(self.visualizeAction)
   self.result = nil
 end
@@ -161,7 +161,6 @@ end
 function TurnWindow:skillActionEnabled(button, skill)
   local field = FieldManager.currentField
   local user = TurnManager:currentCharacter()
-  local tile = user:getTile()
   local input = ActionInput(skill, user)
   if self:moveEnabled(button) then
     for tile in field:gridIterator() do
@@ -169,12 +168,15 @@ function TurnWindow:skillActionEnabled(button, skill)
         return true
       end
     end
-  end
-  local range = skill.data.range
-  for i, j in mathf.radiusIterator(range, tile.x, tile.y, field.sizeX, field.sizeY) do
-    local tile = field:getObjectTile(i, j, tile.layer.height)
-    if skill:isSelectable(input, tile) then
-      return true
+  else
+    local range = skill.data.range
+    local tile = user:getTile()
+    local h = tile.layer.height
+    for i, j in mathf.radiusIterator(range, tile.x, tile.y, field.sizeX, field.sizeY) do
+      local t = field:getObjectTile(i, j, h)
+      if skill:isSelectable(input, t) then
+        return true
+      end
     end
   end
   return false

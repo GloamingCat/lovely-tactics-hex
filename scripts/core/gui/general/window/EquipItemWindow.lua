@@ -28,9 +28,10 @@ function EquipItemWindow:init(GUI, w, h, rowCount, troop)
   ListButtonWindow.init(self, {}, GUI, w, h, pos)
 end
 
-function EquipItemWindow:createButton(itemID)
+function EquipItemWindow:createListButton(itemID)
   local data = Database.items[itemID]
-  local button = Button(self, data.name, nil, self.onButtonConfirm)
+  local button = Button(self, self.onButtonConfirm)
+  button:createText(data.name)
   button.item = data
   button.onSelect = self.onButtonSelect
   return button

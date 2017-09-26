@@ -42,10 +42,11 @@ end
 -- @ret(Vector) the offset from the window's position.
 function GridWidget:relativePosition()
   local w = self.window
-  local x = w:gridX() - (w.width / 2 - w:hPadding()) + 
-    (self.col - w.offsetCol - 1) * w:buttonWidth()
-  local y = w:gridY() - (w.height / 2 - w:vPadding()) + 
-    (self.row - w.offsetRow - 1) * w:buttonHeight()
+  local col, row = self.col - w.offsetCol, self.row - w.offsetRow
+  local x = w:gridX() - w.width / 2 + w:hPadding() + 
+    (col - 1) * (w:buttonWidth() + w:hButtonMargin())
+  local y = w:gridY() - w.height / 2 + w:vPadding() + 
+    (row - 1) * (w:buttonHeight() + w:vButtonMargin())
   return Vector(x, y, -1)
 end
 

@@ -30,9 +30,10 @@ function EquipWindow:init(GUI, w, h, pos, rows, member)
   self:setSelectedButton(nil)
 end
 -- @param(slot : table)
-function EquipWindow:createButton(slot)
+function EquipWindow:createListButton(slot)
   for i = 1, slot.count do
-    local button = Button(self, slot.name, nil, self.onButtonConfirm, nil, 'gui_medium')
+    local button = Button(self, self.onButtonConfirm)
+    button:createText(slot.name, 'gui_medium')
     button.key = slot.key .. i
     button.equipType = slot.key
   end

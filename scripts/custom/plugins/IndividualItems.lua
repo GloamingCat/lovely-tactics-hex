@@ -41,17 +41,17 @@ end
 -- Add "Trade" button and reorder buttons.
 function TurnWindow:createButtons()
   self.tradeSkill = TradeSkill(skillID)
-  Button(self, Vocab.attack, nil, self.onAttackAction, self.attackEnabled)
-  Button(self, Vocab.move, nil, self.onMoveAction, self.moveEnabled)
-  Button(self, Vocab.skill, nil, self.onSkill, self.skillEnabled)
-  Button(self, Vocab.item, nil, self.onItem, self.itemEnabled)
-  Button(self, Vocab.trade, nil, self.onTradeAction, self.tradeEnabled)
-  Button(self, Vocab.escape, nil, self.onEscapeAction, self.escapeEnabled)
-  Button(self, Vocab.wait, nil, self.onWait)
-  Button(self, Vocab.callAlly, nil, self.onCallAllyAction, self.callAllyEnabled)
+  self:createButton('attack')
+  self:createButton('move')
+  self:createButton('skill')
+  self:createButton('item')
+  self:createButton('trade')
+  self:createButton('escape')
+  self:createButton('wait')
+  self:createButton('callAlly')
 end
 -- "Trade" button callback.
-function TurnWindow:onTradeAction(button)
+function TurnWindow:tradeConfirm(button)
   self:selectAction(self.tradeSkill)
 end
 -- Trade condition. Enabled if there are any characters nearby that have items.

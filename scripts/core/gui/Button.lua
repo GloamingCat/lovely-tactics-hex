@@ -21,51 +21,68 @@ local Button = class(GridWidget)
 ---------------------------------------------------------------------------------------------------
 
 -- @param(window : GridWindow) the window that this button is component of
--- @param(index : number) the index of the button in the window
--- @param(col : number) the column of the button in the window
--- @param(row : number) the row of the button in the window
--- @param(text : string) the text shown in the button
--- @param(iconAnim : Animation | string) the icon graphics or the path to the icon
--- @param(onConfirm : function) the function called when
---  player confirms (optinal)
--- @param(onCancel : function) the function called when
---  player cancels (optinal)
--- @param(onMove : function) the function called when 
---  player moves cursor (optional)
+-- @param(onConfirm : function) the function called when player confirms (optinal)
+-- @param(onSelects : function) the function called when player selects this button (optinal)
 -- @param(enableCondition : function) the function that tells if 
 --  this button is enabled (optional)
--- @param(fontName : string) the text's font, from Fonts folder (optional, uses default)
-function Button:init(window, text, iconAnim, onConfirm, enableCondition, fontName)
+-- @param(onMove : function) the function called when player presses arrows (optinal)
+function Button:init(window, onConfirm, onSelect, enableCondition, onMove)
   GridWidget.init(self, window)
-  self.onConfirm = onConfirm or self.onConfirm
-  self.enableCondition = enableCondition
-  self:initializeContent(text, iconAnim, fontName)
+  self.onConfirm = onConfirm or self.onConfirm 
+  self.onSelect = onSelect or self.onSelect
+  self.enableCondition = enableCondition or self.enableCondition
+  self.onMove = onMove or self.onMove
 end
--- Creates button basic content (text and icon).
-function Button:initializeContent(text, iconAnim, fontName)
-  if text ~= '' then
-    local width = self.window:buttonWidth()
-    fontName = fontName or 'gui_button'
-    self.text = SimpleText(text, nil, width, 'left', Font[fontName])
-    self.text.sprite:setColor(Color.gui_text_default)
-    self.content:add(self.text)
+-- @param(text : string) the text shown in the button
+-- @param(fontName : string) the text's font, from Fonts folder (optional, uses default)
+function Button:createText(text, fontName, align, w, pos)
+  fontName = fontName or 'gui_button'
+  w = (w or self.window:buttonWidth()) - self:iconWidth()
+  pos = pos or Vector(0, 1, 0)
+  self.text = SimpleText(text, pos, w, align or 'left', Font[fontName])
+  self.text.sprite:setColor(Color.gui_text_default)
+  self.content:add(self.text)
+end
+-- @param(info : string) the auxiliar info text in the right side of the button
+-- @param(fontName : string) the text's font, from Fonts folder (optional, uses default)
+function Button:createInfoText(info, fontName, align, w, pos)
+  local bw = self.window:buttonWidth() - self:iconWidth()
+  w = w or bw
+  pos = pos or Vector(bw - w, 1, 0)
+  fontName = fontName or 'gui_button'
+  local text = SimpleText(info, pos, w, align or 'right', Font[fontName])
+  text.sprite:setColor(Color.gui_text_default)
+  self.infoText = text
+  self.content:add(text)
+end
+-- @param(icon : Animation | string) the icon graphics or the path to the icon
+function Button:createIcon(icon)
+  if not icon then
+    return
   end
-  if iconAnim ~= nil then
-    if type(iconAnim) == 'string' then
-      local img = love.graphics.newImage('images/' .. iconAnim)
-      iconAnim = Animation.fromImage(img, GUIManager.renderer)
-    end
-    self.icon = iconAnim
-    iconAnim.sprite:setColor(Color.gui_icon_default)
-    self.content:add(iconAnim)
+  if type(icon) == 'string' then
+    local img = love.graphics.newImage('images/' .. icon)
+    icon = Animation.fromImage(img, GUIManager.renderer)
   end
+  self.icon = icon
+  icon.sprite:setColor(Color.gui_icon_default)
+  self.content:add(icon)
 end
 
 ---------------------------------------------------------------------------------------------------
 -- General
 ---------------------------------------------------------------------------------------------------
 
-function Button:setText(text)
+function Button:iconWidth()
+  if self.icon then
+    local _, _, w = self.icon.sprite.quad:getViewport()
+    return w
+  else
+    return 0
+  end
+end
+
+function Button:setText(text, fontName, align)
   self.text:setText(text)
   self.text:redraw()
 end
@@ -73,21 +90,6 @@ end
 function Button:setInfoText(text)
   self.infoText:setText(text)
   self.infoText:redraw()
-end
--- @param(text : string)
--- @param(fontName : string) (optional)
-function Button:createButtonInfo(text, fontName)
-  local width = self.window:buttonWidth()
-  if self.icon then
-    local _, _, w = self.icon.sprite.quad:getViewport()
-    width = width - w
-  end
-  local p = self.window:hPadding()
-  fontName = fontName or 'gui_button'
-  local textSprite = SimpleText(text, nil, width - p, 'right', Font[fontName])
-  textSprite.sprite:setColor(Color.gui_text_default)
-  self.infoText = textSprite
-  self.content:add(textSprite)
 end
 -- Converting to string.
 function Button:__tostring()
@@ -170,7 +172,6 @@ function Button:updatePosition(windowPos)
     self.icon.sprite:setXYZ(nil, pos.y + (self.window:buttonHeight() - h) / 2)
     pos:add(Vector(w - (self.icon.sprite.position.x - x), 0))
   end
-  pos.y = pos.y + 1
   if self.text then
     self.text:updatePosition(pos)
   end

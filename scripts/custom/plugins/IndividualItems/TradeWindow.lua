@@ -46,11 +46,12 @@ function TradeWindow:newItemButton(slot)
   local item = Database.items[slot.id]
   local icon = item.icon.id >= 0 and 
     ResourceManager:loadIconAnimation(item.icon, GUIManager.renderer)
-  local button = Button(self, item.name, icon, self.onButtonConfirm, self.buttonEnabled, 'gui_medium')
+  local button = Button(self, self.onButtonConfirm, nil, self.buttonEnabled)
+  button:createText(item.name, 'gui_medium')
+  button:createIcon(icon)
   button.item = item
   button.slot = slot
-  button.onMove = self.onButtonMove
-  button:createButtonInfo(slot.count, 'gui_medium')
+  button:createInfoText(slot.count, 'gui_medium')
   return button
 end
 
@@ -80,7 +81,8 @@ function TradeWindow:onButtonConfirm(button)
   self:removeItem(button, count)
 end
 -- Changes active window to the other one when player presses right/left buttons.
-function TradeWindow:onButtonMove(button, dx, dy)
+function TradeWindow:onMove(dx, dy)
+  GridWindow.onMove(self, dx, dy)
   if dx > 0 then
     self:changeTradeWindow(self.right)
   elseif dx < 0 then

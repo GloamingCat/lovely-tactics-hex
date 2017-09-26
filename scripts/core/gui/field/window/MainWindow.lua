@@ -14,32 +14,28 @@ local GridWindow = require('core/gui/GridWindow')
 local MainWindow = class(GridWindow)
 
 function MainWindow:createButtons()
-  Button(self, Vocab.items, nil, self.onItems)
-  Button(self, Vocab.skills, nil, self.onSkills)
-  Button(self, Vocab.states, nil, self.onStates)
-  Button(self, Vocab.party, nil, self.onParty)
-  Button(self, Vocab.config, nil, self.onConfig)
-  Button(self, Vocab.save, nil, self.onSave)
-  Button(self, Vocab.quit, nil, self.onQuit)
+  self:createButton('items')
+  self:createButton('skills')
+  self:createButton('states')
+  self:createButton('party')
+  self:createButton('config')
+  self:createButton('save')
+  self:createButton('quit')
 end
 
 ---------------------------------------------------------------------------------------------------
 -- Character
 ---------------------------------------------------------------------------------------------------
 
-function MainWindow:onItems()
+function MainWindow:itemsConfirm()
   
 end
 
-function MainWindow:onSkills()
+function MainWindow:skillsConfirm()
   
 end
 
-function MainWindow:onStates()
-  
-end
-
-function MainWindow:selectCharacter()
+function MainWindow:statesConfirm()
   
 end
 
@@ -47,19 +43,19 @@ end
 -- General
 ---------------------------------------------------------------------------------------------------
 
-function MainWindow:onParty()
+function MainWindow:partyConfirm()
   
 end
 
-function MainWindow:onConfig()
+function MainWindow:configConfirm()
   
 end
 
-function MainWindow:onSave()
+function MainWindow:saveConfirm()
   
 end
 
-function MainWindow:onQuit()
+function MainWindow:quitConfirm()
   
 end
 

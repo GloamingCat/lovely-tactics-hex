@@ -55,7 +55,7 @@ function GridWindow:packWidgets()
   end
   self:updateViewport(self.currentCol, self.currentRow)
   if self.cursor then
-    self.cursor:updatePosition()
+    self.cursor:updatePosition(self.position)
   end
 end
 
@@ -129,12 +129,14 @@ end
 -- Gets the total width of the window.
 -- @ret(number) the window's width in pixels
 function GridWindow:calculateWidth()
-  return self:hPadding() * 2 + self:colCount() * self:buttonWidth()
+  local cols = self:colCount()
+  return self:hPadding() * 2 + cols * self:buttonWidth() + (cols - 1) * self:hButtonMargin()
 end
 -- Gets the total height of the window.
 -- @ret(number) the window's height in pixels
 function GridWindow:calculateHeight()
-  return self:vPadding() * 2 + self:rowCount() * self:buttonHeight()
+  local rows = self:rowCount()
+  return self:vPadding() * 2 + rows * self:buttonHeight() + (rows - 1) * self:vButtonMargin()
 end
 -- Gets the width of a single button.
 -- @ret(number) the width in pixels
@@ -146,6 +148,16 @@ end
 function GridWindow:buttonHeight()
   return 15
 end
+-- Gets the space between buttons in horizontal direction.
+-- @ret(number) the space in pixels
+function GridWindow:hButtonMargin()
+  return 4
+end
+-- Gets the space between buttons in vertical direction.
+-- @ret(number) the space in pixels
+function GridWindow:vButtonMargin()
+  return 2
+end
 
 ---------------------------------------------------------------------------------------------------
 -- Buttons
@@ -154,6 +166,20 @@ end
 -- Adds the buttons of the window.
 function GridWindow:createButtons()
   -- Abstract.
+end
+-- Creates a buttons  for the action represented by the given key.
+-- @param(key : string) action's key
+-- @ret(Button)
+function GridWindow:createButton(key)
+  local button = Button(self, self[key .. 'Confirm'], self[key .. 'Select'], self[key .. 'Enabled'])
+  local icon = Icon[key]
+  if icon then
+    button:createIcon(icon)
+  end
+  local text = Vocab[key]
+  if text then
+    button:createText(text)
+  end
 end
 -- Getscurrent selected button.
 -- @ret(Button) the selected button
@@ -256,7 +282,7 @@ function GridWindow:onMove(dx, dy)
   end
   self:updateViewport(c, r)
   if self.cursor then
-    self.cursor:updatePosition()
+    self.cursor:updatePosition(self.position)
   end
 end
 

@@ -36,18 +36,19 @@ function ItemWindow:init(GUI, inventory, itemList)
 end
 -- Creates a button from an item ID.
 -- @param(id : number) the item ID
-function ItemWindow:createButton(itemSlot)
+function ItemWindow:createListButton(itemSlot)
   local item = Database.items[itemSlot.id]
   local icon = item.icon.id >= 0 and 
     ResourceManager:loadIconAnimation(item.icon, GUIManager.renderer)
-  local button = Button(self, item.name, icon, self.onButtonConfirm, self.buttonEnabled, 'gui_medium')
+  local button = Button(self, self.onButtonConfirm, self.onButtonSelect, self.buttonEnabled)
+  button:createText(item.name, 'gui_medium')
+  button:createIcon(icon)
   button.item = item
   button.description = item.description
   local id = item.use.skillID
   id = id >= 0 and id or defaultSkillID
   button.skill = ItemAction:fromData(id, button.item)
-  button.onSelect = self.onButtonSelect
-  button:createButtonInfo(itemSlot.count, 'gui_medium')
+  button:createInfoText(itemSlot.count, 'gui_medium')
 end
 
 ---------------------------------------------------------------------------------------------------

@@ -35,13 +35,14 @@ function SkillWindow:init(GUI, skillList)
 end
 -- Creates a button from a skill ID.
 -- @param(skill : SkillAction) the SkillAction from battler's skill list
-function SkillWindow:createButton(skill)
+function SkillWindow:createListButton(skill)
   -- Icon
   local icon = skill.data.icon.id >= 0 and 
     ResourceManager:loadIconAnimation(skill.data.icon, GUIManager.renderer)
   -- Button
-  local button = Button(self, skill.data.name, icon, self.onButtonConfirm, 
-    self.buttonEnabled, 'gui_medium')
+  local button = Button(self, self.onButtonConfirm, self.onButtonSelect, self.buttonEnabled)
+  button:createIcon(icon)
+  button:createText(skill.data.name, 'gui_medium')
   button.skill = skill
   button.description = skill.data.description
   -- Get SP cost
@@ -53,8 +54,7 @@ function SkillWindow:createButton(skill)
     end
   end
   local sp = Config.attributes[spName].shortName
-  button:createButtonInfo(cost .. sp, 'gui_medium')
-  button.onSelect = self.onButtonSelect
+  button:createInfoText(cost .. sp, 'gui_medium')
   return button
 end
 
@@ -89,7 +89,7 @@ end
 
 -- New button width.
 function SkillWindow:buttonWidth()
-  return (self.width - self:hPadding()) / 2
+  return (self.width - self:hPadding() * 2 - self:hButtonMargin()) / 2
 end
 -- New col count.
 function SkillWindow:colCount()
