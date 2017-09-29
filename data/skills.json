@@ -268,7 +268,7 @@
 			"costs": [
 			  {
 			  	"key": "sp",
-				"value": "20"
+          "value": "20"
 			  }
 			],
 			"timeCost": 100,
@@ -417,7 +417,7 @@
 			"id": 8,
 			"type": 1,
       "targetType": 2, 
-			"description": "Makes an enemy fall sleep.",
+			"description": "Makes an enemy fall asleep.",
 			"icon": {
 			  "id": 27,
 			  "col": 3,

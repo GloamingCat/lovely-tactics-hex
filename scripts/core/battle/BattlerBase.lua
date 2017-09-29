@@ -24,6 +24,7 @@ local sum = util.array.sum
 
 -- Constants
 local attConfig = Config.attributes
+local equipTypes = Config.equipTypes
 local elementCount = #Config.elements
 local mhpName = Config.battle.attHP
 local mspName = Config.battle.attSP
@@ -50,6 +51,7 @@ function BattlerBase:init(data, save)
   self:initializeElements(data.elements or {})
   self:initializeInventory(data.items or {})
   self:initializeStatusList(data.status or {})
+  self:initializeEquipment(data.equipment or {})
   self:createAttributes()
   self:createStateValues(data.attributes, data.level)
 end
@@ -102,6 +104,19 @@ function BattlerBase:initializeInventory(items)
   items = self.save and self.save.items or items
   self.inventory = Inventory(items)
 end
+-- Initialized equipment table.
+function BattlerBase:initializeEquipment(equip)
+  self.equipment = {}
+  for i = 1, #equipTypes do
+    local slot = equipTypes[i]
+    for k = 1, slot.count do
+      local key = slot.key .. k
+      self.equipment[key] = equip[key] and copyTable(equip[key]) or {
+        id = -1,
+        freedom = slot.freedom }
+    end
+  end
+end
 
 ---------------------------------------------------------------------------------------------------
 -- Attributes
@@ -141,13 +156,11 @@ function BattlerBase:createStateValues(attBase, level)
   if self.save then
     self.state = copyTable(self.save.state)
     self.attBase = copyTable(self.save.attBase)
-    self.equipment = copyTable(self.save.equipment)
     self.exp = self.save.exp
     self.level = self.save.level
     self.elementFactors = self.save.elements
   else
     self.state = {}
-    self.equipment = self.data.equipment
     self.attBase = {}
     for i = 1, #attConfig do
       local key = attConfig[i].key

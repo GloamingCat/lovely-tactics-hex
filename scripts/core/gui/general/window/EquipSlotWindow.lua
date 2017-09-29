@@ -1,9 +1,9 @@
 
 --[[===============================================================================================
 
-EquipWindow
+EquipSlotWindow
 ---------------------------------------------------------------------------------------------------
-
+The window that shows each equipment slot.
 
 =================================================================================================]]
 
@@ -16,82 +16,81 @@ local ListButtonWindow = require('core/gui/ListButtonWindow')
 -- Alias
 local max = math.max
 
-local EquipWindow = class(ListButtonWindow)
+local EquipSlotWindow = class(ListButtonWindow)
 
 ---------------------------------------------------------------------------------------------------
 -- Initialization
 ---------------------------------------------------------------------------------------------------
 
-function EquipWindow:init(GUI, w, h, pos, rows, member)
+function EquipSlotWindow:init(GUI, w, h, pos, rows, member)
   self.fitRowCount = rows
   ListButtonWindow.init(self, Config.equipTypes, GUI, w, h, pos)
   self.member = member
-  self:createEquipTexts()
   self:setSelectedButton(nil)
 end
 -- @param(slot : table)
-function EquipWindow:createListButton(slot)
+function EquipSlotWindow:createListButton(slot)
   for i = 1, slot.count do
-    local button = Button(self, self.onButtonConfirm)
-    button:createText(slot.name, 'gui_medium')
+    local button = Button(self, self.onButtonConfirm, self.onButtonSelect)
+    local w = self:buttonWidth()
+    button:createText(slot.name, 'gui_medium', 'left', w / 3)
+    button:createInfoText(Vocab.empty, 'gui_medium', 'left', w / 3 * 2, Vector(w / 3, 1, 0))
     button.key = slot.key .. i
-    button.equipType = slot.key
-  end
-end
--- Creates the texts with the current character's equiped items.
-function EquipWindow:createEquipTexts()
-  local w = self:buttonWidth()
-  local x = w / 3
-  w = w * 2 / 3
-  for i = 1, #self.buttonMatrix do
-    local button = self.buttonMatrix[i]
-    local id = self.member.data.equipment[button.key]
-    local name, icon = Vocab.empty, nil
-    if id and id >= 0 then
-      local item = Database.items[id]
-      name = item.name
-    end
-    local pos = Vector(x, 1, 0)
-    button:createInfoText(name, 'gui_medium', 'left', w, pos)
+    button.slot = slot
   end
 end
 
-function EquipWindow:setMember(member)
-  
+function EquipSlotWindow:setMember(member)
+  self.member = member
+  for i = 1, #self.buttonMatrix do
+    local button = self.buttonMatrix[i]
+    local slot = self.member.data.equipment[button.key]
+    local name = Vocab.empty
+    if slot and slot.id >= 0 then
+      local item = Database.items[slot.id]
+      name = item.name
+    end
+    button:setInfoText(name)
+    button:setEnabled(slot.freedom ~= 0)
+  end
 end
 
 ----------------------------------------------------------------------------------------------------
 -- Button callbacks
 ----------------------------------------------------------------------------------------------------
 
-function EquipWindow:onButtonConfirm(button)
-  --self:setSelectedButton(nil)
-  --self.GUI.itemWindow:activate()
+function EquipSlotWindow:onButtonConfirm(button)
+  self:setSelectedButton(nil)
+  self.GUI.itemWindow:activate()
 end
 
-function EquipWindow:onCancel()
+function EquipSlotWindow:onButtonSelect(button)
+  self.GUI.itemWindow:setSlot(button.key, button.slot)
+end
+
+function EquipSlotWindow:onCancel()
   self:setSelectedButton(nil)
-  self.GUI.listWindow:activate()
+  self.GUI.memberWindow:activate()
 end
 
 ---------------------------------------------------------------------------------------------------
 -- Properties
 ---------------------------------------------------------------------------------------------------
 
-function EquipWindow:colCount()
+function EquipSlotWindow:colCount()
   return 1
 end
 
-function EquipWindow:rowCount()
+function EquipSlotWindow:rowCount()
   return self.fitRowCount
 end
 
-function EquipWindow:buttonWidth()
+function EquipSlotWindow:buttonWidth()
   return self.width - self:hPadding() * 2
 end
 
-function EquipWindow:__tostring()
-  return 'EquipWindow'
+function EquipSlotWindow:__tostring()
+  return 'EquipSlotWindow'
 end
 
-return EquipWindow
+return EquipSlotWindow

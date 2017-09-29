@@ -72,6 +72,9 @@ function GridWindow:setActive(value)
     if value then
       if button then
         button:setSelected(true)
+        if button.onSelect then
+          button.onSelect(self, button)
+        end
       end
       if self.cursor then
         self.cursor:show()

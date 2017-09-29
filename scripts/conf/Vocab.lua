@@ -13,7 +13,10 @@ return {
   -- Battle intro Window
   start = 'Start',
   none = 'None',
+  
+  -- Equip Window
   empty = 'Empty',
+  unequip = 'Unequip',
   
   -- Turn Window
   attack = 'Attack',

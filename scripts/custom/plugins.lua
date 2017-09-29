@@ -13,7 +13,7 @@ local killCheat = { 'KillCheat', on = true,
 local individualTurn = { 'IndividualTurn', on = true,
   attName = 'agi',
   turnLimit = 2000 }
-local individualItems = { 'IndividualItems', on = true,
+local individualItems = { 'IndividualItems', on = false,
   attName = 'car',
   skillID = 1 }
 local controlZone = { 'ControlZone', on = false }

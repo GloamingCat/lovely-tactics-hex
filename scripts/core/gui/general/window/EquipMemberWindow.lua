@@ -1,7 +1,7 @@
 
 --[[===============================================================================================
 
-EquipListWindow
+EquipMemberWindow
 ---------------------------------------------------------------------------------------------------
 A window that shows the troop's members in the Equip GUI.
 
@@ -13,14 +13,14 @@ local Vector = require('core/math/Vector')
 local Button = require('core/gui/Button')
 local ListButtonWindow = require('core/gui/ListButtonWindow')
 
-local EquipListWindow = class(ListButtonWindow)
+local EquipMemberWindow = class(ListButtonWindow)
 
 ----------------------------------------------------------------------------------------------------
 -- Initialization
 ----------------------------------------------------------------------------------------------------
 
 -- Constructor.
-function EquipListWindow:init(GUI, troop)
+function EquipMemberWindow:init(GUI, troop)
   local list = List(troop.current)
   list:addAll(troop.backup)
   self.troop = troop
@@ -33,12 +33,12 @@ function EquipListWindow:init(GUI, troop)
   ListButtonWindow.init(self, list, GUI, w, fith, pos)
 end
 
-function EquipListWindow:createListButton(member)
+function EquipMemberWindow:createListButton(member)
   local data = self.troop:getMemberData(member.key)
-  local button = Button(self, self.onButtonConfirm)
+  local button = Button(self, self.onButtonConfirm, self.onButtonSelect)
   button:createText(data.name)
   button.member = member
-  button.onSelect = self.onButtonSelect
+  button.memberData = data
   return button
 end
 
@@ -46,29 +46,30 @@ end
 -- Button callbacks
 ----------------------------------------------------------------------------------------------------
 
-function EquipListWindow:onButtonSelect(button)
-  self.GUI.mainWindow:setMember(button.member)
+function EquipMemberWindow:onButtonSelect(button)
+  self.GUI.slotWindow:setMember(button.member, button.memberData)
+  self.GUI.itemWindow:setMember(button.member, button.memberData)
 end
 
-function EquipListWindow:onButtonConfirm(button)
+function EquipMemberWindow:onButtonConfirm(button)
   self:setSelectedButton(nil)
-  self.GUI.mainWindow:activate()
+  self.GUI.slotWindow:activate()
 end
 
 ----------------------------------------------------------------------------------------------------
 -- Properties
 ----------------------------------------------------------------------------------------------------
 
-function EquipListWindow:buttonWidth()
+function EquipMemberWindow:buttonWidth()
   return self.width - self:hPadding() * 2 - self.GUI:windowMargin() * 2
 end
 -- Overrides GridWindow:colCount.
-function EquipListWindow:colCount()
+function EquipMemberWindow:colCount()
   return 1
 end
 -- Overrides GridWindow:rowCount.
-function EquipListWindow:rowCount()
+function EquipMemberWindow:rowCount()
   return self.fitRowCount
 end
 
-return EquipListWindow
+return EquipMemberWindow

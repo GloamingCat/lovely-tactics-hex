@@ -25,20 +25,32 @@ function EquipItemWindow:init(GUI, w, h, rowCount, troop)
   local m = GUI:windowMargin()
   self.fitRowCount = rowCount
   local pos = Vector(ScreenManager.width / 2 - w / 2 - m, h / 2 - ScreenManager.height / 2 + m, 0)
+  self.slot = Config.equipTypes[1]
   ListButtonWindow.init(self, {}, GUI, w, h, pos)
+end
+
+function EquipItemWindow:createButtons()
+  local button = Button(self, self.onButtonConfirm, self.onButtonSelect)
+  button:createText(Vocab.unequip, 'gui_medium')
+  ListButtonWindow.createButtons(self)
 end
 
 function EquipItemWindow:createListButton(itemID)
   local data = Database.items[itemID]
-  local button = Button(self, self.onButtonConfirm)
+  local button = Button(self, self.onButtonConfirm, self.onButtonSelect)
   button:createText(data.name)
   button.item = data
-  button.onSelect = self.onButtonSelect
   return button
 end
-
-function EquipItemWindow:setSlot(member, slot)
-  
+-- @param(data : table)
+function EquipItemWindow:setMember(member, data)
+  self.memberData = data
+end
+-- @param(slot : string)
+function EquipItemWindow:setSlot(key, slot)
+  self.slot = slot
+  self.slotKey = key
+  -- Override buttons to show the item for the given slot
 end
 
 ----------------------------------------------------------------------------------------------------
@@ -46,11 +58,26 @@ end
 ----------------------------------------------------------------------------------------------------
 
 function EquipItemWindow:onButtonSelect(button)
-  -- TODO: show info in DescriptionWindow
+  if button.item then
+    self.GUI.descriptionWindow:setText(button.item.description)
+  else
+    self.GUI.descriptionWindow:setText('')
+  end
 end
 
 function EquipItemWindow:onButtonConfirm(button)
-  -- TODO: equip item
+  if button.item then
+    self.memberData.equipment[self.slotKey].id = button.item.id
+  else
+    self.memberData.equipment[self.slotKey].id = -1
+  end
+  self:setSelectedButton(nil)
+  self.GUI.slotWindow:activate()
+end
+
+function EquipItemWindow:onCancel()
+  self:setSelectedButton(nil)
+  self.GUI.slotWindow:activate()
 end
 
 ----------------------------------------------------------------------------------------------------

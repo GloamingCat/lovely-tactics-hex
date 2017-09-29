@@ -3,36 +3,42 @@
 		"name": "Hands",
 		"key": "hands",
 		"count": 2,
+    "freedom": 2,
 		"tags": []
 	},
 	{
 		"name": "Head",
 		"key": "head",
 		"count": 1,
+    "freedom": 2,
 		"tags": []
 	},
 	{
 		"name": "Body",
 		"key": "body",
 		"count": 1,
+    "freedom": 2,
 		"tags": []
 	},
 	{
 		"name": "Neck",
 		"key": "neck",
 		"count": 1,
+    "freedom": 2,
 		"tags": []
 	},
 	{
 		"name": "Feet",
 		"key": "feet",
 		"count": 1,
+    "freedom": 2,
 		"tags": []
 	},
 	{
 		"name": "Accessory",
 		"key": "accessory",
 		"count": 2,
+    "freedom": 2,
 		"tags": []
 	}
 ]
