@@ -13,6 +13,7 @@ local Quad = lgraphics.newQuad
 
 -- Constants
 local textShader = love.graphics.newShader('shaders/text.glsl')
+textShader:send('outlineSize', Font.outlineSize / Font.scale)
 
 local TextRenderer = {}
 
@@ -26,19 +27,21 @@ function TextRenderer.createLineBuffers(lines, defaultFont)
   local shader = lgraphics.getShader()
   local canvas = lgraphics.getCanvas()
   local font = lgraphics.getFont()
-  -- Render lines individually
+  -- New graphics state
   lgraphics.setFont(defaultFont)
   lgraphics.setColor(255, 255, 255, 255)
+  -- Render lines individually
 	local renderedLines = {}
   for i = 1, #lines do
+    lgraphics.setShader()
     local buffer = TextRenderer.createLineBuffer(lines[i])
+    lgraphics.setShader(textShader)
     local shadedBuffer = TextRenderer.shadeBuffer(buffer)
     local w, h = shadedBuffer:getWidth(), shadedBuffer:getHeight()
     renderedLines[i] = {
       buffer = shadedBuffer,
       height = lines[i].height,
-      quad = Quad(0, 0, w, h, w, h)
-    }
+      quad = Quad(0, 0, w, h, w, h) }
 	end
   -- Reset graphics state
   lgraphics.setColor(r, g, b, a)
@@ -52,18 +55,13 @@ end
 -- @ret(Canvas) pre-shaded texture
 function TextRenderer.shadeBuffer(texture)
   local w, h = texture:getWidth(), texture:getHeight()
-  local quad = Quad(0, 0, w, h, w, h)
   local newTexture = lgraphics.newCanvas(w, h)
   newTexture:setFilter('linear', 'nearest')
   lgraphics.setCanvas(newTexture)
-  lgraphics.setColor(0, 0, 255, 255)
-  --lgraphics.rectangle("fill", 0, 0, w, h)
-  lgraphics.setColor(255, 255, 255, 255)
-  lgraphics.setShader(textShader)
   textShader:send('stepSize', { Font.outlineSize / w, Font.outlineSize / h })
-  lgraphics.setBlendMode('alpha', 'premultiplied')
+  --lgraphics.setBlendMode('alpha', 'premultiplied')
   lgraphics.draw(texture)
-  lgraphics.setBlendMode('alpha')
+  --lgraphics.setBlendMode('alpha')
   return newTexture
 end
 
@@ -77,7 +75,7 @@ function TextRenderer.createLineBuffer(line)
   local buffer = lgraphics.newCanvas(line.width + Font.outlineSize * 2, line.height * 1.5)
   buffer:setFilter('linear', 'nearest')
   lgraphics.setCanvas(buffer)
-  local x, y = Font.outlineSize, line.height - Font.outlineSize
+  local x, y = Font.outlineSize, line.height
   for j = 1, #line do
     local fragment = line[j]
     local t = type(fragment.content)
@@ -88,15 +86,10 @@ function TextRenderer.createLineBuffer(line)
       lgraphics.setFont(fragment.content)
     else
       local fy = y - fragment.height
-      if t == 'string' then
+      if t == 'string' and fragment.content ~= '' then
         lgraphics.print(fragment.content, x, fy)
-      else
-        local r, g, b, a = lgraphics.getColor()
-        lgraphics.setColor(255, 255, 255, 255)
-        lgraphics.draw(fragment.content, x, fy)
-        lgraphics.setColor(r, g, b, a)
+        x = x + fragment.width
       end
-      x = x + fragment.width
     end
   end
   return buffer

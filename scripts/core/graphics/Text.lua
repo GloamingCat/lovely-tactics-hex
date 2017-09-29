@@ -16,6 +16,7 @@ local TextRenderer = require('core/graphics/TextRenderer')
 local lgraphics = love.graphics
 local Quad = lgraphics.newQuad
 local max = math.max
+local min = math.min
 local round = math.round
 
 -- Constants
@@ -39,12 +40,12 @@ local Text = class(Sprite)
 local old_init = Text.init
 function Text:init(text, resources, properties, renderer)
   old_init(self, renderer)
-  self.maxWidth = properties[1] and (properties[1] + 1)
+  self.maxWidth = properties[1]
   self.align = properties[2] or self.align or 'left'
   self.maxchar = properties[3] or self.maxchar
   self.text = text
-  self.scaleX = 1 / Font.scale
-  self.scaleY = 1 / Font.scale
+  self.scaleX = 1
+  self.scaleY = 1
   self.offsetX = 0
   self.offsetY = 0
   if text == nil or text == '' then
@@ -57,8 +58,14 @@ end
 -- @param(text : string) the rich text
 -- @param(resources : table) table of resources used in text
 function Text:setText(text, resources)
+  assert(text, 'Nil text')
+  if text == '' then
+    self.lines = nil
+    return
+  end
   local fragments = TextParser.parse(text, resources)
-	local lines = TextParser.createLines(fragments, defaultFont, self.maxWidth)
+  local maxWidth = self.maxWidth and self.maxWidth * Font.scale
+	local lines = TextParser.createLines(fragments, defaultFont, maxWidth)
   self.lines = TextRenderer.createLineBuffers(lines, defaultFont)
   local width, height = 0, 0
   for i = 1, #self.lines do
@@ -76,7 +83,7 @@ end
 -- Checks if sprite is visible on screen.
 -- @ret(boolean) true if visible, false otherwise
 function Text:isVisible()
-  return self.visible
+  return self.lines and self.visible
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -110,17 +117,33 @@ end
 -- @param(renderer : Renderer)
 function Text:draw(renderer)
   renderer:clearBatch()
-  local ox, oy = 0, -Font.scale
+  local x, y = 0, -1
+  local sx, sy, lsx = self.scaleX / Font.scale, self.scaleY / Font.scale
   local r, g, b, a
   for i = 1, #self.lines do
     local line = self.lines[i]
+    local w = line.buffer:getWidth() * sx
+    if self.maxWidth and w > self.maxWidth then
+      lsx = self.maxWidth / line.buffer:getWidth()
+      x = -1
+    else
+      lsx = sx
+      x = self:alignOffset(w) - 1
+    end
     r, g, b, a = lgraphics.getColor()
-    ox = self:alignOffset(line.buffer:getWidth() / Font.scale) * Font.scale
     lgraphics.setColor(self.color.red, self.color.green, self.color.blue, self.color.alpha)
-    lgraphics.draw(line.buffer, line.quad, self.position.x, self.position.y, 
-      self.rotation, self.scaleX, self.scaleY, self.offsetX - ox, self.offsetY - oy)
+    lgraphics.draw(line.buffer, line.quad, self.position.x + x, self.position.y + y, 
+      self.rotation, lsx, sy, self.offsetX, self.offsetY)
+    --[[
+    if self.maxWidth then
+      lgraphics.rectangle('line', self.position.x -self.offsetX * sx, self.position.y - self.offsetY * sy, 
+        self.maxWidth, line.buffer:getHeight() * sy)
+    end
+    lgraphics.rectangle('line', self.position.x + x -self.offsetX * lsx, self.position.y + y - self.offsetY * sy, 
+      line.buffer:getWidth() * lsx, line.buffer:getHeight() * sy)
+    ]]
     lgraphics.setColor(r, g, b, a)
-    oy = oy + line.height
+    y = y + line.height * sy
   end
 end
 

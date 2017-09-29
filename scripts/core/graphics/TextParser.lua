@@ -65,8 +65,6 @@ function TextParser.createLines(fragments, initialFont, maxWidth)
 		if t == 'string' then -- Piece of text
       currentLine = TextParser.addTextFragment(lines, currentLine, fragment, 
         currentFont, maxWidth)
-		elseif t == 'Image' then -- Image inside text
-			currentLine = TextParser.addImageFragment(lines, currentLine, fragment)
 		elseif t == 'userdata' then -- Font change
 			currentFont = fragment
       insert(currentLine, { content = fragment })
@@ -140,29 +138,6 @@ function TextParser.wrapText(lines, currentLine, fragment, font, width)
     insert(currentLine, { content = fragment, width = fw, height = fh })
     return currentLine
   end
-end
-
----------------------------------------------------------------------------------------------------
--- Image Fragments
----------------------------------------------------------------------------------------------------
-
--- Wraps image fragment (may have to add a new line).
--- @param(lines : table) the array of lines
--- @param(currentLine : table) the line of the fragment
--- @param(fragment : Image) the image fragment
--- @ret(table) the new current line
-function TextParser.addImageFragment(lines, currentLine, fragment, width)
-	if width and currentLine.width > 0 then 
-    local newx = currentLine.width + fragment:getWidth()
-    if newx > width  then
-      currentLine = { width = fragment:getWidth(), 
-        height = fragment:getHeight() }
-      insert(lines, currentLine)
-    end
-  end
-  insert(currentLine, { content = fragment, width = fragment:getWidth(),
-      height = fragment:getHeight() })
-  return currentLine
 end
 
 return TextParser

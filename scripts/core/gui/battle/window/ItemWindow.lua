@@ -87,7 +87,7 @@ end
 
 -- New button width.
 function ItemWindow:buttonWidth()
-  return (self.width - self:hPadding()) / 2
+  return (self.width - self:hPadding() * 2 - self:hButtonMargin()) / 2
 end
 -- New col count.
 function ItemWindow:colCount()

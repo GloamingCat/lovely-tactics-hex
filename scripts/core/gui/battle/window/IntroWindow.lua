@@ -29,6 +29,14 @@ function IntroWindow:createButtons()
   self:createButton('items')
   self:createButton('equips')
 end
+-- Overrides GridWindow:createButton.
+function IntroWindow:createButton(key)
+  local button = Button(self, self[key .. 'Confirm'], self[key .. 'Select'], self[key .. 'Enabled'])
+  local text = Vocab[key]
+  if text then
+    button:createText(text, 'gui_button', 'center')
+  end
+end
 
 ---------------------------------------------------------------------------------------------------
 -- Callbacks

@@ -21,13 +21,13 @@ function IntroGUI:createWindows()
 end
 
 function IntroGUI:createIntroWindow()
-  local introWindow = IntroWindow(self, self.troop)
-  self.windowList:add(introWindow)
-  self:setActiveWindow(introWindow)
-  local m = self:windowMargin()
-  introWindow:setPosition(Vector(-ScreenManager.width / 2 + introWindow.width / 2 + m, 
-      -ScreenManager.height / 2 + introWindow.height / 2 + m))
-  return introWindow
+  local window = IntroWindow(self, self.troop)
+  self.windowList:add(window)
+  self:setActiveWindow(window)
+  --local m = self:windowMargin()
+  --window:setPosition(Vector(-ScreenManager.width / 2 + introWindow.width / 2 + m, 
+  --    -ScreenManager.height / 2 + introWindow.height / 2 + m))
+  self.mainWindow = window
 end
 
 return IntroGUI

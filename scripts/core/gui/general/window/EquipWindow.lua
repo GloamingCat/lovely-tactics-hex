@@ -40,11 +40,9 @@ function EquipWindow:createListButton(slot)
 end
 -- Creates the texts with the current character's equiped items.
 function EquipWindow:createEquipTexts()
-  local x = 0
-  for i = 1, #self.buttonMatrix do
-    local button = self.buttonMatrix[i]
-    x = max(button.text.sprite:getWidth(), x)
-  end
+  local w = self:buttonWidth()
+  local x = w / 3
+  w = w * 2 / 3
   for i = 1, #self.buttonMatrix do
     local button = self.buttonMatrix[i]
     local id = self.member.data.equipment[button.key]
@@ -53,34 +51,14 @@ function EquipWindow:createEquipTexts()
       local item = Database.items[id]
       name = item.name
     end
-    self:createEquipText(button, name, x + 4, 'gui_medium')
+    local pos = Vector(x, 1, 0)
+    button:createInfoText(name, 'gui_medium', 'left', w, pos)
   end
-end
--- @param(button : Button)
--- @param(name : string)
--- @param(x : number)
--- @param(fontName : string) (optional)
-function EquipWindow:createEquipText(button, name, x, fontName)
-  local width = self:buttonWidth() - x
-  if button.icon then
-    local _, _, w = button.icon.sprite.quad:getViewport()
-    width = width - w
-  end
-  local p = self:hPadding()
-  local pos = Vector(x, 0, 0)
-  pos:add(button.text.relativePosition)
-  fontName = fontName or 'gui_button'
-  local textSprite = SimpleText(name, pos, width - p - x, 'left', fontName and Font[fontName])
-  textSprite.sprite:setColor(Color.gui_text_default)
-  button.infoText = textSprite
-  textSprite:hide()
-  button.content:add(textSprite)
 end
 
 function EquipWindow:setMember(member)
   
 end
-
 
 ----------------------------------------------------------------------------------------------------
 -- Button callbacks
@@ -106,6 +84,10 @@ end
 
 function EquipWindow:rowCount()
   return self.fitRowCount
+end
+
+function EquipWindow:buttonWidth()
+  return self.width - self:hPadding() * 2
 end
 
 function EquipWindow:__tostring()

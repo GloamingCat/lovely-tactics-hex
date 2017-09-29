@@ -11,11 +11,10 @@ Draws the text with an outline.
 extern vec2 stepSize = vec2(0.001f, 0.001f);
 // Scale of the font.
 extern vec2 scale = vec2(1, 1);
-
-// Color of the outline (customized). Black by default.
-uniform vec4 outlineColor = vec4(0,0,0,1);
 // Width of the outline. 1 pixel by default.
-uniform number outlineSize = 1; // in pixels
+extern number outlineSize = 1; // in pixels
+// Color of the outline (customized). Black by default.
+extern vec4 outlineColor = vec4(0,0,0,1);
 
 vec4 effect(vec4 color, sampler2D texture, vec2 texture_coords, vec2 screen_coords) {
   vec4 initialColor = texture2D(texture, texture_coords);

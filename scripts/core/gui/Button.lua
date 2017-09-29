@@ -36,16 +36,23 @@ end
 -- @param(text : string) the text shown in the button
 -- @param(fontName : string) the text's font, from Fonts folder (optional, uses default)
 function Button:createText(text, fontName, align, w, pos)
+  if self.text then
+    self.text:destroy()
+  end
   fontName = fontName or 'gui_button'
   w = (w or self.window:buttonWidth()) - self:iconWidth()
   pos = pos or Vector(0, 1, 0)
   self.text = SimpleText(text, pos, w, align or 'left', Font[fontName])
   self.text.sprite:setColor(Color.gui_text_default)
   self.content:add(self.text)
+  return self.text
 end
 -- @param(info : string) the auxiliar info text in the right side of the button
 -- @param(fontName : string) the text's font, from Fonts folder (optional, uses default)
 function Button:createInfoText(info, fontName, align, w, pos)
+  if self.infoText then
+    self.infoText:destroy()
+  end
   local bw = self.window:buttonWidth() - self:iconWidth()
   w = w or bw
   pos = pos or Vector(bw - w, 1, 0)
@@ -54,6 +61,7 @@ function Button:createInfoText(info, fontName, align, w, pos)
   text.sprite:setColor(Color.gui_text_default)
   self.infoText = text
   self.content:add(text)
+  return text
 end
 -- @param(icon : Animation | string) the icon graphics or the path to the icon
 function Button:createIcon(icon)
@@ -73,6 +81,7 @@ end
 -- General
 ---------------------------------------------------------------------------------------------------
 
+-- @ret(number)
 function Button:iconWidth()
   if self.icon then
     local _, _, w = self.icon.sprite.quad:getViewport()
@@ -81,12 +90,12 @@ function Button:iconWidth()
     return 0
   end
 end
-
-function Button:setText(text, fontName, align)
+-- @param(text : string)
+function Button:setText(text)
   self.text:setText(text)
   self.text:redraw()
 end
-
+-- @param(text : string)
 function Button:setInfoText(text)
   self.infoText:setText(text)
   self.infoText:redraw()
