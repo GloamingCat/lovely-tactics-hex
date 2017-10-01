@@ -42,7 +42,7 @@ function Button:createText(text, fontName, align, w, pos)
   fontName = fontName or 'gui_button'
   w = (w or self.window:buttonWidth()) - self:iconWidth()
   pos = pos or Vector(0, 1, 0)
-  self.text = SimpleText(text, pos, w, align or 'left', Font[fontName])
+  self.text = SimpleText(text, pos, w, align or 'left', Fonts[fontName])
   self.text.sprite:setColor(Color.gui_text_default)
   self.content:add(self.text)
   return self.text
@@ -57,7 +57,7 @@ function Button:createInfoText(info, fontName, align, w, pos)
   w = w or bw
   pos = pos or Vector(bw - w, 1, 0)
   fontName = fontName or 'gui_button'
-  local text = SimpleText(info, pos, w, align or 'right', Font[fontName])
+  local text = SimpleText(info, pos, w, align or 'right', Fonts[fontName])
   text.sprite:setColor(Color.gui_text_default)
   self.infoText = text
   self.content:add(text)

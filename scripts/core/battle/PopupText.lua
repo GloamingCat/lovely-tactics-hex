@@ -48,32 +48,31 @@ end
 -- @param(color : table) the text color (red/green/blue/alpha table)
 -- @param(font : Font) the text font
 function PopupText:addLine(text, color, font)
+  text = '{c' .. color .. '}{f' .. font .. '}' .. text
   local l = self.lineCount
-  local cl, fl = 'c' .. l, 'f' .. l
-  text = '{' .. cl .. '}{' .. fl .. '}' .. text
   if l > 0 then
     text = self.text .. '\n' .. text
   end
   self.lineCount = l + 1
   self.text = text
-  self.resources[cl] = color
-  self.resources[fl] = font
 end
-
+-- Add a line to show damage.
+-- @param(points : table) result data from skill
 function PopupText:addDamage(points)  
   local popupName = 'popup_dmg' .. points.key
-  self:addLine(points.value, Color[popupName], Font[popupName])
+  self:addLine(points.value, popupName, popupName)
 end
-
+-- Add a line to show heal.
+-- @param(points : table) result data from skill
 function PopupText:addHeal(points)
   local popupName = 'popup_heal' .. points.key
-  self:addLine(points.value, Color[popupName], Font[popupName])
+  self:addLine(points.value, popupName, popupName)
 end
 
 function PopupText:addStatus(s)
   local popupName = 'popup_status_add' .. s.data.id
-  local color = Color[popupName] or Color.popup_status_add
-  local font = Font[popupName] or Font.popup_status_add
+  local color = Color[popupName] and popupName or 'popup_status_add'
+  local font = Fonts[popupName] and popupName or 'popup_status_add'
   self:addLine('+' .. s.data.name, color, font)
 end
 
@@ -81,8 +80,8 @@ function PopupText:removeStatus(all)
   for i = 1, #all do
     local s = all[i]
     local popupName = 'popup_status_remove' .. s.data.id
-    local color = Color[popupName] or Color.popup_status_remove
-    local font = Font[popupName] or Font.popup_status_remove
+    local color = Color[popupName] and popupName or 'popup_status_remove'
+    local font = Fonts[popupName] and popupName or 'popup_status_remove'
     self:addLine('-' .. s.data.name, color, font)
   end
 end
@@ -102,7 +101,7 @@ function PopupText:popup(wait)
       self:popup(true)
     end)
   else
-    local sprite = Text(self.text, self.resources, properties, FieldManager.renderer)
+    local sprite = Text(self.text, properties, FieldManager.renderer)
     sprite:setXYZ(self.x, self.y, self.z)
     sprite:setCenterOffset()
     local d = 0

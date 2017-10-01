@@ -18,17 +18,35 @@ local TextParser = {}
 ---------------------------------------------------------------------------------------------------
 
 -- Creates a list of text fragments (not wrapped).
-function TextParser.parse(text, resources)
+function TextParser.parse(text)
+  local vars = Config.variables
   local fragments = {}
 	if text ~= '' then 
 		for textFragment, resourceKey in text:gmatch('([^{]*){(.-)}') do
       TextParser.parseFragment(fragments, textFragment)
-			local resource = resources[resourceKey] or resourceKey
-      local t = type(resource)
-      if t == 'string' or t == 'number' then
-        TextParser.parseFragment(fragments, '' .. resource)
+      local t = resourceKey:sub(1, 1)
+      if t == 'i' then
+        insert(fragments, { type = 'italic' })
+      elseif t == 'b' then
+        insert(fragments, { type = 'bold' })
+      elseif t == 'r' then
+        insert(fragments, { type = 'reset' })
+      elseif t == 'f' then
+        insert(fragments, { type = 'font', value = Fonts[resourceKey:sub(2)] })
+      elseif t == '+' then
+        insert(fragments, { type = 'size', value = tonumber(resourceKey:sub(2)) })
+      elseif t == '-' then
+        insert(fragments, { type = 'size', value = -tonumber(resourceKey:sub(2)) })
+      elseif t == 'c' then
+        insert(fragments, { type = 'color', value = Color[resourceKey:sub(2)] })
+      elseif t == 's' then
+        insert(fragments, { type = 'icon', value = Icon[resourceKey:sub(2)] })
+      elseif t == '%' then
+        local key = resourceKey:sub(2)
+        assert(vars[key], 'Text variable ' .. key .. ' not found.')
+        TextParser.parseFragment(fragments, '' .. vars[key])
       else
-        insert(fragments, resource)
+        error('Text command not identified: ' .. (t or 'nil'))
       end
 		end
 		TextParser.parseFragment(fragments, text:match('[^}]+$'))
@@ -56,20 +74,34 @@ end
 --  a height and a width.
 -- @ret(table) the array of lines
 function TextParser.createLines(fragments, initialFont, maxWidth)
-  local currentLine = { width = 0, height = 0 }
-  local lines = {currentLine}
-  local currentFont = initialFont
+  local currentFont = ResourceManager:loadFont(initialFont)
+  local currentLine = { width = 0, height = 0, { content = currentFont } }
+  local lines = { currentLine }
+  local font = { unpack(initialFont) }
 	for i = 1, #fragments do
     local fragment = fragments[i]
-    local t = type(fragment)
-		if t == 'string' then -- Piece of text
+		if type(fragment) == 'string' then -- Piece of text
       currentLine = TextParser.addTextFragment(lines, currentLine, fragment, 
         currentFont, maxWidth)
-		elseif t == 'userdata' then -- Font change
-			currentFont = fragment
-      insert(currentLine, { content = fragment })
-		else -- Color change
-      insert(currentLine, { content = fragment })
+    elseif fragment.type == 'sprite' then
+      -- TODO
+    elseif fragment.type == 'color' then
+      insert(currentLine, { content = fragment.value })
+    else
+      if fragment.type == 'italic' then
+        font[4] = true
+      elseif fragment.type == 'bold' then
+        font[5] = true
+      elseif fragment.type == 'reset' then
+        font[4] = false
+        font[5] = false
+      elseif fragment.type == 'font' then
+        font = fragment.value
+      elseif fragment.type == 'size' then
+        font[3] = fragment.size + currentFont[3]
+      end
+      currentFont = ResourceManager:loadFont(font)
+      insert(currentLine, { content = currentFont })
     end
 	end
 	return lines

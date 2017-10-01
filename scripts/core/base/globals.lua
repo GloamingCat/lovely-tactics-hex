@@ -24,8 +24,8 @@ require('core/base/database')
 
 Vocab   = require('conf/Vocab')
 Color   = require('conf/Color')
-Font    = require('conf/Font')
-Icon    = require('conf/Icon')
+Fonts   = require('conf/Fonts')
+Icons   = require('conf/Icons')
 Sound   = require('conf/Sound')
 KeyMap  = require('conf/KeyMap')
 

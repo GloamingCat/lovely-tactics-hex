@@ -7,6 +7,7 @@ Window to choose a number given min/max limits.
 
 =================================================================================================]]
 
+-- Imports
 local Spinner = require('core/gui/Spinner')
 local GridWindow = require('core/gui/GridWindow')
 

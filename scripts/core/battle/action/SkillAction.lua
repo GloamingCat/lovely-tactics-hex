@@ -293,7 +293,7 @@ function SkillAction:singleTargetAnimation(input, targetChar, originTile)
     -- Miss
     local pos = targetChar.position
     local popupText = PopupText(pos.x, pos.y - 20, pos.z - 10)
-    popupText:addLine(Vocab.miss, Color.popup_miss, Font.popup_miss)
+    popupText:addLine(Vocab.miss, Color.popup_miss, Fonts.popup_miss)
     popupText:popup()
   else
     local wasAlive = targetChar.battler:isAlive()

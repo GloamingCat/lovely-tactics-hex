@@ -16,7 +16,7 @@ local SimpleText = require('core/gui/SimpleText')
 -- Constants
 local hpName = Config.battle.attHP
 local spName = Config.battle.attSP
-local font = Font.gui_small
+local font = Fonts.gui_small
 
 local TargetWindow = class(Window)
 

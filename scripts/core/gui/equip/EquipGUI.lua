@@ -10,9 +10,9 @@ The GUI that contains only a confirm window.
 -- Imports
 local Vector = require('core/math/Vector')
 local GUI = require('core/gui/GUI')
-local EquipSlotWindow = require('core/gui/general/window/EquipSlotWindow')
-local EquipMemberWindow = require('core/gui/general/window/EquipMemberWindow')
-local EquipItemWindow = require('core/gui/general/window/EquipItemWindow')
+local EquipSlotWindow = require('core/gui/equip/window/EquipSlotWindow')
+local EquipMemberWindow = require('core/gui/equip/window/EquipMemberWindow')
+local EquipItemWindow = require('core/gui/equip/window/EquipItemWindow')
 local DescriptionWindow = require('core/gui/general/window/DescriptionWindow')
 
 local EquipGUI = class(GUI)

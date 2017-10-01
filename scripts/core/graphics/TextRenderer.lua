@@ -13,7 +13,7 @@ local Quad = lgraphics.newQuad
 
 -- Constants
 local textShader = love.graphics.newShader('shaders/text.glsl')
-textShader:send('outlineSize', Font.outlineSize / Font.scale)
+textShader:send('outlineSize', Fonts.outlineSize / Fonts.scale)
 
 local TextRenderer = {}
 
@@ -21,16 +21,14 @@ local TextRenderer = {}
 -- Final Buffer
 ---------------------------------------------------------------------------------------------------
 
-function TextRenderer.createLineBuffers(lines, defaultFont)
+function TextRenderer.createLineBuffers(lines)
   -- Previous graphics state
   local r, g, b, a = lgraphics.getColor()
   local shader = lgraphics.getShader()
   local canvas = lgraphics.getCanvas()
   local font = lgraphics.getFont()
-  -- New graphics state
-  lgraphics.setFont(defaultFont)
-  lgraphics.setColor(255, 255, 255, 255)
   -- Render lines individually
+  lgraphics.setColor(255, 255, 255, 255)
 	local renderedLines = {}
   for i = 1, #lines do
     lgraphics.setShader()
@@ -58,7 +56,7 @@ function TextRenderer.shadeBuffer(texture)
   local newTexture = lgraphics.newCanvas(w, h)
   newTexture:setFilter('linear', 'nearest')
   lgraphics.setCanvas(newTexture)
-  textShader:send('stepSize', { Font.outlineSize / w, Font.outlineSize / h })
+  textShader:send('stepSize', { Fonts.outlineSize / w, Fonts.outlineSize / h })
   --lgraphics.setBlendMode('alpha', 'premultiplied')
   lgraphics.draw(texture)
   --lgraphics.setBlendMode('alpha')
@@ -72,24 +70,31 @@ end
 -- @param(line : table) a list of text fragments
 -- @ret(Canvas) rendered line
 function TextRenderer.createLineBuffer(line)
-  local buffer = lgraphics.newCanvas(line.width + Font.outlineSize * 2, line.height * 1.5)
+  local buffer = lgraphics.newCanvas(line.width + Fonts.outlineSize * 2, line.height * 1.5)
   buffer:setFilter('linear', 'nearest')
   lgraphics.setCanvas(buffer)
-  local x, y = Font.outlineSize, line.height
+  local x, y = Fonts.outlineSize, line.height
   for j = 1, #line do
     local fragment = line[j]
     local t = type(fragment.content)
-    if t == 'table' then
-      local c = fragment.content
-      lgraphics.setColor(c.red, c.green, c.blue, c.alpha)
-    elseif t == 'userdata' then
-      lgraphics.setFont(fragment.content)
-    else
-      local fy = y - fragment.height
-      if t == 'string' and fragment.content ~= '' then
+    if t == 'string' then
+      -- Print text
+      if fragment ~= '' then
+        local fy = y - fragment.height
         lgraphics.print(fragment.content, x, fy)
         x = x + fragment.width
       end
+    elseif t == 'table' then
+      if fragment.width then
+        -- Print sprite (TODO)
+      else
+        -- Change color
+        local c = fragment.content
+        lgraphics.setColor(c.red, c.green, c.blue, c.alpha)
+      end
+    elseif t == 'userdata' then
+      -- Change font
+      lgraphics.setFont(fragment.content)
     end
   end
   return buffer

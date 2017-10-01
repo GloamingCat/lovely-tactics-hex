@@ -20,7 +20,7 @@ local min = math.min
 local round = math.round
 
 -- Constants
-local defaultFont = Font.gui_default
+local defaultFont = Fonts.gui_default
 
 local Text = class(Sprite)
 
@@ -38,11 +38,12 @@ local Text = class(Sprite)
 --  (properties[3] : number) the max number of characters that will be shown 
 --    (optional, no limit by default)
 local old_init = Text.init
-function Text:init(text, resources, properties, renderer)
+function Text:init(text, properties, renderer)
   old_init(self, renderer)
   self.maxWidth = properties[1]
   self.align = properties[2] or self.align or 'left'
-  self.maxchar = properties[3] or self.maxchar
+  self.defaultFont = properties[3] or defaultFont
+  self.maxchar = properties[4]
   self.text = text
   self.scaleX = 1
   self.scaleY = 1
@@ -51,22 +52,23 @@ function Text:init(text, resources, properties, renderer)
   if text == nil or text == '' then
     self.lines = {}
   else
-    self:setText(text, resources)
+    self:setText(text)
   end
 end
 -- Sets/changes the text content.
 -- @param(text : string) the rich text
 -- @param(resources : table) table of resources used in text
-function Text:setText(text, resources)
+function Text:setText(text)
   assert(text, 'Nil text')
   if text == '' then
+    self.text = text
     self.lines = nil
     return
   end
-  local fragments = TextParser.parse(text, resources)
-  local maxWidth = self.maxWidth and self.maxWidth * Font.scale
-	local lines = TextParser.createLines(fragments, defaultFont, maxWidth)
-  self.lines = TextRenderer.createLineBuffers(lines, defaultFont)
+  local maxWidth = self.maxWidth and self.maxWidth * Fonts.scale
+  local fragments = TextParser.parse(text)
+	local lines = TextParser.createLines(fragments, self.defaultFont, maxWidth)
+  self.lines = TextRenderer.createLineBuffers(lines)
   local width, height = 0, 0
   for i = 1, #self.lines do
     width = max(self.lines[i].buffer:getWidth(), width)
@@ -118,7 +120,7 @@ end
 function Text:draw(renderer)
   renderer:clearBatch()
   local x, y = 0, -1
-  local sx, sy, lsx = self.scaleX / Font.scale, self.scaleY / Font.scale
+  local sx, sy, lsx = self.scaleX / Fonts.scale, self.scaleY / Fonts.scale
   local r, g, b, a
   for i = 1, #self.lines do
     local line = self.lines[i]

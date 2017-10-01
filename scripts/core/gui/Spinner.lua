@@ -49,7 +49,7 @@ function Spinner:initializeContent(initValue)
   self.value = initValue
   local textPos = Vector(leftArrow:getWidth(), 0)
   local textWidth = self.window:buttonWidth() - leftArrow:getWidth() - rightArrow:getWidth() 
-  self.valueText = SimpleText('' .. initValue, textPos, textWidth, 'center', Font.gui_button)
+  self.valueText = SimpleText('' .. initValue, textPos, textWidth, 'center', Fonts.gui_button)
   -- Add to content list
   self.content:add(self.leftArrow)
   self.content:add(self.rightArrow)

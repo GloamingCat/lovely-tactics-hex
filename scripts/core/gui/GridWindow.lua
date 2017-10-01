@@ -175,7 +175,7 @@ end
 -- @ret(Button)
 function GridWindow:createButton(key)
   local button = Button(self, self[key .. 'Confirm'], self[key .. 'Select'], self[key .. 'Enabled'])
-  local icon = Icon[key]
+  local icon = Icons[key]
   if icon then
     button:createIcon(icon)
   end

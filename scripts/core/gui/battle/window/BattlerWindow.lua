@@ -20,7 +20,7 @@ local max = math.max
 
 -- Constants
 local attConfig = Config.attributes
-local font = Font.gui_small
+local font = Fonts.gui_small
 
 local BattlerWindow = class(Window)
 

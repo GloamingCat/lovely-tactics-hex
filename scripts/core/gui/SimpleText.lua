@@ -23,42 +23,22 @@ local SimpleText = class()
 -- @param(relativePosition : Vector) position relative to its window (optional)
 -- @param(width : number) the max width for texto box (optional)
 -- @param(align : string) alignment inside the box (optional, left by default)
--- @param(font : Font) font of the text (optional)
--- @param(color : table) color of the text (optional)
-function SimpleText:init(text, relativePosition, width, align, font, color)
-  local resources = {
-    c = color or Color.gui_text_default, 
-    f = font or Font.gui_default
-  }
-  local p = {width, align or 'left'}
+-- @param(font : string) font of the text (optional)
+function SimpleText:init(text, relativePosition, width, align, font)
   assert(text, 'nil text')
-  if text ~= '' then
-    text = '{c}{f}' .. text
-  end
-  self.resources = resources
-  self.sprite = Text(text, resources, p, GUIManager.renderer)
+  local p = { width, align or 'left', font or Fonts.gui_default }
+  self.sprite = Text(text .. '', p, GUIManager.renderer)
   self.text = text
   self.relativePosition = relativePosition or Vector(0, 0, 0)
 end
 -- Changes text content.
 -- @param(text : string) the new text content
 function SimpleText:setText(text)
-  if text ~= '' then
-    text = '{c}{f}' .. text
-  end
   self.text = text
-end
--- Changes text color. 
-function SimpleText:setFont(font)
-  self.resources.f = font
-end
--- Changes text font.
-function SimpleText:setColor(color)
-  self.resources.c = color
 end
 -- Redraws text.
 function SimpleText:redraw()
-  self.sprite:setText(self.text, self.resources)
+  self.sprite:setText(self.text)
 end
 
 ---------------------------------------------------------------------------------------------------

@@ -10,7 +10,7 @@ Window that is shown in the beginning of the battle.
 -- Imports
 local Button = require('core/gui/Button')
 --local ItemGUI = require('core/gui/general/ItemGUI')
-local EquipGUI = require('core/gui/general/EquipGUI')
+local EquipGUI = require('core/gui/equip/EquipGUI')
 local ActionGUI = require('core/gui/battle/ActionGUI')
 local PartyAction = require('core/battle/action/PartyAction')
 local ActionInput = require('core/battle/action/ActionInput')
@@ -26,7 +26,7 @@ local IntroWindow = class(GridWindow)
 function IntroWindow:createButtons()
   self:createButton('start')
   self:createButton('party')
-  self:createButton('items')
+  --self:createButton('items')
   self:createButton('equips')
 end
 -- Overrides GridWindow:createButton.

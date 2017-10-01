@@ -116,17 +116,22 @@ end
 ---------------------------------------------------------------------------------------------------
 
 -- Overrides LÖVE's newFont function to use cache.
--- @param(size : number) the font's size
--- @param(path : string) font's path relative to main path (optional)
--- @ret(Image) to image store in the path
-function ResourceManager:loadFont(path, size)
-  local key = '' .. size
-  if not path then
-    key = key .. '.' .. path
+-- @param(data : table) {name, format, size, it, bold}
+-- @ret(Font) 
+function ResourceManager:loadFont(data)
+  local path = data[1]
+  if data[4] then
+    path = path .. '_i'
   end
-  local font = newFont[key]
+  if data[5] then
+    path = path .. '_b'
+  end
+  path = path .. '.' .. data[2]
+  local size = data[3]
+  local key = path .. size
+  local font = FontCache[key]
   if not font then
-    font = newFont(path, size)
+    font = newFont('fonts/' .. path, size)
     FontCache[key] = font
   end
   return font

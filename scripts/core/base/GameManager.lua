@@ -23,6 +23,7 @@ function GameManager:init()
 end
 -- Starts the game.
 function GameManager:start(arg)
+  self.fpsFont = ResourceManager:loadFont(Fonts.fps)
   SaveManager:newSave()
   FieldManager:loadTransition(SaveManager.current.playerTransition)
 end
@@ -73,6 +74,7 @@ end
 -- Draws game.
 function GameManager:draw()
   ScreenManager:draw()
+  love.graphics.setFont(self.fpsFont)
   love.graphics.print(love.timer.getFPS())
   --[[
   local pos = InputManager.mouse.position
