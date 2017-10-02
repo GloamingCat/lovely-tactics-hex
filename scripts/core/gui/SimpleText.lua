@@ -31,10 +31,27 @@ function SimpleText:init(text, relativePosition, width, align, font)
   self.text = text
   self.relativePosition = relativePosition or Vector(0, 0, 0)
 end
--- Changes text content.
+
+function SimpleText:setRelativeXYZ(x, y, z)
+  local pos = self.relativePosition
+  pos.x = pos.x or x
+  pos.y = pos.y or y
+  pos.z = pos.z or z
+end
+-- Changes text content (must be redrawn later).
 -- @param(text : string) the new text content
 function SimpleText:setText(text)
   self.text = text
+end
+-- Sets max width (must be redrawn later).
+-- @param(w : number)
+function SimpleText:setMaxWidth(w)
+  self.sprite.maxWidth = w
+end
+-- Sets text alignment (must be redrawn later).
+-- @param(align : string)
+function SimpleText:setAlign(a)
+  self.sprite.align = a or 'left'
 end
 -- Redraws text.
 function SimpleText:redraw()

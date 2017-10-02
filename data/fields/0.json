@@ -50,7 +50,7 @@
       },
       // Script executed when player interacts with this character.
       "interactScript": {
-        "path": "",
+        "path": "InteractionTest",
         "param": ""
       },
       "tags": []

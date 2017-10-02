@@ -122,6 +122,14 @@ function Window:setScale(sx, sy)
   Transformable.setScale(self, sx, sy)
   self.spriteGrid:updateTransform(self)
 end
+-- Changes the window's size.
+-- It recreates all contents.
+function Window:resize(w, h)
+  w, h = w or self.width, h or self.height
+  self:destroy()
+  self:createContent(w, h)
+end
+
 -- Window's skin.
 -- @ret(Image) 
 function Window:getSkin()
