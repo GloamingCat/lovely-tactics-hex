@@ -11,11 +11,14 @@ It only exists for exploration fields.
 -- Imports
 local Vector = require('core/math/Vector')
 local Character = require('core/objects/Character')
+local Fiber = require('core/fiber/Fiber')
+local MainGUI = require('core/gui/field/MainGUI')
 
 -- Alias
 local timer = love.timer
 local coord2Angle = math.coord2Angle
 local tile2Pixel = math.field.tile2pixel
+local yield = coroutine.yield
 
 -- Constants
 local conf = Config.player
@@ -24,7 +27,7 @@ local tg = math.field.tg
 local Player = class(Character)
 
 ---------------------------------------------------------------------------------------------------
--- General
+-- Initialization
 ---------------------------------------------------------------------------------------------------
 
 -- Overrides BaseCharacter:init.
@@ -36,12 +39,11 @@ function Player:init(initTile, dir)
   local leader = troopData.current[1]
   local data = {
     id = -1,
+    key = 'player',
     battlerID = leader.battlerID,
     charID = leader.charID,
     anim = 'Idle',
-    direction = dir or 270,
-    startScript = conf.script
-  }
+    direction = dir or 270 }
   data.x, data.y, data.h = initTile:coordinates()
   Character.init(self, data)
 end
@@ -56,13 +58,34 @@ end
 -- Input
 ---------------------------------------------------------------------------------------------------
 
+-- Overrides CharacterBase:update.
+-- Checks movement and interaction inputs.
+function Player:checkFieldInput()
+  while true do
+    if self:fieldInputEnabled() then
+      if InputManager.keys['confirm']:isTriggered() then
+        self:interact()
+      elseif InputManager.keys['cancel']:isTriggered() then
+        self:openGUI()
+      else
+        local dx = InputManager:axisX(0, 0)
+        local dy = InputManager:axisY(0, 0)
+        if InputManager.keys['dash']:isPressing() then
+          self.speed = self.dashSpeed
+        else
+          self.speed = self.walkSpeed
+        end
+        self:moveByInput(dx, dy)
+      end
+    end
+    yield()
+  end
+end
 -- Checks if field input is enabled.
 -- @ret(boolean) true if enabled, false otherwise
 function Player:fieldInputEnabled()
-  if GUIManager:isWaitingInput() then
-    return false
-  end
-  return self.inputOn and self.moveTime >= 1 and self.blocks == 0
+  local gui = GUIManager:isWaitingInput()
+  return not gui and self.inputOn and self.moveTime >= 1 and self.blocks == 0
 end
 -- [COROUTINE] Moves player depending on input.
 -- @param(dx : number) input x
@@ -98,7 +121,7 @@ function Player:moveByInput(dx, dy)
 end
 
 ---------------------------------------------------------------------------------------------------
--- Tile Movement
+-- Movement
 ---------------------------------------------------------------------------------------------------
 
 -- [COROUTINE] Moves player with keyboard input (a complete tile).
@@ -136,6 +159,37 @@ function Player:tryAngleMovement(angle)
     return true
   end
   return false
+end
+
+---------------------------------------------------------------------------------------------------
+-- Interaction
+---------------------------------------------------------------------------------------------------
+
+-- [COROUTINE] Interacts with whoever is the player looking at (if any).
+function Player:interact()
+  self.blocks = self.blocks + 1
+  local tile = self:frontTile()
+  if tile == nil then
+    return
+  end
+  for i = #tile.characterList, 1, -1 do
+    local char = tile.characterList[i]
+    if char ~= self and char.interactScript ~= nil then
+      local event = {
+        param = char.interactScript.param,
+        tile = tile,
+        origin = self,
+        dest = char }
+      local path = 'character/' .. char.interactScript.path
+      local fiber = FieldManager.fiberList:forkFromScript(path, event)
+      fiber:execAll()
+    end
+  end
+  self.blocks = self.blocks - 1
+end
+-- Opens game's main GUI.
+function Player:openGUI()
+  GUIManager:showGUIForResult(MainGUI())
 end
 
 return Player

@@ -74,5 +74,3 @@ function class(...)
   setmetatable(c,c_meta) 
   return c
 end
-
-return class

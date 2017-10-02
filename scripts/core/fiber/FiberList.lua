@@ -24,7 +24,6 @@ function FiberList:update()
   end
   self:conditionalRemove(self.finished)
 end
-
 -- Function that resumes a Fiber.
 -- @param(fiber : Fiber) Fiber to resume
 -- @ret(boolean) true if Fiber ended, false otherwise
@@ -43,9 +42,8 @@ end
 function FiberList:fork(func, ...)
   return Fiber(self, func, ...)
 end
-
 -- Creates new Fiber from a script table.
--- @param(script : table) script table with "path" and "param" fields
+-- @param(script : string) path to string from "custom" folder
 -- @param(...) any other arguments to the Fiber
 -- @ret(Fiber) the newly created Fiber (nil if path is empty)
 function FiberList:forkFromScript(script, ...)

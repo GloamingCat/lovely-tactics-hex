@@ -213,14 +213,18 @@ function FieldManager:loadTransition(transition, fromSave)
   self.renderer.focusObject = self.player
   --self:loadPersistentData(fieldID)
   -- Create/call start listeners
-  if self.currentField.startScript then
-    self.fiberList:forkFromScript(self.currentField.startScript, {fromSave = fromSave})
+  local script = self.currentField.startScript
+  if script then
+    self.fiberList:forkFromScript('field/' .. script.path, {param = script.param, fromSave = fromSave})
   end
   for char in self.characterList:iterator() do
-    if char.startScript ~= nil then
-      char.fiberList:forkFromScript(char.startScript, {character = char, fromSave = fromSave})
+    local script = char.startScript
+    if script ~= nil then
+      char.fiberList:forkFromScript(script.path, {param = script.param, 
+          character = char, fromSave = fromSave})
     end
   end
+  self.fiberList:fork(self.player.checkFieldInput, self.player)
 end
 -- [COROUTINE] Loads a battle field and waits for the battle to finish.
 -- It MUST be called from a fiber in FieldManager's fiber list, or else the fiber will be 
@@ -233,7 +237,8 @@ function FieldManager:loadBattle(fieldID, params)
   self.player = nil
   BattleManager:setUp(params)
   if self.currentField.startScript then
-    self.fiberList:forkFromScript(self.currentField.startScript)
+    local script = self.currentField.startScript
+    self.fiberList:forkFromScript(script.path, {param = script.param, fromSave = fromSave})
   end
   collectgarbage('collect')
   local winner, result = BattleManager:runBattle()

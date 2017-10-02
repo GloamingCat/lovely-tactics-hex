@@ -5,10 +5,12 @@
   "prefs": {
     "name": "New Field",
     "defaultRegion": 0,
+    // The script to be forked when the field is loaded.
     "onStart": {
-      "path": "field/Test.lua",
+      "path": "Test",
       "param": ""
     },
+    // Automatic transitions to other fields.
     "transitions": [],
     "tags": []
   },

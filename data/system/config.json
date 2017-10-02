@@ -10,10 +10,6 @@
 	"player": {
 		"walkSpeed": 90,
 		"dashSpeed": 200,
-		"script": {
-			"path": "character/PlayerController.lua",
-			"param": ""
-		},
 		"startPos": {
 			"fieldID": 0,
 			"x": 0,

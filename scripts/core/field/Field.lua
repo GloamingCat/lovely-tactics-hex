@@ -29,8 +29,9 @@ function Field:init(data)
   self.id = data.id
   self.sizeX = data.sizeX
   self.sizeY = data.sizeY
-  if data.prefs.onStart.path ~= nil then
-    self.startScript = data.prefs.onStart
+  local script = data.prefs.onStart
+  if script and script.path ~= '' then
+    self.startScript = script
   end
   self.terrainLayers = {}
   self.objectLayers = {}
