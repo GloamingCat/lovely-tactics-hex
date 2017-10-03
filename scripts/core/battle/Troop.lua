@@ -71,6 +71,7 @@ function Troop:rotate()
   end
   self.grid = grid
   self.rotation = mod(self.rotation + 1, 4)
+  self.sizeX, self.sizeY = self.sizeY, self.sizeX
 end
 -- Gets the character direction in degrees.
 -- @ret(number)

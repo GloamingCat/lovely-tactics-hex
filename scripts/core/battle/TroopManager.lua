@@ -70,16 +70,16 @@ end
 function TroopManager:createTroop(troopID, partyInfo, party)
   local troop = Troop(Database.troops[troopID], party)
   local field = FieldManager.currentField
-  local sizeX = troop.grid.width
-  local sizeY = troop.grid.height
   troop:setRotation(partyInfo.rotation)
   local dir = troop:getCharacterDirection()
   self.troops[party] = troop
+  local sizeX = troop.grid.width
+  local sizeY = troop.grid.height
   for i = 1, sizeX do
     for j = 1, sizeY do
       local slot = troop.grid:get(i, j)
       if slot then
-        local tile = field:getObjectTile(i + partyInfo.x - sizeX, j + partyInfo.y, partyInfo.h)
+        local tile = field:getObjectTile(i + partyInfo.x - 1, j + partyInfo.y - 1, partyInfo.h)
         if tile and not tile:collides(0, 0) then
           self:createCharacter(tile, dir, slot, party)
         end

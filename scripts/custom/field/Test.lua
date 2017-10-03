@@ -23,7 +23,7 @@ local function testBattle()
 end
 
 return function(param, event, ...)
-  --testBattle()
-  local tile = FieldManager.currentField:getObjectTile(4, 4, 0)
-  FieldManager.player:moveToTile(tile)
+  testBattle()
+  --local tile = FieldManager.currentField:getObjectTile(4, 4, 0)
+  --FieldManager.player:moveToTile(tile)
 end

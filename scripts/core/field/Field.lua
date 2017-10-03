@@ -45,8 +45,8 @@ function Field:init(data)
   self.minh = 100 -- arbitrary limit
   self.maxh = 0
   for i, layerData in ipairs(data.layers) do
-    self.maxh = max(layerData.info.height, self.maxh)
-    self.minh = min(layerData.info.height, self.minh)
+    self.maxh = max(layerData.height, self.maxh)
+    self.minh = min(layerData.height, self.minh)
   end
   self:initializeLayers()
   -- Border and center
@@ -173,12 +173,12 @@ end
 function Field:mergeLayers(layers)
   local terrains = 0
   for i,layerData in ipairs(layers) do
-    if layerData.info.type == 0 then
+    if layerData.type == 0 then
       terrains = terrains + 1
     end
   end
   for i,layerData in ipairs(layers) do
-    local t = layerData.info.type
+    local t = layerData.type
     if t == 0 then
       self:addTerrainLayer(layerData, terrains)
     elseif t == 1 then
@@ -194,7 +194,7 @@ end
 -- All layers are stored by height.
 -- @param(layerData : table) the data from field's file
 function Field:addTerrainLayer(layerData, depthOffset)
-  local list = self.terrainLayers[layerData.info.height]
+  local list = self.terrainLayers[layerData.height]
   local order = #list
   local layer = TerrainLayer(layerData, self.sizeX, self.sizeY, depthOffset - order + 1)
   list[order + 1] = layer
@@ -203,23 +203,23 @@ end
 -- All layers are stored by height.
 -- @param(layerData : table) the data from field's file
 function Field:addObstacleLayer(layerData)
-  self.objectLayers[layerData.info.height]:mergeObstacles(layerData)
+  self.objectLayers[layerData.height]:mergeObstacles(layerData)
 end
 -- Merges the character layers. If there's no layer in that height, creates a new one.
 -- All layers are stored by height.
 -- @param(layerData : table) the data from field's file
 function Field:addCharacterLayer(layerData)
-  self.objectLayers[layerData.info.height]:mergeCharacters(layerData)
+  self.objectLayers[layerData.height]:mergeCharacters(layerData)
 end
 -- Merges the region layers. If there's no layer in that height, creates a new one.
 -- All layers are stored by height.
 -- @param(layerData : table) the data from field's file
 function Field:addRegionLayer(layerData)
-  self.objectLayers[layerData.info.height]:mergeRegions(layerData)
+  self.objectLayers[layerData.height]:mergeRegions(layerData)
 end
 
 function Field:addPartyLayer(layerData)
-  self.objectLayers[layerData.info.height]:setParties(layerData)
+  self.objectLayers[layerData.height]:setParties(layerData)
 end
 
 ---------------------------------------------------------------------------------------------------

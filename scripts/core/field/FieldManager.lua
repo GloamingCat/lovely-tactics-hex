@@ -18,6 +18,7 @@ local Character = require('core/objects/Character')
 local Player = require('core/objects/Player')
 local FiberList = require('core/fiber/FiberList')
 local FieldCamera = require('core/field/FieldCamera')
+local FieldParser = require('core/field/FieldParser')
 
 -- Alias
 local mathf = math.field
@@ -68,6 +69,7 @@ function FieldManager:loadField(fieldID)
   end
   self.renderer = self:createCamera(fieldData.sizeX, fieldData.sizeY, #fieldData.layers)
   self.currentField = Field(fieldData)
+  FieldParser.loadGrid(self.currentField, fieldData.layers)
   self.currentField:mergeLayers(fieldData.layers)
   for tile in self.currentField:gridIterator() do
     tile:createNeighborList()
