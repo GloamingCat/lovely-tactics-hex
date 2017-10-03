@@ -59,12 +59,12 @@
 								"id": 15,
 							}
 						],
-            "sleep": [
+						"sleep": [
 							{
 								"name": "Idle",
 								"id": 37,
 							}
-            ]
+						]
 					},
 					"transform":  {
 					  "offsetX": 0,
@@ -81,7 +81,6 @@
 					  "saturation": 100,
 					  "brightness": 100
 					},
-					"portraits": [],
 					"tags": []
 				}
 			},
@@ -121,7 +120,7 @@
 								"name": "Dash",
 								"id": 17,
 							},
-              {
+							{
 								"name": "Item",
 								"id": 20,
 							},
@@ -145,13 +144,13 @@
 								"name": "KO",
 								"id": 22,
 							}
-						],
-            "sleep": [
+							],
+						"sleep": [
 							{
 								"name": "Idle",
 								"id": 38,
 							}
-            ]
+						]
 					},
 					"transform":  {
 					  "offsetX": 0,
@@ -168,7 +167,6 @@
 					  "saturation": 100,
 					  "brightness": 100
 					},
-					"portraits": [],
 					"tags": []
 				}
 			}
@@ -213,7 +211,7 @@
 								"name": "Dash",
 								"id": 11,
 							},
-              {
+							{
 								"name": "Item",
 								"id": 10,
 							},
@@ -234,12 +232,12 @@
 								"id": 15,
 							}
 						],
-            "sleep": [
+						"sleep": [
 							{
 								"name": "Idle",
 								"id": 37,
 							}
-            ]
+						]
 					},
 					"transform":  {
 					  "offsetX": 0,
@@ -256,7 +254,6 @@
 					  "saturation": 100,
 					  "brightness": 100
 					},
-					"portraits": [],
 					"tags": []
 				}
 			},
@@ -296,7 +293,7 @@
 								"name": "Dash",
 								"id": 17,
 							},
-              {
+							{
 								"name": "Item",
 								"id": 20,
 							},
@@ -321,12 +318,12 @@
 								"id": 22,
 							}
 						],
-            "sleep": [
+						"sleep": [
 							{
 								"name": "Idle",
 								"id": 38,
 							}
-            ]
+						]
 					},
 					"transform":  {
 					  "offsetX": 0,
@@ -343,7 +340,6 @@
 					  "saturation": 100,
 					  "brightness": 100
 					},
-					"portraits": [],
 					"tags": []
 				}
 			}

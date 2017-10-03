@@ -93,7 +93,7 @@ function TurnWindow:waitConfirm(button)
   self:selectAction(self.waitAction)
 end
 -- Overrides GridWindow:onCancel.
-function TurnWindow:cancelConfirm()
+function TurnWindow:onCancel()
   self:selectAction(self.visualizeAction)
   self.result = nil
 end

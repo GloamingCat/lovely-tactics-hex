@@ -80,7 +80,9 @@ function ResourceManager:loadAnimation(data, dest)
     dest:setTransformation(data.transform)
   end
   local AnimClass = Animation
-  if data.animation.script.path ~= '' then
+  if not data.animation then
+    AnimClass = Static
+  elseif data.animation.script.path ~= '' then
     AnimClass = require('custom/animation/' .. data.animation.script.path)
   end
   return AnimClass(dest, data)
@@ -92,7 +94,9 @@ end
 function ResourceManager:loadIcon(icon, renderer)
   local data = Database.animations[icon.id]
   local quad, texture = self:loadQuad(data, nil, icon.col, icon.row)
-  return Sprite(renderer, texture, quad)
+  local sprite = Sprite(renderer, texture, quad)
+  sprite:setTransformation(data.transform)
+  return sprite
 end
 -- Loads an icon as a single-sprite animation.
 -- Loads a sprite for an icon.

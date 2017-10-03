@@ -37,7 +37,7 @@
       // Initial animation.
       "anim": "Idle",
       // Initial direction.
-      "direction": 0,
+      "direction": 225,
       // Script executed when field is loaded.
       "startScript": {
         "path": "",

@@ -36,7 +36,7 @@ function Animation:init(sprite, data)
   self.time = 0
   self.speed = 1
   self.paused = sprite == nil
-  if data then
+  if data and data.animation then
     -- The size of each quad
     self.quadWidth = data.width / data.cols
     self.quadHeight = data.height / data.rows

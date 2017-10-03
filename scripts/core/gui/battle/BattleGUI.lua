@@ -65,7 +65,8 @@ function BattleGUI:createDescriptionWindow()
     self.descriptionWindow = DescriptionWindow(self, w, h, pos)
   end
 end
-
+-- Shows the description below the given window.
+-- @param(window : Window) the window with the items with descriptions
 function BattleGUI:showDescriptionWindow(window)
   if self.descriptionWindow then
     local text = window:currentButton().description
@@ -74,7 +75,7 @@ function BattleGUI:showDescriptionWindow(window)
     GUIManager.fiberList:fork(self.descriptionWindow.show, self.descriptionWindow)
   end
 end
-
+-- Hides the description window.
 function BattleGUI:hideDescriptionWindow()
   if self.descriptionWindow then
     GUIManager.fiberList:fork(function()

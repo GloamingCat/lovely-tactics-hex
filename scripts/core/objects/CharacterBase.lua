@@ -55,7 +55,6 @@ function CharacterBase:init(instData)
   -- Initialize properties
   self:initializeProperties(data.name, data.tiles, data.collider)
   self:initializeGraphics(data.animations, instData.direction, instData.anim, data.transform)
-  self:initializePortraits(data.portraits)
   self:initializeScripts(instData)
   -- Initial position
   self:setXYZ(x, y, z)
@@ -106,15 +105,6 @@ function CharacterBase:initializeScripts(instData)
   end
   if instData.interactScript and instData.interactScript.path ~= '' then
     self.interactScript = instData.interactScript
-  end
-end
--- Creates portrait table.
--- @param(portraits : table) the array of character's portraits from data
-function CharacterBase:initializePortraits(portraits)
-  self.portraits = {}
-  for i = 1, #portraits do
-    local p = portraits[i]
-    self.portraits[p.name] = p.quad
   end
 end
 
