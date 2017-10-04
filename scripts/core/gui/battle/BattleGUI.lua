@@ -29,7 +29,6 @@ function BattleGUI:createWindows()
   self:createItemWindow()
   self:createDescriptionWindow()
   -- Initial state
-  self.windowList:add(self.turnWindow)
   self:setActiveWindow(self.turnWindow)
 end
 -- Creates window with main commands.
@@ -45,6 +44,7 @@ function BattleGUI:createSkillWindow()
   local skillList = character.battler.skillList
   if not skillList:isEmpty() then
     self.skillWindow = SkillWindow(self, skillList)
+    self.skillWindow.lastOpen = false
   end
 end
 -- Creates window to use item.
@@ -53,6 +53,7 @@ function BattleGUI:createItemWindow()
   local itemList = inventory:getUsableItems(1)
   if #itemList > 0 then
     self.itemWindow = ItemWindow(self, inventory, itemList)
+    self.itemWindow.lastOpen = false
   end
 end
 -- Creates window that shows item and skill descriptions.
@@ -63,6 +64,7 @@ function BattleGUI:createDescriptionWindow()
     local h = ScreenManager.height - mainWindow.height - self:windowMargin() * 3
     local pos = Vector(0, ScreenManager.height / 2 - h / 2 - self:windowMargin())
     self.descriptionWindow = DescriptionWindow(self, w, h, pos)
+    self.descriptionWindow.lastOpen = false
   end
 end
 -- Shows the description below the given window.

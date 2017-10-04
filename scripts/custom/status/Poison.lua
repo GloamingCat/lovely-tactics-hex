@@ -42,7 +42,7 @@ function Poison:damage(times)
     value = self.battler.state.hp - 1
   end
   local popupName = 'popup_dmg' .. attHP
-  popupText:addLine(value, Color[popupName], Fonts[popupName])
+  popupText:addLine(value, popupName, popupName)
   self.battler:damage(attHP, value)
   popupText:popup()
 end

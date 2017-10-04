@@ -14,7 +14,6 @@ local MainGUI = class(GUI)
 function MainGUI:createWindows()
   self.name = 'Main GUI'
   local mainWindow = MainWindow(self)
-  self.windowList:add(mainWindow)
   self:setActiveWindow(mainWindow)
 end
 

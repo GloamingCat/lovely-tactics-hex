@@ -89,15 +89,17 @@ function GUI:show()
   if not self.open then
     self.closed = false
     for window in self.windowList:iterator() do
-      GUIManager.fiberList:fork(function()
-        window:show()
-      end)
+      if window.lastOpen then
+        GUIManager.fiberList:fork(function()
+          window:show()
+        end)
+      end
     end
     local done
     repeat
       done = true
       for window in self.windowList:iterator() do
-        if window.scaleY < 1 then
+        if window.lastOpen and window.scaleY < 1 then
           done = false
         end
       end
@@ -112,7 +114,7 @@ function GUI:hide(destroy)
     self.open = false
     for window in self.windowList:iterator() do
       GUIManager.fiberList:fork(function()
-        window:hide()
+        window:hide(true)
       end)
     end
     local done

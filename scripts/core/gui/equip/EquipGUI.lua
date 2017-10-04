@@ -33,7 +33,6 @@ end
 function EquipGUI:createMemberWindow()
   local window = EquipMemberWindow(self, TurnManager:currentTroop())
   self.memberWindow = window
-  self.windowList:add(window)
 end
 
 function EquipGUI:createSlotWindow()
@@ -43,7 +42,6 @@ function EquipGUI:createSlotWindow()
   local y = self:windowMargin() - ScreenManager.height / 2 + h / 2
   local window = EquipSlotWindow(self, w, h, Vector(0, y), self.memberWindow.fitRowCount, member)
   self.slotWindow = window
-  self.windowList:add(window)
 end
 
 function EquipGUI:createItemWindow()
@@ -51,7 +49,6 @@ function EquipGUI:createItemWindow()
   local h = self.memberWindow.height
   local window = EquipItemWindow(self, w, h, self.memberWindow.fitRowCount, TurnManager:currentTroop())
   self.itemWindow = window
-  self.windowList:add(window)
 end
 
 function EquipGUI:createDescriptionWindow()
@@ -60,7 +57,6 @@ function EquipGUI:createDescriptionWindow()
   local pos = Vector(0, ScreenManager.height / 2 - h / 2 - self:windowMargin())
   local window = DescriptionWindow(self, w, h, pos)
   self.descriptionWindow = window
-  self.windowList:add(window)
 end
 
 return EquipGUI

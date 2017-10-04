@@ -44,7 +44,6 @@ function ActionGUI:createStepWindow()
   if not self.stepWindow then
     local window = StepWindow(self)
     self.stepWindow = window
-    self.windowList:add(window)
     window:setVisible(false)
   end
   return self.stepWindow
@@ -55,7 +54,6 @@ function ActionGUI:createTargetWindow()
   if not self.targetWindow then
     local window = TargetWindow(self)
     self.targetWindow = window
-    self.windowList:add(window)
     window:setVisible(false)
   end
   return self.targetWindow

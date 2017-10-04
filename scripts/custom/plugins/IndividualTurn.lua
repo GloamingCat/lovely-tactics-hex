@@ -237,7 +237,6 @@ function ActionGUI:createTargetWindow()
   if not self.targetWindow then
     local window = TargetWindow(self, true)
     self.targetWindow = window
-    self.windowList:add(window)
     window:setVisible(false)
   end
   return self.targetWindow

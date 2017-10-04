@@ -42,9 +42,11 @@ function Window:init(GUI, width, height, position)
   self.width = width
   self.height = height
   self.active = false
+  self:insertSelf()
   self:createContent(width, height)
   self:setPosition(position or Vector(0, 0, 0))
   self:setVisible(false)
+  self.lastOpen = true
 end
 -- Creates all content elements.
 -- By default, only creates the skin.
@@ -96,10 +98,12 @@ function Window:setVisible(value)
     self:showContent()
     self:setScale(self.scaleX, 1)
     self.open = true
+    self.lastOpen = true
     self.closed = false
   else
     self:hideContent()
     self:setScale(self.scaleX, 0)
+    self.lastOpen = false
     self.open = false
     self.closed = true
   end
@@ -154,6 +158,7 @@ function Window:show()
     return
   end
   self.closed = false
+  self.lastOpen = true
   self:scaleTo(self.scaleX, 1, self.speed, true)
   if self.scaleY >= 1 then
     self.open = true
@@ -161,10 +166,11 @@ function Window:show()
   end
 end
 -- [COROUTINE] Closes this window.
-function Window:hide()
+function Window:hide(gui)
   if self.scaleY <= 0 then
     return
   end
+  self.lastOpen = gui
   self.open = false
   self:hideContent()
   self:scaleTo(self.scaleX, 0, self.speed, true)

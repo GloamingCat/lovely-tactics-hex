@@ -39,9 +39,6 @@ function TradeGUI:createWindows()
   local margin = 40
   leftWindow:setXYZ(-leftWindow.width / 2 - margin)
   rightWindow:setXYZ(rightWindow.width / 2 + margin)
-  -- Add to active windows list
-  self.windowList:add(leftWindow)
-  self.windowList:add(rightWindow)
   if #leftWindow.buttonMatrix > 0 then
     self:setActiveWindow(leftWindow)
   else

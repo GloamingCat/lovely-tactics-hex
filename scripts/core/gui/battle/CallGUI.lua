@@ -24,10 +24,8 @@ function CallGUI:createWindows()
   self.name = 'Call GUI'
   -- Info window
   self.targetWindow = TargetWindow(self)
-  self.windowList:add(self.targetWindow)
   -- List window
   local callWindow = CallWindow(self, self.troop, self.allMembers)
-  self.windowList:add(callWindow)
   self:setActiveWindow(callWindow)
 end
 

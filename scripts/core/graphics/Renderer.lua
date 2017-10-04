@@ -52,6 +52,11 @@ function Renderer:resizeCanvas()
     self.needsRedraw = true
   end
 end
+
+---------------------------------------------------------------------------------------------------
+-- General
+---------------------------------------------------------------------------------------------------
+
 -- Inserts self in the screen renderers.
 function Renderer:activate()
   ScreenManager.renderers[self.order] = self
@@ -59,6 +64,15 @@ end
 -- Removes self from the screen renderers.
 function Renderer:deactivate()
   ScreenManager.renderers[self.order] = nil
+end
+function Renderer:spriteCount()
+  local count = 0
+  for i = self.minDepth, self.maxDepth do
+    if self.list[i] then
+      count = count + #self.list[i]
+    end
+  end
+  return count
 end
 
 ---------------------------------------------------------------------------------------------------

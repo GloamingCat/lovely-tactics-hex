@@ -51,16 +51,11 @@ end
 function BattlerWindow:createContent(width, height)
   Window.createContent(self, width, height)
   -- Portrait
-  local sprite = self.character.portraits.battler
-  if sprite then
-    sprite = ResourceManager:loadIcon(sprite, GUIManager.renderer)
-  else
-    sprite = self.character.sprite:clone(GUIManager.renderer)
-    self.portraitAnim = self.character.animation:clone(sprite)
-    self.portraitAnim:setRow(6)
-    self.portraitAnim:setCol(0)
-    sprite:setXYZ(0, 0, 0)
-  end
+  local sprite = self.character.sprite:clone(GUIManager.renderer)
+  self.portraitAnim = self.character.animation:clone(sprite)
+  self.portraitAnim:setRow(6)
+  self.portraitAnim:setCol(0)
+  sprite:setXYZ(0, 0, 0)
   local portrait = SimpleImage(sprite, self:hPadding() - self.width / 2, self:vPadding() - self.height / 2, 
       nil, round(self.width / 3) - self:hPadding(), self.height - self:vPadding() * 2)
   self.content:add(portrait)
