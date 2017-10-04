@@ -280,7 +280,6 @@ end
 -- @ret(number) the next tile's y
 function HexVMath.nextTile(x, y, axisX, axisY, sizeX, sizeY)
   local dx, dy
-  axisY = -axisY
   if axisX == 0 then
     dx = -axisY
     dy = axisY
@@ -321,8 +320,8 @@ end
 -- @ret(number) the new x
 -- @ret(number) the new y
 function HexVMath.nextCoordAxis(dx, dy)
-  dy, dx = dx - dy, dx + dy
-  return max(min(round(dx), 1), -1),  max(min(round(dy), 1), -1)
+  dx, dy = dx - dy, dx + dy
+  return round(max(min(dx, 1), -1)), round(max(min(dy, 1), -1))
 end
 
 return HexVMath

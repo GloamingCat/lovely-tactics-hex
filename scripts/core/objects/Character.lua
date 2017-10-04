@@ -23,7 +23,6 @@ local round = math.round
 local sqrt = math.sqrt
 local time = love.timer.getDelta
 local angle2Coord = math.angle2Coord
-local coord2Angle = math.coord2Angle
 local tile2Pixel = math.field.tile2Pixel
 local pixel2Tile = math.field.pixel2Tile
 local len2D = math.len2D
@@ -55,7 +54,7 @@ function Character:walkToPoint(x, y, z, collisionCheck)
     self:playAnimation(anim)
   end
   if self.autoTurn then
-    self:turnToPoint(x, z)
+    self:turnToPoint(x, -z)
   end
   local distance = len2D(self.position.x - x, self.position.y - y, self.position.z - z)
   self.collisionCheck = collisionCheck
@@ -82,9 +81,9 @@ end
 -- @param(collisionCheck : boolean) if it should check collisions
 -- @ret(boolean) true if the movement was completed, false otherwise
 function Character:walkInAngle(d, angle, dz, collisionCheck)
-  local dx, dy = angle2Coord(angle or self.direction)
-  dz = dz or dy
-  return self:walkDistance(dx * d, -dy * d, dz * d, collisionCheck)
+  local dx, dy = angle2Coord(angle or self:getRoundedDirection())
+  dz = dz or -dy
+  return self:walkDistance(dx * d, dy * d, dz * d, collisionCheck)
 end
 -- [COROUTINE] Walks to the center of the tile (x, y).
 -- @param(x : number) coordinate x of the tile

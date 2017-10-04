@@ -46,10 +46,14 @@ function DirectedObject:setDirection(angle)
   self.direction = angle
   self.animation:setRow(angle2Row(angle))
 end
+function DirectedObject:getRoundedDirection()
+  local row = angle2Row(self.direction)
+  return row * 45
+end
 -- The tile on front of the character, considering character's direction.
 -- @ret(ObjectTile) the front tile (nil if exceeds field border)
 function DirectedObject:frontTile(angle)
-  angle = angle or self.direction
+  angle = angle or self:getRoundedDirection()
   local dx, dy = nextCoordDir(angle)
   local tile = self:getTile()
   if FieldManager.currentField:exceedsBorder(tile.x + dx, tile.y + dy) then
@@ -112,7 +116,7 @@ end
 -- @ret(number) the angle to the given point
 function DirectedObject:angleToPoint(x, y)
   local dx = x - self.position.x
-  local dy = y - self.position.z
+  local dy = y + self.position.z
   return self:angleToVector(dx, dy)
 end
 -- Gets the angle to a given grid point.
@@ -122,7 +126,7 @@ end
 function DirectedObject:angleToTile(x, y)
   local h = self:getTile().layer.height
   local destx, desty, destz = tile2Pixel(x, y, h)
-  return self:angleToPoint(destx, destz)
+  return self:angleToPoint(destx, -destz)
 end
 
 return DirectedObject

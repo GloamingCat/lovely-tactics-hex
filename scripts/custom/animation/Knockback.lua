@@ -43,7 +43,7 @@ function Knockback:setRow(row)
   self.origX = self.sprite.offsetX
   self.origY = self.sprite.offsetY
   self.destX = self.origX + dx * self.step
-  self.destY = self.origY - dy * self.step
+  self.destY = self.origY + dy * self.step
   self.knockSpeed = 60 / self.duration * 2
 end
 

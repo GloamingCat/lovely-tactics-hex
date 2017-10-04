@@ -302,9 +302,9 @@ end
 -- @ret(number) new row number
 -- @ret(boolean) true if visible buttons changed
 function GridWindow:movedCoordinates(c, r, dx, dy)
-  local button = self.buttonMatrix:get(c + dx, r - dy)
+  local button = self.buttonMatrix:get(c + dx, r + dy)
   if button then
-    return c + dx, r - dy
+    return c + dx, r + dy
   end
   if dx ~= 0 then
     if self.loopHorizontal then
@@ -316,7 +316,7 @@ function GridWindow:movedCoordinates(c, r, dx, dy)
     end
   else
     if self.loopVertical then
-      if dy < 0 then
+      if dy > 0 then
         r = self:upLoop(c)
       else
         r = self:downLoop(c)

@@ -1,8 +1,8 @@
 
---[[===========================================================================
+--[[===============================================================================================
 
 GameKey
--------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
 Entity that represents an input key.
 Key states:
 0 => not pressing
@@ -10,7 +10,7 @@ Key states:
 2 => pressing (with delay)
 3 => just pressed
 
-=============================================================================]]
+=================================================================================================]]
 
 -- Alias
 local dt = love.timer.getDelta
@@ -22,15 +22,15 @@ local defaultRepreatGap = 0.05
 
 local GameKey = class()
 
--------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
 -- General
--------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
 
 function GameKey:init()
   self.pressTime = 0
   self.pressState = 0
+  self.releaseTime = 0
 end
-
 -- Updates state.
 function GameKey:update()
   if self.pressState == 2 then
@@ -38,22 +38,20 @@ function GameKey:update()
   end
 end
 
--------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
 -- Check state
--------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
 
 -- Checks if button was triggered (just pressed).
 -- @ret(boolean) true if triggered, false otherwise
 function GameKey:isTriggered()
   return self.pressState == 2
 end
-
 -- Checks if player is pressing the key.
 -- @ret(boolean) true if pressing, false otherwise
 function GameKey:isPressing()
   return self.pressState >= 1
 end
-
 -- Checks if player is pressing the key, considering a delay.
 -- @param(startGap : number) the time in seconds between first true value and the second 
 -- @param(repeatGap : number) the time in seconds between two true values starting from the third
@@ -71,15 +69,15 @@ function GameKey:isPressingGap(startGap, repeatGap)
   repeatGap = repeatGap or defaultRepreatGap
   local time = now() - self.pressTime
   if time >= startGap then
-    return time % repeatGap <= dt()
+    return time % repeatGap <= dt() 
   else
     return false
   end
 end
 
--------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
 -- Input handlers
--------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
 
 -- Called when this key is pressed.
 -- @param(isrepeat : boolean) is this call is a repeat
@@ -91,10 +89,10 @@ function GameKey:onPress(isrepeat)
     self.pressState = 2
   end
 end
-
 -- Called when this kay is released.
 function GameKey:onRelease()
   self.pressState = 0
+  self.releaseTime = now()
 end
 
 return GameKey

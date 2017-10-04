@@ -176,10 +176,10 @@ function Button:updatePosition(windowPos)
   local pos = self:relativePosition()
   pos:add(windowPos)
   if self.icon then
-    self.icon.sprite:setPosition(pos)
+    self.icon.sprite:setXYZ(0, 0)
     local x, y, w, h = self.icon.sprite:totalBounds()
-    self.icon.sprite:setXYZ(nil, pos.y + (self.window:buttonHeight() - h) / 2)
-    pos:add(Vector(w - (self.icon.sprite.position.x - x), 0))
+    self.icon.sprite:setXYZ(pos.x - x, pos.y + self.window:buttonHeight() / 2, pos.z)
+    pos:add(Vector(w, 0))
   end
   if self.text then
     self.text:updatePosition(pos)

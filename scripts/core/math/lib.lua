@@ -137,7 +137,7 @@ end
 -- @param(y : number) the y-axis coordinate
 -- @ret(number) the angle in degrees
 function math.coord2Angle(x, y)
-  return deg(atan2(y, x)) % 360
+  return deg(atan2(-y, x)) % 360
 end
 -- Converts an angle to a normalized vector.
 -- @param(angle : number) the angle in degrees
@@ -145,7 +145,7 @@ end
 -- @ret(number) the y-axis coordinate of the vector
 function math.angle2Coord(angle)
   angle = rad(angle)
-  return cos(angle), sin(angle)
+  return cos(angle), -sin(angle)
 end
 
 ---------------------------------------------------------------------------------------------------

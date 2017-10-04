@@ -68,8 +68,7 @@ function Player:checkFieldInput()
       elseif InputManager.keys['cancel']:isTriggered() then
         self:openGUI()
       else
-        local dx = InputManager:axisX(0, 0)
-        local dy = InputManager:axisY(0, 0)
+        local dx, dy = InputManager:axis(0, 0, 0.05)
         if InputManager.keys['dash']:isPressing() then
           self.speed = self.dashSpeed
         else
@@ -84,7 +83,7 @@ end
 -- Checks if field input is enabled.
 -- @ret(boolean) true if enabled, false otherwise
 function Player:fieldInputEnabled()
-  local gui = GUIManager:isWaitingInput()
+  local gui = GUIManager:isWaitingInput() or BattleManager.onBattle
   return not gui and self.inputOn and self.moveTime >= 1 and self.blocks == 0
 end
 -- [COROUTINE] Moves player depending on input.
@@ -114,6 +113,11 @@ function Player:moveByInput(dx, dy)
     end
     self.autoAnim = autoAnim
   else
+    dx, dy = InputManager:axis(0, 0, 0)
+    if dx ~= 0 or dy ~= 0 then
+      local dir = math.coord2Angle(dx, dy)
+      self:setDirection(dir)
+    end
     if self.autoAnim then
       self:playAnimation(self.idleAnim)
     end
@@ -131,8 +135,8 @@ end
 function Player:tryMovement(dx, dy)
   local angle = coord2Angle(dx, dy)
   return self:tryAngleMovement(angle) or 
-    self:tryAngleMovement(angle + 45) or 
-    self:tryAngleMovement(angle - 45)
+    self:tryAngleMovement(angle - 45) or 
+    self:tryAngleMovement(angle + 45)
 end
 -- [COROUTINE] Tries to move in a given angle.
 -- @param(angle : number) the angle in degrees to move
@@ -162,15 +166,33 @@ function Player:tryAngleMovement(angle)
 end
 
 ---------------------------------------------------------------------------------------------------
+-- GUI
+---------------------------------------------------------------------------------------------------
+
+-- Opens game's main GUI.
+function Player:openGUI()
+  GUIManager:showGUIForResult(MainGUI())
+end
+
+---------------------------------------------------------------------------------------------------
 -- Interaction
 ---------------------------------------------------------------------------------------------------
 
 -- [COROUTINE] Interacts with whoever is the player looking at (if any).
 function Player:interact()
   self.blocks = self.blocks + 1
-  local tile = self:frontTile()
-  if tile == nil then
-    return
+  local angle = self:getRoundedDirection()
+  local interacted = self:interactTile(self:getTile()) or self:interactTile(self:frontTile())
+    or self:interactAngle(angle - 45) or self:interactAngle(angle + 45)
+  self.blocks = self.blocks - 1
+  return interacted
+end
+-- Tries to interact with any character in the given tile.
+-- @param(tile : ObjectTile) 
+-- @ret(boolean) true if the character interacted with someone, false otherwise
+function Player:interactTile(tile)
+  if not tile then
+    return false
   end
   for i = #tile.characterList, 1, -1 do
     local char = tile.characterList[i]
@@ -183,13 +205,15 @@ function Player:interact()
       local path = 'character/' .. char.interactScript.path
       local fiber = FieldManager.fiberList:forkFromScript(path, event)
       fiber:execAll()
+      return true
     end
   end
-  self.blocks = self.blocks - 1
+  return false
 end
--- Opens game's main GUI.
-function Player:openGUI()
-  GUIManager:showGUIForResult(MainGUI())
+-- Tries to interact with any character in the tile looked by the given direction
+function Player:interactAngle(angle)
+  local nextTile = self:frontTile(angle)
+  return self:interactTile(nextTile)
 end
 
 return Player
