@@ -28,7 +28,6 @@
 			"battleAnim": {
 				"loadID": -1,
 				"castID": -1,
-				"centerID": -1,
 				"individualID": 5,
 				"mirror": true
 			},
@@ -67,7 +66,6 @@
 			"battleAnim": {
 				"loadID": -1,
 				"castID": -1,
-				"centerID": -1,
 				"individualID": -1,
 				"mirror": true
 			},
@@ -112,8 +110,7 @@
 			},
 			"battleAnim": {
 				"loadID": -1,
-				"castID": -1,
-				"centerID": 1,
+				"castID": 1,
 				"individualID": -1,
 				"mirror": true
 			},
@@ -163,8 +160,7 @@
 			},
 			"battleAnim": {
 				"loadID": -1,
-				"castID": -1,
-				"centerID": 2,
+				"castID": 2,
 				"individualID": -1,
 				"mirror": true
 			},
@@ -219,8 +215,7 @@
 			},
 			"battleAnim": {
 				"loadID": 5,
-				"castID": -1,
-				"centerID": 3,
+				"castID": 3,
 				"individualID": -1,
 				"mirror": true
 			},
@@ -280,8 +275,7 @@
 			},
 			"battleAnim": {
 				"loadID": 5,
-				"castID": -1,
-				"centerID": 4,
+				"castID": 4,
 				"individualID": -1,
 				"mirror": true
 			},
@@ -341,7 +335,6 @@
 			"battleAnim": {
 				"loadID": -1,
 				"castID": -1,
-				"centerID": -1,
 				"individualID": 5,
 				"mirror": true
 			},
@@ -389,8 +382,7 @@
 			},
 			"battleAnim": {
 				"loadID": -1,
-				"castID": -1,
-				"centerID": 6,
+				"castID": 6,
 				"individualID": -1,
 				"mirror": true
 			},
@@ -444,8 +436,7 @@
 			},
 			"battleAnim": {
 				"loadID": -1,
-				"castID": -1,
-				"centerID": 39,
+				"castID": 39,
 				"individualID": -1,
 				"mirror": true
 			},

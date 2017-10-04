@@ -29,7 +29,6 @@ local ceil = math.ceil
 -- Constants
 local elementCount = #Config.elements
 local introTime = 22.5
-local centerTime = 7.5
 local targetTime = 2.2
 local useTime = 2
 local finishTime = 45
@@ -249,20 +248,11 @@ function SkillAction:use(input)
   input.user:loadSkill(self.data, dir)
   -- Cast animation
   FieldManager.renderer:moveToTile(input.target)
-  _G.Fiber:fork(input.user.castSkill, input.user, self.data, dir)
-  -- Animation in center target tile 
-  --  (does not wait full animation, only the minimum time).
-  if self.data.battleAnim.centerID >= 0 then
-    local mirror = input.user.direction > 90 and input.user.direction <= 270
-    local x, y, z = mathf.tile2Pixel(input.target:coordinates())
-    local animation = BattleManager:playAnimation(self.data.battleAnim.centerID,
-      x, y, z - 1, mirror)
-  end
-  _G.Fiber:wait(centerTime)
-  -- Animation for each of affected tiles.
-  self:allTargetsAnimation(input, originTile)
+  input.user:castSkill(self.data, dir, input.target, true)
   -- Return user to original position and animation.
   input.user:finishSkill(originTile, self.data)
+  -- Animation for each of affected tiles.
+  self:allTargetsAnimation(input, originTile)
   -- Wait until everything finishes.
   _G.Fiber:wait(finishTime)
 end

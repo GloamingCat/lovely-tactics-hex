@@ -30,6 +30,7 @@ local len2D = math.len2D
 -- Constants
 local speedLimit = (Config.player.dashSpeed + Config.player.walkSpeed) / 2
 local castStep = 6
+local castTime = 7.5
 
 local Character = class(CharacterBase)
 
@@ -159,7 +160,9 @@ end
 -- [COROUTINE] Plays cast animation.
 -- @param(skill : Skill)
 -- @param(dir : number) the direction of the cast
-function Character:castSkill(skill, dir, wait)
+-- @param(tile : ObjectTile) target of the skill
+-- @param(wait : boolean)
+function Character:castSkill(skill, dir, tile, wait)
   local minTime = 0
   -- Forward step
   if skill.userAnim.stepOnCast then
@@ -176,10 +179,10 @@ function Character:castSkill(skill, dir, wait)
   -- Cast animation (effect on tile)
   if skill.battleAnim.castID >= 0 then
     local mirror = skill.mirror and dir > 90 and dir <= 270
-    local pos = self.position
-    local anim = BattleManager:playAnimation(skill.battleAnim.castID, 
-      pos.x, pos.y, pos.z - 1, mirror)
-    minTime = max(minTime, anim.duration)
+    local x, y, z = tile2Pixel(tile:coordinates())
+    local anim = BattleManager:playAnimation(skill.battleAnim.castID,
+      x, y, z - 1, mirror)
+    minTime = max(minTime, castTime)
   end
   if wait then
     _G.Fiber:wait(minTime)

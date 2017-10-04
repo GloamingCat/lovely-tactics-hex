@@ -533,7 +533,7 @@
 					  "brightness": 100
 					},
 					"animation": {
-						"duration": 30,
+						"duration": 15,
 						"loop": 0,
 						"allRows": false,
 						"script": {
@@ -799,7 +799,7 @@
 					  "brightness": 100
 					},
 					"animation": {
-						"duration": 30,
+						"duration": 8,
 						"loop": 0,
 						"allRows": false,
 						"script": {
@@ -837,7 +837,7 @@
 					  "brightness": 100
 					},
 					"animation": {
-						"duration": 30,
+						"duration": 8,
 						"loop": 0,
 						"allRows": false,
 						"script": {
