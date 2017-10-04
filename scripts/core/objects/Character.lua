@@ -145,6 +145,8 @@ function Character:loadSkill(skill, dir)
   -- Load animation (user)
   if skill.userAnim.load ~= '' then
     local anim = self:playAnimation(skill.userAnim.load)
+    anim:setCol(0)
+    anim.time = 0
     minTime = anim.duration
   end
   -- Load animation (effect on tile)
@@ -174,6 +176,8 @@ function Character:castSkill(skill, dir, tile, wait)
   -- Cast animation (user)
   if skill.userAnim.cast ~= '' then
     local anim = self:playAnimation(skill.userAnim.cast)
+    anim:setCol(0)
+    anim.time = 0
     minTime = anim.duration
   end
   -- Cast animation (effect on tile)

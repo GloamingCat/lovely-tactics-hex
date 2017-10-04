@@ -354,7 +354,7 @@
 		"data": {
 			"id": 7,
 			"type": 1,
-      "targetType": 2,
+			"targetType": 2,
 			"description": "Poisons an enemy.",
 			"icon": {
 			  "id": 27,
