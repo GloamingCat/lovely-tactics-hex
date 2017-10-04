@@ -71,6 +71,9 @@ function Movable:updateMovement()
     end
   end
 end
+function Movable:moving()
+  return self.moveTime < 1
+end
 -- [COROUTINE] Moves to (x, y, z).
 -- @param(x : number) the pixel x
 -- @param(y : number) the pixel y

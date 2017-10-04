@@ -31,9 +31,8 @@
 					"animation": {
 						"duration": 30,
 						"loop": 0,
-						"allRows": true,
 						"script": {
-							"path": "",
+							"path": "BattleEffect",
 							"param": ""
 						},
 						"audio": []
@@ -68,10 +67,9 @@
 					},
 					"animation": {
 						"duration": 60,
-						"loop": 0,
-						"allRows": true,
+						"loop": 0
 						"script": {
-							"path": "",
+							"path": "BattleEffect",
 							"param": ""
 						},
 						"audio": []
@@ -107,9 +105,8 @@
 					"animation": {
 						"duration": 30,
 						"loop": 0,
-						"allRows": true,
 						"script": {
-							"path": "",
+							"path": "BattleEffect",
 							"param": ""
 						},
 						"audio": []
@@ -145,9 +142,8 @@
 					"animation": {
 						"duration": 30,
 						"loop": 0,
-						"allRows": true,
 						"script": {
-							"path": "",
+							"path": "BattleEffect",
 							"param": ""
 						},
 						"audio": []
@@ -183,9 +179,8 @@
 					"animation": {
 						"duration": 30,
 						"loop": 0,
-						"allRows": true,
 						"script": {
-							"path": "",
+							"path": "BattleEffect",
 							"param": ""
 						},
 						"audio": []
@@ -221,9 +216,8 @@
 					"animation": {
 						"duration": 30,
 						"loop": 0,
-						"allRows": true,
 						"script": {
-							"path": "",
+							"path": "BattleEffect",
 							"param": ""
 						},
 						"audio": []
@@ -259,9 +253,8 @@
 					"animation": {
 						"duration": 60,
 						"loop": 0,
-						"allRows": true,
 						"script": {
-							"path": "",
+							"path": "BattleEffect",
 							"param": ""
 						},
 						"audio": []
@@ -302,7 +295,6 @@
 					"animation": {
 						"duration": 0,
 						"loop": 1,
-						"allRows": false,
 						"script": {
 							"path": "",
 							"param": ""
@@ -340,7 +332,6 @@
 					"animation": {
 						"duration": 40,
 						"loop": 1,
-						"allRows": false,
 						"script": {
 							"path": "",
 							"param": ""
@@ -378,7 +369,6 @@
 					"animation": {
 						"duration": 30,
 						"loop": 1,
-						"allRows": false,
 						"script": {
 							"path": "",
 							"param": ""
@@ -421,7 +411,6 @@
 					"animation": {
 						"duration": 60,
 						"loop": 1,
-						"allRows": false,
 						"script": {
 							"path": "",
 							"param": ""
@@ -459,7 +448,6 @@
 					"animation": {
 						"duration": 40,
 						"loop": 1,
-						"allRows": false,
 						"script": {
 							"path": "",
 							"param": ""
@@ -497,7 +485,6 @@
 					"animation": {
 						"duration": 30,
 						"loop": 0,
-						"allRows": false,
 						"script": {
 							"path": "",
 							"param": ""
@@ -535,7 +522,6 @@
 					"animation": {
 						"duration": 15,
 						"loop": 0,
-						"allRows": false,
 						"script": {
 							"path": "",
 							"param": ""
@@ -573,7 +559,6 @@
 					"animation": {
 						"duration": 12,
 						"loop": 0,
-						"allRows": false,
 						"script": {
 							"path": "Knockback.lua",
 							"param": ""
@@ -611,7 +596,6 @@
 					"animation": {
 						"duration": 60,
 						"loop": 1,
-						"allRows": false,
 						"script": {
 							"path": "",
 							"param": ""
@@ -649,7 +633,6 @@
 					"animation": {
 						"duration": 60,
 						"loop": 1,
-						"allRows": false,
 						"script": {
 							"path": "",
 							"param": ""
@@ -687,7 +670,6 @@
 					"animation": {
 						"duration": 30,
 						"loop": 1,
-						"allRows": false,
 						"script": {
 							"path": "",
 							"param": ""
@@ -725,7 +707,6 @@
 					"animation": {
 						"duration": 40,
 						"loop": 1,
-						"allRows": false,
 						"script": {
 							"path": "",
 							"param": ""
@@ -763,7 +744,6 @@
 					"animation": {
 						"duration": 30,
 						"loop": 0,
-						"allRows": false,
 						"script": {
 							"path": "",
 							"param": ""
@@ -801,7 +781,6 @@
 					"animation": {
 						"duration": 8,
 						"loop": 0,
-						"allRows": false,
 						"script": {
 							"path": "",
 							"param": ""
@@ -839,7 +818,6 @@
 					"animation": {
 						"duration": 8,
 						"loop": 0,
-						"allRows": false,
 						"script": {
 							"path": "",
 							"param": ""
@@ -877,7 +855,6 @@
 					"animation": {
 						"duration": 12,
 						"loop": 0,
-						"allRows": false,
 						"script": {
 							"path": "Knockback.lua",
 							"param": ""
@@ -915,7 +892,6 @@
 					"animation": {
 						"duration": 60,
 						"loop": 1,
-						"allRows": false,
 						"script": {
 							"path": "",
 							"param": ""
@@ -953,7 +929,6 @@
 					"animation": {
 						"duration": 60,
 						"loop": 1,
-						"allRows": false,
 						"script": {
 							"path": "",
 							"param": ""
@@ -996,7 +971,6 @@
 					"animation": {
 						"duration": 0,
 						"loop": 1,
-						"allRows": false,
 						"script": {
 							"path": "",
 							"param": ""
@@ -1034,7 +1008,6 @@
 					"animation": {
 						"duration": 0,
 						"loop": 1,
-						"allRows": false,
 						"script": {
 							"path": "",
 							"param": ""
@@ -1072,7 +1045,6 @@
 					"animation": {
 						"duration": 60,
 						"loop": 1,
-						"allRows": false,
 						"script": {
 							"path": "",
 							"param": ""
@@ -1293,7 +1265,6 @@
 					"animation": {
 						"duration": 20,
 						"loop": 1,
-						"allRows": false,
 						"script": {
 							"path": "Pointer.lua",
 							"param": ""
@@ -1337,7 +1308,6 @@
 					"animation": {
 						"duration": 20,
 						"loop": 1,
-						"allRows": false,
 						"script": {
 							"path": "Pointer.lua",
 							"param": ""
@@ -1381,7 +1351,6 @@
 					"animation": {
 						"duration": 60,
 						"loop": 1,
-						"allRows": false,
 						"script": {
 							"path": "Static.lua",
 							"param": ""
@@ -1419,7 +1388,6 @@
 					"animation": {
 						"duration": 60,
 						"loop": 1,
-						"allRows": false,
 						"script": {
 							"path": "Static.lua",
 							"param": ""
@@ -1457,7 +1425,6 @@
 					"animation": {
 						"duration": 12,
 						"loop": 1,
-						"allRows": false,
 						"script": {
 							"path": "Balloon.lua",
 							"param": ""

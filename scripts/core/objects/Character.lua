@@ -165,7 +165,6 @@ end
 -- @param(tile : ObjectTile) target of the skill
 -- @param(wait : boolean)
 function Character:castSkill(skill, dir, tile, wait)
-  local minTime = 0
   -- Forward step
   if skill.userAnim.stepOnCast then
     local oldAutoTurn = self.autoTurn
@@ -178,7 +177,6 @@ function Character:castSkill(skill, dir, tile, wait)
     local anim = self:playAnimation(skill.userAnim.cast)
     anim:setCol(0)
     anim.time = 0
-    minTime = anim.duration
   end
   -- Cast animation (effect on tile)
   if skill.battleAnim.castID >= 0 then
@@ -186,18 +184,20 @@ function Character:castSkill(skill, dir, tile, wait)
     local x, y, z = tile2Pixel(tile:coordinates())
     local anim = BattleManager:playAnimation(skill.battleAnim.castID,
       x, y, z - 1, mirror)
-    minTime = max(minTime, castTime)
   end
   if wait then
-    _G.Fiber:wait(minTime)
+    _G.Fiber:wait(castTime)
   end
 end
 -- [COROUTINE] Returns to original tile and stays idle.
 -- @param(origin : ObjectTile) the original tile of the character
 -- @param(skill : table) skill data from database
 function Character:finishSkill(origin, skill)
-  local x, y, z = tile2Pixel(origin:coordinates())
   if skill.userAnim.stepOnCast then
+    local x, y, z = tile2Pixel(origin:coordinates())
+    if self.position:almostEquals(x, y, z) then
+      return
+    end
     local autoTurn = self.autoTurn
     self.autoTurn = false
     self:walkToPoint(x, y, z)
@@ -216,7 +216,9 @@ end
 -- @param(origin : ObjectTile) the tile of the skill user
 function Character:damage(skill, origin, results)
   local currentTile = self:getTile()
-  self:turnToTile(origin.x, origin.y)
+  if currentTile ~= origin then
+    self:turnToTile(origin.x, origin.y)
+  end
   local pos = self.position
   FieldManager.fiberList:fork(function()
     for i = 1, #results.status do

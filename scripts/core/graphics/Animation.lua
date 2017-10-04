@@ -45,15 +45,10 @@ function Animation:init(sprite, data)
     self.rowCount = data.rows
     -- Loop type
     self.loop = data.animation.loop
-    self.allRows = data.animation.allRows
     -- Duration
     if data.animation.duration > 0 then
       self.duration = data.animation.duration
-      if self.allRows then
-        self.frameDuration = self.duration / (self.rowCount * self.colCount)
-      else
-        self.frameDuration = self.duration / self.colCount
-      end
+      self.frameDuration = self.duration / self.colCount
     end
     -- Tags
     if data.tags and #data.tags > 0 then
@@ -68,7 +63,6 @@ function Animation:init(sprite, data)
     self.colCount = 1
     self.rowCount = 1
     self.loop = 0
-    self.allRows = false
   end
 end
 -- Creates a clone of this animation.
@@ -101,14 +95,12 @@ function Animation:update()
 end
 -- Sets to next frame.
 function Animation:nextFrame()
-  local lastCol, lastRow = 0, 0
+  local lastCol = 0
   if self.speed > 0 then
-    lastCol, lastRow = self.colCount - 1, self.rowCount - 1
+    lastCol = self.colCount - 1
   end
   if self.col ~= lastCol then
     self:nextCol()
-  elseif self.row ~= lastRow and self.allRows then
-    self:nextRow()
   else
     self:onEnd()
   end
@@ -119,15 +111,10 @@ function Animation:onEnd()
     self.paused = true
   elseif self.loop == 1 then
     self:nextCol()
-    if self.allRows then
-      self:nextRow()
-    end
   elseif self.loop == 2 then
     self.speed = -self.speed
     if self.colCount > 1 then
       self:nextCol()
-    else
-      self:nextRow()
     end
   end
 end
@@ -190,7 +177,11 @@ end
 -- String representation.
 -- @ret(string)
 function Animation:__tostring()
-  return 'Animation'
+  local id = ''
+  if self.data then
+    id = ' (' .. self.data.id .. ')'
+  end
+  return 'Animation' .. id
 end
 
 return Animation

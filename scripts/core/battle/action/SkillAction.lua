@@ -249,10 +249,12 @@ function SkillAction:use(input)
   -- Cast animation
   FieldManager.renderer:moveToTile(input.target)
   input.user:castSkill(self.data, dir, input.target, true)
-  -- Return user to original position and animation.
-  input.user:finishSkill(originTile, self.data)
   -- Animation for each of affected tiles.
   self:allTargetsAnimation(input, originTile)
+  -- Return user to original position and animation.
+  if not input.user:moving() then
+    input.user:finishSkill(originTile, self.data)
+  end
   -- Wait until everything finishes.
   _G.Fiber:wait(finishTime)
 end
@@ -300,6 +302,9 @@ function SkillAction:singleTargetAnimation(input, targetChar, originTile)
         originTile = input.target
       end
       _G.Fiber:fork(function()
+        if targetChar == input.user then
+          input.user:finishSkill(originTile, self.data)
+        end
         targetChar:damage(self.data, originTile, results)
       end)
     end
