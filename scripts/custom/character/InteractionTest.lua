@@ -17,7 +17,7 @@ local DialogueWindow = require('core/gui/general/window/DialogueWindow')
 
 return function(event)
   local gui = GUI()
-  local window = DialogueWindow(GUI, 225, 60)
+  local window = DialogueWindow(gui, 225, 60)
   window:activate()
   GUIManager:showGUI(gui)
   local portrait = { id = 44, col = 0, row = 0 }

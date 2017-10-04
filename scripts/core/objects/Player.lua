@@ -35,6 +35,7 @@ function Player:init(initTile, dir)
   self.blocks = 0
   self.dashSpeed = conf.dashSpeed
   self.walkSpeed = conf.walkSpeed
+  self.inputDelay = 4 / 60
   local troopData = Database.troops[SaveManager.current.playerTroopID]
   local leader = troopData.current[1]
   local data = {
@@ -68,13 +69,13 @@ function Player:checkFieldInput()
       elseif InputManager.keys['cancel']:isTriggered() then
         self:openGUI()
       else
-        local dx, dy = InputManager:axis(0, 0, 0.05)
+        local dx, dy, dir = self:inputAxis()
         if InputManager.keys['dash']:isPressing() then
           self.speed = self.dashSpeed
         else
           self.speed = self.walkSpeed
         end
-        self:moveByInput(dx, dy)
+        self:moveByInput(dx, dy, dir)
       end
     end
     yield()
@@ -89,8 +90,13 @@ end
 -- [COROUTINE] Moves player depending on input.
 -- @param(dx : number) input x
 -- @param(dy : number) input y
-function Player:moveByInput(dx, dy)
+function Player:moveByInput(dx, dy, dir)
   if dx ~= 0 or dy ~= 0 then
+    if dir then
+      local dir = math.coord2Angle(dx, dy)
+      self:setDirection(dir)
+      return
+    end
     local autoAnim = self.autoAnim
     self.autoAnim = false
     if autoAnim then
@@ -113,14 +119,40 @@ function Player:moveByInput(dx, dy)
     end
     self.autoAnim = autoAnim
   else
-    dx, dy = InputManager:axis(0, 0, 0)
-    if dx ~= 0 or dy ~= 0 then
-      local dir = math.coord2Angle(dx, dy)
-      self:setDirection(dir)
-    end
     if self.autoAnim then
       self:playAnimation(self.idleAnim)
     end
+  end
+end
+-- @ret(number) x axis input
+-- @ret(number) y axis input
+-- @ret(boolean) true if it was not pressed for long enough to move
+function Player:inputAxis()
+  local dx = InputManager:axisX(0, 0)
+  local dy = InputManager:axisY(0, 0)
+  if self.pressTime then
+    if timer.getTime() - self.pressTime < self.inputDelay then
+      if dx ~= 0 then
+        self.pressX = dx
+      end
+      if dy ~= 0 then
+        self.pressY = dy
+      end
+      if dx == 0 and dy == 0 then
+        self.pressTime = nil
+      end
+      return self.pressX, self.pressY, true
+    elseif dx == 0 and dy == 0 then
+      self.pressTime = nil
+    end
+    return dx, dy
+  else
+    if dx ~= 0 or dy ~= 0 then
+      self.pressTime = timer.getTime()
+      self.pressX = dx
+      self.pressY = dy
+    end
+    return dx, dy, true
   end
 end
 

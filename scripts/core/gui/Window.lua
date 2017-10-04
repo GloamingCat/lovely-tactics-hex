@@ -35,9 +35,9 @@ local Window = class(Transformable)
 --  (optional, center of the screen by default)
 function Window:init(GUI, width, height, position)
   Transformable.init(self, position)
+  self.GUI = GUI
   self.speed = 10
   self.spriteGrid = SpriteGrid(self:getSkin(), Vector(0, 0, 1))
-  self.GUI = GUI
   self.content = List()
   self.width = width
   self.height = height
