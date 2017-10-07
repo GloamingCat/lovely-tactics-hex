@@ -73,9 +73,11 @@ end
 
 -- Draws game.
 function GameManager:draw()
+  drawCalls = 0
   ScreenManager:draw()
   love.graphics.setFont(self.fpsFont)
   love.graphics.print(love.timer.getFPS())
+  love.graphics.print(drawCalls, 24, 0)
   --[[
   local pos = InputManager.mouse.position
   local wx, wy = FieldManager.renderer:screen2World(pos.x, pos.y)

@@ -16,6 +16,7 @@ local Vector = require('core/math/Vector')
 local Colorable = require('core/transform/Colorable')
 
 -- Alias
+local abs = math.abs
 local Quad = love.graphics.newQuad
 local round = math.round
 local insert = table.insert
@@ -41,6 +42,7 @@ function Sprite:init(renderer, texture, quad)
   self.offsetX = 0
   self.offsetY = 0
   self.offsetDepth = 0
+  self:recalculateBox()
   self.renderer = renderer
   self:insertSelf(1)
   self.visible = true
@@ -102,6 +104,7 @@ function Sprite:setTexture(texture)
     if self.quad then
       self:setQuad(self.quad:getViewport())
     end
+    self.renderer.needsRedraw = true
   end
 end
 -- Sets the quad based on texture.
@@ -110,6 +113,12 @@ end
 -- @param(w : number) quad's new width
 -- @param(h : number) quad's new height
 function Sprite:setQuad(x, y, w, h)
+  self.renderer.needsRedraw = true
+  self.needsRecalcBox = true
+  if type(x) == 'userdata' then
+    self.quad = x
+    return
+  end
   if self.quad then
     self.quad:setViewport(x or 0, y or 0, 
       w or self.texture:getWidth(), h or self.texture:getHeight())
@@ -117,7 +126,6 @@ function Sprite:setQuad(x, y, w, h)
     local tw, th = self.texture:getWidth(), self.texture:getHeight()
     self.quad = Quad(x or 0, y or 0, w or tw, h or th, tw, th)
   end
-  self.renderer.needsRedraw = true
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -155,6 +163,7 @@ function Sprite:setScale(sx, sy)
   sy = sy or 1
   if self.scaleX ~= sx or self.scaleY ~= sy then
     self.renderer.needsRedraw = true
+    self.needsRecalcBox = true
   end
   self.scaleX = sx
   self.scaleY = sy
@@ -172,6 +181,17 @@ end
 -- Bounding box
 ---------------------------------------------------------------------------------------------------
 
+function Sprite:recalculateBox()
+  if self.quad then
+    local _, _, w, h = self.quad:getViewport()
+    local dx = (abs(w / 2 - self.offsetX) + w / 2) * self.scaleX
+    local dy = (abs(h / 2 - self.offsetY) + h / 2) * self.scaleY
+    self.diag = dx + dy
+  else
+    self.diag = 0
+  end
+  self.needsRecalcBox = false
+end
 -- Gets the extreme values for the bounding box.
 function Sprite:totalBounds()
   local _, _, w, h = self.quad:getViewport()

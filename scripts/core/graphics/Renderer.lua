@@ -40,6 +40,10 @@ function Renderer:init(size, minDepth, maxDepth, order)
   self.canvas = lgraphics.newCanvas(1, 1)
   self.order = order
   self.batchHSV = {0, 1, 1}
+  self.minx = -math.huge
+  self.maxx = math.huge
+  self.miny = -math.huge
+  self.maxy = math.huge
   self:activate()
   self:resizeCanvas()
 end
@@ -194,8 +198,10 @@ function Renderer:redrawCanvas()
   lgraphics.rotate(self.rotation)
   lgraphics.translate(-self.position.x + ox * 2 / sx, -self.position.y + oy * 2 / sy)
   lgraphics.clear()
-  local drawCalls = 0
   local started = false
+  local w, h = ScreenManager.width * self.scaleX / 2, ScreenManager.height * self.scaleY / 2
+  self.minx, self.maxx = self.position.x - w, self.position.x + w
+  self.miny, self.maxy = self.position.y - h, self.position.y + h
   for i = self.maxDepth, self.minDepth, -1 do
     local list = self.list[i]
     if list then
@@ -221,7 +227,15 @@ function Renderer:drawList(list)
   for i = 1, n do
     local sprite = list[i]
     if sprite:isVisible() then
-      sprite:draw(self)
+      if sprite.needsRecalcBox then
+        sprite:recalculateBox()
+      end
+      if sprite.position.x - sprite.diag < self.maxx and 
+          sprite.position.x + sprite.diag > self.minx and
+          sprite.position.y - sprite.diag < self.maxy and 
+          sprite.position.y + sprite.diag > self.miny then
+        sprite:draw(self)
+      end
     end
   end
 end

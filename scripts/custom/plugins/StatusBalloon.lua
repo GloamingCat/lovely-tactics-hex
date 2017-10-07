@@ -93,8 +93,8 @@ function Balloon:onEnd()
     local icon = self.status[self.statusIndex]
     local data = Database.animations[icon.id]
     local quad, texture = ResourceManager:loadQuad(data, nil, icon.col, icon.row)
-    self.iconAnim.sprite.texture = texture
-    self.iconAnim.sprite.quad = quad
+    self.iconAnim.sprite:setTexture(texture)
+    self.iconAnim.sprite:setQuad(quad)
     self.iconAnim.sprite:setCenterOffset()
     local x, y, w, h = quad:getViewport()
     self.iconAnim.quadWidth = w
