@@ -222,7 +222,8 @@ function FieldManager:loadTransition(transition, fromSave)
   for char in self.characterList:iterator() do
     local script = char.startScript
     if script ~= nil then
-      char.fiberList:forkFromScript(script.path, {param = script.param, 
+      local fiberList = char.startScript.global and self.fiberList or char.fiberList
+      fiberList:forkFromScript(script.path, {param = script.param, 
           character = char, fromSave = fromSave})
     end
   end

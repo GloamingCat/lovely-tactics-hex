@@ -172,7 +172,7 @@ function Player:tryMovement(dx, dy)
 end
 -- [COROUTINE] Tries to move in a given angle.
 -- @param(angle : number) the angle in degrees to move
--- @ret(boolean) returns false if the next angle must be tried
+-- @ret(boolean) returns false if the next angle must be tried, true to stop trying
 function Player:tryAngleMovement(angle)
   local nextTile = self:frontTile(angle)
   if nextTile == nil then
@@ -188,13 +188,47 @@ function Player:tryAngleMovement(angle)
     else
       self:playAnimation(self.idleAnim)
       self:turnToTile(dx, dy) -- character
+      self:collideTile(nextTile)
       return true
     end
   else
+    if nextTile.transition then
+      self:teleport(nextTile.transition)
+    end
     self:walkToTile(dx, dy, dh, false)
+    self:collideTile(nextTile)
     return true
   end
   return false
+end
+
+---------------------------------------------------------------------------------------------------
+-- Tile collision
+---------------------------------------------------------------------------------------------------
+
+function Player:collideTile(tile)
+  print('collide')
+  if not tile then
+    return false
+  end
+  for char in tile.characterList:iterator() do
+    if char.collideScript then
+      local event = {
+        param = char.collideScript.param,
+        tile = tile,
+        origin = self,
+        dest = char }
+      local path = 'character/' .. char.collideScript.path
+      local fiberList = char.collideScript.global and FieldManager.fiberList or self.fiberList
+      local fiber = fiberList:forkFromScript(path, event)
+      fiber:execAll()
+      return true
+    end
+  end
+end
+
+function Player:teleport(transition)
+
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -235,7 +269,8 @@ function Player:interactTile(tile)
         origin = self,
         dest = char }
       local path = 'character/' .. char.interactScript.path
-      local fiber = FieldManager.fiberList:forkFromScript(path, event)
+      local fiberList = char.interactScript.global and FieldManager.fiberList or self.fiberList
+      local fiber = fiberList:forkFromScript(path, event)
       fiber:execAll()
       return true
     end

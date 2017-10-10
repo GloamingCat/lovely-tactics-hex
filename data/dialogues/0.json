@@ -3,40 +3,15 @@
   "name": "Intro - Tutor",
   "speeches": [
     {
-      "portrait": {
-        "imagePath": "Portrait/",
-        "x": 0,
-        "y": 0,
-        "width": 1,
-        "height": 1
-      },
-      "portraitSide": 0,
       "name": "Tutor",
       "nameSide": 0,
       "message": "Hi, how are you?",
-      "xType": 1,
-      "yType": 2,
-      "x": -1,
-      "y": -1,
-      "widthType": 0,
-      "heightType": 0,
-      "width": -1,
-      "height": -1,
-      "lineCount": -1,
       "tags": []
     },
     {
-      "portrait": {
-        "imagePath": "Portrait/",
-        "x": 0,
-        "y": 0,
-        "width": 1,
-        "height": 1
-      },
-      "portraitSide": 0,
       "name": "Tutor",
       "nameSide": 0,
-      "message": "I\u0027m here to show how the engine works.\r\n",
+      "message": "I\u0027m here to show how the engine works.",
       "xType": 1,
       "yType": 2,
       "x": -1,
@@ -49,14 +24,6 @@
       "tags": []
     },
     {
-      "portrait": {
-        "imagePath": "Portrait/",
-        "x": 0,
-        "y": 0,
-        "width": 1,
-        "height": 1
-      },
-      "portraitSide": 0,
       "name": "Tutor",
       "nameSide": 0,
       "message": "I\u0027m a NPC, and my script is the file \"intro.lua\". \r\nThere you can see how I was programmed.",
@@ -72,14 +39,6 @@
       "tags": []
     },
     {
-      "portrait": {
-        "imagePath": "Portrait/",
-        "x": 0,
-        "y": 0,
-        "width": 1,
-        "height": 1
-      },
-      "portraitSide": 0,
       "name": "Tutor",
       "nameSide": 0,
       "message": "What do you want to test now?",
@@ -95,14 +54,6 @@
       "tags": []
     },
     {
-      "portrait": {
-        "imagePath": "Portrait/",
-        "x": 0,
-        "y": 0,
-        "width": 1,
-        "height": 1
-      },
-      "portraitSide": 0,
       "name": "Tutor",
       "nameSide": 0,
       "message": "Okay, let\u0027s battle!",
@@ -118,14 +69,6 @@
       "tags": []
     },
     {
-      "portrait": {
-        "imagePath": "Portrait/",
-        "x": 0,
-        "y": 0,
-        "width": 1,
-        "height": 1
-      },
-      "portraitSide": 0,
       "name": "Tutor",
       "nameSide": 0,
       "message": "Hey, you are good with this.",
@@ -141,14 +84,6 @@
       "tags": []
     },
     {
-      "portrait": {
-        "imagePath": "Portrait/",
-        "x": 0,
-        "y": 0,
-        "width": 1,
-        "height": 1
-      },
-      "portraitSide": 0,
       "name": "Tutor",
       "nameSide": 0,
       "message": "That\u0027s fine you lost, it was just a test. Do you want me to heal your party?",
@@ -164,14 +99,6 @@
       "tags": []
     },
     {
-      "portrait": {
-        "imagePath": "Portrait/",
-        "x": 0,
-        "y": 0,
-        "width": 1,
-        "height": 1
-      },
-      "portraitSide": 0,
       "name": "Tutor",
       "nameSide": 0,
       "message": "Okay, let\u0027s shop!",
@@ -187,14 +114,6 @@
       "tags": []
     },
     {
-      "portrait": {
-        "imagePath": "Portrait/",
-        "x": 0,
-        "y": 0,
-        "width": 1,
-        "height": 1
-      },
-      "portraitSide": 0,
       "name": "Tutor",
       "nameSide": 0,
       "message": "Okay, then I\u0027ll call my friend to help us with the scene.",
@@ -210,14 +129,6 @@
       "tags": []
     },
     {
-      "portrait": {
-        "imagePath": "Portrait/",
-        "x": 0,
-        "y": 0,
-        "width": 1,
-        "height": 1
-      },
-      "portraitSide": 0,
       "name": "Tutor",
       "nameSide": 0,
       "message": "Hey, nameless friend, come here!",
@@ -233,14 +144,6 @@
       "tags": []
     },
     {
-      "portrait": {
-        "imagePath": "Portrait/",
-        "x": 0,
-        "y": 0,
-        "width": 1,
-        "height": 1
-      },
-      "portraitSide": 0,
       "name": "Nameless Friend",
       "nameSide": 0,
       "message": "What is it?",
@@ -256,14 +159,6 @@
       "tags": []
     },
     {
-      "portrait": {
-        "imagePath": "Portrait/",
-        "x": 0,
-        "y": 0,
-        "width": 1,
-        "height": 1
-      },
-      "portraitSide": 0,
       "name": "Tutor",
       "nameSide": 0,
       "message": "Nothing, it was just to make you walk.",
@@ -279,14 +174,6 @@
       "tags": []
     },
     {
-      "portrait": {
-        "imagePath": "Portrait/",
-        "x": 0,
-        "y": 0,
-        "width": 1,
-        "height": 1
-      },
-      "portraitSide": 0,
       "name": "Nameless Friend",
       "nameSide": 0,
       "message": "Darn it, Tutor.",
@@ -302,14 +189,6 @@
       "tags": []
     },
     {
-      "portrait": {
-        "imagePath": "Portrait/",
-        "x": 0,
-        "y": 0,
-        "width": 1,
-        "height": 1
-      },
-      "portraitSide": 0,
       "name": "Tutor",
       "nameSide": 0,
       "message": "I think he\u0027s now mad at me.",

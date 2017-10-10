@@ -26,6 +26,8 @@ Once the engine is properly installed, all you have to do is run the project fol
 * Thanks to Mr. Bubble for the battle animations: https://mrbubblewand.wordpress.com/;
 * Thanks to Alex dos Ventos for the scenery art.
 
+Also, check the project that my mate Felipe Tavares is working on, a GUI to edit the game's database files: https://github.com/felipetavares/lovely-tactics-gui
+
 ## License
 
 For now, this work is licensed under the Creative Commons Attribution-NonCommercial 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-nc/4.0/. It may have a commercial license in the future, maybe when it's finished.
@@ -33,16 +35,13 @@ Also, please check the LÖVE2D license here: https://love2d.org/wiki/License.
 
 ## To-do list
 
-* Battle buffs/debuffs;
-* Character-positioning GUI before battle;
-* Dialogue GUI;
-* Field/Main GUI, with all other sub-GUI;
+* Field/Main GUI, with all other sub-GUI (items, skills, etc);
 * Save/Load GUI;
 * Shop GUI;
 * Mouse interaction;
 * Multi-layered fields;
 * Isometric and orthogonal grid cells;
-* A JSON editor for the game's database (probably in another project).
+* Block programming for character scripts.
 
 ## Contact
 
