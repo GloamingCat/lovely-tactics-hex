@@ -7,12 +7,15 @@
     "defaultRegion": 0,
     // The script to be forked when the field is loaded.
     "onStart": {
-      "path": "Test",
+      "path": "TransitionGen",
       "param": ""
     },
-    // Automatic transitions to other fields.
-    "transitions": [],
-    "tags": []
+    "tags": [
+      {
+        "name": "south",
+        "value": "{fieldID = 0, x = 8, y = 2, h = 0, direction = 270}"
+      }
+    ]
   },
   "battle": {
     "parties": [],
@@ -28,9 +31,9 @@
       "y": 5,
       "h": 0,
       // The party this character is member of, in case it's a battle field.
-      // It's from 1 to #battle.parties.
+      // It's from 1 to #battle.parties (or -1 if none).
       "party": -1,
-      // The ID of this character's data, from the "characters" table in the databse.
+      // The ID of this character's data, from the "characters" table in the database.
       "charID": 1,
       // Battle associated to this character (if -1, it's the default battler from original data).
       "battlerID": -1,
@@ -41,17 +44,20 @@
       // Script executed when field is loaded.
       "startScript": {
         "path": "",
-        "param": ""
+        "param": "",
+        "global": false
       },
       // Script executed when this character collides with other.
       "collideScript": {
         "path": "",
-        "param": ""
+        "param": "",
+        "global": false
       },
       // Script executed when player interacts with this character.
       "interactScript": {
         "path": "InteractionTest",
-        "param": ""
+        "param": "",
+        "global": false
       },
       "tags": []
     }

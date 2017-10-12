@@ -8,6 +8,7 @@ The class implements methods to check collisions.
 =================================================================================================]]
 
 -- Imports
+local TagMap = require('core/datastruct/TagMap')
 local TerrainLayer = require('core/field/TerrainLayer')
 local ObjectLayer = require('core/field/ObjectLayer')
 
@@ -29,6 +30,7 @@ function Field:init(data)
   self.id = data.id
   self.sizeX = data.sizeX
   self.sizeY = data.sizeY
+  self.tags = TagMap(data.prefs.tags)
   local script = data.prefs.onStart
   if script and script.path ~= '' then
     self.startScript = script
@@ -98,12 +100,6 @@ function Field:getObjectTile(x, y, z)
     return nil
   end
   return self.objectLayers[z].grid[x][y]
-end
--- Return the Object Tile given the coordinates in a transition table.
--- @param(t : table) the transition with (tileX, tileY, height)
--- @ret(ObjectTile) the tile in the coordinates (nil of out of bounds)
-function Field:getObjectTileFromTransition(t)
-  return self:getObjectTile(t.tileX + 1, t.tileY + 1, t.height)
 end
 -- Returns a iterator that navigates through all object tiles.
 -- @ret(function) the grid iterator

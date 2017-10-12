@@ -97,9 +97,7 @@ function Player:moveByInput(dx, dy, dir)
       self:setDirection(dir)
       return
     end
-    local autoAnim = self.autoAnim
-    self.autoAnim = false
-    if autoAnim then
+    if self.autoAnim then
       if self.speed < conf.dashSpeed then
         self:playAnimation(self.walkAnim)
       else
@@ -108,7 +106,7 @@ function Player:moveByInput(dx, dy, dir)
     end
     local moved = self:tryMovement(dx, dy)
     if not moved then
-      if autoAnim then
+      if self.autoAnim then
         self:playAnimation(self.idleAnim)
       end
       if self.autoTurn then
@@ -117,7 +115,6 @@ function Player:moveByInput(dx, dy, dir)
       end
       self:adjustToTile()
     end
-    self.autoAnim = autoAnim
   else
     if self.autoAnim then
       self:playAnimation(self.idleAnim)
@@ -173,7 +170,7 @@ end
 -- [COROUTINE] Tries to move in a given angle.
 -- @param(angle : number) the angle in degrees to move
 -- @ret(boolean) returns false if the next angle must be tried, true to stop trying
-function Player:tryAngleMovement(angle)
+function Player:tryAngleMovement(angle)  
   local nextTile = self:frontTile(angle)
   if nextTile == nil then
     return false
@@ -186,8 +183,12 @@ function Player:tryAngleMovement(angle)
     if collision ~= 3 then -- not a character
       return false
     else
-      self:playAnimation(self.idleAnim)
-      self:turnToTile(dx, dy) -- character
+      if self.autoAnim then
+        self:playAnimation(self.idleAnim)
+      end
+      if self.autoTurn then
+        self:turnToTile(dx, dy) -- character
+      end
       self:collideTile(nextTile)
       return true
     end
@@ -195,7 +196,10 @@ function Player:tryAngleMovement(angle)
     if nextTile.transition then
       self:teleport(nextTile.transition)
     end
+    local autoAnim = self.autoAnim
+    self.autoAnim = false
     self:walkToTile(dx, dy, dh, false)
+    self.autoAnim = autoAnim
     self:collideTile(nextTile)
     return true
   end
@@ -210,6 +214,7 @@ function Player:collideTile(tile)
   if not tile then
     return false
   end
+  self.blocks = self.blocks + 1
   for char in tile.characterList:iterator() do
     if char.collideScript then
       local event = {
@@ -221,6 +226,7 @@ function Player:collideTile(tile)
       return true
     end
   end
+  self.blocks = self.blocks - 1
 end
 
 function Player:teleport(transition)

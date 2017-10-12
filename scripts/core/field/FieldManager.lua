@@ -91,10 +91,9 @@ function FieldManager:createCamera(sizeX, sizeY, layerCount)
 end
 -- Creates a character representing player.
 -- @ret(Player) the newly created player
-function FieldManager:createPlayer(transition)
-  local tile = self.currentField:getObjectTileFromTransition(transition)
-  local player = Player(tile)
-  player:setDirection(transition.direction)
+function FieldManager:createPlayer(t)
+  local tile = self.currentField:getObjectTile(t.x, t.y, t.h)
+  local player = Player(tile, t.directon)
   return player
 end
 

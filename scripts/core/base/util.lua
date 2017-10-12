@@ -9,3 +9,4 @@ util = {}
 
 util.array = require('core/base/util/ArrayUtil')
 util.table = require('core/base/util/TableUtil')
+util.event = require('core/base/util/EventUtil')

@@ -31,12 +31,11 @@ function SaveManager:newSave()
   -- Initial position
   local startPos = Config.player.startPos
   save.playerTransition = {
-    tileX = startPos.x or 0,
-    tileY = startPos.y or 0,
-    height = startPos.z or 0,
-    fieldID = startPos.fieldID or 0,
-    direction = startPos.direction or 270
-  }
+    x = startPos.x or 1,
+    y = startPos.y or 1,
+    h = startPos.h or 0,
+    direction = startPos.direction or 270,
+    fieldID = startPos.fieldID or 0 }
   self.current = save
 end
 
