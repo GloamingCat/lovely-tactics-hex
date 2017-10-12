@@ -161,7 +161,7 @@ function ObjectTile:collidesCharacters(char, other)
     return false
   end
   if not other.battler then
-    return true
+    return not char.passable
   end
   if not other.battler:isActive() and overpassDeads then
     return false

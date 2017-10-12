@@ -84,21 +84,8 @@ end
 -- Return input axis.
 -- @ret(number) the x-axis value
 -- @ret(number) the y-axis value
-function InputManager:axis(startGap, repeatGap, delay)
-  delay = delay or 0
-  local x, y = self:axisX(startGap, repeatGap), self:axisY(startGap, repeatGap)
-  if x == 0 then
-    if y ~= 0 then
-      if now() - max(self.keys['down'].pressTime, self.keys['up'].pressTime) < delay then
-        return 0, 0
-      end
-    end
-  elseif y == 0 then
-    if now() - max(self.keys['left'].pressTime, self.keys['right'].pressTime) < delay then
-      return 0, 0
-    end
-  end
-  return x, y
+function InputManager:axis(startGap, repeatGap)
+  return self:axisX(startGap, repeatGap), self:axisY(startGap, repeatGap)
 end
 -- Return a forced "orthogonal" axis (x and y can't be both non-zero).
 -- @ret(number) the x-axis value

@@ -14,6 +14,7 @@ local Stack = require('core/datastruct/Stack')
 local Vector = require('core/math/Vector')
 local Renderer = require('core/graphics/Renderer')
 local Field = require('core/field/Field')
+local Interactable = require('core/objects/Interactable')
 local Character = require('core/objects/Character')
 local Player = require('core/objects/Player')
 local FiberList = require('core/fiber/FiberList')
@@ -209,7 +210,11 @@ function FieldManager:loadTransition(transition, fromSave)
   local fieldData = self:loadField(fieldID)
   -- Create characters
   for i, char in ipairs(fieldData.characters) do
-    Character(char)
+    if char.charID then
+      Character(char)
+    else
+      Interactable(char)
+    end
   end
   self.player = self:createPlayer(transition)
   self.renderer.focusObject = self.player
@@ -222,12 +227,12 @@ function FieldManager:loadTransition(transition, fromSave)
   for char in self.characterList:iterator() do
     local script = char.startScript
     if script ~= nil then
-      local fiberList = char.startScript.global and self.fiberList or char.fiberList
-      fiberList:forkFromScript(script.path, {param = script.param, 
-          character = char, fromSave = fromSave})
+      local event = {param = script.param, 
+          character = char, fromSave = fromSave}
+      char:onStart(event)
     end
   end
-  self.fiberList:fork(self.player.checkFieldInput, self.player)
+  self.player.fiberList:fork(self.player.checkFieldInput, self.player)
 end
 -- [COROUTINE] Loads a battle field and waits for the battle to finish.
 -- It MUST be called from a fiber in FieldManager's fiber list, or else the fiber will be 

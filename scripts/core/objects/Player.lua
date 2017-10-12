@@ -207,7 +207,6 @@ end
 ---------------------------------------------------------------------------------------------------
 
 function Player:collideTile(tile)
-  print('collide')
   if not tile then
     return false
   end
@@ -218,10 +217,7 @@ function Player:collideTile(tile)
         tile = tile,
         origin = self,
         dest = char }
-      local path = 'character/' .. char.collideScript.path
-      local fiberList = char.collideScript.global and FieldManager.fiberList or self.fiberList
-      local fiber = fiberList:forkFromScript(path, event)
-      fiber:execAll()
+      char:onCollide(event)
       return true
     end
   end
@@ -268,10 +264,7 @@ function Player:interactTile(tile)
         tile = tile,
         origin = self,
         dest = char }
-      local path = 'character/' .. char.interactScript.path
-      local fiberList = char.interactScript.global and FieldManager.fiberList or self.fiberList
-      local fiber = fiberList:forkFromScript(path, event)
-      fiber:execAll()
+      char:onInteract(event)
       return true
     end
   end

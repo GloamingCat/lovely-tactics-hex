@@ -13,7 +13,7 @@ A CharacterBase provides very basic functions that are necessary for every chara
 -- Imports
 local Vector = require('core/math/Vector')
 local DirectedObject = require('core/objects/DirectedObject')
-local FiberList = require('core/fiber/FiberList')
+local Interactable = require('core/objects/Interactable')
 
 -- Alias
 local max = math.max
@@ -28,7 +28,7 @@ local tile2Pixel = math.field.tile2Pixel
 local animSets = Config.animations.sets
 local pph = Config.grid.pixelsPerHeight
 
-local CharacterBase = class(DirectedObject)
+local CharacterBase = class(DirectedObject, Interactable)
 
 ---------------------------------------------------------------------------------------------------
 -- Inititialization
@@ -43,13 +43,12 @@ function CharacterBase:init(instData)
   local x, y, z = tile2Pixel(instData.x, instData.y, instData.h)
   DirectedObject.init(self, data, Vector(x, y, z))
   -- Battle info
-  self.key = instData.key
-  self.party = instData.party
-  self.battlerID = instData.battlerID
+  self.key = instData.key or ''
+  self.party = instData.party or -1
+  self.battlerID = instData.battlerID or -1
   if self.battlerID == -1 then
-    self.battlerID = data.battlerID
+    self.battlerID = data.battlerID or -1
   end
-  -- Add to FieldManager lists
   FieldManager.characterList:add(self)
   FieldManager.updateList:add(self)
   -- Initialize properties
@@ -83,6 +82,7 @@ end
 function CharacterBase:initializeProperties(name, tiles, colliderHeight)
   self.name = name
   self.collisionTiles = tiles
+  self.passable = false
   self.speed = 60
   self.autoAnim = true
   self.autoTurn = true
@@ -92,20 +92,6 @@ function CharacterBase:initializeProperties(name, tiles, colliderHeight)
   self.damageAnim = 'Damage'
   self.koAnim = 'KO'
   self.cropMovement = false
-end
--- Creates listeners from instData.
--- @param(instData : table) the instData from field file
-function CharacterBase:initializeScripts(instData)
-  self.fiberList = FiberList()
-  if instData.startScript and instData.startScript.path ~= '' then
-    self.startScript = instData.startScript
-  end
-  if instData.collideScript and instData.collideScript.path ~= '' then
-    self.collideScript = instData.collideScript
-  end
-  if instData.interactScript and instData.interactScript.path ~= '' then
-    self.interactScript = instData.interactScript
-  end
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -129,7 +115,7 @@ end
 -- Updates fibers.
 function CharacterBase:update()
   DirectedObject.update(self)
-  self.fiberList:update()
+  Interactable.update(self)
   if self.balloon then
     self.balloon:update()
   end
@@ -137,8 +123,7 @@ end
 -- Removes from draw and update list.
 function CharacterBase:destroy()
   DirectedObject.destroy(self)
-  FieldManager.characterList:removeElement(self)
-  FieldManager.updateList:removeElement(self)
+  Interactable.destroy(self)
 end
 -- Converting to string.
 -- @ret(string) a string representation
