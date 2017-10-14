@@ -92,6 +92,7 @@ function CharacterBase:initializeProperties(name, tiles, colliderHeight)
   self.damageAnim = 'Damage'
   self.koAnim = 'KO'
   self.cropMovement = false
+  self.vars = {}
 end
 
 ---------------------------------------------------------------------------------------------------

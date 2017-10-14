@@ -9,7 +9,6 @@ This module creates all global variables.
 
 require('core/base/class')
 require('core/base/override')
-require('core/base/util')
 require('core/math/lib')
 
 ---------------------------------------------------------------------------------------------------
@@ -28,6 +27,12 @@ Fonts   = require('conf/Fonts')
 Icons   = require('conf/Icons')
 Sound   = require('conf/Sound')
 KeyMap  = require('conf/KeyMap')
+
+---------------------------------------------------------------------------------------------------
+-- Util
+---------------------------------------------------------------------------------------------------
+
+require('core/base/util')
 
 ---------------------------------------------------------------------------------------------------
 -- Plugins

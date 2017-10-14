@@ -8,6 +8,7 @@ A common class for Obstacles and Characters.
 =================================================================================================]]
 
 -- Imports
+local TagMap = require('core/datastruct/TagMap')
 local Transformable = require('core/transform/Transformable')
 local Vector = require('core/math/Vector')
 local Sprite = require('core/graphics/Sprite')
@@ -29,6 +30,9 @@ function Object:init(data, pos)
   Transformable.init(self, pos)
   self.data = data
   self.name = data.name
+  if data.tags then
+    self.tags = TagMap(data.tags)
+  end
 end
 -- Destructor.
 function Object:destroy()

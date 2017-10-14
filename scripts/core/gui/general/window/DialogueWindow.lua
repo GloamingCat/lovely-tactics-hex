@@ -29,11 +29,12 @@ local DialogueWindow = class(Window)
 -- Initialization
 ---------------------------------------------------------------------------------------------------
 
-function DialogueWindow:init(GUI, w, h, pos)
+function DialogueWindow:init(GUI, w, h, x, y)
   w = w or ScreenManager.width - GUI:windowMargin()
   h = h or ScreenManager.height / 4
-  pos = pos or Vector((w - ScreenManager.width) / 2 + GUI:windowMargin(), (ScreenManager.height - h) / 2 - GUI:windowMargin())
-  Window.init(self, GUI, w, h, pos)
+  x = x or (w - ScreenManager.width) / 2 + GUI:windowMargin()
+  y = y or (ScreenManager.height - h) / 2 - GUI:windowMargin()
+  Window.init(self, GUI, w, h, Vector(x, y))
 end
 -- Overrides Window:createContent.
 -- Creates a simple text for dialogue.

@@ -12,7 +12,7 @@ local lgraphics = love.graphics
 local Quad = lgraphics.newQuad
 
 -- Constants
-local textShader = love.graphics.newShader('shaders/text.glsl')
+local textShader = love.graphics.newShader('shaders/Text.glsl')
 textShader:send('outlineSize', Fonts.outlineSize / Fonts.scale)
 
 local TextRenderer = {}

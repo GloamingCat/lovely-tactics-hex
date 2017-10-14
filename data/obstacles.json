@@ -40,8 +40,7 @@
 						false
 					]
 				}
-			],
-			"tags": []
+			]
 		}
 	},
 	{
@@ -68,8 +67,7 @@
 				"saturation": 100,
 				"brightness": 100
 			},
-			"tiles": [],
-			"tags": []
+			"tiles": []
 		}
 	}
 ]

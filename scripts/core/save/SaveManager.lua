@@ -25,6 +25,10 @@ end
 function SaveManager:newSave()
   local save = {}
   save.playTime = 0
+  -- Global vars
+  save.vars = {}
+  -- Field data
+  save.fields = {}
   -- Initial party
   save.troops = {}
   save.playerTroopID = Config.troop.initial

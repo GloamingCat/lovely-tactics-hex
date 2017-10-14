@@ -130,8 +130,10 @@ end
 -- It recreates all contents.
 function Window:resize(w, h)
   w, h = w or self.width, h or self.height
-  self:destroy()
-  self:createContent(w, h)
+  if w ~= self.width or h ~= self.height then
+    self:destroy()
+    self:createContent(w, h)
+  end
 end
 
 -- Window's skin.

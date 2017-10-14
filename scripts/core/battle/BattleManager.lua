@@ -5,7 +5,7 @@ BattleManager
 ---------------------------------------------------------------------------------------------------
 Controls battle flow (initializes troops, runs loop, checks victory and game over).
 Parameters:
-  gameOverCondition: 0 => no gameover, 1 => only when lost, 2 => only lost or draw
+  gameOverCondition: 0 => no gameover, 1 => only when lost, 2 => lost or draw
   skipAnimations: for debugging purposes (skips battle/character animations)
   escapeEnabled: enable Escape action
 Results: 1 => win, 0 => draw, -1 => lost

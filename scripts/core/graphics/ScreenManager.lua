@@ -42,6 +42,7 @@ function ScreenManager:init()
   self.offsetY = 0
   self.canvas = lgraphics.newCanvas(self.width * self.scaleX, self.height * self.scaleY)
   self.renderers = {}
+  self.drawCalls = 0
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -49,23 +50,22 @@ end
 ---------------------------------------------------------------------------------------------------
 
 -- Overrides love draw to count the calls.
-local drawCalls = 0
 local old_draw = love.graphics.draw
 function love.graphics.draw(...)
   old_draw(...)
-  drawCalls = drawCalls + 1
+  _G.ScreenManager.drawCalls = _G.ScreenManager.drawCalls + 1
 end
 -- Draws game canvas.
 function ScreenManager:draw()
-  drawCalls = 0
+  self.drawCalls = 0
   lgraphics.setCanvas(self.canvas)
   lgraphics.clear()
   for i = 1, #self.renderers do
     self.renderers[i]:draw()
   end
   lgraphics.setCanvas()
+  lgraphics.setShader(self.shader)
   lgraphics.draw(self.canvas, self.offsetX, self.offsetY)
-  --print('Draw calls: ' .. drawCalls)
 end
 
 ---------------------------------------------------------------------------------------------------
