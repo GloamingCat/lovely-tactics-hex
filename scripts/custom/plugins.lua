@@ -8,6 +8,7 @@ Example:
 
 =================================================================================================]]
 
+local generalUtil = { 'GeneralUtil', on = true }
 local killCheat = { 'KillCheat', on = true,
   key = 'k' }
 local individualTurn = { 'IndividualTurn', on = true,
@@ -25,6 +26,7 @@ local statusBalloon = { 'StatusBalloon', on = true }
 ---------------------------------------------------------------------------------------------------
 
 return { 
+  generalUtil,
   killCheat, 
   individualTurn, 
   controlZone, 

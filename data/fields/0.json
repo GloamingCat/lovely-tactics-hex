@@ -35,7 +35,7 @@
       // It's from 1 to #battle.parties (or -1 if none).
       "party": -1,
       // The ID of this character's data, from the "characters" table in the database.
-      "charID": 1,
+      "charID": 3,
       // Battle associated to this character (if -1, it's the default battler from original data).
       "battlerID": -1,
       // Initial animation.
@@ -48,6 +48,27 @@
           {
             "name": "eventScript",
             "param": 1
+          }
+        ]
+        "global": false
+      },
+      "tags": []
+    },
+    {
+      "key": "battle",
+      "x": 7,
+      "y": 4,
+      "h": 0,
+      "party": -1,
+      "charID": 4,
+      "battlerID": -1,
+      "anim": "Idle",
+      "direction": 180,
+      "collideScript": {
+        "commands": [
+          {
+            "name": "eventScript",
+            "param": 2
           }
         ]
         "global": false

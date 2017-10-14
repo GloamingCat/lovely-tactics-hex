@@ -214,7 +214,6 @@ function Player:collideTile(tile)
   if not tile then
     return false
   end
-  self.blocks = self.blocks + 1
   for char in tile.characterList:iterator() do
     if char.collideScript then
       local event = {
@@ -223,10 +222,8 @@ function Player:collideTile(tile)
         origin = self,
         dest = char }
       char:onCollide(event)
-      return true
     end
   end
-  self.blocks = self.blocks - 1
 end
 
 function Player:teleport(transition)
@@ -248,11 +245,9 @@ end
 
 -- [COROUTINE] Interacts with whoever is the player looking at (if any).
 function Player:interact()
-  self.blocks = self.blocks + 1
   local angle = self:getRoundedDirection()
   local interacted = self:interactTile(self:getTile()) or self:interactTile(self:frontTile())
     or self:interactAngle(angle - 45) or self:interactAngle(angle + 45)
-  self.blocks = self.blocks - 1
   return interacted
 end
 -- Tries to interact with any character in the given tile.

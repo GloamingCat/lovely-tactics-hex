@@ -1,49 +1,89 @@
 [
-  {
-    "name": "Interaction Test",
-    "data": {
-      "id": 1,
-      "commands": [
-        {
-          "name": "openDialogueWindow",
-          "param": {
-            "id": 1,
-            "width": 225,
-            "height": 60
-          }
-        },
-        {
-          "name": "showDialogue",
-          "param": {
-            "id": 1,
-            "portrait": {
-              "id": 44,
-              "col": 0,
-              "row": 0
-            },
-            "message": "Hi."
-          }
-        },
-        {
-          "name": "showDialogue",
-          "param": {
-            "id": 1,
-            "portrait": {
-              "id": 44,
-              "col": 0,
-              "row": 0
-            },
-            "message": "How you doing?"
-          }
-        },
-        {
-          "name": "closeDialogueWindow",
-          "param": {
-            "id": 1
-          }
-        }
-      ],
-      "global": false
-    }
+	{
+		"name": "Dialogue Test",
+		"data": {
+			"id": 1,
+			"commands": [
+				{
+				  "name": "openDialogueWindow",
+				  "param": {
+					"id": 1,
+					"width": 225,
+					"height": 60
+				  }
+				},
+				{
+				  "name": "showDialogue",
+				  "param": {
+					"id": 1,
+					"portrait": {
+					  "id": 44,
+					  "col": 0,
+					  "row": 0
+					},
+					"message": "Hi."
+				  }
+				},
+				{
+				  "name": "showDialogue",
+				  "param": {
+					"id": 1,
+					"portrait": {
+					  "id": 44,
+					  "col": 0,
+					  "row": 0
+					},
+					"message": "How you doing?"
+				  }
+				},
+				{
+				  "name": "closeDialogueWindow",
+				  "param": {
+					"id": 1
+				  }
+				}
+			],
+			"global": false
+		}
+	},
+	{
+		"name": "Battle Test",
+		"data": {
+			"id": 2,
+			"commands": [
+				{
+					"name": "startBattle",
+					"param": {
+						"fieldID": 1,
+						"fade": true,
+						"gameOverCondition": 2,
+						"escapeEnabled": true
+					}
+				}
+				{
+					"name": "luaScript",
+					"param": "util.general.printBattleResult()"
+				},
+				{
+					"name": "condition",
+					"param": {
+						"expression": "BattleManager:playerWon()"
+						"if": [
+							{
+								"name": "luaScript",
+								"param": "print 'You won!'"
+							}
+						],
+						"else": [
+							{
+								"name": "luaScript",
+								"param": "print ('You lost...', BattleManager:playerWon())"
+							}
+						]
+					}
+				}
+			],
+			"global": false
+		}
 	}
 ]

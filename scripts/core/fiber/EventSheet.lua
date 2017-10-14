@@ -115,7 +115,7 @@ function EventSheet:preprocessCondition(command, commands, n, depth)
   -- Endelse label
   commands[n] = {
     name = 'label',
-    param = endif }
+    param = endelse }
   return n
 end
 
@@ -124,7 +124,7 @@ function EventSheet:addLabels()
   for i = 1, #self.commands do
     local command = self.commands[i]
     if command.name == 'label' then
-      self.label[command.param] = self.index
+      self.labels[command.param] = i
     end
   end
 end
@@ -134,24 +134,32 @@ end
 ---------------------------------------------------------------------------------------------------
 
 function EventSheet:execute(event)
+  local player = FieldManager.player
+  player.blocks = player.blocks + 1
   while self.index < #self.commands do
     self.index = self.index + 1
     local command = self.commands[self.index]
     if command.name == 'jump' then
-      assert(self.label[command.param.label], 'Label not defined: ' .. command.param.label)
-      local value = command.param.condition == nil or util.decodeExpression(self, event, 
-        command.param.condition)
+      assert(self.labels[command.param.label], 'Label not defined: ' .. command.param.label)
+      local value = command.param.expression == nil or util.event.decodeExpression(self, event, 
+        command.param.expression)
       if value then
-        self.index = self.label[command.param.label]
+        self.index = self.labels[command.param.label]
       end
     elseif command.name == 'fork' then
       EventSheet(self.root, command.param)
     elseif command.name == 'script' then
       util.executeScript(command.param)
     elseif command.name ~= 'label' then
+      assert(util.event[command.name], 'Command does not exist: ' .. command.name)
       util.event[command.name](self, event, command.param)
     end
   end
+  if self.gui then
+    GUIManager:returnGUI()
+    self.gui = nil
+  end
+  player.blocks = player.blocks - 1
 end
 
 return EventSheet

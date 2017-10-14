@@ -92,6 +92,7 @@ function CharacterBase:initializeProperties(name, tiles, colliderHeight)
   self.damageAnim = 'Damage'
   self.koAnim = 'KO'
   self.cropMovement = false
+  self.paused = false
   self.vars = {}
 end
 
@@ -115,6 +116,9 @@ end
 -- Overrides AnimatedObject:update. 
 -- Updates fibers.
 function CharacterBase:update()
+  if self.paused then
+    return
+  end
   DirectedObject.update(self)
   Interactable.update(self)
   if self.balloon then

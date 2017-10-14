@@ -1,7 +1,7 @@
 
 --[[===============================================================================================
 
-Event Util
+Event Utilities
 ---------------------------------------------------------------------------------------------------
 Functions that are loaded from the EventSheet.
 
@@ -24,7 +24,7 @@ local util = {}
 ---------------------------------------------------------------------------------------------------
 
 function util.decodeExpression(sheet, event, expression)
-  return loadFormula(expression, 'sheet, event')(sheet, event)
+  return loadformula(expression, 'sheet, event')(sheet, event)
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -32,7 +32,7 @@ end
 ---------------------------------------------------------------------------------------------------
 
 function util.luaScript(sheet, event, param)
-  loadFunction(param, 'sheet, event')(sheet, event)
+  loadfunction(param, 'sheet, event')(sheet, event)
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -105,6 +105,7 @@ function util.closeDialogueWindow(sheet, event, param)
     sheet.gui.dialogues[param.id] = nil
     if sheet.gui.windowList.size == 0 then
       GUIManager:returnGUI()
+      sheet.gui = nil
     end
   end
 end
@@ -140,18 +141,21 @@ end
 -- @param(gameOverCondition : number) 0 => no gameover, 1 => only when lost, 2 => lost or draw
 -- @param(escapeEnabled : boolean) true to enable the whole party to escape
 function util.startBattle(sheet, event, param)
-  if param.fade then
-    local shader = ScreenManager.shader
-    ScreenManager.shader = battleIntroShader
-    local time = deltaTime()
-    while time <= 1 do
-      battleIntroShader:send('time', time)
-      coroutine.yield()
-      time = time + deltaTime()
+  local fiber = FieldManager.fiberList:fork(function ()
+    if param.fade then
+      local shader = ScreenManager.shader
+      ScreenManager.shader = battleIntroShader
+      local time = deltaTime()
+      while time <= 1 do
+        battleIntroShader:send('time', time)
+        coroutine.yield()
+        time = time + deltaTime()
+      end
+      ScreenManager.shader = shader
     end
-    ScreenManager.shader = shader
-  end
-  FieldManager:loadBattle(param.fieldID, param)
+    FieldManager:loadBattle(param.fieldID, param)
+  end)
+  fiber:waitForEnd()
 end
 
 return util

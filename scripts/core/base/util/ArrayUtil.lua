@@ -1,10 +1,30 @@
 
+--[[===============================================================================================
+
+Array Utilities
+---------------------------------------------------------------------------------------------------
+
+
+=================================================================================================]]
+
 local util = {}
 
 ---------------------------------------------------------------------------------------------------
--- Arrays
+-- General
 ---------------------------------------------------------------------------------------------------
 
+-- Gets the index of the given element in the given array.
+-- @param(arr : table) the array
+-- @param(el : unknown) the element
+-- @ret(number) the index of the element if found, nil if not found
+function util.indexOf(arr, el)
+  for i = 1, #arr do
+    if arr[i] == el then
+      return i
+    end
+  end
+  return nil
+end
 -- Creates a new array of given size with all elements starting with the given value.
 -- @param(size : number) size of the array
 -- @param(value : unknown) initial value of all elements
@@ -88,18 +108,6 @@ end
 -- @ret(unknown) the mean
 function util.mean(arr)
   return util.sum(arr) / #arr
-end
--- Gets the index of the given element in the given array.
--- @param(arr : table) the array
--- @param(el : unknown) the element
--- @ret(number) the index of the element if found, nil if not found
-function util.indexOf(arr, el)
-  for i = 1, #arr do
-    if arr[i] == el then
-      return i
-    end
-  end
-  return nil
 end
 
 return util
