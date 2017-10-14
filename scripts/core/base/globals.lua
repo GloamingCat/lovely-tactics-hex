@@ -32,7 +32,10 @@ KeyMap  = require('conf/KeyMap')
 -- Util
 ---------------------------------------------------------------------------------------------------
 
-require('core/base/util')
+util = {}
+util.array = require('core/base/util/ArrayUtil')
+util.table = require('core/base/util/TableUtil')
+util.event = require('core/base/util/EventUtil')
 
 ---------------------------------------------------------------------------------------------------
 -- Plugins

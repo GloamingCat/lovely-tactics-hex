@@ -97,6 +97,46 @@ function FieldManager:createPlayer(t)
   return player
 end
 
+function FieldManager:createTransitions(transitions)
+  local field = self.currentField
+  local north = transitions.north
+  local south = transitions.south
+  local west = transitions.west
+  local east = transitions.east
+  local function instantiate(transition, minx, maxx, miny, maxy)
+    local script = { 
+      commands = { {
+        name = "moveToField",
+        param = transition
+      } },
+      global = true }
+    for x = minx, maxx do
+      for y = miny, maxy do
+        local tile = field:getObjectTile(x, y, 0)
+        if not tile:collidesObstacle(0, 0) then
+          local char = { key = '',
+            x = x, y = y, h = 0,
+            collideScript = script }
+          Interactable(char)
+        end
+      end
+    end
+  end
+  local w, h = field.sizeX, field.sizeY
+  if north then
+    instantiate(north, north.minx or 1, north.maxx or w, 1, 1)
+  end
+  if south then
+    instantiate(south, south.minx or 1, south.maxx or w, h, h)
+  end
+  if west then
+    instantiate(west, 1, 1, west.miny or 1, west.maxy or h)
+  end
+  if east then
+    instantiate(east, w, w, east.miny or 1, east.maxy or h)
+  end
+end
+
 ---------------------------------------------------------------------------------------------------
 -- State
 ---------------------------------------------------------------------------------------------------
@@ -221,17 +261,17 @@ function FieldManager:loadTransition(transition, fromSave)
   -- Create/call start listeners
   local script = self.currentField.startScript
   if script then
-    self.fiberList:forkFromScript('field/' .. script.path, {param = script.param, fromSave = fromSave})
+    self.fiberList:forkFromScript(script, {fromSave = fromSave})
   end
   for char in self.characterList:iterator() do
     local script = char.startScript
     if script ~= nil then
-      local event = {param = script.param, 
-          character = char, fromSave = fromSave}
+      local event = {character = char, fromSave = fromSave}
       char:onStart(event)
     end
   end
   self.player.fiberList:fork(self.player.checkFieldInput, self.player)
+  self:createTransitions(fieldData.prefs.transitions)
 end
 -- [COROUTINE] Loads a battle field and waits for the battle to finish.
 -- It MUST be called from a fiber in FieldManager's fiber list, or else the fiber will be 
@@ -245,7 +285,8 @@ function FieldManager:loadBattle(fieldID, params)
   BattleManager:setUp(params)
   if self.currentField.startScript then
     local script = self.currentField.startScript
-    self.fiberList:forkFromScript(script.path, {param = script.param, fromSave = fromSave})
+    local fiber = self.fiberList:forkFromScript(script.path, {})
+    fiber:execAll()
   end
   collectgarbage('collect')
   local winner, result = BattleManager:runBattle()

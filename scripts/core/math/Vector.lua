@@ -22,6 +22,10 @@ local almostEquals = math.almostEquals
 
 local Vector = class()
 
+---------------------------------------------------------------------------------------------------
+-- Initialization
+---------------------------------------------------------------------------------------------------
+
 -- @param(x : number) the x coordinate of the Vector
 -- @param(y : number) the y coordinate of the Vector
 -- @param(z : number) the z coordinate of the Vector (default: 0)

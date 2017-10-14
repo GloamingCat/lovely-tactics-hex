@@ -10,6 +10,7 @@ A List of Fibers. Must be updated every frame.
 -- Imports
 local List = require('core/datastruct/List')
 local Fiber = require('core/fiber/Fiber')
+local EventSheet = require('core/fiber/EventSheet')
 
 local FiberList = class(List)
 
@@ -17,6 +18,15 @@ local FiberList = class(List)
 -- General
 ---------------------------------------------------------------------------------------------------
 
+function FiberList:init(state)
+  List.init(self)
+  self.eventSheets = List()
+  if state then
+    for i = 1, #state do
+      EventSheet(self, nil, state[i])
+    end
+  end
+end
 -- Updates all Fibers.
 function FiberList:update()
   for i = 1, self.size do
@@ -43,11 +53,21 @@ function FiberList:fork(func, ...)
   return Fiber(self, func, ...)
 end
 -- Creates new Fiber from a script table.
--- @param(script : string) path to string from "custom" folder
--- @param(...) any other arguments to the Fiber
--- @ret(Fiber) the newly created Fiber (nil if path is empty)
-function FiberList:forkFromScript(script, ...)
-  return Fiber.fromScript(self, script, ...)
+-- @ret(EventSheet) the newly created Fiber
+function FiberList:forkFromScript(script, event)
+  return EventSheet(self, script.commands, event)
+end
+
+---------------------------------------------------------------------------------------------------
+-- State
+---------------------------------------------------------------------------------------------------
+
+function FiberList:getState()
+  local state = {}
+  for i = 1, #self.eventSheets do
+    state[i] = self.eventSheets:getState()
+  end
+  return state
 end
 
 return FiberList

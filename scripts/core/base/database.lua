@@ -43,7 +43,7 @@ end
 ---------------------------------------------------------------------------------------------------
 
 Database = {}
-local db = {'animations', 'battlers', 'characters', 'classes', 'items', 'obstacles', 
+local db = {'animations', 'battlers', 'characters', 'classes', 'items', 'obstacles', 'scripts',
   'skills', 'status', 'terrains', 'troops'}
 for i = 1, #db do
   local file = db[i]

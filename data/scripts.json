@@ -1,0 +1,49 @@
+[
+  {
+    "name": "Interaction Test",
+    "data": {
+      "id": 1,
+      "commands": [
+        {
+          "name": "openDialogueWindow",
+          "param": {
+            "id": 1,
+            "width": 225,
+            "height": 60
+          }
+        },
+        {
+          "name": "showDialogue",
+          "param": {
+            "id": 1,
+            "portrait": {
+              "id": 44,
+              "col": 0,
+              "row": 0
+            },
+            "message": "Hi."
+          }
+        },
+        {
+          "name": "showDialogue",
+          "param": {
+            "id": 1,
+            "portrait": {
+              "id": 44,
+              "col": 0,
+              "row": 0
+            },
+            "message": "How you doing?"
+          }
+        },
+        {
+          "name": "closeDialogueWindow",
+          "param": {
+            "id": 1
+          }
+        }
+      ],
+      "global": false
+    }
+	}
+]

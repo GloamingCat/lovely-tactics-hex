@@ -5,17 +5,18 @@
   "prefs": {
     "name": "New Field",
     "defaultRegion": 0,
-    // The script to be forked when the field is loaded.
-    "onStart": {
-      "path": "TransitionGen",
-      "param": ""
-    },
-    "tags": [
-      {
-        "name": "south",
-        "value": "{fieldID = 0, x = 8, y = 2, h = 0, direction = 270}"
+    // Automatically generated transitions interactables.
+    "transitions": {
+      "south": {
+        "fieldID": 0,
+        "x": 8,
+        "y": 2,
+        "h": 0,
+        "direction": 270,
+        "fade": 60
       }
-    ]
+    }
+    "tags": []
   },
   "battle": {
     "parties": [],
@@ -41,22 +42,14 @@
       "anim": "Idle",
       // Initial direction.
       "direction": 225,
-      // Script executed when field is loaded.
-      "startScript": {
-        "path": "",
-        "param": "",
-        "global": false
-      },
-      // Script executed when this character collides with other.
-      "collideScript": {
-        "path": "",
-        "param": "",
-        "global": false
-      },
       // Script executed when player interacts with this character.
       "interactScript": {
-        "path": "InteractionTest",
-        "param": "",
+        "commands": [
+          {
+            "name": "eventScript",
+            "param": 1
+          }
+        ]
         "global": false
       },
       "tags": []
