@@ -72,6 +72,10 @@ function BattleManager:runBattle()
 end
 -- Runs before battle loop.
 function BattleManager:battleStart()
+  if self.params.fade then
+    FieldManager.renderer:fadeout(0)
+    FieldManager.renderer:fadein(nil, true)
+  end
   if self.params.intro then
     self:battleIntro()
   end
@@ -81,8 +85,6 @@ function BattleManager:battleStart()
 end
 -- Player intro animation, to show each party.
 function BattleManager:battleIntro()
-  FieldManager.renderer:fadeout(0)
-  FieldManager.renderer:fadein(nil, true)
   local speed = 50
   for i = 1, #TroopManager.centers do
     if i ~= TroopManager.playerParty then

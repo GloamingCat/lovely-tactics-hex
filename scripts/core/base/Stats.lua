@@ -79,8 +79,8 @@ function stats.countData(path)
 end
 
 function stats.countDataLines(path)
-  local comments = "//.*?\n"
   local content = readFile(path)
+  local comments = "//.*?\n"
   content = content:gsub(comments, '')
   content = content:gsub('(\n%s+\n)', '\n')
   local _, count = content:gsub('\n', '\n')

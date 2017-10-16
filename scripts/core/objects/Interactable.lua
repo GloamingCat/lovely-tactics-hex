@@ -61,18 +61,21 @@ end
 ---------------------------------------------------------------------------------------------------
 
 function Interactable:onInteract(event)
+  event.block = true
   local fiberList = self.interactScript.global and FieldManager.fiberList or self.fiberList
   local fiber = fiberList:forkFromScript(self.interactScript, event)
   fiber:execAll()
 end
 
 function Interactable:onCollide(event)
+  event.block = true
   local fiberList = self.collideScript.global and FieldManager.fiberList or self.fiberList
   local fiber = fiberList:forkFromScript(self.collideScript, event)
   fiber:execAll()
 end
 
 function Interactable:onStart(event)
+  event.block = true
   local fiberList = self.startScript.global and FieldManager.fiberList or self.fiberList
   fiberList:forkFromScript(self.startScript, event)
 end

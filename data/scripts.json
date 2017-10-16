@@ -56,10 +56,11 @@
 					"param": {
 						"fieldID": 1,
 						"fade": true,
+            "intro": true,
 						"gameOverCondition": 2,
 						"escapeEnabled": true
 					}
-				}
+				},
 				{
 					"name": "luaScript",
 					"param": "util.general.printBattleResult()"
@@ -67,7 +68,7 @@
 				{
 					"name": "condition",
 					"param": {
-						"expression": "BattleManager:playerWon()"
+						"expression": "BattleManager:playerWon()",
 						"if": [
 							{
 								"name": "luaScript",

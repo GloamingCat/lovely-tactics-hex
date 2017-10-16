@@ -48,6 +48,7 @@ local db = {'animations', 'battlers', 'characters', 'classes', 'items', 'obstacl
 for i = 1, #db do
   local file = db[i]
   local data = JSON.load('data/' .. file)
+  assert(data, 'Could not load ' .. file)
   Database[file] = toArray(data)
 end
 

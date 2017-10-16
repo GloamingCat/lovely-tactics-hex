@@ -298,10 +298,10 @@ function HexVMath.nextTile(x, y, axisX, axisY, sizeX, sizeY)
 		dx = (axisX - axisY) / 2;
 		dy = (axisX + axisY) / 2;
   end
-  if x + dx <= sizeX and x + axisX > 0 then
+  if x + dx <= sizeX and x + dx > 0 then
     x = x + dx
   end
-  if y + dy <= sizeY and y + axisY > 0 then
+  if y + dy <= sizeY and y + dy > 0 then
     y = y + dy
   end
   return x, y

@@ -17,7 +17,7 @@
 				// 2 => Using the troop's grid.
 				"memberGen": 2,
 				"memberPos": [],
-				// Position of the top-left corner of the party (or left corner, in isometrics).
+				// Position of the top-left corner of the party (or left corner, in isometric/hexagonal grid).
 				"x": 12,
 				"y": 5,
 				"h": 0,

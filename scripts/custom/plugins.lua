@@ -33,4 +33,3 @@ return {
   statusBalloon, 
   removeStatusOnDamage,
   individualItems }
-

@@ -5,17 +5,7 @@
   "prefs": {
     "name": "New Field",
     "defaultRegion": 0,
-    // Automatically generated transitions interactables.
-    "transitions": {
-      "south": {
-        "fieldID": 0,
-        "x": 8,
-        "y": 2,
-        "h": 0,
-        "direction": 270,
-        "fade": 60
-      }
-    },
+    // The script to be forked when the field is loaded.
     "tags": []
   },
   "battle": {
@@ -32,46 +22,30 @@
       "y": 5,
       "h": 0,
       // The party this character is member of, in case it's a battle field.
-      // It's from 1 to #battle.parties (or -1 if none).
+      // It's from 1 to #battle.parties.
       "party": -1,
-      // The ID of this character's data, from the "characters" table in the database.
-      "charID": 3,
+      // The ID of this character's data, from the "characters" table in the databse.
+      "charID": 1,
       // Battle associated to this character (if -1, it's the default battler from original data).
       "battlerID": -1,
       // Initial animation.
       "anim": "Idle",
       // Initial direction.
       "direction": 225,
+      // Script executed when field is loaded.
+      "startScript": {
+        "path": "",
+        "param": ""
+      },
+      // Script executed when this character collides with other.
+      "collideScript": {
+        "path": "",
+        "param": ""
+      },
       // Script executed when player interacts with this character.
       "interactScript": {
-        "commands": [
-          {
-            "name": "eventScript",
-            "param": 1
-          }
-        ],
-        "global": false
-      },
-      "tags": []
-    },
-    {
-      "key": "battle",
-      "x": 7,
-      "y": 4,
-      "h": 0,
-      "party": -1,
-      "charID": 4,
-      "battlerID": -1,
-      "anim": "Idle",
-      "direction": 180,
-      "collideScript": {
-        "commands": [
-          {
-            "name": "eventScript",
-            "param": 2
-          }
-        ],
-        "global": false
+        "path": "InteractionTest",
+        "param": ""
       },
       "tags": []
     }

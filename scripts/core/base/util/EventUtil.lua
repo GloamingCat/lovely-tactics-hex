@@ -141,7 +141,7 @@ end
 -- @param(gameOverCondition : number) 0 => no gameover, 1 => only when lost, 2 => lost or draw
 -- @param(escapeEnabled : boolean) true to enable the whole party to escape
 function util.startBattle(sheet, event, param)
-  local fiber = FieldManager.fiberList:fork(function ()
+  local fiber = FieldManager.fiberList:fork(function()
     if param.fade then
       local shader = ScreenManager.shader
       ScreenManager.shader = battleIntroShader
@@ -151,7 +151,7 @@ function util.startBattle(sheet, event, param)
         coroutine.yield()
         time = time + deltaTime()
       end
-      ScreenManager.shader = shader
+      ScreenManager.shader = nil
     end
     FieldManager:loadBattle(param.fieldID, param)
   end)

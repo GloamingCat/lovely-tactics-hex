@@ -135,7 +135,9 @@ end
 
 function EventSheet:execute(event)
   local player = FieldManager.player
-  player.blocks = player.blocks + 1
+  if event.block then
+    player.blocks = player.blocks + 1
+  end
   while self.index < #self.commands do
     self.index = self.index + 1
     local command = self.commands[self.index]
@@ -159,7 +161,9 @@ function EventSheet:execute(event)
     GUIManager:returnGUI()
     self.gui = nil
   end
-  player.blocks = player.blocks - 1
+  if event.block then
+    player.blocks = player.blocks - 1
+  end
 end
 
 return EventSheet

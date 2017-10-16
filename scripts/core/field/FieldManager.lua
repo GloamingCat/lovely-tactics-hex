@@ -61,8 +61,7 @@ function FieldManager:loadField(fieldID)
   if self.currentField ~= nil then
     --self:storePersistentData()
   end
-  local fieldFile = love.filesystem.read('data/fields/' .. fieldID .. '.json')
-  local fieldData = JSON.decode(fieldFile)
+  local fieldData = JSON.load('data/fields/' .. fieldID)
   self.updateList = List()
   self.characterList = List()
   if self.renderer then

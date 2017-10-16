@@ -20,6 +20,7 @@ function GameManager:init()
   self.cleanCount = 0
   self.startedProfi = false
   --PROFI = require('core/base/ProFi')
+  --require('core/base/Stats').printStats()
 end
 -- Starts the game.
 function GameManager:start(arg)
