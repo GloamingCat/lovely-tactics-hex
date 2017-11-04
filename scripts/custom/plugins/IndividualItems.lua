@@ -13,7 +13,7 @@ local Inventory = require('core/battle/Inventory')
 local BattleGUI = require('core/gui/battle/BattleGUI')
 local TurnWindow = require('core/gui/battle/window/TurnWindow')
 local ItemWindow = require('core/gui/battle/window/ItemWindow')
-local Button = require('core/gui/Button')
+local Button = require('core/gui/widget/Button')
 local TradeSkill = require('custom/plugins/IndividualItems/TradeSkill')
 
 -- Parameters

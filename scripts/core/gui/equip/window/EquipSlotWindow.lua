@@ -9,8 +9,8 @@ The window that shows each equipment slot.
 
 -- Imports
 local Vector = require('core/math/Vector')
-local SimpleText = require('core/gui/SimpleText')
-local Button = require('core/gui/Button')
+local SimpleText = require('core/gui/widget/SimpleText')
+local Button = require('core/gui/widget/Button')
 local ListButtonWindow = require('core/gui/ListButtonWindow')
 
 -- Alias

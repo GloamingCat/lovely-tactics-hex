@@ -11,8 +11,8 @@ Window that shows on each character in the VisualizeAction.
 local Vector = require('core/math/Vector')
 local Sprite = require('core/graphics/Sprite')
 local Window = require('core/gui/Window')
-local SimpleText = require('core/gui/SimpleText')
-local SimpleImage = require('core/gui/SimpleImage')
+local SimpleText = require('core/gui/widget/SimpleText')
+local SimpleImage = require('core/gui/widget/SimpleImage')
 
 -- Alias
 local round = math.round

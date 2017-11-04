@@ -10,7 +10,7 @@ A window that shows the troop's members in the Equip GUI.
 -- Imports
 local List = require('core/datastruct/List')
 local Vector = require('core/math/Vector')
-local Button = require('core/gui/Button')
+local Button = require('core/gui/widget/Button')
 local ListButtonWindow = require('core/gui/ListButtonWindow')
 
 local EquipMemberWindow = class(ListButtonWindow)

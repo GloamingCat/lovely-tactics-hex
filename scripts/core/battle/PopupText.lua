@@ -30,13 +30,14 @@ local PopupText = class()
 -- @param(x : number) origin pixel x
 -- @param(y : number) origin pixel y
 -- @param(z : number) origin pixel z (depth)
-function PopupText:init(x, y, z)
+function PopupText:init(x, y, z, renderer)
   self.x = x
   self.y = y
   self.z = z
   self.text = nil
   self.lineCount = 0
   self.resources = {}
+  self.renderer = renderer or FieldManager.renderer
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -101,7 +102,7 @@ function PopupText:popup(wait)
       self:popup(true)
     end)
   else
-    local sprite = Text(self.text, properties, FieldManager.renderer)
+    local sprite = Text(self.text, properties, self.renderer)
     sprite:setXYZ(self.x, self.y, self.z)
     sprite:setCenterOffset()
     local d = 0

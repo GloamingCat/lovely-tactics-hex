@@ -86,30 +86,31 @@ end
 
 -- [COROUTINE] Shows all windows.
 function GUI:show()
-  if not self.open then
-    self.closed = false
+  if self.open then
+    return
+  end
+  self.closed = false
+  for window in self.windowList:iterator() do
+    if window.lastOpen then
+      GUIManager.fiberList:fork(function()
+        window:show()
+      end)
+    end
+  end
+  local done
+  repeat
+    done = true
     for window in self.windowList:iterator() do
-      if window.lastOpen then
-        GUIManager.fiberList:fork(function()
-          window:show()
-        end)
+      if window.lastOpen and window.scaleY < 1 then
+        done = false
       end
     end
-    local done
-    repeat
-      done = true
-      for window in self.windowList:iterator() do
-        if window.lastOpen and window.scaleY < 1 then
-          done = false
-        end
-      end
-      yield()
-    until done
-  end
+    yield()
+  until done
   self.open = true
 end
 -- [COROUTINE] Hides all windows.
-function GUI:hide(destroy)
+function GUI:hide()
   if not self.closed then
     self.open = false
     for window in self.windowList:iterator() do
@@ -128,9 +129,6 @@ function GUI:hide(destroy)
       yield()
     until done
     self.closed = true
-  end
-  if destroy then
-    self:destroy()
   end
 end
 

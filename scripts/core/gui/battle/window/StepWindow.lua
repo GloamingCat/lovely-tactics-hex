@@ -11,7 +11,7 @@ remaining steps.
 -- Imports
 local Vector = require('core/math/Vector')
 local Window = require('core/gui/Window')
-local SimpleText = require('core/gui/SimpleText')
+local SimpleText = require('core/gui/widget/SimpleText')
 
 local StepWindow = class(Window)
 

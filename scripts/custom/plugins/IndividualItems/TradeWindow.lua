@@ -10,7 +10,7 @@ Window that shows each item of the inventory to be moved to another inventory.
 -- Imports
 local Animation = require('core/graphics/Animation')
 local GUI = require('core/gui/GUI')
-local Button = require('core/gui/Button')
+local Button = require('core/gui/widget/Button')
 local GridWindow = require('core/gui/GridWindow')
 
 -- Alias

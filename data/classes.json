@@ -57,10 +57,8 @@
 				{
 					"id": 4,
 					"level": 0,
-					"cost": {
-						"lp": "100"
-					},
-					"requirements": []
+					"requirements": [],
+          "tags": []
 				}
 			],
 			"tags": []

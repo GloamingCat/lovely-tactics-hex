@@ -37,10 +37,8 @@ function Stalker:runTurn()
     self.input.action:onSelect(self.input)
     self.input.target = BattleTactics.closestCharacters(self.input):front()
     for char in self.input.target.characterList:iterator() do
-      print(char.battler:isAlive())
       if char.battler and char.battler:isAlive() then
         self.target = char
-        print(char)
         break
       end
     end

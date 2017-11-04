@@ -1,6 +1,6 @@
 
 local Vector = require('core/math/Vector')
-local SimpleText = require('core/gui/SimpleText')
+local SimpleText = require('core/gui/widget/SimpleText')
 local Window = require('core/gui/Window')
 
 local DescriptionWindow = class(Window)

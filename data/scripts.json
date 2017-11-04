@@ -55,7 +55,7 @@
 					"name": "startBattle",
 					"param": {
 						"fieldID": 1,
-						"fade": true,
+						"fade": 5,
             "intro": true,
 						"gameOverCondition": 2,
 						"escapeEnabled": true

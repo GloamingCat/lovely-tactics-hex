@@ -17,7 +17,6 @@
 			  "path": "",
 			  "param": ""
 			},
-			"effects": [],
 			"costs": [],
 			"restriction": 0,
 			"userAnim": {
@@ -55,7 +54,6 @@
 				"path": "",
 				"param": ""
 			},
-			"effects": [],
 			"costs": [],
 			"restriction": 1,
 			"userAnim": {
@@ -93,14 +91,6 @@
 			  "path": "",
 			  "param": ""
 			},
-			"effects": [
-			  {
-			  	"key": "hp",
-          "successRate": "((a.prep() * 2 - b.evdp()) / b.evdp()) * 50",
-          "basicResult": "(a.atkp() * 2 - b.defp()) * rand(80, 120) / 100",
-          "heal": false
-			  }
-			],
 			"costs": [],
 			"restriction": 1,
 			"userAnim": {
@@ -115,10 +105,16 @@
 				"mirror": true
 			},
       "damageAnim": true,
+      "hpEffect": {
+        "successRate": "((a.prep() * 2 - b.evdp()) / b.evdp()) * 50",
+        "basicResult": "(a.atkp() * 2 - b.defp()) * rand(80, 120) / 100",
+        "heal": false,
+        "absorb": 0
+      },
 			"elements": [
 			  {
-				"id": 1,
-				"value": 100
+          "id": 1,
+          "value": 100
 			  }
 			],
 			"status": [],
@@ -143,14 +139,6 @@
 			  "path": "",
 			  "param": ""
 			},
-			"effects": [
-			  {
-			  	"key": "hp",
-          "successRate": "(a.prem() * 2 - b.evdm()) / b.evdm() * 50",
-          "basicResult": "(a.atkm() * 2 - b.defm()) * rand(80, 120) / 100",
-          "heal": false
-			  }
-			],
 			"costs": [],
 			"restriction": 1,
 			"userAnim": {
@@ -165,6 +153,12 @@
 				"mirror": true
 			},
       "damageAnim": true,
+      "hpEffect": {
+        "successRate": "(a.prem() * 2 - b.evdm()) / b.evdm() * 50",
+        "basicResult": "(a.atkm() * 2 - b.defm()) * rand(80, 120) / 100",
+        "heal": false,
+        "absorb": 0
+      },
 			"elements": [
 			  {
 				"id": 2,
@@ -193,14 +187,6 @@
 			  "path": "",
 			  "param": ""
 			},
-			"effects": [
-			  {
-			  	"key": "hp",
-          "successRate": "((a.prem() * 2 - b.evdm()) / b.evdm()) * 50",
-          "basicResult": "(a.atkm() * 2 - b.defm()) * rand(80, 120) / 100",
-          "heal": false
-			  }
-			],
 			"costs": [
 			  {
 			  	"key": "sp",
@@ -220,6 +206,12 @@
 				"mirror": true
 			},
       "damageAnim": true,
+      "hpEffect": {
+        "successRate": "(a.prem() * 2 - b.evdm()) / b.evdm() * 50",
+        "basicResult": "(a.atkm() * 2 - b.defm()) * rand(80, 120) / 100",
+        "heal": false,
+        "absorb": 0
+      },
 			"elements": [
 			  {
           "id": 2,
@@ -252,14 +244,6 @@
 			  "path": "",
 			  "param": ""
 			},
-			"effects": [
-			  {
-          "key": "hp",
-          "successRate": "((a.prem() * 2 - b.evdm()) / b.evdm()) * 50",
-          "basicResult": "(a.atkm() * 2 - b.defm()) * rand(80, 120) / 100",
-          "heal": false
-			  }
-			],
 			"costs": [
 			  {
 			  	"key": "sp",
@@ -280,6 +264,12 @@
 				"mirror": true
 			},
       "damageAnim": true,
+      "hpEffect": {
+        "successRate": "(a.prem() * 2 - b.evdm()) / b.evdm() * 50",
+        "basicResult": "(a.atkm() * 2 - b.defm()) * rand(80, 120) / 100",
+        "heal": false,
+        "absorb": 0
+      },
 			"elements": [
 			  {
           "id": 2,
@@ -312,14 +302,6 @@
 			  "path": "",
 			  "param": ""
 			},
-			"effects": [
-			  {
-			  	"key": "hp",
-          "successRate": "100",
-          "basicResult": "(a.atkm() * 2 - b.defm()) * rand(80, 120) / 100",
-          "heal": true
-			  }
-			],
 			"costs": [
 			  {
 			  	"key": "sp",
@@ -339,6 +321,12 @@
 				"mirror": true
 			},
       "damageAnim": false,
+      "hpEffect": {
+        "successRate": "100",
+        "basicResult": "(a.atkm() * 2 - b.defm()) * rand(80, 120) / 100",
+        "heal": true,
+        "absorb": 0
+      }
 			"elements": [
 			  {
           "id": 2,
@@ -367,7 +355,6 @@
 			  "path": "",
 			  "param": ""
 			},
-			"effects": [],
 			"costs": [
 			  {
 			  	"key": "sp",
@@ -421,7 +408,6 @@
 			  "path": "",
 			  "param": ""
 			},
-			"effects": [],
 			"costs": [
 			  {
 			  	"key": "sp",

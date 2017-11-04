@@ -17,7 +17,7 @@ local CallAction = require('core/battle/action/CallAction')
 local WaitAction = require('core/battle/action/WaitAction')
 local ActionInput = require('core/battle/action/ActionInput')
 local BattleCursor = require('core/battle/BattleCursor')
-local Button = require('core/gui/Button')
+local Button = require('core/gui/widget/Button')
 
 -- Alias
 local mathf = math.field

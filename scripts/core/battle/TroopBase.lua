@@ -129,7 +129,7 @@ function TroopBase:newMemberData(member)
     local char = Database.characters[member.charID]
     battlerID = char.battlerID
   end
-  local battler = BattlerBase(Database.battlers[battlerID])
+  local battler = BattlerBase(member.key, Database.battlers[battlerID])
   return battler:createPersistentData()
 end
 -- Creates the table to represent troop's persistent data.

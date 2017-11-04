@@ -45,9 +45,9 @@ end
 -- @param(path : string) path to script from "custom" folder
 -- @param(...) any other arguments to the Fiber
 -- @ret(Fiber) the newly created Fiber (nil if path is empty)
-function Fiber.fromScript(root, path, ...)
+function Fiber:fromScript(root, path, ...)
   local func = require('custom/' .. path)
-  return Fiber(root, func, ...)
+  return self(root, func, ...)
 end
 -- Functions that this fiber executes.
 function Fiber:execute()

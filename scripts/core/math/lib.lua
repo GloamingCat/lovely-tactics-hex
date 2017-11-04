@@ -72,6 +72,22 @@ function math.rotate(x, y, phi)
 	x, y = c * x - s * y, s * x + c * y
   return x, y
 end
+-- Normal random distribution.
+-- @param(a : number) upper value (optional)
+-- @param(b : number) lower value (optional)
+function math.normal(a, b)
+  local p = math.sqrt(-2*math.log(1-math.random()))
+  local k = p * math.cos(2*math.pi*math.random())
+  if a then
+    if b then
+      return a + (a - b) * k 
+    else
+      return k * a
+    end
+  else
+    return k
+  end
+end
 -- Calculates the expectation of the default random function.
 -- @param(a : number) upper value (optional)
 -- @param(b : number) lower value (optional)

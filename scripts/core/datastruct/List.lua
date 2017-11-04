@@ -127,6 +127,23 @@ function List:contains(element)
 end
 
 ---------------------------------------------------------------------------------------------------
+-- Sort
+---------------------------------------------------------------------------------------------------
+
+-- Default compare function for ascending orders
+function List.ascending(a, b)
+  return a[2] < b[2]
+end
+-- Default compare function for descending orders
+function List.descending(a, b)
+  return a[2] > b[2]
+end
+
+function List:sort(comp)
+  table.sort(self, comp or self.ascending)
+end
+
+---------------------------------------------------------------------------------------------------
 -- General
 ---------------------------------------------------------------------------------------------------
 

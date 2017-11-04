@@ -75,6 +75,7 @@ function Text:setText(text)
     height = height + self.lines[i].height
   end
   self.quad = Quad(0, 0, width, height, width, height)
+  self:recalculateBox()
   self.renderer.needsRedraw = true
 end
 
@@ -89,7 +90,7 @@ function Text:isVisible()
 end
 
 ---------------------------------------------------------------------------------------------------
--- Draw in screen
+-- Bounds
 ---------------------------------------------------------------------------------------------------
 
 -- Gets the total width in world coordinates.
@@ -102,6 +103,24 @@ function Text:getWidth()
   end
   return w
 end
+-- Gets the total height in world coordinates.
+-- @ret(number)
+function Text:getHeight()
+  local h = 0
+  for i = 1, #self.lines do
+    local line = self.lines[i]
+    h = h + line.buffer:getHeight() / 1.5 * self.scaleY
+  end
+  return h
+end
+function Text:getQuadBounds()
+  return self:getWidth(), self:getHeight()
+end
+
+---------------------------------------------------------------------------------------------------
+-- Draw in screen
+---------------------------------------------------------------------------------------------------
+
 -- Gets the line offset in x according to the alingment.
 -- @param(w : number) line's width
 -- @ret(number) the x offset

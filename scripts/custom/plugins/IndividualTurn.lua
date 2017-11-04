@@ -17,7 +17,7 @@ local WaitAction = require('core/battle/action/WaitAction')
 local TargetWindow = require('core/gui/battle/window/TargetWindow')
 local TurnWindow = require('core/gui/battle/window/TurnWindow')
 local ActionGUI = require('core/gui/battle/ActionGUI')
-local SimpleText = require('core/gui/SimpleText')
+local SimpleText = require('core/gui/widget/SimpleText')
 local PriorityQueue = require('core/datastruct/PriorityQueue')
 local Vector = require('core/math/Vector')
 

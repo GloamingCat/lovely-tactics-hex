@@ -10,7 +10,7 @@ result = 1 -> confirm
 =================================================================================================]]
 
 -- Imports
-local Button = require('core/gui/Button')
+local Button = require('core/gui/widget/Button')
 local GridWindow = require('core/gui/GridWindow')
 
 local ConfirmWindow = class(GridWindow)

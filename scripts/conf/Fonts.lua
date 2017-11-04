@@ -1,4 +1,5 @@
 
+local big_font = { 'FogSans', 'otf', 80 }
 local default_font = { 'FogSans', 'otf', 44 }
 local medium_font = { 'FogSans', 'otf', 38 }
 local small_font = { 'FogSans', 'otf', 32 }
@@ -12,6 +13,7 @@ return  {
   gui_dialogue = default_font,
   gui_small = small_font,
   gui_medium = medium_font,
+  gui_big = big_font,
   popup_dmghp = default_font,
   popup_dmgsp = default_font,
   popup_healhp = default_font,

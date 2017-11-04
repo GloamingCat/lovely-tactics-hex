@@ -32,7 +32,6 @@ function Status:init(data, state, battler)
     self.duration = math.huge
   end
   self.tags = TagMap(self.data.tags)
-  print(#self.data.tags)
   -- Attribute bonus
   self.attAdd = {}
   self.attMul = {}
@@ -53,12 +52,12 @@ end
 -- @param(data : table) status' data from database file
 -- @param(state : table) the persistent state of the status
 -- @param(battler : Battler) the battler with the status
-function Status.fromData(data, state, battler)
+function Status:fromData(data, state, battler)
   if data.script.path ~= '' then
     local class = require('custom/' .. data.script.path)
     return class(data, state, battler)
   else
-    return Status(data, state, battler)
+    return self(data, state, battler)
   end
 end
 -- String representation.

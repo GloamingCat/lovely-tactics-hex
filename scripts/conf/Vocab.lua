@@ -10,13 +10,16 @@ return {
   save = 'Save',
   quit = 'Quit',
   
+  -- Equip Window
+  empty = 'Empty',
+  unequip = 'Unequip',
+  
   -- Battle intro Window
   start = 'Start',
   none = 'None',
   
-  -- Equip Window
-  empty = 'Empty',
-  unequip = 'Unequip',
+  -- Battle win
+  win = 'You won!',
   
   -- Turn Window
   attack = 'Attack',

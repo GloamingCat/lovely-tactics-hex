@@ -8,6 +8,7 @@ This class manages all GUI objects.
 =================================================================================================]]
 
 -- Imports
+local List = require('core/datastruct/List')
 local Stack = require('core/datastruct/Stack')
 local Renderer = require('core/graphics/Renderer')
 local FiberList = require('core/fiber/FiberList')
@@ -24,6 +25,7 @@ function GUIManager:init()
   self.stack = Stack()
   self.paused = false
   self.fiberList = FiberList()
+  self.updateList = List()
 end
 -- Calls all the update functions.
 function GUIManager:update()
@@ -64,7 +66,8 @@ end
 -- [COROUTINE] Closes current GUI and returns to the previous.
 function GUIManager:returnGUI()
   local lastGUI = self.current
-  lastGUI:hide(true)
+  lastGUI:hide()
+  lastGUI:destroy()
   if not self.stack:isEmpty() then
     self.current = self.stack:pop()
   else

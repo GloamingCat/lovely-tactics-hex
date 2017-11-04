@@ -10,6 +10,7 @@ Used only for access and display in GUI.
 
 -- Imports
 local List = require('core/datastruct/List')
+local SkillList = require('core/battle/SkillList')
 local SkillAction = require('core/battle/action/SkillAction')
 local Inventory = require('core/battle/Inventory')
 local StatusList = require('core/battle/StatusList')
@@ -41,10 +42,10 @@ local BattlerBase = class()
 -- Constructor.
 -- @param(data : table) battler's data from database
 -- @param(save : table) data from save, if any (optional)
-function BattlerBase:init(data, save)
+function BattlerBase:init(key, data, save)
+  self.key = key
   self.data = data
   self.save = save
-  self.classData = Database.classes[data.classID]
   self.name = data.name
   self.tags = TagMap(data.tags)
   self:initializeSkillList(data.skills or {}, data.attackID)
@@ -52,8 +53,9 @@ function BattlerBase:init(data, save)
   self:initializeInventory(data.items or {})
   self:initializeStatusList(data.status or {})
   self:initializeEquipment(data.equipment or {})
+  self:createClassData(data.classID, data.level)
   self:createAttributes()
-  self:createStateValues(data.attributes, data.level)
+  self:createStateValues(data.attributes)
 end
 function BattlerBase:fromMember(member, save)
   local id = save and save.battlerID or member.battlerID
@@ -63,23 +65,7 @@ function BattlerBase:fromMember(member, save)
     id = charData.battlerID
   end
   local data = Database.battlers[id]
-  return self(data, save)
-end
--- Creates and sets the list of usable skills.
--- @param(skills : table) array of skill IDs
--- @param(attackID : number) ID of the battler's "Attack" skill
-function BattlerBase:initializeSkillList(skills, attackID)
-  -- Get from troop's persistent data
-  if self.save then
-    skills = self.save.skills or skills
-    attackID = self.save.attackID or attackID
-  end
-  self.skillList = List()
-  for i = 1, #skills do
-    local id = skills[i]
-    self.skillList:add(SkillAction:fromData(id))
-  end
-  self.attackSkill = SkillAction:fromData(attackID)
+  return self(member.kay, data, save)
 end
 -- Creates and sets and array of element factors.
 -- @param(elements : table) array of element factors 
@@ -93,6 +79,18 @@ function BattlerBase:initializeElements(elements)
     end
     self.elementFactors = e
   end
+end
+-- Creates and sets the list of usable skills.
+-- @param(skills : table) array of skill IDs
+-- @param(attackID : number) ID of the battler's "Attack" skill
+function BattlerBase:initializeSkillList(skills, attackID)
+  -- Get from troop's persistent data
+  if self.save then
+    skills = self.save.skills or skills
+    attackID = self.save.attackID or attackID
+  end
+  self.skillList = SkillList(skills)
+  self.attackSkill = SkillAction:fromData(attackID)
 end
 -- Creates the initial status list.
 function BattlerBase:initializeStatusList(initialStatus)
@@ -122,22 +120,43 @@ end
 -- Attributes
 ---------------------------------------------------------------------------------------------------
 
+function BattlerBase:createClassData(classID, level)
+  if self.save then
+    self.classID = self.save.classID
+    self.level = self.save.level
+  else
+    self.classID = classID
+    self.level = level
+  end
+  local classData = Database.classes[self.classID]
+  self.expCurve = loadformula(classData.expCurve, 'lvl')
+  self.build = {}
+  for i = 1, #attConfig do
+    local key = attConfig[i].key
+    if classData.build[key] then
+      self.build[key] = loadformula(classData.build[key], 'lvl')
+    end
+  end
+  self.classSkills = List(classData.skills)
+  self.classSkills:sort(function(a, b) return a.level < b.level end)
+end
 -- Creates attribute functions from script data.
 function BattlerBase:createAttributes()
   self.att = {}
   for i = 1, #attConfig do
     local key = attConfig[i].key
     local script = attConfig[i].script
+    local build = self.build[key] and self.build[key](self.level) or 0
     if script == '' then
       self.att[key] = function()
         local add, mul = self.statusList:attBonus(key)
-        return add + mul * self.attBase[key]
+        return add + mul * (self.attBase[key] + build)
       end
     else
       local base = loadformula(script, 'att')
       self.att[key] = function()
         local add, mul = self.statusList:attBonus(key)
-        return add + mul * (self.attBase[key] + base(self.att))
+        return add + mul * (base(self.att) + self.attBase[key] + build)
       end
     end
   end
@@ -151,28 +170,21 @@ end
 -- @param(attBase : table) array of the base values of each attribute
 -- @param(build : table) the build with the base functions for each attribute
 -- @param(level : number) battler's level
-function BattlerBase:createStateValues(attBase, level)
+function BattlerBase:createStateValues(attBase)
   self.steps = 0
   if self.save then
     self.state = copyTable(self.save.state)
     self.attBase = copyTable(self.save.attBase)
-    self.exp = self.save.exp
-    self.level = self.save.level
     self.elementFactors = self.save.elements
+    self.exp = self.save.exp
   else
     self.state = {}
     self.attBase = {}
     for i = 1, #attConfig do
       local key = attConfig[i].key
-      local b = attBase[key] or 0
-      if self.classData.build[key] then
-        local formula = loadformula(self.classData.build[key], 'lvl')
-        b = b + formula(level)
-      end
-      self.attBase[key] = b
+      self.attBase[key] = attBase[key] or 0
     end
-    self.exp = loadformula(self.classData.expCurve, 'lvl')(level)
-    self.level = level
+    self.exp = self.expCurve(self.level)
     self.state.hp = self.mhp()
     self.state.sp = self.msp()
   end
@@ -189,6 +201,23 @@ function BattlerBase:element(id)
 end
 
 ---------------------------------------------------------------------------------------------------
+-- Level Up
+---------------------------------------------------------------------------------------------------
+
+function BattlerBase:addExperience(exp)
+  self.exp = self.exp + exp
+  while self.exp >= self.expCurve(self.level + 1) do
+    self.level = self.level + 1
+    for i = 1, #self.classSkills do
+      local skill = self.classSkills[i]
+      if self.level >= skill.level then
+        self.skillList:learn(skill)
+      end
+    end
+  end
+end
+
+---------------------------------------------------------------------------------------------------
 -- Save
 ---------------------------------------------------------------------------------------------------
 
@@ -199,12 +228,13 @@ function BattlerBase:createPersistentData()
     name = self.name,
     level = self.level,
     exp = self.exp,
+    classID = self.classID,
     state = self.state,
     attBase = self.attBase,
     elements = self.elementFactors,
     equipment = self.equipment,
-    status = self.statusList:getState()
-  }
+    status = self.statusList:getState(),
+    skills = self.skillList:getState() }
 end
 
 return BattlerBase

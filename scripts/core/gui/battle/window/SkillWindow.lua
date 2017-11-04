@@ -10,7 +10,7 @@ The window that is open to choose a skill from character's skill list.
 -- Imports
 local SkillAction = require('core/battle/action/SkillAction')
 local Vector = require('core/math/Vector')
-local Button = require('core/gui/Button')
+local Button = require('core/gui/widget/Button')
 local ActionWindow = require('core/gui/battle/window/ActionWindow')
 local ListButtonWindow = require('core/gui/ListButtonWindow')
 

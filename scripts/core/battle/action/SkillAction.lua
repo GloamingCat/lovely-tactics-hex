@@ -23,6 +23,8 @@ local mathf = math.field
 local time = love.timer.getDelta
 local now = love.timer.getTime
 local random = math.random
+local normal = math.normal
+local expectation = math.randomExpectation
 local round = math.round
 local ceil = math.ceil
 
@@ -44,7 +46,6 @@ local SkillAction = class(BattleAction)
 function SkillAction:init(skillID)
   local data = Database.skills[skillID]
   self.data = data
-  self.skillID = skillID
   BattleAction.init(self, data.range, data.radius)
   self:setType(data.type)
   self:setTargetType(data.targetType)
@@ -57,7 +58,12 @@ function SkillAction:init(skillID)
   end
   -- Effect formulas
   self.effects = {}
-  self:addEffects(data.effects)
+  if data.hpEffect then
+    self:addEffect('hp', data.hpEffect)
+  end
+  if data.spEffect then
+    self:addEffect('sp', data.spEffect)
+  end
   -- Status to add
   self.status = {}
   self:addStatus(data.status)
@@ -88,22 +94,19 @@ end
 -- Converting to string.
 -- @ret(string) a string with skill's ID and name
 function SkillAction:__tostring()
-  return 'SkillAction (' .. self.skillID .. ': ' .. self.data.name .. ')'
+  return 'SkillAction (' .. self.data.id .. ': ' .. self.data.name .. ')'
 end
 
 ---------------------------------------------------------------------------------------------------
 -- Damage / Status
 ---------------------------------------------------------------------------------------------------
 
-function SkillAction:addEffects(effects)
-  local last = #self.effects
-  for i = 1, #effects do
-    self.effects[last + i] = {
-      basicResult = loadformula(effects[i].basicResult, 'action, a, b, rand'),
-      successRate = loadformula(effects[i].successRate, 'action, a, b, rand'),
-      heal = effects[i].heal,
-      key = effects[i].key }
-  end
+function SkillAction:addEffect(key, effect)
+  self.effects[#self.effects + 1] = { key = key,
+    basicResult = loadformula(effect.basicResult, 'action, a, b, rand'),
+    successRate = loadformula(effect.successRate, 'action, a, b, rand'),
+    heal = effect.heal,
+    absorb = effect.absorb }
 end
 
 function SkillAction:addStatus(status)
@@ -120,20 +123,11 @@ end
 -- Execution
 ---------------------------------------------------------------------------------------------------
 
--- Checks if the given character can use the skill, considering skill's costs
--- @param(user : Character)
+-- Overrides BattleAction:canExecute.
+-- @param(input : ActionInput)
 -- @ret(boolean)
 function SkillAction:canExecute(input)
-  local att = input.user.battler.att
-  local state = input.user.battler.state
-  for i = 1, #self.costs do
-    local cost = self.costs[i].cost(self, att)
-    local key = self.costs[i].key
-    if cost > state[key] then
-      return false
-    end
-  end
-  return true
+  return self:canBattleUse(input.user)
 end
 -- Overrides BattleAction:onConfirm.
 -- Executes the movement action and the skill's effect.
@@ -144,101 +138,22 @@ function SkillAction:execute(input)
   local result = moveInput:execute(moveInput)
   if result.executed then    
     -- Skill use
-    self:use(input)
+    self:battleUse(input)
     input.user.battler:onSkillUse(input)
     return BattleAction.execute(self, input)
   else
     return { executed = false, endCharacterTurn = true }
   end
 end
-
----------------------------------------------------------------------------------------------------
--- Effect result
----------------------------------------------------------------------------------------------------
-
--- Tells if a character may receive the skill's effects.
--- @param(char : Character)
-function SkillAction:receivesEffect(char)
-  return char.battler and char.battler:isAlive()
-end
--- Calculates the final damage / heal for the target.
--- It considers all element bonuses provided by the skill data.
--- @param(input : ActionInput) the target character
--- @param(targetChar : Character)
--- @param(rand : function) the random function (optional)
--- @ret(table) an array of result values { attributeName, value }
--- @ret(boolean) true if there's a damage
-function SkillAction:calculateEffectResults(input, targetChar, rand)
-  rand = rand or random
-  local points = {}
-  local dmg = false
-  for i = 1, #self.effects do
-    local r = self:calculateEffectResult(self.effects[i], input, targetChar, rand)
-    if r then
-      points[#points + 1] = { value = r,
-        key = self.effects[i].key,
-        heal = self.effects[i].heal }
-      dmg = dmg or not self.effects[i].heal
-    end
-  end
-  local status, sdmg = self:calculateStatusResult(input.user, targetChar, rand)
-  local results = { damage = dmg or sdmg,
-    points = points,
-    status = status }
-  return results
-end
--- Calculates the final damage / heal for the target from an specific effect.
--- It considers all element bonuses provided by the skill data.
--- @param(effect : table) the effect data
--- @param(input : ActionInput) the target character
--- @param(targetChar : Character)
--- @param(rand : function) the random function (optional)
--- @ret(number) the result of the damage (nil if missed)
-function SkillAction:calculateEffectResult(effect, input, targetChar, rand)
-  local rate = effect.successRate(self, input.user.battler.att, 
-    targetChar.battler.att, random)
-  if rand() * 100 > rate then
-    return nil
-  end
-  local result = max(effect.basicResult(self, input.user.battler.att, 
-    targetChar.battler.att, rand), 0)
-  local bonus = 0
-  local skillElements = self.elementFactors
-  local target = targetChar.battler
-  for i = 1, elementCount do
-    bonus = bonus + skillElements[i] * target:element(i)
-  end
-  bonus = result * bonus
-  return round(bonus + result)
-end
--- @param(status : table) array with skill's status info
+-- Checks if the skill can be used in the battle field.
 -- @param(user : Character)
--- @param(target : Character)
--- @param(rand : function)
--- @ret(table) array with status results
-function SkillAction:calculateStatusResult(user, target, rand)
-  local result = {}
-  local dmg = false
-  for i = 1, #self.status do
-    local s = self.status[i]
-    local r = s.rate(self, user.battler.att, target.battler.att, rand)
-    if rand() * 100 <= r then
-      result[#result + 1] = {
-        id = s.id,
-        add = s.add }
-      dmg = dmg or s.add
-    end
-  end
-  return result, dmg
+-- @ret(boolean)
+function SkillAction:canBattleUse(user)
+  return self:canMenuUse(user.battler)
 end
-
----------------------------------------------------------------------------------------------------
--- Animations
----------------------------------------------------------------------------------------------------
-
 -- The effect applied when the user is prepared to use the skill.
 -- It executes animations and applies damage/heal to the targets.
-function SkillAction:use(input)
+function SkillAction:battleUse(input)
   -- Intro time.
   _G.Fiber:wait(introTime)
   -- User's initial animation.
@@ -257,6 +172,122 @@ function SkillAction:use(input)
   end
   -- Wait until everything finishes.
   _G.Fiber:wait(finishTime)
+end
+-- Checks if the given character can use the skill, considering skill's costs.
+-- @param(user : BattlerBase)
+-- @ret(boolean)
+function SkillAction:canMenuUse(user)
+  local att = user.att
+  local state = user.state
+  for i = 1, #self.costs do
+    local cost = self.costs[i].cost(self, att)
+    local key = self.costs[i].key
+    if cost > state[key] then
+      return false
+    end
+  end
+  return true
+end
+-- Executes the skill in the menu, out of the battle field.
+-- @param(user : BattlerBase)
+-- @param(target : BattlerBase)
+function SkillAction:menuUse(input)
+  local results = self:calculateEffectResults(input.user, input.target)
+  if #results.points == 0 and #results.status == 0 then
+    -- Miss
+    local pos = input.userPosition
+    local popupText = PopupText(pos.x, pos.y - 20, pos.z - 10, GUIManager.renderer)
+    popupText:addLine(Vocab.miss, 'popup_miss', 'popup_miss')
+    popupText:popup()
+  else
+    self:popupResults(input.targetPosition, input.target, results)
+    if self.data.battleAnim.individualID >= 0 then
+      local pos = input.targetPosition
+      BattleManager:playMenuAnimation(self.data.battleAnim.individualID,
+        pos.x, pos.y, pos.z - 1, false, true)
+    end
+  end
+end
+
+---------------------------------------------------------------------------------------------------
+-- Effect result
+---------------------------------------------------------------------------------------------------
+
+-- Tells if a character may receive the skill's effects.
+-- @param(char : Character)
+function SkillAction:receivesEffect(char)
+  return char.battler and char.battler:isAlive()
+end
+-- Calculates the final damage / heal for the target.
+-- It considers all element bonuses provided by the skill data.
+-- @param(user : Battler)
+-- @param(target : Battler)
+function SkillAction:calculateEffectResults(user, target, rand)
+  local points = {}
+  local dmg = false
+  for i = 1, #self.effects do
+    local r = self:calculateEffectResult(self.effects[i], user, target, rand)
+    if r then
+      points[#points + 1] = { value = r,
+        key = self.effects[i].key,
+        heal = self.effects[i].heal,
+        absord = self.effects[i].absorb }
+      dmg = dmg or not self.effects[i].heal
+    end
+  end
+  local status, sdmg = self:calculateStatusResult(user, target, rand)
+  local results = { damage = dmg or sdmg,
+    points = points,
+    status = status }
+  return results
+end
+-- Calculates the final damage / heal for the target from an specific effect.
+-- It considers all element bonuses provided by the skill data.
+function SkillAction:calculateEffectResult(effect, user, target)
+  local rate = effect.successRate(self, user.att, target.att, random)
+  if random() * 100 > rate then
+    return nil
+  end
+  local result = max(effect.basicResult(self, user.att, target.att, normal), 0)
+  local bonus = 0
+  local skillElements = self.elementFactors
+  for i = 1, elementCount do
+    bonus = bonus + skillElements[i] * target:element(i)
+  end
+  bonus = result * bonus
+  return round(bonus + result)
+end
+-- @param(status : table) array with skill's status info
+-- @param(user : Character)
+-- @param(target : Character)
+-- @param(rand : function)
+-- @ret(table) array with status results
+function SkillAction:calculateStatusResult(user, target, rand)
+  local result = {}
+  local dmg = false
+  for i = 1, #self.status do
+    local s = self.status[i]
+    local r = s.rate(self, user.att, target.att, rand)
+    if rand() * 100 <= r then
+      result[#result + 1] = {
+        id = s.id,
+        add = s.add }
+      dmg = dmg or s.add
+    end
+  end
+  return result, dmg
+end
+
+function SkillAction:calculateExpectation(effect, user, target)
+  local rate = effect.successRate(self, user.att, target.att, expectation)  
+  local result = max(effect.basicResult(self, user.att, target.att, expectation), 0)
+  local bonus = 0
+  local skillElements = self.elementFactors
+  for i = 1, elementCount do
+    bonus = bonus + skillElements[i] * target:element(i)
+  end
+  bonus = result * bonus
+  return rate, round(bonus + result)
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -280,7 +311,7 @@ end
 -- @param(targetChar : Character) the character that will be affected
 -- @param(originTile : ObjectTile) the user's original tile
 function SkillAction:singleTargetAnimation(input, targetChar, originTile)
-  local results = self:calculateEffectResults(input, targetChar)
+  local results = self:calculateEffectResults(input.user.battler, targetChar.battler)
   if #results.points == 0 and #results.status == 0 then
     -- Miss
     local pos = targetChar.position
@@ -289,12 +320,12 @@ function SkillAction:singleTargetAnimation(input, targetChar, originTile)
     popupText:popup()
   else
     local wasAlive = targetChar.battler:isAlive()
-    self:popupResults(targetChar, results)
+    self:popupResults(targetChar.position, targetChar.battler, results)
     if self.data.battleAnim.individualID >= 0 then
       local dir = targetChar:angleToPoint(originTile.x, originTile.y)
       local mirror = dir > 90 and dir <= 270
       local pos = targetChar.position
-      BattleManager:playAnimation(self.data.battleAnim.individualID,
+      BattleManager:playBattleAnimation(self.data.battleAnim.individualID,
         pos.x, pos.y, pos.z - 10, mirror)
     end
     if results.damage and self.data.damageAnim and wasAlive then
@@ -319,27 +350,26 @@ end
 -- @param(pos : Vector) the character's position
 -- @param(battler : Battler) the battler that will be affected
 -- @param(results : table) the array of effect results
-function SkillAction:popupResults(char, results)
-  local pos = char.position
+function SkillAction:popupResults(pos, battler, results)
   local popupText = PopupText(pos.x, pos.y - 20, pos.z - 10)
   for i = 1, #results.points do
     local points = results.points[i]
     if points.heal then
       popupText:addHeal(points)
-      char.battler:damage(points.key, -points.value)
+      battler:damage(points.key, -points.value)
     else
       popupText:addDamage(points)
-      char.battler:damage(points.key, points.value)
+      battler:damage(points.key, points.value)
     end
   end
   for i = 1, #results.status do
     local r = results.status[i]
     local popupName, text
     if r.add then
-      local s = char.battler.statusList:addStatus(r.id)
+      local s = battler.statusList:addStatus(r.id)
       popupText:addStatus(s)
     else
-      local s = char.battler.statusList:removeAllStatus(r.id)
+      local s = battler.statusList:removeAllStatus(r.id)
       popupText:removeStatus(s)
     end
   end

@@ -23,9 +23,6 @@ end
 function IntroGUI:createIntroWindow()
   local window = IntroWindow(self, self.troop)
   self:setActiveWindow(window)
-  --local m = self:windowMargin()
-  --window:setPosition(Vector(-ScreenManager.width / 2 + introWindow.width / 2 + m, 
-  --    -ScreenManager.height / 2 + introWindow.height / 2 + m))
   self.mainWindow = window
 end
 

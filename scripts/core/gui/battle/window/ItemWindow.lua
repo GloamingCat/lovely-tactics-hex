@@ -12,7 +12,7 @@ local ListButtonWindow = require('core/gui/ListButtonWindow')
 local ActionWindow = require('core/gui/battle/window/ActionWindow')
 local ItemAction = require('core/battle/action/ItemAction')
 local Vector = require('core/math/Vector')
-local Button = require('core/gui/Button')
+local Button = require('core/gui/widget/Button')
 
 -- Constants
 local defaultSkillID = Config.battle.itemSkillID

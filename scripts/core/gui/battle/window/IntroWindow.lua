@@ -8,8 +8,8 @@ Window that is shown in the beginning of the battle.
 =================================================================================================]]
 
 -- Imports
-local Button = require('core/gui/Button')
---local ItemGUI = require('core/gui/general/ItemGUI')
+local Button = require('core/gui/widget/Button')
+local ItemGUI = require('core/gui/item/ItemGUI')
 local EquipGUI = require('core/gui/equip/EquipGUI')
 local ActionGUI = require('core/gui/battle/ActionGUI')
 local PartyAction = require('core/battle/action/PartyAction')
@@ -26,7 +26,7 @@ local IntroWindow = class(GridWindow)
 function IntroWindow:createButtons()
   self:createButton('start')
   self:createButton('party')
-  --self:createButton('items')
+  self:createButton('items')
   self:createButton('equips')
 end
 -- Overrides GridWindow:createButton.
@@ -42,10 +42,11 @@ end
 -- Callbacks
 ---------------------------------------------------------------------------------------------------
 
+-- When player chooses Start button.
 function IntroWindow:startConfirm(button)
   self.result = 1
 end
-
+-- When player chooses Party button.
 function IntroWindow:partyConfirm(button)
   -- Executes action grid selecting.
   local action = PartyAction()
@@ -58,13 +59,13 @@ function IntroWindow:partyConfirm(button)
   FieldManager.renderer:moveToPoint(center.x, center.y)
   self.GUI:show()
 end
-
+-- When player chooses Items button.
 function IntroWindow:itemsConfirm(button)
   self.GUI:hide()
   GUIManager:showGUIForResult(ItemGUI())
   self.GUI:show()
 end
-
+-- When player chooses Equips button.
 function IntroWindow:equipsConfirm(button)
   self.GUI:hide()
   GUIManager:showGUIForResult(EquipGUI())

@@ -15,9 +15,12 @@ Results: 1 => win, 0 => draw, -1 => lost
 -- Imports
 local Animation = require('core/graphics/Animation')
 local TileGraphics = require('core/field/TileGUI')
+local IntroGUI = require('core/gui/battle/IntroGUI')
+local EndGUI = require('core/gui/battle/EndGUI')
 
 -- Constants
-local defaultParams = { 
+local defaultParams = {
+  fade = 5,
   intro = false,
   gameOverCondition = 2, 
   escapeEnabled = true }
@@ -62,7 +65,9 @@ function BattleManager:runBattle()
   self.result = nil
   self.winner = nil
   self:battleStart()
-  TurnManager:introTurn()
+  self.party = TroopManager.playerParty
+  GUIManager:showGUIForResult(IntroGUI())
+  self.party = TroopManager.playerParty - 1
   repeat
     self.result, self.winner = TurnManager:runTurn()
   until self.result
@@ -74,7 +79,7 @@ end
 function BattleManager:battleStart()
   if self.params.fade then
     FieldManager.renderer:fadeout(0)
-    FieldManager.renderer:fadein(nil, true)
+    FieldManager.renderer:fadein(self.params.fade, true)
   end
   if self.params.intro then
     self:battleIntro()
@@ -90,12 +95,12 @@ function BattleManager:battleIntro()
     if i ~= TroopManager.playerParty then
       local p = TroopManager.centers[i]
       FieldManager.renderer:moveToPoint(p.x, p.y, speed, true)
-      _G.Fiber:wait(45)
+      _G.Fiber:wait(39)
     end
   end
   local p = TroopManager.centers[TroopManager.playerParty]
   FieldManager.renderer:moveToPoint(p.x, p.y, speed, true)
-  _G.Fiber:wait(30)
+  _G.Fiber:wait(15)
 end
 -- Runs after winner was determined and battle loop ends.
 function BattleManager:battleEnd()
@@ -113,6 +118,9 @@ function BattleManager:battleEnd()
   end
   for char in TroopManager.characterList:iterator() do
     char.battler:onBattleEnd(char)
+  end
+  if self:playerWon() then
+    GUIManager:showGUIForResult(EndGUI())
   end
   FieldManager.renderer:fadeout(nil, true)
   self:clear()
@@ -162,7 +170,7 @@ function BattleManager:drawed()
 end
 
 ---------------------------------------------------------------------------------------------------
--- Auxiliary functions
+-- Animations
 ---------------------------------------------------------------------------------------------------
 
 -- [COROUTINE] Plays a battle animation.
@@ -173,24 +181,32 @@ end
 -- @param(mirror : boolean) mirror the sprite in x-axis
 -- @param(wait : boolean) true to wait until first loop finishes (optional)
 -- @ret(Animation) the newly created animation
-function BattleManager:playAnimation(animID, x, y, z, mirror, wait)
+function BattleManager:playAnimation(manager, animID, x, y, z, mirror, wait)
   local animData = Database.animations[animID]
-  local animation = ResourceManager:loadAnimation(animData, FieldManager.renderer)
+  local animation = ResourceManager:loadAnimation(animData, manager.renderer)
   animation.sprite:setXYZ(x, y, z)
   animation.sprite:setTransformation(animData.transform)
   if mirror then
     animation.sprite:setScale(-animation.sprite.scaleX, animation.sprite.scaleY)
   end
-  FieldManager.updateList:add(animation)
-  FieldManager.fiberList:fork(function()
+  manager.updateList:add(animation)
+  manager.fiberList:fork(function()
     _G.Fiber:wait(animation.duration)
-    FieldManager.updateList:removeElement(animation)
+    manager.updateList:removeElement(animation)
     animation:destroy()
   end)
   if wait then
     _G.Fiber:wait(animation.duration)
   end
   return animation
+end
+
+function BattleManager:playBattleAnimation(animID, x, y, z, mirror, wait)
+  return self:playAnimation(FieldManager, animID, x, y, z, mirror, wait)
+end
+
+function BattleManager:playMenuAnimation(animID, x, y, z, mirror, wait)
+  return self:playAnimation(GUIManager, animID, x, y, z, mirror, wait)
 end
 
 return BattleManager

@@ -11,7 +11,7 @@ Window that shows when the battle cursor is over a character.
 local Vector = require('core/math/Vector')
 local Sprite = require('core/graphics/Sprite')
 local Window = require('core/gui/Window')
-local SimpleText = require('core/gui/SimpleText')
+local SimpleText = require('core/gui/widget/SimpleText')
 
 -- Constants
 local hpName = Config.battle.attHP

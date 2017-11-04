@@ -35,7 +35,6 @@ end
 function PriorityQueue.ascending(a, b)
   return a[2] < b[2]
 end
-
 -- Default compare function for descending orders
 function PriorityQueue.descending(a, b)
   return a[2] > b[2]
@@ -60,7 +59,6 @@ function PriorityQueue:enqueue(element, v)
     p = (n - n % 2) / 2
   end
 end
-
 -- Removes the front pair.
 -- @ret(unknown) the element removed
 -- @ret(number) the key/priority of the element removed
@@ -100,7 +98,6 @@ function PriorityQueue:dequeue()
   end
   return pair[1], pair[2]
 end
-
 -- Gets the element with the highest priority.
 -- @ret(unknown) the front element
 -- @ret(number) the key/priority of the front element
@@ -109,7 +106,6 @@ function PriorityQueue:front()
   local pair = self[1]
   return pair[1], pair[2]
 end
-
 -- Checks if empty.
 function PriorityQueue:isEmpty()
   return self.size == 0
@@ -130,7 +126,6 @@ function PriorityQueue:toList()
   end
   return list
 end
-
 -- Transform this queue into a list of elements (does not include keys).
 -- @ret(List) list of arbitrary elements
 function PriorityQueue:asList()
@@ -145,7 +140,6 @@ function PriorityQueue:asList()
   end
   return list
 end
-
 -- String representation.
 function PriorityQueue:__tostring()
   local list = self:asList()

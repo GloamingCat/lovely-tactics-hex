@@ -8,7 +8,7 @@ Window with the list of battles in the party backup.
 =================================================================================================]]
 
 -- Imports
-local Button = require('core/gui/Button')
+local Button = require('core/gui/widget/Button')
 local BattlerBase = require('core/battle/BattlerBase')
 local GridWindow = require('core/gui/GridWindow')
 
@@ -79,8 +79,10 @@ end
 function CallWindow:onButtonSelect(button)
   if self.GUI.targetWindow then
     if button.battler then 
-      self.GUI.targetWindow:setBattler(button.battler)
-      GUIManager.fiberList:fork(self.GUI.targetWindow.show, self.GUI.targetWindow)
+      GUIManager.fiberList:fork(function()
+          self.GUI.targetWindow:show()
+          self.GUI.targetWindow:setBattler(button.battler)
+        end)
     else
       GUIManager.fiberList:fork(self.GUI.targetWindow.hide, self.GUI.targetWindow)
     end

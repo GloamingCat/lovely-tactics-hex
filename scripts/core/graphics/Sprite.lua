@@ -51,11 +51,11 @@ end
 -- @param(quadData : table) data from database
 -- @param(renderer : Renderer) the renderer of the sprite
 -- @ret(Sprite) the newly created Sprite
-function Sprite.fromQuad(quadData, renderer)
+function Sprite:fromQuad(quadData, renderer)
   local texture = love.graphics.newImage('images/' .. quadData.imagePath)
   local w, h = texture:getWidth(), texture:getHeight()
   local quad = Quad(quadData.x, quadData.y, quadData.width, quadData.height, w, h)
-  return Sprite(renderer, texture, quad)
+  return self(renderer, texture, quad)
 end
 -- Creates a deep copy of this sprite (does not clone texture).
 -- @param(renderer : Renderer) the renderer of the copy (optional)
@@ -183,7 +183,7 @@ end
 
 function Sprite:recalculateBox()
   if self.quad then
-    local _, _, w, h = self.quad:getViewport()
+    local w, h = self:getQuadBounds()
     local dx = (abs(w / 2 - self.offsetX) + w / 2) * self.scaleX
     local dy = (abs(h / 2 - self.offsetY) + h / 2) * self.scaleY
     self.diag = dx + dy
@@ -194,8 +194,12 @@ function Sprite:recalculateBox()
 end
 -- Gets the extreme values for the bounding box.
 function Sprite:totalBounds()
-  local _, _, w, h = self.quad:getViewport()
+local w, h = self:getQuadBounds()
   return Affine.getBoundingBox(self, w, h)
+end
+function Sprite:getQuadBounds()
+  local _, _, w, h = self.quad:getViewport()
+  return w, h
 end
 
 ---------------------------------------------------------------------------------------------------

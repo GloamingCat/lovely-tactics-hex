@@ -3,6 +3,7 @@
 
 ItemAction
 ---------------------------------------------------------------------------------------------------
+A type of SkillAction that gets its effect from item data.
 
 =================================================================================================]]
 
@@ -17,7 +18,12 @@ local ItemAction = class(SkillAction)
 function ItemAction:init(skillID, item)
   SkillAction.init(self, skillID)
   if item.use then
-    self:addEffects(item.use.effects)
+    if item.use.hpEffect then
+      self:addEffect('hp', item.use.hpEffect)
+    end
+    if item.use.spEffect then
+      self:addEffect('sp', item.use.spEffect)
+    end
     self:addStatus(item.use.status)
     if item.use.skillType >= 0 then
       self:setType(item.use.skillType)

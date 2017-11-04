@@ -50,20 +50,18 @@ end
 -- @param(scancode : string) the code of the key
 -- @param(isrepeat : boolean) if the call is a repeat
 function love.keypressed(code, scancode, isrepeat)
-  local keys = InputManager.keys
   code = KeyMap[code]
   if code then
-    keys[code]:onPress(isrepeat)
+    InputManager.keys[code]:onPress(isrepeat)
   end
 end
 -- Called when player releases any key.
 -- @param(code : string) the code of the key based on keyboard layout
 -- @param(scancode : string) the code of the key
-function love.keyreleased(code, scancode)
-  local keys = InputManager.keys
+function love.keyreleased(code, scancode, ...)
   code = KeyMap[code]
   if code then
-    keys[code]:onRelease()
+    InputManager.keys[code]:onRelease()
   end
 end
 

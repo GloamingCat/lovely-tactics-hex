@@ -10,7 +10,6 @@ Provides methods for battle's turn management.
 -- Imports
 local MoveAction = require('core/battle/action/MoveAction')
 local PathFinder = require('core/battle/ai/PathFinder')
-local IntroGUI = require('core/gui/battle/IntroGUI')
 local BattleGUI = require('core/gui/battle/BattleGUI')
 
 -- Alias
@@ -26,12 +25,6 @@ function TurnManager:init()
   self.turnCharacters = nil
   self.pathMatrixes = nil
   self.party = nil
-end
-
-function TurnManager:introTurn()
-  self.party = TroopManager.playerParty
-  GUIManager:showGUIForResult(IntroGUI())
-  self.party = TroopManager.playerParty - 1
 end
 
 ---------------------------------------------------------------------------------------------------

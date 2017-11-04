@@ -18,8 +18,8 @@ Message codes:
 =================================================================================================]]
 
 -- Imports
-local SimpleText = require('core/gui/SimpleText')
-local SimpleImage = require('core/gui/SimpleImage')
+local SimpleText = require('core/gui/widget/SimpleText')
+local SimpleImage = require('core/gui/widget/SimpleImage')
 local Vector = require('core/math/Vector')
 local Window = require('core/gui/Window')
 

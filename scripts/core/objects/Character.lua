@@ -153,7 +153,7 @@ function Character:loadSkill(skill, dir)
   if skill.battleAnim.loadID >= 0 then
     local mirror = skill.mirror and dir > 90 and dir <= 270
     local pos = self.position
-    local anim = BattleManager:playAnimation(skill.battleAnim.loadID, 
+    local anim = BattleManager:playBattleAnimation(skill.battleAnim.loadID, 
       pos.x, pos.y, pos.z - 1, mirror)
     minTime = max(minTime, anim.duration)
   end
@@ -182,7 +182,7 @@ function Character:castSkill(skill, dir, tile, wait)
   if skill.battleAnim.castID >= 0 then
     local mirror = skill.mirror and dir > 90 and dir <= 270
     local x, y, z = tile2Pixel(tile:coordinates())
-    local anim = BattleManager:playAnimation(skill.battleAnim.castID,
+    local anim = BattleManager:playBattleAnimation(skill.battleAnim.castID,
       x, y, z - 1, mirror)
   end
   if wait then
@@ -225,7 +225,7 @@ function Character:damage(skill, origin, results)
       local r = results.status[i]
       local s = Database.status[r.id]
       if r.add and s.animID >= 0 then
-        BattleManager:playAnimation(s.animID, pos.x, pos.y, pos.z - 1)
+        BattleManager:playBattleAnimation(s.animID, pos.x, pos.y, pos.z - 1)
       end
     end
   end)

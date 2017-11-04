@@ -15,6 +15,7 @@ local angle2Coord = math.angle2Coord
 local min = math.min
 local max = math.max
 local abs = math.abs
+local pow = math.pow
 local round = math.round
 
 -- Constants
@@ -164,22 +165,22 @@ function HexVMath.autoTileRows(grid, i, j, sameType)
   for k = -1, 1 do
     n = (k + #shift) % #shift
     if localSameType() then
-        rows[2] = rows[2] + math.pow(2, 1 + k)
+        rows[2] = rows[2] + pow(2, 1 + k)
     end
     
     n = (step1 + (k + 3) % 3 - 1) % #shift
     if localSameType() then
-        rows[4] = rows[4] + math.pow(2, 1 + k)
+        rows[4] = rows[4] + pow(2, 1 + k)
     end
   
     n = (k + step1 + step2) % #shift
     if localSameType() then
-        rows[3] = rows[3] + math.pow(2, 1 + k)
+        rows[3] = rows[3] + pow(2, 1 + k)
     end
     
     n = (step1 + step2 + step1 + (k + 3) % 3 - 1) % #shift
     if localSameType() then
-        rows[1] = rows[1] + math.pow(2, 1 + k)
+        rows[1] = rows[1] + pow(2, 1 + k)
     end
   end
   

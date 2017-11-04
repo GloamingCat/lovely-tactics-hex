@@ -20,14 +20,12 @@
             "targetType": 2, // 0 => Any tile, 1 => any character, 2 => Living only, 3 => dead only
 						"consume": true,
 						"status": [],
-						"effects": [
-							{
-								"key": "hp",
-                "successRate": "100",
-								"basicResult": "200",
-                "heal": true
-							}
-						]
+						"hpEffect": {
+              "successRate": "100",
+              "basicResult": "200",
+              "heal": true,
+              "absorb": 0
+						}
 					},
 					"tags": [
 						{
@@ -55,14 +53,12 @@
             "targetType": 2,
 						"consume": true,
 						"status": [],
-						"effects": [
-							{
-								"key": "sp",
-                "successRate": "100",
-								"basicResult": "100",
-                "heal": true
-							}
-						]
+						"spEffect": {
+              "successRate": "100",
+              "basicResult": "100",
+              "heal": true,
+              "absorb": 0
+						}
 					},
 					"tags": [
 						{
@@ -76,7 +72,7 @@
 				"name": "Antidote",
 				"data": {
 					"id": 3,
-					"description": "Cures 200HP.",
+					"description": "Cures Poison.",
 					"icon": {
 						"id": 25,
 						"col": 1,
@@ -95,8 +91,7 @@
                 "rate": "100",
                 "add": false
               }
-            ],
-						"effects": []
+            ]
 					},
 					"tags": [
 						{

@@ -142,13 +142,13 @@ function Player:inputAxis()
     elseif dx == 0 and dy == 0 then
       self.pressTime = nil
     end
-    return dx, dy
+    return dx, dy, false
   else
     if dx ~= 0 or dy ~= 0 then
       self.pressTime = timer.getTime()
-      self.pressX = dx
-      self.pressY = dy
     end
+    self.pressX = dx
+    self.pressY = dy
     return dx, dy, true
   end
 end
@@ -193,9 +193,6 @@ function Player:tryAngleMovement(angle)
       return true
     end
   else
-    if nextTile.transition then
-      self:teleport(nextTile.transition)
-    end
     local autoAnim = self.autoAnim
     self.autoAnim = false
     self:walkToTile(dx, dy, dh, false)
@@ -204,30 +201,6 @@ function Player:tryAngleMovement(angle)
     return true
   end
   return false
-end
-
----------------------------------------------------------------------------------------------------
--- Tile collision
----------------------------------------------------------------------------------------------------
-
-function Player:collideTile(tile)
-  if not tile then
-    return false
-  end
-  for char in tile.characterList:iterator() do
-    if char.collideScript then
-      local event = {
-        param = char.collideScript.param,
-        tile = tile,
-        origin = self,
-        dest = char }
-      char:onCollide(event)
-    end
-  end
-end
-
-function Player:teleport(transition)
-
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -261,7 +234,6 @@ function Player:interactTile(tile)
     local char = tile.characterList[i]
     if char ~= self and char.interactScript ~= nil then
       local event = {
-        param = char.interactScript.param,
         tile = tile,
         origin = self,
         dest = char }
@@ -275,6 +247,27 @@ end
 function Player:interactAngle(angle)
   local nextTile = self:frontTile(angle)
   return self:interactTile(nextTile)
+end
+
+---------------------------------------------------------------------------------------------------
+-- Tile collision
+---------------------------------------------------------------------------------------------------
+
+function Player:collideTile(tile)
+  if not tile then
+    return false
+  end
+  for char in tile.characterList:iterator() do
+    if char.collideScript then
+      local event = {
+        tile = tile,
+        origin = self,
+        dest = char }
+      char:onCollide(event)
+      return true
+    end
+  end
+  return false
 end
 
 return Player

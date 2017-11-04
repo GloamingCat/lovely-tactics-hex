@@ -139,7 +139,6 @@ function Troop:addRewards()
     self:addTroopRewards(enemy)
     self:addMembersRewards(enemy, characters)
   end
-  self.gold = self.gold + 1000
 end
 -- Adds the troop's rewards (money).
 -- @param(enemy : Character)
@@ -151,8 +150,7 @@ end
 function Troop:addMembersRewards(enemy, characters)
   characters = characters or self:currentCharacters(true)
   for char in characters:iterator() do
-    char.battler.exp = char.battler.exp + enemy.battler.data.exp
-    -- TODO: check level up
+    char.battler:addExperience(enemy.battler.data.exp)
   end
 end
 

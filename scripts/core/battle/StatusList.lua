@@ -57,7 +57,7 @@ function StatusList:addStatus(id, state)
     status.state.lifeTime = 0
   else
     local top = self:getTopStatus()
-    status = Status.fromData(data, state, self.battler)
+    status = Status:fromData(data, state, self.battler)
     self:add(status)
     if status.onAdd then
       status:onAdd()
