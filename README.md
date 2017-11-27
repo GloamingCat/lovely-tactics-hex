@@ -17,6 +17,23 @@ Since this project is still under development, its design and features may chang
 To run this project, you need to first install LÖVE2D. Follow steps here: https://love2d.org/.
 Once the engine is properly installed, all you have to do is run the project folder as any other game made in the engine.
 
+For Windows users who are new to LÖVE2D, here is a simple step-by-step to run the project:
+1) Download this project as a zip, in the green button at the top of this page;
+2) Download LÖVE2D zip from the site above, according to your platform (32-bit should work);
+3) Extract LÖVE2D files into a new empty folder;
+4) Extract the project's root folder into the same newly created folder. The project's root folder, that cointans the main.lua file inside, should be in the same folder as "love.exe" file;
+5) Drag the project's root folder and drop over "love.exe" file. This should run the game.
+
+For Linux users,
+1) Download this project as a zip, in the green button at the top of this page;
+2) Download LÖVE2D package from the site above and install it;
+3) Extract the project's root folder to any folder;
+4) Enter the project's root folder (the one containing "main.lua" file), open the terminal and type
+```
+love ./
+```
+This should run the game.
+
 ## Contributors
 
 * Thanks to Luke Perkin, for the ProFi module: https://gist.github.com/perky/2838755;

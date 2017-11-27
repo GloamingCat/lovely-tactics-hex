@@ -326,7 +326,7 @@
         "basicResult": "(a.atkm() * 2 - b.defm()) * rand(80, 120) / 100",
         "heal": true,
         "absorb": 0
-      }
+      },
 			"elements": [
 			  {
           "id": 2,

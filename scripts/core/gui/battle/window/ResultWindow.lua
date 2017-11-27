@@ -1,6 +1,6 @@
 
 local Vector = require('core/math/Vector')
-local Window = require('core/gui/window')
+local Window = require('core/gui/Window')
 
 local ResultWindow = class(Window)
 
@@ -15,7 +15,9 @@ end
 
 function ResultWindow:createContent(w, h)
   Window.createContent(self, w, h)
-  
+  --for i = 1, #self.troop.current do
+    
+  --end
 end
 
 return ResultWindow
