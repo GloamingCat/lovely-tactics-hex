@@ -1087,10 +1087,66 @@
 				}
 			},
 			{
+				"name": "Tree 2",
+				"data": {
+					"id": 45,
+					"path": "Obstacle/Tree1.png",
+					"x": 0,
+					"y": 0,
+					"width": -1,
+					"height": -1,
+					"cols": 1,
+					"rows": 1,
+					"transform": {
+					  "offsetX": 72,
+					  "offsetY": 102,
+					  "offsetDepth": 0,
+					  "scaleX": 100,
+					  "scaleY": 100,
+					  "rotation": 0,
+					  "red": 255,
+					  "green": 255,
+					  "blue": 255,
+					  "alpha": 255,
+					  "hue": 0,
+					  "saturation": 100,
+					  "brightness": 100
+					}
+				}
+			},
+			{
 				"name": "Rock 1",
 				"data": {
 					"id": 36,
 					"path": "Obstacle/Rock0.png",
+					"x": 0,
+					"y": 0,
+					"width": 48,
+					"height": 48,
+					"cols": 1,
+					"rows": 1,
+					"transform": {
+					  "offsetX": 25,
+					  "offsetY": 40,
+					  "offsetDepth": 0,
+					  "scaleX": 100,
+					  "scaleY": 100,
+					  "rotation": 0,
+					  "red": 255,
+					  "green": 255,
+					  "blue": 255,
+					  "alpha": 255,
+					  "hue": 0,
+					  "saturation": 100,
+					  "brightness": 100
+					}
+				}
+			},
+			{
+				"name": "Grass 1",
+				"data": {
+					"id": 47,
+					"path": "Obstacle/grass0.png",
 					"x": 0,
 					"y": 0,
 					"width": 48,

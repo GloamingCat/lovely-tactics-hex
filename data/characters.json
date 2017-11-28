@@ -3,7 +3,7 @@
 		"name": "Heroes",
 		"children": [
 			{
-				"name": "Hero Lancer",
+				"name": "Hugo",
 				"data": {
 					"id": 1,
 					"battlerID": 1, // Default battler ID

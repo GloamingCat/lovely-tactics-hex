@@ -38,7 +38,7 @@ function SkillList:learn(skill)
   if self:containsSkill(skill.id) then
     return
   end
-  for i = 1, skill.requirements do
+  for i = 1, #skill.requirements do
     if not self:containsSkill(skill.requirements[i]) then
       return
     end

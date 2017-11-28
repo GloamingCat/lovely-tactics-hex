@@ -1,42 +1,28 @@
 [
 	{
-		"name": "Hands",
+		"name": "Green Orb",
 		"key": "hands",
-		"count": 2,
-    "freedom": 2,
-		"tags": []
-	},
-	{
-		"name": "Head",
-		"key": "head",
 		"count": 1,
     "freedom": 2,
 		"tags": []
 	},
 	{
-		"name": "Body",
-		"key": "body",
+		"name": "Purple Orb",
+		"key": "hands",
 		"count": 1,
     "freedom": 2,
 		"tags": []
 	},
 	{
-		"name": "Neck",
-		"key": "neck",
+		"name": "Orange Orb",
+		"key": "hands",
 		"count": 1,
     "freedom": 2,
 		"tags": []
 	},
 	{
-		"name": "Feet",
-		"key": "feet",
-		"count": 1,
-    "freedom": 2,
-		"tags": []
-	},
-	{
-		"name": "Accessory",
-		"key": "accessory",
+		"name": "Black Orb",
+		"key": "hands",
 		"count": 2,
     "freedom": 2,
 		"tags": []

@@ -52,8 +52,8 @@ end
 -- @ret(Image)
 function ResourceManager:loadQuad(data, texture, col, row)
   texture = texture or self:loadTexture(data.path)
-  local w = data.width / data.cols
-  local h = data.height / data.rows
+  local w = (data.width > 0 and data.width or texture:getWidth()) / data.cols
+  local h = (data.height > 0 and data.height or texture:getHeight()) / data.rows
   col, row = col or 0, row or 0
   local quad = newQuad(data.x + col * w, data.y + row * h, w, h, texture:getWidth(), texture:getHeight())
   return quad, texture

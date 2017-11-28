@@ -78,28 +78,28 @@
   ],
   "layers": [
     {
-		"name": "Sand",
-		"type": 0,
-		"height": 0,
-		"tags": []
+  		"name": "Sand",
+  		"type": 0,
+  		"height": 0,
+  		"tags": []
     },
     {
-		"name": "Grass",
-		"type": 0,
-		"height": 0,
-		"tags": []
+  		"name": "Grass",
+  		"type": 0,
+  		"height": 0,
+  		"tags": []
     },
     {
-		"name": "Water",
-		"type": 0,
-		"height": 0,
-		"tags": []
+  		"name": "Water",
+  		"type": 0,
+  		"height": 0,
+  		"tags": []
     },
     {
-		"name": "Trees",
-		"type": 1,
-		"height": 0,
-		"tags": []
+  		"name": "Trees",
+  		"type": 1,
+  		"height": 0,
+  		"tags": []
     }
   ]
 }

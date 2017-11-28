@@ -28,23 +28,65 @@
 					"dx": 0,
 					"dy": 0,
 					"height": 8,
-					"neighbors": [
-						false,
-						false,
-						false,
-						false,
-						false,
-						false,
-						false,
-						false,
-						false
-					]
+					"neighbors": [ false, false, false, false, false, false, false, false, false ]
 				}
 			]
 		}
 	},
+  {
+    "name": "Tree1",
+    "data": {
+      "id": 2,
+      "image": {
+        "id": 45,
+        "col": 0,
+        "row": 0
+      },
+      "transform": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "offsetDepth": 0,
+        "scaleX": 100,
+        "scaleY": 100,
+        "rotation": 0,
+        "red": 255,
+        "green": 255,
+        "blue": 255,
+        "alpha": 255,
+        "hue": 0,
+        "saturation": 100,
+        "brightness": 100
+      },
+      "tiles": [
+        {
+          "dx": 0,
+          "dy": 0,
+          "height": 8,
+          "neighbors": [ false, false, false, false, false, false, false, false, false ]
+        },
+        {
+          "dx": 1,
+          "dy": -1,
+          "height": 8,
+          "neighbors": [ false, false, false, false, false, false, false, false, false ]
+        },
+        {
+          "dx": 0,
+          "dy": -1,
+          "height": 8,
+          "neighbors": [ false, false, false, false, false, false, false, false, false ]
+        },
+        {
+          "dx": 1,
+          "dy": 0,
+          "height": 8,
+          "neighbors": [ false, false, false, false, false, false, false, false, false ]
+        }
+      ]
+    }
+  },
 	{
-		"name": "Rock",
+		"name": "Rock 1",
 		"data": {
 			"id": 1,
 			"image": {
@@ -55,7 +97,7 @@
 			"transform": {
 				"offsetX": 0,
 				"offsetY": 0,
-				"offsetDepth": 5,
+				"offsetDepth": 0,
 				"scaleX": 100,
 				"scaleY": 100,
 				"rotation": 0,
@@ -69,5 +111,59 @@
 			},
 			"tiles": []
 		}
-	}
+	},
+  {
+    "name": "Rock 2",
+    "data": {
+      "id": 3,
+      "image": {
+        "id": 46,
+        "col": 0,
+        "row": 0
+      },
+      "transform": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "offsetDepth": 5,
+        "scaleX": 100,
+        "scaleY": 100,
+        "rotation": 0,
+        "red": 255,
+        "green": 255,
+        "blue": 255,
+        "alpha": 255,
+        "hue": 0,
+        "saturation": 100,
+        "brightness": 100
+      },
+      "tiles": []
+    }
+  },
+  {
+    "name": "Grass 1",
+    "data": {
+      "id": 4,
+      "image": {
+        "id": 47,
+        "col": 0,
+        "row": 0
+      },
+      "transform": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "offsetDepth": 5,
+        "scaleX": 100,
+        "scaleY": 100,
+        "rotation": 0,
+        "red": 255,
+        "green": 255,
+        "blue": 255,
+        "alpha": 255,
+        "hue": 0,
+        "saturation": 100,
+        "brightness": 100
+      },
+      "tiles": []
+    }
+  }
 ]
