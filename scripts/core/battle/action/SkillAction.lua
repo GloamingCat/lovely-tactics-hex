@@ -248,7 +248,7 @@ function SkillAction:calculateEffectResult(effect, user, target)
   if random() * 100 > rate then
     return nil
   end
-  local result = max(effect.basicResult(self, user.att, target.att, normal), 0)
+  local result = max(effect.basicResult(self, user.att, target.att, random), 0)
   local bonus = 0
   local skillElements = self.elementFactors
   for i = 1, elementCount do

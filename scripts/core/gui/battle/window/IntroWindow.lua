@@ -26,8 +26,8 @@ local IntroWindow = class(GridWindow)
 function IntroWindow:createButtons()
   self:createButton('start')
   self:createButton('party')
-  self:createButton('items')
-  self:createButton('equips')
+  --self:createButton('items')
+  --self:createButton('equips')
 end
 -- Overrides GridWindow:createButton.
 function IntroWindow:createButton(key)
@@ -82,7 +82,7 @@ function IntroWindow:colCount()
 end
 -- Overrides GridWindow:rowCount.
 function IntroWindow:rowCount()
-  return 4
+  return 2
 end
 
 return IntroWindow

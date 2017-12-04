@@ -100,6 +100,7 @@ function BattleManager:battleIntro()
   end
   local p = TroopManager.centers[TroopManager.playerParty]
   FieldManager.renderer:moveToPoint(p.x, p.y, speed, true)
+  TurnManager.party = TroopManager.playerParty
   _G.Fiber:wait(15)
 end
 -- Runs after winner was determined and battle loop ends.

@@ -4,7 +4,7 @@
     "data": {
       "id": 1,
       "persistent": true,
-      "level": 5,
+      "level": 3.5,
       "attackID": 2,
       "classID": 1,
       "exp": 0,
@@ -44,7 +44,7 @@
     "data": {
       "id": 2,
       "persistent": true,
-      "level": 5,
+      "level": 3.5,
       "attackID": 3,
       "classID": 2,
       "exp": 0,
