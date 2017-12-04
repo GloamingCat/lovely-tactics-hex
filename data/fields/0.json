@@ -1,105 +1,77 @@
 {
-  "id": 0,
-  "sizeX": 15,
-  "sizeY": 15,
-  "prefs": {
-    "name": "New Field",
-    "defaultRegion": 0,
-    // Automatically generated transitions interactables.
-    "transitions": {
-      "south": {
-        "fieldID": 0,
-        "x": 8,
-        "y": 2,
-        "h": 0,
-        "direction": 270,
-        "fade": 60
-      }
-    },
-    "tags": []
-  },
-  "battle": {
-    "parties": [],
-    "playerParty": -1
-  },
-  "characters": [
-    {
-      // Identifier. Used to find the character and also to refer the a troop member, 
-      // in case it's a battle character.
-      "key": "bob",
-      // Character's position in the field.
-      "x": 5,
-      "y": 5,
-      "h": 0,
-      // The party this character is member of, in case it's a battle field.
-      // It's from 1 to #battle.parties (or -1 if none).
-      "party": -1,
-      // The ID of this character's data, from the "characters" table in the database.
-      "charID": 3,
-      // Battle associated to this character (if -1, it's the default battler from original data).
-      "battlerID": -1,
-      // Initial animation.
-      "anim": "Idle",
-      // Initial direction.
-      "direction": 225,
-      // Script executed when player interacts with this character.
-      "interactScript": {
-        "commands": [
-          {
-            "name": "eventScript",
-            "param": 1
-          }
-        ],
-        "global": false
-      },
-      "tags": []
-    },
-    {
-      "key": "battle",
-      "x": 7,
-      "y": 4,
-      "h": 0,
-      "party": -1,
-      "charID": 4,
-      "battlerID": -1,
-      "anim": "Idle",
-      "direction": 180,
-      "collideScript": {
-        "commands": [
-          {
-            "name": "eventScript",
-            "param": 2
-          }
-        ],
-        "global": false
-      },
-      "tags": []
-    }
-  ],
-  "layers": [
-    {
-  		"name": "Sand",
-  		"type": 0,
-  		"height": 0,
-  		"tags": []
-    },
-    {
-  		"name": "Grass",
-  		"type": 0,
-  		"height": 0,
-  		"tags": []
-    },
-    {
-  		"name": "Water",
-  		"type": 0,
-  		"height": 0,
-  		"tags": []
-    },
-    {
-  		"name": "Trees",
-  		"type": 1,
-  		"height": 0,
-  		"tags": []
-    }
-  ]
+	"id": 0,
+	"sizeX": 15,
+	"sizeY": 15,
+	"prefs": {
+		"name": "Battle Field",
+		"defaultRegion": 0,
+		"transitions": [],
+		"tags": []
+	},
+	"battle": {
+		"parties": [
+			{
+				// How member's characters are generated.
+				// 0 => They are not. The characters from the field are used.
+				// 1 => Using pre-defined spots from "memberPos".
+				// 2 => Using the troop's grid.
+				"memberGen": 2,
+				"memberPos": [],
+				// Position of the top-left corner of the party (or left corner, in isometric/hexagonal grid).
+				"x": 12,
+				"y": 5,
+				"h": 0,
+				// The initial direction of the characters.
+				// The troop's grid is also rotated to reposition them, in case they are generated from grid.
+				"rotation": 3,
+				// The possible troops to occupate this party spot.
+				"troops": [2],
+				"tags": []
+			},
+			{
+				"memberGen": 2,
+				"memberPos": [],
+				"x": 2,
+				"y": 5,
+				"h": 0,
+				"rotation": 1,
+				"troops": [2],
+				"tags": []
+			}
+		],
+		"playerParty": -1 // The player's party. 
+	},
+	"characters": [],
+	"layers": [
+		{
+			"name": "Sand",
+			"type": 0, // 0 => terrain, 1 => obstacles, 2 => regions, 3 => parties
+			"height": 0,
+			"tags": []
+		},
+		{
+			"name": "Glass",
+			"type": 0,
+			"height": 0,
+			"tags": []
+		},
+		{
+			"name": "Water",
+			"type": 0,
+			"height": 0,
+			"tags": []
+		},
+		{
+			"name": "Tree",
+			"type": 1,
+			"height": 0,
+			"tags": []
+		},
+		{
+			"name": "Parties",
+			"type": 3,
+			"height": 0,
+			"tags": []
+		}
+	]
 }

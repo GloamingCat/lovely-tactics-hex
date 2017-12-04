@@ -63,9 +63,13 @@ function ObjectLayer:mergeObstacles(layerData)
         -- Collision tiles
         for k = 1, #obstacleData.tiles do
           local tileData = obstacleData.tiles[k]
-          local tile = self.grid[i + tileData.dx][j + tileData.dy]
-          local obstacle = Obstacle(obstacleData, tileData, tile, group)
-          group[k] = obstacle
+          local x = i + tileData.dx
+          local y = j + tileData.dy
+          if x >= 1 and y >= 1 and x <= self.sizeX and y <= self.sizeY then
+            local tile = self.grid[x][y]
+            local obstacle = Obstacle(obstacleData, tileData, tile, group)
+            group[k] = obstacle
+          end
         end
       end
     end

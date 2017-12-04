@@ -11,7 +11,7 @@
 		"walkSpeed": 90,
 		"dashSpeed": 200,
 		"startPos": {
-			"fieldID": 0,
+			"fieldID": 1,
 			"x": 8,
 			"y": 2,
 			"h": 0,

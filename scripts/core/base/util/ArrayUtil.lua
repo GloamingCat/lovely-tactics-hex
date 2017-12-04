@@ -51,7 +51,7 @@ function util.join(arrays)
   local new = {}
   for i = 1, #arrays do
     local arr = arrays[i]
-    util.addArray(new, arr)
+    util.addAll(new, arr)
   end
   return new
 end

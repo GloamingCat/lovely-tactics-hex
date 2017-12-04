@@ -22,6 +22,9 @@ local function toArray(children, arr)
     if node.data then
       arr[node.data.id] = node.data
       node.data.name = node.name
+      if node.data.key then
+        arr[node.data.key] = node.data
+      end
     else
       toArray(node.children, arr)
     end
@@ -37,6 +40,21 @@ local function insertKeys(arr)
     arr[a.key] = a
   end
 end
+-- Gets the array dis
+local function getRootArray(file)
+  local data = JSON.load('data/' .. file)
+  local root = data or {}
+  local i, path = 1, 'data/' .. file .. 1
+  while love.filesystem.exists(path) do
+    data = JSON.load(path)
+    util.array.addAll(root, data)
+    i, path = i + 1, 'data/' .. file .. (i + 1)
+  end
+  if #root == 0 then
+    assert(data, 'Could not load ' .. file)
+  end
+  return root
+end
 
 ---------------------------------------------------------------------------------------------------
 -- Database files
@@ -47,8 +65,7 @@ local db = {'animations', 'battlers', 'characters', 'classes', 'items', 'obstacl
   'skills', 'status', 'terrains', 'troops'}
 for i = 1, #db do
   local file = db[i]
-  local data = JSON.load('data/' .. file)
-  assert(data, 'Could not load ' .. file)
+  local data = getRootArray(file)
   Database[file] = toArray(data)
 end
 
