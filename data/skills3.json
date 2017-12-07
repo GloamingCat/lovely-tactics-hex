@@ -1,0 +1,55 @@
+[
+	{
+		"name": "Cure",
+		"data": {
+			"id": 30,
+			"type": 2,
+      "targetType": 2,
+			"description": "Cures a single ally character.",
+			"icon": {
+			  "id": 42,
+			  "col": 0,
+			  "row": 0
+			},
+			"radius": 1,
+			"range": 3,
+			"script": {
+			  "path": "",
+			  "param": ""
+			},
+			"costs": [
+			  {
+			  	"key": "sp",
+          "value": "10"
+			  }
+			],
+			"restriction": 0,
+			"userAnim": {
+				"load": "",
+				"cast": "Skill2",
+				"stepOnCast": true
+			},
+			"battleAnim": {
+				"loadID": -1,
+				"castID": -1,
+				"individualID": 5,
+				"mirror": true
+			},
+      "damageAnim": false,
+      "hpEffect": {
+        "successRate": "100",
+        "basicResult": "(a.atkm() * 2 - b.defm()) * rand(80, 120) / 100",
+        "heal": true,
+        "absorb": 0
+      },
+			"elements": [
+			  {
+          "id": 2,
+          "value": 100
+			  }
+			],
+			"status": [],
+			"tags": []
+		}
+	}
+]

@@ -1,0 +1,287 @@
+[
+	{
+		"name": "Obstacle",
+		"children": [
+			{
+				"name": "Tree 1",
+				"data": {
+					"id": 60,
+					"path": "Obstacle/Tree0.png",
+					"x": 0,
+					"y": 0,
+					"width": 96,
+					"height": 105,
+					"cols": 1,
+					"rows": 1,
+					"transform": {
+					  "offsetX": 48,
+					  "offsetY": 96,
+					  "offsetDepth": 0,
+					  "scaleX": 100,
+					  "scaleY": 100,
+					  "rotation": 0,
+					  "red": 255,
+					  "green": 255,
+					  "blue": 255,
+					  "alpha": 255,
+					  "hue": 0,
+					  "saturation": 100,
+					  "brightness": 100
+					}
+				}
+			},
+			{
+				"name": "Tree 2",
+				"data": {
+					"id": 61,
+					"path": "Obstacle/Tree1.png",
+					"x": 0,
+					"y": 0,
+					"width": -1,
+					"height": -1,
+					"cols": 1,
+					"rows": 1,
+					"transform": {
+					  "offsetX": 72,
+					  "offsetY": 102,
+					  "offsetDepth": 0,
+					  "scaleX": 100,
+					  "scaleY": 100,
+					  "rotation": 0,
+					  "red": 255,
+					  "green": 255,
+					  "blue": 255,
+					  "alpha": 255,
+					  "hue": 0,
+					  "saturation": 100,
+					  "brightness": 100
+					}
+				}
+			},
+			{
+				"name": "Rock 1",
+				"data": {
+					"id": 62,
+					"path": "Obstacle/Rock0.png",
+					"x": 0,
+					"y": 0,
+					"width": 48,
+					"height": 48,
+					"cols": 1,
+					"rows": 1,
+					"transform": {
+					  "offsetX": 25,
+					  "offsetY": 40,
+					  "offsetDepth": 0,
+					  "scaleX": 100,
+					  "scaleY": 100,
+					  "rotation": 0,
+					  "red": 255,
+					  "green": 255,
+					  "blue": 255,
+					  "alpha": 255,
+					  "hue": 0,
+					  "saturation": 100,
+					  "brightness": 100
+					}
+				}
+			},
+      {
+        "name": "Rock 2",
+        "data": {
+          "id": 63,
+          "path": "Obstacle/Rock1.png",
+          "x": 0,
+          "y": 0,
+          "width": -1,
+          "height": -1,
+          "cols": 1,
+          "rows": 1,
+          "transform": {
+            "offsetX": 13,
+            "offsetY": 10,
+            "offsetDepth": 5,
+            "scaleX": 100,
+            "scaleY": 100,
+            "rotation": 0,
+            "red": 255,
+            "green": 255,
+            "blue": 255,
+            "alpha": 255,
+            "hue": 0,
+            "saturation": 100,
+            "brightness": 100
+          }
+        }
+      },
+			{
+				"name": "Grass 1",
+				"data": {
+					"id": 64,
+					"path": "Obstacle/Grass0.png",
+					"x": 0,
+					"y": 0,
+					"width": 48,
+					"height": 48,
+					"cols": 1,
+					"rows": 1,
+					"transform": {
+					  "offsetX": 25,
+					  "offsetY": 40,
+					  "offsetDepth": 5,
+					  "scaleX": 100,
+					  "scaleY": 100,
+					  "rotation": 0,
+					  "red": 255,
+					  "green": 255,
+					  "blue": 255,
+					  "alpha": 255,
+					  "hue": 0,
+					  "saturation": 100,
+					  "brightness": 100
+					}
+				}
+			},
+			{
+				"name": "Grass 2",
+				"data": {
+					"id": 65,
+					"path": "Obstacle/Grass1.png",
+					"x": 0,
+					"y": 0,
+					"width": 48,
+					"height": 48,
+					"cols": 1,
+					"rows": 1,
+					"transform": {
+					  "offsetX": 25,
+					  "offsetY": 40,
+					  "offsetDepth": 5,
+					  "scaleX": 100,
+					  "scaleY": 100,
+					  "rotation": 0,
+					  "red": 255,
+					  "green": 255,
+					  "blue": 255,
+					  "alpha": 255,
+					  "hue": 0,
+					  "saturation": 100,
+					  "brightness": 100
+					}
+				}
+			},
+			{
+				"name": "Wall 1",
+				"data": {
+					"id": 66,
+					"path": "Obstacle/Wall0.png",
+					"x": 0,
+					"y": 0,
+					"width": 36,
+					"height": 96,
+					"cols": 1,
+					"rows": 1,
+					"transform": {
+					  "offsetX": 18,
+					  "offsetY": 85,
+					  "offsetDepth": 0,
+					  "scaleX": 100,
+					  "scaleY": 100,
+					  "rotation": 0,
+					  "red": 255,
+					  "green": 255,
+					  "blue": 255,
+					  "alpha": 255,
+					  "hue": 0,
+					  "saturation": 100,
+					  "brightness": 100
+					}
+				}
+			},
+			{
+				"name": "Wall 2",
+				"data": {
+					"id": 67,
+					"path": "Obstacle/Wall1.png",
+					"x": 0,
+					"y": 0,
+					"width": 36,
+					"height": 96,
+					"cols": 1,
+					"rows": 1,
+					"transform": {
+					  "offsetX": 18,
+					  "offsetY": 85,
+					  "offsetDepth": 0,
+					  "scaleX": 100,
+					  "scaleY": 100,
+					  "rotation": 0,
+					  "red": 255,
+					  "green": 255,
+					  "blue": 255,
+					  "alpha": 255,
+					  "hue": 0,
+					  "saturation": 100,
+					  "brightness": 100
+					}
+				}
+			},
+			{
+				"name": "Wall 3",
+				"data": {
+					"id": 68,
+					"path": "Obstacle/Wall3.png",
+					"x": 0,
+					"y": 0,
+					"width": 36,
+					"height": 96,
+					"cols": 1,
+					"rows": 1,
+					"transform": {
+					  "offsetX": 18,
+					  "offsetY": 85,
+					  "offsetDepth": 0,
+					  "scaleX": 100,
+					  "scaleY": 100,
+					  "rotation": 0,
+					  "red": 255,
+					  "green": 255,
+					  "blue": 255,
+					  "alpha": 255,
+					  "hue": 0,
+					  "saturation": 100,
+					  "brightness": 100
+					}
+				}
+			},
+			{
+				"name": "Wall 4",
+				"data": {
+					"id": 69,
+					"path": "Obstacle/Wall3.png",
+					"x": 0,
+					"y": 0,
+					"width": 36,
+					"height": 96,
+					"cols": 1,
+					"rows": 1,
+					"transform": {
+					  "offsetX": 18,
+					  "offsetY": 85,
+					  "offsetDepth": 0,
+					  "scaleX": 100,
+					  "scaleY": 100,
+					  "rotation": 0,
+					  "red": 255,
+					  "green": 255,
+					  "blue": 255,
+					  "alpha": 255,
+					  "hue": 0,
+					  "saturation": 100,
+					  "brightness": 100
+					}
+				}
+			}
+		]
+	}
+]

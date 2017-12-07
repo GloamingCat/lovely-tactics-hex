@@ -6,10 +6,6 @@
         "green": 255,
         "blue": 128
       },
-      "battlers": [
-        2,
-        3
-      ],
       "tags": []
     },
     {
@@ -19,7 +15,6 @@
         "green": 64,
         "blue": 64
       },
-      "battlers": [],
       "tags": []
     },
     {
@@ -29,7 +24,6 @@
         "green": 255,
         "blue": 255
       },
-      "battlers": [],
       "tags": []
     }
 ]

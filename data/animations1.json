@@ -1,0 +1,266 @@
+[
+	{
+		"name": "Skills",
+		"children": [
+			{
+				"name": "Slash",
+				"data": {
+					"id": 10,
+					"path": "Battle/sword slash.png",
+					"x": 0,
+					"y": 0,
+					"width": 768,
+					"height": 384,
+					"cols": 4,
+					"rows": 2,
+					"transform": {
+					  "offsetX": 96,
+					  "offsetY": 96,
+					  "offsetDepth": 0,
+					  "scaleX": 50,
+					  "scaleY": 50,
+					  "rotation": 0,
+					  "red": 255,
+					  "green": 255,
+					  "blue": 255,
+					  "alpha": 255,
+					  "hue": 0,
+					  "saturation": 100,
+					  "brightness": 100
+					},
+					"animation": {
+						"duration": 30,
+						"loop": 0,
+						"script": {
+							"path": "BattleEffect",
+							"param": ""
+						},
+						"audio": []
+					}
+				}
+			},
+			{
+				"name": "Fireball",
+				"data": {
+					"id": 11,
+					"path": "Battle/fireball.png",
+					"x": 0,
+					"y": 0,
+					"width": 640,
+					"height": 512,
+					"cols": 5,
+					"rows": 4,
+					"transform": {
+					  "offsetX": 64,
+					  "offsetY": 72,
+					  "offsetDepth": 0,
+					  "scaleX": 50,
+					  "scaleY": 50,
+					  "rotation": 0,
+					  "red": 255,
+					  "green": 255,
+					  "blue": 255,
+					  "alpha": 255,
+					  "hue": 0,
+					  "saturation": 100,
+					  "brightness": 100
+					},
+					"animation": {
+						"duration": 60,
+						"loop": 0,
+						"script": {
+							"path": "BattleEffect",
+							"param": ""
+						},
+						"audio": []
+					}
+				}
+			},
+			{
+				"name": "Fireball2",
+				"data": {
+					"id": 12,
+					"path": "Battle/fireball.png",
+					"x": 0,
+					"y": 0,
+					"width": 640,
+					"height": 512,
+					"cols": 5,
+					"rows": 4,
+					"transform": {
+					  "offsetX": 64,
+					  "offsetY": 64,
+					  "offsetDepth": 0,
+					  "scaleX": 100,
+					  "scaleY": 100,
+					  "rotation": 0,
+					  "red": 255,
+					  "green": 255,
+					  "blue": 255,
+					  "alpha": 255,
+					  "hue": 90,
+					  "saturation": 100,
+					  "brightness": 100
+					},
+					"animation": {
+						"duration": 30,
+						"loop": 0,
+						"script": {
+							"path": "BattleEffect",
+							"param": ""
+						},
+						"audio": []
+					}
+				}
+			},
+			{
+				"name": "Fireball3",
+				"data": {
+					"id": 13,
+					"path": "Battle/fireball.png",
+					"x": 0,
+					"y": 0,
+					"width": 640,
+					"height": 512,
+					"cols": 5,
+					"rows": 4,
+					"transform": {
+					  "offsetX": 64,
+					  "offsetY": 64,
+					  "offsetDepth": 0,
+					  "scaleX": 200,
+					  "scaleY": 200,
+					  "rotation": 0,
+					  "red": 255,
+					  "green": 255,
+					  "blue": 255,
+					  "alpha": 255,
+					  "hue": 180,
+					  "saturation": 100,
+					  "brightness": 100
+					},
+					"animation": {
+						"duration": 30,
+						"loop": 0,
+						"script": {
+							"path": "BattleEffect",
+							"param": ""
+						},
+						"audio": []
+					}
+				}
+			},
+			{
+				"name": "Load",
+				"data": {
+					"id": 14,
+					"path": "Battle/cast.png",
+					"x": 0,
+					"y": 0,
+					"width": 240,
+					"height": 144,
+					"cols": 5,
+					"rows": 3,
+					"transform": {
+					  "offsetX": 24,
+					  "offsetY": 40,
+					  "offsetDepth": 0,
+					  "scaleX": 100,
+					  "scaleY": 100,
+					  "rotation": 0,
+					  "red": 255,
+					  "green": 255,
+					  "blue": 255,
+					  "alpha": 255,
+					  "hue": 0,
+					  "saturation": 100,
+					  "brightness": 100
+					},
+					"animation": {
+						"duration": 30,
+						"loop": 0,
+						"script": {
+							"path": "BattleEffect",
+							"param": ""
+						},
+						"audio": []
+					}
+				}
+			},
+			{
+				"name": "Poison",
+				"data": {
+					"id": 15,
+					"path": "Battle/poison.png",
+					"x": 0,
+					"y": 0,
+					"width": 480,
+					"height": 576,
+					"cols": 5,
+					"rows": 6,
+					"transform": {
+					  "offsetX": 48,
+					  "offsetY": 72,
+					  "offsetDepth": 0,
+					  "scaleX": 50,
+					  "scaleY": 50,
+					  "rotation": 0,
+					  "red": 255,
+					  "green": 255,
+					  "blue": 255,
+					  "alpha": 255,
+					  "hue": 0,
+					  "saturation": 100,
+					  "brightness": 100
+					},
+					"animation": {
+						"duration": 30,
+						"loop": 0,
+						"script": {
+							"path": "BattleEffect",
+							"param": ""
+						},
+						"audio": []
+					}
+				}
+			},
+			{
+				"name": "Polen",
+				"data": {
+					"id": 16,
+					"path": "Battle/polen.png",
+					"x": 0,
+					"y": 0,
+					"width": 480,
+					"height": 384,
+					"cols": 5,
+					"rows": 4,
+					"transform": {
+					  "offsetX": 48,
+					  "offsetY": 72,
+					  "offsetDepth": 0,
+					  "scaleX": 50,
+					  "scaleY": 50,
+					  "rotation": 0,
+					  "red": 255,
+					  "green": 255,
+					  "blue": 255,
+					  "alpha": 255,
+					  "hue": 0,
+					  "saturation": 100,
+					  "brightness": 100
+					},
+					"animation": {
+						"duration": 60,
+						"loop": 0,
+						"script": {
+							"path": "BattleEffect",
+							"param": ""
+						},
+						"audio": []
+					}
+				}
+			}
+		]
+	}
+]

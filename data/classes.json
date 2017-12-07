@@ -55,8 +55,14 @@
 			"expCurve": "10 * lvl",
 			"skills": [
 				{
-					"id": 4,
+					"id": 12,
 					"level": 0,
+					"requirements": [],
+          "tags": []
+				},
+				{
+					"id": 13,
+					"level": 2,
 					"requirements": [],
           "tags": []
 				}

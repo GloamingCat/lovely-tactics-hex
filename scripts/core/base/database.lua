@@ -45,7 +45,7 @@ local function getRootArray(file)
   local data = JSON.load('data/' .. file)
   local root = data or {}
   local i, path = 1, 'data/' .. file .. 1
-  while love.filesystem.exists(path) do
+  while love.filesystem.exists(path .. '.json') do
     data = JSON.load(path)
     util.array.addAll(root, data)
     i, path = i + 1, 'data/' .. file .. (i + 1)

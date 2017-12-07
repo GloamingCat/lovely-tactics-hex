@@ -1,0 +1,35 @@
+[
+	{
+		"name": "Portraits",
+		"children": [
+			{
+				"name": "Test",
+				"data": {
+					"id": 30,
+					"path": "Portrait/test.png",
+					"x": 0,
+					"y": 0,
+					"width": 192,
+					"height": 280,
+					"cols": 1,
+					"rows": 1,
+					"transform": {
+					  "offsetX": 0,
+					  "offsetY": 0,
+					  "offsetDepth": 0,
+					  "scaleX": 50,
+					  "scaleY": 50,
+					  "rotation": 0,
+					  "red": 255,
+					  "green": 255,
+					  "blue": 255,
+					  "alpha": 255,
+					  "hue": 0,
+					  "saturation": 100,
+					  "brightness": 100
+					}
+				}
+			}
+		]
+	}
+]

@@ -38,8 +38,8 @@ end
 -- @param(animations : table) array of animations
 function AnimatedObject:initializeAnimationTable(animations)
   self.animationData = {}
-  for i = #animations, 1, -1 do
-    self:addAnimation(animations[i].name, animations[i].id)
+  for name, id in pairs(animations) do
+    self:addAnimation(name, id)
   end
 end
 -- Creates a new animation from the database.

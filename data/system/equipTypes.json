@@ -2,29 +2,25 @@
 	{
 		"name": "Green Orb",
 		"key": "hands",
-		"count": 1,
-    "freedom": 2,
+		"count": 3,
 		"tags": []
 	},
 	{
 		"name": "Purple Orb",
 		"key": "hands",
-		"count": 1,
-    "freedom": 2,
+		"count": 3,
 		"tags": []
 	},
 	{
 		"name": "Orange Orb",
 		"key": "hands",
-		"count": 1,
-    "freedom": 2,
+		"count": 3,
 		"tags": []
 	},
 	{
 		"name": "Black Orb",
 		"key": "hands",
-		"count": 2,
-    "freedom": 2,
+		"count": 3,
 		"tags": []
 	}
 ]

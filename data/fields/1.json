@@ -1,18 +1,30 @@
 {
   "id": 1,
-  "sizeX": 15,
-  "sizeY": 15,
+  "sizeX": 14,
+  "sizeY": 7,
   "prefs": {
-    "name": "New Field",
+    "name": "Forest 1",
     "defaultRegion": 0,
     // Automatically generated transitions interactables.
     "transitions": {
-      "south": {
-        "fieldID": 0,
-        "x": 8,
-        "y": 2,
+      //{
+      //  "side": "north",
+      //  "fieldID": 2,
+      //  "x": 11,
+      //  "y": 7,
+      //  "h": 0,
+      //  "max": 5,
+      //  "direction": 135,
+      //  "fade": 60
+      //},
+      {
+        "side": "north",
+        "fieldID": 3,
+        "x": 5,
+        "y": 14,
         "h": 0,
-        "direction": 270,
+        "min": 10,
+        "direction": 135,
         "fade": 60
       }
     },
@@ -22,60 +34,7 @@
     "parties": [],
     "playerParty": -1
   },
-  "characters": [
-    {
-      // Identifier. Used to find the character and also to refer the a troop member, 
-      // in case it's a battle character.
-      "key": "bob",
-      // Character's position in the field.
-      "x": 5,
-      "y": 5,
-      "h": 0,
-      // The party this character is member of, in case it's a battle field.
-      // It's from 1 to #battle.parties (or -1 if none).
-      "party": -1,
-      // The ID of this character's data, from the "characters" table in the database.
-      "charID": 3,
-      // Battle associated to this character (if -1, it's the default battler from original data).
-      "battlerID": -1,
-      // Initial animation.
-      "anim": "Idle",
-      // Initial direction.
-      "direction": 225,
-      // Script executed when player interacts with this character.
-      "interactScript": {
-        "commands": [
-          {
-            "name": "eventScript",
-            "param": 1
-          }
-        ],
-        "global": false
-      },
-      "tags": []
-    },
-    {
-      "key": "battle",
-      "x": 7,
-      "y": 4,
-      "h": 0,
-      "party": -1,
-      "charID": 4,
-      "battlerID": -1,
-      "anim": "Idle",
-      "direction": 180,
-      "collideScript": {
-        "commands": [
-          {
-            "name": "eventScript",
-            "param": 2
-          }
-        ],
-        "global": false
-      },
-      "tags": []
-    }
-  ],
+  "characters": [],
   "layers": [
     {
   		"name": "Sand",
@@ -90,13 +49,19 @@
   		"tags": []
     },
     {
+  		"name": "Bush",
+  		"type": 0,
+  		"height": 0,
+  		"tags": []
+    },
+    {
   		"name": "Water",
   		"type": 0,
   		"height": 0,
   		"tags": []
     },
     {
-  		"name": "Trees",
+  		"name": "Obstacles",
   		"type": 1,
   		"height": 0,
   		"tags": []

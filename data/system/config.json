@@ -3,8 +3,8 @@
 	"screen": {
 		"nativeWidth": 400,
 		"nativeHeight": 225,
-		"widthScale": 2,
-		"heightScale": 2,
+		"widthScale": 3,
+		"heightScale": 3,
 		"scaleType": 1
 	},
 	"player": {
@@ -12,25 +12,25 @@
 		"dashSpeed": 200,
 		"startPos": {
 			"fieldID": 1,
-			"x": 8,
-			"y": 2,
+			"x": 9,
+			"y": 6,
 			"h": 0,
-			"direction": 270
+			"direction": 135
 		}
 	},
 	"animations": {
-		"windowSkinID": 28,
-		"cursorID": 29,
-		"battleCursorID": 30,
-		"tileCursorID": 31,
-		"tileID": 32,
-		"balloonID": 33,
+		"windowSkinID": 20,
+		"cursorID": 21,
+		"battleCursorID": 22,
+		"tileCursorID": 23,
+		"tileID": 24,
+		"balloonID": 25,
     "sets": ["default", "battle", "sleep"]
 	},
 	"battle": {
 		"overpassAllies": false,
 		"overpassDeads": true,
-    "itemSkillID": 9,
+    "itemSkillID": 1,
 		"attHP": "hp",
 		"attSP": "sp",
 		"attStep": "mov",

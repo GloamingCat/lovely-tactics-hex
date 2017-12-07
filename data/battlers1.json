@@ -1,0 +1,86 @@
+  {
+    "name": "Hero Lancer",
+    "data": {
+      "id": 10,
+      "persistent": true,
+      "level": 3.5,
+      "attackID": 10,
+      "classID": 1,
+      "exp": 0,
+      "gold": 0,
+      "scriptAI": {
+        "path": "",
+        "param": ""
+      },
+      "attributes": {
+        "str": 0,
+        "mag": 0,
+        "dex": 0,
+        "res": 0,
+        "agi": 0,
+        "mov": 0,
+        "jmp": 0,
+        "hp": 0,
+        "sp": 0,
+        "atkp": 0,
+        "atkm": 0,
+        "defp": 0,
+        "defm": 0,
+        "prep": 0,
+        "prem": 0,
+        "evdp": 0,
+        "evdm": 0,
+        "car": 0
+      },
+      "skills": [],
+      "items": [],
+      "elements": [],
+      "tags": []
+    }
+  },
+  {
+    "name": "Hero Mage",
+    "data": {
+      "id": 11,
+      "persistent": true,
+      "level": 3.5,
+      "attackID": 11,
+      "classID": 2,
+      "exp": 0,
+      "gold": 0,
+      "scriptAI": {
+        "path": "",
+        "param": ""
+      },
+      "attributes": {
+        "str": 0,
+        "mag": 0,
+        "dex": 0,
+        "res": 0,
+        "agi": 0,
+        "mov": 0,
+        "jmp": 0,
+        "hp": 0,
+        "sp": 0,
+        "atkp": 0,
+        "atkm": 0,
+        "defp": 0,
+        "defm": 0,
+        "prep": 0,
+        "prem": 0,
+        "evdp": 0,
+        "evdm": 0,
+        "car": 0
+      },
+      "skills": [12, 20],
+      "items": [
+        {
+          "id": 1,
+          "count": 3,
+          "rate": 100
+        }
+      ],
+      "elements": [],
+      "tags": []
+    }
+  }

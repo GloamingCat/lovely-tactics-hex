@@ -112,11 +112,11 @@ end
 -----------------------------------------------------------------------------------------------
 
 function HexVMath.maxDepth(sizeX, sizeY)
-  return sizeY * tileH / 2 + pph * 2
+  return (sizeX + sizeY) * tileH / 2 + pph * 2
 end
 
 function HexVMath.minDepth(sizeX, sizeY)
-  return -sizeX * (tileW + tileB) / 2 - pph
+  return -(sizeX + sizeY) * (tileW + tileB) / 2 - pph
 end
 
 -----------------------------------------------------------------------------------------------

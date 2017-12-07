@@ -31,7 +31,7 @@
 					// Member's identifier. Mey be left empty if the member should not me saved.
 					"key": "HeroLancer",
 					// Member's character
-					"charID": 1,
+					"charID": 10,
 					// Member's battler (uses the character's default if invalid)
 					"battlerID": -1,
 					// Member's position in the grid
@@ -41,7 +41,7 @@
 				{
 					"key": "HeroMage",
 					"battlerID": -1,
-					"charID": 2,
+					"charID": 11,
 					"x": 4,
 					"y": 2
 				}
@@ -68,35 +68,35 @@
 				{
 					"key": "",
 					"battlerID": -1,
-					"charID": 3,
+					"charID": 20,
 					"x": 1,
 					"y": 3
 				},
 				{
 					"key": "",
 					"battlerID": -1,
-					"charID": 3,
+					"charID": 20,
 					"x": 3,
 					"y": 3
 				},
 				{
 					"key": "",
 					"battlerID": -1,
-					"charID": 3,
+					"charID": 20,
 					"x": 5,
 					"y": 3
 				},
 				{
 					"key": "",
 					"battlerID": -1,
-					"charID": 4,
+					"charID": 21,
 					"x": 2,
 					"y": 1
 				},
 				{
 					"key": "",
 					"battlerID": -1,
-					"charID": 4,
+					"charID": 21,
 					"x": 4,
 					"y": 1
 				}

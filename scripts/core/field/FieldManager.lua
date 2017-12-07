@@ -98,10 +98,6 @@ end
 
 function FieldManager:createTransitions(transitions)
   local field = self.currentField
-  local north = transitions.north
-  local south = transitions.south
-  local west = transitions.west
-  local east = transitions.east
   local function instantiate(transition, minx, maxx, miny, maxy)
     local script = { 
       commands = { {
@@ -122,17 +118,17 @@ function FieldManager:createTransitions(transitions)
     end
   end
   local w, h = field.sizeX, field.sizeY
-  if north then
-    instantiate(north, north.minx or 1, north.maxx or w, 1, 1)
-  end
-  if south then
-    instantiate(south, south.minx or 1, south.maxx or w, h, h)
-  end
-  if west then
-    instantiate(west, 1, 1, west.miny or 1, west.maxy or h)
-  end
-  if east then
-    instantiate(east, w, w, east.miny or 1, east.maxy or h)
+  for i = 1, #transitions do
+    local t = transitions[i]
+    if t.side == 'north' then
+      instantiate(t, t.min or 1, t.max or w, 1, 1)
+    elseif t.side == 'south' then
+      instantiate(t, t.min or 1, t.max or w, h, h)
+    elseif t.side == 'west' then
+      instantiate(t, 1, 1, t.min or 1, t.max or h)
+    elseif t.side == 'east' then
+      instantiate(t, w, w, t.min or 1, t.max or h)
+    end
   end
 end
 

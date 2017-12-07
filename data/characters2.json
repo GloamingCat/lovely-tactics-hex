@@ -1,0 +1,155 @@
+[
+	{
+		"name": "Enemies",
+		"children": [
+			{
+				"name": "Evil Lancer",
+				"data": {
+					"id": 20,
+					"battlerID": 20,
+					"tiles": [
+						{
+							"dx": 0,
+							"dy": 0,
+							"height": 4
+						}
+					],
+					"animations": {
+						"default": {
+              "Idle": 70,
+              "Walk": 71,
+              "Dash": 72
+            },
+            "battle": {
+              "Idle": 80,
+              "Dash": 81,
+              "Item": 80,
+              "Load1": 82,
+              "Skill1": 83,
+              "Damage": 84,
+              "KO": 85
+            },
+						"sleep": {
+              "Idle": 86
+            }
+					},
+					"transform":  {
+					  "offsetX": 0,
+					  "offsetY": 0,
+					  "offsetDepth": 0,
+					  "scaleX": 100,
+					  "scaleY": 100,
+					  "rotation": 0,
+					  "red": 255,
+					  "green": 255,
+					  "blue": 255,
+					  "alpha": 255,
+					  "hue": 90,
+					  "saturation": 100,
+					  "brightness": 100
+					},
+					"tags": []
+				}
+			},
+			{
+				"name": "Evil Mage",
+				"data": {
+					"id": 21,
+					"battlerID": 21,
+					"tiles": [
+						{
+							"dx": 0,
+							"dy": 0,
+							"height": 4
+						}
+					],
+					"animations": {
+						"default": {
+              "Idle": 70,
+              "Walk": 71,
+              "Dash": 72
+            },
+            "battle": {
+              "Idle": 90,
+              "Dash": 91,
+              "Item": 90,
+              "Load1": 92,
+              "Skill1": 93,
+              "Skill2": 94,
+              "Damage": 95,
+              "KO": 96
+            },
+						"sleep": {
+              "Idle": 97
+            }
+					},
+					"transform":  {
+					  "offsetX": 0,
+					  "offsetY": 0,
+					  "offsetDepth": 0,
+					  "scaleX": 100,
+					  "scaleY": 100,
+					  "rotation": 0,
+					  "red": 255,
+					  "green": 255,
+					  "blue": 255,
+					  "alpha": 255,
+					  "hue": 180,
+					  "saturation": 100,
+					  "brightness": 100
+					},
+					"tags": []
+				}
+			},
+			{
+				"name": "Carrot",
+				"data": {
+					"id": 22,
+					"battlerID": 22,
+					"tiles": [
+						{
+							"dx": 0,
+							"dy": 0,
+							"height": 4
+						}
+					],
+					"animations": {
+						"default": {
+              "Idle": 101,
+              "Walk": 101,
+              "Dash": 101
+            },
+            "battle": {
+              "Idle": 101,
+              "Dash": 101,
+              "Item": 100,
+              "Load1": 102,
+              "Skill1": 103,
+              "Damage": 104,
+              "KO": 105
+            },
+						"sleep": {
+              "Idle": 106
+            }
+					},
+					"transform":  {
+					  "offsetX": 0,
+					  "offsetY": 0,
+					  "offsetDepth": 0,
+					  "scaleX": 100,
+					  "scaleY": 100,
+					  "rotation": 0,
+					  "red": 255,
+					  "green": 255,
+					  "blue": 255,
+					  "alpha": 255,
+					  "hue": 0,
+					  "saturation": 100,
+					  "brightness": 100
+					},
+					"tags": []
+				}
+			}
+		]
+	}
+]

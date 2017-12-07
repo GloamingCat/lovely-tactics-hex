@@ -1,0 +1,303 @@
+[
+	{
+		"name": "Mage",
+		"children": [
+			{
+				"name": "Mage - Idle",
+				"data": {
+					"id": 90,
+					"path": "Character/Mage/idle.png",
+					"x": 0,
+					"y": 0,
+					"width": 40,
+					"height": 400,
+					"cols": 1,
+					"rows": 8,
+					"transform": {
+					  "offsetX": 20,
+					  "offsetY": 42,
+					  "offsetDepth": 0,
+					  "scaleX": 100,
+					  "scaleY": 100,
+					  "rotation": 0,
+					  "red": 255,
+					  "green": 255,
+					  "blue": 255,
+					  "alpha": 255,
+					  "hue": 0,
+					  "saturation": 100,
+					  "brightness": 100
+					},
+					"animation": {
+						"duration": 30,
+						"loop": 1,
+						"script": {
+							"path": "",
+							"param": ""
+						},
+						"audio": []
+					}
+				}
+			},
+			{
+				"name": "Mage - Dash",
+				"data": {
+					"id": 91,
+					"path": "Character/Mage/dash.png",
+					"x": 0,
+					"y": 0,
+					"width": 240,
+					"height": 400,
+					"cols": 6,
+					"rows": 8,
+					"transform": {
+					  "offsetX": 20,
+					  "offsetY": 42,
+					  "offsetDepth": 0,
+					  "scaleX": 100,
+					  "scaleY": 100,
+					  "rotation": 0,
+					  "red": 255,
+					  "green": 255,
+					  "blue": 255,
+					  "alpha": 255,
+					  "hue": 0,
+					  "saturation": 100,
+					  "brightness": 100
+					},
+					"animation": {
+						"duration": 40,
+						"loop": 1,
+						"script": {
+							"path": "",
+							"param": ""
+						},
+						"audio": []
+					}
+				}
+			},
+			{
+				"name": "Mage - Cast",
+				"data": {
+					"id": 92,
+					"path": "Character/Mage/cast.png",
+					"x": 0,
+					"y": 0,
+					"width": 40,
+					"height": 400,
+					"cols": 1,
+					"rows": 8,
+					"transform": {
+					  "offsetX": 20,
+					  "offsetY": 42,
+					  "offsetDepth": 0,
+					  "scaleX": 100,
+					  "scaleY": 100,
+					  "rotation": 0,
+					  "red": 255,
+					  "green": 255,
+					  "blue": 255,
+					  "alpha": 255,
+					  "hue": 0,
+					  "saturation": 100,
+					  "brightness": 100
+					},
+					"animation": {
+						"duration": 30,
+						"loop": 0,
+						"script": {
+							"path": "",
+							"param": ""
+						},
+						"audio": []
+					}
+				}
+			},
+			{
+				"name": "Mage - Skill 1",
+				"data": {
+					"id": 93,
+					"path": "Character/Mage/skill1.png",
+					"x": 0,
+					"y": 0,
+					"width": 40,
+					"height": 400,
+					"cols": 1,
+					"rows": 8,
+					"transform": {
+					  "offsetX": 20,
+					  "offsetY": 42,
+					  "offsetDepth": 0,
+					  "scaleX": 100,
+					  "scaleY": 100,
+					  "rotation": 0,
+					  "red": 255,
+					  "green": 255,
+					  "blue": 255,
+					  "alpha": 255,
+					  "hue": 0,
+					  "saturation": 100,
+					  "brightness": 100
+					},
+					"animation": {
+						"duration": 8,
+						"loop": 0,
+						"script": {
+							"path": "",
+							"param": ""
+						},
+						"audio": []
+					}
+				}
+			},
+			{
+				"name": "Mage - Skill 2",
+				"data": {
+					"id": 94,
+					"path": "Character/Mage/skill2.png",
+					"x": 0,
+					"y": 0,
+					"width": 40,
+					"height": 400,
+					"cols": 1,
+					"rows": 8,
+					"transform": {
+					  "offsetX": 20,
+					  "offsetY": 42,
+					  "offsetDepth": 0,
+					  "scaleX": 100,
+					  "scaleY": 100,
+					  "rotation": 0,
+					  "red": 255,
+					  "green": 255,
+					  "blue": 255,
+					  "alpha": 255,
+					  "hue": 0,
+					  "saturation": 100,
+					  "brightness": 100
+					},
+					"animation": {
+						"duration": 8,
+						"loop": 0,
+						"script": {
+							"path": "",
+							"param": ""
+						},
+						"audio": []
+					}
+				}
+			},
+			{
+				"name": "Mage - Damage",
+				"data": {
+					"id": 95,
+					"path": "Character/Mage/damage.png",
+					"x": 0,
+					"y": 0,
+					"width": 40,
+					"height": 400,
+					"cols": 1,
+					"rows": 8,
+					"transform": {
+					  "offsetX": 20,
+					  "offsetY": 42,
+					  "offsetDepth": 0,
+					  "scaleX": 100,
+					  "scaleY": 100,
+					  "rotation": 0,
+					  "red": 255,
+					  "green": 255,
+					  "blue": 255,
+					  "alpha": 255,
+					  "hue": 0,
+					  "saturation": 100,
+					  "brightness": 100
+					},
+					"animation": {
+						"duration": 12,
+						"loop": 0,
+						"script": {
+							"path": "Knockback.lua",
+							"param": ""
+						},
+						"audio": []
+					}
+				}
+			},
+			{
+				"name": "Mage - KO",
+				"data": {
+					"id": 96,
+					"path": "Character/Mage/ko.png",
+					"x": 0,
+					"y": 0,
+					"width": 40,
+					"height": 400,
+					"cols": 1,
+					"rows": 8,
+					"transform": {
+					  "offsetX": 20,
+					  "offsetY": 42,
+					  "offsetDepth": 0,
+					  "scaleX": 100,
+					  "scaleY": 100,
+					  "rotation": 0,
+					  "red": 255,
+					  "green": 255,
+					  "blue": 255,
+					  "alpha": 255,
+					  "hue": 0,
+					  "saturation": 75,
+					  "brightness": 75
+					},
+					"animation": {
+						"duration": 60,
+						"loop": 1,
+						"script": {
+							"path": "",
+							"param": ""
+						},
+						"audio": []
+					}
+				}
+			},
+      {
+				"name": "Mage - Sleep",
+				"data": {
+					"id": 97,
+					"path": "Character/Mage/ko.png",
+					"x": 0,
+					"y": 0,
+					"width": 40,
+					"height": 400,
+					"cols": 1,
+					"rows": 8,
+					"transform": {
+					  "offsetX": 20,
+					  "offsetY": 42,
+					  "offsetDepth": 0,
+					  "scaleX": 100,
+					  "scaleY": 100,
+					  "rotation": 0,
+					  "red": 255,
+					  "green": 255,
+					  "blue": 255,
+					  "alpha": 255,
+					  "hue": 0,
+					  "saturation": 100,
+					  "brightness": 100
+					},
+					"animation": {
+						"duration": 60,
+						"loop": 1,
+						"script": {
+							"path": "",
+							"param": ""
+						},
+						"audio": []
+					}
+				}
+      }
+    ]
+  }
+]

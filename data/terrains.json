@@ -3,7 +3,38 @@
 		"name": "Plain",
 		"data": {
 			"id": 0,
-			"image": 23,
+			"image": 50,
+			"passable": true,
+			"depth": 12,
+			"moveCost": 100,
+			"attributes": {
+				"str": 0,
+				"mag": 0,
+				"dex": 0,
+				"res": 0,
+				"agi": 0,
+				"mov": 0,
+				"jmp": 0,
+				"mhp": 0,
+				"msp": 0,
+				"atkp": 0,
+				"atkm": 0,
+				"defp": 0,
+				"defm": 0,
+				"prep": 0,
+				"prem": 0,
+				"evdp": 0,
+				"evdm": 0,
+				"car": 0
+			},
+			"tags": []
+		}
+	},
+	{
+		"name": "Bush",
+		"data": {
+			"id": 1,
+			"image": 51,
 			"passable": true,
 			"depth": 12,
 			"moveCost": 100,
@@ -33,8 +64,8 @@
 	{
 		"name": "Sand",
 		"data": {
-			"id": 1,
-			"image": 24,
+			"id": 2,
+			"image": 52,
 			"passable": true,
 			"depth": 12,
 			"moveCost": 100,
@@ -65,8 +96,8 @@
 	{
 		"name": "Water",
 		"data": {
-			"id": 2,
-			"image": 34,
+			"id": 3,
+			"image": 53,
 			"passable": false,
 			"depth": 12,
 			"moveCost": 100,
