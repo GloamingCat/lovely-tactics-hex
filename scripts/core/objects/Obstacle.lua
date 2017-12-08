@@ -37,7 +37,6 @@ function Obstacle:init(data, tileData, initTile, group)
   self.collisionHeight = tileData.height
   initTile.obstacleList:add(self)
   self:initializeNeighbors(tileData.neighbors)
-  self:setXYZ(x, y, z)
   self:addToTiles()
 end
 -- Creates neighborhood.

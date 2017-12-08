@@ -6,7 +6,7 @@
 				"name": "Template",
 				"data": {
 					"id": 30,
-					"battlerID": 4,
+					"battlerID": -1,
 					"tiles": [
 						{
 							"dx": 0,

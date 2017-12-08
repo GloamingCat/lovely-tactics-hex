@@ -9,8 +9,8 @@
 					"path": "Character/Carrot/idle.png",
 					"x": 0,
 					"y": 0,
-					"width": 40,
-					"height": 400,
+					"width": 70,
+					"height": 480,
 					"cols": 1,
 					"rows": 8,
 					"transform": {
@@ -46,8 +46,8 @@
 					"path": "Character/Carrot/dash.png",
 					"x": 0,
 					"y": 0,
-					"width": 240,
-					"height": 400,
+					"width": 420,
+					"height": 480,
 					"cols": 6,
 					"rows": 8,
 					"transform": {
@@ -83,8 +83,8 @@
 					"path": "Character/Carrot/cast.png",
 					"x": 0,
 					"y": 0,
-					"width": 40,
-					"height": 400,
+					"width": 70,
+					"height": 480,
 					"cols": 1,
 					"rows": 8,
 					"transform": {
@@ -120,46 +120,9 @@
 					"path": "Character/Carrot/skill1.png",
 					"x": 0,
 					"y": 0,
-					"width": 40,
-					"height": 400,
-					"cols": 1,
-					"rows": 8,
-					"transform": {
-					  "offsetX": 20,
-					  "offsetY": 42,
-					  "offsetDepth": 0,
-					  "scaleX": 100,
-					  "scaleY": 100,
-					  "rotation": 0,
-					  "red": 255,
-					  "green": 255,
-					  "blue": 255,
-					  "alpha": 255,
-					  "hue": 0,
-					  "saturation": 100,
-					  "brightness": 100
-					},
-					"animation": {
-						"duration": 8,
-						"loop": 0,
-						"script": {
-							"path": "",
-							"param": ""
-						},
-						"audio": []
-					}
-				}
-			},
-			{
-				"name": "Carrot - Skill 2",
-				"data": {
-					"id": 104,
-					"path": "Character/Carrot/skill2.png",
-					"x": 0,
-					"y": 0,
-					"width": 40,
-					"height": 400,
-					"cols": 1,
+					"width": 350,
+					"height": 480,
+					"cols": 5,
 					"rows": 8,
 					"transform": {
 					  "offsetX": 20,
@@ -190,12 +153,12 @@
 			{
 				"name": "Carrot - Damage",
 				"data": {
-					"id": 105,
+					"id": 104,
 					"path": "Character/Carrot/damage.png",
 					"x": 0,
 					"y": 0,
-					"width": 40,
-					"height": 400,
+					"width": 70,
+					"height": 480,
 					"cols": 1,
 					"rows": 8,
 					"transform": {
@@ -227,12 +190,12 @@
 			{
 				"name": "Carrot - KO",
 				"data": {
-					"id": 106,
+					"id": 105,
 					"path": "Character/Carrot/ko.png",
 					"x": 0,
 					"y": 0,
-					"width": 40,
-					"height": 400,
+					"width": 70,
+					"height": 480,
 					"cols": 1,
 					"rows": 8,
 					"transform": {
@@ -264,12 +227,12 @@
       {
 				"name": "Carrot - Sleep",
 				"data": {
-					"id": 107,
+					"id": 106,
 					"path": "Character/Carrot/ko.png",
 					"x": 0,
 					"y": 0,
-					"width": 40,
-					"height": 400,
+					"width": 70,
+					"height": 480,
 					"cols": 1,
 					"rows": 8,
 					"transform": {

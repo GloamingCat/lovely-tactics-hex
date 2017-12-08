@@ -92,10 +92,10 @@ end
 -- @ret(Player) the newly created player
 function FieldManager:createPlayer(t)
   local tile = self.currentField:getObjectTile(t.x, t.y, t.h)
-  local player = Player(tile, t.directon)
+  local player = Player(tile, t.direction)
   return player
 end
-
+-- @param(transitions : table) array of field's transitions
 function FieldManager:createTransitions(transitions)
   local field = self.currentField
   local function instantiate(transition, minx, maxx, miny, maxy)

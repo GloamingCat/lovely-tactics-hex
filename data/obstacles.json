@@ -91,5 +91,17 @@
       },
       "tiles": []
     }
+  },
+  {
+    "name": "Fruit",
+    "data": {
+      "id": 6,
+      "image": {
+        "id": 40,
+        "col": 0,
+        "row": 0
+      },
+      "tiles": []
+    }
   }
 ]

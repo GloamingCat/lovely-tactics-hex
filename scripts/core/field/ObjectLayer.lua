@@ -16,6 +16,7 @@ local Sprite = require('core/graphics/Sprite')
 -- Alias
 local floor = math.floor
 local newQuad = love.graphics.newQuad
+local tile2Pixel = math.field.tile2Pixel
 
 local ObjectLayer = class()
 
@@ -58,7 +59,10 @@ function ObjectLayer:mergeObstacles(layerData)
           group.animation:setCol(obstacleData.image.col)
           group.animation:setRow(obstacleData.image.row)
           group.sprite = group.animation.sprite
-          group.sprite:applyTransformation(obstacleData.transform)
+          if obstacleData.transform then
+            group.sprite:applyTransformation(obstacleData.transform)
+          end
+          group.sprite:setXYZ(tile2Pixel(i, j, 0))
         end
         -- Collision tiles
         for k = 1, #obstacleData.tiles do

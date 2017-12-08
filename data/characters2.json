@@ -115,16 +115,17 @@
 					],
 					"animations": {
 						"default": {
-              "Idle": 101,
+              "Idle": 100,
               "Walk": 101,
               "Dash": 101
             },
             "battle": {
-              "Idle": 101,
+              "Idle": 100,
               "Dash": 101,
               "Item": 100,
               "Load1": 102,
               "Skill1": 103,
+              "Skill2": 103,
               "Damage": 104,
               "KO": 105
             },

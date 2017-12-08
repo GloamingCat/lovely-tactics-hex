@@ -6,17 +6,17 @@
     "name": "Forest 1",
     "defaultRegion": 0,
     // Automatically generated transitions interactables.
-    "transitions": {
-      //{
-      //  "side": "north",
-      //  "fieldID": 2,
-      //  "x": 11,
-      //  "y": 7,
-      //  "h": 0,
-      //  "max": 5,
-      //  "direction": 135,
-      //  "fade": 60
-      //},
+    "transitions": [
+      {
+        "side": "north",
+        "fieldID": 2,
+        "x": 11,
+        "y": 7,
+        "h": 0,
+        "max": 5,
+        "direction": 135,
+        "fade": 60
+      },
       {
         "side": "north",
         "fieldID": 3,
@@ -27,7 +27,7 @@
         "direction": 135,
         "fade": 60
       }
-    },
+    ],
     "tags": []
   },
   "battle": {

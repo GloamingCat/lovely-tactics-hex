@@ -1,0 +1,105 @@
+{
+  "id": 4,
+  "sizeX": 11,
+  "sizeY": 11,
+  "prefs": {
+    "name": "Forest 4",
+    "defaultRegion": 0,
+    // Automatically generated transitions interactables.
+    "transitions": [
+      {
+        "side": "south",
+        "fieldID": 2,
+        "x": 10,
+        "y": 2,
+        "h": 0,
+        "min": 4,
+        "max": 8,
+        "direction": 315,
+        "fade": 60
+      },
+      {
+        "side": "north",
+        "fieldID": 6,
+        "x": 5,
+        "y": 7,
+        "h": 0,
+        "min": 7,
+        "max": 9,
+        "direction": 135,
+        "fade": 60
+      },
+      {
+        "side": "east",
+        "fieldID": 3,
+        "x": 2,
+        "y": 3,
+        "h": 0,
+        "min": 6,
+        "max": 8,
+        "direction": 45,
+        "fade": 60
+      }
+    ],
+    "tags": []
+  },
+  "battle": {
+    "parties": [],
+    "playerParty": -1
+  },
+  "characters": [
+    {
+      "key": "Enemy",
+      "x": 7,
+      "y": 5,
+      "h": 0,
+      "party": -1,
+      "charID": 22,
+      "battlerID": -1,
+      "anim": "Idle",
+      "direction": 315,
+      "collideScript": {
+        "commands": [
+          {
+            "name": "eventScript",
+            "param": 2
+          }
+        ],
+        "global": false
+      },
+      "tags": []
+    }
+  ],
+  "layers": [
+    {
+      "name": "Sand",
+      "type": 0,
+      "height": 0,
+      "tags": []
+    },
+    {
+      "name": "Grass",
+      "type": 0,
+      "height": 0,
+      "tags": []
+    },
+    {
+      "name": "Bush",
+      "type": 0,
+      "height": 0,
+      "tags": []
+    },
+    {
+      "name": "Water",
+      "type": 0,
+      "height": 0,
+      "tags": []
+    },
+    {
+      "name": "Obstacles",
+      "type": 1,
+      "height": 0,
+      "tags": []
+    }
+  ]
+}
