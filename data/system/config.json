@@ -3,8 +3,8 @@
 	"screen": {
 		"nativeWidth": 400,
 		"nativeHeight": 225,
-		"widthScale": 3,
-		"heightScale": 3,
+		"widthScale": 2,
+		"heightScale": 2,
 		"scaleType": 1
 	},
 	"player": {

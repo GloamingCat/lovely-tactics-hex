@@ -6,15 +6,16 @@ Text Shader
 Draws the text with an outline.
 
 =================================================================================================*/
-
-// Size of the outline. It depends on the text's texture size.
-extern vec2 stepSize = vec2(0.001f, 0.001f);
+// Size of the pixel. It depends on the text's texture size.
+extern vec2 pixelSize = vec2(0.001f, 0.001f);
 // Scale of the font.
 extern vec2 scale = vec2(1, 1);
 // Width of the outline. 1 pixel by default.
 extern number outlineSize = 1; // in pixels
 // Color of the outline (customized). Black by default.
-extern vec4 outlineColor = vec4(0,0,0,1);
+extern vec4 outlineColor = vec4(0, 0, 0, 1);
+// The scale of the step
+extern vec2 stepSize = vec2(1, 1);
 
 vec4 effect(vec4 color, sampler2D texture, vec2 texture_coords, vec2 screen_coords) {
   vec4 initialColor = texture2D(texture, texture_coords);
@@ -22,11 +23,9 @@ vec4 effect(vec4 color, sampler2D texture, vec2 texture_coords, vec2 screen_coor
   
   // Calculate alpha in neighborhood.
   number outlineAlpha = 0;
-  vec2 offset = stepSize;
-  for (number i = -outlineSize*scale.x; i <= outlineSize*scale.x; i += scale.x) {
-      for (number j = -outlineSize*scale.y; j <= outlineSize*scale.y; j += scale.y) {
-          offset = vec2(i * stepSize.x, j * stepSize.y);
-          vec4 neighborColor = texture2D(texture, texture_coords + offset);
+  for (number i = -outlineSize; i <= outlineSize; i += stepSize.x) {
+      for (number j = -outlineSize; j <= outlineSize; j += stepSize.y) {
+          vec4 neighborColor = texture2D(texture, texture_coords + vec2(i, j) * scale * pixelSize);
           outlineAlpha += neighborColor[3];
       }
   }
