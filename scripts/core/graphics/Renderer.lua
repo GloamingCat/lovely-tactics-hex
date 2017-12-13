@@ -157,7 +157,10 @@ function Renderer:draw()
     self:redrawCanvas()
   end
   local r, g, b, a = lgraphics.getColor()
-  lgraphics.setShader(spriteShader)
+  -- When drawing the canvas to the screen, the default shader should be used
+  -- because we aren't passing hsv information here, so it will just
+  -- turn everything to black (the default Love values for attributes is 0)
+  lgraphics.setShader()
   lgraphics.setColor(self:getRGBA())
   lgraphics.draw(self.canvas, 0, 0)
   lgraphics.setColor(r, g, b, a)
@@ -178,6 +181,8 @@ function Renderer:redrawCanvas()
   lgraphics.rotate(self.rotation)
   lgraphics.translate(-self.position.x + ox * 2 / sx, -self.position.y + oy * 2 / sy)
   lgraphics.clear()
+  -- Now we set the sprite shader for everythng else
+  lgraphics.setShader(spriteShader)
   local drawCalls = 0
   local started = false
   for i = self.maxDepth, self.minDepth, -1 do
@@ -223,7 +228,7 @@ function Renderer:setMeshAttributes(list)
   for i = 0, n do
     local h, s, v = list[i + 1]:getHSV()
     local i4 = i * 4
-    h, s, v = 0, 1, 1
+
     self.mesh:setVertex(i4 + 1, h, s, v)
     self.mesh:setVertex(i4 + 2, h, s, v)
     self.mesh:setVertex(i4 + 3, h, s, v)
