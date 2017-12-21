@@ -13,13 +13,12 @@ local List = require('core/datastruct/List')
 local Stack = require('core/datastruct/Stack')
 local Vector = require('core/math/Vector')
 local Renderer = require('core/graphics/Renderer')
-local Field = require('core/field/Field')
 local Interactable = require('core/objects/Interactable')
 local Character = require('core/objects/Character')
 local Player = require('core/objects/Player')
 local FiberList = require('core/fiber/FiberList')
 local FieldCamera = require('core/field/FieldCamera')
-local FieldParser = require('core/field/FieldParser')
+local FieldLoader = require('core/field/FieldLoader')
 
 -- Alias
 local mathf = math.field
@@ -61,19 +60,15 @@ function FieldManager:loadField(fieldID)
   if self.currentField ~= nil then
     --self:storePersistentData()
   end
-  local fieldData = JSON.load('data/fields/' .. fieldID)
+  local fieldData = JSON.load('data/fields/' .. fieldID .. '.json')
   self.updateList = List()
   self.characterList = List()
   if self.renderer then
     self.renderer:deactivate()
   end
   self.renderer = self:createCamera(fieldData.sizeX, fieldData.sizeY, #fieldData.layers)
-  self.currentField = Field(fieldData)
-  FieldParser.loadGrid(self.currentField, fieldData.layers)
-  self.currentField:mergeLayers(fieldData.layers)
-  for tile in self.currentField:gridIterator() do
-    tile:createNeighborList()
-  end
+  self.currentField = FieldLoader.loadField(fieldData)
+  FieldLoader.mergeLayers(self.currentField, fieldData.layers)
   collectgarbage('collect')
   return fieldData
 end
@@ -94,42 +89,6 @@ function FieldManager:createPlayer(t)
   local tile = self.currentField:getObjectTile(t.x, t.y, t.h)
   local player = Player(tile, t.direction)
   return player
-end
--- @param(transitions : table) array of field's transitions
-function FieldManager:createTransitions(transitions)
-  local field = self.currentField
-  local function instantiate(transition, minx, maxx, miny, maxy)
-    local script = { 
-      commands = { {
-        name = "moveToField",
-        param = transition
-      } },
-      global = true }
-    for x = minx, maxx do
-      for y = miny, maxy do
-        local tile = field:getObjectTile(x, y, 0)
-        if not tile:collidesObstacle(0, 0) then
-          local char = { key = '',
-            x = x, y = y, h = 0,
-            collideScript = script }
-          Interactable(char)
-        end
-      end
-    end
-  end
-  local w, h = field.sizeX, field.sizeY
-  for i = 1, #transitions do
-    local t = transitions[i]
-    if t.side == 'north' then
-      instantiate(t, t.min or 1, t.max or w, 1, 1)
-    elseif t.side == 'south' then
-      instantiate(t, t.min or 1, t.max or w, h, h)
-    elseif t.side == 'west' then
-      instantiate(t, 1, 1, t.min or 1, t.max or h)
-    elseif t.side == 'east' then
-      instantiate(t, w, w, t.min or 1, t.max or h)
-    end
-  end
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -266,7 +225,7 @@ function FieldManager:loadTransition(transition, fromSave)
     end
   end
   self.player.fiberList:fork(self.player.checkFieldInput, self.player)
-  self:createTransitions(fieldData.prefs.transitions)
+  FieldLoader.createTransitions(self.currentField, fieldData.prefs.transitions)
 end
 -- [COROUTINE] Loads a battle field and waits for the battle to finish.
 -- It MUST be called from a fiber in FieldManager's fiber list, or else the fiber will be 

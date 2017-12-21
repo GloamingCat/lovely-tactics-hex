@@ -42,13 +42,13 @@ local function insertKeys(arr)
 end
 -- Gets the array dis
 local function getRootArray(file)
-  local data = JSON.load('data/' .. file)
-  local root = data or {}
-  local i, path = 1, 'data/' .. file .. 1
-  while love.filesystem.exists(path .. '.json') do
-    data = JSON.load(path)
-    util.array.addAll(root, data)
-    i, path = i + 1, 'data/' .. file .. (i + 1)
+  local root = {}
+  local files = love.filesystem.getDirectoryItems('data/')
+  for i = 1, #files do
+    if files[i]:find(file .. '%w*' .. '%.json') then
+      local data = JSON.load('data/' .. files[i])
+      util.array.addAll(root, data)
+    end
   end
   if #root == 0 then
     assert(data, 'Could not load ' .. file)
@@ -76,10 +76,10 @@ end
 local sys = {'attributes', 'elements', 'regions', 'equipTypes'}
 for i = 1, #sys do
   local file = sys[i]
-  local data = JSON.load('data/system/' .. file)
+  local data = JSON.load('data/system/' .. file .. '.json')
   Config[file] = data
 end
-local vars = JSON.load('data/system/variables')
+local vars = JSON.load('data/system/variables.json')
 Config.variables = toArray(vars)
 insertKeys(Config.variables)
 insertKeys(Config.attributes)

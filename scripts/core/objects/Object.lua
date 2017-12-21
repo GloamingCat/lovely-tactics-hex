@@ -18,6 +18,9 @@ local round = math.round
 local pixel2Tile = math.field.pixel2Tile
 local tile2Pixel = math.field.tile2Pixel
 
+-- Constants
+local pph = Config.grid.pixelsPerHeight
+
 local Object = class(Transformable)
 
 ---------------------------------------------------------------------------------------------------
@@ -129,6 +132,11 @@ end
 -- @param(y : number) the y of the tile of check the height
 function Object:getHeight(x, y)
   return 0
+end
+-- Gets the hight in pixels.
+function Object:getPixelHeight(dx, dy)
+  local h = self:getHeight(dx, dy)
+  return h * pph
 end
 
 return Object

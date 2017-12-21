@@ -26,7 +26,6 @@ local tile2Pixel = math.field.tile2Pixel
 
 -- Constants
 local animSets = Config.animations.sets
-local pph = Config.grid.pixelsPerHeight
 
 local CharacterBase = class(DirectedObject, Interactable)
 
@@ -49,6 +48,7 @@ function CharacterBase:init(instData)
   if self.battlerID == -1 then
     self.battlerID = data.battlerID or -1
   end
+  FieldManager.characterList[self.key] = self
   FieldManager.characterList:add(self)
   FieldManager.updateList:add(self)
   -- Initialize properties
@@ -150,11 +150,6 @@ function CharacterBase:getHeight(dx, dy)
     end
   end
   return 0
-end
-
-function CharacterBase:getPixelHeight(dx, dy)
-  local h = self:getHeight(dx, dy)
-  return h * pph
 end
 
 ---------------------------------------------------------------------------------------------------

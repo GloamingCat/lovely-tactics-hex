@@ -13,10 +13,12 @@ local TerrainLayer = require('core/field/TerrainLayer')
 local ObjectLayer = require('core/field/ObjectLayer')
 
 -- Alias
+local round = math.round
 local max = math.max
 local min = math.min
 local mathf = math.field
 local maxn = table.maxn
+local pixel2Tile = math.field.pixel2Tile
 
 local Field = class()
 
@@ -164,28 +166,6 @@ end
 -- Layers
 ---------------------------------------------------------------------------------------------------
 
--- Merges layers' data.
--- @param(layers : table) an array of layer data
-function Field:mergeLayers(layers)
-  local terrains = 0
-  for i,layerData in ipairs(layers) do
-    if layerData.type == 0 then
-      terrains = terrains + 1
-    end
-  end
-  for i,layerData in ipairs(layers) do
-    local t = layerData.type
-    if t == 0 then
-      self:addTerrainLayer(layerData, terrains)
-    elseif t == 1 then
-      self:addObstacleLayer(layerData)
-    elseif t == 2 then
-      self:addRegionLayer(layerData)
-    elseif t == 3 then
-      self:addPartyLayer(layerData)
-    end
-  end
-end
 -- Creates a new TerrainLayer. 
 -- All layers are stored by height.
 -- @param(layerData : table) the data from field's file
