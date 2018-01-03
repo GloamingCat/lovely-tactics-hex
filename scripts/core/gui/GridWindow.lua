@@ -275,8 +275,11 @@ function GridWindow:onMove(dx, dy)
   self.currentCol = c
   self.currentRow = r
   local newButton = self:currentButton()
-  oldButton:setSelected(false)
-  newButton:setSelected(true)
+  if oldButton ~= newButton then 
+    AudioManager:playSFX(Config.sounds.buttonSelect)
+    oldButton:setSelected(false)
+    newButton:setSelected(true)
+  end
   if oldButton.enabled then
     oldButton.onMove(self, oldButton, dx, dy)
   end

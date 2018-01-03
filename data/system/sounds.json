@@ -1,0 +1,22 @@
+{
+  "buttonConfirm": {
+    "name": "button-confirm.wav",
+    "pitch": 100,
+    "volume": 100
+  },
+  "buttonCancel": {
+    "name": "button-confirm.wav",
+    "pitch": 75,
+    "volume": 100
+  },
+  "buttonError": {
+    "name": "button-error.wav",
+    "pitch": 100,
+    "volume": 100
+  },
+  "buttonSelect": {
+    "name": "button-select.wav",
+    "pitch": 100,
+    "volume": 100
+  }
+}

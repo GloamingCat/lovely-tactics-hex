@@ -34,14 +34,18 @@ love ./
 ```
 This should run the game.
 
-## Contributors
+## Credits
 
-* Thanks to Luke Perkin, for the ProFi module: https://gist.github.com/perky/2838755;
-* Thanks to Robin Wellner and Florian Fischer, for the code used as base for the rich text, found in: https://github.com/gvx/richtext;
-* Thanks to David Heiko Kolf, for the json parser: http://dkolf.de/src/dkjson-lua.fsl/;
-* Thanks to kevinclancy, for class module: https://bitbucket.org/kevinclancy/basic-class-system/wiki/Home;
-* Thanks to Mr. Bubble for the battle animations: https://mrbubblewand.wordpress.com/;
-* Thanks to Alex dos Ventos for the scenery art.
+Thanks to the following people for source code:
+* Luke Perkin, for the ProFi module: https://gist.github.com/perky/2838755;
+* Robin Wellner and Florian Fischer, for the code used as base for the rich text, found in: https://github.com/gvx/richtext;
+* David Heiko Kolf, for the json parser: http://dkolf.de/src/dkjson-lua.fsl/;
+* kevinclancy, for class module: https://bitbucket.org/kevinclancy/basic-class-system/wiki/Home.
+
+Thanks to the following people for general art resources used in the project:
+* GameAudio for the sound effects: https://freesound.org/people/GameAudio/packs/13940/;
+* Mr. Bubble for the battle animations: https://mrbubblewand.wordpress.com/;
+* Alex dos Ventos for the scenery art.
 
 Also, check the project that my mate Felipe Tavares is working on, a GUI to edit the game's database files: https://github.com/felipetavares/lovely-tactics-gui
 
@@ -52,13 +56,12 @@ Also, please check the LÖVE2D license here: https://love2d.org/wiki/License.
 
 ## To-do list
 
+* Multi-layered fields;
 * Field/Main GUI, with all other sub-GUI (items, skills, etc);
 * Save/Load GUI;
 * Shop GUI;
 * Mouse interaction;
-* Multi-layered fields;
-* Isometric and orthogonal grid cells;
-* Block programming for character scripts.
+* Isometric and orthogonal grid cells.
 
 ## Contact
 

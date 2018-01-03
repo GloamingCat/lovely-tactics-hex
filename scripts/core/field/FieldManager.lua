@@ -226,7 +226,7 @@ function FieldManager:loadTransition(transition, fromSave)
   FieldLoader.createTransitions(self.currentField, fieldData.prefs.transitions)
   if fieldData.prefs.bgm then
     local bgm = fieldData.prefs.bgm
-    AudioManager:playBGM(bgm.name, bgm.volume / 100, bgm.pitch / 100, 0)
+    AudioManager:playBGM(bgm, 0)
   end
 end
 -- [COROUTINE] Loads a battle field and waits for the battle to finish.

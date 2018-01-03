@@ -43,6 +43,8 @@ end
 function Music:update()
   if self.source == self.intro and self:finished() then
     self.intro:stop()
+    self.loop:setPitch(self.intro:getPitch())
+    self.loop:setVolume(self.intro:getVolume())
     self.source = self.loop
     self.source:play()
   end

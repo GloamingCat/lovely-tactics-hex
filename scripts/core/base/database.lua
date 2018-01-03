@@ -73,7 +73,7 @@ end
 -- Config files
 ---------------------------------------------------------------------------------------------------
 
-local sys = {'attributes', 'elements', 'regions', 'equipTypes'}
+local sys = {'attributes', 'elements', 'regions', 'equipTypes', 'sounds'}
 for i = 1, #sys do
   local file = sys[i]
   local data = JSON.load('data/system/' .. file .. '.json')

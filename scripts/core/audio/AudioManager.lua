@@ -23,6 +23,7 @@ local AudioManager = class()
 -- Initialization
 ---------------------------------------------------------------------------------------------------
 
+-- Initializes with no sound.
 function AudioManager:init()
   -- BGM
   self.BGM = nil
@@ -31,25 +32,31 @@ function AudioManager:init()
   self.fadingSpeed = 0
   self.volumeBGM = 1
   self.pitchBGM = 1
+  -- SFX
+  self.sfx = List()
+  self.volumeSFX = 1
+  self.pitchSFX = 1
 end
-
+-- Updates BGM and SFX audio.
 function AudioManager:update()
   self:updateBGM()
+  self:updateSFX()
 end
 
 ---------------------------------------------------------------------------------------------------
 -- Volume
 ---------------------------------------------------------------------------------------------------
 
+-- @ret(number) volume multiplier for current BGM
 function AudioManager:getBGMVolume()
   return self.volumeBGM
 end
-
+-- @param(v : number) volume multiplier for current BGM
 function AudioManager:setBGMVolume(v)
   self.volumeBGM = v
   self:updateVolume()
 end
-
+-- Updates the volume of all BGM according to volume multiplier.
 function AudioManager:updateBGMVolume()
   if self.BGM then
     self.BGM:setVolume((1 - self.fading) * self.volumeBGM)
@@ -58,15 +65,27 @@ function AudioManager:updateBGMVolume()
     self.nextBGM:setVolume(self.fading * self.volumeBGM)
   end
 end
+-- @ret(number) volume multiplier for current SFX
+function AudioManager:getSFXVolume()
+  return self.volumeSFX
+end
+-- @param(v : number) volume multiplier for current SFX
+function AudioManager:setSFXVolume(v)
+  self.volumeSFX = v
+  for i = 1, #self.sfx do
+    self.sfx[i]:setVolume(v)
+  end
+end
 
 ---------------------------------------------------------------------------------------------------
 -- Pitch
 ---------------------------------------------------------------------------------------------------
 
+-- @ret(number) pitch multiplier for current BGM
 function AudioManager:getBGMPitch()
   return self.pitchBGM
 end
-
+-- @param(p : number) pitch multiplier for current BGM
 function AudioManager:setBGMPitch(p)
   self.pitchBGM = p
   if self.BGM then 
@@ -76,27 +95,57 @@ function AudioManager:setBGMPitch(p)
     self.nextBGM:setPitch(p) 
   end
 end
+-- @ret(number) pitch multiplier for current SFX
+function AudioManager:getSFXPitch()
+  return self.pitchSFX
+end
+-- @param(p : number) pitch multiplier for current SFX
+function AudioManager:setSFXPitch(p)
+  self.pitchSFX = p
+  for i = 1, #self.sfx do
+    self.sfx[i]:setPitch(p)
+  end
+end
+
+---------------------------------------------------------------------------------------------------
+-- SFX
+---------------------------------------------------------------------------------------------------
+
+-- @param(sfx : table) table with file's name (from audio/sfx folder), volume and pitch
+function AudioManager:playSFX(sfx)
+  local sound = Sound(sfx.name, sfx.volume / 100, sfx.pitch / 100)
+  self.sfx:add(sound)
+  sound:play()
+end
+-- Updates SFX list (remove all finished SFX).
+function AudioManager:updateSFX()
+  if self.sfx[1] then
+    self.sfx:conditionalRemove(self.sfx[1].finished)
+  end
+end
 
 ---------------------------------------------------------------------------------------------------
 -- BGM - General
 ---------------------------------------------------------------------------------------------------
 
 -- [COROUTINE] Stops current playing BGM (if any) and starts a new one.
--- @param(name : string) the name of the new BGM
+-- @param(bgm : table) table with file's name (from audio/bgm folder), volume and pitch
 -- @param(time : number) the duration of the fading transition
-function AudioManager:playBGM(name, volume, pitch, time, wait)
+-- @param(wait : boolean) yields until the fading animation concludes
+function AudioManager:playBGM(bgm, time, wait)
   if self.nextBGM then
     self.nextBGM:stop()
   end
   if self.BGM then
     self.BGM:play()
   end
-  self.nextBGM = Music(name, volume, pitch)
+  self.nextBGM = Music(bgm.name, bgm.volume / 100, bgm.pitch / 100)
   self.nextBGM:play()
   self.nextBGM:setVolume(0)
   self:fade(time, wait)
 end
-
+-- @param(time : number) the duration of the fading transition
+-- @param(wait : boolean) yields until the fading animation concludes
 function AudioManager:resumeBGM(time, wait)
   self.BGM, self.nextBGM = self.nextBGM, self.BGM
   if self.BGM then

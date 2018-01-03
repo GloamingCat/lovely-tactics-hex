@@ -33,7 +33,6 @@ Vocab   = require('conf/Vocab')
 Color   = require('conf/Color')
 Fonts   = require('conf/Fonts')
 Icons   = require('conf/Icons')
-Sound   = require('conf/Sound')
 KeyMap  = require('conf/KeyMap')
 
 util.event = require('core/base/util/EventUtil')

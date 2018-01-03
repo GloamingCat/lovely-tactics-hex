@@ -7,7 +7,7 @@
     "defaultRegion": 0,
     "bgm": {
       "name": "whicks.ogg",
-      "volume": 100,
+      "volume": 50,
       "pitch": 100
     },
     // Automatically generated transitions interactables.
