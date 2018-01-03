@@ -5,6 +5,11 @@
   "prefs": {
     "name": "Forest 1",
     "defaultRegion": 0,
+    "bgm": {
+      "name": "whicks.ogg",
+      "volume": 100,
+      "pitch": 100
+    },
     // Automatically generated transitions interactables.
     "transitions": [
       {

@@ -10,8 +10,6 @@ game's data.
 
 -- Imports
 local List = require('core/datastruct/List')
-local Stack = require('core/datastruct/Stack')
-local Vector = require('core/math/Vector')
 local Renderer = require('core/graphics/Renderer')
 local Interactable = require('core/objects/Interactable')
 local Character = require('core/objects/Character')
@@ -226,6 +224,10 @@ function FieldManager:loadTransition(transition, fromSave)
   end
   self.player.fiberList:fork(self.player.checkFieldInput, self.player)
   FieldLoader.createTransitions(self.currentField, fieldData.prefs.transitions)
+  if fieldData.prefs.bgm then
+    local bgm = fieldData.prefs.bgm
+    AudioManager:playBGM(bgm.name, bgm.volume / 100, bgm.pitch / 100, 0)
+  end
 end
 -- [COROUTINE] Loads a battle field and waits for the battle to finish.
 -- It MUST be called from a fiber in FieldManager's fiber list, or else the fiber will be 

@@ -57,6 +57,7 @@ args = nil
 
 GameManager     = require('core/base/GameManager')()
 ResourceManager = require('core/base/ResourceManager')()
+AudioManager    = require('core/audio/AudioManager')()
 InputManager    = require('core/input/InputManager')()
 SaveManager     = require('core/save/SaveManager')()
 ScreenManager   = require('core/graphics/ScreenManager')()

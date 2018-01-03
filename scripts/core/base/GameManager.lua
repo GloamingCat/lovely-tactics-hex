@@ -46,6 +46,7 @@ function GameManager:update(dt)
   if InputManager.keys['pause']:isTriggered() then
     self.paused = not self.paused
   end
+  AudioManager:update()
   InputManager:update()
   self.cleanCount = self.cleanCount + 1
   if self.cleanCount >= self.cleanTime then

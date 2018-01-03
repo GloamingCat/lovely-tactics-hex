@@ -72,7 +72,11 @@ function EventSheet:preprocess(raw, depth)
   end
   return commands
 end
-
+-- @param(command : table) event script command
+-- @param(commands : table) array of commands
+-- @param(n : number) the total number of commands
+-- @param(depth : number) the indentation depth
+-- @ret(number) new number of commands
 function EventSheet:preprocessEventScript(command, commands, n, depth)
   local script = Database.scripts[command.param]
   local scriptCommands = self:preprocess(script.commands, depth + 1)
@@ -81,7 +85,11 @@ function EventSheet:preprocessEventScript(command, commands, n, depth)
   end
   return n + #scriptCommands
 end
-
+-- @param(command : table) condition command
+-- @param(commands : table) array of commands
+-- @param(n : number) the total number of commands
+-- @param(depth : number) the indentation depth
+-- @ret(number) new number of commands
 function EventSheet:preprocessCondition(command, commands, n, depth)
   local _if = self:preprocess(command.param['if'], depth + 1)
   local _else = self:preprocess(command.param['else'], depth + 1)
