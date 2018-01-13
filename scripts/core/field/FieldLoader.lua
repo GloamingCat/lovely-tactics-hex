@@ -21,8 +21,8 @@ local FieldLoader = {}
 -- @ret(Field)
 function FieldLoader.loadField(fieldData)
   local field = Field(fieldData)
-  local layerData = fieldData.layers
   local ids = FieldLoader.getIDs(field.id)
+  local layerData = fieldData.layers
   for l = 1, #layerData do
     local grid = {}
     for i = 1, field.sizeX do
@@ -33,6 +33,16 @@ function FieldLoader.loadField(fieldData)
       end
     end
     layerData[l].grid = grid
+  end
+  local transitions = fieldData.layerTransitions
+  if transitions then
+    for i = 1, #transitions do
+      local t = transitions[i]
+      local tile1 = field:getObjectTile(t.x1, t.y1, t.h1)
+      local tile2 = field:getObjectTile(t.x2, t.y2, t.h2)
+      tile1.ramps[#tile1.ramps + 1] = tile2
+      tile2.ramps[#tile2.ramps + 1] = tile1
+    end
   end
   return field
 end
@@ -65,13 +75,17 @@ function FieldLoader.mergeLayers(field, layers)
   for i,layerData in ipairs(layers) do
     local t = layerData.type
     if t == 0 then
+      -- Terrain
       field:addTerrainLayer(layerData, terrains)
     elseif t == 1 then
-      field:addObstacleLayer(layerData)
+      -- Obstacle
+      field.objectLayers[layerData.height]:mergeObstacles(layerData)
     elseif t == 2 then
-      field:addRegionLayer(layerData)
+      -- Region
+      field.objectLayers[layerData.height]:mergeRegions(layerData)
     elseif t == 3 then
-      field:addPartyLayer(layerData)
+      -- Party
+      field.objectLayers[layerData.height]:setParties(layerData)
     end
   end
   for tile in field:gridIterator() do

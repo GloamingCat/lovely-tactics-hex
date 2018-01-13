@@ -86,5 +86,59 @@
 			],
 			"global": false
 		}
+	},
+	{
+		"name": "BGM Test",
+		"data": {
+			"id": 3,
+			"commands": [
+        {
+          "name": "label",
+          "param": "start"
+        },
+				{
+					"name": "playBGM",
+					"param": {
+						"name": "Serenity.mp3",
+            "time": 120
+					}
+				},
+				{
+					"name": "wait",
+					"param": 90
+				},
+				{
+					"name": "playBGM",
+					"param": {
+						"name": "whicks.ogg",
+            "time": 120
+					}
+				},
+				{
+					"name": "wait",
+					"param": 90
+				},
+				{
+					"name": "playBGM",
+					"param": {
+						"name": "Heated Battle.mp3",
+            "time": 120
+					}
+				},
+				{
+					"name": "wait",
+					"param": 90
+				},
+        {
+          "name": "luaScript",
+          "param": "print(love.audio.getSourceCount())"
+        }
+				{
+					"name": "jump",
+					"param": "start"
+				}
+			],
+			"global": false
+		}
 	}
 ]

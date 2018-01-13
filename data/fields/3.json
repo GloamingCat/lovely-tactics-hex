@@ -5,6 +5,10 @@
   "prefs": {
     "name": "Forest 3",
     "defaultRegion": 0,
+    "bgm": {
+      "name": "The Brother I Never Had.mp3",
+      "time": 30
+    },
     // Automatically generated transitions interactables.
     "transitions": [
       {

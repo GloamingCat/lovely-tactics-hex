@@ -11,6 +11,7 @@ The class implements methods to check collisions.
 local TagMap = require('core/datastruct/TagMap')
 local TerrainLayer = require('core/field/TerrainLayer')
 local ObjectLayer = require('core/field/ObjectLayer')
+local FiberList = require('core/fiber/FiberList')
 
 -- Alias
 local round = math.round
@@ -33,6 +34,7 @@ function Field:init(data)
   self.sizeX = data.sizeX
   self.sizeY = data.sizeY
   self.tags = TagMap(data.prefs.tags)
+  self.prefs = data.prefs
   local script = data.prefs.onStart
   if script and script.path ~= '' then
     self.startScript = script
@@ -52,20 +54,35 @@ function Field:init(data)
     self.maxh = max(layerData.height, self.maxh)
     self.minh = min(layerData.height, self.minh)
   end
-  self:initializeLayers()
+  self:initLayers()
   -- Border and center
   self.centerX, self.centerY = math.field.pixelCenter(self)
   self.minx, self.miny, self.maxx, self.maxy = math.field.pixelBounds(self)
+  self.fiberList = FiberList()
 end
 -- Creates initial empty terrain and object layers.
-function Field:initializeLayers()
+function Field:initLayers()
   for i = self.minh, self.maxh do
     self.terrainLayers[i] = {}
     self.objectLayers[i] = ObjectLayer(self.sizeX, self.sizeY, i, self.defaultRegion)
   end
 end
+-- Creates a new TerrainLayer. All layers are stored by height.
+-- @param(layerData : table) the data from field's file
+function Field:addTerrainLayer(layerData, depthOffset)
+  local list = self.terrainLayers[layerData.height]
+  local order = #list
+  local layer = TerrainLayer(layerData, self.sizeX, self.sizeY, depthOffset - order + 1)
+  list[order + 1] = layer
+end
+
+---------------------------------------------------------------------------------------------------
+-- General
+---------------------------------------------------------------------------------------------------
+
 -- Updates all ObjectTiles and TerrainTiles in field's layers.
 function Field:update()
+  self.fiberList:update()
   for l = self.minh, self.maxh do
     local layer = self.objectLayers[l]
     for i = 1, self.sizeX do
@@ -160,42 +177,6 @@ end
 function Field:isCollinear(tile1, tile2, tile3)
   return tile1.layer.height - tile2.layer.height == tile2.layer.height - tile3.layer.height and 
     mathf.isCollinear(tile1.x, tile1.y, tile2.x, tile2.y, tile3.x, tile3.y)
-end
-
----------------------------------------------------------------------------------------------------
--- Layers
----------------------------------------------------------------------------------------------------
-
--- Creates a new TerrainLayer. 
--- All layers are stored by height.
--- @param(layerData : table) the data from field's file
-function Field:addTerrainLayer(layerData, depthOffset)
-  local list = self.terrainLayers[layerData.height]
-  local order = #list
-  local layer = TerrainLayer(layerData, self.sizeX, self.sizeY, depthOffset - order + 1)
-  list[order + 1] = layer
-end
--- Merges the obstacle layers. If there's no layer in that height, creates a new one.
--- All layers are stored by height.
--- @param(layerData : table) the data from field's file
-function Field:addObstacleLayer(layerData)
-  self.objectLayers[layerData.height]:mergeObstacles(layerData)
-end
--- Merges the character layers. If there's no layer in that height, creates a new one.
--- All layers are stored by height.
--- @param(layerData : table) the data from field's file
-function Field:addCharacterLayer(layerData)
-  self.objectLayers[layerData.height]:mergeCharacters(layerData)
-end
--- Merges the region layers. If there's no layer in that height, creates a new one.
--- All layers are stored by height.
--- @param(layerData : table) the data from field's file
-function Field:addRegionLayer(layerData)
-  self.objectLayers[layerData.height]:mergeRegions(layerData)
-end
-
-function Field:addPartyLayer(layerData)
-  self.objectLayers[layerData.height]:setParties(layerData)
 end
 
 ---------------------------------------------------------------------------------------------------

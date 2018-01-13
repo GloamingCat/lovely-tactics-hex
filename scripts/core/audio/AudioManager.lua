@@ -32,6 +32,7 @@ function AudioManager:init()
   self.fadingSpeed = 0
   self.volumeBGM = 1
   self.pitchBGM = 1
+  self.pauseBGM = false
   -- SFX
   self.sfx = List()
   self.volumeSFX = 1
@@ -134,12 +135,15 @@ end
 -- @param(wait : boolean) yields until the fading animation concludes
 function AudioManager:playBGM(bgm, time, wait)
   if self.nextBGM then
-    self.nextBGM:stop()
+    if self.BGM then
+      self.BGM:stop()
+    end
+    self.BGM = self.nextBGM
   end
   if self.BGM then
     self.BGM:play()
   end
-  self.nextBGM = Music(bgm.name, bgm.volume / 100, bgm.pitch / 100)
+  self.nextBGM = Music(bgm.name, (bgm.volume or 100) / 100, (bgm.pitch or 100) / 100)
   self.nextBGM:play()
   self.nextBGM:setVolume(0)
   self:fade(time, wait)
@@ -147,17 +151,21 @@ end
 -- @param(time : number) the duration of the fading transition
 -- @param(wait : boolean) yields until the fading animation concludes
 function AudioManager:resumeBGM(time, wait)
-  self.BGM, self.nextBGM = self.nextBGM, self.BGM
-  if self.BGM then
-    self.BGM:resume()
+  if self.pausedBGM then
+    self.BGM, self.nextBGM = self.nextBGM, self.BGM
+    if self.BGM then
+      self.BGM:resume()
+    end
+    if self.nextBGM then
+      self.nextBGM:resume()
+    end
+    self.pausedBGM = false
+    self:fade(time, wait)
   end
-  if self.nextBGM then
-    self.nextBGM:resume()
-  end
-  self:fade(time, wait)
 end
 
 function AudioManager:pauseBGM(time, wait)
+  self.pausedBGM = true
   self:fade(time, wait)
 end
 

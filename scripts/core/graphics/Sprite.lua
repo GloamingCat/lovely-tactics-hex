@@ -149,7 +149,7 @@ function Sprite:applyTransformation(data)
   self:setOffset(data.offsetX + self.offsetX, self.offsetY + data.offsetY, 
     data.offsetDepth + self.offsetDepth)
   self:setScale(data.scaleX / 100 * self.scaleX, data.scaleY / 100 * self.scaleY)
-  self:setRotation(math.rad(data.rotation or 0 + self.rotation))
+  self:setRotation(math.rad((data.rotation or 0) + self.rotation))
   self:setRGBA(data.red * self.color.red / 255, data.green * self.color.green / 255, 
     data.blue * self.color.blue / 255, data.alpha * self.color.alpha / 255)
   self:setHSV(data.hue / 360 + self.hsv.h, data.saturation / 100 * self.hsv.s, 

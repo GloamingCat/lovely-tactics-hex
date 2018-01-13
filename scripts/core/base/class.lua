@@ -20,7 +20,7 @@ function class(...)
   end
   
   -- Access inherited fields if not overriden.
-  if #parents > 0 then
+  if #parents > 1 then
     function c_meta:__index(key)
       local k
       for i = #parents, 1, -1 do
@@ -29,21 +29,15 @@ function class(...)
       end
     end
   elseif #parents == 1 then
-    local p = parents[i]
+    local p = parents[1]
     function c_meta:__index(key)
       return p[key]
-    end
-  else
-    function c_meta:__index(key)
-      return nil
     end
   end
 
   -- When a new field is set.
   function c_meta:__newindex(k,v)
-    if type(k) == 'number' then
-      rawset(self,k,v)
-    elseif k:sub(1,2) == '__' then
+    if type(k) == 'string' and k:sub(1,2) == '__' then
       rawset(getmetatable(self), k, v)
     else
       rawset(self,k,v)

@@ -20,6 +20,7 @@ local Music = class(Sound)
 ---------------------------------------------------------------------------------------------------
 
 function Music:init(name, volume, pitch)
+  self.name = name
   name = 'audio/bgm/' .. name
   local introName = name:gsub('%.', '_intro.', 1)
   print(introName)

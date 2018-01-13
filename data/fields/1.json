@@ -6,9 +6,18 @@
     "name": "Forest 1",
     "defaultRegion": 0,
     "bgm": {
-      "name": "whicks.ogg",
-      "volume": 50,
-      "pitch": 100
+      "name": "The Brother I Never Had.mp3",
+      "time": 30
+    },
+    // Script that runs when player enters the field
+    "onStart": {
+      "commands": [
+        //{
+        //  "name": "eventScript",
+        //  "param": 3
+        //}
+      ],
+      "global": false
     },
     // Automatically generated transitions interactables.
     "transitions": [

@@ -44,6 +44,7 @@ Thanks to the following people for source code:
 
 Thanks to the following people for general art resources used in the project:
 * GameAudio for the sound effects: https://freesound.org/people/GameAudio/packs/13940/;
+* Aaron Krogh for the MP3 BGM: https://soundcloud.com/aaron-anderson-11;
 * Mr. Bubble for the battle animations: https://mrbubblewand.wordpress.com/;
 * Alex dos Ventos for the scenery art.
 

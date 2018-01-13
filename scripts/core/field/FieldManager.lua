@@ -213,7 +213,7 @@ function FieldManager:loadTransition(transition, fromSave)
   -- Create/call start listeners
   local script = self.currentField.startScript
   if script then
-    self.fiberList:forkFromScript(script, {fromSave = fromSave})
+    self.currentField.fiberList:forkFromScript(script, {fromSave = fromSave})
   end
   for char in self.characterList:iterator() do
     local script = char.startScript
@@ -226,7 +226,9 @@ function FieldManager:loadTransition(transition, fromSave)
   FieldLoader.createTransitions(self.currentField, fieldData.prefs.transitions)
   if fieldData.prefs.bgm then
     local bgm = fieldData.prefs.bgm
-    AudioManager:playBGM(bgm, 0)
+    if AudioManager.BGM == nil or AudioManager.BGM.name ~= bgm.name then
+      AudioManager:playBGM(bgm, bgm.time or 0)
+    end
   end
 end
 -- [COROUTINE] Loads a battle field and waits for the battle to finish.

@@ -150,16 +150,18 @@ function EventSheet:execute(event)
     self.index = self.index + 1
     local command = self.commands[self.index]
     if command.name == 'jump' then
-      assert(self.labels[command.param.label], 'Label not defined: ' .. command.param.label)
-      local value = command.param.expression == nil or util.event.decodeExpression(self, event, 
-        command.param.expression)
+      assert(self.labels[command.param], 'Label not defined: ' .. command.param)
+      local expr = command.param.expression
+      local value = expr == nil or self:decodeExpression(event, expr)
       if value then
-        self.index = self.labels[command.param.label]
+        self.index = self.labels[command.param]
       end
     elseif command.name == 'fork' then
       EventSheet(self.root, command.param)
     elseif command.name == 'script' then
       util.executeScript(command.param)
+    elseif command.name == 'wait' then
+      _G.Fiber:wait(command.param)
     elseif command.name ~= 'label' then
       assert(util.event[command.name], 'Command does not exist: ' .. command.name)
       util.event[command.name](self, event, command.param)
@@ -172,6 +174,10 @@ function EventSheet:execute(event)
   if event.block then
     player.blocks = player.blocks - 1
   end
+end
+
+function EventSheet:decodeExpression(event, expression)
+  loadformula(expression, 'sheet, event')(self, event)
 end
 
 return EventSheet

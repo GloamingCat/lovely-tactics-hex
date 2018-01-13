@@ -20,14 +20,6 @@ local battleIntroShader = love.graphics.newShader('shaders/BattleIntro.glsl')
 local util = {}
 
 ---------------------------------------------------------------------------------------------------
--- General
----------------------------------------------------------------------------------------------------
-
-function util.decodeExpression(sheet, event, expression)
-  return loadformula(expression, 'sheet, event')(sheet, event)
-end
-
----------------------------------------------------------------------------------------------------
 -- Functions
 ---------------------------------------------------------------------------------------------------
 
@@ -42,17 +34,17 @@ end
 -- @param(name : string) variable's name
 -- @param(expression : string) the expression that returns the new value of the variable
 function util.setGlobalVar(sheet, event, param)
-  SaveManager.current.vars[param.name] = util.decodeExpression(param.expression)
+  SaveManager.current.vars[param.name] = sheet:decodeExpression(event, param.expression)
 end
 -- @param(name : string) variable's name
 -- @param(expression : string) the expression that returns the new value of the variable
 function util.setCharacterVar(sheet, event, param)
-  event.char.vars[param.name] = util.decodeExpression(param.expression)
+  event.char.vars[param.name] = sheet:decodeExpression(event, param.expression)
 end
 -- @param(name : string) variable's name
 -- @param(expression : string) the expression that returns the new value of the variable
 function util.setLocalVar(sheet, event, param)
-  sheet.vars[param.name] = util.decodeExpression(param.expression)
+  sheet.vars[param.name] = sheet:decodeExpression(event, param.expression)
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -143,6 +135,8 @@ end
 function util.startBattle(sheet, event, param)
   local fiber = FieldManager.fiberList:fork(function()
     if param.fade then
+      local previousBGM = AudioManager:pauseBGM()
+      
       local shader = ScreenManager.shader
       ScreenManager.shader = battleIntroShader
       local time = deltaTime()
@@ -156,6 +150,22 @@ function util.startBattle(sheet, event, param)
     FieldManager:loadBattle(param.fieldID, param)
   end)
   fiber:waitForEnd()
+end
+
+---------------------------------------------------------------------------------------------------
+-- BGM
+---------------------------------------------------------------------------------------------------
+
+function util.playBGM(sheet, event, param)
+  AudioManager:playBGM(param, param.time, param.wait)
+end
+
+function util.pauseBGM(sheet, event, param)
+  AudioManager:pauseBGM(param, param.time, param.wait)
+end
+
+function util.resumeBGM(sheet, event, param)
+  AudioManager:resumeBGM(param, param.time, param.wait)
 end
 
 return util
