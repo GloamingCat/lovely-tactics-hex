@@ -14,9 +14,6 @@ local killCheat = { 'KillCheat', on = true,
 local individualTurn = { 'IndividualTurn', on = true,
   attName = 'agi',
   turnLimit = 2000 }
-local individualItems = { 'IndividualItems', on = false,
-  attName = 'car',
-  skillID = 1 }
 local controlZone = { 'ControlZone', on = false }
 local removeStatusOnDamage = { 'RemoveStatusOnDamage', on = true }
 local statusBalloon = { 'StatusBalloon', on = true }
@@ -31,5 +28,4 @@ return {
   individualTurn, 
   controlZone, 
   statusBalloon, 
-  removeStatusOnDamage,
-  individualItems }
+  removeStatusOnDamage }

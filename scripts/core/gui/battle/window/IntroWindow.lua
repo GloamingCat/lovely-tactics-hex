@@ -9,8 +9,6 @@ Window that is shown in the beginning of the battle.
 
 -- Imports
 local Button = require('core/gui/widget/Button')
-local ItemGUI = require('core/gui/item/ItemGUI')
-local EquipGUI = require('core/gui/equip/EquipGUI')
 local ActionGUI = require('core/gui/battle/ActionGUI')
 local PartyAction = require('core/battle/action/PartyAction')
 local ActionInput = require('core/battle/action/ActionInput')
@@ -23,19 +21,23 @@ local IntroWindow = class(GridWindow)
 ---------------------------------------------------------------------------------------------------
 
 -- Creates a button for each backup member.
-function IntroWindow:createButtons()
-  self:createButton('start')
-  self:createButton('party')
-  --self:createButton('items')
-  --self:createButton('equips')
+function IntroWindow:createWidgets()
+  self:addButton('start')
+  self:addButton('party')
+  --Button:fromKey(self, 'members')
 end
--- Overrides GridWindow:createButton.
-function IntroWindow:createButton(key)
+-- Overriden to align text.
+function IntroWindow:addButton(key)
   local button = Button(self, self[key .. 'Confirm'], self[key .. 'Select'], self[key .. 'Enabled'])
+  local icon = Icons[key]
+  if icon then
+    button:createIcon(icon)
+  end
   local text = Vocab[key]
   if text then
-    button:createText(text, 'gui_button', 'center')
+    button:createText(text, nil, 'center')
   end
+  return button
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -60,16 +62,10 @@ function IntroWindow:partyConfirm(button)
   self.GUI:show()
 end
 -- When player chooses Items button.
-function IntroWindow:itemsConfirm(button)
-  self.GUI:hide()
-  GUIManager:showGUIForResult(ItemGUI())
-  self.GUI:show()
-end
--- When player chooses Equips button.
-function IntroWindow:equipsConfirm(button)
-  self.GUI:hide()
-  GUIManager:showGUIForResult(EquipGUI())
-  self.GUI:show()
+function IntroWindow:membersConfirm(button)
+  self:hide()
+  -- TODO: choose member to manage
+  self:show()
 end
 
 ---------------------------------------------------------------------------------------------------

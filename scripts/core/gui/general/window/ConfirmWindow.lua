@@ -20,7 +20,7 @@ local ConfirmWindow = class(GridWindow)
 ---------------------------------------------------------------------------------------------------
 
 -- Constructor.
-function ConfirmWindow:createButtons()
+function ConfirmWindow:createWidgets()
   self:createButton('confirm')
   self:createButton('cancel')
 end

@@ -48,11 +48,11 @@ function BattlerBase:init(key, data, save)
   self.save = save
   self.name = data.name
   self.tags = TagMap(data.tags)
-  self:initializeSkillList(data.skills or {}, data.attackID)
-  self:initializeElements(data.elements or {})
-  self:initializeInventory(data.items or {})
-  self:initializeStatusList(data.status or {})
-  self:initializeEquipment(data.equipment or {})
+  self:initSkillList(data.skills or {}, data.attackID)
+  self:initElements(data.elements or {})
+  self:initInventory(data.items or {})
+  self:initStatusList(data.status or {})
+  self:initEquipment(data.equipment or {})
   self:createClassData(data.classID, data.level)
   self:createAttributes()
   self:createStateValues(data.attributes)
@@ -70,7 +70,7 @@ end
 -- Creates and sets and array of element factors.
 -- @param(elements : table) array of element factors 
 --  (in percentage, 100 is neutral)
-function BattlerBase:initializeElements(elements)
+function BattlerBase:initElements(elements)
   self.elementFactors = self.save and copyArray(self.save.elements)
   if not self.elementFactors then
     local e = newArray(elementCount, 0)
@@ -83,7 +83,7 @@ end
 -- Creates and sets the list of usable skills.
 -- @param(skills : table) array of skill IDs
 -- @param(attackID : number) ID of the battler's "Attack" skill
-function BattlerBase:initializeSkillList(skills, attackID)
+function BattlerBase:initSkillList(skills, attackID)
   -- Get from troop's persistent data
   if self.save then
     skills = self.save.skills or skills
@@ -93,17 +93,17 @@ function BattlerBase:initializeSkillList(skills, attackID)
   self.attackSkill = SkillAction:fromData(attackID)
 end
 -- Creates the initial status list.
-function BattlerBase:initializeStatusList(initialStatus)
+function BattlerBase:initStatusList(initialStatus)
   initialStatus = self.save and self.save.status
   self.statusList = StatusList(self, initialStatus)
 end
 -- Initializes inventory from the given initial items slots.
-function BattlerBase:initializeInventory(items)
+function BattlerBase:initInventory(items)
   items = self.save and self.save.items or items
   self.inventory = Inventory(items)
 end
 -- Initialized equipment table.
-function BattlerBase:initializeEquipment(equip)
+function BattlerBase:initEquipment(equip)
   self.equipment = {}
   for i = 1, #equipTypes do
     local slot = equipTypes[i]

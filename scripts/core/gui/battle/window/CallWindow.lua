@@ -28,7 +28,7 @@ function CallWindow:init(GUI, troop, allMembers)
   GridWindow.init(self, GUI)
 end
 -- Creates a button for each backup member.
-function CallWindow:createButtons()
+function CallWindow:createWidgets()
   if self.allMembers then
     for i = 1, #self.troop.current do
       local member = self.troop.current[i]

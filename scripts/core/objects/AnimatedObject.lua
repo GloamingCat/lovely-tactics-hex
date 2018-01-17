@@ -25,18 +25,18 @@ local AnimatedObject = class(Object)
 -- Creates sprite and animation list.
 -- @param(animations : table) an array of animation data
 -- @param(animID : number) the start animation's ID
-function AnimatedObject:initializeGraphics(animations, initAnim, transform)
+function AnimatedObject:initGraphics(animations, initAnim, transform)
   self.animName = nil
   self.transform = transform
   self.sprite = Sprite(FieldManager.renderer)
-  self:initializeAnimationTable(animations)
+  self:initAnimationTable(animations)
   if initAnim then
     self:playAnimation(initAnim)
   end
 end
 -- Creates the animation table from the animation list.
 -- @param(animations : table) array of animations
-function AnimatedObject:initializeAnimationTable(animations)
+function AnimatedObject:initAnimationTable(animations)
   self.animationData = {}
   for name, id in pairs(animations) do
     self:addAnimation(name, id)
@@ -83,8 +83,11 @@ function AnimatedObject:replayAnimation(name, wait, row)
   local anim = data.animation
   self.sprite.quad = data.quad
   self.sprite:setTexture(data.texture)
-  self.sprite:setTransformation(self.transform)
-  self.sprite:applyTransformation(data.transform)
+  self.sprite:setTransformation(data.transform)
+  self.sprite:applyTransformation(self.transform)
+  if self.statusTransform then
+    self.sprite:applyTransformation(self.statusTransform)
+  end
   self.animation = anim
   anim.sprite = self.sprite
   if row then

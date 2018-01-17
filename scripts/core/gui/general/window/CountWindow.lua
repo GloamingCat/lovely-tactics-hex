@@ -18,7 +18,7 @@ local CountWindow = class(GridWindow)
 ---------------------------------------------------------------------------------------------------
 
 -- Constructor.
-function CountWindow:createButtons()
+function CountWindow:createWidgets()
   self.noCursor = true
   local spinner = Spinner(self, 1, 1, 1)
   spinner.onConfirm = self.onSpinnerConfirm

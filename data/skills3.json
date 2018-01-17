@@ -25,14 +25,14 @@
 			],
 			"restriction": 0,
 			"userAnim": {
-				"load": "",
+				"load": "Load",
 				"cast": "Skill2",
 				"stepOnCast": true
 			},
 			"battleAnim": {
-				"loadID": -1,
+				"loadID": 14,
 				"castID": -1,
-				"individualID": 5,
+				"individualID": 17,
 				"mirror": true
 			},
       "damageAnim": false,

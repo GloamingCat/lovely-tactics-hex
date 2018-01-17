@@ -23,29 +23,25 @@ local TroopBase = class()
 -- @param(data : table) troop's data from database
 function TroopBase:init(data)
   self.data = data
-  -- Members' persistent data
-  if data.persistent then
-    local save = SaveManager.current.troops[data.id]
-    self:initState(save or data)
-    -- Member data table
-    self.memberData = {}
-    self:setMembersData(self.current, true)
-    self:setMembersData(self.backup, true)
-    self:setMembersData(self.hidden)
+  local save = SaveManager.current.troops[data.id] or data
+  if self.data.persistent then
+    self.current = List(save.current)
+    self.backup = List(save.backup)
+    self.hidden = List(save.hidden)
   else
-    self:initState(data)
+    self.current = List(util.table.deepCopy(save.current))
+    self.backup = List(util.table.deepCopy(save.backup))
+    self.hidden = List(util.table.deepCopy(save.hidden))
   end
+  self.inventory = Inventory(save.items)
+  self.gold = save.gold
+  -- Member data table
+  self.memberData = {}
+  self:setMembersData(self.current, true)
+  self:setMembersData(self.backup, true)
+  self:setMembersData(self.hidden)
    -- Tags
   self.tags = TagMap(data.tags)
-end
--- Sets troop's state given the initial state data.
--- @param(data : table) data from save file or database file
-function TroopBase:initState(data)
-  self.current = List(data.current)
-  self.backup = List(data.backup)
-  self.hidden = List(data.hidden)
-  self.inventory = Inventory(data.items)
-  self.gold = data.gold
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -77,6 +73,13 @@ function TroopBase:findMember(key, arr)
       return i, self.hidden
     end
   end
+end
+-- Gets the list of all visible members.
+-- @ret(List)
+function TroopBase:visibleMembers()
+  local list = List(self.current)
+  list:addAll(self.backup)
+  return list
 end
 
 ---------------------------------------------------------------------------------------------------

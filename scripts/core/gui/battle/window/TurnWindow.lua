@@ -49,15 +49,15 @@ function TurnWindow:createContent(...)
   self.userCursor = BattleCursor()
   self.content:add(self.userCursor)
 end
--- Overrides GridWindow:createButtons.
-function TurnWindow:createButtons()
-  self:createButton('attack')
-  self:createButton('move')
-  self:createButton('skill')
-  self:createButton('item')
-  self:createButton('escape')
-  self:createButton('callAlly')
-  self:createButton('wait')
+-- Overrides GridWindow:createWidgets.
+function TurnWindow:createWidgets()
+  Button:fromKey(self, 'attack')
+  Button:fromKey(self, 'move')
+  Button:fromKey(self, 'skill')
+  Button:fromKey(self, 'item')
+  Button:fromKey(self, 'escape')
+  Button:fromKey(self, 'callAlly')
+  Button:fromKey(self, 'wait')
 end
 
 ---------------------------------------------------------------------------------------------------

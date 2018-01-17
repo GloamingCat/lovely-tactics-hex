@@ -29,8 +29,8 @@ local GridWindow = class(Window)
 
 -- Overrides Window:createContent.
 function GridWindow:createContent(width, height)
-  self.buttonMatrix = Matrix2(self:colCount(), 1)
-  self:createButtons()
+  self.matrix = Matrix2(self:colCount(), 1)
+  self:createWidgets()
   self.currentCol = 1
   self.currentRow = 1
   self.offsetCol = 0
@@ -45,7 +45,7 @@ function GridWindow:createContent(width, height)
 end
 -- Reposition widgets so they are aligned and inside the window and adjusts sliders.
 function GridWindow:packWidgets()
-  self.buttonMatrix.height = ceil(#self.buttonMatrix / self:colCount())
+  self.matrix.height = ceil(#self.matrix / self:colCount())
   if self:actualRowCount() > self:rowCount() then
     self.vSlider = self.vSlider or VSlider(self, Vector(self.width / 2 - self:hPadding(), 0), 
       self.height - self:vPadding() * 2)
@@ -117,7 +117,7 @@ end
 -- Gets the number of rows that where actually occupied by buttons.
 -- @ret(number) row count
 function GridWindow:actualRowCount()
-  return self.buttonMatrix.height
+  return self.matrix.height
 end
 -- Grid X-axis displacement.
 -- @ret(number) displacement in pixels
@@ -133,13 +133,15 @@ end
 -- @ret(number) the window's width in pixels
 function GridWindow:calculateWidth()
   local cols = self:colCount()
-  return self:hPadding() * 2 + cols * self:buttonWidth() + (cols - 1) * self:hButtonMargin()
+  local buttons = cols * self:buttonWidth() + (cols - 1) * self:hButtonMargin()
+  return self:hPadding() * 2 + buttons + self:gridX()
 end
 -- Gets the total height of the window.
 -- @ret(number) the window's height in pixels
 function GridWindow:calculateHeight()
   local rows = self:rowCount()
-  return self:vPadding() * 2 + rows * self:buttonHeight() + (rows - 1) * self:vButtonMargin()
+  local buttons = rows * self:buttonHeight() + (rows - 1) * self:vButtonMargin()
+  return self:vPadding() * 2 + buttons + self:gridY()
 end
 -- Gets the width of a single button.
 -- @ret(number) the width in pixels
@@ -166,47 +168,33 @@ end
 -- Buttons
 ---------------------------------------------------------------------------------------------------
 
--- Adds the buttons of the window.
-function GridWindow:createButtons()
+-- Adds the grid widgets of the window.
+function GridWindow:createWidgets()
   -- Abstract.
-end
--- Creates a buttons  for the action represented by the given key.
--- @param(key : string) action's key
--- @ret(Button)
-function GridWindow:createButton(key)
-  local button = Button(self, self[key .. 'Confirm'], self[key .. 'Select'], self[key .. 'Enabled'])
-  local icon = Icons[key]
-  if icon then
-    button:createIcon(icon)
-  end
-  local text = Vocab[key]
-  if text then
-    button:createText(text)
-  end
 end
 -- Getscurrent selected button.
 -- @ret(Button) the selected button
 function GridWindow:currentButton()
-  return self.buttonMatrix:get(self.currentCol, self.currentRow)
+  return self.matrix:get(self.currentCol, self.currentRow)
 end
 -- Gets the number of buttons.
 -- @ret(number)
 function GridWindow:buttonCount()
-  return #self.buttonMatrix
+  return #self.matrix
 end
 -- Insert button at the given index.
 -- @param(button : Button) the button to insert
 -- @param(pos : number) the index of the button (optional, last position by default)
 function GridWindow:insertButton(button, pos)
-  pos = pos or #self.buttonMatrix + 1
-  local last = #self.buttonMatrix
+  pos = pos or #self.matrix + 1
+  local last = #self.matrix
   assert(pos >= 1 and pos <= last + 1, 'invalid button index: ' .. pos)
   for i = last + 1, pos + 1, -1 do
-    self.buttonMatrix[i] = self.buttonMatrix[i - 1]
-    self.buttonMatrix[i]:setIndex(i)
-    self.buttonMatrix[i]:updatePosition(self.position)
+    self.matrix[i] = self.matrix[i - 1]
+    self.matrix[i]:setIndex(i)
+    self.matrix[i]:updatePosition(self.position)
   end
-  self.buttonMatrix[pos] = button
+  self.matrix[pos] = button
   button:setIndex(pos)
   button:updatePosition(self.position)
 end
@@ -214,24 +202,24 @@ end
 -- @param(pos : number) the index of the button
 -- @ret(Button) the removed button
 function GridWindow:removeButton(pos)
-  local last = #self.buttonMatrix
+  local last = #self.matrix
   assert(pos >= 1 and pos <= last, 'invalid button index: ' .. pos)
-  local button = self.buttonMatrix[pos]
+  local button = self.matrix[pos]
   button:destroy()
   for i = pos, last - 1 do
-    self.buttonMatrix[i] = self.buttonMatrix[i+1]
-    self.buttonMatrix[i]:setIndex(i)
-    self.buttonMatrix[i]:updatePosition(self.position)
+    self.matrix[i] = self.matrix[i+1]
+    self.matrix[i]:setIndex(i)
+    self.matrix[i]:updatePosition(self.position)
   end
-  self.buttonMatrix[last] = nil
+  self.matrix[last] = nil
   return button
 end
 -- Removes all buttons.
 function GridWindow:clearButtons()
-  local last = #self.buttonMatrix
+  local last = #self.matrix
   for i = 1, last do
-    self.buttonMatrix[i]:destroy()
-    self.buttonMatrix[i] = nil
+    self.matrix[i]:destroy()
+    self.matrix[i] = nil
   end
 end
 -- Sets the current selected button.
@@ -257,6 +245,9 @@ end
 function GridWindow:onConfirm()
   local button = self:currentButton()
   if button.enabled then
+    if button.confirmSound then
+      AudioManager:playSFX(button.confirmSound)
+    end
     button.onConfirm(self, button)
   end
 end
@@ -264,6 +255,9 @@ end
 function GridWindow:onCancel()
   local button = self:currentButton()
   if button.enabled then
+    if button.cancelSound then
+      AudioManager:playSFX(button.cancelSound)
+    end
     button.onCancel(self, button)
   end
   Window.onCancel(self)
@@ -276,7 +270,9 @@ function GridWindow:onMove(dx, dy)
   self.currentRow = r
   local newButton = self:currentButton()
   if oldButton ~= newButton then 
-    AudioManager:playSFX(Config.sounds.buttonSelect)
+    if newButton.selectSound then
+      AudioManager:playSFX(newButton.selectSound)
+    end
     oldButton:setSelected(false)
     newButton:setSelected(true)
   end
@@ -305,7 +301,7 @@ end
 -- @ret(number) new row number
 -- @ret(boolean) true if visible buttons changed
 function GridWindow:movedCoordinates(c, r, dx, dy)
-  local button = self.buttonMatrix:get(c + dx, r + dy)
+  local button = self.matrix:get(c + dx, r + dy)
   if button then
     return c + dx, r + dy
   end
@@ -331,15 +327,15 @@ end
 -- Loops row r to the right.
 function GridWindow:rightLoop(r)
   local c = 1
-  while not self.buttonMatrix:get(c,r) do
+  while not self.matrix:get(c,r) do
     c = c + 1
   end
   return c
 end
 -- Loops row r to the left.
 function GridWindow:leftLoop(r)
-  local c = self.buttonMatrix.width
-  while not self.buttonMatrix:get(c,r) do
+  local c = self.matrix.width
+  while not self.matrix:get(c,r) do
     c = c - 1
   end
   return c
@@ -347,15 +343,15 @@ end
 -- Loops column c up.
 function GridWindow:upLoop(c)
   local r = 1
-  while not self.buttonMatrix:get(c,r) do
+  while not self.matrix:get(c,r) do
     r = r + 1
   end
   return r
 end
 -- Loops column c down.
 function GridWindow:downLoop(c)
-  local r = self.buttonMatrix.height
-  while not self.buttonMatrix:get(c,r) do
+  local r = self.matrix.height
+  while not self.matrix:get(c,r) do
     r = r - 1
   end
   return r
@@ -373,7 +369,7 @@ function GridWindow:updateViewport(c, r)
   if newOffsetCol ~= self.offsetCol or newOffsetRow ~= self.offsetRow then
     self.offsetCol = newOffsetCol
     self.offsetRow = newOffsetRow
-    for button in self.buttonMatrix:iterator() do
+    for button in self.matrix:iterator() do
       button:hide()
       button:updatePosition(self.position)
       button:show()

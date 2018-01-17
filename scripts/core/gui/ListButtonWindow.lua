@@ -22,8 +22,8 @@ function ListButtonWindow:init(list, ...)
   self.list = list
   GridWindow.init(self, ...)
 end
--- Overrides GridWindow:createButtons.
-function ListButtonWindow:createButtons()
+-- Overrides GridWindow:createWidgets.
+function ListButtonWindow:createWidgets()
   if #self.list > 0 then
     for i = 1, #self.list do
       self:createListButton(self.list[i])
@@ -38,7 +38,7 @@ end
 function ListButtonWindow:overrideButtons(list)
   self.list = list
   self:clearButtons()
-  self:createButtons()
+  self:createWidgets()
 end
 
 return ListButtonWindow

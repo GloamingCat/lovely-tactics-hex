@@ -67,7 +67,6 @@ function StatusList:addStatus(id, state)
         if top then
           top:removeGraphics()
         end
-        print('add graphics')
         status:addGraphics()
       end
     end
@@ -75,7 +74,7 @@ function StatusList:addStatus(id, state)
   return status
 end
 -- Removes a status from the list.
--- @param(status : Status or number) the status to be removed or its ID
+-- @param(status : Status | number) the status to be removed or its ID
 -- @ret(Status) the removed status
 function StatusList:removeStatus(status)
   if type(status) == 'number' then
@@ -203,18 +202,16 @@ end
 -- Callbacks
 ---------------------------------------------------------------------------------------------------
 
+-- Calls a certain function in all status in the list.
+-- @param(name : string) the name of the event
+-- @param(...) other parameters to the callback
 function StatusList:callback(name, ...)
   local i = 1
   name = 'on' .. name
-  while i <= self.size do
-    local s = self[i]
+  local list = List(self)
+  for s in list:iterator() do
     if s[name] then
-      s[name](s, ...)    
-      if self[i] == s then
-        i = i + 1
-      end
-    else
-      i = i + 1
+      s[name](s, ...)  
     end
   end
 end

@@ -1,4 +1,5 @@
 {
+  // GUI
   "buttonConfirm": {
     "name": "button-confirm.wav",
     "pitch": 100,
@@ -18,5 +19,53 @@
     "name": "button-select.wav",
     "pitch": 100,
     "volume": 100
+  },
+  "buy": {
+    "name": "button-confirm.wav",
+    "pitch": 100,
+    "volume": 100
+  },
+  "sell": {
+    "name": "button-confirm.wav",
+    "pitch": 100,
+    "volume": 100
+  },
+  "equip": {
+    "name": "button-confirm.wav",
+    "pitch": 100,
+    "volume": 100
+  },
+  "unequip": {
+    "name": "button-confirm.wav",
+    "pitch": 100,
+    "volume": 100
+  },
+  
+  // Battle
+  "allyDamage": {
+    "name": "battle-dmg.wav",
+    "pitch": 100,
+    "volume": 100
+  },
+  "enemyDamage": {
+    "name": "battle-dmg.wav",
+    "pitch": 100,
+    "volume": 100
+  },
+  "allyKO": {
+    "name": "battle-ko.wav",
+    "pitch": 100,
+    "volume": 100
+  },
+  "enemyKO": {
+    "name": "battle-ko.wav",
+    "pitch": 100,
+    "volume": 100
+  },
+  "battleTheme": {
+    "name": "battle1.ogg",
+    "pitch": 100,
+    "volume": 100
   }
+  
 }

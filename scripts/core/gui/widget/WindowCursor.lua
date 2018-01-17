@@ -54,7 +54,7 @@ function WindowCursor:updatePosition(wpos)
 end
 -- Shows sprite.
 function WindowCursor:show()
-  self.anim.sprite:setVisible(#self.window.buttonMatrix > 0)
+  self.anim.sprite:setVisible(#self.window.matrix > 0)
 end
 -- Hides sprite.
 function WindowCursor:hide()

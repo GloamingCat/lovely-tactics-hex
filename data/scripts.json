@@ -135,7 +135,9 @@
         }
 				{
 					"name": "jump",
-					"param": "start"
+					"param": {
+            "label": "start"
+          }
 				}
 			],
 			"global": false

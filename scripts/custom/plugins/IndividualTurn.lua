@@ -131,7 +131,7 @@ function StatusList:onTurnStart(partyTurn)
     local status = self[i]
     status.state.lifeTime = status.state.lifeTime + _G.TurnManager.iterations
     status:onTurnStart(partyTurn)
-    if status.state.lifeTime > status.duration then
+    if status.state.lifeTime > status.duration * turnLimit then
       self:removeStatus(status)
     else
       i = i + 1
@@ -233,6 +233,7 @@ end
 -- ActionGUI
 ---------------------------------------------------------------------------------------------------
 
+-- Override.
 function ActionGUI:createTargetWindow()
   if not self.targetWindow then
     local window = TargetWindow(self, true)

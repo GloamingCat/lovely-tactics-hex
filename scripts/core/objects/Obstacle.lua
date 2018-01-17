@@ -36,12 +36,12 @@ function Obstacle:init(data, tileData, initTile, group)
   self.sprite = group.sprite
   self.collisionHeight = tileData.height
   initTile.obstacleList:add(self)
-  self:initializeNeighbors(tileData.neighbors)
+  self:initNeighbors(tileData.neighbors)
   self:addToTiles()
 end
 -- Creates neighborhood.
 -- @param(neighbors : table) the table of booleans indicating passability
-function Obstacle:initializeNeighbors(neighbors)
+function Obstacle:initNeighbors(neighbors)
   self.neighbors = {}
   local function addNeighbor(x, y, i)
     if self.neighbors[x] == nil then

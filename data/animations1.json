@@ -77,7 +77,7 @@
 				}
 			},
 			{
-				"name": "Fireball2",
+				"name": "Big Pink Fireball",
 				"data": {
 					"id": 12,
 					"path": "Battle/fireball.png",
@@ -114,7 +114,7 @@
 				}
 			},
 			{
-				"name": "Fireball3",
+				"name": "Giant Blue Fireball",
 				"data": {
 					"id": 13,
 					"path": "Battle/fireball.png",
@@ -249,6 +249,43 @@
 					  "hue": 0,
 					  "saturation": 100,
 					  "brightness": 100
+					},
+					"animation": {
+						"duration": 60,
+						"loop": 0,
+						"script": {
+							"path": "BattleEffect",
+							"param": ""
+						},
+						"audio": []
+					}
+				}
+			},
+      {
+				"name": "Heal",
+				"data": {
+					"id": 17,
+					"path": "Battle/heal.png",
+					"x": 0,
+					"y": 0,
+					"width": 480,
+					"height": 480,
+					"cols": 5,
+					"rows": 5,
+					"transform": {
+					  "offsetX": 48,
+					  "offsetY": 72,
+					  "offsetDepth": 0,
+					  "scaleX": 50,
+					  "scaleY": 50,
+					  "rotation": 0,
+					  "red": 255,
+					  "green": 255,
+					  "blue": 255,
+					  "alpha": 255,
+					  "hue": -60,
+					  "saturation": 50,
+					  "brightness": 150
 					},
 					"animation": {
 						"duration": 60,

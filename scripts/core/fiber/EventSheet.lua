@@ -150,11 +150,11 @@ function EventSheet:execute(event)
     self.index = self.index + 1
     local command = self.commands[self.index]
     if command.name == 'jump' then
-      assert(self.labels[command.param], 'Label not defined: ' .. command.param)
+      assert(self.labels[command.param.label], 'Label not defined: ' .. command.param.label)
       local expr = command.param.expression
       local value = expr == nil or self:decodeExpression(event, expr)
       if value then
-        self.index = self.labels[command.param]
+        self.index = self.labels[command.param.label]
       end
     elseif command.name == 'fork' then
       EventSheet(self.root, command.param)

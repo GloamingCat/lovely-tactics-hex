@@ -24,11 +24,11 @@ local GridWidget = class()
 -- @param(window : GridWindow) the window this widget belongs to
 -- @param(index : number) the child index of this widget
 function GridWidget:init(window)
-  local index = #window.buttonMatrix + 1
+  local index = #window.matrix + 1
   self.window = window
   self:setIndex(index)
   window.content:add(self)
-  window.buttonMatrix[index] = self
+  window.matrix[index] = self
   self.content = List()
   self.enabled = true
   self.selected = false

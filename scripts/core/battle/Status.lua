@@ -69,15 +69,26 @@ end
 -- Graphics
 ---------------------------------------------------------------------------------------------------
 
+-- Applies graphical effects on the character.
 function Status:addGraphics()
-  self.battler.character:setAnimations(self.data.charAnim)
-  self.battler.character:replayAnimation()
+  self.battler.character.statusTransform = self.data.transform
+  if self.data.charAnim ~= '' then
+    self.battler.character:setAnimations(self.data.charAnim)
+    self.battler.character:replayAnimation()
+  elseif self.data.transform then
+    self.battler.character:replayAnimation()
+  end
 end
-
+-- Clears the applied effects from Status:addGraphics.
 function Status:removeGraphics()
-  self.battler.character:setAnimations('default')
-  self.battler.character:setAnimations('battle')
-  self.battler.character:playAnimation(self.battler.character.animName)
+  if self.data.transform then
+    self.battler.character.statusTransform = nil
+  end
+  if self.data.charAnim ~= '' then
+    self.battler.character:setAnimations('default')
+    self.battler.character:setAnimations('battle')
+    self.battler.character:playAnimation(self.battler.character.animName)
+  end
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -106,7 +117,7 @@ end
 ---------------------------------------------------------------------------------------------------
 
 function Status:onBattleEnd()
-  if self.data.removeOnBattleEnd then
+  if self.data.battleOnly then
     self.battler.statusList:removeStatus(self)
   end
 end

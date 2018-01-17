@@ -56,6 +56,12 @@
 			"tags": []
 		},
 		{
+			"name": "Bush",
+			"type": 0,
+			"height": 0,
+			"tags": []
+		},
+		{
 			"name": "Water",
 			"type": 0,
 			"height": 0,

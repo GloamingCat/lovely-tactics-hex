@@ -32,6 +32,25 @@ function Button:init(window, onConfirm, onSelect, enableCondition, onMove)
   self.onSelect = onSelect or self.onSelect
   self.enableCondition = enableCondition or self.enableCondition
   self.onMove = onMove or self.onMove
+  self.confirmSound = Config.sounds.buttonConfirm
+  self.cancelSound = Config.sounds.buttonCancel
+  self.selectSound = Config.sounds.buttonSelect
+end
+-- Creates a buttons for the action represented by the given key.
+-- @param(window : GridWindow) the window that this button is component of
+-- @param(key : string) action's key
+-- @ret(Button)
+function Button:fromKey(window, key)
+  local button = self(window, window[key .. 'Confirm'], window[key .. 'Select'], window[key .. 'Enabled'])
+  local icon = Icons[key]
+  if icon then
+    button:createIcon(icon)
+  end
+  local text = Vocab[key]
+  if text then
+    button:createText(text)
+  end
+  return button
 end
 -- @param(text : string) the text shown in the button
 -- @param(fontName : string) the text's font, from Fonts folder (optional, uses default)

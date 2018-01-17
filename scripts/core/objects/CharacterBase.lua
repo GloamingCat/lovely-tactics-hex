@@ -52,22 +52,22 @@ function CharacterBase:init(instData)
   FieldManager.characterList:add(self)
   FieldManager.updateList:add(self)
   -- Initialize properties
-  self:initializeProperties(data.name, data.tiles, data.collider)
-  self:initializeGraphics(data.animations, instData.direction, instData.anim, data.transform)
-  self:initializeScripts(instData)
+  self:initProperties(data.name, data.tiles, data.collider)
+  self:initGraphics(data.animations, instData.direction, instData.anim, data.transform)
+  self:initScripts(instData)
   -- Initial position
   self:setXYZ(x, y, z)
   self:addToTiles()
 end
 -- Overrides to create the animation sets.
-function CharacterBase:initializeGraphics(animations, dir, initAnim, transform)
-  DirectedObject.initializeGraphics(self, animations.default, dir, initAnim, transform)
+function CharacterBase:initGraphics(animations, dir, initAnim, transform)
+  DirectedObject.initGraphics(self, animations.default, dir, initAnim, transform)
   self.animationSets = {}
   local default = self.animationData
   for i = 1, #animSets do
     local k = animSets[i]
     if animations[k] then
-      self:initializeAnimationTable(animations[k])
+      self:initAnimationTable(animations[k])
       self.animationSets[k] = self.animationData
     else
       self.animationSets[k] = {}
@@ -79,7 +79,7 @@ end
 -- @param(name : string) the name of the character
 -- @param(tiles : table) a list of collision tiles
 -- @param(colliderHeight : number) collider's height in height units
-function CharacterBase:initializeProperties(name, tiles, colliderHeight)
+function CharacterBase:initProperties(name, tiles, colliderHeight)
   self.name = name
   self.collisionTiles = tiles
   self.passable = false

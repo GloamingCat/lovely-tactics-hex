@@ -29,10 +29,10 @@ function Spinner:init(window, initValue, minValue, maxValue)
   GridWidget.init(self, window)
   self.minValue = minValue or -math.huge
   self.maxValue = maxValue or math.huge
-  self:initializeContent(initValue or 0)
+  self:initContent(initValue or 0)
 end
 -- Creates arrows and value test.
-function Spinner:initializeContent(initValue)
+function Spinner:initContent(initValue)
   local dx = self.window:buttonWidth()
   local dy = self.window:buttonHeight() / 2
   -- Left arrow icon

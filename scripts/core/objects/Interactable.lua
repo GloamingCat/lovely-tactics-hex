@@ -23,7 +23,7 @@ local Interactable = class()
 
 -- Data with (x, y, h) coordinates, passable, persistent and scripts
 function Interactable:init(instData)
-  self:initializeScripts(instData)
+  self:initScripts(instData)
   self.passable = instData.passable
   self.persistent = instData.persistent
   local layer = FieldManager.currentField.objectLayers[instData.h]
@@ -35,7 +35,7 @@ function Interactable:init(instData)
 end
 -- Creates listeners from instData.
 -- @param(instData : table) the instData from field file
-function Interactable:initializeScripts(instData)
+function Interactable:initScripts(instData)
   self.fiberList = FiberList()
   self.startScript = instData.startScript
   self.collideScript = instData.collideScript

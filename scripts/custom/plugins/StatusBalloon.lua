@@ -27,13 +27,13 @@ function Balloon:init(...)
   Balloon_init(self, ...)
   self.state = 4
   self.statusIndex = 0
-  self:initializeIcon()
+  self:initIcon()
   self.status = List()
   self.sprite:setCenterOffset()
   self:hide()
 end
 -- Creates the icon animation.
-function Balloon:initializeIcon()
+function Balloon:initIcon()
   local sprite = Sprite(FieldManager.renderer)
   local anim = Animation(sprite)
   anim.duration = 30

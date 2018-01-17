@@ -49,8 +49,8 @@ function Player:init(initTile, dir)
   Character.init(self, data)
 end
 -- Player's extra and base character properties.
-function Player:initializeProperties(name, collisionTiles, colliderHeight)
-  Character.initializeProperties(self, 'Player', collisionTiles, colliderHeight)
+function Player:initProperties(name, collisionTiles, colliderHeight)
+  Character.initProperties(self, 'Player', collisionTiles, colliderHeight)
   self.inputOn = true
   self.speed = conf.walkSpeed
 end

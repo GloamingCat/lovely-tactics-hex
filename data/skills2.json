@@ -31,7 +31,7 @@
 			},
 			"battleAnim": {
 				"loadID": -1,
-				"castID": 6,
+				"castID": 15,
 				"individualID": -1,
 				"mirror": true
 			},
@@ -84,7 +84,7 @@
 			},
 			"battleAnim": {
 				"loadID": -1,
-				"castID": 39,
+				"castID": 16,
 				"individualID": -1,
 				"mirror": true
 			},

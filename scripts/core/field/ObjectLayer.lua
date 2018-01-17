@@ -91,7 +91,7 @@ function ObjectLayer:mergeRegions(layerData)
     end
   end
 end
-
+-- Sets/overwrites tiles' party IDs. 
 function ObjectLayer:setParties(layerData)
   for i = 1, self.sizeX do
     for j = 1, self.sizeY do
