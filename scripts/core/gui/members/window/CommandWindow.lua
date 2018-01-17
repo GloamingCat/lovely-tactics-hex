@@ -10,10 +10,10 @@ CommandWindow
 local GridWindow = require('core/gui/GridWindow')
 local Button = require('core/gui/widget/Button')
 
---local EquipGUI = require('core/gui/equip/EquipGUI')
---local StatGUI = require('core/gui/stat/StatGUI')
 --local ItemGUI = require('core/gui/item/ItemGUI')
+local EquipGUI = require('core/gui/equip/EquipGUI')
 --local SkillGUI = require('core/gui/skill/SkillGUI')
+--local StatGUI = require('core/gui/stat/StatGUI')
 
 local CommandWindow = class(GridWindow)
 
@@ -33,7 +33,7 @@ function CommandWindow:itemsConfirm()
 end
 -- Equips button.
 function CommandWindow:equipsConfirm()
-  --self:showGUI(EquipGUI)
+  self:showGUI(EquipGUI)
 end
 -- Skills button.
 function CommandWindow:skillsConfirm()

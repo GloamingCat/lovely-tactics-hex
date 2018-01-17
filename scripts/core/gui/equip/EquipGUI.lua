@@ -11,8 +11,8 @@ The GUI that contains only a confirm window.
 local Vector = require('core/math/Vector')
 local GUI = require('core/gui/GUI')
 local EquipSlotWindow = require('core/gui/equip/window/EquipSlotWindow')
-local EquipMemberWindow = require('core/gui/equip/window/EquipMemberWindow')
 local EquipItemWindow = require('core/gui/equip/window/EquipItemWindow')
+local EquipBonusWindow = require('core/gui/equip/window/EquipBonusWindow')
 local DescriptionWindow = require('core/gui/general/window/DescriptionWindow')
 
 local EquipGUI = class(GUI)
@@ -21,42 +21,54 @@ local EquipGUI = class(GUI)
 -- Initialization
 ---------------------------------------------------------------------------------------------------
 
-function EquipGUI:createWindows()
+function EquipGUI:init(memberGUI, y)
+  self.memberGUI = memberGUI
   self.name = 'Equip GUI'
-  self:createMemberWindow()
-  self:createSlotWindow()
-  self:createItemWindow()
-  self:createDescriptionWindow()
-  self:setActiveWindow(self.memberWindow)
+  self.initY = y
+  GUI.init(self)
 end
 
-function EquipGUI:createMemberWindow()
-  local window = EquipMemberWindow(self, TurnManager:currentTroop())
-  self.memberWindow = window
+function EquipGUI:createWindows()
+  self:createSlotWindow()
+  self:createItemWindow()
+  self:createBonusWindow()
+  self:createDescriptionWindow()
+  self:setActiveWindow(self.slotWindow)
 end
 
 function EquipGUI:createSlotWindow()
-  local member = self.memberWindow.buttonMatrix[1].member
-  local w = ScreenManager.width - self.memberWindow.width * 2 - self:windowMargin() * 4
-  local h = self.memberWindow.height
-  local y = self:windowMargin() - ScreenManager.height / 2 + h / 2
-  local window = EquipSlotWindow(self, w, h, Vector(0, y), self.memberWindow.fitRowCount, member)
-  self.slotWindow = window
+  self.slotWindow = EquipSlotWindow(self)
 end
 
 function EquipGUI:createItemWindow()
-  local w = self.memberWindow.width
-  local h = self.memberWindow.height
-  local window = EquipItemWindow(self, w, h, self.memberWindow.fitRowCount, TurnManager:currentTroop())
-  self.itemWindow = window
+  local w = self.slotWindow.width
+  local h = self.slotWindow.height
+  local pos = self.slotWindow.position
+  self.itemWindow = EquipItemWindow(self, w, h, pos, self.slotWindow.visibleRowCount)
+  self.itemWindow:setVisible(false)
+end
+
+function EquipGUI:createBonusWindow()
+  local w = ScreenManager.width - self.slotWindow.width - self:windowMargin() * 3
+  local h = self.slotWindow.height
+  local x = (ScreenManager.width - w) / 2 - self:windowMargin()
+  local y = self.slotWindow.position.y
+  self.bonusWindow = EquipBonusWindow(self, w, h, Vector(x, y))
 end
 
 function EquipGUI:createDescriptionWindow()
   local w = ScreenManager.width - self:windowMargin() * 2
-  local h = ScreenManager.height - self.memberWindow.height - self:windowMargin() * 3
+  local h = ScreenManager.height - self.initY - self.slotWindow.height - self:windowMargin() * 2
   local pos = Vector(0, ScreenManager.height / 2 - h / 2 - self:windowMargin())
-  local window = DescriptionWindow(self, w, h, pos)
-  self.descriptionWindow = window
+  self.descriptionWindow = DescriptionWindow(self, w, h, pos)
+end
+
+---------------------------------------------------------------------------------------------------
+-- Member
+---------------------------------------------------------------------------------------------------
+
+function EquipGUI:setMember(member)
+  self.slotWindow:setMember(member)
 end
 
 return EquipGUI

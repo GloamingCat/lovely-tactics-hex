@@ -15,6 +15,7 @@ local ListButtonWindow = require('core/gui/ListButtonWindow')
 
 -- Alias
 local max = math.max
+local min = math.min
 
 local EquipSlotWindow = class(ListButtonWindow)
 
@@ -22,16 +23,21 @@ local EquipSlotWindow = class(ListButtonWindow)
 -- Initialization
 ---------------------------------------------------------------------------------------------------
 
-function EquipSlotWindow:init(GUI, w, h, pos, rows, member)
-  self.fitRowCount = rows
-  ListButtonWindow.init(self, Config.equipTypes, GUI, w, h, pos)
-  self.member = member
-  self:setSelectedButton(nil)
+function EquipSlotWindow:init(GUI)
+  self.visibleRowCount = 0
+  for i = 1, #Config.equipTypes do
+    self.visibleRowCount = Config.equipTypes[i].count + self.visibleRowCount
+  end
+  self.visibleRowCount = min(6, max(self.visibleRowCount, 4))
+  ListButtonWindow.init(self, Config.equipTypes, GUI)
+  local x = GUI:windowMargin() - ScreenManager.width / 2 + self.width / 2
+  local y = GUI.initY + self.height / 2 - ScreenManager.height / 2
+  self:setXYZ(x, y)
 end
 -- @param(slot : table)
 function EquipSlotWindow:createListButton(slot)
   for i = 1, slot.count do
-    local button = Button(self, self.onButtonConfirm, self.onButtonSelect)
+    local button = Button(self)
     local w = self:buttonWidth()
     button:createText(slot.name, 'gui_medium', 'left', w / 3)
     button:createInfoText(Vocab.empty, 'gui_medium', 'left', w / 3 * 2, Vector(w / 3, 1, 0))
@@ -42,8 +48,8 @@ end
 
 function EquipSlotWindow:setMember(member)
   self.member = member
-  for i = 1, #self.buttonMatrix do
-    local button = self.buttonMatrix[i]
+  for i = 1, #self.matrix do
+    local button = self.matrix[i]
     local slot = self.member.data.equipment[button.key]
     local name = Vocab.empty
     if slot and slot.id >= 0 then
@@ -53,6 +59,8 @@ function EquipSlotWindow:setMember(member)
     button:setInfoText(name)
     button:setEnabled(slot.freedom ~= 0)
   end
+  local button = self:currentButton()
+  self.GUI.itemWindow:setSlot(button.key, button.slot)
 end
 
 ----------------------------------------------------------------------------------------------------
@@ -69,24 +77,28 @@ function EquipSlotWindow:onButtonSelect(button)
 end
 
 function EquipSlotWindow:onCancel()
-  self:setSelectedButton(nil)
-  self.GUI.memberWindow:activate()
+  self.result = 0
+end
+-- Called when player presses "next" key.
+function EquipSlotWindow:onNext()
+  self.GUI.memberGUI:nextMember()
+end
+-- Called when player presses "prev" key.
+function EquipSlotWindow:onPrev()
+  self.GUI.memberGUI:prevMember()
 end
 
 ---------------------------------------------------------------------------------------------------
 -- Properties
 ---------------------------------------------------------------------------------------------------
 
+-- Overrides GridWindow:colCount.
 function EquipSlotWindow:colCount()
   return 1
 end
-
+-- Overrides GridWindow:rowCount.
 function EquipSlotWindow:rowCount()
-  return self.fitRowCount
-end
-
-function EquipSlotWindow:buttonWidth()
-  return self.width - self:hPadding() * 2
+  return self.visibleRowCount
 end
 
 function EquipSlotWindow:__tostring()

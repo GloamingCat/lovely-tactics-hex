@@ -87,10 +87,6 @@ end
 -- Properties
 ---------------------------------------------------------------------------------------------------
 
--- New button width.
-function SkillWindow:buttonWidth()
-  return (self.width - self:hPadding() * 2 - self:hButtonMargin()) / 2
-end
 -- New col count.
 function SkillWindow:colCount()
   return 2

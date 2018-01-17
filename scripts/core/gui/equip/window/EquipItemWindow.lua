@@ -20,24 +20,22 @@ local EquipItemWindow = class(ListButtonWindow)
 ----------------------------------------------------------------------------------------------------
 
 -- Constructor.
-function EquipItemWindow:init(GUI, w, h, rowCount, troop)
-  self.troop = troop
-  local m = GUI:windowMargin()
-  self.fitRowCount = rowCount
-  local pos = Vector(ScreenManager.width / 2 - w / 2 - m, h / 2 - ScreenManager.height / 2 + m, 0)
+function EquipItemWindow:init(GUI, w, h, pos, rowCount)
   self.slot = Config.equipTypes[1]
-  ListButtonWindow.init(self, {}, GUI, w, h, pos)
+  self.visibleRowCount = rowCount
+  local list = { } -- TODO
+  ListButtonWindow.init(self, list, GUI, w, h, pos)
 end
 
-function EquipItemWindow:createButtons()
-  local button = Button(self, self.onButtonConfirm, self.onButtonSelect)
+function EquipItemWindow:createWidgets(...)
+  local button = Button(self)
   button:createText(Vocab.unequip, 'gui_medium')
-  ListButtonWindow.createButtons(self)
+  ListButtonWindow.createWidgets(self, ...)
 end
 
 function EquipItemWindow:createListButton(itemID)
+  local button = Button(self)
   local data = Database.items[itemID]
-  local button = Button(self, self.onButtonConfirm, self.onButtonSelect)
   button:createText(data.name)
   button.item = data
   return button
@@ -57,6 +55,7 @@ end
 -- Button callbacks
 ----------------------------------------------------------------------------------------------------
 
+-- Called when player selects an item button.
 function EquipItemWindow:onButtonSelect(button)
   if button.item then
     self.GUI.descriptionWindow:setText(button.item.description)
@@ -64,19 +63,24 @@ function EquipItemWindow:onButtonSelect(button)
     self.GUI.descriptionWindow:setText('')
   end
 end
-
+-- Called when player chooses an item to equip.
 function EquipItemWindow:onButtonConfirm(button)
   if button.item then
     self.memberData.equipment[self.slotKey].id = button.item.id
   else
     self.memberData.equipment[self.slotKey].id = -1
   end
-  self:setSelectedButton(nil)
-  self.GUI.slotWindow:activate()
+  self:showSlotWindow()
 end
-
+-- Called when player cancels and returns to the slot window.
 function EquipItemWindow:onCancel()
+  self:showSlotWindow()
+end
+-- Closes this window and shows the previous one (Equip Slot Window).
+function EquipItemWindow:showSlotWindow()
   self:setSelectedButton(nil)
+  self:hide()
+  self.GUI.slotWindow:show()
   self.GUI.slotWindow:activate()
 end
 
@@ -84,16 +88,17 @@ end
 -- Properties
 ----------------------------------------------------------------------------------------------------
 
-function EquipItemWindow:buttonWidth()
-  return self.width - self:hPadding() * 2 - self.GUI:windowMargin() * 2
-end
 -- Overrides GridWindow:colCount.
 function EquipItemWindow:colCount()
   return 1
 end
 -- Overrides GridWindow:rowCount.
 function EquipItemWindow:rowCount()
-  return self.fitRowCount
+  return self.visibleRowCount
+end
+
+function EquipItemWindow:__tostring()
+  return 'EquipItemWindow'
 end
 
 return EquipItemWindow

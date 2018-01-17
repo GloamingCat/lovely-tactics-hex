@@ -34,11 +34,16 @@ end
 function ListButtonWindow:createListButton(element)
   -- Abstract.
 end
-
+-- Clears and recreates buttons.
 function ListButtonWindow:overrideButtons(list)
   self.list = list
   self:clearButtons()
   self:createWidgets()
+end
+-- Larger buttons.
+function ListButtonWindow:buttonWidth()
+  local w = ScreenManager.width - self.GUI:windowMargin() * 2
+  return (w - self:hPadding() * 2 - self:hButtonMargin()) / 2
 end
 
 return ListButtonWindow

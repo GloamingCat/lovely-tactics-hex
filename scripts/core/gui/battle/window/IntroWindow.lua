@@ -24,7 +24,7 @@ local IntroWindow = class(GridWindow)
 function IntroWindow:createWidgets()
   self:addButton('start')
   self:addButton('formation')
-  Button:fromKey(self, 'members')
+  self:addButton('members')
 end
 -- Overriden to align text.
 function IntroWindow:addButton(key)
