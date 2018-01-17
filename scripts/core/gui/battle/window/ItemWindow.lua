@@ -40,7 +40,7 @@ function ItemWindow:createListButton(itemSlot)
   local item = Database.items[itemSlot.id]
   local icon = item.icon.id >= 0 and 
     ResourceManager:loadIconAnimation(item.icon, GUIManager.renderer)
-  local button = Button(self, self.onButtonConfirm, self.onButtonSelect, self.buttonEnabled)
+  local button = Button(self)
   button:createText(item.name, 'gui_medium')
   button:createIcon(icon)
   button.item = item

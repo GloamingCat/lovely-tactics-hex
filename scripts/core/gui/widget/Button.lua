@@ -26,12 +26,13 @@ local Button = class(GridWidget)
 -- @param(enableCondition : function) the function that tells if 
 --  this button is enabled (optional)
 -- @param(onMove : function) the function called when player presses arrows (optinal)
-function Button:init(window, onConfirm, onSelect, enableCondition, onMove)
+function Button:init(window, onConfirm, enableCondition)
   GridWidget.init(self, window)
-  self.onConfirm = onConfirm or self.onConfirm 
-  self.onSelect = onSelect or self.onSelect
-  self.enableCondition = enableCondition or self.enableCondition
-  self.onMove = onMove or self.onMove
+  self.onConfirm = onConfirm or window.onButtonConfirm or self.onConfirm
+  self.onCancel = window.onButtonCancel or self.onCancel
+  self.onSelect = window.onButtonSelect or self.onSelect
+  self.onMove = window.onButtonMove or self.onMove
+  self.enableCondition = enableCondition or window.buttonEnabled or self.enableCondition
   self.confirmSound = Config.sounds.buttonConfirm
   self.cancelSound = Config.sounds.buttonCancel
   self.selectSound = Config.sounds.buttonSelect
@@ -41,7 +42,7 @@ end
 -- @param(key : string) action's key
 -- @ret(Button)
 function Button:fromKey(window, key)
-  local button = self(window, window[key .. 'Confirm'], window[key .. 'Select'], window[key .. 'Enabled'])
+  local button = self(window, window[key .. 'Confirm'], window[key .. 'Enabled'])
   local icon = Icons[key]
   if icon then
     button:createIcon(icon)

@@ -7,10 +7,6 @@ Responsible for storing and loading game saves.
 
 =================================================================================================]]
 
--- Imports
-local Troop = require('core/battle/Troop')
-local Inventory = require('core/battle/Inventory')
-
 local SaveManager = class()
 
 ---------------------------------------------------------------------------------------------------
@@ -62,6 +58,14 @@ function SaveManager:storeSave()
   self.current.playTime = self:getPlayTime()
   -- TODO: store file
   self.loadTime = love.timer.getTime()
+end
+
+---------------------------------------------------------------------------------------------------
+-- Troop Data
+---------------------------------------------------------------------------------------------------
+
+function SaveManager:currentTroop()
+  return Database.troops[self.current.playerTroopID]
 end
 
 return SaveManager

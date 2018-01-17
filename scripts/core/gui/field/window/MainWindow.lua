@@ -13,37 +13,25 @@ local GridWindow = require('core/gui/GridWindow')
 
 local MainWindow = class(GridWindow)
 
-function MainWindow:createButtons()
-  self:createButton('items')
-  self:createButton('skills')
-  self:createButton('states')
-  self:createButton('party')
-  self:createButton('config')
-  self:createButton('save')
-  self:createButton('quit')
+function MainWindow:createWidgets()
+  Button:fromKey(self, 'members')
+  Button:fromKey(self, 'formation')
+  Button:fromKey(self, 'config')
+  Button:fromKey(self, 'save')
+  Button:fromKey(self, 'quit')
 end
 
 ---------------------------------------------------------------------------------------------------
--- Character
+-- Buttons
 ---------------------------------------------------------------------------------------------------
 
-function MainWindow:itemsConfirm()
-  
+function MainWindow:membersConfirm()
+  self:hide()
+  self.GUI.membersWindow:show()
+  self.GUI.membersWindow:activate()
 end
 
-function MainWindow:skillsConfirm()
-  
-end
-
-function MainWindow:statesConfirm()
-  
-end
-
----------------------------------------------------------------------------------------------------
--- General
----------------------------------------------------------------------------------------------------
-
-function MainWindow:partyConfirm()
+function MainWindow:formationConfirm()
   
 end
 
@@ -72,5 +60,3 @@ function MainWindow:rowCount()
 end
 
 return MainWindow
-
-

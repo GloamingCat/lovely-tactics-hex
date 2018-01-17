@@ -23,8 +23,8 @@ local IntroWindow = class(GridWindow)
 -- Creates a button for each backup member.
 function IntroWindow:createWidgets()
   self:addButton('start')
-  self:addButton('party')
-  --Button:fromKey(self, 'members')
+  self:addButton('formation')
+  Button:fromKey(self, 'members')
 end
 -- Overriden to align text.
 function IntroWindow:addButton(key)
@@ -49,7 +49,7 @@ function IntroWindow:startConfirm(button)
   self.result = 1
 end
 -- When player chooses Party button.
-function IntroWindow:partyConfirm(button)
+function IntroWindow:formationConfirm(button)
   -- Executes action grid selecting.
   local action = PartyAction()
   local input = ActionInput(action, nil, nil, nil, self.GUI)
@@ -64,8 +64,8 @@ end
 -- When player chooses Items button.
 function IntroWindow:membersConfirm(button)
   self:hide()
-  -- TODO: choose member to manage
-  self:show()
+  self.GUI.membersWindow:show()
+  self.GUI.membersWindow:activate()
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -78,7 +78,7 @@ function IntroWindow:colCount()
 end
 -- Overrides GridWindow:rowCount.
 function IntroWindow:rowCount()
-  return 2
+  return 3
 end
 
 return IntroWindow

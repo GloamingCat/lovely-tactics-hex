@@ -40,7 +40,7 @@ function SkillWindow:createListButton(skill)
   local icon = skill.data.icon.id >= 0 and 
     ResourceManager:loadIconAnimation(skill.data.icon, GUIManager.renderer)
   -- Button
-  local button = Button(self, self.onButtonConfirm, self.onButtonSelect, self.buttonEnabled)
+  local button = Button(self)
   button:createIcon(icon)
   button:createText(skill.data.name, 'gui_medium')
   button.skill = skill

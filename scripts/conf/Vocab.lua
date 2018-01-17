@@ -1,14 +1,17 @@
 
 return {
   -- Main Window
-  items = 'Items',
-  equips = 'Equips',
-  skills = 'Skills',
-  states = 'States',
-  party = 'Party',
+  members = 'Characters',
+  formation = 'Formation',
   config = 'Settings',
   save = 'Save',
   quit = 'Quit',
+  
+  -- Member Window
+  items = 'Use Item',
+  equips = 'Equips',
+  skills = 'Use Skill',
+  stats = 'Stats',
   
   -- Equip Window
   empty = 'Empty',
