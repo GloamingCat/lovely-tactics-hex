@@ -52,11 +52,11 @@ end
 ---------------------------------------------------------------------------------------------------
 
 function MainWindow:colCount()
-  return 2
+  return 1
 end
 
 function MainWindow:rowCount()
-  return 4
+  return 5
 end
 
 return MainWindow

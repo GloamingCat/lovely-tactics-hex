@@ -26,7 +26,10 @@ function MainGUI:createWindows()
 end
 
 function MainGUI:createMainWindow()
-  self.mainWindow = MainWindow(self)
+  local w = MainWindow(self)
+  local m = self:windowMargin()
+  w:setXYZ((w.width - ScreenManager.width) / 2 + m, (w.height - ScreenManager.height) / 2 + m)
+  self.mainWindow = w
   self:setActiveWindow(self.mainWindow)
 end
 

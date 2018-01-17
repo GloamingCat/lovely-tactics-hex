@@ -146,7 +146,7 @@ end
 -- Gets the width of a single button.
 -- @ret(number) the width in pixels
 function GridWindow:buttonWidth()
-  return 55
+  return 70
 end
 -- Gets the height of a single button.
 -- @ret(number) the height in pixels
@@ -260,7 +260,6 @@ function GridWindow:onCancel()
     end
     button.onCancel(self, button)
   end
-  Window.onCancel(self)
 end
 -- Called when player moves cursor.
 function GridWindow:onMove(dx, dy)

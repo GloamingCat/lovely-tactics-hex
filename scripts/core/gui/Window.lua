@@ -135,7 +135,6 @@ function Window:resize(w, h)
     self:createContent(w, h)
   end
 end
-
 -- Window's skin.
 -- @ret(Image) 
 function Window:getSkin()

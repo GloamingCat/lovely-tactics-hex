@@ -7,6 +7,7 @@ MemberListWindow
 
 =================================================================================================]]
 
+local MemberGUI = require('core/gui/members/MemberGUI')
 local ListButtonWindow = require('core/gui/ListButtonWindow')
 --local MemberButton = require('core/gui/general/widget/MemberButton')
 local Button = require('core/gui/widget/Button')
@@ -25,7 +26,10 @@ function MemberListWindow:createListButton(member)
 end
 
 function MemberListWindow:onButtonConfirm(button)
-  print('Selected member', button.index)
+  self.GUI:hide()
+  local gui = MemberGUI(self.list, button.index)
+  GUIManager:showGUIForResult(gui)
+  self.GUI:show()
 end
 
 function MemberListWindow:onButtonCancel(button)
