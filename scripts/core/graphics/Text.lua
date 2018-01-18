@@ -41,7 +41,8 @@ local old_init = Text.init
 function Text:init(text, properties, renderer)
   old_init(self, renderer)
   self.maxWidth = properties[1]
-  self.align = properties[2] or self.align or 'left'
+  self.alignX = properties[2] or 'left'
+  self.alignY = 'top'
   self.defaultFont = properties[3] or defaultFont
   self.maxchar = properties[4]
   self.text = text
@@ -99,7 +100,7 @@ function Text:getWidth()
   local w = 0
   for i = 1, #self.lines do
     local line = self.lines[i]
-    w = max(w, line.buffer:getWidth() * self.scaleX)
+    w = max(w, line.buffer:getWidth() * self.scaleX / Fonts.scale)
   end
   return w
 end
@@ -109,37 +110,89 @@ function Text:getHeight()
   local h = 0
   for i = 1, #self.lines do
     local line = self.lines[i]
-    h = h + line.buffer:getHeight() / 1.5 * self.scaleY
+    h = h + line.buffer:getHeight() / 1.5 * self.scaleY / Fonts.scale
   end
   return h
 end
+
 function Text:getQuadBounds()
   return self:getWidth(), self:getHeight()
+end
+
+---------------------------------------------------------------------------------------------------
+-- Alignment
+---------------------------------------------------------------------------------------------------
+
+function Text:setMaxWidth(w)
+  if self.maxWidth ~= w then
+    self.maxWidth = w
+    if self.alignX ~= 'left' then
+      self.renderer.needsRedraw = true
+    end
+  end
+end
+
+function Text:setMaxHeight(h)
+  if self.maxHeight ~= h then
+    self.maxHeight = h
+    if self.alignY ~= 'top' then
+      self.renderer.needsRedraw = true
+    end
+  end
+end
+
+function Text:setAlignX(align)
+  if self.alignX ~= align then
+    self.alignX = align
+    self.renderer.needsRedraw = true
+  end
+end
+
+function Text:setAlignY(align)
+  if self.alignY ~= align then
+    self.alignY = align
+    self.renderer.needsRedraw = true
+  end
+end
+
+-- Gets the line offset in x according to the alingment.
+-- @param(w : number) line's width
+-- @ret(number) the x offset
+function Text:alignOffsetX(w)
+  if self.maxWidth then
+    if self.alignX == 'right' then
+      return self.maxWidth - w
+    elseif self.alignX == 'center' then
+      return (self.maxWidth - w) / 2
+    end
+  end
+  return 0
+end
+-- Gets the text offset in y according to the alingment.
+-- @param(h : number) text's height
+-- @ret(number) the y offset
+function Text:alignOffsetY(h)
+  h = h or self:getHeight()
+  if self.maxHeight then
+    if self.alignY == 'bottom' then
+      return self.maxHeight - h
+    elseif self.alignY == 'center' then
+      return (self.maxHeight - h) / 2
+    end
+  end
+  return 0
 end
 
 ---------------------------------------------------------------------------------------------------
 -- Draw in screen
 ---------------------------------------------------------------------------------------------------
 
--- Gets the line offset in x according to the alingment.
--- @param(w : number) line's width
--- @ret(number) the x offset
-function Text:alignOffset(w)
-  if self.maxWidth then
-    if self.align == 'right' then
-      return self.maxWidth - w
-    elseif self.align == 'center' then
-      return (self.maxWidth - w) / 2
-    end
-  end
-  return 0
-end
 -- Called when renderer is iterating through its rendering list.
 -- @param(renderer : Renderer)
 function Text:draw(renderer)
   renderer:clearBatch()
-  local x, y = 0, -1
   local sx, sy, lsx = self.scaleX / Fonts.scale, self.scaleY / Fonts.scale
+  local x, y = 0, self:alignOffsetY()
   local r, g, b, a
   for i = 1, #self.lines do
     local line = self.lines[i]
@@ -149,20 +202,12 @@ function Text:draw(renderer)
       x = -1
     else
       lsx = sx
-      x = self:alignOffset(w) - 1
+      x = self:alignOffsetX(w) - 1
     end
     r, g, b, a = lgraphics.getColor()
     lgraphics.setColor(self.color.red, self.color.green, self.color.blue, self.color.alpha)
     lgraphics.draw(line.buffer, line.quad, self.position.x + x, self.position.y + y, 
       self.rotation, lsx, sy, self.offsetX, self.offsetY)
-    --[[
-    if self.maxWidth then
-      lgraphics.rectangle('line', self.position.x -self.offsetX * sx, self.position.y - self.offsetY * sy, 
-        self.maxWidth, line.buffer:getHeight() * sy)
-    end
-    lgraphics.rectangle('line', self.position.x + x -self.offsetX * lsx, self.position.y + y - self.offsetY * sy, 
-      line.buffer:getWidth() * lsx, line.buffer:getHeight() * sy)
-    ]]
     lgraphics.setColor(r, g, b, a)
     y = y + line.height * sy
   end

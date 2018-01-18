@@ -55,16 +55,19 @@ function Button:fromKey(window, key)
 end
 -- @param(text : string) the text shown in the button
 -- @param(fontName : string) the text's font, from Fonts folder (optional, uses default)
-function Button:createText(text, fontName, align, w, pos)
+function Button:createText(name, fontName, align, w, pos)
   if self.text then
     self.text:destroy()
   end
   fontName = fontName or 'gui_button'
   w = (w or self.window:buttonWidth()) - self:iconWidth()
-  pos = pos or Vector(0, 1, 0)
-  self.text = SimpleText(text, pos, w, align or 'left', Fonts[fontName])
-  self.text.sprite:setColor(Color.gui_text_default)
-  self.content:add(self.text)
+  pos = pos or Vector(0, 0, 0)
+  local text = SimpleText(name, pos, w, align or 'left', Fonts[fontName])
+  text.sprite.alignY = 'center'
+  text.sprite.maxHeight = self.window:buttonHeight()
+  text.sprite:setColor(Color.gui_text_default)
+  self.text = text
+  self.content:add(text)
   return self.text
 end
 -- @param(info : string) the auxiliar info text in the right side of the button
@@ -75,9 +78,11 @@ function Button:createInfoText(info, fontName, align, w, pos)
   end
   local bw = self.window:buttonWidth() - self:iconWidth()
   w = w or bw
-  pos = pos or Vector(bw - w, 1, 0)
+  pos = pos or Vector(bw - w, 0, 0)
   fontName = fontName or 'gui_button'
   local text = SimpleText(info, pos, w, align or 'right', Fonts[fontName])
+  text.sprite.alignY = 'center'
+  text.sprite.maxHeight = self.window:buttonHeight()
   text.sprite:setColor(Color.gui_text_default)
   self.infoText = text
   self.content:add(text)

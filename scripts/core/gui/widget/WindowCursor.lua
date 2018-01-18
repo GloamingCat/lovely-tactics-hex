@@ -26,7 +26,7 @@ function WindowCursor:init(window)
   self.anim.sprite:setTransformation(animData.transform)
   self.anim.sprite:setVisible(false)
   local x, y, w, h = self.anim.sprite.quad:getViewport()
-  self.displacement = Vector(-w, 0)
+  self.displacement = Vector(-w, window:buttonHeight() / 2 - h / 2)
   window.content:add(self)
 end
 
