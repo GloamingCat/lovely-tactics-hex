@@ -37,7 +37,7 @@ function Window:init(GUI, width, height, position)
   Transformable.init(self, position)
   self.GUI = GUI
   self.speed = 10
-  self.spriteGrid = SpriteGrid(self:getSkin(), Vector(0, 0, 1))
+  self.spriteGrid = SpriteGrid(self:getSkin(), Vector(0, 0, 2))
   self.content = List()
   self.width = width
   self.height = height
@@ -136,7 +136,7 @@ function Window:resize(w, h)
   end
 end
 -- Window's skin.
--- @ret(Image) 
+-- @ret(table) 
 function Window:getSkin()
   return Database.animations[Config.animations.windowSkinID]
 end

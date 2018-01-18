@@ -21,10 +21,11 @@
 	"animations": {
 		"windowSkinID": 20,
 		"cursorID": 21,
-		"battleCursorID": 22,
-		"tileCursorID": 23,
-		"tileID": 24,
-		"balloonID": 25,
+    "highlightID": 22,
+		"battleCursorID": 23,
+		"tileCursorID": 24,
+		"tileID": 25,
+		"balloonID": 26,
     "sets": ["default", "battle", "sleep"]
 	},
 	"battle": {

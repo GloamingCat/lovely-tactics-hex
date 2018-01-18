@@ -65,7 +65,7 @@ function Button:createText(name, fontName, align, w, pos)
   local text = SimpleText(name, pos, w, align or 'left', Fonts[fontName])
   text.sprite.alignY = 'center'
   text.sprite.maxHeight = self.window:cellHeight()
-  text.sprite:setColor(Color.gui_text_default)
+  text.sprite:setColor(Color.gui_text_enabled)
   self.text = text
   self.content:add(text)
   return self.text
@@ -83,7 +83,7 @@ function Button:createInfoText(info, fontName, align, w, pos)
   local text = SimpleText(info, pos, w, align or 'right', Fonts[fontName])
   text.sprite.alignY = 'center'
   text.sprite.maxHeight = self.window:cellHeight()
-  text.sprite:setColor(Color.gui_text_default)
+  text.sprite:setColor(Color.gui_text_enabled)
   self.infoText = text
   self.content:add(text)
   return text
@@ -97,8 +97,8 @@ function Button:createIcon(icon)
     local img = love.graphics.newImage('images/' .. icon)
     icon = Animation:fromImage(img, GUIManager.renderer)
   end
+  icon.sprite:setColor(Color.gui_icon_enabled)
   self.icon = icon
-  icon.sprite:setColor(Color.gui_icon_default)
   self.content:add(icon)
 end
 
@@ -152,14 +152,7 @@ end
 
 -- Updates text and icon color based on button state.
 function Button:updateColor()
-  local name = 'disabled'
-  if self.enabled then
-    if self.selected then
-      name = 'highlight'
-    else
-      name = 'default'
-    end
-  end
+  local name = self.enabled and 'enabled' or 'disabled'
   if self.text then
     local color = Color['gui_text_' .. name]
     self.text.sprite:setColor(color)
@@ -207,7 +200,10 @@ function Button:updatePosition(windowPos)
     pos:add(Vector(w, 0))
   end
   for i = 1, #self.content do
-    self.content[i]:updatePosition(pos)
+    local c = self.content[i]
+    if c.updatePosition then
+      c:updatePosition(pos)
+    end
   end
 end
 

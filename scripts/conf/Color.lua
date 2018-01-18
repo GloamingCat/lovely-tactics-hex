@@ -25,16 +25,6 @@ return {
   tile_attack_off = {red = 255, green = 76, blue = 76, alpha = 102},
   tile_nothing_off = {red = 150, green = 150, blue = 150, alpha = 50},
 
-  -- GUI text colors
-  gui_text_default = {red = 255, green = 255, blue = 255, alpha = 255},
-  gui_text_disabled = {red = 100, green = 100, blue = 100, alpha = 153},
-  gui_text_highlight = babypink,
-
-  -- GUI icon colors
-  gui_icon_default = {red = 210, green = 210, blue = 210, alpha = 230},
-  gui_icon_disabled = {red = 127, green = 127, blue = 127, alpha = 127},
-  gui_icon_highlight = {red = 255, green = 255, blue = 255, alpha = 255},
-
   -- Battle heal/damagge pop-ups
   popup_dmghp = {red = 255, green = 255, blue = 127, alpha = 255},
   popup_dmgsp = {red = 255, green = 76, blue = 76, alpha = 255},
@@ -42,5 +32,12 @@ return {
   popup_healsp = {red = 76, green = 76, blue = 255, alpha = 255},
   popup_miss = {red = 204, green = 204, blue = 204, alpha = 255},
   popup_status_add = {red = 255, green = 255, blue = 255, alpha = 255},
-  popup_status_remove = {red = 255, green = 255, blue = 255, alpha = 255}
+  popup_status_remove = {red = 255, green = 255, blue = 255, alpha = 255},
+  
+  -- GUI
+  gui_text_enabled = {red = 255, green = 255, blue = 255, alpha = 255},
+  gui_text_disabled = {red = 200, green = 200, blue = 200, alpha = 200},
+  gui_icon_enabled = {red = 255, green = 255, blue = 255, alpha = 255},
+  gui_icon_disabled = {red = 200, green = 200, blue = 200, alpha = 200},
+  
 }

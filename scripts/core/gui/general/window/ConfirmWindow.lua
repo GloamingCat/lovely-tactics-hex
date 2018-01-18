@@ -21,8 +21,8 @@ local ConfirmWindow = class(GridWindow)
 
 -- Constructor.
 function ConfirmWindow:createWidgets()
-  self:createButton('confirm')
-  self:createButton('cancel')
+  Button:fromKey(self, 'confirm')
+  Button:fromKey(self, 'cancel')
 end
 -- Overrides GridWindow:colCount.
 function ConfirmWindow:colCount()

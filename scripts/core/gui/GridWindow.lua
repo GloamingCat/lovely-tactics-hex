@@ -14,6 +14,7 @@ local Vector = require('core/math/Vector')
 local Sprite = require('core/graphics/Sprite')
 local Button = require('core/gui/widget/Button')
 local WindowCursor = require('core/gui/widget/WindowCursor')
+local Highlight = require('core/gui/widget/Highlight')
 local VSlider = require('core/gui/widget/VSlider')
 local SimpleText = require('core/gui/widget/SimpleText')
 local Window = require('core/gui/Window')
@@ -38,6 +39,9 @@ function GridWindow:createContent(width, height)
   if not self.noCursor then
     self.cursor = WindowCursor(self)
   end
+  if not self.noHighlight then
+    self.highlight = Highlight(self)
+  end
   self.loopVertical = true
   self.loopHorizontal = true
   Window.createContent(self, width or self:calculateWidth(), height or self:calculateHeight())
@@ -56,6 +60,9 @@ function GridWindow:packWidgets()
   self:updateViewport(self.currentCol, self.currentRow)
   if self.cursor then
     self.cursor:updatePosition(self.position)
+  end
+  if self.highlight then
+    self.highlight:updatePosition(self.position)
   end
 end
 
@@ -79,9 +86,17 @@ function GridWindow:setActive(value)
       if self.cursor then
         self.cursor:show()
       end
+      if self.highlight then
+        self.highlight:show()
+      end
     else
-      if self.cursor and not (button and button.selected) then
-        self.cursor:hide()
+      if not (button and button.selected) then
+        if self.cursor then
+          self.cursor:hide()
+        end
+        if self.highlight then
+          self.highlight:hide()
+        end
       end
     end
   end
@@ -95,8 +110,13 @@ function GridWindow:showContent()
     if button.enabled then
       button.onSelect(self, button)
     end
-  elseif self.cursor then
-    self.cursor:hide()
+  else
+    if self.cursor then
+      self.cursor:hide()
+    end
+    if self.highlight then
+      self.highlight:hide()
+    end
   end
 end
 
@@ -163,13 +183,23 @@ end
 function GridWindow:setSelectedButton(button)
   if button then
     button:setSelected(true)
-    self.cursor:show()
+    if self.cursor then
+      self.cursor:show()
+    end
+    if self.highlight then
+      self.highlight:show()
+    end
   else
     button = self:currentButton()
     if button then
       button:setSelected(false)
     end
-    self.cursor:hide()
+    if self.cursor then
+      self.cursor:hide()
+    end
+    if self.highlight then
+      self.highlight:hide()
+    end
   end
 end
 
@@ -220,6 +250,9 @@ function GridWindow:onMove(dx, dy)
   self:updateViewport(c, r)
   if self.cursor then
     self.cursor:updatePosition(self.position)
+  end
+  if self.highlight then
+    self.highlight:updatePosition(self.position)
   end
 end
 

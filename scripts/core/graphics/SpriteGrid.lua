@@ -111,4 +111,10 @@ function SpriteGrid:destroy()
   end
 end
 
+function SpriteGrid:setVisible(value)
+  for i = 1, 9 do
+    self.slices[i]:setVisible(value)
+  end
+end
+
 return SpriteGrid

@@ -166,6 +166,11 @@ function Animation:destroy()
     self.sprite:destroy()
   end
 end
+-- Sets the sprite's visibility.
+-- @param(value : boolean)
+function Animation:setVisible(value)
+  self.sprite:setVisible(value)
+end
 -- Sets this animation as visible.
 function Animation:show()
   self.sprite:setVisible(true)
