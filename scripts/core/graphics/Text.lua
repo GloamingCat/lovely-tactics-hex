@@ -191,7 +191,7 @@ end
 function Text:draw(renderer)
   renderer:clearBatch()
   local sx, sy, lsx = self.scaleX / Fonts.scale, self.scaleY / Fonts.scale
-  local x, y = 0, self:alignOffsetY() + 1
+  local x, y = 0, self:alignOffsetY() - 0.5
   local r, g, b, a
   for i = 1, #self.lines do
     local line = self.lines[i]

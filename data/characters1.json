@@ -14,6 +14,18 @@
 							"height": 4 // The collision height
 						}
 					],
+          "portraits": {
+            "smallIcon": {
+              "id": 30,
+              "col": 0,
+              "row": 0
+            },
+            "bigIcon": {
+              "id": 31,
+              "col": 0,
+              "row": 0
+            }
+          },
 					"animations": {
 						"default": {
               "Idle": 70,
@@ -63,6 +75,18 @@
 							"height": 4
 						}
 					],
+          "portraits": {
+            "smallIcon": {
+              "id": 30,
+              "col": 1,
+              "row": 0
+            },
+            "bigIcon": {
+              "id": 31,
+              "col": 1,
+              "row": 0
+            }
+          },
 					"animations": {
 						"default": {
               "Idle": 70,

@@ -28,11 +28,7 @@ local SimpleImage = class()
 -- @param(h : number) max height of the image
 function SimpleImage:init(sprite, x, y, depth, w, h)
   self.sprite = sprite
-  if w then
-    assert(h, 'Image height is null.')
-    self:centerSpriteQuad(x, y, w, h)
-  elseif h then
-    assert(w, 'Image width is null.')
+  if w or h then
     self:centerSpriteQuad(x, y, w, h)
   else
     self.x = x
@@ -50,6 +46,8 @@ end
 -- Centers sprite inside the given rectangle.
 function SimpleImage:centerSpriteQuad(x, y, w, h)
   local px, py, pw, ph = self.sprite.quad:getViewport()
+  x, y = x or 0, y or 0
+  w, h = w or pw, h or ph
   local mw, mh = min(pw, w), min(ph, h)
   local mx, my = px + (pw - mw) / 2, py + (ph - mh) / 2
   self.sprite:setQuad(mx, my, mw, mh)

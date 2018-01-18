@@ -11,6 +11,8 @@ A button window that shows all the visibles members in the troop.
 local MemberGUI = require('core/gui/members/MemberGUI')
 local ListButtonWindow = require('core/gui/ListButtonWindow')
 local Button = require('core/gui/widget/Button')
+local MemberInfo = require('core/gui/general/widget/MemberInfo')
+local Vector = require('core/math/Vector')
 
 local MemberListWindow = class(ListButtonWindow)
 
@@ -31,7 +33,9 @@ end
 -- @ret(Button)
 function MemberListWindow:createListButton(member)
   local button = Button(self)
-  button:createText(member.key)
+  local w, h = self:cellWidth(), self:cellHeight()
+  local memberInfo = MemberInfo(member, w, h)
+  button.content:add(memberInfo)
 end
 
 ---------------------------------------------------------------------------------------------------

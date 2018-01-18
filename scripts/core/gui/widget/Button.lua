@@ -206,12 +206,8 @@ function Button:updatePosition(windowPos)
     self.icon.sprite:setXYZ(pos.x - x, pos.y + self.window:cellHeight() / 2, pos.z)
     pos:add(Vector(w, 0))
   end
-  pos.y = pos.y - 1.5
-  if self.text then
-    self.text:updatePosition(pos)
-  end
-  if self.infoText then
-    self.infoText:updatePosition(pos)
+  for i = 1, #self.content do
+    self.content[i]:updatePosition(pos)
   end
 end
 
