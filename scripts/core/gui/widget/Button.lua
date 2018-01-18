@@ -60,11 +60,11 @@ function Button:createText(name, fontName, align, w, pos)
     self.text:destroy()
   end
   fontName = fontName or 'gui_button'
-  w = (w or self.window:buttonWidth()) - self:iconWidth()
+  w = (w or self.window:cellWidth()) - self:iconWidth()
   pos = pos or Vector(0, 0, 0)
   local text = SimpleText(name, pos, w, align or 'left', Fonts[fontName])
   text.sprite.alignY = 'center'
-  text.sprite.maxHeight = self.window:buttonHeight()
+  text.sprite.maxHeight = self.window:cellHeight()
   text.sprite:setColor(Color.gui_text_default)
   self.text = text
   self.content:add(text)
@@ -76,13 +76,13 @@ function Button:createInfoText(info, fontName, align, w, pos)
   if self.infoText then
     self.infoText:destroy()
   end
-  local bw = self.window:buttonWidth() - self:iconWidth()
+  local bw = self.window:cellWidth() - self:iconWidth()
   w = w or bw
   pos = pos or Vector(bw - w, 0, 0)
   fontName = fontName or 'gui_button'
   local text = SimpleText(info, pos, w, align or 'right', Fonts[fontName])
   text.sprite.alignY = 'center'
-  text.sprite.maxHeight = self.window:buttonHeight()
+  text.sprite.maxHeight = self.window:cellHeight()
   text.sprite:setColor(Color.gui_text_default)
   self.infoText = text
   self.content:add(text)
@@ -203,7 +203,7 @@ function Button:updatePosition(windowPos)
   if self.icon then
     self.icon.sprite:setXYZ(0, 0)
     local x, y, w, h = self.icon.sprite:totalBounds()
-    self.icon.sprite:setXYZ(pos.x - x, pos.y + self.window:buttonHeight() / 2, pos.z)
+    self.icon.sprite:setXYZ(pos.x - x, pos.y + self.window:cellHeight() / 2, pos.z)
     pos:add(Vector(w, 0))
   end
   pos.y = pos.y - 1.5

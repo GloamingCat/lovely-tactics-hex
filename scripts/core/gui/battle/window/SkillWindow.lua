@@ -28,8 +28,8 @@ function SkillWindow:init(GUI, skillList)
   local m = GUI:windowMargin()
   local w = ScreenManager.width - GUI:windowMargin() * 2
   local h = ScreenManager.height * 4 / 5 - self:vPadding() * 2 - m * 3
-  self.fitRowCount = math.floor(h / self:buttonHeight())
-  local fith = self.fitRowCount * self:buttonHeight() + self:vPadding() * 2
+  self.fitRowCount = math.floor(h / self:cellHeight())
+  local fith = self.fitRowCount * self:cellHeight() + self:vPadding() * 2
   local pos = Vector(0, fith / 2 - ScreenManager.height / 2 + m / 2, 0)
   ListButtonWindow.init(self, skillList, GUI, w, h, pos)
 end

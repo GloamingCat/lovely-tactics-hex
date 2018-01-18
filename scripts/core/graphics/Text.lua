@@ -154,7 +154,6 @@ function Text:setAlignY(align)
     self.renderer.needsRedraw = true
   end
 end
-
 -- Gets the line offset in x according to the alingment.
 -- @param(w : number) line's width
 -- @ret(number) the x offset
@@ -192,7 +191,7 @@ end
 function Text:draw(renderer)
   renderer:clearBatch()
   local sx, sy, lsx = self.scaleX / Fonts.scale, self.scaleY / Fonts.scale
-  local x, y = 0, self:alignOffsetY()
+  local x, y = 0, self:alignOffsetY() + 1
   local r, g, b, a
   for i = 1, #self.lines do
     local line = self.lines[i]

@@ -17,9 +17,13 @@ local time = love.timer.getDelta
 
 local Pointer = class(Animation)
 
-local old_init = Pointer.init
+---------------------------------------------------------------------------------------------------
+-- Initialization
+---------------------------------------------------------------------------------------------------
+
+-- @param(...) parameters from Animation:init.
 function Pointer:init(...)
-  old_init(self, ...)
+  Animation.init(self, ...)
   local centerx = self.sprite.offsetX
   local centery = self.sprite.offsetY
   local dx = self.tags and tonumber(self.tags:get('dx')) or 0
@@ -37,10 +41,13 @@ function Pointer:init(...)
   self.sprite:setOffset(round(self.minx), round(self.miny))
 end
 
+---------------------------------------------------------------------------------------------------
+-- Update
+---------------------------------------------------------------------------------------------------
+
 -- Overrides Animation:update.
-local old_update = Pointer.update
 function Pointer:update()
-  old_update(self)
+  Animation.update(self)
   if self.paused or not self.frameDuration then
     return
   end

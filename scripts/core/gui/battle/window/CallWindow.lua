@@ -93,8 +93,8 @@ end
 -- Properties
 ---------------------------------------------------------------------------------------------------
 
--- Overrides GridWindow:buttonWidth.
-function CallWindow:buttonWidth()
+-- Overrides GridWindow:cellWidth.
+function CallWindow:cellWidth()
   return 70
 end
 -- Overrides GridWindow:colCount.

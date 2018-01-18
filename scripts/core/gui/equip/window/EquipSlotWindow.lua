@@ -38,7 +38,7 @@ end
 function EquipSlotWindow:createListButton(slot)
   for i = 1, slot.count do
     local button = Button(self)
-    local w = self:buttonWidth()
+    local w = self:cellWidth()
     button:createText(slot.name, 'gui_medium', 'left', w / 3)
     button:createInfoText(Vocab.empty, 'gui_medium', 'left', w / 3 * 2, Vector(w / 3, 1, 0))
     button.key = slot.key .. i
@@ -68,7 +68,8 @@ end
 ----------------------------------------------------------------------------------------------------
 
 function EquipSlotWindow:onButtonConfirm(button)
-  self:setSelectedButton(nil)
+  self:hide()
+  self.GUI.itemWindow:show()
   self.GUI.itemWindow:activate()
 end
 
@@ -76,7 +77,7 @@ function EquipSlotWindow:onButtonSelect(button)
   self.GUI.itemWindow:setSlot(button.key, button.slot)
 end
 
-function EquipSlotWindow:onCancel()
+function EquipSlotWindow:onButtonCancel()
   self.result = 0
 end
 -- Called when player presses "next" key.

@@ -36,14 +36,16 @@
 					"battlerID": -1,
 					// Member's position in the grid
 					"x": 2,
-					"y": 3
+					"y": 3,
+          "equipment": []
 				},
 				{
 					"key": "HeroMage",
 					"battlerID": -1,
 					"charID": 11,
 					"x": 4,
-					"y": 2
+					"y": 2,
+          "equipment": []
 				}
 			],
 			// Members that are currently not the grid, but may be put in it during battle or in a menu.
@@ -70,35 +72,40 @@
 					"battlerID": -1,
 					"charID": 20,
 					"x": 1,
-					"y": 3
+					"y": 3,
+          "equipment": []
 				},
 				{
 					"key": "",
 					"battlerID": -1,
 					"charID": 20,
 					"x": 3,
-					"y": 3
+					"y": 3,
+          "equipment": []
 				},
 				{
 					"key": "",
 					"battlerID": -1,
 					"charID": 20,
 					"x": 5,
-					"y": 3
+					"y": 3,
+          "equipment": []
 				},
 				{
 					"key": "",
 					"battlerID": -1,
 					"charID": 21,
 					"x": 2,
-					"y": 1
+					"y": 1,
+          "equipment": []
 				},
 				{
 					"key": "",
 					"battlerID": -1,
 					"charID": 21,
 					"x": 4,
-					"y": 1
+					"y": 1,
+          "equipment": []
 				}
 			],
 			"backup": [],

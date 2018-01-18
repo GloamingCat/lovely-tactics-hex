@@ -1,7 +1,7 @@
 
 --[[===============================================================================================
 
-CommandWindow
+MemberCommandWindow
 ---------------------------------------------------------------------------------------------------
 
 
@@ -15,32 +15,32 @@ local EquipGUI = require('core/gui/equip/EquipGUI')
 --local SkillGUI = require('core/gui/skill/SkillGUI')
 --local StatGUI = require('core/gui/stat/StatGUI')
 
-local CommandWindow = class(GridWindow)
+local MemberCommandWindow = class(GridWindow)
 
 ---------------------------------------------------------------------------------------------------
 -- Buttons
 ---------------------------------------------------------------------------------------------------
 
-function CommandWindow:createWidgets()
+function MemberCommandWindow:createWidgets()
   Button:fromKey(self, 'items')
   Button:fromKey(self, 'equips')
   Button:fromKey(self, 'skills')
   Button:fromKey(self, 'stats')
 end
 -- Items button.
-function CommandWindow:itemsConfirm()
+function MemberCommandWindow:itemsConfirm()
   --self:showGUI(ItemGUI)
 end
 -- Equips button.
-function CommandWindow:equipsConfirm()
+function MemberCommandWindow:equipsConfirm()
   self:showGUI(EquipGUI)
 end
 -- Skills button.
-function CommandWindow:skillsConfirm()
+function MemberCommandWindow:skillsConfirm()
   --self:showGUI(SkillGUI)
 end
 -- Stats button.
-function CommandWindow:statsConfirm()
+function MemberCommandWindow:statsConfirm()
   --self:showGUI(StatGUI)
 end
 
@@ -50,19 +50,17 @@ end
 
 -- Shows a sub GUI for the current member.
 -- @param(GUI : class)
-function CommandWindow:showGUI(GUI)
-  local y = self.GUI.commandWindow.height + self.GUI:windowMargin() * 2
-  local gui = GUI(self.GUI.member, y)
-  self.GUI.subGUI = gui
-  GUIManager:showGUIForResult(gui)
-  self.GUI.subGUI = nil
+function MemberCommandWindow:showGUI(GUI)
+  self.cursor:hide()
+  self.GUI:showSubGUI(GUI)
+  self.cursor:show()
 end
 -- Called when player presses "next" key.
-function CommandWindow:onNext()
+function MemberCommandWindow:onNext()
   self.GUI:nextMember()
 end
 -- Called when player presses "prev" key.
-function CommandWindow:onPrev()
+function MemberCommandWindow:onPrev()
   self.GUI:prevMember()
 end
 
@@ -71,12 +69,12 @@ end
 ---------------------------------------------------------------------------------------------------
 
 -- Overrides GridWindow:colCount.
-function CommandWindow:colCount()
+function MemberCommandWindow:colCount()
   return 2
 end
 -- Overrides GridWindow:rowCount.
-function CommandWindow:rowCount()
+function MemberCommandWindow:rowCount()
   return 2
 end
 
-return CommandWindow
+return MemberCommandWindow

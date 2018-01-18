@@ -101,70 +101,6 @@ function GridWindow:showContent()
 end
 
 ---------------------------------------------------------------------------------------------------
--- Properties
----------------------------------------------------------------------------------------------------
-
--- Columns of the button matrix.
--- @ret(number) the number of visible columns
-function GridWindow:colCount()
-  return 3
-end
--- Rows of the button matrix.
--- @ret(number) the number of visible lines
-function GridWindow:rowCount()
-  return 4
-end
--- Gets the number of rows that where actually occupied by buttons.
--- @ret(number) row count
-function GridWindow:actualRowCount()
-  return self.matrix.height
-end
--- Grid X-axis displacement.
--- @ret(number) displacement in pixels
-function GridWindow:gridX()
-  return 0
-end
--- Grid X-axis displacement.
--- @ret(number) displacement in pixels
-function GridWindow:gridY()
-  return 0
-end
--- Gets the total width of the window.
--- @ret(number) the window's width in pixels
-function GridWindow:calculateWidth()
-  local cols = self:colCount()
-  local buttons = cols * self:buttonWidth() + (cols - 1) * self:hButtonMargin()
-  return self:hPadding() * 2 + buttons + self:gridX()
-end
--- Gets the total height of the window.
--- @ret(number) the window's height in pixels
-function GridWindow:calculateHeight()
-  local rows = self:rowCount()
-  local buttons = rows * self:buttonHeight() + (rows - 1) * self:vButtonMargin()
-  return self:vPadding() * 2 + buttons + self:gridY()
-end
--- Gets the width of a single button.
--- @ret(number) the width in pixels
-function GridWindow:buttonWidth()
-  return 70
-end
--- Gets the height of a single button.
--- @ret(number) the height in pixels
-function GridWindow:buttonHeight()
-  return 15
-end
--- Gets the space between buttons in horizontal direction.
--- @ret(number) the space in pixels
-function GridWindow:hButtonMargin()
-  return 4
-end
--- Gets the space between buttons in vertical direction.
--- @ret(number) the space in pixels
-function GridWindow:vButtonMargin()
-  return 2
-end
-
----------------------------------------------------------------------------------------------------
 -- Buttons
 ---------------------------------------------------------------------------------------------------
 
@@ -394,6 +330,70 @@ function GridWindow:newViewport(newc, newr)
     r = newr - self:rowCount()
   end
   return c, r
+end
+
+---------------------------------------------------------------------------------------------------
+-- Properties
+---------------------------------------------------------------------------------------------------
+
+-- Columns of the button matrix.
+-- @ret(number) the number of visible columns
+function GridWindow:colCount()
+  return 3
+end
+-- Rows of the button matrix.
+-- @ret(number) the number of visible lines
+function GridWindow:rowCount()
+  return 4
+end
+-- Gets the number of rows that where actually occupied by buttons.
+-- @ret(number) row count
+function GridWindow:actualRowCount()
+  return self.matrix.height
+end
+-- Grid X-axis displacement.
+-- @ret(number) displacement in pixels
+function GridWindow:gridX()
+  return 0
+end
+-- Grid X-axis displacement.
+-- @ret(number) displacement in pixels
+function GridWindow:gridY()
+  return 0
+end
+-- Gets the total width of the window.
+-- @ret(number) the window's width in pixels
+function GridWindow:calculateWidth()
+  local cols = self:colCount()
+  local buttons = cols * self:cellWidth() + (cols - 1) * self:colMargin()
+  return self:hPadding() * 2 + buttons + self:gridX()
+end
+-- Gets the total height of the window.
+-- @ret(number) the window's height in pixels
+function GridWindow:calculateHeight()
+  local rows = self:rowCount()
+  local buttons = rows * self:cellHeight() + (rows - 1) * self:rowMargin()
+  return self:vPadding() * 2 + buttons + self:gridY()
+end
+-- Gets the width of a single cell.
+-- @ret(number) the width in pixels
+function GridWindow:cellWidth()
+  return 60
+end
+-- Gets the height of a single cell.
+-- @ret(number) the height in pixels
+function GridWindow:cellHeight()
+  return 12
+end
+-- Gets the space between columns.
+-- @ret(number) the space in pixels
+function GridWindow:colMargin()
+  return 6
+end
+-- Gets the space between rows.
+-- @ret(number) the space in pixels
+function GridWindow:rowMargin()
+  return 2
 end
 
 return GridWindow

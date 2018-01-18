@@ -69,6 +69,7 @@ end
 
 function EquipGUI:setMember(member)
   self.slotWindow:setMember(member)
+  self.itemWindow:setMember(member)
 end
 
 return EquipGUI

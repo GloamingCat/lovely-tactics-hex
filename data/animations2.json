@@ -42,8 +42,8 @@
 					"cols": 1,
 					"rows": 1,
 					"transform": {
-					  "offsetX": 0,
-					  "offsetY": 0,
+					  "offsetX": 6,
+					  "offsetY": 7,
 					  "offsetDepth": -2,
 					  "scaleX": 100,
 					  "scaleY": 100,
@@ -57,7 +57,7 @@
 					  "brightness": 100
 					},
 					"animation": {
-						"duration": 20,
+						"duration": 15,
 						"loop": 1,
 						"script": {
 							"path": "Pointer.lua",
@@ -68,7 +68,7 @@
 					"tags": [
 						{
 							"name": "dx",
-							"value": "2"
+							"value": "1"
 						}
 					]
 				}
@@ -100,7 +100,7 @@
 					  "brightness": 100
 					},
 					"animation": {
-						"duration": 20,
+						"duration": 15,
 						"loop": 1,
 						"script": {
 							"path": "Pointer.lua",
@@ -111,7 +111,7 @@
 					"tags": [
 						{
 							"name": "dy",
-							"value": "2"
+							"value": "1"
 						}
 					]
 				}

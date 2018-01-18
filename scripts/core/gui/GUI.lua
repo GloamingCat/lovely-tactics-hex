@@ -30,8 +30,9 @@ end
 function GUI:createWindows()
  -- Abstract.
 end
+-- @ret(number) Distance between windows
 function GUI:windowMargin()
-  return 6
+  return 4
 end
   
 ---------------------------------------------------------------------------------------------------

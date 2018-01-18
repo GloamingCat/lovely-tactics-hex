@@ -33,8 +33,8 @@ function Spinner:init(window, initValue, minValue, maxValue)
 end
 -- Creates arrows and value test.
 function Spinner:initContent(initValue)
-  local dx = self.window:buttonWidth()
-  local dy = self.window:buttonHeight() / 2
+  local dx = self.window:cellWidth()
+  local dy = self.window:cellHeight() / 2
   -- Left arrow icon
   local leftArrow = Image('images/GUI/Spinner/leftArrow.png')
   local leftArrowSprite = Sprite(GUIManager.renderer, leftArrow)
@@ -48,7 +48,7 @@ function Spinner:initContent(initValue)
   -- Value text in the middle
   self.value = initValue
   local textPos = Vector(leftArrow:getWidth(), 0)
-  local textWidth = self.window:buttonWidth() - leftArrow:getWidth() - rightArrow:getWidth() 
+  local textWidth = self.window:cellWidth() - leftArrow:getWidth() - rightArrow:getWidth() 
   self.valueText = SimpleText('' .. initValue, textPos, textWidth, 'center', Fonts.gui_button)
   -- Add to content list
   self.content:add(self.leftArrow)

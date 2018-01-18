@@ -41,9 +41,9 @@ function ListButtonWindow:overrideButtons(list)
   self:createWidgets()
 end
 -- Larger buttons.
-function ListButtonWindow:buttonWidth()
+function ListButtonWindow:cellWidth()
   local w = ScreenManager.width - self.GUI:windowMargin() * 2
-  return (w - self:hPadding() * 2 - self:hButtonMargin()) / 2
+  return (w - self:hPadding() * 2 - self:colMargin()) / 2
 end
 
 return ListButtonWindow

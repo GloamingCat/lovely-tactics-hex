@@ -1,21 +1,21 @@
 
 --[[===============================================================================================
 
-MemberWindow
+MemberInfoWindow
 ---------------------------------------------------------------------------------------------------
 A window that shows HP and MP of a troop member.
 
 =================================================================================================]]
 
 local Window = require('core/gui/Window')
-local MemberWindow = class(Window)
+local MemberInfoWindow = class(Window)
 
-function MemberWindow:createContent(...)
+function MemberInfoWindow:createContent(...)
   Window.createContent(self, ...)
 end
 
-function MemberWindow:setMember(member)
+function MemberInfoWindow:setMember(member)
   
 end
 
-return MemberWindow
+return MemberInfoWindow

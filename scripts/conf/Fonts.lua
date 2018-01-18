@@ -1,15 +1,15 @@
 
-local big_font = { 'FogSans', 'otf', 80 }
-local default_font = { 'FogSans', 'otf', 44 }
-local medium_font = { 'FogSans', 'otf', 38 }
-local small_font = { 'FogSans', 'otf', 32 }
-local fps_font = { 'FogSans', 'otf', 12 }
+local big_font = { 'FogSans', 'otf', 20 }
+local default_font = { 'FogSans', 'otf', 11 }
+local medium_font = { 'FogSans', 'otf', 9.5 }
+local small_font = { 'FogSans', 'otf', 8 }
+local fps_font = { 'FogSans', 'otf', 3 }
 
 return  {
   
   -- Fonts
   gui_default = default_font,
-  gui_button = default_font,
+  gui_button = medium_font,
   gui_dialogue = default_font,
   gui_small = small_font,
   gui_medium = medium_font,

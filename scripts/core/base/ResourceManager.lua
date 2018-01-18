@@ -135,7 +135,7 @@ function ResourceManager:loadFont(data)
   local key = path .. size
   local font = FontCache[key]
   if not font then
-    font = newFont('fonts/' .. path, size)
+    font = newFont('fonts/' .. path, size * Fonts.scale)
     FontCache[key] = font
   end
   return font
