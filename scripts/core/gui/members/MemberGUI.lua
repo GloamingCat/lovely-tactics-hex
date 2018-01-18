@@ -30,7 +30,7 @@ end
 -- Overrides GUI:createWindows.
 function MemberGUI:createWindows()
   self:createCommandWindow()
-  self:createMemberWindow()
+  self:createInfoWindow()
   self:setActiveWindow(self.commandWindow)
 end
 -- Creates the window with the commands for the chosen member.
@@ -41,12 +41,14 @@ function MemberGUI:createCommandWindow()
   self.commandWindow = window
 end
 -- Creates the window with the information of the chosen member.
-function MemberGUI:createMemberWindow()
+function MemberGUI:createInfoWindow()
   local w = ScreenManager.width - self.commandWindow.width - self:windowMargin() * 3
   local h = self.commandWindow.height
   local x = self.commandWindow.width + self:windowMargin() * 2 + w / 2 - ScreenManager.width / 2
   local y = (h - ScreenManager.height) / 2 + self:windowMargin()
-  self.memberWindow = MemberInfoWindow(self, w, h, Vector(x, y))
+  local member = self:currentMember()
+  print(member.battlerID, member.charID)
+  self.infoWindow = MemberInfoWindow(member, self, w, h, Vector(x, y))
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -74,7 +76,7 @@ end
 -- Refreshs current open windows to match the new selected member.
 function MemberGUI:refreshMember()
   local member = self:currentMember()
-  self.memberWindow:setMember(member)
+  self.infoWindow:setMember(member)
   if self.subGUI then
     self.subGUI:setMember(member)
   end
