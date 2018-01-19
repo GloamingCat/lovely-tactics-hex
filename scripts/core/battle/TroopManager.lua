@@ -117,10 +117,8 @@ end
 -- @param(partyID : number)
 function TroopManager:createBattler(character)
   if character.battlerID >= 0 and character.party >= 0 then
-    local battlerData = Database.battlers[character.battlerID]
     local troop = self.troops[character.party]
-    local save = troop.data.persistent and troop:getMemberData(character.key)
-    character.battler = Battler(battlerData, character, save)
+    character.battler = Battler(troop.base.battlers[character.key], character)
     local balloonAnim = Database.animations[balloonID]
     character.balloon = ResourceManager:loadAnimation(balloonAnim, FieldManager.renderer)
     character.balloon.sprite:setTransformation(balloonAnim.transform)

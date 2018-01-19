@@ -68,44 +68,39 @@
 			"items": [],
 			"current": [
 				{
-					"key": "",
+					"key": "1",
 					"battlerID": -1,
 					"charID": 20,
 					"x": 1,
-					"y": 3,
-          "equipment": []
+					"y": 3
 				},
 				{
-					"key": "",
+					"key": "2",
 					"battlerID": -1,
 					"charID": 20,
 					"x": 3,
-					"y": 3,
-          "equipment": []
+					"y": 3
 				},
 				{
-					"key": "",
+					"key": "3",
 					"battlerID": -1,
 					"charID": 20,
 					"x": 5,
-					"y": 3,
-          "equipment": []
+					"y": 3
 				},
 				{
-					"key": "",
+					"key": "4",
 					"battlerID": -1,
 					"charID": 21,
 					"x": 2,
-					"y": 1,
-          "equipment": []
+					"y": 1
 				},
 				{
-					"key": "",
+					"key": "5",
 					"battlerID": -1,
 					"charID": 21,
 					"x": 4,
-					"y": 1,
-          "equipment": []
+					"y": 1
 				}
 			],
 			"backup": [],

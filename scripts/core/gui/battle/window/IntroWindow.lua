@@ -10,7 +10,7 @@ Window that is shown in the beginning of the battle.
 -- Imports
 local Button = require('core/gui/widget/Button')
 local ActionGUI = require('core/gui/battle/ActionGUI')
-local PartyAction = require('core/battle/action/PartyAction')
+local FormationAction = require('core/battle/action/FormationAction')
 local ActionInput = require('core/battle/action/ActionInput')
 local GridWindow = require('core/gui/GridWindow')
 
@@ -28,15 +28,8 @@ function IntroWindow:createWidgets()
 end
 -- Overriden to align text.
 function IntroWindow:addButton(key)
-  local button = Button(self, self[key .. 'Confirm'], self[key .. 'Select'], self[key .. 'Enabled'])
-  local icon = Icons[key]
-  if icon then
-    button:createIcon(icon)
-  end
-  local text = Vocab[key]
-  if text then
-    button:createText(text, nil, 'center')
-  end
+  local button = Button:fromKey(self, key)
+  button.text.sprite:setAlignX('center')
   return button
 end
 
@@ -51,7 +44,7 @@ end
 -- When player chooses Party button.
 function IntroWindow:formationConfirm(button)
   -- Executes action grid selecting.
-  local action = PartyAction()
+  local action = FormationAction()
   local input = ActionInput(action, nil, nil, nil, self.GUI)
   input.party = TroopManager.playerParty
   action:onSelect(input)

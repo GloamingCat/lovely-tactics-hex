@@ -43,7 +43,7 @@ end
 -- Creates character cursor and stores troop's data.
 function TurnWindow:createContent(...)
   local troop = TurnManager:currentTroop()
-  self.backupBattlers = troop.backup
+  self.backupBattlers = troop.base.backup
   self.currentBattlers = troop:currentCharacters(true)
   ActionWindow.createContent(self, ...)
   self.userCursor = BattleCursor()

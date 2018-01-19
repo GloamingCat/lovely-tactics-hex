@@ -21,7 +21,7 @@ local baseDirection = 315 -- characters' direction at rotation 0
 local sizeX = Config.troop.width
 local sizeY = Config.troop.height
 
-local Troop = class(TroopBase)
+local Troop = class()
 
 ---------------------------------------------------------------------------------------------------
 -- Initialization
@@ -90,10 +90,10 @@ end
 -- @param(tile : ObjectTile) the tile the character will be put in
 -- @ret(Character) the newly created character for the member
 function Troop:callMember(key, tile)
-  local i = self:findMember(key, self.backup)
+  local i = self.base:findMember(key, self.base.backup)
   assert(i, 'Could not call member ' .. key .. ': not in backup list.')
-  local member = self.backup:remove(i)
-  self.current:add(member)
+  local member = self.base.backup:remove(i)
+  self.base.current:add(member)
   local dir = self:getCharacterDirection()
   local character = TroopManager:createCharacter(tile, dir, member, self.party)
   TroopManager:createBattler(character)
@@ -102,13 +102,10 @@ end
 -- Removes a member character.
 -- @param(char : Character)
 function Troop:removeMember(char)
-  local i = self:findMember(char.key, self.current)
+  local i = self.base:findMember(char.key, self.base.current)
   assert(i, 'Could not remove member ' .. char.key .. ': not in current list.')
-  local member = self.current:remove(i)
-  self.backup:add(member)
-  if self.data.persistent then
-    self:setMemberData(char.key, char.battler:createPersistentData())
-  end
+  local member = self.base.current:remove(i)
+  self.base.backup:add(member)
   TroopManager:removeCharacter(char)
 end
 -- Gets the characters in the field that are in this troop.

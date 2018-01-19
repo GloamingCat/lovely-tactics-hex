@@ -49,7 +49,7 @@ function BattleGUI:createSkillWindow()
 end
 -- Creates window to use item.
 function BattleGUI:createItemWindow()
-  local inventory = TurnManager:currentTroop().inventory
+  local inventory = TurnManager:currentTroop().base.inventory
   local itemList = inventory:getUsableItems(1)
   if #itemList > 0 then
     self.itemWindow = ItemWindow(self, inventory, itemList)

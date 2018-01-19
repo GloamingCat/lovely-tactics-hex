@@ -29,11 +29,13 @@ local Battler = class(BattlerBase)
 -- @param(data : table) battler's data rom database
 -- @param(character : Character)
 -- @param(troop : Troop)
-function Battler:init(base, character, save)
+function Battler:init(base, character)
+  self.key = base.key
   self.party = character.party
   self.character = character
   self.base = base
   -- Base data
+  self.data = base.data
   self.att = base.att
   self.attBase = base.attBase
   self.state = base.state
@@ -44,8 +46,11 @@ function Battler:init(base, character, save)
   self.attackSkill = base.attackSkill
   self.skillList = base.skillList
   self.statusList = base.statusList
+  self.inventory = base.inventory
+  self.equipment = base.equipment
+  self.elementFactors = base.elementFactors
   -- Initialize AI
-  local ai = data.scriptAI
+  local ai = base.data.scriptAI
   if ai.path ~= '' then
     self.AI = require('custom/ai/battler/' .. ai.path)(self, ai.param)
   else

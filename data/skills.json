@@ -22,12 +22,12 @@
 			"userAnim": {
 				"load": "",
 				"cast": "Item",
-				"stepOnCast": true
+				"stepOnCast": false
 			},
 			"battleAnim": {
 				"loadID": -1,
 				"castID": -1,
-				"individualID": 5,
+				"individualID": 17,
 				"mirror": true
 			},
       "damageAnim": true,

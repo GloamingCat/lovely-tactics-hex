@@ -27,7 +27,7 @@
 			"userAnim": {
 				"load": "Load",
 				"cast": "Skill2",
-				"stepOnCast": true
+				"stepOnCast": false
 			},
 			"battleAnim": {
 				"loadID": 14,

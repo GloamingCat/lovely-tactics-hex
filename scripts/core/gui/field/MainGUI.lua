@@ -10,7 +10,7 @@ The GUI that is openned when player presses the menu button in the field.
 -- Imports
 local GUI = require('core/gui/GUI')
 local MainWindow = require('core/gui/field/window/MainWindow')
-local MemberListWindow = require('core/gui/general/window/MemberListWindow')
+local MemberListWindow = require('core/gui/members/window/MemberListWindow')
 local TroopBase = require('core/battle/TroopBase')
 
 local MainGUI = class(GUI)

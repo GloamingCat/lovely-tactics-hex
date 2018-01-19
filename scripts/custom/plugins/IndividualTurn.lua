@@ -89,10 +89,10 @@ end
 ---------------------------------------------------------------------------------------------------
 
 -- Override.
-local Battler_createStateValues = Battler.createStateValues
-function Battler:createStateValues(...)
+local Battler_init = Battler.init
+function Battler:init(...)
   self.turnCount = 0
-  Battler_createStateValues(self, ...)
+  Battler_init(self, ...)
 end
 -- Increments turn count by the turn attribute.
 -- @param(time : number) a multiplier to the step (used for time bar animation)
@@ -125,12 +125,12 @@ end
 ---------------------------------------------------------------------------------------------------
 
 -- Override.
-function StatusList:onTurnStart(partyTurn)
+function StatusList:onTurnStart(...)
   local i = 1
   while i <= self.size do
     local status = self[i]
     status.state.lifeTime = status.state.lifeTime + _G.TurnManager.iterations
-    status:onTurnStart(partyTurn)
+    status:onTurnStart(...)
     if status.state.lifeTime > status.duration * turnLimit then
       self:removeStatus(status)
     else

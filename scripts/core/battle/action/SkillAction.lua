@@ -231,7 +231,7 @@ function SkillAction:calculateEffectResults(user, target, rand)
       points[#points + 1] = { value = r,
         key = self.effects[i].key,
         heal = self.effects[i].heal,
-        absord = self.effects[i].absorb }
+        absorb = self.effects[i].absorb }
       dmg = dmg or not self.effects[i].heal
     end
   end

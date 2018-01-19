@@ -85,7 +85,8 @@ end
 function MemberGUI:currentMember()
   return self.members[self.memberID]
 end
-
+-- Overrides GUI:hide.
+-- Saves troop modifications.
 function MemberGUI:hide(...)
   self.troop:storeSave()
   GUI.hide(self, ...)
