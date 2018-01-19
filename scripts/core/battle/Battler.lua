@@ -29,10 +29,21 @@ local Battler = class(BattlerBase)
 -- @param(data : table) battler's data rom database
 -- @param(character : Character)
 -- @param(troop : Troop)
-function Battler:init(data, character, save)
+function Battler:init(base, character, save)
   self.party = character.party
   self.character = character
-  BattlerBase.init(self, character.key, data, save)
+  self.base = base
+  -- Base data
+  self.att = base.att
+  self.attBase = base.attBase
+  self.state = base.state
+  self.jumpPoints = base.jumpPoints
+  self.maxSteps = base.maxSteps
+  self.mhp = base.mhp
+  self.msp = base.msp
+  self.attackSkill = base.attackSkill
+  self.skillList = base.skillList
+  self.statusList = base.statusList
   -- Initialize AI
   local ai = data.scriptAI
   if ai.path ~= '' then
@@ -40,6 +51,10 @@ function Battler:init(data, character, save)
   else
     self.AI = nil
   end
+end
+
+function Battler:fromData(data, character, save)
+  local base = BattlerBase(character.key, data, save)
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -115,7 +130,7 @@ function Battler:onTurnStart(partyTurn)
   if self.AI and self.AI.onTurnStart then
     self.AI:onTurnStart(partyTurn)
   end
-  self.statusList:callback('TurnStart', partyTurn)
+  self.statusList:callback('TurnStart', self, partyTurn)
   if partyTurn then
     self.steps = self.maxSteps()
   end
@@ -125,15 +140,15 @@ function Battler:onTurnEnd(partyTurn)
   if self.AI and self.AI.onTurnEnd then
     self.AI:onTurnEnd(partyTurn)
   end
-  self.statusList:callback('TurnEnd', partyTurn)
+  self.statusList:callback('TurnEnd', self, partyTurn)
 end
 -- Callback for when this battler's turn starts.
-function Battler:onSelfTurnStart()
-  self.statusList:callback('SelfTurnStart')
+function Battler:onSelfTurnStart(char)
+  self.statusList:callback('SelfTurnStart', char)
 end
 -- Callback for when this battler's turn ends.
-function Battler:onSelfTurnEnd(result)
-  self.statusList:callback('SelfTurnEnd', result)
+function Battler:onSelfTurnEnd(char, result)
+  self.statusList:callback('SelfTurnEnd', char, result)
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -162,21 +177,21 @@ end
 -- @param(path : Path) the path that the battler just walked
 function Battler:onMove(path)
   self.steps = self.steps - path.totalCost
-  self.statusList:callback('Move', path)
+  self.statusList:callback('Move', self, path)
 end
 -- Callback for when the battle ends.
-function Battler:onBattleStart(char)
+function Battler:onBattleStart()
   if self.AI and self.AI.onBattleStart then
-    self.AI:onBattleStart(char)
+    self.AI:onBattleStart(self)
   end
-  self.statusList:callback('BattleStart', char)
+  self.statusList:callback('BattleStart', self)
 end
 -- Callback for when the battle ends.
-function Battler:onBattleEnd(char)
+function Battler:onBattleEnd()
   if self.AI and self.AI.onBattleEnd then
-    self.AI:BattleEnd(char)
+    self.AI:BattleEnd(self)
   end
-  self.statusList:callback('BattleEnd', char)
+  self.statusList:callback('BattleEnd', self)
 end
 
 return Battler

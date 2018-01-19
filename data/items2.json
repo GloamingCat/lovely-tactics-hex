@@ -1,0 +1,41 @@
+[
+  {
+    "name": "Weapons",
+    "children": [
+      {
+        "name": "Scythe",
+				"data": {
+					"id": 20,
+					"description": "Adds 5ATKP and 10ATKM.",
+					"icon": {
+						"id": 41,
+						"col": 0,
+						"row": 0
+					},
+					"price": 150,
+					"sellable": true,
+					"equip": {
+						"type": 1,
+						"status": [],
+						"attributes": [
+              {
+                "key": "atkp",
+                "value": "5"
+              },
+              {
+                "key": "atkm",
+                "value": "10"
+              }
+            ]
+					},
+					"tags": [
+						{
+							"name": "weight",
+							"value": "100"
+						}
+					]
+				}
+      }
+    ]
+  }
+]

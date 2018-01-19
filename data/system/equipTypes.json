@@ -1,32 +1,42 @@
 [
 	{
-		"name": "Green Orb",
-		"key": "gorb",
-		"count": 3,
+		"name": "Hand",
+		"key": "hand",
+		"count": 2,
+    // 0 => free
+    // 1 => at least one equipped
+    // 2 => all equipped
+    // 3 => cannot change
+    // 4 => invisible
+    "state": 1,
 		"tags": []
 	},
-	{
-		"name": "Purple Orb",
-		"key": "porb",
-		"count": 3,
-		"tags": []
-	},
-	{
-		"name": "Orange Orb",
-		"key": "oorb",
-		"count": 3,
-		"tags": []
-	},
-	{
-		"name": "Silver Orb",
-		"key": "sorb",
-		"count": 3,
-		"tags": []
-	},
-	{
-		"name": "Black Orb",
-		"key": "borb",
-		"count": 3,
-		"tags": []
-	}
+  {
+    "name": "Body",
+    "key": "body",
+    "count": 1,
+    "state": 0,
+    "tags": []
+  },
+  {
+    "name": "Head",
+    "key": "head",
+    "count": 1,
+    "state": 0,
+    "tags": []
+  },
+  {
+    "name": "Legs",
+    "key": "legs",
+    "count": 1,
+    "state": 0,
+    "tags": []
+  },
+  {
+    "name": "Accessory",
+    "key": "accessory",
+    "count": 4,
+    "state": 0,
+    "tags": []
+  }
 ]

@@ -11,7 +11,7 @@ The GUI that is openned when player presses the menu button in the field.
 local GUI = require('core/gui/GUI')
 local MainWindow = require('core/gui/field/window/MainWindow')
 local MemberListWindow = require('core/gui/general/window/MemberListWindow')
-local Troop = require('core/battle/Troop')
+local TroopBase = require('core/battle/TroopBase')
 
 local MainGUI = class(GUI)
 
@@ -21,6 +21,7 @@ local MainGUI = class(GUI)
 
 function MainGUI:createWindows()
   self.name = 'Main GUI'
+  self.troop = TroopBase()
   self:createMainWindow()
   self:createMembersWindow()
 end
@@ -34,7 +35,6 @@ function MainGUI:createMainWindow()
 end
 
 function MainGUI:createMembersWindow()
-  self.troop = Troop(SaveManager:currentTroop())
   self.membersWindow = MemberListWindow(self.troop, self)
   self.membersWindow:setVisible(false)
 end

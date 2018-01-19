@@ -8,9 +8,11 @@ A button window that shows all the visibles members in the troop.
 =================================================================================================]]
 
 -- Imports
-local MemberGUI = require('core/gui/members/MemberGUI')
-local ListButtonWindow = require('core/gui/ListButtonWindow')
+local BattlerBase = require('core/battle/BattlerBase')
 local Button = require('core/gui/widget/Button')
+local List = require('core/datastruct/List')
+local ListButtonWindow = require('core/gui/ListButtonWindow')
+local MemberGUI = require('core/gui/members/MemberGUI')
 local MemberInfo = require('core/gui/general/widget/MemberInfo')
 local Vector = require('core/math/Vector')
 
@@ -24,17 +26,18 @@ local MemberListWindow = class(ListButtonWindow)
 -- @param(troop : TroopBase)
 -- @param(...) parameters from ListButtonWindow:init
 function MemberListWindow:init(troop, ...)
-  local list = troop:visibleMembers()
-  ListButtonWindow.init(self, list, ...)
+  self.troop = troop
+  local memberList = troop:visibleMembers()
+  ListButtonWindow.init(self, memberList, ...)
 end
 -- Overrides ListButtonWindow:createListButton.
 -- Creates a button for the given member.
 -- @param(member : table)
 -- @ret(Button)
-function MemberListWindow:createListButton(member)
+function MemberListWindow:createListButton(battler)
   local button = Button(self)
   local w, h = self:cellWidth(), self:cellHeight()
-  local memberInfo = MemberInfo(member, w, h)
+  local memberInfo = MemberInfo(battler, w, h)
   button.content:add(memberInfo)
 end
 
@@ -47,7 +50,7 @@ end
 -- @param(button : Button)
 function MemberListWindow:onButtonConfirm(button)
   self.GUI:hide()
-  local gui = MemberGUI(self.list, button.index)
+  local gui = MemberGUI(self.troop, self.list, button.index)
   GUIManager:showGUIForResult(gui)
   self.GUI:show()
 end

@@ -22,6 +22,7 @@ local EquipGUI = class(GUI)
 ---------------------------------------------------------------------------------------------------
 
 function EquipGUI:init(memberGUI, y)
+  self.troop = memberGUI.troop
   self.memberGUI = memberGUI
   self.name = 'Equip GUI'
   self.initY = y

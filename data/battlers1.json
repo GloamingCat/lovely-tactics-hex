@@ -35,6 +35,12 @@
       },
       "skills": [],
       "items": [],
+      "equipment": {
+        "hand1": {
+          "id": 20
+          "state": 1
+        }
+      },
       "elements": [],
       "tags": []
     }
@@ -76,7 +82,7 @@
       "skills": [12, 20],
       "items": [
         {
-          "id": 1,
+          "id": 10,
           "count": 3,
           "rate": 100
         }

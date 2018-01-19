@@ -20,28 +20,29 @@ local TroopBase = class()
 ---------------------------------------------------------------------------------------------------
 
 -- Constructor.
--- @param(data : table) troop's data from database
+-- @param(data : table) troop's data from database (player's by default)
 function TroopBase:init(data)
+  data = data or Database.troops[SaveManager.current.playerTroopID]
   self.data = data
+  self.tags = TagMap(data.tags)
   local save = SaveManager.current.troops[data.id] or data
-  if self.data.persistent then
-    self.current = List(save.current)
-    self.backup = List(save.backup)
-    self.hidden = List(save.hidden)
-  else
-    self.current = List(util.table.deepCopy(save.current))
-    self.backup = List(util.table.deepCopy(save.backup))
-    self.hidden = List(util.table.deepCopy(save.hidden))
-  end
+  self.save = save
   self.inventory = Inventory(save.items)
   self.gold = save.gold
-  -- Member data table
-  self.memberData = {}
-  self:setMembersData(self.current, true)
-  self:setMembersData(self.backup, true)
-  self:setMembersData(self.hidden)
-   -- Tags
-  self.tags = TagMap(data.tags)
+  self.battlers = {}
+  self.current = self:createBattlerList(save.current, true)
+  self.backup = self:createBattlerList(save.backup, true)
+  self.hidden = self:createBattlerList(save.hidden)
+end
+
+function TroopBase:createBattlerList(memberList, init)
+  local list = List()
+  for i = 1, #memberList do
+    local battler = BattlerBase(memberList[i])
+    list:add(battler)
+    self.battlers[memberList[i].key] = battler
+  end
+  return list
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -86,54 +87,8 @@ end
 -- Persistent Data
 ---------------------------------------------------------------------------------------------------
 
--- Gets the data from the member with the given key.
--- @param(key : string) member's key
--- @ret(table)
-function TroopBase:getMemberData(key)
-  if self.data.persistent then
-    return self.memberData[key].data
-  end
-end
--- Sets the data of the member with the given key.
--- @param(key : string) member's key
--- @param(data : table)
-function TroopBase:setMemberData(key, data)
-  if self.data.persistent then
-    self.memberData[key].data = data
-  end
-end
--- Gets the list of members' data
--- param(arr : table) array of members
-function TroopBase:getMembersData(arr)
-  local data = {}
-  for i = 1, #arr do
-    local member = arr[i]
-    data[i] = self.memberData[member.key] or member
-  end
-  return data
-end
--- Stores members' data in the member's persistent data table.
--- @param(arr : table) array of members
-function TroopBase:setMembersData(arr, init)
-  for i = 1, #arr do
-    local member = arr[i]
-    self.memberData[member.key] = member
-    if init and not member.data then
-      member.data = self:newMemberData(member)
-    end
-  end
-end
--- Creates the initial persistent data for the given member.
--- @param(member : table) member's data from troop
--- @ret(table) member's persistent data to save
-function TroopBase:newMemberData(member)
-  local battlerID = member.battlerID
-  if battlerID < 0 then
-    local char = Database.characters[member.charID]
-    battlerID = char.battlerID
-  end
-  local battler = BattlerBase(member.key, Database.battlers[battlerID])
-  return battler:createPersistentData()
+function TroopBase:storeSave()
+  SaveManager.current.troops[self.data.id] = self:createPersistentData(true)
 end
 -- Creates the table to represent troop's persistent data.
 -- @param(saveFormation : boolean) true to saves modified grid formation (optional)
@@ -146,13 +101,23 @@ function TroopBase:createPersistentData(saveFormation)
   data.gold = self.gold
   data.items = self.inventory:getState()
   if saveFormation then
-    data.current = self:getMembersData(self.current)
-    data.backup = self:getMembersData(self.backup)
-    data.hidden = self:getMembersData(self.hidden)
+    data.current = self:createDataList(self.current)
+    data.backup = self:createDataList(self.backup)
+    data.hidden = self:createDataList(self.hidden)
   else
-    data.current = self:getMembersData(self.data.current)
-    data.backup = self:getMembersData(self.data.backup)
-    data.hidden = self:getMembersData(self.data.hidden)
+    data.current = self:createDataList(self.save.current)
+    data.backup = self:createDataList(self.save.backup)
+    data.hidden = self:createDataList(self.save.hidden)
+  end
+  return data
+end
+-- @param(arr : table) list of BattlerBase
+-- @ret(table) array of save data tables
+function TroopBase:createDataList(arr)
+  local data = {}
+  for i = 1, #arr do
+    local battler = arr[i]
+    data[i] = self.battlers[battler.key]:createPersistentData()
   end
   return data
 end

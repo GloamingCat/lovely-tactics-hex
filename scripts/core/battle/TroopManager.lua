@@ -243,18 +243,11 @@ end
 ---------------------------------------------------------------------------------------------------
 
 function TroopManager:saveTroops()
-  -- Store member data in troops
-  for char in self.characterList:iterator() do
-    local troop = self.troops[char.party]
-    if troop.data.persistent then
-      troop:setMemberData(char.key, char.battler:createPersistentData())
-    end
-  end
   -- Store troop data in save
   for i = 1, #self.troops do
     local troop = self.troops[i]
     if troop.data.persistent then
-      SaveManager.current.troops[troop.data.id] = troop:createPersistentData()
+      SaveManager.current.troops[troop.data.id] = troop.base:createPersistentData()
     end
   end
 end

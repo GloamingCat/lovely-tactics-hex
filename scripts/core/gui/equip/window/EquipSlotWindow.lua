@@ -23,6 +23,7 @@ local EquipSlotWindow = class(ListButtonWindow)
 -- Initialization
 ---------------------------------------------------------------------------------------------------
 
+-- @param(GUI : EquipGUI) que parent GUI
 function EquipSlotWindow:init(GUI)
   self.visibleRowCount = 0
   for i = 1, #Config.equipTypes do
@@ -45,38 +46,41 @@ function EquipSlotWindow:createListButton(slot)
     button.slot = slot
   end
 end
-
+-- @param(member : table) table with charID, battlerID and save data
+-- @param(battler : BattlerBase)
 function EquipSlotWindow:setMember(member)
   self.member = member
+  self:refreshSlots()
+end
+
+function EquipSlotWindow:refreshSlots()
   for i = 1, #self.matrix do
     local button = self.matrix[i]
-    local slot = self.member.data.equipment[button.key]
+    local slot = self.member.equipment[button.key]
     local name = Vocab.empty
     if slot and slot.id >= 0 then
       local item = Database.items[slot.id]
       name = item.name
     end
     button:setInfoText(name)
-    button:setEnabled(slot.freedom ~= 0)
+    button:setEnabled(slot.state <= 2)
   end
-  local button = self:currentButton()
-  self.GUI.itemWindow:setSlot(button.key, button.slot)
 end
 
 ----------------------------------------------------------------------------------------------------
 -- Button callbacks
 ----------------------------------------------------------------------------------------------------
 
+-- Called when player presses "confirm".
+-- Open item window to choose the new equip.
 function EquipSlotWindow:onButtonConfirm(button)
   self:hide()
+  self.GUI.itemWindow:setSlot(button.key, button.slot)
   self.GUI.itemWindow:show()
   self.GUI.itemWindow:activate()
 end
-
-function EquipSlotWindow:onButtonSelect(button)
-  self.GUI.itemWindow:setSlot(button.key, button.slot)
-end
-
+-- Called when player presses "cancel".
+-- Closes GUI.
 function EquipSlotWindow:onButtonCancel()
   self.result = 0
 end
@@ -101,7 +105,7 @@ end
 function EquipSlotWindow:rowCount()
   return self.visibleRowCount
 end
-
+-- String representation (for debugging).
 function EquipSlotWindow:__tostring()
   return 'EquipSlotWindow'
 end

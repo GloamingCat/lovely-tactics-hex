@@ -8,18 +8,18 @@ Manipulates the matrix of battler IDs to the instatiated in the beginning of the
 =================================================================================================]]
 
 -- Imports
+local Battler = require('core/battle/Battler')
 local List = require('core/datastruct/List')
 local Matrix2 = require('core/math/Matrix2')
-local Battler = require('core/battle/Battler')
 local TroopBase = require('core/battle/TroopBase')
 
 -- Alias
 local mod = math.mod
 
 -- Constants
+local baseDirection = 315 -- characters' direction at rotation 0
 local sizeX = Config.troop.width
 local sizeY = Config.troop.height
-local baseDirection = 315 -- characters' direction at rotation 0
 
 local Troop = class(TroopBase)
 
@@ -31,18 +31,20 @@ local Troop = class(TroopBase)
 -- @param(data : table) troop's data from database
 -- @param(party : number) the number of the field party spot this troops was spawned in
 function Troop:init(data, party)
-  TroopBase.init(self, data)
+  local base = TroopBase(data)
+  self.data = data
+  self.base = base
   self.party = party
   -- Grid
   self.grid = Matrix2(sizeX, sizeY)
-  for i = 1, #data.current do
-    local member = data.current[i]
+  for i = 1, #base.data.current do
+    local member = base.data.current[i]
     self.grid:set(member, member.x, member.y)
   end
   -- Rotation
   self.rotation = 0
   -- AI
-  local ai = data.scriptAI
+  local ai = base.data.scriptAI
   if ai.path ~= '' then
     self.AI = require('custom/' .. ai.path)(self)
   end
@@ -143,14 +145,14 @@ end
 -- Adds the troop's rewards (money).
 -- @param(enemy : Character)
 function Troop:addTroopRewards(enemy)
-  self.gold = self.gold + enemy.battler.data.gold
+  self.base.gold = self.base.gold + enemy.battler.data.gold
 end
 -- Adds each troop member's rewards (experience).
 -- @param(enemy : Character)
 function Troop:addMembersRewards(enemy, characters)
   characters = characters or self:currentCharacters(true)
   for char in characters:iterator() do
-    char.battler:addExperience(enemy.battler.data.exp)
+    char.battler.base:addExperience(enemy.battler.data.exp)
   end
 end
 

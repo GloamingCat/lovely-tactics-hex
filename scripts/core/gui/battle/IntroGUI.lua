@@ -19,8 +19,13 @@ local IntroGUI = class(GUI)
 -- Initialization
 ---------------------------------------------------------------------------------------------------
 
-function IntroGUI:createWindows()
+function IntroGUI:init(...)
   self.name = 'Intro GUI'
+  self.troop = Troop(SaveManager:currentTroop())
+  GUI.init(self, ...)
+end
+
+function IntroGUI:createWindows()
   self:createMainWindow()
   self:createMembersWindow()
 end
@@ -32,7 +37,6 @@ function IntroGUI:createMainWindow()
 end
 
 function IntroGUI:createMembersWindow()
-  self.troop = Troop(SaveManager:currentTroop())
   self.membersWindow = MemberListWindow(self.troop, self)
   self.membersWindow:setVisible(false)
 end

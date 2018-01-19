@@ -27,6 +27,7 @@ local StatusList = class(List)
 function StatusList:init(battler, initialStatus)
   List.init(self)
   self.battler = battler
+  self.equip = {}
   if initialStatus then
     for i = 1, #initialStatus do
       local s = initialStatus[i]
@@ -37,6 +38,10 @@ function StatusList:init(battler, initialStatus)
     end
   end
 end
+
+---------------------------------------------------------------------------------------------------
+-- General
+---------------------------------------------------------------------------------------------------
 
 function StatusList:__tostring()
   return 'Status' .. getmetatable(List).__tostring(self)
@@ -49,25 +54,29 @@ end
 -- Add a new status.
 -- @param(id : number) the status' ID
 -- @param(state : table) the status persistent data
--- @ret(Status) newly added status
-function StatusList:addStatus(id, state)
+-- @ret(Status) newly added status (or old one, if non-cumulative)
+function StatusList:addStatus(id, state, equip, battler)
   local data = Database.status[id]
   local status = self:findStatus(id)
   if status and not data.cumulative then
     status.state.lifeTime = 0
+    if equip then
+      status.equip = status.equip or equip
+      status.equipCount = status.equipCount + 1
+    end
   else
     local top = self:getTopStatus()
-    status = Status:fromData(data, state, self.battler)
+    status = Status:fromData(data, state)
     self:add(status)
     if status.onAdd then
-      status:onAdd()
+      status:onAdd(battler)
     end
-    if status.data.charAnim ~= '' then
+    if battler and status.data.charAnim ~= '' then
       if not top or status.data.priority >= top.data.priority then
         if top then
-          top:removeGraphics()
+          top:removeGraphics(battler.character)
         end
-        status:addGraphics()
+        status:addGraphics(battler.character)
       end
     end
   end
@@ -76,21 +85,27 @@ end
 -- Removes a status from the list.
 -- @param(status : Status | number) the status to be removed or its ID
 -- @ret(Status) the removed status
-function StatusList:removeStatus(status)
+function StatusList:removeStatus(status, battler)
   if type(status) == 'number' then
     status = self:findStatus(status)
   end
   if status then
+    if status.equipCount > 1 and status.data.cumulative then
+      status.equipCount = status.equipCount - 1
+      return
+    end
     local top = self:getTopStatus()
     self:removeElement(status)
     if status.onRemove then
-      status:onRemove()
+      status:onRemove(battler)
     end
-    if top == status then
-      status:removeGraphics()
-      top = self:getTopStatus()
-      if top then
-        top:addGraphics()
+    if battler then
+      if top == status then
+        status:removeGraphics(battler.character)
+        top = self:getTopStatus()
+        if top then
+          top:addGraphics(battler.character)
+        end
       end
     end
     return status
@@ -98,15 +113,38 @@ function StatusList:removeStatus(status)
 end
 -- Removes all status instances of the given ID.
 -- @param(id : number) status' ID on database
-function StatusList:removeAllStatus(id)
+function StatusList:removeAllStatus(id, battler)
   local all = {}
   local status = self:findStatus(id)
   while status do
-    self:removeStatus(status)
+    self:removeStatus(status, battler)
     all[#all + 1] = status
     status = self:findStatus(id)
   end
   return all
+end
+
+---------------------------------------------------------------------------------------------------
+-- Equipment
+---------------------------------------------------------------------------------------------------
+
+-- @param(key : string) the key of the equip slot
+-- @param(item : table) the equip data from database
+function StatusList:setEquip(key, item, battler)
+  local slot = self.equip[key]
+  if slot then
+    for i = 1, #slot do
+      self:removeStatus(slot[i], battler)
+    end
+  end
+  slot = {}
+  self.equip[key] = slot
+  if item then
+    for i = 1, #item.equip.status do
+      local id = item.equip.status[i]
+      self.equip[key] = self:addStatus(id, nil, item, battler)
+    end
+  end
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -144,9 +182,11 @@ function StatusList:getState()
   local status = {}
   for i = 1, #self do
     local s = self[i]
-    status[i] = { 
-      id = s.id, 
-      state = copyTable(s.state) }
+    if not s.equip then
+      status[i] = { 
+        id = s.id, 
+        state = copyTable(s.state) }
+    end
   end
   return status
 end

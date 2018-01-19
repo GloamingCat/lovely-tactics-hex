@@ -1,0 +1,86 @@
+[
+	{
+		"name": "Poison",
+		"data": {
+			"id": 10,
+      
+			// GUI
+			"icon": {
+			  	"id": 42,
+			  	"col": 2,
+			  	"row": 0
+			},
+			"priority": 99,
+			"visible": true,
+      
+			// Graphics
+			"charAnim": "",
+			"color": {
+				"red": 255,
+				"green": 255,
+				"blue": 255
+			},
+      
+			// Durability
+			"duration": -1,
+			"cumulative": false,
+			"removeOnKO": true,
+			"battleOnly": false,
+      
+			// Effect
+			"script": {
+				"path": "status/Poison.lua",
+				"param": ""
+			},
+			"deactivate": false,
+			"ko": false,
+			"attributes": [],
+			"elements": [],
+			"cancel": [],
+
+			"tags": []
+		}
+	},
+	{
+		"name": "Sleep",
+		"data": {
+			"id": 11,
+      
+			// GUI
+			"icon": {
+				"id": 42,
+				"col": 3,
+				"row": 0
+			},
+			"priority": 100,
+			"visible": true,
+			"script": {
+				"path": "",
+				"param": ""
+			},
+      
+			// Graphics
+			"charAnim": "sleep",
+      
+			// Durability
+			"duration": 3,
+			"cumulative": false,
+			"removeOnKO": true,
+			"battleOnly": true,
+      
+			// Effects
+			"deactivate": true,
+			"ko": false,
+			"attributes": [],
+			"elements": [],
+			"cancel": [],
+      
+			"tags": [ 
+				{
+					"name": "removeOnDamage",
+					"value": ""
+				}
+			]
+		}
+	}
+]

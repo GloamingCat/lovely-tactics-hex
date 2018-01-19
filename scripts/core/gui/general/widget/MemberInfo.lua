@@ -20,13 +20,13 @@ local MemberInfo = class()
 
 -- @param(member : table)
 -- @param(...) parameters from Button:init.
-function MemberInfo:init(member, w, h, topLeft)
-  self.member = member
+function MemberInfo:init(battler, w, h, topLeft)
+  self.battler = battler
   local margin = 4
   topLeft = topLeft or Vector(0, 0, 0)
   
   -- Icon
-  local char = Database.characters[member.charID]
+  local char = Database.characters[battler.charID]
   local icon = char.portraits and char.portraits.bigIcon
   if icon then
     local sprite = ResourceManager:loadIcon(icon, GUIManager.renderer)
@@ -35,16 +35,8 @@ function MemberInfo:init(member, w, h, topLeft)
     topLeft.x = topLeft.x + iw + 4
     w = w - iw - 4
   end
-  
   -- Name
-  local battlerID = member.battlerID >= 0 and member.battlerID or char.battlerID
-  local battler = Database.battlers[battlerID]
   self.textName = SimpleText(battler.name, topLeft, w, 'left', Fonts.gui_medium)
-  
-  -- Level
-  
-  -- HP / MP
-
 end
 
 -------------------------------------------------------------------------------

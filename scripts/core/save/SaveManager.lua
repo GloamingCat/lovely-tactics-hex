@@ -60,12 +60,4 @@ function SaveManager:storeSave()
   self.loadTime = love.timer.getTime()
 end
 
----------------------------------------------------------------------------------------------------
--- Troop Data
----------------------------------------------------------------------------------------------------
-
-function SaveManager:currentTroop()
-  return Database.troops[self.current.playerTroopID]
-end
-
 return SaveManager

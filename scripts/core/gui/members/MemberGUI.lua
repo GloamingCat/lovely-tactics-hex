@@ -19,11 +19,12 @@ local MemberGUI = class(GUI)
 -- Initialization
 ---------------------------------------------------------------------------------------------------
 
--- @param(troop : Troop) current troop (player's troop by default)
+-- @param(troop : TroopBase) current troop (player's troop by default)
 -- @param(memberID : number) current selected member on the list (first one by default)
-function MemberGUI:init(members, memberID)
+function MemberGUI:init(troop, battlerList, memberID)
   self.name = 'Member GUI'
-  self.members = members
+  self.troop = troop
+  self.members = battlerList
   self.memberID = memberID or 1
   GUI.init(self)
 end
@@ -47,7 +48,6 @@ function MemberGUI:createInfoWindow()
   local x = self.commandWindow.width + self:windowMargin() * 2 + w / 2 - ScreenManager.width / 2
   local y = (h - ScreenManager.height) / 2 + self:windowMargin()
   local member = self:currentMember()
-  print(member.battlerID, member.charID)
   self.infoWindow = MemberInfoWindow(member, self, w, h, Vector(x, y))
 end
 
@@ -86,6 +86,11 @@ function MemberGUI:currentMember()
   return self.members[self.memberID]
 end
 
+function MemberGUI:hide(...)
+  self.troop:storeSave()
+  GUI.hide(self, ...)
+end
+
 ---------------------------------------------------------------------------------------------------
 -- Sub GUI
 ---------------------------------------------------------------------------------------------------
@@ -96,7 +101,7 @@ function MemberGUI:showSubGUI(GUI)
   local y = self.commandWindow.height + self:windowMargin() * 2
   local gui = GUI(self, y)
   self.subGUI = gui
-  gui:setMember(self:currentMember())
+  gui:setMember(self:currentMember(), self.battler)
   GUIManager:showGUIForResult(gui)
   self.subGUI = nil
 end

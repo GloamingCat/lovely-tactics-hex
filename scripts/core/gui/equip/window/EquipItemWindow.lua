@@ -41,13 +41,18 @@ function EquipItemWindow:createListButton(itemID)
   return button
 end
 -- @param(data : table)
-function EquipItemWindow:setMember(data)
-  self.memberData = data
+function EquipItemWindow:setMember(member)
+  self.member = member
+  self:refreshItems()
 end
 -- @param(slot : string)
 function EquipItemWindow:setSlot(key, slot)
   self.slot = slot
   self.slotKey = key
+  self:refreshItems()
+end
+
+function EquipItemWindow:refreshItems()
   -- Override buttons to show the item for the given slot
 end
 
@@ -65,16 +70,8 @@ function EquipItemWindow:onButtonSelect(button)
 end
 -- Called when player chooses an item to equip.
 function EquipItemWindow:onButtonConfirm(button)
-  local slot = self.memberData.equipment[self.slotKey]
-  if not slot then
-    slot = {}
-    self.memberData.equipment[self.slotKey] = slot
-  end
-  if button.item then
-    slot.id = button.item.id
-  else
-    slot.id = -1
-  end
+  self.member:setEquip(self.slotKey, button.item)
+  self.GUI.slotWindow:refreshSlots()
   self:showSlotWindow()
 end
 -- Called when player cancels and returns to the slot window.

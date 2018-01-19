@@ -23,27 +23,27 @@ local Poison = class(Status)
 -- Turn callback
 ---------------------------------------------------------------------------------------------------
 
-function Poison:onTurnStart(partyTurn)
-  if partyTurn and self.battler.state.hp > 1 then
-    self:damage(1)
+function Poison:onTurnStart(battler, partyTurn)
+  if partyTurn and battler.state.hp > 1 then
+    self:damage(battler, 1)
   end
-  Status.onTurnStart(self, partyTurn)
+  Status.onTurnStart(self, battler, partyTurn)
 end
 
 ---------------------------------------------------------------------------------------------------
 -- Damage pop-up
 ---------------------------------------------------------------------------------------------------
 
-function Poison:damage(times)
-  local pos = self.battler.character.position
+function Poison:damage(battler, times)
+  local pos = battler.character.position
   local popupText = PopupText(pos.x, pos.y - 20, pos.z - 10)
-  local value = floor(self.battler.mhp() / 10 * times)
-  if value >= self.battler.state.hp then
-    value = self.battler.state.hp - 1
+  local value = floor(battler.mhp() / 10 * times)
+  if value >= battler.state.hp then
+    value = battler.state.hp - 1
   end
   local popupName = 'popup_dmg' .. attHP
   popupText:addLine(value, popupName, popupName)
-  self.battler:damage(attHP, value)
+  battler:damage(attHP, value)
   popupText:popup()
 end
 
