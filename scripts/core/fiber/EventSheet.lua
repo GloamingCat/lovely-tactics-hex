@@ -95,8 +95,8 @@ function EventSheet:preprocessCondition(command, commands, n, depth)
   local _else = self:preprocess(command.param['else'], depth + 1)
   local exp = 'not (' .. command.param.expression .. ')'
   -- Labels
-  local endif = 'if' .. depth .. (n + #_if)
-  local endelse = 'else' .. depth .. (n + #_if + #_else)
+  local endif = 'endif' .. depth .. '.' .. (n + #_if)
+  local endelse = 'endelse' .. depth .. '.' .. (n + #_if + #_else + 1)
   -- Jumps to endif if condition is false
   commands[n] = {
     name = 'jump',
@@ -132,7 +132,7 @@ function EventSheet:addLabels()
   for i = 1, #self.commands do
     local command = self.commands[i]
     if command.name == 'label' then
-      self.labels[command.param] = i
+      self.labels[command.param] = i + 1
     end
   end
 end
@@ -177,7 +177,7 @@ function EventSheet:execute(event)
 end
 
 function EventSheet:decodeExpression(event, expression)
-  loadformula(expression, 'sheet, event')(self, event)
+  return loadformula(expression, 'sheet, event')(self, event)
 end
 
 return EventSheet
