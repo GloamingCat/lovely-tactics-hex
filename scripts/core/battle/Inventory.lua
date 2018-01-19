@@ -151,4 +151,15 @@ function Inventory:getSellableItems()
   return items
 end
 
+function Inventory:getEquipItems(key)
+  local items = {}
+  for itemSlot in self:iterator() do
+    local item = Database.items[itemSlot.id]
+    if item.equip and key:find(item.equip.type) then
+      items[#items + 1] = itemSlot
+    end
+  end
+  return items
+end
+
 return Inventory

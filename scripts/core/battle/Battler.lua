@@ -36,9 +36,9 @@ function Battler:init(base, character)
   self.base = base
   -- Base data
   self.data = base.data
+  self.state = base.state
   self.att = base.att
   self.attBase = base.attBase
-  self.state = base.state
   self.jumpPoints = base.jumpPoints
   self.maxSteps = base.maxSteps
   self.mhp = base.mhp

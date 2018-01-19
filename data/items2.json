@@ -15,7 +15,7 @@
 					"price": 150,
 					"sellable": true,
 					"equip": {
-						"type": 1,
+						"type": "hand",
 						"status": [],
 						"attributes": [
               {

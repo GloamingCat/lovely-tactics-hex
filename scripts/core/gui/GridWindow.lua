@@ -171,7 +171,7 @@ function GridWindow:removeButton(pos)
   return button
 end
 -- Removes all buttons.
-function GridWindow:clearButtons()
+function GridWindow:clearWidgets()
   local last = #self.matrix
   for i = 1, last do
     self.matrix[i]:destroy()

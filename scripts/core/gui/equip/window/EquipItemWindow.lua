@@ -23,8 +23,7 @@ local EquipItemWindow = class(ListButtonWindow)
 function EquipItemWindow:init(GUI, w, h, pos, rowCount)
   self.slot = Config.equipTypes[1]
   self.visibleRowCount = rowCount
-  local list = { } -- TODO
-  ListButtonWindow.init(self, list, GUI, w, h, pos)
+  ListButtonWindow.init(self, {}, GUI, w, h, pos)
 end
 
 function EquipItemWindow:createWidgets(...)
@@ -33,17 +32,21 @@ function EquipItemWindow:createWidgets(...)
   ListButtonWindow.createWidgets(self, ...)
 end
 
-function EquipItemWindow:createListButton(itemID)
+function EquipItemWindow:createListButton(itemSlot)
+  local item = Database.items[itemSlot.id]
+  local icon = item.icon.id >= 0 and 
+    ResourceManager:loadIconAnimation(item.icon, GUIManager.renderer)
   local button = Button(self)
-  local data = Database.items[itemID]
-  button:createText(data.name)
-  button.item = data
+  button:createText(item.name, 'gui_medium')
+  button:createIcon(icon)
+  button.item = item
+  button:createInfoText(itemSlot.count, 'gui_medium')
   return button
 end
 -- @param(data : table)
 function EquipItemWindow:setMember(member)
   self.member = member
-  self:refreshItems()
+  --self:refreshItems()
 end
 -- @param(slot : string)
 function EquipItemWindow:setSlot(key, slot)
@@ -53,7 +56,9 @@ function EquipItemWindow:setSlot(key, slot)
 end
 
 function EquipItemWindow:refreshItems()
-  -- Override buttons to show the item for the given slot
+  print'refresh'
+  local list = self.GUI.troop.inventory:getEquipItems(self.slotKey, self.member)
+  self:overrideButtons(list)
 end
 
 ----------------------------------------------------------------------------------------------------
@@ -70,7 +75,14 @@ function EquipItemWindow:onButtonSelect(button)
 end
 -- Called when player chooses an item to equip.
 function EquipItemWindow:onButtonConfirm(button)
+  local previousEquip = self.member.equipment[self.slotKey].id
   self.member:setEquip(self.slotKey, button.item)
+  if button.item then
+    self.GUI.troop.inventory:removeItem(button.item.id)
+  end
+  if previousEquip >= 0 then
+    self.GUI.troop.inventory:addItem(previousEquip)
+  end
   self.GUI.slotWindow:refreshSlots()
   self:showSlotWindow()
 end

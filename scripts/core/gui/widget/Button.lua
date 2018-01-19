@@ -150,6 +150,15 @@ end
 -- State
 ---------------------------------------------------------------------------------------------------
 
+function Button:refreshState()
+  self:updateColor()
+  self:updatePosition(self.window.position)
+  if self.window.open then
+    self:show()
+  else
+    self:hide()
+  end
+end
 -- Updates text and icon color based on button state.
 function Button:updateColor()
   local name = self.enabled and 'enabled' or 'disabled'

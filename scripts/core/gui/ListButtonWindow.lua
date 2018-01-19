@@ -24,10 +24,8 @@ function ListButtonWindow:init(list, ...)
 end
 -- Overrides GridWindow:createWidgets.
 function ListButtonWindow:createWidgets()
-  if #self.list > 0 then
-    for i = 1, #self.list do
-      self:createListButton(self.list[i])
-    end
+  for i = 1, #self.list do
+    self:createListButton(self.list[i])
   end
 end
 -- Creates a button from an element in the list.
@@ -37,9 +35,23 @@ end
 -- Clears and recreates buttons.
 function ListButtonWindow:overrideButtons(list)
   self.list = list
-  self:clearButtons()
+  self:clearWidgets()
   self:createWidgets()
+  for i = 1, #self.matrix do
+    self.matrix[i]:refreshState()
+  end
+  if not self:currentButton() then
+    local last = self.matrix[#self.matrix]
+    self.currentCol = last.col
+    self.currentRow = last.row
+  end
+  self:packWidgets()
 end
+
+----------------------------------------------------------------------------------------------------
+-- Properties
+----------------------------------------------------------------------------------------------------
+
 -- Larger buttons.
 function ListButtonWindow:cellWidth()
   local w = ScreenManager.width - self.GUI:windowMargin() * 2
@@ -47,4 +59,3 @@ function ListButtonWindow:cellWidth()
 end
 
 return ListButtonWindow
-

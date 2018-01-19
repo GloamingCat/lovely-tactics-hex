@@ -61,6 +61,9 @@ function EquipSlotWindow:refreshSlots()
     if slot and slot.id >= 0 then
       local item = Database.items[slot.id]
       name = item.name
+      button.item = item
+    else
+      button.item = nil
     end
     button:setInfoText(name)
     button:setEnabled(slot.state <= 2)
@@ -71,6 +74,14 @@ end
 -- Button callbacks
 ----------------------------------------------------------------------------------------------------
 
+-- Called when player selects an item button.
+function EquipSlotWindow:onButtonSelect(button)
+  if button.item then
+    self.GUI.descriptionWindow:setText(button.item.description)
+  else
+    self.GUI.descriptionWindow:setText('')
+  end
+end
 -- Called when player presses "confirm".
 -- Open item window to choose the new equip.
 function EquipSlotWindow:onButtonConfirm(button)

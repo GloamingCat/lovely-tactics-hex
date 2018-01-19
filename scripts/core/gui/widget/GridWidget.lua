@@ -104,6 +104,7 @@ function GridWidget:destroy()
       self.content[i]:destroy()
     end
   end
+  self.window.content:removeElement(self)
 end
 -- Shows each content widget.
 function GridWidget:show()
