@@ -131,9 +131,12 @@ end
 function Window:resize(w, h)
   w, h = w or self.width, h or self.height
   if w ~= self.width or h ~= self.height then
-    self:destroy()
-    self:createContent(w, h)
-    self:setPosition(self.position)
+    self.width = w
+    self.height = h
+    if self.spriteGrid then
+      self.spriteGrid:createGrid(GUIManager.renderer, w, h)
+      self:setPosition(self.position)
+    end
   end
 end
 -- Window's skin.

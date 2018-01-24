@@ -10,7 +10,7 @@
 		"param": {
 			"key": "k"
 		}
-	}
+	},
 	{
 		"path": "IndividualTurn",
 		"on": true,
@@ -26,9 +26,9 @@
 	},
 	{
 		"path": "StatusBalloon",
-		"on": false,
+		"on": true,
 		"param": {
-			"ballonID": "26"
+			"balloonID": "26"
 		}
 	},
 	{

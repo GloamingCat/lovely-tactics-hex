@@ -9,15 +9,15 @@ Result = 1 means that the turn ended.
 =================================================================================================]]
 
 -- Imports
-local ActionWindow = require('core/gui/battle/window/ActionWindow')
-local MoveAction = require('core/battle/action/MoveAction')
-local EscapeAction = require('core/battle/action/EscapeAction')
-local VisualizeAction = require('core/battle/action/VisualizeAction')
-local CallAction = require('core/battle/action/CallAction')
-local WaitAction = require('core/battle/action/WaitAction')
 local ActionInput = require('core/battle/action/ActionInput')
+local ActionWindow = require('core/gui/battle/window/ActionWindow')
 local BattleCursor = require('core/battle/BattleCursor')
 local Button = require('core/gui/widget/Button')
+local CallAction = require('core/battle/action/CallAction')
+local EscapeAction = require('core/battle/action/EscapeAction')
+local MoveAction = require('core/battle/action/MoveAction')
+local VisualizeAction = require('core/battle/action/VisualizeAction')
+local WaitAction = require('core/battle/action/WaitAction')
 
 -- Alias
 local mathf = math.field

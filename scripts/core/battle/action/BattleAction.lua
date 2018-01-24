@@ -82,7 +82,7 @@ function BattleAction:onActionGUI(input)
   if self.showTargetWindow then
     input.GUI:createTargetWindow()
   end
-  input.GUI:startGridSelecting(self:firstTarget(input))
+  input.GUI:startGridSelecting(input.target or self:firstTarget(input))
   if self.showStepWindow then
     input.GUI:createStepWindow():show()
   end

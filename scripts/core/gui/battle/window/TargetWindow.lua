@@ -29,7 +29,7 @@ local TargetWindow = class(Window)
 function TargetWindow:init(GUI)
   local w = 100
   local h = self:calculateHeight()
-  local margin = 12
+  local margin = GUI:windowMargin()
   Window.init(self, GUI, w, h, Vector(ScreenManager.width / 2 - w / 2 - margin, 
       -ScreenManager.height / 2 + h / 2 + margin))
 end
@@ -76,6 +76,8 @@ end
 function TargetWindow:setBattler(battler)
   local icons = battler.statusList:getIcons()
   local height = self:calculateHeight(#icons > 0)
+  local pos = self.spriteGrid.position
+  pos.y = pos.y + (height - self.height) / 2
   self:resize(nil, height)
   -- Name text
   self.textName:setText(battler.name)

@@ -225,7 +225,6 @@ function TargetWindow:setBattler(battler)
   -- Turn count value
   if self.showTC then
     local tc = (battler.turnCount / _G.TurnManager.turnLimit * 100)
-    self.textTC:show()
     self.textTC:setText(string.format( '%3.0f', tc ) .. '%')
     self.textTC:redraw()
   end

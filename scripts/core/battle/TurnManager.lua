@@ -33,7 +33,7 @@ end
 
 -- Gets the current selected character.
 function TurnManager:currentCharacter()
-  return self.turnCharacters[self.characterIndex]
+  return self.turnCharacters and self.turnCharacters[self.characterIndex]
 end
 -- Gets the current turn's troop.
 function TurnManager:currentTroop()

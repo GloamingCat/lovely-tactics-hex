@@ -18,10 +18,12 @@ function IconList:init(topLeft, width, height)
   self.topLeft = topLeft
   self.width = width
   self.height = height
+  self.visible = true
 end
 
 function IconList:setIcons(icons)
   self:destroy()
+  self.list = {}
   if not icons then
     return
   end
@@ -42,6 +44,7 @@ function IconList:setIcons(icons)
     self.list[i] = anim
     anim.x = x - w / 2
     anim.y = y - h / 2
+    anim.sprite:setVisible(self.visible)
     x = x + w
   end
 end
@@ -54,12 +57,14 @@ function IconList:show()
   for i = 1, #self.list do
     self.list[i]:show()
   end
+  self.visible = true
 end
 
 function IconList:hide()
   for i = 1, #self.list do
     self.list[i]:hide()
   end
+  self.visible = false
 end
 
 function IconList:update()

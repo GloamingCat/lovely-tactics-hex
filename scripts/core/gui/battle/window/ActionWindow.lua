@@ -20,9 +20,10 @@ local ActionWindow = class(GridWindow)
 -- Select an action.
 -- @param(actionType : class) the class of the action
 --  (must inherit from BattleAction) 
-function ActionWindow:selectAction(action)
+function ActionWindow:selectAction(action, input)
   -- Executes action grid selecting.
-  local input = ActionInput(action, TurnManager:currentCharacter(), nil, nil, self.GUI)
+  input = input or ActionInput(nil, TurnManager:currentCharacter(), nil, nil, self.GUI)
+  input.action = action
   action:onSelect(input)
   self.GUI:hide()
   local result = GUIManager:showGUIForResult(ActionGUI(input))
@@ -30,7 +31,9 @@ function ActionWindow:selectAction(action)
     -- End of turn.
     self.result = result
   else
-    FieldManager.renderer:moveToObject(TurnManager:currentCharacter())
+    if input.user then
+      FieldManager.renderer:moveToObject(input.user)
+    end
     self.GUI:show()
   end
 end

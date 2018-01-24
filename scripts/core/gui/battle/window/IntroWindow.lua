@@ -8,13 +8,14 @@ Window that is shown in the beginning of the battle.
 =================================================================================================]]
 
 -- Imports
-local Button = require('core/gui/widget/Button')
 local ActionGUI = require('core/gui/battle/ActionGUI')
-local FormationAction = require('core/battle/action/FormationAction')
 local ActionInput = require('core/battle/action/ActionInput')
-local GridWindow = require('core/gui/GridWindow')
+local ActionWindow = require('core/gui/battle/window/ActionWindow')
+local Button = require('core/gui/widget/Button')
+local FormationAction = require('core/battle/action/FormationAction')
+local VisualizeAction = require('core/battle/action/VisualizeAction')
 
-local IntroWindow = class(GridWindow)
+local IntroWindow = class(ActionWindow)
 
 ---------------------------------------------------------------------------------------------------
 -- Initialization
@@ -22,6 +23,7 @@ local IntroWindow = class(GridWindow)
 
 -- Creates a button for each backup member.
 function IntroWindow:createWidgets()
+  self.visualizeAction = VisualizeAction()
   self:addButton('start')
   self:addButton('formation')
   self:addButton('members')
@@ -59,6 +61,19 @@ function IntroWindow:membersConfirm(button)
   self:hide()
   self.GUI.membersWindow:show()
   self.GUI.membersWindow:activate()
+end
+-- Overrides GridWindow:onCancel.
+function IntroWindow:onCancel()
+  local center = TroopManager.centers[TroopManager.playerParty]
+  local x, y, z = math.field.pixel2Tile(center.x, center.y, center.z)
+  local tx = math.round(x)
+  local ty = math.round(y)
+  local tz = math.round(z)
+  local target = FieldManager.currentField:getObjectTile(tx, ty, tz)
+  local input = ActionInput(nil, nil, target, nil, self.GUI)
+  self:selectAction(self.visualizeAction, input)
+  FieldManager.renderer:moveToPoint(center.x, center.y)
+  self.result = nil
 end
 
 ---------------------------------------------------------------------------------------------------
