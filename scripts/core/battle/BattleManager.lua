@@ -22,7 +22,7 @@ local EndGUI = require('core/gui/battle/EndGUI')
 local defaultParams = {
   fade = 5,
   intro = false,
-  gameOverCondition = 2, 
+  gameOverCondition = 0, 
   escapeEnabled = true }
 
 local BattleManager = class()
@@ -105,25 +105,19 @@ function BattleManager:battleIntro()
 end
 -- Runs after winner was determined and battle loop ends.
 function BattleManager:battleEnd()
-  if self.result == 1 then
-    local playerTroop = TroopManager:getPlayerTroop()
-    playerTroop:addRewards()
-  elseif self.result == 0 then
-    if self.params.gameOverCondition >= 2 then
-      return self:gameOver()
-    end
-  elseif self.result == -1 then
-    if self.params.gameOverCondition >= 1 then
-      return self:gameOver()
-    end
-  end
   for char in TroopManager.characterList:iterator() do
     char:onBattleEnd()
   end
   if self:playerWon() then
+    local playerTroop = TroopManager:getPlayerTroop()
+    playerTroop:addRewards()
     GUIManager:showGUIForResult(EndGUI())
+  elseif self:isGameOver() then
+    return self:gameOver()
   end
-  FieldManager.renderer:fadeout(nil, true)
+  if self.params.fade then
+    FieldManager.renderer:fadeout(self.params.fade / 4, true)
+  end
   self:clear()
 end
 -- Clears batte information from characters and field.
@@ -145,6 +139,7 @@ end
 
 -- Called when player loses.
 function BattleManager:gameOver()
+  print('aaaa')
   -- TODO: 
   -- fade out screen
   -- show game over GUI
@@ -168,6 +163,16 @@ end
 -- Checks if there was a draw.
 function BattleManager:drawed()
   return self.result == 0
+end
+
+function BattleManager:isGameOver()
+  if self:drawed() then
+    return self.params.gameOverCondition >= 2
+  elseif self:enemyWon() then
+    return self.params.gameOverCondition >= 1
+  else
+    return false
+  end
 end
 
 ---------------------------------------------------------------------------------------------------

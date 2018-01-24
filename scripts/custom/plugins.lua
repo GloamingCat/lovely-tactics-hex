@@ -17,6 +17,7 @@ local individualTurn = { 'IndividualTurn', on = true,
 local controlZone = { 'ControlZone', on = false }
 local statusBalloon = { 'StatusBalloon', on = false,
   balloonID = 26 }
+local battleEndRevival = { 'BattleEndRevival', on = true }
 
 ---------------------------------------------------------------------------------------------------
 -- Plugin list
@@ -27,4 +28,5 @@ return {
   killCheat, 
   individualTurn, 
   controlZone, 
-  statusBalloon }
+  statusBalloon,
+  battleEndRevival }

@@ -136,7 +136,7 @@ function util.startBattle(sheet, event, param)
   local fiber = FieldManager.fiberList:fork(function()
     if param.fade then
       local previousBGM = AudioManager:pauseBGM()
-      
+      -- TODO
       local shader = ScreenManager.shader
       ScreenManager.shader = battleIntroShader
       local time = deltaTime()

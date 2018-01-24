@@ -120,6 +120,9 @@ function TroopManager:createBattler(character)
     character.battler = troop.battlers[character.key]
     self.characterList:add(character)
     character.battler.statusList:updateGraphics(character)
+    if not character.battler:isAlive() then
+      character:playAnimation(character.koAnim)
+    end
   end
 end
 -- Removes the given character.
@@ -236,8 +239,7 @@ end
 
 function TroopManager:saveTroops()
   -- Store troop data in save
-  for i = 1, #self.troops do
-    local troop = self.troops[i]
+  for i, troop in pairs(self.troops) do
     if troop.data.persistent then
       SaveManager.current.troops[troop.data.id] = troop:createPersistentData()
     end

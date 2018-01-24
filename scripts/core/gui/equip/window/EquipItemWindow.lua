@@ -56,7 +56,6 @@ function EquipItemWindow:setSlot(key, slot)
 end
 
 function EquipItemWindow:refreshItems()
-  print'refresh'
   local list = self.GUI.troop.inventory:getEquipItems(self.slotKey, self.member)
   self:overrideButtons(list)
 end

@@ -27,10 +27,18 @@ local StatusList = class(List)
 function StatusList:init(battler, save)
   List.init(self)
   self.battler = battler
-  if save and save.status then
-    for i = 1, #save.status do
-      local s = save.status[i]
+  local status = save and save.status
+  if status then
+    for i = 1, #status do
+      local s = status[i]
       self:addStatus(s.id, s)
+    end
+  else
+    status = battler.data.status
+    if status then
+      for i = 1, #status do
+        self:addStatus(status[i])
+      end
     end
   end
 end

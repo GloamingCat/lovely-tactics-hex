@@ -4,37 +4,37 @@
 		"data": {
 			"id": 1,
       
-      // GUI
+			// GUI
 			"icon": {
 			  	"id": 42,
 			  	"col": 2,
 			  	"row": 0
 			},
 			"priority": 99,
-      "visible": true,
+			"visible": true,
       
-      // Graphics
-      "charAnim": "",
-      "color": {
-        "red": 255,
-        "green": 255,
-        "blue": 255
-      },
+			// Graphics
+			"charAnim": "",
+			"color": {
+				"red": 255,
+				"green": 255,
+				"blue": 255
+			},
       
-      // Durability
+			// Durability
 			"duration": -1,
 			"cumulative": false,
-      "removeOnKO": true,
-      "removeOnDamage": false,
+			"removeOnKO": true,
+			"removeOnDamage": false,
 			"battleOnly": false,
       
-      // Effect
+			// Effect
 			"script": {
 			  "path": "status/Poison.lua",
 			  "param": ""
 			},
-      "deactivate": false,
-      "ko": false,
+			"deactivate": false,
+			"ko": false,
 			"attributes": [],
 			"elements": [],
 			"cancel": [],
@@ -47,32 +47,32 @@
 		"data": {
 			"id": 2,
       
-      // GUI
+			// GUI
 			"icon": {
-			  "id": 42,
-			  "col": 3,
-			  "row": 0
+				"id": 42,
+				"col": 3,
+				"row": 0
 			},
 			"priority": 100,
-      "visible": true,
+			"visible": true,
 			"script": {
-			  "path": "",
-			  "param": ""
+				"path": "",
+				"param": ""
 			},
       
-      // Graphics
+			// Graphics
 			"charAnim": "sleep",
       
-      // Durability
+			// Durability
 			"duration": 2,
 			"cumulative": false,
-      "removeOnKO": true,
-      "removeOnDamage": true,
+			"removeOnKO": true,
+			"removeOnDamage": true,
 			"battleOnly": true,
       
-      // Effects
+			// Effects
 			"deactivate": true,
-      "ko": false,
+			"ko": false,
 			"attributes": [],
 			"elements": [],
 			"cancel": [],

@@ -56,6 +56,10 @@ end
 
 -- [COROUTINE] Executes turn and returns when the turn finishes.
 function TurnManager:runTurn()
+  local winner = TroopManager:winnerParty()
+  if winner then
+    return self:getResult(winner), winner
+  end
   self:startTurn()
   local result = nil
   local AI = TroopManager.troops[self.party].AI
@@ -68,13 +72,9 @@ function TurnManager:runTurn()
     return -2, TroopManager.playerParty
   else
     self:endTurn(result)
-    local winner = TroopManager:winnerParty()
-    if winner then
-      return self:getResult(winner), winner
-    end
   end
 end
--- Runs the player's turn.
+-- [COROUTINE] Runs the player's turn.
 -- @ret(table) the result action of the turn
 function TurnManager:runPlayerTurn()
   while true do

@@ -123,7 +123,7 @@ function Colorable:instantColorizeTo(r, g, b, a)
   self:setRGBA(r, g, b, a)
   return nil
 end
--- [COROUTINE] Moves gradativaly (through updateMovement) to the given point.
+-- [COROUTINE] Moves gradatively (through updateMovement) to the given point.
 -- @param(r : number) red component
 -- @param(g : number) green component
 -- @param(b : number) blue component
