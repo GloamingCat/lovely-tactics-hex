@@ -30,7 +30,7 @@ local yield = coroutine.yield
 local time = love.timer.getDelta
 
 -- Parameters
-local turnLimit = args.turnLimit
+local turnLimit = tonumber(args.turnLimit)
 local attName = args.attName
 
 ---------------------------------------------------------------------------------------------------

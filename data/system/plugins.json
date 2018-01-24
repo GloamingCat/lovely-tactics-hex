@@ -1,0 +1,39 @@
+[
+	{
+		"path": "GeneralUtil",
+		"on": true,
+		"param": {}
+	},
+	{
+		"path": "KillCheat",
+		"on": true,
+		"param": {
+			"key": "k"
+		}
+	}
+	{
+		"path": "IndividualTurn",
+		"on": true,
+		"param": {
+			"attName": "agi",
+			"turnLimit": "2000"
+		}
+	},
+	{
+		"path": "ControlZone",
+		"on": false,
+		"param": {}
+	},
+	{
+		"path": "StatusBalloon",
+		"on": false,
+		"param": {
+			"ballonID": "26"
+		}
+	},
+	{
+		"path": "BattleEndRevival",
+		"on": true,
+		"param": {}
+	}
+]

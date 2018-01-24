@@ -41,11 +41,11 @@ util.event = require('core/base/util/EventUtil')
 -- Plugins
 ---------------------------------------------------------------------------------------------------
 
-local plugins = require('custom/plugins')
-for i = 1, #plugins do
-  args = plugins[i]
-  if args.on then
-    require('custom/plugins/' .. args[1])
+for i = 1, #Config.plugins do
+  local plugin = Config.plugins[i]
+  if plugin.on then
+    args = plugin.param
+    require('custom/plugins/' .. plugin.path)
   end
 end
 args = nil
