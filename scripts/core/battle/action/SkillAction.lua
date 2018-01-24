@@ -228,11 +228,11 @@ end
 -- It considers all element bonuses provided by the skill data.
 -- @param(user : Battler)
 -- @param(target : Battler)
-function SkillAction:calculateEffectResults(user, target, rand)
+function SkillAction:calculateEffectResults(user, target)
   local points = {}
   local dmg = false
   for i = 1, #self.effects do
-    local r = self:calculateEffectResult(self.effects[i], user, target, rand)
+    local r = self:calculateEffectResult(self.effects[i], user, target)
     if r then
       points[#points + 1] = { value = r,
         key = self.effects[i].key,
@@ -241,7 +241,7 @@ function SkillAction:calculateEffectResults(user, target, rand)
       dmg = dmg or not self.effects[i].heal
     end
   end
-  local status, sdmg = self:calculateStatusResult(user, target, rand)
+  local status, sdmg = self:calculateStatusResult(user, target)
   local results = { damage = dmg or sdmg,
     points = points,
     status = status }
@@ -268,13 +268,13 @@ end
 -- @param(target : Character)
 -- @param(rand : function)
 -- @ret(table) array with status results
-function SkillAction:calculateStatusResult(user, target, rand)
+function SkillAction:calculateStatusResult(user, target)
   local result = {}
   local dmg = false
   for i = 1, #self.status do
     local s = self.status[i]
-    local r = s.rate(self, user.att, target.att, rand)
-    if rand() * 100 <= r then
+    local r = s.rate(self, user.att, target.att, random)
+    if random() * 100 <= r then
       result[#result + 1] = {
         id = s.id,
         add = s.add }

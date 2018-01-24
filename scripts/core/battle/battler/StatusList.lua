@@ -64,6 +64,25 @@ function StatusList:findPosition(priority)
   end
   return 1
 end
+-- Creates an array with the status icons, sorted by priority, with no repetition.
+-- @ret(table)
+function StatusList:getIcons()
+  local addedIcons = {}
+  local icons = {}
+  for i = #self, 1, -1 do
+    if self[i].data.visible then
+      local icon = self[i].data.icon
+      if icon and icon.id >= 0 then
+        local key = icon.id .. '.' .. icon.col .. '.' .. icon.row
+        if not addedIcons[key] then
+          addedIcons[key] = icon
+          icons[#icons + 1] = icon
+        end
+      end
+    end
+  end
+  return icons
+end
 
 ---------------------------------------------------------------------------------------------------
 -- Add / Remove

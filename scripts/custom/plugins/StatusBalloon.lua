@@ -10,12 +10,17 @@ The balloon animation to show a battler's status.
 -- Imports
 local Animation = require('core/graphics/Animation')
 local Balloon = require('custom/animation/Balloon')
+local CharacterBase = require('core/objects/CharacterBase')
 local List = require('core/datastruct/List')
 local Sprite = require('core/graphics/Sprite')
 local StatusList = require('core/battle/battler/StatusList')
+local TroopManager = require('core/battle/TroopManager')
 
 -- Alias
 local Image = love.graphics.newImage
+
+-- Parameters
+local balloonID = args.balloonID
 
 ---------------------------------------------------------------------------------------------------
 -- Initialization
@@ -41,7 +46,7 @@ function Balloon:initIcon()
 end
 
 ---------------------------------------------------------------------------------------------------
--- Status
+-- Balloon
 ---------------------------------------------------------------------------------------------------
 
 -- Adds a new status icon.
@@ -121,5 +126,50 @@ function StatusList:removeStatus(s, character)
   s = StatusList_remove(self, s)
   if character and s and character.balloon then
     character.balloon:removeIcon(s.data.icon)
+  end
+end
+
+---------------------------------------------------------------------------------------------------
+-- CharacterBase
+---------------------------------------------------------------------------------------------------
+
+-- Override.
+local CharacterBase_setXYZ = CharacterBase.setXYZ
+function CharacterBase:setXYZ(x, y, z)
+  CharacterBase_setXYZ(self, x, y, z)
+  if self.balloon then
+    self.balloon:updatePosition(self)
+  end
+end
+-- Override.
+local CharacterBase_update = CharacterBase.update
+function CharacterBase:update()
+  CharacterBase_update(self)
+  if not self.paused and self.balloon then
+    self.balloon:update()
+  end
+end
+-- Override.
+local CharacterBase_destroy = CharacterBase.destroy
+function CharacterBase:destroy()
+  CharacterBase_destroy(self)
+  if self.balloon then
+    self.balloon:destroy()
+  end
+end
+
+---------------------------------------------------------------------------------------------------
+-- TroopManager
+---------------------------------------------------------------------------------------------------
+
+-- Override.
+local TroopManager_createBattler = TroopManager.createBattler
+function TroopManager:createBattler(character)
+  TroopManager_createBattler(self, character)
+  if character.battler then
+    local balloonAnim = Database.animations[balloonID]
+    character.balloon = ResourceManager:loadAnimation(balloonAnim, FieldManager.renderer)
+    character.balloon.sprite:setTransformation(balloonAnim.transform)
+    character:setPosition(character.position)
   end
 end

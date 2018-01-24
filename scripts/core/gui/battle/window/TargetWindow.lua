@@ -8,10 +8,11 @@ Window that shows when the battle cursor is over a character.
 =================================================================================================]]
 
 -- Imports
-local Vector = require('core/math/Vector')
-local Sprite = require('core/graphics/Sprite')
-local Window = require('core/gui/Window')
+local IconList = require('core/gui/general/widget/IconList')
 local SimpleText = require('core/gui/widget/SimpleText')
+local Sprite = require('core/graphics/Sprite')
+local Vector = require('core/math/Vector')
+local Window = require('core/gui/Window')
 
 -- Constants
 local hpName = Config.battle.attHP
@@ -48,6 +49,10 @@ function TargetWindow:createContent(width, height)
   self.textHP = self:addStateVariable(Config.attributes[hpName].shortName, posHP, w)
   local posSP = Vector(x, y + 25)
   self.textSP = self:addStateVariable(Config.attributes[spName].shortName, posSP, w)
+  -- Icon List
+  local posIcons = Vector(x, y + 37)
+  self.iconList = IconList(posIcons, w, 18)
+  self.content:add(self.iconList)
   collectgarbage('collect')
 end
 -- Creates texts for the given state variable.
@@ -68,28 +73,25 @@ end
 
 -- Changes the window's content to show the given battler's stats.
 -- @param(battler : Battler)
-function TargetWindow:setCharacter(char)
-  if char and char.battler then
-    -- Name text
-    self.textName:show()
-    self.textName:setText(char.battler.data.name)
-    self.textName:redraw()
-    -- HP text
-    local textHP = char.battler.state[hpName] .. '/' .. char.battler.att[hpName]()
-    self.textHP:show()
-    self.textHP:setText(textHP)
-    self.textHP:redraw()
-    -- SP text
-    local textSP = char.battler.state[spName] .. '/' .. char.battler.att[spName]()
-    self.textSP:show()
-    self.textSP:setText(textSP)
-    self.textSP:redraw()
-    collectgarbage('collect')
-  else
-    self.textName:hide()
-    self.textHP:hide()
-    self.textSP:hide()
-  end
+function TargetWindow:setBattler(battler)
+  local icons = battler.statusList:getIcons()
+  local height = self:calculateHeight(#icons > 0)
+  self:resize(nil, height)
+  -- Name text
+  self.textName:setText(battler.name)
+  self.textName:redraw()
+  -- HP text
+  local textHP = battler.state[hpName] .. '/' .. battler.att[hpName]()
+  self.textHP:setText(textHP)
+  self.textHP:redraw()
+  -- SP text
+  local textSP = battler.state[spName] .. '/' .. battler.att[spName]()
+  self.textSP:setText(textSP)
+  self.textSP:redraw()
+  -- Status icons
+  self.iconList:setIcons(icons)
+  self.iconList:updatePosition(self.position)
+  collectgarbage('collect')
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -97,9 +99,10 @@ end
 ---------------------------------------------------------------------------------------------------
 
 -- Calculates the height given the shown variables.
-function TargetWindow:calculateHeight()
+function TargetWindow:calculateHeight(showStatus)
   -- Margin + name + HP + SP
-  return self:vPadding() * 2 + 15 + 10 + 10
+  local h = self:vPadding() * 2 + 15 + 10 + 10
+  return showStatus and h + 18 or h
 end
 -- String representation.
 function TargetWindow:__tostring()

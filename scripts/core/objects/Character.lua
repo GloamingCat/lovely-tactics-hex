@@ -221,17 +221,6 @@ function Character:damage(skill, origin, results)
   if currentTile ~= origin then
     self:turnToTile(origin.x, origin.y)
   end
-  local pos = self.position
-  FieldManager.fiberList:fork(function()
-    for i = 1, #results.status do
-      local r = results.status[i]
-      local s = Database.status[r.id]
-      if r.add and s.animID >= 0 then
-        BattleManager:playBattleAnimation(s.animID, pos.x, pos.y, pos.z - 1)
-      end
-    end
-  end)
-  _G.Fiber:wait(1)
   self:playAnimation(self.damageAnim, true)
   self:playAnimation(self.idleAnim)
   if not self.battler:isAlive() then

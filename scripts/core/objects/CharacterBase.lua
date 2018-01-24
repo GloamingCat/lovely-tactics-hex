@@ -121,9 +121,6 @@ function CharacterBase:update()
   end
   DirectedObject.update(self)
   Interactable.update(self)
-  if self.balloon then
-    self.balloon:update()
-  end
 end
 -- Removes from draw and update list.
 function CharacterBase:destroy()
@@ -188,13 +185,6 @@ function CharacterBase:instantMoveTo(x, y, z, collisionCheck)
     self:setXYZ(x, y, z)
   end
   return nil
-end
--- Overrides Transform:setXYZ.
-function CharacterBase:setXYZ(x, y, z)
-  DirectedObject.setXYZ(self, x, y, z)
-  if self.balloon then
-    self.balloon:updatePosition(self)
-  end
 end
 
 ---------------------------------------------------------------------------------------------------

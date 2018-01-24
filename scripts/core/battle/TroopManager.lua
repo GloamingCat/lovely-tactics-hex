@@ -21,7 +21,6 @@ local angle2row = math.angle2Row
 
 -- Constants
 local charSpeed = (Config.player.dashSpeed + Config.player.walkSpeed) / 2
-local balloonID = Config.animations.balloonID
 
 local TroopManager = class()
 
@@ -119,14 +118,8 @@ function TroopManager:createBattler(character)
   if character.battlerID >= 0 and character.party >= 0 then
     local troop = self.troops[character.party]
     character.battler = troop.battlers[character.key]
-    local balloonAnim = Database.animations[balloonID]
-    character.balloon = ResourceManager:loadAnimation(balloonAnim, FieldManager.renderer)
-    character.balloon.sprite:setTransformation(balloonAnim.transform)
-    character:setPosition(character.position)
     self.characterList:add(character)
     character.battler.statusList:updateGraphics(character)
-    --character:setAnimations('battle')
-    --character:replayAnimation(character.idleAnim, false, angle2row(character.direction))
   end
 end
 -- Removes the given character.

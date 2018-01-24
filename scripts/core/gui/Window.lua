@@ -133,6 +133,7 @@ function Window:resize(w, h)
   if w ~= self.width or h ~= self.height then
     self:destroy()
     self:createContent(w, h)
+    self:setPosition(self.position)
   end
 end
 -- Window's skin.

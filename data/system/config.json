@@ -25,7 +25,6 @@
 		"battleCursorID": 23,
 		"tileCursorID": 24,
 		"tileID": 25,
-		"balloonID": 26,
     "sets": ["default", "battle", "sleep"]
 	},
 	"battle": {

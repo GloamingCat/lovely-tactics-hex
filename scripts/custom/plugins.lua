@@ -15,7 +15,8 @@ local individualTurn = { 'IndividualTurn', on = true,
   attName = 'agi',
   turnLimit = 2000 }
 local controlZone = { 'ControlZone', on = false }
-local statusBalloon = { 'StatusBalloon', on = true }
+local statusBalloon = { 'StatusBalloon', on = false,
+  balloonID = 26 }
 
 ---------------------------------------------------------------------------------------------------
 -- Plugin list

@@ -198,11 +198,11 @@ function TargetWindow:init(GUI, showTC)
 end
 -- Override.
 local TargetWindow_height = TargetWindow.calculateHeight
-function TargetWindow:calculateHeight()
+function TargetWindow:calculateHeight(showStatus)
   if self.showTC then
-    return TargetWindow_height(self) + 10
+    return TargetWindow_height(self, showStatus) + 10
   else
-    return TargetWindow_height(self)
+    return TargetWindow_height(self, showStatus)
   end
 end
 -- Override.
@@ -216,23 +216,20 @@ function TargetWindow:createContent(width, height)
     local w = self.width - self:hPadding() * 2
     local pos = Vector(x, y + 35)
     self.textTC = self:addStateVariable(Vocab.turnCount, pos, w)
+    self.iconList.topLeft.y = self.iconList.topLeft.y + 10
   end
 end
 -- Override.
-local TargetWindow_setCharacter = TargetWindow.setCharacter
-function TargetWindow:setCharacter(char)
-  TargetWindow_setCharacter(self, char)
+local TargetWindow_setBattler = TargetWindow.setBattler
+function TargetWindow:setBattler(battler)
   -- Turn count value
   if self.showTC then
-    if char then
-      local tc = (char.battler.turnCount / _G.TurnManager.turnLimit * 100)
-      self.textTC:show()
-      self.textTC:setText(string.format( '%3.0f', tc ) .. '%')
-      self.textTC:redraw()
-    else
-      self.textTC:hide()
-    end
+    local tc = (battler.turnCount / _G.TurnManager.turnLimit * 100)
+    self.textTC:show()
+    self.textTC:setText(string.format( '%3.0f', tc ) .. '%')
+    self.textTC:redraw()
   end
+  TargetWindow_setBattler(self, battler)
 end
 
 ---------------------------------------------------------------------------------------------------

@@ -60,7 +60,7 @@ function ActionGUI:createTargetWindow()
 end
 function ActionGUI:updateTargetWindow(char)
   self.targetWindow:show()
-  self.targetWindow:setCharacter(char)
+  self.targetWindow:setBattler(char.battler)
 end
 
 ---------------------------------------------------------------------------------------------------

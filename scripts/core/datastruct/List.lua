@@ -40,7 +40,7 @@ end
 function List:add(element, pos)
   assert(element, 'Element cannot be nil')
   if pos then
-    insert(self, element, pos)
+    insert(self, pos, element)
   else
     self[self.size + 1] = element
   end
