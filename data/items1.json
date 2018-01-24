@@ -16,8 +16,17 @@
 					"sellable": true,
 					"use": {
 						"skillID": -1,
-            "skillType": -1, // 0 = General, 1 = Attack, 2 = Support, -1 = skill's default
-            "targetType": 2, // 0 => Any tile, 1 => any character, 2 => Living only, 3 => dead only
+            // 0 = General
+            // 1 = Attack
+            // 2 = Support
+            // -1 = skill's default
+            "skillType": -1, 
+            // 0 => Any tile
+            // 1 => any character
+            // 2 => Living only
+            // 3 => dead only
+            // -1 => skill's default
+            "targetType": 2, 
 						"consume": true,
 						"status": [],
 						"hpEffect": {
@@ -27,12 +36,7 @@
               "absorb": 0
 						}
 					},
-					"tags": [
-						{
-							"name": "weight",
-							"value": "10"
-						}
-					]
+					"tags": []
 				}
 			},
 			{
@@ -60,12 +64,7 @@
               "absorb": 0
 						}
 					},
-					"tags": [
-						{
-							"name": "weight",
-							"value": "10"
-						}
-					]
+					"tags": []
 				}
 			},
 			{
@@ -93,12 +92,7 @@
               }
             ]
 					},
-					"tags": [
-						{
-							"name": "weight",
-							"value": "10"
-						}
-					]
+					"tags": []
 				}
 			}
 		]

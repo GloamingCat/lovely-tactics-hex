@@ -3,8 +3,7 @@
     "name": "Hero Lancer",
     "data": {
       "id": 10,
-      "persistent": true,
-      "level": 3.5,
+      "level": 6.5,
       "attackID": 10,
       "classID": 1,
       "exp": 0,
@@ -49,8 +48,7 @@
     "name": "Hero Mage",
     "data": {
       "id": 11,
-      "persistent": true,
-      "level": 3.5,
+      "level": 6.5,
       "attackID": 11,
       "classID": 2,
       "exp": 0,

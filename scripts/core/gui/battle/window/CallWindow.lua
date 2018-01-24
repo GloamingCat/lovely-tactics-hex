@@ -9,7 +9,6 @@ Window with the list of battles in the party backup.
 
 -- Imports
 local Button = require('core/gui/widget/Button')
-local BattlerBase = require('core/battle/BattlerBase')
 local GridWindow = require('core/gui/GridWindow')
 
 -- Alias
@@ -30,21 +29,20 @@ end
 -- Creates a button for each backup member.
 function CallWindow:createWidgets()
   if self.allMembers then
-    for i = 1, #self.troop.base.current do
-      local member = self.troop.base.current[i]
+    for i = 1, #self.troop.current do
+      local member = self.troop.current[i]
       self:createMemberButton(member)
     end
   end
-  for i = 1, #self.troop.base.backup do
-    local member = self.troop.base.backup[i]
-    local battler = BattlerBase(member)
+  for i = 1, #self.troop.backup do
+    local member = self.troop.backup[i]
     self:createMemberButton(member)
   end
-  if self.allMembers and #self.troop.base.current > 1 then
+  if self.allMembers and #self.troop.current > 1 then
     self:createNoneButton()
   end
 end
--- @param(battler : BattlerBase) character's battler or battler base created from member
+-- @param(battler : Battler) character's battler or battler base created from member
 -- @ret(Button)
 function CallWindow:createMemberButton(battler)
   local button = Button(self)

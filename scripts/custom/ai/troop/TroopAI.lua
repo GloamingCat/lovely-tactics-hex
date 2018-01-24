@@ -17,7 +17,7 @@ function TroopAI:runTurn()
   while i <= #TurnManager.turnCharacters do
     TurnManager.characterIndex = i
     local char = TurnManager:currentCharacter()
-    local AI = char.battler.AI
+    local AI = char.battler:getAI()
     if AI then
       result = AI:runTurn()
       if result.endTurn then

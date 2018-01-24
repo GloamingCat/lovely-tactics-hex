@@ -8,18 +8,19 @@ System of turns per characters instead of per party.
 =================================================================================================]]
 
 -- Imports
-local TurnManager = require('core/battle/TurnManager')
-local Battler = require('core/battle/Battler')
-local StatusList = require('core/battle/StatusList')
-local BattleAction = require('core/battle/action/BattleAction')
-local SkillAction = require('core/battle/action/SkillAction')
-local WaitAction = require('core/battle/action/WaitAction')
-local TargetWindow = require('core/gui/battle/window/TargetWindow')
-local TurnWindow = require('core/gui/battle/window/TurnWindow')
 local ActionGUI = require('core/gui/battle/ActionGUI')
-local SimpleText = require('core/gui/widget/SimpleText')
+local BattleAction = require('core/battle/action/BattleAction')
+local Battler = require('core/battle/battler/Battler')
+local Character = require('core/objects/Character')
 local PriorityQueue = require('core/datastruct/PriorityQueue')
+local SimpleText = require('core/gui/widget/SimpleText')
+local SkillAction = require('core/battle/action/SkillAction')
+local StatusList = require('core/battle/battler/StatusList')
+local TargetWindow = require('core/gui/battle/window/TargetWindow')
+local TurnManager = require('core/battle/TurnManager')
+local TurnWindow = require('core/gui/battle/window/TurnWindow')
 local Vector = require('core/math/Vector')
+local WaitAction = require('core/battle/action/WaitAction')
 
 -- Alias
 local max = math.max
@@ -48,7 +49,7 @@ function TurnManager:nextParty()
   self.iterations = iterations
   self.turnCharacters = { char }
   self.characterIndex = 1
-  self.party = char.battler.party
+  self.party = char.party
 end
 -- [COROUTINE] Searchs for the next character turn and starts.
 -- @ret(Character) the next turn's character
@@ -77,9 +78,9 @@ end
 -- @ret(Character) the character that reached turn limit (nil if none did)
 function TurnManager:incrementTurnCount(time)
   time = time or 1
-  for bc in TroopManager.characterList:iterator() do
-    if bc.battler:isActive() then
-      bc.battler:incrementTurnCount(time)
+  for char in TroopManager.characterList:iterator() do
+    if char.battler:isActive() then
+      char.battler:incrementTurnCount(time)
     end
   end
 end
@@ -109,15 +110,20 @@ end
 function Battler:remainingTurnCount()
   return (turnLimit - self.turnCount) / self.att[attName]()
 end
+
+---------------------------------------------------------------------------------------------------
+-- Character
+---------------------------------------------------------------------------------------------------
+
 -- Override. Decrements turn count.
-local Battler_turnEnd = Battler.onSelfTurnEnd
-function Battler:onSelfTurnEnd(result)
-  local maxSteps = self.maxSteps()
+local Character_onSelfTurnEnd = Character.onSelfTurnEnd
+function Character:onSelfTurnEnd(result)
+  local maxSteps = self.battler.maxSteps()
   local stepCost = (maxSteps - self.steps) / maxSteps
   local cost = result.timeCost or 0
   local totalCost = ceil((stepCost + cost) / 2 * turnLimit)
-  self:decrementTurnCount(totalCost)
-  Battler_turnEnd(self, result)
+  self.battler:decrementTurnCount(totalCost)
+  Character_onSelfTurnEnd(self, result)
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -213,13 +219,13 @@ function TargetWindow:createContent(width, height)
   end
 end
 -- Override.
-local TargetWindow_setBattler = TargetWindow.setBattler
-function TargetWindow:setBattler(battler)
-  TargetWindow_setBattler(self, battler)
+local TargetWindow_setCharacter = TargetWindow.setCharacter
+function TargetWindow:setCharacter(char)
+  TargetWindow_setCharacter(self, char)
   -- Turn count value
   if self.showTC then
-    if battler then
-      local tc = (battler.turnCount / _G.TurnManager.turnLimit * 100)
+    if char then
+      local tc = (char.battler.turnCount / _G.TurnManager.turnLimit * 100)
       self.textTC:show()
       self.textTC:setText(string.format( '%3.0f', tc ) .. '%')
       self.textTC:redraw()

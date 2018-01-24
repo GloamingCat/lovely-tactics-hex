@@ -8,11 +8,11 @@ The balloon animation to show a battler's status.
 =================================================================================================]]
 
 -- Imports
-local List = require('core/datastruct/List')
-local StatusList = require('core/battle/StatusList')
-local Sprite = require('core/graphics/Sprite')
 local Animation = require('core/graphics/Animation')
 local Balloon = require('custom/animation/Balloon')
+local List = require('core/datastruct/List')
+local Sprite = require('core/graphics/Sprite')
+local StatusList = require('core/battle/battler/StatusList')
 
 -- Alias
 local Image = love.graphics.newImage
@@ -108,18 +108,18 @@ end
 
 -- Add status icon to balloon.
 local StatusList_addStatus = StatusList.addStatus
-function StatusList:addStatus(s)
+function StatusList:addStatus(s, character)
   s = StatusList_addStatus(self, s)
-  if s and not s.data.cumulative and self.battler.character.balloon then
-    self.battler.character.balloon:addIcon(s.data.icon)
+  if character and s and not s.data.cumulative and character.balloon then
+    character.balloon:addIcon(s.data.icon)
   end
   return s
 end
 -- Remove status icon from balloon.
 local StatusList_remove = StatusList.removeStatus
-function StatusList:removeStatus(s)
+function StatusList:removeStatus(s, character)
   s = StatusList_remove(self, s)
-  if s and self.battler.character.balloon then
-    self.battler.character.balloon:removeIcon(s.data.icon)
+  if character and s and character.balloon then
+    character.balloon:removeIcon(s.data.icon)
   end
 end

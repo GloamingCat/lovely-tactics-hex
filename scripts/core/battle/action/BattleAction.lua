@@ -252,7 +252,7 @@ end
 -- @ret(boolean) true if selectable, false otherwise
 function BattleAction:isCharacterSelectable(input, char)
   local alive = char.battler:isAlive()
-  local ally = input.user.battler.party == char.battler.party
+  local ally = input.user.party == char.party
   return (alive == self.living or (not alive) == self.dead) and 
     (ally == self.support or (not ally) == self.offensive)
 end

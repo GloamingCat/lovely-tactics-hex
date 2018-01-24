@@ -134,7 +134,7 @@ function ObjectTile:collidesCharacter(char)
     return not self.characterList:isEmpty()
   elseif char.battler then
     -- Battle characters.
-    local party = char.battler.party
+    local party = char.party
     for other in self.characterList:iterator() do
       if self:collidesCharacters(char, other) then
         return true
@@ -166,7 +166,7 @@ function ObjectTile:collidesCharacters(char, other)
   if not other.battler:isActive() and overpassDeads then
     return false
   end
-  if char.battler.party == other.battler.party and overpassAllies then
+  if char.party == other.party and overpassAllies then
     return false
   end
   return true
@@ -183,8 +183,8 @@ function ObjectTile:getCurrentParty()
   for c in self.characterList:iterator() do
     if c.battler then
       if party == nil then
-        party = c.battler.party
-      elseif c.battler.party ~= party then
+        party = c.party
+      elseif c.party ~= party then
         return nil
       end
     end
@@ -196,7 +196,7 @@ end
 -- @ret(boolean) true if there's at least one enemy, false otherwise
 function ObjectTile:hasEnemy(yourParty)
   for c in self.characterList:iterator() do
-    if c.battler and c.battler.party ~= yourParty then
+    if c.battler and c.party ~= yourParty then
       return true
     end
   end

@@ -9,9 +9,9 @@ Creates and manages battle troops.
 
 -- Imports
 local Animation = require('core/graphics/Animation')
-local List = require('core/datastruct/List')
+local Battler = require('core/battle/battler/Battler')
 local Character = require('core/objects/Character')
-local Battler = require('core/battle/Battler')
+local List = require('core/datastruct/List')
 local Troop = require('core/battle/Troop')
 
 -- Alias
@@ -118,14 +118,15 @@ end
 function TroopManager:createBattler(character)
   if character.battlerID >= 0 and character.party >= 0 then
     local troop = self.troops[character.party]
-    character.battler = Battler(troop.base.battlers[character.key], character)
+    character.battler = troop.battlers[character.key]
     local balloonAnim = Database.animations[balloonID]
     character.balloon = ResourceManager:loadAnimation(balloonAnim, FieldManager.renderer)
     character.balloon.sprite:setTransformation(balloonAnim.transform)
     character:setPosition(character.position)
     self.characterList:add(character)
-    character:setAnimations('battle')
-    character:replayAnimation(character.idleAnim, false, angle2row(character.direction))
+    character.battler.statusList:updateGraphics(character)
+    --character:setAnimations('battle')
+    --character:replayAnimation(character.idleAnim, false, angle2row(character.direction))
   end
 end
 -- Removes the given character.
@@ -177,7 +178,7 @@ function TroopManager:getMemberCount(party)
   party = party or self.playerParty
   local count = 0
   for bc in self.characterList:iterator() do
-    if bc.battler.party == party then
+    if bc.party == party then
       count = count + 1
     end
   end
@@ -200,9 +201,9 @@ function TroopManager:winnerParty()
   for bc in self.characterList:iterator() do
     if bc.battler:isAlive() then
       if currentParty == -1 then
-        currentParty = bc.battler.party
+        currentParty = bc.party
       else
-        if currentParty ~= bc.battler.party then
+        if currentParty ~= bc.party then
           return nil
         end
       end
@@ -245,7 +246,7 @@ function TroopManager:saveTroops()
   for i = 1, #self.troops do
     local troop = self.troops[i]
     if troop.data.persistent then
-      SaveManager.current.troops[troop.data.id] = troop.base:createPersistentData()
+      SaveManager.current.troops[troop.data.id] = troop:createPersistentData()
     end
   end
 end

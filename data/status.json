@@ -25,6 +25,7 @@
 			"duration": -1,
 			"cumulative": false,
       "removeOnKO": true,
+      "removeOnDamage": false,
 			"battleOnly": false,
       
       // Effect
@@ -66,6 +67,7 @@
 			"duration": 2,
 			"cumulative": false,
       "removeOnKO": true,
+      "removeOnDamage": true,
 			"battleOnly": true,
       
       // Effects
@@ -75,12 +77,7 @@
 			"elements": [],
 			"cancel": [],
       
-			"tags": [ 
-				{
-					"name": "removeOnDamage",
-					"value": ""
-				}
-			]
+			"tags": []
 		}
 	}
 ]

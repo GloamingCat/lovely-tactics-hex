@@ -8,13 +8,13 @@ The BattleAction that is executed when players chooses a skill to use.
 =================================================================================================]]
 
 -- Imports
-local List = require('core/datastruct/List')
-local TagMap = require('core/datastruct/TagMap')
-local BattleAction = require('core/battle/action/BattleAction')
-local MoveAction = require('core/battle/action/MoveAction')
 local ActionInput = require('core/battle/action/ActionInput')
+local BattleAction = require('core/battle/action/BattleAction')
+local List = require('core/datastruct/List')
+local MoveAction = require('core/battle/action/MoveAction')
 local PathFinder = require('core/battle/ai/PathFinder')
 local PopupText = require('core/battle/PopupText')
+local TagMap = require('core/datastruct/TagMap')
 
 -- Alias
 local max = math.max
@@ -23,7 +23,6 @@ local mathf = math.field
 local time = love.timer.getDelta
 local now = love.timer.getTime
 local random = math.random
-local normal = math.normal
 local expectation = math.randomExpectation
 local round = math.round
 local ceil = math.ceil
@@ -139,7 +138,8 @@ function SkillAction:execute(input)
   if result.executed then    
     -- Skill use
     self:battleUse(input)
-    input.user.battler:onSkillUse(input)
+    input.user.battler:damageCosts(self.costs)
+    input.user:onSkillUse(input)
     return BattleAction.execute(self, input)
   else
     return { executed = false, endCharacterTurn = true }
@@ -173,8 +173,13 @@ function SkillAction:battleUse(input)
   -- Wait until everything finishes.
   _G.Fiber:wait(finishTime)
 end
+
+---------------------------------------------------------------------------------------------------
+-- Menu use
+---------------------------------------------------------------------------------------------------
+
 -- Checks if the given character can use the skill, considering skill's costs.
--- @param(user : BattlerBase)
+-- @param(user : Battler)
 -- @ret(boolean)
 function SkillAction:canMenuUse(user)
   local att = user.att
@@ -189,9 +194,10 @@ function SkillAction:canMenuUse(user)
   return true
 end
 -- Executes the skill in the menu, out of the battle field.
--- @param(user : BattlerBase)
--- @param(target : BattlerBase)
+-- @param(user : Battler)
+-- @param(target : Battler)
 function SkillAction:menuUse(input)
+  input.user:damageCosts(self.costs)
   local results = self:calculateEffectResults(input.user, input.target)
   if #results.points == 0 and #results.status == 0 then
     -- Miss
@@ -200,7 +206,7 @@ function SkillAction:menuUse(input)
     popupText:addLine(Vocab.miss, 'popup_miss', 'popup_miss')
     popupText:popup()
   else
-    self:popupResults(input.targetPosition, input.target, results)
+    input.target:popupResults(input.targetPosition, results)
     if self.data.battleAnim.individualID >= 0 then
       local pos = input.targetPosition
       BattleManager:playMenuAnimation(self.data.battleAnim.individualID,
@@ -320,7 +326,7 @@ function SkillAction:singleTargetAnimation(input, targetChar, originTile)
     popupText:popup()
   else
     local wasAlive = targetChar.battler:isAlive()
-    self:popupResults(targetChar.position, targetChar.battler, results)
+    targetChar.battler:popupResults(targetChar.position, results, targetChar)
     if self.data.battleAnim.individualID >= 0 then
       local dir = targetChar:angleToPoint(originTile.x, originTile.y)
       local mirror = dir > 90 and dir <= 270
@@ -343,37 +349,8 @@ function SkillAction:singleTargetAnimation(input, targetChar, originTile)
       targetChar:playAnimation(targetChar.idleAnim)
     end
   end
-  targetChar.battler:onSkillEffect(input, results)
+  targetChar:onSkillEffect(input, results)
   _G.Fiber:wait(targetTime)
-end
--- Applies results on the given battler and creates a popup for each value.
--- @param(pos : Vector) the character's position
--- @param(battler : Battler) the battler that will be affected
--- @param(results : table) the array of effect results
-function SkillAction:popupResults(pos, battler, results)
-  local popupText = PopupText(pos.x, pos.y - 20, pos.z - 10)
-  for i = 1, #results.points do
-    local points = results.points[i]
-    if points.heal then
-      popupText:addHeal(points)
-      battler:damage(points.key, -points.value)
-    else
-      popupText:addDamage(points)
-      battler:damage(points.key, points.value)
-    end
-  end
-  for i = 1, #results.status do
-    local r = results.status[i]
-    local popupName, text
-    if r.add then
-      local s = battler.statusList:addStatus(r.id)
-      popupText:addStatus(s)
-    else
-      local s = battler.statusList:removeAllStatus(r.id)
-      popupText:removeStatus(s)
-    end
-  end
-  popupText:popup()
 end
 
 return SkillAction

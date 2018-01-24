@@ -71,6 +71,7 @@ end
 function EquipGUI:setMember(member)
   self.slotWindow:setMember(member)
   self.itemWindow:setMember(member)
+  -- TODO: update description window
 end
 
 return EquipGUI

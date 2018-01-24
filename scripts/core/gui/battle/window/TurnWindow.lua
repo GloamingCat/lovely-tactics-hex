@@ -43,7 +43,7 @@ end
 -- Creates character cursor and stores troop's data.
 function TurnWindow:createContent(...)
   local troop = TurnManager:currentTroop()
-  self.backupBattlers = troop.base.backup
+  self.backupBattlers = troop.backup
   self.currentBattlers = troop:currentCharacters(true)
   ActionWindow.createContent(self, ...)
   self.userCursor = BattleCursor()
@@ -124,7 +124,7 @@ function TurnWindow:attackEnabled(button)
 end
 -- Move condition. Enabled if there are any tiles for the character to move to.
 function TurnWindow:moveEnabled(button)
-  local user = TurnManager:currentCharacter().battler
+  local user = TurnManager:currentCharacter()
   if user.steps <= 0 then
     return false
   end
@@ -149,7 +149,7 @@ function TurnWindow:escapeEnabled()
     return false
   end
   local char = TurnManager:currentCharacter()
-  local userParty = char.battler.party
+  local userParty = char.party
   local tileParty = char:getTile().party
   return userParty == tileParty
 end

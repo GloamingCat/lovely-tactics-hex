@@ -60,7 +60,7 @@ end
 ---------------------------------------------------------------------------------------------------
 
 function FormationAction:firstTarget(input)
-  local member = TurnManager:currentTroop().base.current[1]
+  local member = TurnManager:currentTroop().current[1]
   local char = FieldManager:search(member.key)
   return char:getTile()
 end

@@ -3,7 +3,6 @@
     "name": "Green Lancer",
     "data": {
       "id": 20,
-      "persistent": false,
       "level": 3,
       "attackID": 10,
       "classID": 1,
@@ -54,7 +53,6 @@
     "name": "Blue Mage",
     "data": {
       "id": 21,
-      "persistent": false,
       "level": 3,
       "attackID": 11,
       "classID": 2,

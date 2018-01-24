@@ -119,11 +119,11 @@ function TurnManager:startTurn()
   for i = 1, #self.turnCharacters do
     local char = self.turnCharacters[i]
     self.initialTurnCharacters[char] = true
-    char.battler:onTurnStart(true)
+    char:onTurnStart(true)
   end
   for char in TroopManager.characterList:iterator() do
     if not self.initialTurnCharacters[char] then
-      char.battler:onTurnStart(false)
+      char:onTurnStart(false)
     end
   end
 end
@@ -132,8 +132,8 @@ end
 -- @param(actionCost : number) the time spend by the character of the turn
 -- @param(iterations : number) the time since the last turn
 function TurnManager:endTurn(char)
-  for bc in TroopManager.characterList:iterator() do
-    bc.battler:onTurnEnd(self.initialTurnCharacters[bc] ~= nil)
+  for char in TroopManager.characterList:iterator() do
+    char:onTurnEnd(self.initialTurnCharacters[char] ~= nil)
   end
 end
 -- Gets the next party.
@@ -142,7 +142,7 @@ function TurnManager:nextParty()
   self.turnCharacters = {}
   local i = 1
   for char in TroopManager.characterList:iterator() do
-    if char.battler.party == self.party and char.battler:isActive() then
+    if char.party == self.party and char.battler:isActive() then
       self.turnCharacters[i] = char
       i = i + 1
     end
@@ -157,7 +157,7 @@ end
 -- Called when a character is selected so it's their turn.
 function TurnManager:characterTurnStart()
   local char = self:currentCharacter()
-  char.battler:onSelfTurnStart()
+  char:onSelfTurnStart()
   self:updatePathMatrix()
   FieldManager.renderer:moveToObject(char, nil, true)
 end
@@ -165,7 +165,7 @@ end
 -- @param(result : table) the action result returned by the BattleAction (or wait)
 function TurnManager:characterTurnEnd(result)
   local char = self:currentCharacter()
-  char.battler:onSelfTurnEnd(result)
+  char:onSelfTurnEnd(result)
   table.remove(self.turnCharacters, self.characterIndex)
   if self.characterIndex > #self.turnCharacters then
     self.characterIndex = 1

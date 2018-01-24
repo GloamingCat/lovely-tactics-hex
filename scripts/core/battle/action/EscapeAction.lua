@@ -45,7 +45,7 @@ end
 -- Executes the escape animation for the given character.
 function EscapeAction:onConfirm(input)
   local char = input.user
-  local party = char.battler.party
+  local party = char.party
   while char.sprite.color.alpha > 0 do
     local a = char.sprite.color.alpha
     char.sprite:setRGBA(nil, nil, nil, max(a - animSpeed, 0))

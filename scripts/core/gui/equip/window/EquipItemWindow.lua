@@ -75,14 +75,7 @@ function EquipItemWindow:onButtonSelect(button)
 end
 -- Called when player chooses an item to equip.
 function EquipItemWindow:onButtonConfirm(button)
-  local previousEquip = self.member.equipment[self.slotKey].id
-  self.member:setEquip(self.slotKey, button.item)
-  if button.item then
-    self.GUI.troop.inventory:removeItem(button.item.id)
-  end
-  if previousEquip >= 0 then
-    self.GUI.troop.inventory:addItem(previousEquip)
-  end
+  self.member.equipSet:setEquip(self.slotKey, button.item, self.GUI.troop.inventory)
   self.GUI.slotWindow:refreshSlots()
   self:showSlotWindow()
 end

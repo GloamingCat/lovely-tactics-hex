@@ -47,7 +47,7 @@ function EquipSlotWindow:createListButton(slot)
   end
 end
 -- @param(member : table) table with charID, battlerID and save data
--- @param(battler : BattlerBase)
+-- @param(battler : Battler)
 function EquipSlotWindow:setMember(member)
   self.member = member
   self:refreshSlots()
@@ -56,7 +56,7 @@ end
 function EquipSlotWindow:refreshSlots()
   for i = 1, #self.matrix do
     local button = self.matrix[i]
-    local slot = self.member.equipment[button.key]
+    local slot = self.member.equipSet[button.key]
     local name = Vocab.empty
     if slot and slot.id >= 0 then
       local item = Database.items[slot.id]

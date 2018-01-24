@@ -48,7 +48,7 @@ function MoveAction:execute(input)
   FieldManager.renderer:moveToObject(input.user, nil, true)
   FieldManager.renderer.focusObject = input.user
   input.user:walkPath(path)
-  input.user.battler:onMove(path)
+  input.user:onMove(path)
   TurnManager:updatePathMatrix()
   return { executed = fullPath }
 end
@@ -123,7 +123,7 @@ end
 -- The max distance the character can walk.
 -- @ret(number) the distance in tiles (may not be integer)
 function MoveAction:maxDistance(user)
-  return user.battler.steps
+  return user.steps
 end
 
 return MoveAction

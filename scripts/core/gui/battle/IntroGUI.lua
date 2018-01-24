@@ -11,7 +11,7 @@ The GUI that is shown in the beginning of the battle.
 local GUI = require('core/gui/GUI')
 local IntroWindow = require('core/gui/battle/window/IntroWindow')
 local MemberListWindow = require('core/gui/members/window/MemberListWindow')
-local TroopBase = require('core/battle/TroopBase')
+local Troop = require('core/battle/Troop')
 
 local IntroGUI = class(GUI)
 
@@ -22,7 +22,7 @@ local IntroGUI = class(GUI)
 -- Constructor.
 function IntroGUI:init(...)
   self.name = 'Intro GUI'
-  self.troop = TroopBase()
+  self.troop = Troop()
   GUI.init(self, ...)
 end
 -- Overrides GUI:createWindows.

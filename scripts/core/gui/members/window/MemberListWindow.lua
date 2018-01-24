@@ -8,7 +8,6 @@ A button window that shows all the visibles members in the troop.
 =================================================================================================]]
 
 -- Imports
-local BattlerBase = require('core/battle/BattlerBase')
 local Button = require('core/gui/widget/Button')
 local List = require('core/datastruct/List')
 local ListButtonWindow = require('core/gui/ListButtonWindow')

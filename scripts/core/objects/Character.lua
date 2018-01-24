@@ -28,6 +28,8 @@ local pixel2Tile = math.field.pixel2Tile
 local len2D = math.len2D
 
 -- Constants
+local mhpName = Config.battle.attHP
+local mspName = Config.battle.attSP
 local speedLimit = (Config.player.dashSpeed + Config.player.walkSpeed) / 2
 local castStep = 6
 local castTime = 7.5
@@ -235,6 +237,74 @@ function Character:damage(skill, origin, results)
   if not self.battler:isAlive() then
     self:playAnimation(self.koAnim, true)
   end
+end
+
+---------------------------------------------------------------------------------------------------
+-- Turn callbacks
+---------------------------------------------------------------------------------------------------
+
+-- Callback for when a new turn begins.
+function Character:onTurnStart(partyTurn)
+  if self.AI and self.AI.onTurnStart then
+    self.AI:onTurnStart(partyTurn)
+  end
+  self.battler.statusList:callback('TurnStart', self, partyTurn)
+  if partyTurn then
+    self.steps = self.battler.maxSteps()
+  end
+end
+-- Callback for when a turn ends.
+function Character:onTurnEnd(partyTurn)
+  if self.AI and self.AI.onTurnEnd then
+    self.AI:onTurnEnd(partyTurn)
+  end
+  self.battler.statusList:callback('TurnEnd', self, partyTurn)
+end
+-- Callback for when this battler's turn starts.
+function Character:onSelfTurnStart()
+  self.battler.statusList:callback('SelfTurnStart', self)
+end
+-- Callback for when this battler's turn ends.
+function Character:onSelfTurnEnd(result)
+  self.battler.statusList:callback('SelfTurnEnd', self, result)
+end
+
+---------------------------------------------------------------------------------------------------
+-- Skill callbacks
+---------------------------------------------------------------------------------------------------
+
+-- Callback for when the character finished using a skill.
+function Character:onSkillUse(input)
+  self.battler.statusList:callback('SkillUse', input)
+end
+-- Callback for when the characters ends receiving a skill's effect.
+function Character:onSkillEffect(input, results)
+  self.battler.statusList:callback('SkillEffect', input, results)
+end
+
+---------------------------------------------------------------------------------------------------
+-- Other callbacks
+---------------------------------------------------------------------------------------------------
+
+-- Callback for when the character moves.
+-- @param(path : Path) the path that the battler just walked
+function Character:onMove(path)
+  self.steps = self.steps - path.totalCost
+  self.battler.statusList:callback('Move', self, path)
+end
+-- Callback for when the battle ends.
+function Character:onBattleStart()
+  if self.AI and self.AI.onBattleStart then
+    self.AI:onBattleStart(self)
+  end
+  self.battler.statusList:callback('BattleStart', self)
+end
+-- Callback for when the battle ends.
+function Character:onBattleEnd()
+  if self.AI and self.AI.onBattleEnd then
+    self.AI:BattleEnd(self)
+  end
+  self.battler.statusList:callback('BattleEnd', self)
 end
 
 return Character

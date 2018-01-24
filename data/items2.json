@@ -17,23 +17,12 @@
 					"equip": {
 						"type": "hand",
 						"status": [],
-						"attributes": [
-              {
-                "key": "atkp",
-                "value": "5"
-              },
-              {
-                "key": "atkm",
-                "value": "10"
-              }
-            ]
+						"attAdd": {
+              "atkp": 5,
+              "atkm": 10
+            }
 					},
-					"tags": [
-						{
-							"name": "weight",
-							"value": "100"
-						}
-					]
+					"tags": []
 				}
       }
     ]

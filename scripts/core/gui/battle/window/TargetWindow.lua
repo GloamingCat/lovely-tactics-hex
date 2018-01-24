@@ -68,19 +68,19 @@ end
 
 -- Changes the window's content to show the given battler's stats.
 -- @param(battler : Battler)
-function TargetWindow:setBattler(battler)
-  if battler then
+function TargetWindow:setCharacter(char)
+  if char and char.battler then
     -- Name text
     self.textName:show()
-    self.textName:setText(battler.data.name)
+    self.textName:setText(char.battler.data.name)
     self.textName:redraw()
     -- HP text
-    local textHP = battler.state[hpName] .. '/' .. battler.att[hpName]()
+    local textHP = char.battler.state[hpName] .. '/' .. char.battler.att[hpName]()
     self.textHP:show()
     self.textHP:setText(textHP)
     self.textHP:redraw()
     -- SP text
-    local textSP = battler.state[spName] .. '/' .. battler.att[spName]()
+    local textSP = char.battler.state[spName] .. '/' .. char.battler.att[spName]()
     self.textSP:show()
     self.textSP:setText(textSP)
     self.textSP:redraw()

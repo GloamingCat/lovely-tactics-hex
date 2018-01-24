@@ -107,7 +107,7 @@ end
 -- @ret(PriorityQueue) queue of tiles sorted by priority
 function BattleTactics.optimalTiles(user, input, isValid, evaluate, order)
   order = order or PriorityQueue.ascending
-  local party = user.battler.party
+  local party = user.party
   local queue = PriorityQueue(order)
   local initTile = user:getTile()
   local min = { initTile, evaluate(initTile, user, input) }
@@ -135,7 +135,7 @@ end
 --  (optional, descending by default)
 -- @ret(PriorityQueue)
 function BattleTactics.bestDistance(user, input, getDistance, order)
-  local party = user.battler.party
+  local party = user.party
   local evaluate = function(tile)
     return getDistance(party, tile)
   end
@@ -231,7 +231,7 @@ function BattleTactics.minEnemyDistance(party, tile)
   local getDistance = math.field.tileDistance
   local d = math.huge
   for char in TroopManager.characterList:iterator() do
-    if char.battler and char.battler.party ~= party then
+    if char.battler and char.party ~= party then
       local t = char:getTile()
       d = min(d, getDistance(tile.x, tile.y, t.x, t.y))
     end
@@ -247,7 +247,7 @@ function BattleTactics.allyDistance(party, tile)
   local getDistance = math.field.tileDistance
   local d = 0
   for char in TroopManager.characterList:iterator() do
-    if char.battler and char.battler.party == party then
+    if char.battler and char.party == party then
       local t = char:getTile()
       d = d + getDistance(tile.x, tile.y, t.x, t.y)
     end
@@ -263,7 +263,7 @@ function BattleTactics.enemyDistance(party, tile)
   local getDistance = math.field.tileDistance
   local d = 0
   for char in TroopManager.characterList:iterator() do
-    if char.battler and char.battler.party ~= party then
+    if char.battler and char.party ~= party then
       local t = char:getTile()
       d = d + getDistance(tile.x, tile.y, t.x, t.y)
     end

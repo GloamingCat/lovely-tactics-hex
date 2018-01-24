@@ -58,9 +58,9 @@ function ActionGUI:createTargetWindow()
   end
   return self.targetWindow
 end
-function ActionGUI:updateTargetWindow(battler)
+function ActionGUI:updateTargetWindow(char)
   self.targetWindow:show()
-  self.targetWindow:setBattler(battler)
+  self.targetWindow:setCharacter(char)
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -110,8 +110,8 @@ function ActionGUI:selectTarget(target)
   self.input.action:onSelectTarget(self.input)
   if self.targetWindow then
     if target.characterList.size > 0 then
-      local battler = target.characterList[1].battler
-      GUIManager.fiberList:fork(self.updateTargetWindow, self, battler)
+      local char = target.characterList[1]
+      GUIManager.fiberList:fork(self.updateTargetWindow, self, char)
     else
       GUIManager.fiberList:fork(self.targetWindow.hide, self.targetWindow)
     end

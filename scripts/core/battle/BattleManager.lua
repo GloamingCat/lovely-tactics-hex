@@ -85,7 +85,7 @@ function BattleManager:battleStart()
     self:battleIntro()
   end
   for char in TroopManager.characterList:iterator() do
-    char.battler:onBattleStart(char)
+    char:onBattleStart()
   end
 end
 -- Player intro animation, to show each party.
@@ -118,7 +118,7 @@ function BattleManager:battleEnd()
     end
   end
   for char in TroopManager.characterList:iterator() do
-    char.battler:onBattleEnd(char)
+    char:onBattleEnd()
   end
   if self:playerWon() then
     GUIManager:showGUIForResult(EndGUI())

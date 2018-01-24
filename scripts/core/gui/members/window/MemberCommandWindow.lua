@@ -70,11 +70,11 @@ end
 
 -- Overrides GridWindow:colCount.
 function MemberCommandWindow:colCount()
-  return 2
+  return 1
 end
 -- Overrides GridWindow:rowCount.
 function MemberCommandWindow:rowCount()
-  return 2
+  return 3
 end
 
 return MemberCommandWindow
