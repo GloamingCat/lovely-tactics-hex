@@ -2,92 +2,92 @@
   {
     "name": "Hero Lancer",
     "data": {
-      "id": 10,
-      "level": 30,
-      "attackID": 10,
-      "classID": 1,
-      "exp": 0,
-      "gold": 0,
-      "scriptAI": {
-        "path": "",
-        "param": ""
-      },
-      "attributes": {
-        "str": 0,
-        "mag": 0,
-        "dex": 0,
-        "res": 0,
-        "agi": 0,
-        "mov": 0,
-        "jmp": 0,
-        "hp": 0,
-        "sp": 0,
-        "atkp": 0,
-        "atkm": 0,
-        "defp": 0,
-        "defm": 0,
-        "prep": 0,
-        "prem": 0,
-        "evdp": 0,
-        "evdm": 0,
-        "car": 0
-      },
-      "skills": [],
-      "items": [],
-      "equipment": {
-        "hand1": {
-          "id": 20
-          "state": 1
-        }
-      },
-      "status": [1, 2],
-      "elements": [],
-      "tags": []
+		"id": 10,
+		"level": 30,
+		"attackID": 10,
+		"classID": 1,
+		"exp": 0,
+		"gold": 0,
+		"scriptAI": {
+			"path": "",
+			"param": ""
+		},
+		"attributes": {
+			"str": 0,
+			"mag": 0,
+			"dex": 0,
+			"res": 0,
+			"agi": 0,
+			"mov": 0,
+			"jmp": 0,
+			"hp": 0,
+			"sp": 0,
+			"atkp": 0,
+			"atkm": 0,
+			"defp": 0,
+			"defm": 0,
+			"prep": 0,
+			"prem": 0,
+			"evdp": 0,
+			"evdm": 0,
+			"car": 0
+		},
+		"skills": [],
+		"items": [],
+		"equipment": {
+			"hand1": {
+				"id": 20
+				"state": 1
+			}
+		},
+		"status": [],
+		"elements": [],
+		"tags": []
     }
   },
   {
     "name": "Hero Mage",
     "data": {
-      "id": 11,
-      "level": 30,
-      "attackID": 11,
-      "classID": 2,
-      "exp": 0,
-      "gold": 0,
-      "scriptAI": {
-        "path": "",
-        "param": ""
-      },
-      "attributes": {
-        "str": 0,
-        "mag": 0,
-        "dex": 0,
-        "res": 0,
-        "agi": 0,
-        "mov": 0,
-        "jmp": 0,
-        "hp": 0,
-        "sp": 0,
-        "atkp": 0,
-        "atkm": 0,
-        "defp": 0,
-        "defm": 0,
-        "prep": 0,
-        "prem": 0,
-        "evdp": 0,
-        "evdm": 0,
-        "car": 0
-      },
-      "skills": [12, 20],
-      "items": [
-        {
-          "id": 10,
-          "count": 3,
-          "rate": 100
-        }
-      ],
-      "elements": [],
-      "tags": []
+		"id": 11,
+		"level": 30,
+		"attackID": 11,
+		"classID": 2,
+		"exp": 0,
+		"gold": 0,
+		"scriptAI": {
+			"path": "",
+			"param": ""
+		},
+		"attributes": {
+			"str": 0,
+			"mag": 0,
+			"dex": 0,
+			"res": 0,
+			"agi": 0,
+			"mov": 0,
+			"jmp": 0,
+			"hp": 0,
+			"sp": 0,
+			"atkp": 0,
+			"atkm": 0,
+			"defp": 0,
+			"defm": 0,
+			"prep": 0,
+			"prem": 0,
+			"evdp": 0,
+			"evdm": 0,
+			"car": 0
+		},
+		"skills": [12, 20],
+		"items": [
+			{
+				"id": 10,
+				"count": 3,
+				"rate": 100
+			}
+		],
+		"elements": [],
+		"tags": []
     }
   }
 ]

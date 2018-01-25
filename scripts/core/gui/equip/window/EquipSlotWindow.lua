@@ -56,7 +56,7 @@ end
 function EquipSlotWindow:refreshSlots()
   for i = 1, #self.matrix do
     local button = self.matrix[i]
-    local slot = self.member.equipSet[button.key]
+    local slot = self.member.equipSet.slots[button.key]
     local name = Vocab.empty
     if slot and slot.id >= 0 then
       local item = Database.items[slot.id]
@@ -66,7 +66,7 @@ function EquipSlotWindow:refreshSlots()
       button.item = nil
     end
     button:setInfoText(name)
-    button:setEnabled(slot.state <= 2)
+    button:setEnabled(slot and slot.state <= 2)
   end
 end
 

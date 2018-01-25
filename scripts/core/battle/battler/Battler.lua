@@ -71,10 +71,10 @@ function Battler:initProperties(data, save)
 end
 
 function Battler:initState(data, save)
+  self.class = Class(self, save)
   self.inventory = Inventory(save and save.items or data.items or {})
   self.statusList = StatusList(self, save)
   self.equipSet = EquipSet(self, save)
-  self.class = Class(self, save)
   self.skillList = SkillList(self, save)
   self.attackSkill = SkillAction:fromData(save.attackID or data.attackID)
   -- Elements
@@ -210,6 +210,26 @@ end
 -- @ret(BattlerAI)
 function Battler:getAI()
   return self.statusList:getAI() or self.AI
+end
+
+---------------------------------------------------------------------------------------------------
+-- Battle
+---------------------------------------------------------------------------------------------------
+
+-- Callback for when the battle ends.
+function Battler:onBattleStart(char)
+  if self.AI and self.AI.onBattleStart then
+    self.AI:onBattleStart(self, char)
+  end
+  self.equipSet:addBattleStatus(char)
+  self.statusList:callback('BattleStart', char)
+end
+-- Callback for when the battle ends.
+function Battler:onBattleEnd(char)
+  if self.AI and self.AI.onBattleEnd then
+    self.AI:BattleEnd(self, char)
+  end
+  self.statusList:callback('BattleEnd', char)
 end
 
 ---------------------------------------------------------------------------------------------------

@@ -111,4 +111,9 @@ function Balloon:onEnd()
   self.time = 0
 end
 
+function Balloon:destroy()
+  Animation.destroy(self)
+  self.iconAnim:destroy()
+end
+
 return Balloon

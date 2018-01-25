@@ -1,9 +1,9 @@
 [
-  {
-    "name": "Weapons",
-    "children": [
-      {
-        "name": "Scythe",
+	{
+		"name": "Weapons",
+		"children": [
+			{
+				"name": "Scythe",
 				"data": {
 					"id": 20,
 					"description": "Adds 5ATKP and 10ATKM.",
@@ -17,14 +17,27 @@
 					"equip": {
 						"type": "hand",
 						"status": [],
-						"attAdd": {
-              "atkp": 5,
-              "atkm": 10
-            }
+						"battleStatus": [3],
+						"elements": [
+							{
+								"id": 1,
+								"value": 0
+							}
+						],
+						"attributes": [
+							{
+								"key": "atkp",
+								"add": 5
+							},
+							{
+								"key": "atkm",
+								"add": 10
+							}
+						]
 					},
 					"tags": []
 				}
-      }
-    ]
-  }
+			}
+		]
+	}
 ]

@@ -74,7 +74,8 @@ function EquipItemWindow:onButtonSelect(button)
 end
 -- Called when player chooses an item to equip.
 function EquipItemWindow:onButtonConfirm(button)
-  self.member.equipSet:setEquip(self.slotKey, button.item, self.GUI.troop.inventory)
+  local char = TroopManager:getBattlerCharacter(self.member)
+  self.member.equipSet:setEquip(self.slotKey, button.item, self.GUI.troop.inventory, char)
   self.GUI.slotWindow:refreshSlots()
   self:showSlotWindow()
 end

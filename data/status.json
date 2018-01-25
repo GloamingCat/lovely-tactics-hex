@@ -10,7 +10,7 @@
 			  	"col": 2,
 			  	"row": 0
 			},
-			"priority": 99,
+			"priority": 100,
 			"visible": true,
       
 			// Graphics
@@ -53,7 +53,7 @@
 				"col": 3,
 				"row": 0
 			},
-			"priority": 100,
+			"priority": 99,
 			"visible": true,
 			"script": {
 				"path": "",
@@ -72,6 +72,47 @@
       
 			// Effects
 			"deactivate": true,
+			"ko": false,
+			"attributes": [],
+			"elements": [],
+			"cancel": [],
+      
+			"tags": []
+		}
+	},
+	{
+		"name": "Protect",
+		"data": {
+			"id": 3,
+      
+			// GUI
+			"icon": {
+				"id": 42,
+				"col": 0,
+				"row": 0
+			},
+			"priority": 101,
+			"visible": true,
+			"script": {
+				"path": "",
+				"param": ""
+			},
+      
+			// Graphics
+			"charAnim": "",
+			//"transform": {
+			//	"brightness": 150
+			//},
+      
+			// Durability
+			"duration": -1,
+			"cumulative": false,
+			"removeOnKO": true,
+			"removeOnDamage": false,
+			"battleOnly": true,
+      
+			// Effects
+			"deactivate": false,
 			"ko": false,
 			"attributes": [],
 			"elements": [],

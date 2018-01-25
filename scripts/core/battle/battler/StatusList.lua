@@ -89,6 +89,11 @@ function StatusList:getIcons()
       end
     end
   end
+  -- Invert
+  local n = #icons + 1
+  for i = 1, n / 2 do
+    icons[i], icons[n - i] = icons[n - i], icons[i]
+  end
   return icons
 end
 
@@ -107,7 +112,7 @@ function StatusList:addStatus(id, state, character)
     status.lifeTime = 0
   else
     local i = self:findPosition(data.priority)
-    status = Status:fromData(data, state)
+    status = Status:fromData(self, data, state)
     self:add(status, i)
     if status.onAdd then
       status:onAdd(self.battler, character)

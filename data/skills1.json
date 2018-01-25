@@ -4,18 +4,18 @@
 		"data": {
 			"id": 10,
 			"type": 1,
-      "targetType": 2,
+			"targetType": 2,
 			"description": "Simple melee physical attack.",
 			"icon": {
-			  "id": 42,
-			  "col": 1,
-			  "row": 0
+				"id": 42,
+				"col": 1,
+				"row": 0
 			},
 			"radius": 1,
 			"range": 1,
 			"script": {
-			  "path": "",
-			  "param": ""
+				"path": "",
+				"param": ""
 			},
 			"costs": [],
 			"restriction": 1,
@@ -30,18 +30,18 @@
 				"individualID": -1,
 				"mirror": true
 			},
-      "damageAnim": true,
-      "hpEffect": {
-        "successRate": "((a.prep() * 2 - b.evdp()) / b.evdp()) * 50",
-        "basicResult": "(a.atkp() * 2 - b.defp()) * rand(80, 120) / 100",
-        "heal": false,
-        "absorb": 0
-      },
+			"damageAnim": true,
+			"hpEffect": {
+				"successRate": "((a.prep() * 2 - b.evdp()) / b.evdp()) * 50",
+				"basicResult": "(a.atkp() * 2 - b.defp()) * rand(80, 120) / 100",
+				"heal": false,
+				"absorb": 0
+			},
 			"elements": [
-			  {
-          "id": 1,
-          "value": 100
-			  }
+				{
+					"id": 1,
+					"value": 100
+				}
 			],
 			"status": [],
 			"tags": []
@@ -52,18 +52,18 @@
 		"data": {
 			"id": 11,
 			"type": 1,
-      "targetType": 2,
+			"targetType": 2,
 			"description": "Simple ranged magical attack.",
 			"icon": {
-			  "id": 42,
-			  "col": 0,
-			  "row": 0
+				"id": 42,
+				"col": 0,
+				"row": 0
 			},
 			"radius": 1,
 			"range": 4,
 			"script": {
-			  "path": "",
-			  "param": ""
+				"path": "",
+				"param": ""
 			},
 			"costs": [],
 			"restriction": 1,
@@ -78,18 +78,18 @@
 				"individualID": -1,
 				"mirror": true
 			},
-      "damageAnim": true,
-      "hpEffect": {
-        "successRate": "(a.prem() * 2 - b.evdm()) / b.evdm() * 50",
-        "basicResult": "(a.atkm() * 2 - b.defm()) * rand(80, 120) / 100",
-        "heal": false,
-        "absorb": 0
-      },
+			"damageAnim": true,
+			"hpEffect": {
+				"successRate": "(a.prem() * 2 - b.evdm()) / b.evdm() * 50",
+				"basicResult": "(a.atkm() * 2 - b.defm()) * rand(80, 120) / 100",
+				"heal": false,
+				"absorb": 0
+			},
 			"elements": [
-			  {
-				"id": 2,
-				"value": 100
-			  }
+				{
+					"id": 2,
+					"value": 100
+				}
 			],
 			"status": [],
 			"tags": []
@@ -100,24 +100,24 @@
 		"data": {
 			"id": 12,
 			"type": 1,
-      "targetType": 0,
+			"targetType": 0,
 			"description": "Attacks an area of 2 tiles of radius.",
 			"icon": {
-			  "id": 42,
-			  "col": 0,
-			  "row": 0
+				"id": 42,
+				"col": 0,
+				"row": 0
 			},
 			"radius": 2,
 			"range": 4,
 			"script": {
-			  "path": "",
-			  "param": ""
+				"path": "",
+				"param": ""
 			},
 			"costs": [
-			  {
-			  	"key": "sp",
-          "value": "15"
-			  }
+				{
+					"key": "sp",
+					"value": "15"
+				}
 			],
 			"restriction": 1,
 			"userAnim": {
@@ -131,22 +131,22 @@
 				"individualID": -1,
 				"mirror": true
 			},
-      "damageAnim": true,
-      "hpEffect": {
-        "successRate": "(a.prem() * 2 - b.evdm()) / b.evdm() * 50",
-        "basicResult": "(a.atkm() * 2 - b.defm()) * rand(80, 120) / 100",
-        "heal": false,
-        "absorb": 0
-      },
+			"damageAnim": true,
+			"hpEffect": {
+				"successRate": "(a.prem() * 2 - b.evdm()) / b.evdm() * 50",
+				"basicResult": "(a.atkm() * 2 - b.defm()) * rand(80, 120) / 100",
+				"heal": false,
+				"absorb": 0
+			},
 			"elements": [
-			  {
-          "id": 2,
-          "value": 100
-			  },
-			  {
-          "id": 6,
-          "value": 100
-			  }
+				{
+					"id": 2,
+					"value": 100
+				},
+				{
+					"id": 6,
+					"value": 100
+				}
 			],
 			"status": [],
 			"tags": []
@@ -157,24 +157,24 @@
 		"data": {
 			"id": 13,
 			"type": 1,
-      "targetType": 0,
+			"targetType": 0,
 			"description": "Attacks an area of 3 tiles of radius.",
 			"icon": {
-			  "id": 42,
-			  "col": 0,
-			  "row": 0
+				"id": 42,
+				"col": 0,
+				"row": 0
 			},
 			"radius": 3,
 			"range": 4,
 			"script": {
-			  "path": "",
-			  "param": ""
+				"path": "",
+				"param": ""
 			},
 			"costs": [
-			  {
-			  	"key": "sp",
-          "value": "20"
-			  }
+				{
+					"key": "sp",
+					"value": "20"
+				}
 			],
 			"timeCost": 100,
 			"restriction": 1,
@@ -189,22 +189,22 @@
 				"individualID": -1,
 				"mirror": true
 			},
-      "damageAnim": true,
-      "hpEffect": {
-        "successRate": "(a.prem() * 2 - b.evdm()) / b.evdm() * 50",
-        "basicResult": "(a.atkm() * 2 - b.defm()) * rand(80, 120) / 100",
-        "heal": false,
-        "absorb": 0
-      },
+			"damageAnim": true,
+			"hpEffect": {
+				"successRate": "(a.prem() * 2 - b.evdm()) / b.evdm() * 50",
+				"basicResult": "(a.atkm() * 2 - b.defm()) * rand(80, 120) / 100",
+				"heal": false,
+				"absorb": 0
+			},
 			"elements": [
-			  {
-          "id": 2,
-          "value": 100
-			  },
-			  {
-          "id": 7,
-          "value": 100
-			  }
+				{
+					"id": 2,
+					"value": 100
+				},
+				{
+					"id": 7,
+					"value": 100
+				}
 			],
 			"status": [],
 			"tags": []

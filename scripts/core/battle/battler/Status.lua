@@ -18,12 +18,13 @@ local Status = class()
 ---------------------------------------------------------------------------------------------------
 
 -- Constructor.
+-- @param(list : StatusList) 
 -- @param(data : table) status' data from database file
 -- @param(state : table) the persistent state of the status
--- @param(battler : Battler) the battler with the status
-function Status:init(data, state)
+function Status:init(list, data, state)
   -- General
   self.data = data
+  self.statusList = list
   self.lifeTime = state and state.lifeTime or 0
   if self.data.duration >= 0 then
     self.duration = self.data.duration
@@ -38,14 +39,13 @@ function Status:init(data, state)
   -- Attribute bonus
   for i = 1, #data.attributes do
     local bonus = data.attributes[i]
-    local name = Database.attributes[bonus.id].shortName
-    self.attAdd[name] = bonus.add / 100
-    self.attMul[name] = bonus.mul / 100
+    self.attAdd[bonus.key] = (bonus.add or 0) / 100
+    self.attMul[bonus.key] = (bonus.mul or 0) / 100
   end
   -- Element bonus
   for i = 1, #data.elements do
     local bonus = data.elements[i]
-    self.elements[bonus.id] = bonus.value
+    self.elements[bonus.id] = (bonus.value or 0) / 100
   end
   -- AI
   local ai = data.scriptAI
@@ -56,12 +56,12 @@ end
 -- Creates the status from its ID in the database, loading the correct script.
 -- @param(data : table) status' data from database file
 -- @param(...) default contructor parameters
-function Status:fromData(data, ...)
+function Status:fromData(list, data, ...)
   if data.script.path ~= '' then
     local class = require('custom/' .. data.script.path)
-    return class(data, ...)
+    return class(list, data, ...)
   else
-    return self(data, ...)
+    return self(list, data, ...)
   end
 end
 
@@ -84,10 +84,9 @@ end
 ---------------------------------------------------------------------------------------------------
 
 -- Removes status in case it's battle-only.
--- @param(character : Character)
-function Status:onBattleEnd(character)
+function Status:onBattleEnd()
   if self.data.battleOnly then
-    character.battler.statusList:removeStatus(self, character)
+    self.statusList:removeStatus(self)
   end
 end
 
@@ -101,7 +100,7 @@ end
 function Status:onTurnStart(character, partyTurn)
   self.lifeTime = self.lifeTime + 1
   if self.lifeTime > self.duration then
-    character.battler.statusList:removeStatus(self, character)
+    self.statusList:removeStatus(self, character)
   end
 end
 
@@ -114,8 +113,8 @@ end
 -- @param(results : table)
 function Status:onSkillEffect(input, results)
   if results.damage then
-    if self.data.removeOnDamage or not input.user.battler:isAlive() and self.data.removeOnKO then
-      results.target.battler.statusList:removeStatus(self, results.target)
+    if self.data.removeOnDamage or not results.target.battler:isAlive() and self.data.removeOnKO then
+      self.statusList:removeStatus(self, results.target)
     end
   end
 end

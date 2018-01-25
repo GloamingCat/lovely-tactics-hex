@@ -22,7 +22,7 @@ local IntroGUI = class(GUI)
 -- Constructor.
 function IntroGUI:init(...)
   self.name = 'Intro GUI'
-  self.troop = Troop()
+  self.troop = TroopManager.troops[TroopManager.playerParty]
   GUI.init(self, ...)
 end
 -- Overrides GUI:createWindows.

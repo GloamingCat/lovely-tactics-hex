@@ -234,7 +234,31 @@ function TroopManager:getPartyCenters()
 end
 
 ---------------------------------------------------------------------------------------------------
--- Save
+-- Battle
+---------------------------------------------------------------------------------------------------
+
+function TroopManager:onBattleStart()
+  for _, troop in pairs(self.troops) do
+    local members = troop:visibleMembers()
+    for i = 1, #members do
+      local char = self:getBattlerCharacter(members[i])
+      members[i]:onBattleStart(char)
+    end
+  end
+end
+
+function TroopManager:onBattleEnd()
+  for _, troop in pairs(self.troops) do
+    local members = troop:visibleMembers()
+    for i = 1, #members do
+      local char = self:getBattlerCharacter(members[i])
+      members[i]:onBattleEnd(char)
+    end
+  end
+end
+
+---------------------------------------------------------------------------------------------------
+-- Clear
 ---------------------------------------------------------------------------------------------------
 
 function TroopManager:saveTroops()
@@ -245,11 +269,6 @@ function TroopManager:saveTroops()
     end
   end
 end
-
----------------------------------------------------------------------------------------------------
--- Clear
----------------------------------------------------------------------------------------------------
-
 -- Erases battlers and clears list.
 function TroopManager:clear()
   for bc in self.characterList:iterator() do
@@ -258,6 +277,8 @@ function TroopManager:clear()
   end
   self.characterList = List()
   self.troopDirections = {}
+  self.troops = {}
+  self.centers = nil
 end
 
 return TroopManager

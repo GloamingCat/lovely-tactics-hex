@@ -61,31 +61,28 @@ end
 -- Runs until battle finishes.
 -- @ret(number) the winner party
 function BattleManager:runBattle()
-  self.onBattle = true
   self.result = nil
   self.winner = nil
   self:battleStart()
   self.party = TroopManager.playerParty
   GUIManager:showGUIForResult(IntroGUI())
   self.party = TroopManager.playerParty - 1
+  TroopManager:onBattleStart()
   repeat
     self.result, self.winner = TurnManager:runTurn()
   until self.result
   self:battleEnd()
-  self.onBattle = false
   return self.winner, self.result
 end
 -- Runs before battle loop.
 function BattleManager:battleStart()
+  self.onBattle = true
   if self.params.fade then
     FieldManager.renderer:fadeout(0)
     FieldManager.renderer:fadein(self.params.fade, true)
   end
   if self.params.intro then
     self:battleIntro()
-  end
-  for char in TroopManager.characterList:iterator() do
-    char:onBattleStart()
   end
 end
 -- Player intro animation, to show each party.
@@ -105,9 +102,6 @@ function BattleManager:battleIntro()
 end
 -- Runs after winner was determined and battle loop ends.
 function BattleManager:battleEnd()
-  for char in TroopManager.characterList:iterator() do
-    char:onBattleEnd()
-  end
   if self:playerWon() then
     local playerTroop = TroopManager:getPlayerTroop()
     playerTroop:addRewards()
@@ -118,7 +112,9 @@ function BattleManager:battleEnd()
   if self.params.fade then
     FieldManager.renderer:fadeout(self.params.fade / 4, true)
   end
+  TroopManager:onBattleEnd()
   self:clear()
+  self.onBattle = false
 end
 -- Clears batte information from characters and field.
 function BattleManager:clear()

@@ -33,7 +33,7 @@
 				"car": 0
 			},
 			"skills": [],
-			"status": [1], // Poison (just testing)
+			"status": [],
 			"items": [
 				{
 					"id": 1,

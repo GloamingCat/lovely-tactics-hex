@@ -281,19 +281,5 @@ function Character:onMove(path)
   self.steps = self.steps - path.totalCost
   self.battler.statusList:callback('Move', self, path)
 end
--- Callback for when the battle ends.
-function Character:onBattleStart()
-  if self.AI and self.AI.onBattleStart then
-    self.AI:onBattleStart(self)
-  end
-  self.battler.statusList:callback('BattleStart', self)
-end
--- Callback for when the battle ends.
-function Character:onBattleEnd()
-  if self.AI and self.AI.onBattleEnd then
-    self.AI:BattleEnd(self)
-  end
-  self.battler.statusList:callback('BattleEnd', self)
-end
 
 return Character

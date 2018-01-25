@@ -40,6 +40,7 @@ function FormationAction:onConfirm(input)
         troop:callMember(result, input.target)
       end
     end
+    TroopManager.centers = TroopManager:getPartyCenters()
     self:resetTileProperties(input)
     self:resetTileColors(input)
     input.GUI:selectTarget(input.target)
