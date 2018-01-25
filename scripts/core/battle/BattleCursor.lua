@@ -82,10 +82,10 @@ end
 -- Sets the position to the given character.
 -- @param(char : Character) the target character
 function BattleCursor:setCharacter(char)
-    local x, y, z = char.position:coordinates()
-    self.anim.sprite:setVisible(true)
-    local maxH = char:getHeight()
-    self.anim.sprite:setXYZ(x, y - maxH * pph, z - 1)
+  local x, y, z = char.position:coordinates()
+  self.anim.sprite:setVisible(true)
+  local maxH = char:getHeight()
+  self.anim.sprite:setXYZ(x, y - maxH * pph, z - 1)
 end
 
 return BattleCursor

@@ -318,6 +318,7 @@ end
 -- @param(originTile : ObjectTile) the user's original tile
 function SkillAction:singleTargetAnimation(input, targetChar, originTile)
   local results = self:calculateEffectResults(input.user.battler, targetChar.battler)
+  results.target = targetChar
   if #results.points == 0 and #results.status == 0 then
     -- Miss
     local pos = targetChar.position

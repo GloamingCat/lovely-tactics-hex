@@ -10,10 +10,10 @@ Its result is the action time that the character spent.
 =================================================================================================]]
 
 -- Imports
+local ActionGUI = require('core/gui/battle/ActionGUI')
+local ActionInput = require('core/battle/action/ActionInput')
 local GridWindow = require('core/gui/GridWindow')
 local SkillAction = require('core/battle/action/SkillAction')
-local ActionInput = require('core/battle/action/ActionInput')
-local ActionGUI = require('core/gui/battle/ActionGUI')
 
 local ActionWindow = class(GridWindow)
 

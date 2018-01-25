@@ -27,7 +27,7 @@ local TargetWindow = class(Window)
 
 -- Overrides Window:init.
 function TargetWindow:init(GUI)
-  local w = 100
+  local w = 120
   local h = self:calculateHeight()
   local margin = GUI:windowMargin()
   Window.init(self, GUI, w, h, Vector(ScreenManager.width / 2 - w / 2 - margin, 
@@ -50,8 +50,8 @@ function TargetWindow:createContent(width, height)
   local posSP = Vector(x, y + 25)
   self.textSP = self:addStateVariable(Config.attributes[spName].shortName, posSP, w)
   -- Icon List
-  local posIcons = Vector(x, y + 37)
-  self.iconList = IconList(posIcons, w, 18)
+  local posIcons = Vector(x + 8, y + 45)
+  self.iconList = IconList(posIcons, w, 16)
   self.content:add(self.iconList)
   collectgarbage('collect')
 end
@@ -104,7 +104,7 @@ end
 function TargetWindow:calculateHeight(showStatus)
   -- Margin + name + HP + SP
   local h = self:vPadding() * 2 + 15 + 10 + 10
-  return showStatus and h + 18 or h
+  return showStatus and h + 16 or h
 end
 -- String representation.
 function TargetWindow:__tostring()

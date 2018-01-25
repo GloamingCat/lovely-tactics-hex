@@ -30,7 +30,7 @@ function IconList:setIcons(icons)
   local x, y = 0, 0
   for i = 1, #icons do
     local anim = ResourceManager:loadIconAnimation(icons[i], GUIManager.renderer)
-    local w, h = anim.sprite:totalBounds()
+    local _, _, w, h = anim.sprite:totalBounds()
     if x + w > self.width then
       if y + h > self.height then
         anim:destroy()
@@ -42,8 +42,8 @@ function IconList:setIcons(icons)
       end
     end
     self.list[i] = anim
-    anim.x = x - w / 2
-    anim.y = y - h / 2
+    anim.x = x
+    anim.y = y
     anim.sprite:setVisible(self.visible)
     x = x + w
   end

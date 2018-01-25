@@ -183,7 +183,7 @@ end
 
 function Sprite:recalculateBox()
   if self.quad then
-    local w, h = self:getQuadBounds()
+    local w, h = self:quadBounds()
     local dx = (abs(w / 2 - self.offsetX) + w / 2) * self.scaleX
     local dy = (abs(h / 2 - self.offsetY) + h / 2) * self.scaleY
     self.diag = dx + dy
@@ -194,10 +194,10 @@ function Sprite:recalculateBox()
 end
 -- Gets the extreme values for the bounding box.
 function Sprite:totalBounds()
-local w, h = self:getQuadBounds()
+  local w, h = self:quadBounds()
   return Affine.getBoundingBox(self, w, h)
 end
-function Sprite:getQuadBounds()
+function Sprite:quadBounds()
   local _, _, w, h = self.quad:getViewport()
   return w, h
 end

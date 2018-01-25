@@ -115,7 +115,7 @@ end
 function Status:onSkillEffect(input, results)
   if results.damage then
     if self.data.removeOnDamage or not input.user.battler:isAlive() and self.data.removeOnKO then
-      input.user.battler.statusList:removeStatus(self, input.user)
+      results.target.battler.statusList:removeStatus(self, results.target)
     end
   end
 end

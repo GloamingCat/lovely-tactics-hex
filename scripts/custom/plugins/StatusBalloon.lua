@@ -10,6 +10,7 @@ The balloon animation to show a battler's status.
 -- Imports
 local Animation = require('core/graphics/Animation')
 local Balloon = require('custom/animation/Balloon')
+local BattleCursor = require('core/battle/BattleCursor')
 local CharacterBase = require('core/objects/CharacterBase')
 local List = require('core/datastruct/List')
 local Sprite = require('core/graphics/Sprite')
@@ -32,8 +33,8 @@ function Balloon:init(...)
   Balloon_init(self, ...)
   self.state = 4
   self.statusIndex = 0
+  self.status = {}
   self:initIcon()
-  self.status = List()
   self.sprite:setCenterOffset()
   self:hide()
 end
@@ -44,40 +45,6 @@ function Balloon:initIcon()
   anim.duration = 30
   self:setIcon(anim)
 end
-
----------------------------------------------------------------------------------------------------
--- Balloon
----------------------------------------------------------------------------------------------------
-
--- Adds a new status icon.
-function Balloon:addIcon(s)
-  if not self.status:indexOf(s) then
-    self.status:add(s)
-  end
-  if self.state == 4 then
-    self:show()
-    self.state = 0
-  end
-end
--- Removes status icon.
-function Balloon:removeIcon(s)
-  local i = self.status:indexOf(s)
-  self.status:remove(i)
-  if self.status:isEmpty() then
-    self:reset()
-    self:hide()
-    self.iconAnim:reset()
-    self.iconAnim:hide()
-    self.state = 4
-  elseif self.statusIndex > i then
-    self.statusIndex = self.statusIndex - 1
-  end
-end
-
----------------------------------------------------------------------------------------------------
--- Update
----------------------------------------------------------------------------------------------------
-
 -- Overrides Balloon:update.
 -- Considers state 4, when the character has no status.
 local Balloon_update = Balloon.update
@@ -91,19 +58,38 @@ end
 local Balloon_onEnd = Balloon.onEnd
 function Balloon:onEnd()
   Balloon_onEnd(self)
-  if self.state == 3 then
-    self.statusIndex = math.mod1(self.statusIndex + 1, #self.status)
-  elseif self.state == 1 then
-    self.statusIndex = math.mod1(self.statusIndex, #self.status)
-    local icon = self.status[self.statusIndex]
-    local data = Database.animations[icon.id]
-    local quad, texture = ResourceManager:loadQuad(data, nil, icon.col, icon.row)
-    self.iconAnim.sprite:setTexture(texture)
-    self.iconAnim.sprite:setQuad(quad)
-    self.iconAnim.sprite:setCenterOffset()
-    local x, y, w, h = quad:getViewport()
-    self.iconAnim.quadWidth = w
-    self.iconAnim.quadHeight = h
+  if self.state == 1 then -- Show next icon
+    self:nextIcon()
+  end
+end
+
+function Balloon:nextIcon()
+  self.statusIndex = math.mod1(self.statusIndex + 1, #self.status)
+  local icon = self.status[self.statusIndex]
+  local data = Database.animations[icon.id]
+  local quad, texture = ResourceManager:loadQuad(data, nil, icon.col, icon.row)
+  self.iconAnim.sprite:setTexture(texture)
+  self.iconAnim.sprite:setQuad(quad)
+  self.iconAnim.sprite:setCenterOffset()
+  local x, y, w, h = quad:getViewport()
+  self.iconAnim.quadWidth = w
+  self.iconAnim.quadHeight = h
+end
+
+function Balloon:setIcons(icons)
+  self.status = icons
+  if #icons > 0 then
+    if self.state == 4 then
+      self:nextIcon()
+      self:show()
+      self.state = 0
+    end
+  else
+    self.state = 4
+    self.iconAnim:reset()
+    self.iconAnim:hide()
+    self:reset()
+    self:hide()
   end
 end
 
@@ -111,21 +97,13 @@ end
 -- StatusList
 ---------------------------------------------------------------------------------------------------
 
--- Add status icon to balloon.
-local StatusList_addStatus = StatusList.addStatus
-function StatusList:addStatus(s, character)
-  s = StatusList_addStatus(self, s)
-  if character and s and not s.data.cumulative and character.balloon then
-    character.balloon:addIcon(s.data.icon)
-  end
-  return s
-end
--- Remove status icon from balloon.
-local StatusList_remove = StatusList.removeStatus
-function StatusList:removeStatus(s, character)
-  s = StatusList_remove(self, s)
-  if character and s and character.balloon then
-    character.balloon:removeIcon(s.data.icon)
+-- Refreshes icon list.
+local StatusList_updateGraphics = StatusList.updateGraphics
+function StatusList:updateGraphics(character)
+  StatusList_updateGraphics(self, character)
+  if character.balloon then
+    local icons = self:getIcons()
+    character.balloon:setIcons(icons)
   end
 end
 
@@ -162,7 +140,7 @@ end
 -- TroopManager
 ---------------------------------------------------------------------------------------------------
 
--- Override.
+-- Override. Creates a balloon for each battle character.
 local TroopManager_createBattler = TroopManager.createBattler
 function TroopManager:createBattler(character)
   TroopManager_createBattler(self, character)
@@ -170,6 +148,41 @@ function TroopManager:createBattler(character)
     local balloonAnim = Database.animations[balloonID]
     character.balloon = ResourceManager:loadAnimation(balloonAnim, FieldManager.renderer)
     character.balloon.sprite:setTransformation(balloonAnim.transform)
+    local icons = character.battler.statusList:getIcons()
+    character.balloon:setIcons(icons)
     character:setPosition(character.position)
   end
+end
+
+---------------------------------------------------------------------------------------------------
+-- BattleCursor
+---------------------------------------------------------------------------------------------------
+
+-- Sets the position to the given tile.
+-- @param(tile : ObjectTile) the target tile
+local BattleCursor_setTile = BattleCursor.setTile
+function BattleCursor:setTile(tile)
+  BattleCursor_setTile(self, tile)
+  for char in tile.characterList:iterator() do
+    if char.balloon and char.balloon.state ~= 4 then
+      self:addBalloonHeight(char.balloon)
+      break
+    end
+  end
+end
+-- Sets the position to the given character.
+-- @param(char : Character) the target character
+local BattleCursor_setCharacter = BattleCursor.setCharacter
+function BattleCursor:setCharacter(char)
+  BattleCursor_setCharacter(self, char)
+  if char.balloon and char.balloon.state ~= 4 then
+    self:addBalloonHeight(char.balloon)
+  end
+end
+-- Translates cursor to above the balloon.
+-- @param(balloon : Balloon)
+function BattleCursor:addBalloonHeight(balloon)
+  local sprite = self.anim.sprite
+  local _, by = balloon.sprite:totalBounds()
+  sprite:setXYZ(nil, math.min(sprite.position.y, by + 8))
 end

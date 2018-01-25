@@ -3,7 +3,7 @@
 		"name": "Green Lancer",
 		"data": {
 			"id": 20,
-			"level": 30,
+			"level": 3,
 			"attackID": 10,
 			"classID": 1,
 			"exp": 0,
@@ -54,7 +54,7 @@
 		"name": "Blue Mage",
 		"data": {
 			"id": 21,
-			"level": 30,
+			"level": 3,
 			"attackID": 11,
 			"classID": 2,
 			"exp": 50,

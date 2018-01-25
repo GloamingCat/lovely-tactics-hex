@@ -115,7 +115,7 @@ function Text:getHeight()
   return h
 end
 
-function Text:getQuadBounds()
+function Text:quadBounds()
   return self:getWidth(), self:getHeight()
 end
 
