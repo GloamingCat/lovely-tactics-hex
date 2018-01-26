@@ -10,19 +10,29 @@
 			},
 			"gold": 100,
 			"items": [
-        {
+				{
 					"id": 10,
 					"count": 10,
 					"rate": 100
 				},
-        {
+				{
 					"id": 11,
 					"count": 5,
 					"rate": 100
 				},
-        {
+				{
 					"id": 12,
 					"count": 5,
+					"rate": 100
+				},
+				{
+					"id": 21,
+					"count": 2,
+					"rate": 100
+				},
+				{
+					"id": 22,
+					"count": 2,
 					"rate": 100
 				}
 			],
@@ -37,7 +47,7 @@
 					// Member's position in the grid
 					"x": 2,
 					"y": 3,
-          "equipment": []
+					"equipment": []
 				},
 				{
 					"key": "HeroMage",
@@ -45,12 +55,12 @@
 					"charID": 11,
 					"x": 4,
 					"y": 2,
-          "equipment": []
+					"equipment": []
 				}
 			],
 			// Members that are currently not the grid, but may be put in it during battle or in a menu.
 			"backup": [], 
-			// Members that are currently anot accesible, but they are still saved.
+			// Members that are currently not accesible, but they are still saved.
 			"hidden": [],
 			"tags": []
 		}

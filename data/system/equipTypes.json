@@ -26,16 +26,9 @@
     "tags": []
   },
   {
-    "name": "Legs",
-    "key": "legs",
-    "count": 1,
-    "state": 0,
-    "tags": []
-  },
-  {
     "name": "Accessory",
-    "key": "accessory",
-    "count": 4,
+    "key": "acc",
+    "count": 2,
     "state": 0,
     "tags": []
   }

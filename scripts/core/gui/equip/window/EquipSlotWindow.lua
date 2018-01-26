@@ -23,6 +23,7 @@ local EquipSlotWindow = class(ListButtonWindow)
 -- Initialization
 ---------------------------------------------------------------------------------------------------
 
+-- Constructor.
 -- @param(GUI : EquipGUI) que parent GUI
 function EquipSlotWindow:init(GUI)
   self.visibleRowCount = 0
@@ -35,6 +36,7 @@ function EquipSlotWindow:init(GUI)
   local y = GUI.initY + self.height / 2 - ScreenManager.height / 2
   self:setXYZ(x, y)
 end
+-- Overrides ListButtonWindow:createListButton.
 -- @param(slot : table)
 function EquipSlotWindow:createListButton(slot)
   for i = 1, slot.count do
@@ -46,13 +48,12 @@ function EquipSlotWindow:createListButton(slot)
     button.slot = slot
   end
 end
--- @param(member : table) table with charID, battlerID and save data
--- @param(battler : Battler)
+-- @param(member : Battler)
 function EquipSlotWindow:setMember(member)
   self.member = member
   self:refreshSlots()
 end
-
+-- Refresh slot buttons, in case the member chaged.
 function EquipSlotWindow:refreshSlots()
   for i = 1, #self.matrix do
     local button = self.matrix[i]
@@ -116,7 +117,7 @@ end
 function EquipSlotWindow:rowCount()
   return self.visibleRowCount
 end
--- String representation (for debugging).
+-- @ret(string) string representation (for debugging).
 function EquipSlotWindow:__tostring()
   return 'EquipSlotWindow'
 end

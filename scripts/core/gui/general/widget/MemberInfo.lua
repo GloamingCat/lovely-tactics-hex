@@ -3,7 +3,7 @@
 
 MemberInfo
 ---------------------------------------------------------------------------------------------------
-A button that shows a breef information about the member it represents.
+A container for a battler's main information.
 
 =================================================================================================]]
 
@@ -24,8 +24,10 @@ local MemberInfo = class()
 -- Initialization
 ---------------------------------------------------------------------------------------------------
 
--- @param(member : table)
--- @param(...) parameters from Button:init.
+-- @param(battler : table)
+-- @param(w : number) width of the container
+-- @param(h : number) height of the container
+-- @param(topLeft : Vector) the position of the top left corner of the container
 function MemberInfo:init(battler, w, h, topLeft)
   self.battler = battler
   topLeft = topLeft and topLeft:clone() or Vector(0, 0, 0)
@@ -63,7 +65,7 @@ function MemberInfo:init(battler, w, h, topLeft)
   local status = IconList(topRight, rw, 24)
   status:setIcons(battler.statusList:getIcons())
   -- Level / Class
-  local middleRight = Vector(topRight.x - 8, topRight.y + 8, topRight.z)
+  local middleRight = Vector(topRight.x - 7, topRight.y + 8, topRight.z)
   local level = Vocab.level .. ' ' .. battler.class.level
   local txtLevel = SimpleText(level, middleRight, rw, 'left', small)
   local txtClass = SimpleText(battler.class.data.name, middleRight, rw, 'right', small)
@@ -89,7 +91,7 @@ function MemberInfo:init(battler, w, h, topLeft)
   gaugeSP.bar.sprite:setColor(Color.barSP)
   -- EXP gauge
   gaugeX = 2 + txtEXP.sprite:getWidth()
-  local gaugePosEXP = Vector(topRight.x + gaugeX - 8, bottomRight.y + 3, bottomRight.z + 1)
+  local gaugePosEXP = Vector(topRight.x + gaugeX - 7, bottomRight.y + 3, bottomRight.z + 1)
   local expRate = (battler.class.exp - expCurrent) / (expNext - expCurrent)
   local gaugeEXP = Gauge(gaugePosEXP, rw - gaugeX, 6, 1)
   gaugeEXP.bar.sprite:setColor(Color.barEXP)

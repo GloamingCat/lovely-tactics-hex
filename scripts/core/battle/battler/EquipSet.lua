@@ -59,23 +59,84 @@ end
 -- @param(inventory : Inventory) troop's inventory
 -- @param(character : Character) battler's character, in case it's during battle (optional)
 function EquipSet:setEquip(key, item, inventory, character)
-  local slot = self.slots[key]
-  local previousEquip = slot.id
-  -- Remove previous equip
-  if previousEquip >= 0 then
-    local data = Database.items[previousEquip]
-    self:removeStatus(data.equip, character)
-    inventory:addItem(previousEquip)
-  end
-  -- Insert new equip
   if item then
     assert(item.equip, 'Item is not an equipment: ' .. item.id)
-    self:addStatus(item.equip, character)
-    inventory:removeItem(item.id)
   end
+  local slot = self.slots[key]
+  local equip = item and item.equip
+  if equip then
+    -- If slot is blocked
+    if slot.block then
+      self:unequip(slot.block, inventory, character)
+    end
+    -- Unequip slots from the same slot type
+    if equip.allSlots then
+      key = equip.type .. '1'
+      slot = self.slots[key]
+      self:unequip(equip.type, inventory, character)
+    else
+      self:unequip(key, inventory, character)
+    end
+    for i = 1, #equip.block do
+      self:unequip(equip.block[i], inventory, character)
+    end
+    -- Block slots
+    for i = 1, #equip.block do
+      self:setBlock(equip.block[i], key)
+    end
+    if equip.allSlots then
+      self:setBlock(equip.type, key)
+    end
+    self:equip(key, item, inventory, character)
+  else
+    self:unequip(key, inventory, character)
+  end
+end
+-- Inserts equipment item in the given slot.
+function EquipSet:equip(key, item, inventory, character)
+  local slot = self.slots[key]
+  self:addStatus(item.equip, character)
+  inventory:removeItem(item.id)
   slot.id = item and item.id or -1
   self:updateSlotBonus(slot)
-  -- TODO: check slot rectrictions
+end
+-- Removes equipment item (if any) from the given slot.
+function EquipSet:unequip(key, inventory, character)
+  if equipTypes[key] then
+    for i = 1, equipTypes[key].count do
+      self:unequip(key .. i, inventory, character)
+    end
+  else
+    local slot = self.slots[key]
+    local previousEquip = slot.id
+    if previousEquip >= 0 then
+      local data = Database.items[previousEquip]
+      local equip = data.equip
+      self:removeStatus(equip, character)
+      inventory:addItem(previousEquip)
+      slot.id = -1
+      -- Unblock slots
+      for i = 1, #equip.block do
+        self:setBlock(equip.block[i], nil)
+      end
+      -- Unblock slots from the same slot type
+      if equip.allSlots then
+        self:setBlock(equip.type, nil)
+      end
+      self:updateSlotBonus(slot)
+    end
+  end
+end
+
+function EquipSet:setBlock(key, block)
+  if equipTypes[key] then
+    for i = 1, equipTypes[key].count do
+      local keyi = key .. i
+      self.slots[keyi].block = block
+    end
+  else
+    self.slots[key].block = block
+  end
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -189,9 +250,11 @@ function EquipSet:getState()
     local slot = equipTypes[i]
     for k = 1, slot.count do
       local key = slot.key .. k
+      local slotData = self.slots[key]
       state[key] = {
-        id = self.slots[key].id,
-        state = self.slots[key].state }
+        id = slotData.id,
+        state = slotData.state,
+        block = slotData.block }
     end
   end
   return state

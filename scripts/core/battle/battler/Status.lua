@@ -18,7 +18,7 @@ local Status = class()
 ---------------------------------------------------------------------------------------------------
 
 -- Constructor.
--- @param(list : StatusList) 
+-- @param(list : StatusList) the list that included this status
 -- @param(data : table) status' data from database file
 -- @param(state : table) the persistent state of the status
 function Status:init(list, data, state)
@@ -73,9 +73,9 @@ end
 function Status:__tostring()
   return 'Status: ' .. self.data.id .. ' (' .. self.data.name .. ')'
 end
-
+-- @ret(table) status' persistent data. Must include its ID.
 function Status:getState()
-  return { id = self.id,
+  return { id = self.data.id,
     lifeTime = self.lifeTime }
 end
 

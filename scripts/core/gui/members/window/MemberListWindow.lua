@@ -35,9 +35,33 @@ end
 -- @ret(Button)
 function MemberListWindow:createListButton(battler)
   local button = Button(self)
-  local w, h = self:cellWidth(), self:cellHeight()
-  local memberInfo = MemberInfo(battler, w - self:hPadding(), h)
-  button.content:add(memberInfo)
+  button.member = battler
+end
+
+---------------------------------------------------------------------------------------------------
+-- Member Info
+---------------------------------------------------------------------------------------------------
+
+-- Refresh each member info.
+function MemberListWindow:refreshMembers()
+  for i = 1, #self.matrix do
+    local button = self.matrix[i]
+    if button.memberInfo then
+      button.memberInfo:destroy()
+      button.content:removeElement(button.memberInfo)
+    end
+    local w, h = self:cellWidth(), self:cellHeight()
+    button.memberInfo = MemberInfo(button.member, w - self:hPadding(), h)
+    button.content:add(button.memberInfo)
+  end
+end
+-- Overrides Window:show.
+function MemberListWindow:show(...)
+  if not self.open then
+    self:refreshMembers()
+    self:hideContent()
+  end
+  ListButtonWindow.show(self, ...)
 end
 
 ---------------------------------------------------------------------------------------------------

@@ -6,7 +6,7 @@
 				"name": "Scythe",
 				"data": {
 					"id": 20,
-					"description": "Adds 5ATKP and 10ATKM.",
+					"description": "Increases 5ATKP and 10ATKM.",
 					"icon": {
 						"id": 41,
 						"col": 0,
@@ -16,8 +16,10 @@
 					"sellable": true,
 					"equip": {
 						"type": "hand",
-						"status": [],
+						"status": [2, 1],
 						"battleStatus": [3],
+						"allSlots": false,
+						"block": [],
 						"elements": [
 							{
 								"id": 1,
@@ -32,6 +34,82 @@
 							{
 								"key": "atkm",
 								"add": 10
+							}
+						]
+					},
+					"tags": []
+				}
+			},
+			{
+				"name": "Two-handed Scythe",
+				"data": {
+					"id": 21,
+					"description": "Increases 15ATKP and 25ATKM.",
+					"icon": {
+						"id": 41,
+						"col": 0,
+						"row": 0
+					},
+					"price": 300,
+					"sellable": true,
+					"equip": {
+						"type": "hand",
+						"allSlots": true,
+						"block": ["head"],
+						"status": [1],
+						"battleStatus": [],
+						"elements": [
+							{
+								"id": 1,
+								"value": 0
+							}
+						],
+						"attributes": [
+							{
+								"key": "atkp",
+								"add": 15
+							},
+							{
+								"key": "atkm",
+								"add": 25
+							}
+						]
+					},
+					"tags": []
+				}
+			},
+			{
+				"name": "Hat",
+				"data": {
+					"id": 22,
+					"description": "Increases 5DEFP.",
+					"icon": {
+						"id": 43,
+						"col": 0,
+						"row": 0
+					},
+					"price": 300,
+					"sellable": true,
+					"equip": {
+						"type": "head",
+						"allSlots": true,
+						"block": [],
+						"status": [],
+						"battleStatus": [],
+						"elements": [
+							{
+								"id": 1,
+								"value": 0
+							}
+						],
+						"attributes": [
+							{
+								"key": "atkp",
+								"add": 15
+							},
+							{
+								"key": "atkm",
+								"add": 25
 							}
 						]
 					},

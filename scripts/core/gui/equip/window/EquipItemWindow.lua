@@ -25,13 +25,14 @@ function EquipItemWindow:init(GUI, w, h, pos, rowCount)
   self.visibleRowCount = rowCount
   ListButtonWindow.init(self, {}, GUI, w, h, pos)
 end
-
+-- Overrides ListButtonWindow:createWidgets.
+-- Adds the "unequip" button.
 function EquipItemWindow:createWidgets(...)
   local button = Button(self)
   button:createText(Vocab.unequip, 'gui_medium')
   ListButtonWindow.createWidgets(self, ...)
 end
-
+-- Overrides ListButtonWindow:createListButton.
 function EquipItemWindow:createListButton(itemSlot)
   local item = Database.items[itemSlot.id]
   local icon = item.icon.id >= 0 and 
@@ -43,7 +44,7 @@ function EquipItemWindow:createListButton(itemSlot)
   button:createInfoText(itemSlot.count, 'gui_medium')
   return button
 end
--- @param(data : table)
+-- @param(member : Battler)
 function EquipItemWindow:setMember(member)
   self.member = member
   --self:refreshItems()
@@ -54,9 +55,9 @@ function EquipItemWindow:setSlot(key, slot)
   self.slotKey = key
   self:refreshItems()
 end
-
+-- Refresh item buttons in case the slot changed.
 function EquipItemWindow:refreshItems()
-  local list = self.GUI.troop.inventory:getEquipItems(self.slotKey, self.member)
+  local list = self.GUI.memberGUI.troop.inventory:getEquipItems(self.slotKey, self.member)
   self:overrideButtons(list)
 end
 
@@ -75,8 +76,8 @@ end
 -- Called when player chooses an item to equip.
 function EquipItemWindow:onButtonConfirm(button)
   local char = TroopManager:getBattlerCharacter(self.member)
-  self.member.equipSet:setEquip(self.slotKey, button.item, self.GUI.troop.inventory, char)
-  self.GUI.slotWindow:refreshSlots()
+  self.member.equipSet:setEquip(self.slotKey, button.item, self.GUI.memberGUI.troop.inventory, char)
+  self.GUI.memberGUI:refreshMember()
   self:showSlotWindow()
 end
 -- Called when player cancels and returns to the slot window.
@@ -102,7 +103,7 @@ end
 function EquipItemWindow:rowCount()
   return self.visibleRowCount
 end
-
+-- @ret(string) string representation (for debugging).
 function EquipItemWindow:__tostring()
   return 'EquipItemWindow'
 end

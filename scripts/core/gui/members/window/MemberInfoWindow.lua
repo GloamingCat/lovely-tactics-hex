@@ -33,18 +33,16 @@ end
 ---------------------------------------------------------------------------------------------------
 
 function MemberInfoWindow:setMember(member)
-  if member ~= self.member or not self.info then
-    self.member = member
-    if self.info then
-      self.info:destroy()
-      self.content:removeElement(self.info)
-    end
-    local w = self.width - self:hPadding() * 2
-    local h = self.height - self:vPadding() * 2
-    self.info = MemberInfo(self.member, w, h, Vector(-w / 2, -h / 2))
-    self.info:updatePosition(self.position)
-    self.content:add(self.info)
+  self.member = member
+  if self.info then
+    self.info:destroy()
+    self.content:removeElement(self.info)
   end
+  local w = self.width - self:hPadding() * 2
+  local h = self.height - self:vPadding() * 2
+  self.info = MemberInfo(self.member, w, h, Vector(-w / 2, -h / 2))
+  self.info:updatePosition(self.position)
+  self.content:add(self.info)
 end
 
 return MemberInfoWindow
