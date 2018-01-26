@@ -3,6 +3,7 @@ local big_font = { 'FogSans', 'otf', 20 }
 local default_font = { 'FogSans', 'otf', 11 }
 local medium_font = { 'FogSans', 'otf', 9.5 }
 local small_font = { 'FogSans', 'otf', 8 }
+local tiny_font = { 'FogSans', 'otf', 6.5 }
 local fps_font = { 'FogSans', 'otf', 3 }
 
 return  {
@@ -11,6 +12,7 @@ return  {
   gui_default = default_font,
   gui_button = medium_font,
   gui_dialogue = default_font,
+  gui_tiny = tiny_font,
   gui_small = small_font,
   gui_medium = medium_font,
   gui_big = big_font,

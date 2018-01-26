@@ -20,17 +20,19 @@
 	},
 	"animations": {
 		"windowSkinID": 20,
-		"cursorID": 21,
-    "highlightID": 22,
-		"battleCursorID": 23,
-		"tileCursorID": 24,
-		"tileID": 25,
-    "sets": ["default", "battle", "sleep"]
+		"frameID": 21,
+		"cursorID": 22,
+		"highlightID": 23,
+		"battleCursorID": 24,
+		"tileCursorID": 25,
+		"tileID": 26,
+		"sets": ["default", "battle", "sleep"]
 	},
 	"battle": {
+		"maxLevel": 100,
 		"overpassAllies": false,
 		"overpassDeads": true,
-    "itemSkillID": 1,
+		"itemSkillID": 1,
 		"attHP": "hp",
 		"attSP": "sp",
 		"attStep": "mov",

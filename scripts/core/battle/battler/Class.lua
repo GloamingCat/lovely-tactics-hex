@@ -23,6 +23,7 @@ function Class:init(battler, save)
     self.level = battler.data.level
   end
   local classData = Database.classes[self.id]
+  self.data = classData
   self.expCurve = loadformula(classData.expCurve, 'lvl')
   self.build = {}
   for key, formula in pairs(classData.build) do

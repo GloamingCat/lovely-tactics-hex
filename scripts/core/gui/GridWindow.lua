@@ -411,7 +411,7 @@ end
 -- Gets the width of a single cell.
 -- @ret(number) the width in pixels
 function GridWindow:cellWidth()
-  return 60
+  return 70
 end
 -- Gets the height of a single cell.
 -- @ret(number) the height in pixels

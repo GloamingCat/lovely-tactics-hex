@@ -54,7 +54,7 @@ function GUIManager:showGUIForResult(...)
   return result
 end
 -- [COROUTINE] Shows GUI and adds to the stack.
--- @param(path : string or GUI) the GUI path from custom/gui folder or the GUI itself.
+-- @param(path : string | GUI) the GUI path from custom/gui folder or the GUI itself.
 function GUIManager:showGUI(newGUI)
   if self.current then
     self.stack:push(self.current)

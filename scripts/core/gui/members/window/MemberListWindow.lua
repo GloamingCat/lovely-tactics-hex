@@ -36,7 +36,7 @@ end
 function MemberListWindow:createListButton(battler)
   local button = Button(self)
   local w, h = self:cellWidth(), self:cellHeight()
-  local memberInfo = MemberInfo(battler, w, h)
+  local memberInfo = MemberInfo(battler, w - self:hPadding(), h)
   button.content:add(memberInfo)
 end
 
@@ -74,9 +74,13 @@ end
 function MemberListWindow:rowCount()
   return 4
 end
--- Overrides ListButtonWindow:cellHeight.
+-- Overrides ListButtonWindow:cellWidth.
+function MemberListWindow:cellWidth()
+  return ListButtonWindow.cellWidth(self) + 100
+end
+-- Overrides GridWindow:cellHeight.
 function MemberListWindow:cellHeight()
-  return ListButtonWindow.cellHeight(self) * 2
+  return (ListButtonWindow.cellHeight(self) * 3 + self:rowMargin() * 2)
 end
 
 return MemberListWindow

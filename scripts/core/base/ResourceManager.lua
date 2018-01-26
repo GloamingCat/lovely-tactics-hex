@@ -59,7 +59,7 @@ function ResourceManager:loadQuad(data, texture, col, row)
   return quad, texture
 end
 -- Creates an animation from an animation data.
--- @param(data : table or string or number) animation's data or its ID or its image path
+-- @param(data : table | string | number) animation's data or its ID or its image path
 -- @param(dest : Renderer or Sprite)
 -- @ret(Animation)
 function ResourceManager:loadAnimation(data, dest)

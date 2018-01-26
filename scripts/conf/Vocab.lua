@@ -38,9 +38,11 @@ return {
   confirm = 'Confirm',
   cancel = 'Cancel',
   
-  -- Target Window
+  -- Battler info
   steps = 'Steps',
   turnCount = 'TC',
+  exp = 'EXP',
+  level = 'Level',
   
   -- Miss pop-up
   miss = 'Miss'

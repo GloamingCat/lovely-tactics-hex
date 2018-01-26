@@ -23,25 +23,20 @@ local MemberCommandWindow = class(GridWindow)
 
 function MemberCommandWindow:createWidgets()
   Button:fromKey(self, 'items')
-  Button:fromKey(self, 'equips')
   Button:fromKey(self, 'skills')
-  Button:fromKey(self, 'stats')
+  Button:fromKey(self, 'equips')
 end
 -- Items button.
 function MemberCommandWindow:itemsConfirm()
   --self:showGUI(ItemGUI)
 end
--- Equips button.
-function MemberCommandWindow:equipsConfirm()
-  self:showGUI(EquipGUI)
-end
 -- Skills button.
 function MemberCommandWindow:skillsConfirm()
   --self:showGUI(SkillGUI)
 end
--- Stats button.
-function MemberCommandWindow:statsConfirm()
-  --self:showGUI(StatGUI)
+-- Equips button.
+function MemberCommandWindow:equipsConfirm()
+  self:showGUI(EquipGUI)
 end
 
 ---------------------------------------------------------------------------------------------------

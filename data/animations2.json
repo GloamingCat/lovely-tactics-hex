@@ -31,9 +31,37 @@
 				}
 			},
 			{
-				"name": "Cursor",
+				"name": "Icon Frame",
 				"data": {
 					"id": 21,
+					"path": "GUI/frame.png",
+					"x": 0,
+					"y": 0,
+					"width": 24,
+					"height": 24,
+					"cols": 1,
+					"rows": 1,
+					"transform": {
+					  "offsetX": 0,
+					  "offsetY": 0,
+					  "offsetDepth": 0,
+					  "scaleX": 50,
+					  "scaleY": 50,
+					  "rotation": 0,
+					  "red": 255,
+					  "green": 255,
+					  "blue": 255,
+					  "alpha": 255,
+					  "hue": 0,
+					  "saturation": 100,
+					  "brightness": 100
+					}
+				}
+			},
+			{
+				"name": "Cursor",
+				"data": {
+					"id": 22,
 					"path": "GUI/cursor.png",
 					"x": 0,
 					"y": 0,
@@ -76,7 +104,7 @@
 			{
 				"name": "Highlight",
 				"data": {
-					"id": 22,
+					"id": 23,
 					"path": "GUI/highlight.png",
 					"x": 0,
 					"y": 0,
@@ -119,7 +147,7 @@
 			{
 				"name": "Battle Cursor",
 				"data": {
-					"id": 23,
+					"id": 24,
 					"path": "GUI/Battle/battle cursor.png",
 					"x": 0,
 					"y": 0,
@@ -162,7 +190,7 @@
 			{
 				"name": "Tile Cursor",
 				"data": {
-					"id": 24,
+					"id": 25,
 					"path": "GUI/Battle/tile cursor.png",
 					"x": 0,
 					"y": 0,
@@ -199,7 +227,7 @@
 			{
 				"name": "Tile",
 				"data": {
-					"id": 25,
+					"id": 26,
 					"path": "GUI/Battle/tile.png",
 					"x": 0,
 					"y": 0,
@@ -236,7 +264,7 @@
 			{
 				"name": "Balloon",
 				"data": {
-					"id": 26,
+					"id": 27,
 					"path": "GUI/balloon.png",
 					"x": 0,
 					"y": 0,

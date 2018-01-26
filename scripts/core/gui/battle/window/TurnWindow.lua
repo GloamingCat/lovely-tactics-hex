@@ -188,11 +188,11 @@ end
 
 -- Overrides GridWindow:colCount.
 function TurnWindow:colCount()
-  return 2
+  return 1
 end
 -- Overrides GridWindow:rowCount.
 function TurnWindow:rowCount()
-  return 4
+  return 7
 end
 -- Overrides Window:show.
 function TurnWindow:show(add)
