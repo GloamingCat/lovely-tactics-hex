@@ -39,5 +39,8 @@ return {
   gui_text_disabled = {red = 200, green = 200, blue = 200, alpha = 200},
   gui_icon_enabled = {red = 255, green = 255, blue = 255, alpha = 255},
   gui_icon_disabled = {red = 200, green = 200, blue = 200, alpha = 200},
+  barHP = {red = 50, green = 255, blue = 100, alpha = 255},
+  barSP = {red = 50, green = 100, blue = 255, alpha = 255},
+  barEXP = {red = 255, green = 255, blue = 100, alpha = 255}
   
 }

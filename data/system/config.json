@@ -26,6 +26,8 @@
 		"battleCursorID": 24,
 		"tileCursorID": 25,
 		"tileID": 26,
+		"gaugeFrameID": 28,
+		"gaugeBarID": 29,
 		"sets": ["default", "battle", "sleep"]
 	},
 	"battle": {

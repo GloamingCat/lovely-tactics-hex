@@ -8,6 +8,7 @@ A button that shows a breef information about the member it represents.
 =================================================================================================]]
 
 -- Imports
+local Gauge = require('core/gui/widget/Gauge')
 local IconList = require('core/gui/general/widget/IconList')
 local SimpleImage = require('core/gui/widget/SimpleImage')
 local SimpleText = require('core/gui/widget/SimpleText')
@@ -40,6 +41,7 @@ function MemberInfo:init(battler, w, h, topLeft)
     w = w - iw - margin
   end
   topLeft.y = topLeft.y + 1
+  topLeft.z = topLeft.z - 2
   local rw = (w - margin) / 2
   local small = Fonts.gui_small
   local tiny = Fonts.gui_tiny
@@ -47,7 +49,7 @@ function MemberInfo:init(battler, w, h, topLeft)
   -- Name
   local txtName = SimpleText(battler.name, topLeft, rw, 'left', medium)
   -- HP
-  local middleLeft = Vector(topLeft.x, topLeft.y + 16, topLeft.z)
+  local middleLeft = Vector(topLeft.x, topLeft.y + 17, topLeft.z)
   local txtHP = SimpleText(hpName, middleLeft, rw, 'left', small)
   local hp = battler.state.hp .. '/' .. battler.mhp()
   local valueHP = SimpleText(hp, middleLeft, rw, 'right', tiny)
@@ -57,11 +59,11 @@ function MemberInfo:init(battler, w, h, topLeft)
   local sp = battler.state.sp .. '/' .. battler.msp()
   local valueSP = SimpleText(sp, bottomLeft, rw, 'right', tiny)
   -- Status
-  local topRight = Vector(topLeft.x + rw + margin + 7, topLeft.y + 8, topLeft.z - 20)
+  local topRight = Vector(topLeft.x + rw + margin + 8, topLeft.y + 8, topLeft.z - 20)
   local status = IconList(topRight, rw, 24)
   status:setIcons(battler.statusList:getIcons())
   -- Level / Class
-  local middleRight = Vector(topRight.x - 7, topRight.y + 8, topRight.z)
+  local middleRight = Vector(topRight.x - 8, topRight.y + 8, topRight.z)
   local level = Vocab.level .. ' ' .. battler.class.level
   local txtLevel = SimpleText(level, middleRight, rw, 'left', small)
   local txtClass = SimpleText(battler.class.data.name, middleRight, rw, 'right', small)
@@ -77,10 +79,25 @@ function MemberInfo:init(battler, w, h, topLeft)
   end
   local txtEXP = SimpleText(Vocab.exp, bottomRight, rw, 'left', small)
   local valueEXP = SimpleText(exp, bottomRight, rw, 'right', tiny)
+  -- HP / SP gauges
+  local gaugeX = 2 + math.max(txtSP.sprite:getWidth(), txtHP.sprite:getWidth())
+  local gaugePosHP = Vector(topLeft.x + gaugeX, middleLeft.y + 3, middleLeft.z + 1)
+  local gaugePosSP = Vector(topLeft.x + gaugeX, bottomLeft.y + 3, bottomLeft.z + 1)
+  local gaugeHP = Gauge(gaugePosHP, rw - gaugeX, 6, battler.state.hp / battler.mhp())
+  local gaugeSP = Gauge(gaugePosSP, rw - gaugeX, 6, battler.state.sp / battler.msp())
+  gaugeHP.bar.sprite:setColor(Color.barHP)
+  gaugeSP.bar.sprite:setColor(Color.barSP)
+  -- EXP gauge
+  gaugeX = 2 + txtEXP.sprite:getWidth()
+  local gaugePosEXP = Vector(topRight.x + gaugeX - 8, bottomRight.y + 3, bottomRight.z + 1)
+  local expRate = (battler.class.exp - expCurrent) / (expNext - expCurrent)
+  local gaugeEXP = Gauge(gaugePosEXP, rw - gaugeX, 6, 1)
+  gaugeEXP.bar.sprite:setColor(Color.barEXP)
   
-  self.content = { txtName, txtLevel, txtClass, 
-    txtHP, valueHP, txtSP, valueSP,
-    txtEXP, valueEXP, status }
+  self.content = { txtName, txtLevel, txtClass, status,
+    txtHP, valueHP, gaugeHP, 
+    txtSP, valueSP, gaugeSP,
+    txtEXP, valueEXP, gaugeEXP  }
 end
 
 ---------------------------------------------------------------------------------------------------
