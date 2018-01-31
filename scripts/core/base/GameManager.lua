@@ -46,8 +46,12 @@ function GameManager:update(dt)
   if InputManager.keys['pause']:isTriggered() then
     self.paused = not self.paused
   end
-  AudioManager:update()
-  InputManager:update()
+  if not AudioManager.paused then
+    AudioManager:update()
+  end
+  if not InputManager.paused then
+    InputManager:update()
+  end
   self.cleanCount = self.cleanCount + 1
   if self.cleanCount >= self.cleanTime then
     self.cleanCount = 0
@@ -89,6 +93,24 @@ function GameManager:draw()
   ]]
   if self.paused then
     love.graphics.printf('PAUSED', 0, 0, ScreenManager:totalWidth(), 'right')
+  end
+end
+
+---------------------------------------------------------------------------------------------------
+-- Pause
+---------------------------------------------------------------------------------------------------
+
+-- Pauses entire game.
+-- @param(paused : boolean) pause value
+-- @param(audio : boolean) also affect audio
+-- @param(input : boolean) also affect input
+function GameManager:setPaused(paused, audio, input)
+  self.paused = paused
+  if audio then
+    AudioManager:setPaused(paused)
+  end
+  if input then
+    InputManager:setPaused(paused)
   end
 end
 

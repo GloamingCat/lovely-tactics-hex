@@ -37,11 +37,30 @@ function AudioManager:init()
   self.sfx = List()
   self.volumeSFX = 1
   self.pitchSFX = 1
+  self.paused = false
 end
+
+---------------------------------------------------------------------------------------------------
+-- General
+---------------------------------------------------------------------------------------------------
+
 -- Updates BGM and SFX audio.
 function AudioManager:update()
   self:updateBGM()
   self:updateSFX()
+end
+
+function AudioManager:setPaused(paused)
+  self.paused = paused
+  if self.BGM then
+    self.BGM:setPaused(paused)
+  end
+  if self.nextBGM then
+    self.nextBGM:setPaused(paused)
+  end
+  for i = 1, #self.sfx do
+    self.sfx[i]:setPaused(paused)
+  end
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -167,7 +186,6 @@ end
 function AudioManager:pauseBGM(time, wait)
   self.pausedBGM = true
   self:fade(time, wait)
-  return 
 end
 
 ---------------------------------------------------------------------------------------------------

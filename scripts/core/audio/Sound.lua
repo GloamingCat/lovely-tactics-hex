@@ -70,6 +70,14 @@ function Sound:pause()
   self.source:pause()
 end
 
+function Sound:setPaused(paused)
+  if paused or self.paused then
+    self.source:pause()
+  else
+    self.source:resume()
+  end
+end
+
 ---------------------------------------------------------------------------------------------------
 -- Volume & Pitch
 ---------------------------------------------------------------------------------------------------

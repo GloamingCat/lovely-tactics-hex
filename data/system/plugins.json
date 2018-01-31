@@ -35,5 +35,12 @@
 		"path": "BattleEndRevival",
 		"on": true,
 		"param": {}
+	},
+	{
+		"path": "FocusPause",
+		"on": true,
+		"param": {
+			"pauseAudio": true
+		}
 	}
 ]

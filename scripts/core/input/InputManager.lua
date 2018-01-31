@@ -29,6 +29,7 @@ function InputManager:init()
     self.keys[v] = GameKey()
   end
   self.mouse = GameMouse()
+  self.paused = false
 end
 
 -- Checks if player is using keyboard and updates all keys' states.
@@ -41,6 +42,10 @@ function InputManager:update()
     key:update()
   end
   self.mouse:update()
+end
+
+function InputManager:setPaused(paused)
+  self.paused = paused
 end
 
 ---------------------------------------------------------------------------------------------------
