@@ -14,6 +14,7 @@ local Static = require('custom/animation/Static')
 
 -- Alias
 local newImage = love.graphics.newImage
+local newImageData = love.image.newImageData
 local newFont = love.graphics.newFont
 local newQuad = love.graphics.newQuad
 
@@ -87,16 +88,23 @@ function ResourceManager:loadAnimation(data, dest)
   end
   return AnimClass(dest, data)
 end
+-- Loads a sprite.
+-- @param(data : table) animation's data
+-- @param(renderer : Renderer) renderer of the icon (FieldManager's or GUIManager's)
+-- @ret(Sprite)
+function ResourceManager:loadSprite(data, renderer, col, row)
+  local quad, texture = self:loadQuad(data, nil, col, row)
+  local sprite = Sprite(renderer, texture, quad)
+  sprite:setTransformation(data.transform)
+  return sprite
+end
 -- Loads a sprite for an icon.
 -- @param(icon : table) icon's data (animation ID, col and row)
 -- @param(renderer : Renderer) renderer of the icon (FieldManager's or GUIManager's)
 -- @ret(Sprite)
 function ResourceManager:loadIcon(icon, renderer)
   local data = Database.animations[icon.id]
-  local quad, texture = self:loadQuad(data, nil, icon.col, icon.row)
-  local sprite = Sprite(renderer, texture, quad)
-  sprite:setTransformation(data.transform)
-  return sprite
+  return self:loadSprite(data, renderer, icon.col, icon.row)
 end
 -- Loads an icon as a single-sprite animation.
 -- Loads a sprite for an icon.
@@ -112,6 +120,14 @@ end
 function ResourceManager:clearImageCache()
   for k in pairs(ImageCache) do
     ImageCache[k] = nil
+  end
+end
+
+function ResourceManager:refreshImages() 
+  for k, v in pairs(ImageCache) do
+    local data = newImageData(k)
+    v:getData():paste(data, 0, 0, 0, 0, data:getWidth(), data:getHeight())
+    v:refresh()
   end
 end
 

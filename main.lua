@@ -7,8 +7,6 @@ Implements basic game callbacks (load, update and draw).
 
 =================================================================================================]]
 
-require('core/base/globals')
-
 ---------------------------------------------------------------------------------------------------
 -- General
 ---------------------------------------------------------------------------------------------------
@@ -16,6 +14,7 @@ require('core/base/globals')
 -- This function is called exactly once at the beginning of the game.
 -- @param(arg : table) a sequence strings which are command line arguments given to the game
 function love.load(arg)
+  require('core/base/globals')
   GameManager:start(arg)
 end
 -- Callback function used to update the state of the game every frame.
@@ -35,9 +34,12 @@ end
 -- Callback function triggered when window receives or loses focus.
 -- @param(f : boolean) window focus
 function love.focus(f)
-  local renderers = _G.ScreenManager.renderers
-  for i = 1, #renderers do
-    renderers[i].paused = not f
+  if f then
+    ResourceManager:refreshImages()
+    local renderers = _G.ScreenManager.renderers
+    for i = 1, #renderers do
+      renderers[i].neddRedraw = true
+    end
   end
 end
 
