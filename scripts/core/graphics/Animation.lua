@@ -46,10 +46,7 @@ function Animation:init(sprite, data)
     -- Loop type
     self.loop = data.animation.loop
     -- Duration
-    if data.animation.duration > 0 then
-      self.duration = data.animation.duration
-      self.frameDuration = self.duration / self.colCount
-    end
+    self:setTiming(data.animation.duration, data.animation.timing)
     -- Tags
     if data.tags and #data.tags > 0 then
       self.tags = TagMap(data.tags)
@@ -78,18 +75,41 @@ function Animation:clone(sprite)
   return anim
 end
 
+function Animation:setTiming(duration, timing)
+  self.frameTime = nil
+  if duration and duration > 0 then
+    self.frameTime = {}
+    for i = 1, self.colCount do
+      self.frameTime[i - 1] = duration / self.colCount
+    end
+  end
+  if timing then
+    self.frameTime = self.frameTime or {}
+    for i = 1, self.colCount do
+      self.frameTime[i - 1] = timing[i] or self.frameTime[i - 1]
+    end
+  end
+  if self.frameTime then
+    self.duration = 0
+    for i = 1, self.colCount do
+      assert(self.frameTime[i - 1], 'Frame time not defined: ' .. i)
+      self.duration = self.duration + self.frameTime[i - 1]
+    end
+  end
+end
+
 ---------------------------------------------------------------------------------------------------
 -- Update
 ---------------------------------------------------------------------------------------------------
 
 -- Increments the frame count and automatically changes que sprite.
 function Animation:update()
-  if self.paused or not self.frameDuration then
+  if self.paused or not self.duration then
     return
   end
   self.time = self.time + deltaTime() * 60 * abs(self.speed)
-  if self.time >= self.frameDuration then
-    self.time = self.time - self.frameDuration
+  if self.time >= self.frameTime[self.col] then
+    self.time = self.time - self.frameTime[self.col]
     self:nextFrame()
   end
 end

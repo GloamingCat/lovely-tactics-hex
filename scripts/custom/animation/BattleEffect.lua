@@ -14,7 +14,7 @@ local BattleEffect = class(Animation)
 function BattleEffect:init(...)
   Animation.init(self, ...)
   if self.duration then
-    self.frameDuration = self.duration / (self.rowCount * self.colCount)
+    self:setTiming(self.duration / self.rowCount)
   end
 end
 

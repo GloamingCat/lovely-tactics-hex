@@ -48,7 +48,7 @@ end
 -- Overrides Animation:update.
 function Pointer:update()
   Animation.update(self)
-  if self.paused or not self.frameDuration then
+  if self.paused or not self.frameTime then
     return
   end
   self.currentX = self.currentX + self.speedx * time() * 60
