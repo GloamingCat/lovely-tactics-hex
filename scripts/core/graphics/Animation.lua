@@ -27,11 +27,12 @@ local Animation = class()
 
 -- @param(sprite : Sprite) the sprite that this animation if associated to
 function Animation:init(sprite, data)
+  self.sprite = sprite
+  self.data = data
   -- Current quad indexes col/row in the spritesheet
   self.col = 0
   self.row = 0
-  self.sprite = sprite
-  self.data = data
+  self.index = 0
   -- Frame count (adapted to the frame rate)
   self.time = 0
   self.speed = 1
@@ -40,11 +41,23 @@ function Animation:init(sprite, data)
     -- The size of each quad
     self.quadWidth = data.width / data.cols
     self.quadHeight = data.height / data.rows
-    -- Number of rows and collunms of the spritesheet
+    -- Number of rows and colunms of the spritesheet
     self.colCount = data.cols
     self.rowCount = data.rows
     -- Loop type
     self.loop = data.animation.loop
+    -- Pattern
+    local pattern = data.animation.pattern
+    self.pattern = {}
+    if pattern then
+      for i = 0, #pattern - 1 do
+        self.pattern[i] = pattern[i + 1]
+      end
+    else
+      for i = 0, self.colCount - 1 do
+        self.pattern[i] = i
+      end
+    end
     -- Duration
     self:setTiming(data.animation.duration, data.animation.timing)
     -- Tags
@@ -82,21 +95,22 @@ function Animation:setTiming(duration, timing)
   self.frameTime = nil
   if duration and duration > 0 then
     self.frameTime = {}
-    for i = 1, self.colCount do
-      self.frameTime[i - 1] = duration / self.colCount
+    local frameDuration = duration / (#self.pattern + 1)
+    for i = 0, #self.pattern do
+      self.frameTime[i] = frameDuration
     end
   end
   if timing then
     self.frameTime = self.frameTime or {}
-    for i = 1, self.colCount do
-      self.frameTime[i - 1] = timing[i] or self.frameTime[i - 1]
+    for i = 0, #self.pattern do
+      self.frameTime[i] = timing[i + 1] or self.frameTime[i]
     end
   end
   if self.frameTime then
     self.duration = 0
-    for i = 1, self.colCount do
-      assert(self.frameTime[i - 1], 'Frame time not defined: ' .. i)
-      self.duration = self.duration + self.frameTime[i - 1]
+    for i = 0, #self.pattern do
+      assert(self.frameTime[i], 'Frame time not defined: ' .. i)
+      self.duration = self.duration + self.frameTime[i]
     end
   end
 end
@@ -111,8 +125,8 @@ function Animation:update()
     return
   end
   self.time = self.time + deltaTime() * 60 * abs(self.speed)
-  if self.time >= self.frameTime[self.col] then
-    self.time = self.time - self.frameTime[self.col]
+  if self.time >= self.frameTime[self.index] then
+    self.time = self.time - self.frameTime[self.index]
     self:nextFrame()
   end
 end
@@ -120,9 +134,9 @@ end
 function Animation:nextFrame()
   local lastCol = 0
   if self.speed > 0 then
-    lastCol = self.colCount - 1
+    lastCol = #self.pattern - 1
   end
-  if self.col ~= lastCol then
+  if self.index ~= lastCol then
     self:nextCol()
   else
     self:onEnd()
@@ -143,11 +157,17 @@ function Animation:onEnd()
 end
 -- Sets to the next column.
 function Animation:nextCol()
-  self:setCol(self.col + sign(self.speed))
+  self:setIndex(self.index + sign(self.speed))
+  assert(self.pattern[self.index], "Pattern not defined in index "..self.index..' '..self.data.id)
 end
 -- Sets to the next row.
 function Animation:nextRow()
   self:setRow(self.row + sign(self.speed))
+end
+
+function Animation:setIndex(i)
+  self.index = mod(i, #self.pattern + 1)
+  self:setCol(self.pattern[self.index])
 end
 -- Changes the column of the current quad
 -- @param(col : number) the column number, starting from 0

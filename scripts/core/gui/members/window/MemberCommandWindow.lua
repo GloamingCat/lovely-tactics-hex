@@ -72,4 +72,8 @@ function MemberCommandWindow:rowCount()
   return 3
 end
 
+function MemberCommandWindow:__tostring()
+  return 'Member Command Window'
+end
+
 return MemberCommandWindow

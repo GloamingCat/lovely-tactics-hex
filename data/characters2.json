@@ -3,7 +3,7 @@
 		"name": "Enemies",
 		"children": [
 			{
-				"name": "Evil Lancer",
+				"name": "Evil Swordman",
 				"data": {
 					"id": 20,
 					"battlerID": 20,

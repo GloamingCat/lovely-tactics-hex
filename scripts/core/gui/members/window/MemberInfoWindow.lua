@@ -15,7 +15,7 @@ local Window = require('core/gui/Window')
 local MemberInfoWindow = class(Window)
 
 ---------------------------------------------------------------------------------------------------
--- Initialize
+-- Initialization
 ---------------------------------------------------------------------------------------------------
 
 function MemberInfoWindow:init(member, ...)
@@ -43,6 +43,14 @@ function MemberInfoWindow:setMember(member)
   self.info = MemberInfo(self.member, w, h, Vector(-w / 2, -h / 2))
   self.info:updatePosition(self.position)
   self.content:add(self.info)
+end
+
+---------------------------------------------------------------------------------------------------
+-- Properties
+---------------------------------------------------------------------------------------------------
+
+function MemberInfoWindow:__tostring()
+  return 'Member Info Window'
 end
 
 return MemberInfoWindow

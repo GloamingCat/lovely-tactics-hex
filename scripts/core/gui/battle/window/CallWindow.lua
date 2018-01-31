@@ -101,4 +101,8 @@ function CallWindow:rowCount()
   return 4
 end
 
+function CallWindow:__tostring()
+  return 'Call Window'
+end
+
 return CallWindow

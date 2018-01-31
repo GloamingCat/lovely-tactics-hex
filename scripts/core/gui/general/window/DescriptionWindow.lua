@@ -34,5 +34,9 @@ function DescriptionWindow:setText(txt)
   self.text:setText(txt)
   self.text:redraw()
 end
+-- @ret(string) string representation (for debugging)
+function DescriptionWindow:__tostring()
+  return 'Description Window'
+end
 
 return DescriptionWindow

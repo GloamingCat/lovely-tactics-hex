@@ -97,7 +97,7 @@ function SkillWindow:rowCount()
 end
 -- String identifier.
 function SkillWindow:__tostring()
-  return 'SkillWindow'
+  return 'Skill Window'
 end
 
 return SkillWindow

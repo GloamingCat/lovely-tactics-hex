@@ -108,7 +108,7 @@ function TargetWindow:calculateHeight(showStatus)
 end
 -- String representation.
 function TargetWindow:__tostring()
-  return 'TargetWindow'
+  return 'Battle Target Window'
 end
 
 return TargetWindow

@@ -202,7 +202,7 @@ function TurnWindow:show(add)
 end
 -- String identifier.
 function TurnWindow:__tostring()
-  return 'TurnWindow'
+  return 'Battle Turn Window'
 end
 
 return TurnWindow

@@ -37,7 +37,7 @@ function StepWindow:createContent(width, height)
 end
 -- String identifier.
 function StepWindow:__tostring()
-  return 'StepWindow'
+  return 'Step Window'
 end
 
 return StepWindow

@@ -9,9 +9,9 @@
 					"path": "Character/Template/Default.png",
 					"x": 0,
 					"y": 0,
-					"width": 96,
+					"width": 72,
 					"height": 256,
-					"cols": 4,
+					"cols": 3,
 					"rows": 8,
 					"transform": {
 					  "offsetX": 12,
@@ -29,7 +29,8 @@
 					  "brightness": 100
 					},
 					"animation": {
-						"timing": [7, 20, 7, 20]
+						"timing": [20, 7, 20, 7],
+						"pattern": [0, 1, 2, 1],
 						"loop": 1,
 						"script": {
 							"path": "",
@@ -46,9 +47,9 @@
 					"path": "Character/Template/Default.png",
 					"x": 0,
 					"y": 0,
-					"width": 96,
+					"width": 72,
 					"height": 256,
-					"cols": 4,
+					"cols": 3,
 					"rows": 8,
 					"transform": {
 					  "offsetX": 12,
@@ -67,6 +68,7 @@
 					},
 					"animation": {
 						"duration": 25,
+						"pattern": [0, 1, 2, 1],
 						"loop": 1,
 						"script": {
 							"path": "",

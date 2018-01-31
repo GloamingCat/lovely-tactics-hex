@@ -59,4 +59,8 @@ function MainWindow:rowCount()
   return 5
 end
 
+function MainWindow:__tostring()
+  return 'Field MainWindow'
+end
+
 return MainWindow

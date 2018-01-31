@@ -107,4 +107,8 @@ function MemberListWindow:cellHeight()
   return (ListButtonWindow.cellHeight(self) * 3 + self:rowMargin() * 2)
 end
 
+function MemberListWindow:__tostring()
+  return 'Member List Window'
+end
+
 return MemberListWindow

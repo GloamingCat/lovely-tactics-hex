@@ -103,9 +103,9 @@ end
 function EquipItemWindow:rowCount()
   return self.visibleRowCount
 end
--- @ret(string) string representation (for debugging).
+-- @ret(string) string representation (for debugging)
 function EquipItemWindow:__tostring()
-  return 'EquipItemWindow'
+  return 'Equip Item Window'
 end
 
 return EquipItemWindow

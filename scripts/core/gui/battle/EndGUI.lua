@@ -45,10 +45,8 @@ end
 function EndGUI:createMainWindow()
   local h = self.topText:getHeight() * self.topText.scaleY / Fonts.scale
   local window = ResultWindow(self, h, self.troop)
-  self:setActiveWindow(window)
-  self.windowList:add(window)
   self.mainWindow = window
-  window:setActive()
+  self:setActiveWindow(window)
 end
 
 function EndGUI:destroy(...)

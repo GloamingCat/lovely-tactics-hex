@@ -7,7 +7,7 @@
 				"data": {
 					"id": 70,
 					"path": "Character/Template/Default.png",
-					"x": 0,
+					"x": 24,
 					"y": 0,
 					"width": 24,
 					"height": 256,
@@ -46,9 +46,9 @@
 					"path": "Character/Template/Default.png",
 					"x": 0,
 					"y": 0,
-					"width": 96,
+					"width": 72,
 					"height": 256,
-					"cols": 4,
+					"cols": 3,
 					"rows": 8,
 					"transform": {
 					  "offsetX": 12,
@@ -67,6 +67,7 @@
 					},
 					"animation": {
 						"duration": 28,
+						"pattern": [0, 1, 2, 1],
 						"loop": 1,
 						"script": {
 							"path": "",
@@ -83,9 +84,9 @@
 					"path": "Character/Template/Default.png",
 					"x": 0,
 					"y": 0,
-					"width": 96,
+					"width": 72,
 					"height": 256,
-					"cols": 4,
+					"cols": 3,
 					"rows": 8,
 					"transform": {
 					  "offsetX": 12,
@@ -104,6 +105,7 @@
 					},
 					"animation": {
 						"duration": 20,
+						"pattern": [0, 1, 2, 1],
 						"loop": 1,
 						"script": {
 							"path": "",

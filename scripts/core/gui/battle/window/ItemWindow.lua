@@ -38,6 +38,9 @@ end
 -- @param(id : number) the item ID
 function ItemWindow:createListButton(itemSlot)
   local item = Database.items[itemSlot.id]
+  if not item.use then
+    return
+  end
   local icon = item.icon.id >= 0 and 
     ResourceManager:loadIconAnimation(item.icon, GUIManager.renderer)
   local button = Button(self)
@@ -95,7 +98,7 @@ function ItemWindow:rowCount()
 end
 -- String identifier.
 function ItemWindow:__tostring()
-  return 'ItemWindow'
+  return 'Item Window'
 end
 
 return ItemWindow

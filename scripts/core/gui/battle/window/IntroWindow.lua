@@ -89,4 +89,8 @@ function IntroWindow:rowCount()
   return 3
 end
 
+function IntroWindow:__tostring()
+  return 'Battle Intro Window'
+end
+
 return IntroWindow

@@ -20,4 +20,8 @@ function ResultWindow:createContent(w, h)
   --end
 end
 
+function ResultWindow:__tostring()
+  return 'Result Window'
+end
+
 return ResultWindow

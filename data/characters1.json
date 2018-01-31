@@ -3,7 +3,7 @@
 		"name": "Heroes",
 		"children": [
 			{
-				"name": "Hero Lancer",
+				"name": "Hero Swordman",
 				"data": {
 					"id": 10,
 					"battlerID": 10, // Default battler ID
@@ -122,7 +122,7 @@
 						"green": 255,
 						"blue": 255,
 						"alpha": 255,
-						"hue": 0,
+						"hue": -45,
 						"saturation": 100,
 						"brightness": 100
 					},
