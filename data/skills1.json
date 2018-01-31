@@ -26,10 +26,11 @@
 			},
 			"battleAnim": {
 				"loadID": -1,
-				"castID": 10,
+				"castID": -1,
 				"individualID": -1,
 				"mirror": true
 			},
+			"castTime": 20,
 			"damageAnim": true,
 			"hpEffect": {
 				"successRate": "((a.prep() * 2 - b.evdp()) / b.evdp()) * 50",

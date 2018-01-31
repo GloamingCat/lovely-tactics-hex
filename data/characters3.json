@@ -2,7 +2,7 @@
 	{
 		"name": "NPC",
 		"children": [
-      {
+			{
 				"name": "Template",
 				"data": {
 					"id": 30,
@@ -16,10 +16,10 @@
 					],
 					"animations": {
 						"default": {
-              "Idle": 70,
-              "Walk": 71,
-              "Dash": 72
-            }
+						  "Idle": 70,
+						  "Walk": 71,
+						  "Dash": 72
+						}
 					},
 					"transform":  {
 					  "offsetX": 0,

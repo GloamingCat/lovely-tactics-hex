@@ -14,8 +14,8 @@
 					"cols": 1,
 					"rows": 8,
 					"transform": {
-					  "offsetX": 20,
-					  "offsetY": 42,
+					  "offsetX": 35,
+					  "offsetY": 45,
 					  "offsetDepth": 0,
 					  "scaleX": 100,
 					  "scaleY": 100,
@@ -51,8 +51,8 @@
 					"cols": 6,
 					"rows": 8,
 					"transform": {
-					  "offsetX": 20,
-					  "offsetY": 42,
+					  "offsetX": 35,
+					  "offsetY": 45,
 					  "offsetDepth": 0,
 					  "scaleX": 100,
 					  "scaleY": 100,
@@ -88,8 +88,8 @@
 					"cols": 1,
 					"rows": 8,
 					"transform": {
-					  "offsetX": 20,
-					  "offsetY": 42,
+					  "offsetX": 35,
+					  "offsetY": 45,
 					  "offsetDepth": 0,
 					  "scaleX": 100,
 					  "scaleY": 100,
@@ -125,8 +125,8 @@
 					"cols": 5,
 					"rows": 8,
 					"transform": {
-					  "offsetX": 20,
-					  "offsetY": 42,
+					  "offsetX": 35,
+					  "offsetY": 45,
 					  "offsetDepth": 0,
 					  "scaleX": 100,
 					  "scaleY": 100,
@@ -163,7 +163,7 @@
 					"rows": 8,
 					"transform": {
 					  "offsetX": 20,
-					  "offsetY": 42,
+					  "offsetY": 45,
 					  "offsetDepth": 0,
 					  "scaleX": 100,
 					  "scaleY": 100,
@@ -199,8 +199,8 @@
 					"cols": 1,
 					"rows": 8,
 					"transform": {
-					  "offsetX": 20,
-					  "offsetY": 42,
+					  "offsetX": 35,
+					  "offsetY": 45,
 					  "offsetDepth": 0,
 					  "scaleX": 100,
 					  "scaleY": 100,
@@ -224,7 +224,7 @@
 					}
 				}
 			},
-      {
+			{
 				"name": "Carrot - Sleep",
 				"data": {
 					"id": 106,
@@ -236,8 +236,8 @@
 					"cols": 1,
 					"rows": 8,
 					"transform": {
-					  "offsetX": 20,
-					  "offsetY": 42,
+					  "offsetX": 35,
+					  "offsetY": 45,
 					  "offsetDepth": 0,
 					  "scaleX": 100,
 					  "scaleY": 100,
@@ -260,8 +260,7 @@
 						"audio": []
 					}
 				}
-      }
-      
+			}
 		]
 	}
 ]

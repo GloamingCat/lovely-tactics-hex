@@ -6,16 +6,16 @@
 				"name": "Template - Idle",
 				"data": {
 					"id": 70,
-					"path": "Character/Template/idle.png",
+					"path": "Character/Template/Default.png",
 					"x": 0,
 					"y": 0,
-					"width": 40,
-					"height": 400,
+					"width": 24,
+					"height": 256,
 					"cols": 1,
 					"rows": 8,
 					"transform": {
-					  "offsetX": 20,
-					  "offsetY": 42,
+					  "offsetX": 12,
+					  "offsetY": 30,
 					  "offsetDepth": 0,
 					  "scaleX": 100,
 					  "scaleY": 100,
@@ -29,8 +29,8 @@
 					  "brightness": 100
 					},
 					"animation": {
-						"duration": 0,
 						"loop": 1,
+						"duration": 0,
 						"script": {
 							"path": "",
 							"param": ""
@@ -43,16 +43,16 @@
 				"name": "Template - Walk",
 				"data": {
 					"id": 71,
-					"path": "Character/Template/walk.png",
+					"path": "Character/Template/Default.png",
 					"x": 0,
 					"y": 0,
-					"width": 240,
-					"height": 400,
-					"cols": 6,
+					"width": 96,
+					"height": 256,
+					"cols": 4,
 					"rows": 8,
 					"transform": {
-					  "offsetX": 20,
-					  "offsetY": 42,
+					  "offsetX": 12,
+					  "offsetY": 30,
 					  "offsetDepth": 0,
 					  "scaleX": 100,
 					  "scaleY": 100,
@@ -66,7 +66,7 @@
 					  "brightness": 100
 					},
 					"animation": {
-						"duration": 40,
+						"duration": 28,
 						"loop": 1,
 						"script": {
 							"path": "",
@@ -80,16 +80,16 @@
 				"name": "Template - Dash",
 				"data": {
 					"id": 72,
-					"path": "Character/Template/dash.png",
+					"path": "Character/Template/Default.png",
 					"x": 0,
 					"y": 0,
-					"width": 240,
-					"height": 400,
-					"cols": 6,
+					"width": 96,
+					"height": 256,
+					"cols": 4,
 					"rows": 8,
 					"transform": {
-					  "offsetX": 20,
-					  "offsetY": 42,
+					  "offsetX": 12,
+					  "offsetY": 30,
 					  "offsetDepth": 0,
 					  "scaleX": 100,
 					  "scaleY": 100,
@@ -103,7 +103,7 @@
 					  "brightness": 100
 					},
 					"animation": {
-						"duration": 30,
+						"duration": 20,
 						"loop": 1,
 						"script": {
 							"path": "",

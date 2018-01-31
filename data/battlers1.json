@@ -34,12 +34,6 @@
 		},
 		"skills": [],
 		"items": [],
-		"equipment": {
-			"hand1": {
-				"id": 20
-				"state": 1
-			}
-		},
 		"status": [],
 		"elements": [],
 		"tags": []
