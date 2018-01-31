@@ -27,6 +27,7 @@
 							"row": 0
 						}
 					},
+					"shadowID": 1,
 					"animations": {
 						"default": {
 							"Idle": 70,
@@ -88,6 +89,7 @@
 							"row": 0
 						}
 					},
+					"shadowID": 1,
 					"animations": {
 						"default": {
 							"Idle": 70,

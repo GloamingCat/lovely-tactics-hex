@@ -53,14 +53,18 @@ function CharacterBase:init(instData)
   FieldManager.updateList:add(self)
   -- Initialize properties
   self:initProperties(data.name, data.tiles, data.collider)
-  self:initGraphics(data.animations, instData.direction, instData.anim, data.transform)
+  self:initGraphics(data.animations, instData.direction, instData.anim, data.transform, data.shadowID)
   self:initScripts(instData)
   -- Initial position
   self:setXYZ(x, y, z)
   self:addToTiles()
 end
 -- Overrides to create the animation sets.
-function CharacterBase:initGraphics(animations, dir, initAnim, transform)
+function CharacterBase:initGraphics(animations, dir, initAnim, transform, shadowID)
+  if shadowID and shadowID >= 0 then
+    local shadowData = Database.animations[shadowID]
+    self.shadow = ResourceManager:loadSprite(shadowData, FieldManager.renderer)
+  end
   DirectedObject.initGraphics(self, animations.default, dir, initAnim, transform)
   self.animationSets = {}
   local default = self.animationData
@@ -124,8 +128,17 @@ function CharacterBase:update()
 end
 -- Removes from draw and update list.
 function CharacterBase:destroy()
+  if self.shadow then
+    self.shadow:destroy()
+  end
   DirectedObject.destroy(self)
   Interactable.destroy(self)
+end
+function CharacterBase:setXYZ(x, y, z)
+  DirectedObject.setXYZ(self, x, y, z)
+  if self.shadow then
+    self.shadow:setXYZ(x, y, z + 1)
+  end
 end
 -- Converting to string.
 -- @ret(string) a string representation
