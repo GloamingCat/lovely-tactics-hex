@@ -29,10 +29,6 @@ local ceil = math.ceil
 
 -- Constants
 local elementCount = #Config.elements
-local introTime = 22.5
-local targetTime = 2.2
-local useTime = 2
-local finishTime = 45
 
 local SkillAction = class(BattleAction)
 
@@ -48,6 +44,11 @@ function SkillAction:init(skillID)
   BattleAction.init(self, data.range, data.radius)
   self:setType(data.type)
   self:setTargetType(data.targetType)
+  -- Animation time
+  self.introTime = data.introTime or 22
+  self.targetTime = data.targetTime or 3
+  self.finishTime = data.finishTime or 20
+  self.castTime = data.castTime or 7.5
   -- Cost formulas
   self.costs = {}
   for i = 1, #data.costs do
@@ -155,23 +156,25 @@ end
 -- It executes animations and applies damage/heal to the targets.
 function SkillAction:battleUse(input)
   -- Intro time.
-  _G.Fiber:wait(introTime)
+  _G.Fiber:wait(self.introTime)
   -- User's initial animation.
   local originTile = input.user:getTile()
   local dir = input.user:turnToTile(input.target.x, input.target.y)
   dir = math.angle2Row(dir) * 45
-  input.user:loadSkill(self.data, dir)
+  _G.Fiber:wait(input.user:loadSkill(self.data, dir))
   -- Cast animation
   FieldManager.renderer:moveToTile(input.target)
-  input.user:castSkill(self.data, dir, input.target, true)
+  local minTime = input.user:castSkill(self.data, dir, input.target) + GameManager.frame
+  _G.Fiber:wait(20)
   -- Animation for each of affected tiles.
   self:allTargetsAnimation(input, originTile)
   -- Return user to original position and animation.
+  _G.Fiber:wait(max(minTime - GameManager.frame, 0))
   if not input.user:moving() then
     input.user:finishSkill(originTile, self.data)
   end
   -- Wait until everything finishes.
-  _G.Fiber:wait(finishTime)
+  _G.Fiber:wait(self.finishTime)
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -351,7 +354,7 @@ function SkillAction:singleTargetAnimation(input, targetChar, originTile)
     end
   end
   targetChar:onSkillEffect(input, results)
-  _G.Fiber:wait(targetTime)
+  _G.Fiber:wait(self.targetTime)
 end
 
 return SkillAction

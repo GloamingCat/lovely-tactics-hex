@@ -32,7 +32,6 @@ local mhpName = Config.battle.attHP
 local mspName = Config.battle.attSP
 local speedLimit = (Config.player.dashSpeed + Config.player.walkSpeed) / 2
 local castStep = 6
-local castTime = 7.5
 
 local Character = class(CharacterBase)
 
@@ -142,6 +141,7 @@ end
 -- [COROUTINE] Executes the intro animations (load and cast) for skill use.
 -- @param(target : ObjectTile) the target of the skill
 -- @param(skill : table) skill data from database
+-- @ret(number) the duration of the animation
 function Character:loadSkill(skill, dir)
   local minTime = 0
   -- Load animation (user)
@@ -159,14 +159,14 @@ function Character:loadSkill(skill, dir)
       pos.x, pos.y, pos.z - 1, mirror)
     minTime = max(minTime, anim.duration)
   end
-  _G.Fiber:wait(minTime)
+  return minTime
 end
 -- [COROUTINE] Plays cast animation.
 -- @param(skill : Skill)
 -- @param(dir : number) the direction of the cast
 -- @param(tile : ObjectTile) target of the skill
--- @param(wait : boolean)
-function Character:castSkill(skill, dir, tile, wait)
+-- @ret(number) the duration of the animation
+function Character:castSkill(skill, dir, tile)
   -- Forward step
   if skill.userAnim.stepOnCast then
     local oldAutoTurn = self.autoTurn
@@ -175,10 +175,12 @@ function Character:castSkill(skill, dir, tile, wait)
     self.autoTurn = oldAutoTurn
   end
   -- Cast animation (user)
+  local minTime = 0
   if skill.userAnim.cast ~= '' then
     local anim = self:playAnimation(skill.userAnim.cast)
-    anim:setCol(0)
     anim.time = 0
+    anim:setCol(0)
+    minTime = anim.duration
   end
   -- Cast animation (effect on tile)
   if skill.battleAnim.castID >= 0 then
@@ -186,10 +188,10 @@ function Character:castSkill(skill, dir, tile, wait)
     local x, y, z = tile2Pixel(tile:coordinates())
     local anim = BattleManager:playBattleAnimation(skill.battleAnim.castID,
       x, y, z - 1, mirror)
+    minTime = max(minTime, anim.duration)
+    print(minTime)
   end
-  if wait then
-    _G.Fiber:wait(castTime)
-  end
+  return minTime
 end
 -- [COROUTINE] Returns to original tile and stays idle.
 -- @param(origin : ObjectTile) the original tile of the character

@@ -177,7 +177,7 @@
 					  "brightness": 100
 					},
 					"animation": {
-						"duration": 30,
+						"duration": 40,
 						"loop": 0,
 						"script": {
 							"path": "BattleEffect",

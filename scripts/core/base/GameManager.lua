@@ -19,6 +19,7 @@ function GameManager:init()
   self.cleanTime = 300
   self.cleanCount = 0
   self.startedProfi = false
+  self.frame = 0
   --PROFI = require('core/base/ProFi')
   --require('core/base/Stats').printStats()
 end
@@ -42,6 +43,7 @@ function GameManager:update(dt)
     if not GUIManager.paused then 
       GUIManager:update()
     end
+    self.frame = self.frame + 1
   end
   if InputManager.keys['pause']:isTriggered() then
     self.paused = not self.paused

@@ -15,6 +15,7 @@ function BattleEffect:init(...)
   Animation.init(self, ...)
   if self.duration then
     self:setTiming(self.duration / self.rowCount)
+    self.duration = self.duration * self.rowCount
   end
 end
 

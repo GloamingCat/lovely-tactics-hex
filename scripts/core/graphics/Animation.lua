@@ -74,7 +74,10 @@ function Animation:clone(sprite)
   anim.speed = self.speed
   return anim
 end
-
+-- Sets the time for each frame. 
+-- If timing is nil and duration is 0, animation is set as static.
+-- @param(duration : number) total duration of the animation
+-- @param(timing : table) array of frame times, one element per frame
 function Animation:setTiming(duration, timing)
   self.frameTime = nil
   if duration and duration > 0 then
@@ -104,7 +107,7 @@ end
 
 -- Increments the frame count and automatically changes que sprite.
 function Animation:update()
-  if self.paused or not self.duration then
+  if self.paused or not self.duration or not self.frameTime then
     return
   end
   self.time = self.time + deltaTime() * 60 * abs(self.speed)
