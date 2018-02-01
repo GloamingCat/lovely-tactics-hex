@@ -21,7 +21,6 @@ local EquipItemWindow = class(ListButtonWindow)
 
 -- Constructor.
 function EquipItemWindow:init(GUI, w, h, pos, rowCount)
-  self.slot = Config.equipTypes[1]
   self.visibleRowCount = rowCount
   ListButtonWindow.init(self, {}, GUI, w, h, pos)
 end
@@ -57,7 +56,7 @@ function EquipItemWindow:setSlot(key, slot)
 end
 -- Refresh item buttons in case the slot changed.
 function EquipItemWindow:refreshItems()
-  local list = self.GUI.memberGUI.troop.inventory:getEquipItems(self.slotKey, self.member)
+  local list = self.GUI.memberGUI.troop.inventory:getEquipItems(self.slot.key, self.member)
   self:overrideButtons(list)
 end
 
@@ -72,6 +71,7 @@ function EquipItemWindow:onButtonSelect(button)
   else
     self.GUI.descriptionWindow:setText('')
   end
+  self.GUI.bonusWindow:setEquip(self.slotKey, button.item)
 end
 -- Called when player chooses an item to equip.
 function EquipItemWindow:onButtonConfirm(button)

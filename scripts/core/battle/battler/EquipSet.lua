@@ -51,7 +51,8 @@ end
 -- @param(key : string) slot's key
 -- @ret(number) the ID of the equip item (-1 if none)
 function EquipSet:getEquip(key)
-  return self.slots[key].id
+  assert(self.slots[key], 'Slot ' .. key .. ' does not exist.')
+  return Database.items[self.slots[key].id]
 end
 -- Equips a new item in the given slot.
 -- @param(key : string) slot's key
@@ -219,7 +220,7 @@ function EquipSet:equipAttributes(equip)
   if equip and equip.attributes then
     for i = 1, #equip.attributes do
       local bonus = equip.attributes[i]
-      add[bonus.key] = (bonus.add or 0) / 100
+      add[bonus.key] = (bonus.add or 0)
       mul[bonus.key] = (bonus.mul or 0) / 100
     end
   end

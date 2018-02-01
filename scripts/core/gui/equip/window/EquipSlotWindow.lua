@@ -82,6 +82,7 @@ function EquipSlotWindow:onButtonSelect(button)
   else
     self.GUI.descriptionWindow:setText('')
   end
+  self.GUI.bonusWindow:setEquip(button.key, button.item)
 end
 -- Called when player presses "confirm".
 -- Open item window to choose the new equip.
