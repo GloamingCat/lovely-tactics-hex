@@ -39,16 +39,25 @@ function EquipBonusWindow:updateBonus(bonusList)
   -- Attributes
   for i = 1, #bonusList do
     local key = bonusList[i].key
-    local valueW = 40
+    local valueW = 30
+    local arrowW = 15
     local namePos = Vector(x, y, 0)
     local name = SimpleText(attConfig[key].shortName, namePos, w / 2, 'left', font)
     self.content:add(name)
     local valuePos1 = Vector(x + w / 2, y, 0)
     local value1 = SimpleText(round(bonusList[i].oldValue), valuePos1, valueW, 'left', font)
     self.content:add(value1)
-    local valuePos2 = Vector(x + w / 2 + valueW, y, 0)
+    local arrowPos = Vector(x + w / 2 + valueW, y - 2, 0)
+    local arrow = SimpleText('→', arrowPos, arrowW, 'left')
+    self.content:add(arrow)
+    local valuePos2 = Vector(x + w / 2 + valueW + arrowW, y, 0)
     local value2 = SimpleText(round(bonusList[i].newValue), valuePos2, valueW, 'left', font)
     self.content:add(value2)
+    if bonusList[i].newValue > bonusList[i].oldValue then
+      value2.sprite:setColor(Color.green)
+    else
+      value2.sprite:setColor(Color.red)
+    end
     y = y + 10
   end
   for i = 1, #self.content do

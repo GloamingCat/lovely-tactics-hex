@@ -4,215 +4,125 @@
     "shortName": "STR",
     "key": "str",
     "script": "",
-    "tags": [
-      {
-        "name": "battlerGUI",
-        "value": "true"
-      }
-    ]
+    "tags": []
   },
   {
     "name": "Magic",
     "shortName": "MAG",
     "key": "mag",
     "script": "",
-    "tags": [
-      {
-        "name": "battlerGUI",
-        "value": "true"
-      }
-    ]
+    "tags": []
   },
   {
     "name": "Dexterity",
     "shortName": "DEX",
     "key": "dex",
     "script": "",
-    "tags": [
-      {
-        "name": "battlerGUI",
-        "value": "true"
-      }
-    ]
+    "tags": []
   },
   {
     "name": "Resistance",
     "shortName": "RES",
     "key": "res",
     "script": "",
-    "tags": [
-      {
-        "name": "battlerGUI",
-        "value": "true"
-      }
-    ]
+    "tags": []
   },
   {
     "name": "Agility",
     "shortName": "AGI",
     "key": "agi",
     "script": "",
-    "tags": [
-      {
-        "name": "battlerGUI",
-        "value": "true"
-      }
-    ]
+    "tags": []
   },
   {
     "name": "Movement",
     "shortName": "MOV",
     "key": "mov",
     "script": "",
-    "tags": [
-      {
-        "name": "battlerGUI",
-        "value": "true"
-      }
-    ]
+    "tags": []
   },
   {
     "name": "Jump",
     "shortName": "JMP",
     "key": "jmp",
     "script": "",
-    "tags": [
-      {
-        "name": "battlerGUI",
-        "value": "true"
-      }
-    ]
+    "tags": []
   },
   {
     "name": "Health",
     "shortName": "HP",
     "key": "hp",
-    "script": "att.str() * 20 + att.res() * 20",
-    "tags": [
-      {
-        "name": "battlerGUI",
-        "value": "true"
-      }
-    ]
+    "script": "att.str() * 2 + att.res() * 2",
+    "tags": []
   },
   {
     "name": "Skill",
     "shortName": "SP",
     "key": "sp",
-    "script": "att.mag() * 20 + att.dex() * 20",
-    "tags": [
-      {
-        "name": "battlerGUI",
-        "value": "true"
-      }
-    ]
+    "script": "att.mag() * 2 + att.dex() * 2",
+    "tags": []
   },
   {
     "name": "Physical Attack",
     "shortName": "ATKP",
     "key": "atkp",
-    "script": "att.str() * 7 + att.dex() * 3",
-    "tags": [
-      {
-        "name": "battlerGUI",
-        "value": "true"
-      }
-    ]
+    "script": "att.str() * 0.7 + att.dex() * 0.3",
+    "tags": []
   },
   {
     "name": "Physical Defense",
     "shortName": "DEFP",
     "key": "defp",
-    "script": "att.str() * 3 + att.res() * 7",
-    "tags": [
-      {
-        "name": "battlerGUI",
-        "value": "true"
-      }
-    ]
+    "script": "att.str() * 0.3 + att.res() * 0.7",
+    "tags": []
   },
   {
     "name": "Magical Attack",
     "shortName": "ATKM",
     "key": "atkm",
-    "script": "att.mag() * 5 + att.dex() * 5",
-    "tags": [
-      {
-        "name": "battlerGUI",
-        "value": "true"
-      }
-    ]
+    "script": "att.mag() * 0.5 + att.dex() * 0.5",
+    "tags": []
   },
   {
     "name": "Magical Defense",
     "shortName": "DEFM",
     "key": "defm",
-    "script": "att.mag() * 5 + att.res() * 5",
-    "tags": [
-      {
-        "name": "battlerGUI",
-        "value": "true"
-      }
-    ]
+    "script": "att.mag() * 0.5 + att.res() * 0.5",
+    "tags": []
   },
   {
     "name": "Physical Precision",
     "shortName": "PREP",
     "key": "prep",
-    "script": "att.dex() * 10",
-    "tags": [
-      {
-        "name": "battlerGUI",
-        "value": "true"
-      }
-    ]
+    "script": "att.dex()",
+    "tags": []
   },
   {
     "name": "Physical Evade",
     "shortName": "EVDP",
     "key": "evdp",
-    "script": "att.agi() * 5 + att.dex() * 5",
-    "tags": [
-      {
-        "name": "battlerGUI",
-        "value": "true"
-      }
-    ]
+    "script": "att.agi() * 0.5 + att.dex() * 0.5",
+    "tags": []
   },
   {
     "name": "Magical Precision",
     "shortName": "PREM",
     "key": "prem",
-    "script": "att.mag() * 3 + att.dex() * 7",
-    "tags": [
-      {
-        "name": "battlerGUI",
-        "value": "true"
-      }
-    ]
+    "script": "att.mag() * 0.3 + att.dex() * 0.7",
+    "tags": []
   },
   {
     "name": "Magical Evade",
     "shortName": "EVDM",
     "key": "evdm",
-    "script": "att.agi() * 5 + att.mag() * 5",
-    "tags": [
-      {
-        "name": "battlerGUI",
-        "value": "true"
-      }
-    ]
+    "script": "att.agi() * 0.5 + att.mag() * 0.5",
+    "tags": []
   },
   {
     "name": "Carry",
     "shortName": "CAR",
     "key": "car",
     "script": "att.str() * 100",
-    "tags": [
-      {
-        "name": "battlerGUI",
-        "value": "true"
-      }
-    ]
+    "tags": []
   }
 ]

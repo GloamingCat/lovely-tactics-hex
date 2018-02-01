@@ -66,6 +66,10 @@
 						],
 						"attributes": [
 							{
+								"key": "res",
+								"add": 10
+							},
+							{
 								"key": "atkp",
 								"add": 15
 							},
