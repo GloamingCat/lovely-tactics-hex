@@ -30,7 +30,6 @@ function ItemWindow:createListButton(itemSlot)
   local id = button.item.use.skillID
   id = id >= 0 and id or defaultSkillID
   button.skill = ItemAction:fromData(id, button.item)
-  button:createInfoText(itemSlot.count, 'gui_medium')
 end
 
 ---------------------------------------------------------------------------------------------------

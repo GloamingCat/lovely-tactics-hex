@@ -41,6 +41,7 @@ function InventoryWindow:createListButton(itemSlot)
   local button = Button(self)
   button:createText(item.name, 'gui_medium')
   button:createIcon(icon)
+  button:createInfoText(itemSlot.count, 'gui_medium')
   button.item = item
   button.description = item.description
   return button

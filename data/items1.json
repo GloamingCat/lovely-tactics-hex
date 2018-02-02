@@ -16,24 +16,24 @@
 					"sellable": true,
 					"use": {
 						"skillID": -1,
-            // 0 = General
-            // 1 = Attack
-            // 2 = Support
-            // -1 = skill's default
-            "skillType": -1, 
-            // 0 => Any tile
-            // 1 => any character
-            // 2 => Living only
-            // 3 => dead only
-            // -1 => skill's default
-            "targetType": 2, 
+						// 0 = General
+						// 1 = Attack
+						// 2 = Support
+						// -1 = skill's default
+						"skillType": -1, 
+						// 0 => Any tile
+						// 1 => any character
+						// 2 => Living only
+						// 3 => dead only
+						// -1 => skill's default
+						"targetType": 2, 
 						"consume": true,
 						"status": [],
 						"hpEffect": {
-              "successRate": "100",
-              "basicResult": "200",
-              "heal": true,
-              "absorb": 0
+							"successRate": "100",
+							"basicResult": "200",
+							"heal": true,
+							"absorb": 0
 						}
 					},
 					"tags": []
@@ -53,15 +53,15 @@
 					"sellable": true,
 					"use": {
 						"skillID": -1,
-            "skillType": -1,
-            "targetType": 2,
+						"skillType": -1,
+						"targetType": 2,
 						"consume": true,
 						"status": [],
 						"spEffect": {
-              "successRate": "100",
-              "basicResult": "100",
-              "heal": true,
-              "absorb": 0
+							"successRate": "100",
+							"basicResult": "100",
+							"heal": true,
+							"absorb": 0
 						}
 					},
 					"tags": []
@@ -81,16 +81,16 @@
 					"sellable": true,
 					"use": {
 						"skillID": -1,
-            "skillType": -1,
-            "targetType": 2,
+						"skillType": -1,
+						"targetType": 2,
 						"consume": true,
 						"status": [
-              {
-                "id": 1,
-                "rate": "100",
-                "add": false
-              }
-            ]
+							{
+								"id": 1,
+								"rate": "100",
+								"add": false
+							}
+						]
 					},
 					"tags": []
 				}

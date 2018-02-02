@@ -78,7 +78,7 @@ function Button:createInfoText(info, fontName, align, w, pos)
   end
   local bw = self.window:cellWidth() - self:iconWidth()
   w = w or bw
-  pos = pos or Vector(bw - w - 2, 0, 0)
+  pos = pos or Vector(bw - w - self.window:hPadding(), 0, 0)
   fontName = fontName or 'gui_button'
   local text = SimpleText(info, pos, w, align or 'right', Fonts[fontName])
   text.sprite.alignY = 'center'

@@ -92,7 +92,7 @@ function BattleManager:battleIntro()
     if i ~= TroopManager.playerParty then
       local p = TroopManager.centers[i]
       FieldManager.renderer:moveToPoint(p.x, p.y, speed, true)
-      _G.Fiber:wait(39)
+      _G.Fiber:wait(30)
     end
   end
   local p = TroopManager.centers[TroopManager.playerParty]
