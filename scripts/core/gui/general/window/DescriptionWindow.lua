@@ -31,7 +31,7 @@ end
 -- Sets text to be shown.
 -- @param(txt : string)
 function DescriptionWindow:setText(txt)
-  self.text:setText(txt)
+  self.text:setText(txt or '')
   self.text:redraw()
 end
 -- @ret(string) string representation (for debugging)

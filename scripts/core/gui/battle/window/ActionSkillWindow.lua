@@ -23,12 +23,14 @@ local ActionSkillWindow = class(ActionWindow, ListButtonWindow)
 ---------------------------------------------------------------------------------------------------
 
 -- Constructor.
+-- @param(GUI : GUI)
+-- @param(skillList : SkillList)
 function ActionSkillWindow:init(GUI, skillList)
   local m = GUI:windowMargin()
   local w = ScreenManager.width - GUI:windowMargin() * 2
   local h = ScreenManager.height * 4 / 5 - self:vPadding() * 2 - m * 3
-  self.fitRowCount = math.floor(h / self:cellHeight())
-  local fith = self.fitRowCount * self:cellHeight() + self:vPadding() * 2
+  self.visibleRowCount = math.floor(h / self:cellHeight())
+  local fith = self.visibleRowCount * self:cellHeight() + self:vPadding() * 2
   local pos = Vector(0, fith / 2 - ScreenManager.height / 2 + m / 2, 0)
   ListButtonWindow.init(self, skillList, GUI, w, h, pos)
 end
@@ -93,7 +95,7 @@ function ActionSkillWindow:colCount()
 end
 -- New row count.
 function ActionSkillWindow:rowCount()
-  return self.fitRowCount
+  return self.visibleRowCount
 end
 -- String identifier.
 function ActionSkillWindow:__tostring()

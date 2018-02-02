@@ -1,15 +1,28 @@
 
+--[[===============================================================================================
+
+RewardItemWindow
+---------------------------------------------------------------------------------------------------
+The window that shows the list of gained items.
+
+=================================================================================================]]
+
+-- Imports
 local Vector = require('core/math/Vector')
 local InventoryWindow = require('core/gui/general/window/InventoryWindow')
 
-local ItemWindow = class(InventoryWindow)
+local RewardItemWindow = class(InventoryWindow)
 
-function ItemWindow:init(GUI, w, h, pos)
+---------------------------------------------------------------------------------------------------
+-- Initialization
+---------------------------------------------------------------------------------------------------
+
+function RewardItemWindow:init(GUI, w, h, pos)
   InventoryWindow.init(self, GUI, GUI.rewards.items, nil, w, h, pos)
 end
 
-function ItemWindow:__tostring()
+function RewardItemWindow:__tostring()
   return 'Item Reward Window'
 end
 
-return ItemWindow
+return RewardItemWindow

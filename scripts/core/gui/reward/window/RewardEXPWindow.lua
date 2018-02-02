@@ -1,9 +1,22 @@
 
+--[[===============================================================================================
+
+RewardEXPWindow
+---------------------------------------------------------------------------------------------------
+The window that shows the gained experience.
+
+=================================================================================================]]
+
+-- Imports
 local SimpleText = require('core/gui/widget/SimpleText')
 local Vector = require('core/math/Vector')
 local Window = require('core/gui/Window')
 
 local RewardEXPWindow = class(Window)
+
+---------------------------------------------------------------------------------------------------
+-- Initialization
+---------------------------------------------------------------------------------------------------
 
 function RewardEXPWindow:createContent(...)
   Window.createContent(self, ...)

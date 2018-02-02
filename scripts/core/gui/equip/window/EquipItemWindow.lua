@@ -11,47 +11,42 @@ A window that shows the possible items to equip.
 local List = require('core/datastruct/List')
 local Vector = require('core/math/Vector')
 local Button = require('core/gui/widget/Button')
-local ListButtonWindow = require('core/gui/ListButtonWindow')
+local InventoryWindow = require('core/gui/general/window/InventoryWindow')
 
-local EquipItemWindow = class(ListButtonWindow)
+local EquipItemWindow = class(InventoryWindow)
 
 ----------------------------------------------------------------------------------------------------
 -- Initialization
 ----------------------------------------------------------------------------------------------------
 
 -- Constructor.
+-- @param(GUI : GUI)
+-- @param(w : number) window's width (optional)
+-- @param(h : number) window's height (optional)
+-- @param(pos : Vector) position of the window's center (optional)
 function EquipItemWindow:init(GUI, w, h, pos, rowCount)
   self.member = GUI.memberGUI:currentMember()
-  self.visibleRowCount = rowCount
-  ListButtonWindow.init(self, nil, GUI, w, h, pos)
+  InventoryWindow.init(self, GUI, GUI.inventory, {}, w, h, pos, rowCount)
 end
 -- Overrides ListButtonWindow:createWidgets.
 -- Adds the "unequip" button.
 function EquipItemWindow:createWidgets(...)
-  if self.list then
+  if self.slotKey then
     local button = Button(self)
     button:createText(Vocab.unequip, 'gui_medium')
     button:setEnabled(self.member.equipSet:canUnequip(self.slotKey))
-    ListButtonWindow.createWidgets(self, ...)
+    InventoryWindow.createWidgets(self, ...)
   end
 end
 -- Overrides ListButtonWindow:createListButton.
 function EquipItemWindow:createListButton(itemSlot)
-  local item = Database.items[itemSlot.id]
-  local icon = item.icon.id >= 0 and 
-    ResourceManager:loadIconAnimation(item.icon, GUIManager.renderer)
-  local button = Button(self)
-  button:createText(item.name, 'gui_medium')
-  button:createIcon(icon)
-  button.item = item
-  button:createInfoText(itemSlot.count, 'gui_medium')
-  button:setEnabled(self.member.equipSet:canEquip(self.slotKey, item))
+  local button = InventoryWindow.createListButton(self, itemSlot)
+  button:setEnabled(self.member.equipSet:canEquip(self.slotKey, button.item))
   return button
 end
 -- @param(member : Battler)
 function EquipItemWindow:setMember(member)
   self.member = member
-  --self:refreshItems()
 end
 -- @param(slot : string)
 function EquipItemWindow:setSlot(key, slot)
@@ -61,7 +56,7 @@ function EquipItemWindow:setSlot(key, slot)
 end
 -- Refresh item buttons in case the slot changed.
 function EquipItemWindow:refreshItems()
-  local list = self.GUI.memberGUI.troop.inventory:getEquipItems(self.slotType.key, self.member)
+  local list = self.GUI.inventory:getEquipItems(self.slotType.key, self.member)
   self:overrideButtons(list)
 end
 
@@ -71,17 +66,13 @@ end
 
 -- Called when player selects an item button.
 function EquipItemWindow:onButtonSelect(button)
-  if button.item then
-    self.GUI.descriptionWindow:setText(button.item.description)
-  else
-    self.GUI.descriptionWindow:setText('')
-  end
+  InventoryWindow.onButtonSelect(self, button)
   self.GUI.bonusWindow:setEquip(self.slotKey, button.item)
 end
 -- Called when player chooses an item to equip.
 function EquipItemWindow:onButtonConfirm(button)
   local char = TroopManager:getBattlerCharacter(self.member)
-  self.member.equipSet:setEquip(self.slotKey, button.item, self.GUI.memberGUI.troop.inventory, char)
+  self.member.equipSet:setEquip(self.slotKey, button.item, self.GUI.inventory, char)
   self.GUI.memberGUI:refreshMember()
   self:showSlotWindow()
 end
@@ -103,10 +94,6 @@ end
 -- Overrides GridWindow:colCount.
 function EquipItemWindow:colCount()
   return 1
-end
--- Overrides GridWindow:rowCount.
-function EquipItemWindow:rowCount()
-  return self.visibleRowCount
 end
 -- @ret(string) string representation (for debugging)
 function EquipItemWindow:__tostring()

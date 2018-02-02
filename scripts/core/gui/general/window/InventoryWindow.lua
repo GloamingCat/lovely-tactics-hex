@@ -22,18 +22,27 @@ local InventoryWindow = class(ListButtonWindow)
 ---------------------------------------------------------------------------------------------------
 
 -- Constructor.
-function InventoryWindow:init(GUI, inventory, itemList, w, h, pos)
+-- @param(GUI : GUI)
+-- @param(inventory : Inventory) inventory with the list of items
+-- @param(itemList : table) array with item slots that are going to be shown 
+--  (all inventory's items by default)
+-- @param(w : number) window's width (whole screen width by default)
+-- @param(h : number) window's height (4 / 5 of the screen by default)
+-- @param(pos : Vector) position of the window's center (screen center by default)
+-- @param(rowCount : number) the number of visible button rows (maximum possible rows by default)
+function InventoryWindow:init(GUI, inventory, itemList, w, h, pos, rowCount)
   self.inventory = inventory
   local m = GUI:windowMargin()
   w = w or ScreenManager.width - GUI:windowMargin() * 2
   h = h or ScreenManager.height * 4 / 5 - self:vPadding() * 2 - m * 3
-  self.fitRowCount = math.floor(h / self:cellHeight())
-  local fith = self.fitRowCount * self:cellHeight() + self:vPadding() * 2
+  self.visibleRowCount = rowCount or math.floor(h / self:cellHeight())
+  local fith = self.visibleRowCount * self:cellHeight() + self:vPadding() * 2
   pos = pos or Vector(0, fith / 2 - ScreenManager.height / 2 + m / 2, 0)
   ListButtonWindow.init(self, itemList or inventory, GUI, w, h, pos)
 end
 -- Creates a button from an item ID.
--- @param(id : number) the item ID
+-- @param(itemSlot : table) a slot from the inventory (with item's ID and count)
+-- @ret(Button)
 function InventoryWindow:createListButton(itemSlot)
   local item = Database.items[itemSlot.id]
   local icon = item.icon.id >= 0 and 
@@ -52,6 +61,7 @@ end
 ---------------------------------------------------------------------------------------------------
 
 -- Updates description when button is selected.
+-- @param(button : Button)
 function InventoryWindow:onButtonSelect(button)
   if self.GUI.descriptionWindow then
     self.GUI.descriptionWindow:setText(button.description)
@@ -68,7 +78,7 @@ function InventoryWindow:colCount()
 end
 -- New row count.
 function InventoryWindow:rowCount()
-  return self.fitRowCount
+  return self.visibleRowCount
 end
 -- String identifier.
 function InventoryWindow:__tostring()

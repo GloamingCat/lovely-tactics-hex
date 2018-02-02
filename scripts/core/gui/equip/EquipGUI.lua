@@ -28,6 +28,7 @@ function EquipGUI:init(memberGUI, y)
   self.memberGUI = memberGUI
   self.name = 'Equip GUI'
   self.initY = y
+  self.inventory = memberGUI.troop.inventory
   GUI.init(self)
 end
 -- Overrides GUI:createWindows.
