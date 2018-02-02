@@ -26,6 +26,7 @@ local EquipSlotWindow = class(ListButtonWindow)
 -- Constructor.
 -- @param(GUI : EquipGUI) que parent GUI
 function EquipSlotWindow:init(GUI)
+  self.member = GUI.memberGUI:currentMember()
   self.visibleRowCount = 0
   for i = 1, #Config.equipTypes do
     self.visibleRowCount = Config.equipTypes[i].count + self.visibleRowCount
@@ -67,7 +68,8 @@ function EquipSlotWindow:refreshSlots()
       button.item = nil
     end
     button:setInfoText(name)
-    button:setEnabled(slot and slot.state <= 2)
+    local slotType = self.member.equipSet.types[button.slot.key]
+    button:setEnabled(slotType.state <= 2)
   end
 end
 

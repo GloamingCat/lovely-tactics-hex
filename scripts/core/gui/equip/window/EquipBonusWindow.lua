@@ -27,6 +27,11 @@ local EquipBonusWindow = class(Window)
 -- Initialization
 ----------------------------------------------------------------------------------------------------
 
+function EquipBonusWindow:init(GUI, ...)
+  self.member = GUI.memberGUI:currentMember()
+  Window.init(self, GUI, ...)
+end
+
 function EquipBonusWindow:updateBonus(att, status, elements)
   for i = 1, #self.content do
     self.content[i]:destroy()
@@ -60,13 +65,6 @@ function EquipBonusWindow:updateBonus(att, status, elements)
     end
     y = y + 10
   end
-  if #status > 0 then
-    local statusPos = Vector(x + 6, y + 8, 0)
-    local statusIcons = IconList(statusPos, w, 24)
-    statusIcons:setIcons(status)
-    self.content:add(statusIcons)
-    y = y + 26
-  end
   for i = 1, #self.content do
     self.content[i]:updatePosition(self.position)
   end
@@ -95,7 +93,6 @@ function EquipBonusWindow:setEquip(slotKey, newEquip)
       local id = newEquip.status[i]
       local s = Database.status[id]
       if s.visible and s.icon.id >= 0 then
-        print(s.name)
         status[#status + 1] = s.icon
       end
     end

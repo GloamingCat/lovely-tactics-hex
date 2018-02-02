@@ -135,7 +135,6 @@ end
 
 -- Called when player loses.
 function BattleManager:gameOver()
-  print('aaaa')
   -- TODO: 
   -- fade out screen
   -- show game over GUI

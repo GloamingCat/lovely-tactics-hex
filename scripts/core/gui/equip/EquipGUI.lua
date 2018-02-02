@@ -57,7 +57,6 @@ function EquipGUI:createBonusWindow()
   local x = (ScreenManager.width - w) / 2 - self:windowMargin()
   local y = self.slotWindow.position.y
   self.bonusWindow = EquipBonusWindow(self, w, h, Vector(x, y))
-  self.bonusWindow.member = self.memberGUI:currentMember()
 end
 -- Creates the window with the selected equipment item's description.
 function EquipGUI:createDescriptionWindow()

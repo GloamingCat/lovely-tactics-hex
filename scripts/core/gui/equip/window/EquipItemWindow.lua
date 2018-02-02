@@ -21,15 +21,19 @@ local EquipItemWindow = class(ListButtonWindow)
 
 -- Constructor.
 function EquipItemWindow:init(GUI, w, h, pos, rowCount)
+  self.member = GUI.memberGUI:currentMember()
   self.visibleRowCount = rowCount
-  ListButtonWindow.init(self, {}, GUI, w, h, pos)
+  ListButtonWindow.init(self, nil, GUI, w, h, pos)
 end
 -- Overrides ListButtonWindow:createWidgets.
 -- Adds the "unequip" button.
 function EquipItemWindow:createWidgets(...)
-  local button = Button(self)
-  button:createText(Vocab.unequip, 'gui_medium')
-  ListButtonWindow.createWidgets(self, ...)
+  if self.list then
+    local button = Button(self)
+    button:createText(Vocab.unequip, 'gui_medium')
+    button:setEnabled(self.member.equipSet:canUnequip(self.slotKey))
+    ListButtonWindow.createWidgets(self, ...)
+  end
 end
 -- Overrides ListButtonWindow:createListButton.
 function EquipItemWindow:createListButton(itemSlot)
@@ -41,6 +45,7 @@ function EquipItemWindow:createListButton(itemSlot)
   button:createIcon(icon)
   button.item = item
   button:createInfoText(itemSlot.count, 'gui_medium')
+  button:setEnabled(self.member.equipSet:canEquip(self.slotKey, item))
   return button
 end
 -- @param(member : Battler)
@@ -50,13 +55,13 @@ function EquipItemWindow:setMember(member)
 end
 -- @param(slot : string)
 function EquipItemWindow:setSlot(key, slot)
-  self.slot = slot
   self.slotKey = key
+  self.slotType = slot
   self:refreshItems()
 end
 -- Refresh item buttons in case the slot changed.
 function EquipItemWindow:refreshItems()
-  local list = self.GUI.memberGUI.troop.inventory:getEquipItems(self.slot.key, self.member)
+  local list = self.GUI.memberGUI.troop.inventory:getEquipItems(self.slotType.key, self.member)
   self:overrideButtons(list)
 end
 
