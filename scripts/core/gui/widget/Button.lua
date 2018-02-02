@@ -175,6 +175,12 @@ function Button:updateColor()
     self.icon.sprite:setColor(color)
   end
 end
+-- Updates enabled state based on the enable condition function.
+function Button:updateEnabled()
+  if self.enableCondition then
+    self:setEnabled(self.enableCondition(self.window, self))
+  end
+end
 -- Enables/disables this button.
 -- @param(value : boolean) true to enable, false to disable
 function Button:setEnabled(value)

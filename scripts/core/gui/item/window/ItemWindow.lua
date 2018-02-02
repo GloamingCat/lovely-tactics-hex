@@ -1,31 +1,43 @@
 
 --[[===============================================================================================
 
-ActionItemWindow
+ItemWindow
 ---------------------------------------------------------------------------------------------------
-The GUI that is open to choose an item from character's inventory.
+The window that shows the list of items to be used.
 
 =================================================================================================]]
 
 -- Imports
-local ActionWindow = require('core/gui/battle/window/ActionWindow')
-local Button = require('core/gui/widget/Button')
+local Vector = require('core/math/Vector')
 local InventoryWindow = require('core/gui/general/window/InventoryWindow')
 local ItemAction = require('core/battle/action/ItemAction')
-local Vector = require('core/math/Vector')
 
 -- Constants
 local defaultSkillID = Config.battle.itemSkillID
 
-local ActionItemWindow = class(ActionWindow, InventoryWindow)
+local ItemWindow = class(InventoryWindow)
 
 ---------------------------------------------------------------------------------------------------
 -- Initialization
 ---------------------------------------------------------------------------------------------------
 
+function ItemWindow:init(GUI, y)
+  local rowCount = 6
+  local fith = rowCount * self:cellHeight() + self:vPadding() * 2
+  local pos = Vector(0, y - ScreenManager.height / 2 + fith / 2)
+  local items = GUI.inventory:getUsableItems(2)
+  InventoryWindow.init(self, GUI, GUI.inventory, items, nil, fith, pos, rowCount)
+end
+-- @param(member : Battler)
+function ItemWindow:setMember(member)
+  self.member = member
+  for i = 1, #self.matrix do
+    self.matrix[i]:updateEnabled()
+  end
+end
 -- Creates a button from an item ID.
 -- @param(id : number) the item ID
-function ActionItemWindow:createListButton(itemSlot)
+function ItemWindow:createListButton(itemSlot)
   local button = InventoryWindow.createListButton(self, itemSlot)
   local id = button.item.use.skillID
   id = id >= 0 and id or defaultSkillID
@@ -38,8 +50,8 @@ end
 
 -- Called when player chooses an item.
 -- @param(button : Button) the button selected
-function ActionItemWindow:onButtonConfirm(button)
-  self:selectAction(button.skill)
+function ItemWindow:onButtonConfirm(button)
+  print('use item')
   if self.result and self.result.executed and button.item.use.consume then
     self.inventory:removeItem(button.item.id)
   end
@@ -47,23 +59,8 @@ end
 -- Tells if an item can be used.
 -- @param(button : Button) the button to check
 -- @ret(boolean)
-function ActionItemWindow:buttonEnabled(button)
-  local user = TurnManager:currentCharacter()
-  return button.skill:canBattleUse(user)
-end
--- Called when player cancels.
-function ActionItemWindow:onCancel()
-  self.GUI:hideDescriptionWindow()
-  self:changeWindow(self.GUI.turnWindow)
+function ItemWindow:buttonEnabled(button)
+  return button.skill:canMenuUse(self.member)
 end
 
----------------------------------------------------------------------------------------------------
--- Properties
----------------------------------------------------------------------------------------------------
-
--- String identifier.
-function ActionItemWindow:__tostring()
-  return 'Item Window'
-end
-
-return ActionItemWindow
+return ItemWindow

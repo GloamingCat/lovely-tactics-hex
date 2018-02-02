@@ -12,9 +12,6 @@ local ListButtonWindow = require('core/gui/ListButtonWindow')
 local Vector = require('core/math/Vector')
 local Button = require('core/gui/widget/Button')
 
--- Constants
-local defaultSkillID = Config.battle.itemSkillID
-
 local InventoryWindow = class(ListButtonWindow)
 
 ---------------------------------------------------------------------------------------------------
