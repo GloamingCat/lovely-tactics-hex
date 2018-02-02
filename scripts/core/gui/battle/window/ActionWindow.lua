@@ -4,7 +4,7 @@
 ActionWindow
 ---------------------------------------------------------------------------------------------------
 A window that implements methods in common for battle windows that start an action (TurnWindow, 
-SkillWindow and ItemWindow).
+Skill Window and Item Window).
 Its result is the action time that the character spent.
 
 =================================================================================================]]
@@ -16,6 +16,10 @@ local GridWindow = require('core/gui/GridWindow')
 local SkillAction = require('core/battle/action/SkillAction')
 
 local ActionWindow = class(GridWindow)
+
+---------------------------------------------------------------------------------------------------
+-- Confirm Action
+---------------------------------------------------------------------------------------------------
 
 -- Select an action.
 -- @param(actionType : class) the class of the action
@@ -37,6 +41,11 @@ function ActionWindow:selectAction(action, input)
     self.GUI:show()
   end
 end
+
+---------------------------------------------------------------------------------------------------
+-- Cancel Action
+---------------------------------------------------------------------------------------------------
+
 -- Closes this window to be replaced by another one.
 -- @param(window : GridWindow) the new active window
 function ActionWindow:changeWindow(window, showDescription)

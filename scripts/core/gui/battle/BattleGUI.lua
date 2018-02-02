@@ -11,8 +11,8 @@ Its result is the action time that the character spent.
 -- Imports
 local GUI = require('core/gui/GUI')
 local TurnWindow = require('core/gui/battle/window/TurnWindow')
-local SkillWindow = require('core/gui/battle/window/SkillWindow')
-local ItemWindow = require('core/gui/battle/window/ItemWindow')
+local ActionSkillWindow = require('core/gui/battle/window/ActionSkillWindow')
+local ActionItemWindow = require('core/gui/battle/window/ActionItemWindow')
 local DescriptionWindow = require('core/gui/general/window/DescriptionWindow')
 local Vector = require('core/math/Vector')
 
@@ -43,7 +43,7 @@ function BattleGUI:createSkillWindow()
   local character = TurnManager:currentCharacter()
   local skillList = character.battler.skillList
   if not skillList:isEmpty() then
-    self.skillWindow = SkillWindow(self, skillList)
+    self.skillWindow = ActionSkillWindow(self, skillList)
     self.skillWindow.lastOpen = false
   end
 end
@@ -52,7 +52,7 @@ function BattleGUI:createItemWindow()
   local inventory = TurnManager:currentTroop().inventory
   local itemList = inventory:getUsableItems(1)
   if #itemList > 0 then
-    self.itemWindow = ItemWindow(self, inventory, itemList)
+    self.itemWindow = ActionItemWindow(self, inventory, itemList)
     self.itemWindow.lastOpen = false
   end
 end
