@@ -107,7 +107,7 @@ function GridWindow:showContent()
   Window.showContent(self)
   local button = self:currentButton()
   if button and button.selected then
-    if button.enabled then
+    if button.onSelect then
       button.onSelect(self, button)
     end
   else
@@ -220,12 +220,10 @@ end
 -- Called when player cancels.
 function GridWindow:onCancel()
   local button = self:currentButton()
-  if button.enabled then
-    if button.cancelSound then
-      AudioManager:playSFX(button.cancelSound)
-    end
-    button.onCancel(self, button)
+  if button.cancelSound then
+    AudioManager:playSFX(button.cancelSound)
   end
+  button.onCancel(self, button)
 end
 -- Called when player moves cursor.
 function GridWindow:onMove(dx, dy)
@@ -241,10 +239,10 @@ function GridWindow:onMove(dx, dy)
     oldButton:setSelected(false)
     newButton:setSelected(true)
   end
-  if oldButton.enabled then
+  if oldButton.onMove then
     oldButton.onMove(self, oldButton, dx, dy)
   end
-  if newButton.enabled then
+  if newButton.onSelect then
     newButton.onSelect(self, newButton)
   end
   self:updateViewport(c, r)
