@@ -36,12 +36,12 @@
 			"status": [],
 			"items": [
 				{
-					"id": 1,
+					"id": 10,
 					"count": 1,
 					"rate": 100
 				},
 				{
-					"id": 1,
+					"id": 10,
 					"count": 1,
 					"rate": 50
 				}

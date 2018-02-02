@@ -237,6 +237,7 @@ end
 -- Battle
 ---------------------------------------------------------------------------------------------------
 
+-- Calls the onBattleStart callback on each troop member.
 function TroopManager:onBattleStart()
   for _, troop in pairs(self.troops) do
     local members = troop:visibleMembers()
@@ -246,7 +247,7 @@ function TroopManager:onBattleStart()
     end
   end
 end
-
+-- Calls the onBattleEnd callback on each troop member.
 function TroopManager:onBattleEnd()
   for _, troop in pairs(self.troops) do
     local members = troop:visibleMembers()

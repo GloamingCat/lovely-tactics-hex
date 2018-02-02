@@ -93,7 +93,7 @@ function MemberInfo:init(battler, w, h, topLeft)
   gaugeX = 2 + txtEXP.sprite:getWidth()
   local gaugePosEXP = Vector(topRight.x + gaugeX - 7, bottomRight.y + 3, bottomRight.z + 1)
   local expRate = (battler.class.exp - expCurrent) / (expNext - expCurrent)
-  local gaugeEXP = Gauge(gaugePosEXP, rw - gaugeX, 6, 1)
+  local gaugeEXP = Gauge(gaugePosEXP, rw - gaugeX, 6, expRate)
   gaugeEXP.bar.sprite:setColor(Color.barEXP)
   
   self.content = { txtName, txtLevel, txtClass, status,

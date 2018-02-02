@@ -42,8 +42,7 @@ function Inventory:getState()
   for i = 1, self.size do
     table[i] = {
       id = self[i].id, 
-      count = self[i].count
-    }
+      count = self[i].count }
   end
   return table
 end
@@ -115,13 +114,21 @@ function Inventory:removeItem(id, count)
   end
   return false
 end
+-- Adds all items from another inventory.
+-- @param(inventory : Inventory)
+function Inventory:addAllItems(inventory)
+  for i = 1, #inventory do
+    local slot = inventory[i]
+    self:addItem(slot.id, slot.count)
+  end
+end
 
 ---------------------------------------------------------------------------------------------------
 -- Sub-inventories
 ---------------------------------------------------------------------------------------------------
 
 -- Gets an array of slots of items that are usable.
--- @param(restriction : number) the usa restriction: 1 for battle, 2 for field, 0 for any
+-- @param(restriction : number) the use restriction: 1 for battle, 2 for field, 0 for any
 --  (optional, 0 by default)
 -- @ret(table) array of item slots (ID and count)
 function Inventory:getUsableItems(restriction)
@@ -139,7 +146,8 @@ function Inventory:getUsableItems(restriction)
   end
   return items
 end
-
+-- Gets an array of slots of items that are sellable.
+-- @ret(table) array of item slots (ID and count)
 function Inventory:getSellableItems()
   local items = {}
   for itemSlot in self:iterator() do
@@ -150,12 +158,14 @@ function Inventory:getSellableItems()
   end
   return items
 end
-
+-- Gets an array of slots of items that are equipment.
+-- @param(key : string) the type of equipment (nil if all types)
+-- @ret(table) array of item slots (ID and count)
 function Inventory:getEquipItems(key)
   local items = {}
   for itemSlot in self:iterator() do
     local item = Database.items[itemSlot.id]
-    if item.equip and key:find(item.equip.type) then
+    if key == nil or item.equip and key:find(item.equip.type) then
       items[#items + 1] = itemSlot
     end
   end

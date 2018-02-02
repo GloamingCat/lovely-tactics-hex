@@ -37,11 +37,11 @@ function TurnManager:currentCharacter()
 end
 -- Gets the current turn's troop.
 function TurnManager:currentTroop()
-  return TroopManager.troops[self.party]
+  return TroopManager.troops and TroopManager.troops[self.party]
 end
 -- Gets the path matrix of the current character.
 function TurnManager:pathMatrix()
-  return self.pathMatrixes[self.characterIndex]
+  return self.pathMatrixes and self.pathMatrixes[self.characterIndex]
 end
 -- Recalculates the distance matrix.
 function TurnManager:updatePathMatrix()
@@ -69,10 +69,14 @@ function TurnManager:runTurn()
     result = self:runPlayerTurn()
   end
   if result.escaped then
-    return -2, TroopManager.playerParty
-  else
-    self:endTurn(result)
+    if self.party == TroopManager.playerParty then
+      return -2, TroopManager.playerParty
+    else
+      -- TODO enemy escaped
+      -- removed troop from party table
+    end
   end
+  self:endTurn(result)
 end
 -- [COROUTINE] Runs the player's turn.
 -- @ret(table) the result action of the turn

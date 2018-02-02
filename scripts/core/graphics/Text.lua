@@ -46,10 +46,6 @@ function Text:init(text, properties, renderer)
   self.defaultFont = properties[3] or defaultFont
   self.maxchar = properties[4]
   self.text = text
-  self.scaleX = 1
-  self.scaleY = 1
-  self.offsetX = 0
-  self.offsetY = 0
   if text == nil or text == '' then
     self.lines = {}
   else
@@ -100,7 +96,7 @@ function Text:getWidth()
   local w = 0
   for i = 1, #self.lines do
     local line = self.lines[i]
-    w = max(w, line.buffer:getWidth() * self.scaleX / Fonts.scale)
+    w = max(w, line.buffer:getWidth() / Fonts.scale)
   end
   return w
 end
@@ -110,7 +106,7 @@ function Text:getHeight()
   local h = 0
   for i = 1, #self.lines do
     local line = self.lines[i]
-    h = h + line.buffer:getHeight() / 1.5 * self.scaleY / Fonts.scale
+    h = h + line.buffer:getHeight() / 1.5 / Fonts.scale
   end
   return h
 end

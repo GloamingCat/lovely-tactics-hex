@@ -181,32 +181,46 @@ end
 -- Rewards
 ---------------------------------------------------------------------------------------------------
 
--- Adds the rewards from the defeated enemies.
-function Troop:addRewards()
+-- Creates a table of reward from the current state of the battle field.
+-- @ret(table) table with exp, items and gold
+function Troop:getBattleRewards()
+  local r = { exp = {},
+    items = Inventory(),
+    gold = 0 }
   -- List of living party members
   local characters = self:currentCharacters(true)
-  -- List of dead enemies
-  local enemies = List(TroopManager.characterList)
-  enemies:conditionalRemove(
-    function(e)
-      return e.party == self.party or e.battler:isAlive() 
-    end)
-  for enemy in enemies:iterator() do
-    self:addTroopRewards(enemy)
-    self:addMembersRewards(enemy, characters)
+  -- Rewards per troop
+  for p, troop in pairs(TroopManager.troops) do
+    if troop ~= self then
+      -- Troop items
+      r.items:addAllItems(troop.inventory)
+      -- Troop gold
+      r.gold = r.gold + troop.gold
+      -- Rewards per enemy
+      for enemy in troop:currentCharacters():iterator() do
+        -- Enemy EXP
+        for char in characters:iterator() do
+          r.exp[char.key] = (r.exp[char.key] or 0) + enemy.battler.data.exp
+        end
+        -- Enemy items
+        r.items:addAllItems(enemy.battler.inventory)
+        -- Enemy gold
+        r.gold = r.gold + enemy.battler.data.gold
+      end
+    end
   end
+  return r
 end
--- Adds the troop's rewards (money).
--- @param(enemy : Character)
-function Troop:addTroopRewards(enemy)
-  self.gold = self.gold + enemy.battler.data.gold
-end
--- Adds each troop member's rewards (experience).
--- @param(enemy : Character)
-function Troop:addMembersRewards(enemy, characters)
-  characters = characters or self:currentCharacters(true)
-  for char in characters:iterator() do
-    char.battler.class:addExperience(enemy.battler.data.exp)
+-- Adds the given rewards to this troop.
+-- @param(r : table) the battler results (optional, may be calculated with still in battle)
+--  the table must contain <exp>, <items> and <gold> fields
+function Troop:addRewards(r)
+  r = r or self:getBattleRewards()
+  self.gold = self.gold + r.gold
+  self.inventory:addAllItems(r.items)
+  local characters = self:currentCharacters(true)
+  for key, exp in pairs(r.exp) do
+    self.battlers[key].class:addExperience(exp)
   end
 end
 
@@ -214,11 +228,13 @@ end
 -- Persistent Data
 ---------------------------------------------------------------------------------------------------
 
+-- Stores this troop in the current save.
+-- @param(saveFormation : boolean) true to save modified grid formation (optional)
 function Troop:storeSave(saveFormation)
   SaveManager.current.troops[self.data.id] = self:createPersistentData(saveFormation)
 end
 -- Creates the table to represent troop's persistent data.
--- @param(saveFormation : boolean) true to saves modified grid formation (optional)
+-- @param(saveFormation : boolean) true to save modified grid formation (optional)
 -- @ret(table)
 function Troop:createPersistentData(saveFormation)
   if not self.data.persistent then

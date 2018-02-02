@@ -16,7 +16,7 @@ Results: 1 => win, 0 => draw, -1 => lost
 local Animation = require('core/graphics/Animation')
 local TileGraphics = require('core/field/TileGUI')
 local IntroGUI = require('core/gui/battle/IntroGUI')
-local EndGUI = require('core/gui/battle/EndGUI')
+local RewardGUI = require('core/gui/reward/RewardGUI')
 
 -- Constants
 local defaultParams = {
@@ -103,9 +103,7 @@ end
 -- Runs after winner was determined and battle loop ends.
 function BattleManager:battleEnd()
   if self:playerWon() then
-    local playerTroop = TroopManager:getPlayerTroop()
-    playerTroop:addRewards()
-    GUIManager:showGUIForResult(EndGUI())
+    GUIManager:showGUIForResult(RewardGUI())
   elseif self:isGameOver() then
     return self:gameOver()
   end
