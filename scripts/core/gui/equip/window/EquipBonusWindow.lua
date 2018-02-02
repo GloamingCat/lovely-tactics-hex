@@ -27,7 +27,7 @@ local EquipBonusWindow = class(Window)
 -- Initialization
 ----------------------------------------------------------------------------------------------------
 
-function EquipBonusWindow:updateBonus(bonusList)
+function EquipBonusWindow:updateBonus(att, status, elements)
   for i = 1, #self.content do
     self.content[i]:destroy()
   end
@@ -35,30 +35,37 @@ function EquipBonusWindow:updateBonus(bonusList)
   local font = Fonts.gui_small
   local x = self:hPadding() - self.width / 2
   local y = self:vPadding() - self.height / 2
-  local w = self.width / 2 - self:hPadding()
+  local w = self.width - self:hPadding() * 2
   -- Attributes
-  for i = 1, #bonusList do
-    local key = bonusList[i].key
+  for i = 1, #att do
+    local key = att[i].key
     local valueW = 30
     local arrowW = 15
     local namePos = Vector(x, y, 0)
     local name = SimpleText(attConfig[key].shortName, namePos, w / 2, 'left', font)
     self.content:add(name)
     local valuePos1 = Vector(x + w / 2, y, 0)
-    local value1 = SimpleText(round(bonusList[i].oldValue), valuePos1, valueW, 'left', font)
+    local value1 = SimpleText(round(att[i].oldValue), valuePos1, valueW, 'left', font)
     self.content:add(value1)
     local arrowPos = Vector(x + w / 2 + valueW, y - 2, 0)
     local arrow = SimpleText('→', arrowPos, arrowW, 'left')
     self.content:add(arrow)
     local valuePos2 = Vector(x + w / 2 + valueW + arrowW, y, 0)
-    local value2 = SimpleText(round(bonusList[i].newValue), valuePos2, valueW, 'left', font)
+    local value2 = SimpleText(round(att[i].newValue), valuePos2, valueW, 'left', font)
     self.content:add(value2)
-    if bonusList[i].newValue > bonusList[i].oldValue then
+    if att[i].newValue > att[i].oldValue then
       value2.sprite:setColor(Color.green)
     else
       value2.sprite:setColor(Color.red)
     end
     y = y + 10
+  end
+  if #status > 0 then
+    local statusPos = Vector(x + 6, y + 8, 0)
+    local statusIcons = IconList(statusPos, w, 24)
+    statusIcons:setIcons(status)
+    self.content:add(statusIcons)
+    y = y + 26
   end
   for i = 1, #self.content do
     self.content[i]:updatePosition(self.position)
@@ -68,6 +75,7 @@ end
 function EquipBonusWindow:setEquip(slotKey, newEquip)
   self.equip = newEquip
   self.slotKey = slotKey
+  -- Attribute Bonus
   local base, oldBonus, newBonus = self:calculateBonus(slotKey, newEquip and newEquip.equip)
   local bonusList = {}
   for i = 1, #attConfig do
@@ -79,7 +87,20 @@ function EquipBonusWindow:setEquip(slotKey, newEquip)
         key = key }
     end
   end
-  self:updateBonus(bonusList)
+  -- Status
+  newEquip = newEquip and newEquip.equip
+  local status = {}
+  if newEquip and newEquip.status then
+    for i = 1, #newEquip.status do
+      local id = newEquip.status[i]
+      local s = Database.status[id]
+      if s.visible and s.icon.id >= 0 then
+        print(s.name)
+        status[#status + 1] = s.icon
+      end
+    end
+  end
+  self:updateBonus(bonusList, status)
 end
 
 function EquipBonusWindow:setMember(member)
