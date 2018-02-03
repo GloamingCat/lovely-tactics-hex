@@ -110,7 +110,7 @@ function Balloon:onEnd()
   end
   self.time = 0
 end
-
+-- Destroys the icon.
 function Balloon:destroy()
   Animation.destroy(self)
   self.iconAnim:destroy()

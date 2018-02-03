@@ -49,7 +49,7 @@ end
 -- Considers state 4, when the character has no status.
 local Balloon_update = Balloon.update
 function Balloon:update()
-  if not self.paused and self.state ~= 4 then
+  if self.state ~= 4 then
     Balloon_update(self)
   end
 end

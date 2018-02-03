@@ -134,7 +134,7 @@ end
 function Animation:nextFrame()
   local lastCol = 0
   if self.speed > 0 then
-    lastCol = #self.pattern - 1
+    lastCol = #self.pattern
   end
   if self.index ~= lastCol then
     self:nextCol()
@@ -166,8 +166,13 @@ function Animation:nextRow()
 end
 
 function Animation:setIndex(i)
-  self.index = mod(i, #self.pattern + 1)
-  self:setCol(self.pattern[self.index])
+  if self.pattern then
+    self.index = mod(i, #self.pattern + 1)
+    self:setCol(self.pattern[self.index])
+  else
+    self.index = mod(i, self.colCount)
+    self:setCol(self.index)
+  end
 end
 -- Changes the column of the current quad
 -- @param(col : number) the column number, starting from 0
@@ -200,8 +205,8 @@ end
 
 function Animation:reset()
   self.time = 0
-  self:setCol(0)
   self:setRow(0)
+  self:setIndex(0)
 end
 -- Destroy this animation.
 function Animation:destroy()
