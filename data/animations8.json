@@ -151,7 +151,7 @@
 						"audio": [
 							null,
 							{
-								"name": "sword-unsheathe5.wav",
+								"name": "artisticdude/blade.wav",
 								"pitch": 100,
 								"volume": 100
 							}

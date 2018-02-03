@@ -36,6 +36,11 @@ function RewardEXPWindow:createContent(...)
   end
 end
 
+function RewardEXPWindow:hide(...)
+  AudioManager:playSFX(Config.sounds.buttonConfirm)
+  Window.hide(self, ...)
+end
+
 function RewardEXPWindow:__tostring()
   return 'EXP Reward Window'
 end
