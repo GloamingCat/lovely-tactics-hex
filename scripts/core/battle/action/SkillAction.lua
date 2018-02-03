@@ -139,22 +139,40 @@ function SkillAction:execute(input)
   if result.executed then    
     -- Skill use
     self:battleUse(input)
-    input.user.battler:damageCosts(self.costs)
-    input.user:onSkillUse(input)
     return BattleAction.execute(self, input)
   else
     return { executed = false, endCharacterTurn = true }
   end
 end
+-- @param(user : Battler)
+function SkillAction:canExecute(user)
+  local att = user.att
+  local state = user.state
+  for i = 1, #self.costs do
+    local cost = self.costs[i].cost(self, att)
+    local key = self.costs[i].key
+    if cost > state[key] then
+      return false
+    end
+  end
+  return true
+end
+
+---------------------------------------------------------------------------------------------------
+-- Battle Use
+---------------------------------------------------------------------------------------------------
+
 -- Checks if the skill can be used in the battle field.
 -- @param(user : Character)
 -- @ret(boolean)
 function SkillAction:canBattleUse(user)
-  return self:canMenuUse(user.battler)
+  return self:canExecute(user.battler)
 end
 -- The effect applied when the user is prepared to use the skill.
 -- It executes animations and applies damage/heal to the targets.
 function SkillAction:battleUse(input)
+  -- Apply costs
+  input.user.battler:damageCosts(self.costs)
   -- Intro time.
   _G.Fiber:wait(self.introTime)
   -- User's initial animation.
@@ -165,6 +183,7 @@ function SkillAction:battleUse(input)
   -- Cast animation
   FieldManager.renderer:moveToTile(input.target)
   local minTime = input.user:castSkill(self.data, dir, input.target) + GameManager.frame
+  input.user.battler:onSkillUse(input, input.user)
   _G.Fiber:wait(20)
   -- Animation for each of affected tiles.
   self:allTargetsAnimation(input, originTile)
@@ -178,44 +197,39 @@ function SkillAction:battleUse(input)
 end
 
 ---------------------------------------------------------------------------------------------------
--- Menu use
+-- Menu Use
 ---------------------------------------------------------------------------------------------------
 
 -- Checks if the given character can use the skill, considering skill's costs.
 -- @param(user : Battler)
 -- @ret(boolean)
 function SkillAction:canMenuUse(user)
-  local att = user.att
-  local state = user.state
-  for i = 1, #self.costs do
-    local cost = self.costs[i].cost(self, att)
-    local key = self.costs[i].key
-    if cost > state[key] then
-      return false
-    end
-  end
-  return true
+  return self:canExecute(user)
 end
 -- Executes the skill in the menu, out of the battle field.
 -- @param(user : Battler)
 -- @param(target : Battler)
 function SkillAction:menuUse(input)
-  input.user:damageCosts(self.costs)
-  local results = self:calculateEffectResults(input.user, input.target)
-  if #results.points == 0 and #results.status == 0 then
-    -- Miss
-    local pos = input.userPosition
-    local popupText = PopupText(pos.x, pos.y - 20, pos.z - 10, GUIManager.renderer)
-    popupText:addLine(Vocab.miss, 'popup_miss', 'popup_miss')
-    popupText:popup()
-  else
-    input.target:popupResults(input.targetPosition, results)
-    if self.data.battleAnim.individualID >= 0 then
-      local pos = input.targetPosition
-      BattleManager:playMenuAnimation(self.data.battleAnim.individualID,
-        pos.x, pos.y, pos.z - 1, false, true)
+  local character = BattleManager.onBattle and TroopManager:getBattlerCharacter(input.user)
+  if input.target then
+    local results = self:calculateEffectResults(input.user, input.target)
+    input.target:applyResults(results)
+    input.target:onSkillEffect(input, results, character)
+  elseif input.targets then
+    for i = 1, #input.targets do
+      local results = self:calculateEffectResults(input.user, input.targets[i])
+      input.targets[i]:applyResults(results)
+      input.targets[i]:onSkillEffect(input, results, character)
     end
+  else
+    return { executed = false }
   end
+  input.user:damageCosts(self.costs)
+  if self.data.battleAnim.castID >= 0 then
+    BattleManager:playMenuAnimation(self.data.battleAnim.castID, false)
+  end
+  input.user:onSkillUse(input)
+  return BattleAction.execute(self, input)
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -321,7 +335,6 @@ end
 -- @param(originTile : ObjectTile) the user's original tile
 function SkillAction:singleTargetAnimation(input, targetChar, originTile)
   local results = self:calculateEffectResults(input.user.battler, targetChar.battler)
-  results.target = targetChar
   if #results.points == 0 and #results.status == 0 then
     -- Miss
     local pos = targetChar.position
@@ -353,7 +366,7 @@ function SkillAction:singleTargetAnimation(input, targetChar, originTile)
       targetChar:playAnimation(targetChar.idleAnim)
     end
   end
-  targetChar:onSkillEffect(input, results)
+  targetChar.battler:onSkillEffect(input, results, targetChar)
   _G.Fiber:wait(self.targetTime)
 end
 

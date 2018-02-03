@@ -34,6 +34,7 @@ local BattleManager = class()
 -- Constructor.
 function BattleManager:init()
   self.onBattle = false
+  self.params = defaultParams
 end
 -- Creates battle elements.
 -- @param(params : table) battle params to be used by custom scripts
@@ -205,8 +206,8 @@ function BattleManager:playBattleAnimation(animID, x, y, z, mirror, wait)
   return self:playAnimation(FieldManager, animID, x, y, z, mirror, wait)
 end
 
-function BattleManager:playMenuAnimation(animID, x, y, z, mirror, wait)
-  return self:playAnimation(GUIManager, animID, x, y, z, mirror, wait)
+function BattleManager:playMenuAnimation(animID, wait)
+  return self:playAnimation(GUIManager, animID, 0, 0, 200, false, wait)
 end
 
 return BattleManager

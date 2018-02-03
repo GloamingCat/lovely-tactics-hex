@@ -35,6 +35,9 @@ function GUIManager:update()
   if self.current then
     self.current:update()
   end
+  for i = 1, #self.updateList do
+    self.updateList[i]:update()
+  end
   self.fiberList:update()
 end
 

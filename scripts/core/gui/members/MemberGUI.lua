@@ -103,7 +103,9 @@ function MemberGUI:showSubGUI(GUI)
   local gui = GUI(self, y)
   self.subGUI = gui
   gui:setMember(self:currentMember(), self.battler)
+  self:setActiveWindow(nil)
   GUIManager:showGUIForResult(gui)
+  self:setActiveWindow(self.commandWindow)
   self.subGUI = nil
 end
 

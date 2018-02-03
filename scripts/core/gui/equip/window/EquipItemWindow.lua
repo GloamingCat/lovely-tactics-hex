@@ -63,7 +63,7 @@ end
 -- Refresh item buttons in case the slot changed.
 function EquipItemWindow:refreshItems()
   local list = self.GUI.inventory:getEquipItems(self.slotType.key, self.member)
-  self:overrideButtons(list)
+  self:refreshButtons(list)
 end
 
 ----------------------------------------------------------------------------------------------------

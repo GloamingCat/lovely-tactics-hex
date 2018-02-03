@@ -17,6 +17,7 @@ local ConfirmGUI = class(GUI)
 -- Initialization
 ---------------------------------------------------------------------------------------------------
 
+-- Overrides GUI:createWindow.
 function ConfirmGUI:createWindows()
   self.name = 'Confirm GUI'
   local confirmWindow = ConfirmWindow(self)

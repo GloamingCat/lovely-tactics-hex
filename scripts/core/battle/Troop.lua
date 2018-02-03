@@ -41,8 +41,8 @@ function Troop:init(data, party)
   self.inventory = Inventory(save.items)
   self.gold = save.gold
   self.battlers = {}
-  self.current = self:createBattlerList(save.current, true)
-  self.backup = self:createBattlerList(save.backup, true)
+  self.current = self:createBattlerList(save.current)
+  self.backup = self:createBattlerList(save.backup)
   self.hidden = self:createBattlerList(save.hidden)
   -- Grid
   self.grid = Matrix2(sizeX, sizeY)
@@ -58,11 +58,12 @@ function Troop:init(data, party)
     self.AI = require('custom/' .. ai.path)(self)
   end
 end
-
-function Troop:createBattlerList(memberList, init)
+-- Creates battler for each member data in the given list.
+-- @param(memberList : table) an array of member data
+function Troop:createBattlerList(memberList)
   local list = List()
   for i = 1, #memberList do
-    local battler = Battler(memberList[i])
+    local battler = Battler(self, memberList[i])
     list:add(battler)
     self.battlers[memberList[i].key] = battler
   end

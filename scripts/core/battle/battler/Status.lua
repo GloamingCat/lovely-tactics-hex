@@ -111,11 +111,11 @@ end
 -- Removes status in case it's removable by damage or KO.
 -- @param(input : ActionInput)
 -- @param(results : table)
-function Status:onSkillEffect(input, results)
-  if results.damage then
-    if self.data.removeOnDamage or not results.target.battler:isAlive() and self.data.removeOnKO then
-      self.statusList:removeStatus(self, results.target)
-    end
+function Status:onSkillEffect(input, results, char)
+  local battler = self.statusList.battler
+  if results.damage and self.data.removeOnDamage or 
+      self.data.removeOnKO and not battler:isAlive() then
+    self.statusList:removeStatus(self, char)
   end
 end
 

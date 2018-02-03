@@ -33,8 +33,8 @@ function ListButtonWindow:createListButton(element)
   -- Abstract.
 end
 -- Clears and recreates buttons.
-function ListButtonWindow:overrideButtons(list)
-  self.list = list
+function ListButtonWindow:refreshButtons(list)
+  self.list = list or self.list
   self:clearWidgets()
   self:createWidgets()
   for i = 1, #self.matrix do

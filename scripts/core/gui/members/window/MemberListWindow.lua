@@ -11,7 +11,6 @@ A button window that shows all the visibles members in the troop.
 local Button = require('core/gui/widget/Button')
 local List = require('core/datastruct/List')
 local ListButtonWindow = require('core/gui/ListButtonWindow')
-local MemberGUI = require('core/gui/members/MemberGUI')
 local MemberInfo = require('core/gui/general/widget/MemberInfo')
 local Vector = require('core/math/Vector')
 
@@ -25,7 +24,6 @@ local MemberListWindow = class(ListButtonWindow)
 -- @param(troop : TroopBase)
 -- @param(...) parameters from ListButtonWindow:init
 function MemberListWindow:init(troop, ...)
-  self.troop = troop
   local memberList = troop:visibleMembers()
   ListButtonWindow.init(self, memberList, ...)
 end
@@ -53,6 +51,7 @@ function MemberListWindow:refreshMembers()
     local w, h = self:cellWidth(), self:cellHeight()
     button.memberInfo = MemberInfo(button.member, w - self:hPadding(), h)
     button.content:add(button.memberInfo)
+    button:updatePosition(self.position)
   end
 end
 -- Overrides Window:show.
@@ -72,18 +71,13 @@ end
 -- Shows the GUI for member management.
 -- @param(button : Button)
 function MemberListWindow:onButtonConfirm(button)
-  self.GUI:hide()
-  local gui = MemberGUI(self.troop, self.list, button.index)
-  GUIManager:showGUIForResult(gui)
-  self.GUI:show()
+  self.GUI:onMemberConfirm(button.index)
 end
 -- @param(button : Button)
 -- Called when player presses "cancel" on this button.
 -- Hides this windows and shows the main window.
 function MemberListWindow:onButtonCancel(button)
-  self:hide()
-  self.GUI.mainWindow:show()
-  self.GUI.mainWindow:activate()
+  self.GUI:onMemberCancel()
 end
 
 ---------------------------------------------------------------------------------------------------

@@ -110,13 +110,6 @@ function GridWindow:showContent()
     if button.onSelect then
       button.onSelect(self, button)
     end
-  else
-    if self.cursor then
-      self.cursor:hide()
-    end
-    if self.highlight then
-      self.highlight:hide()
-    end
   end
 end
 

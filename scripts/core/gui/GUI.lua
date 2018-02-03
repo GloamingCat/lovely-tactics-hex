@@ -68,15 +68,21 @@ function GUI:setActiveWindow(window)
     self.activeWindow:setActive(false)
   end
   self.activeWindow = window
-  window:setActive(true)
+  if window then
+    window:setActive(true)
+  end
 end
 -- [COROUTINE] Waits until GUI closes and returns a result.
 -- @ret(unknown) the result of GUI (will never be nil)
 function GUI:waitForResult()
-  self.activeWindow:checkInput()
-  while self.activeWindow.result == nil do
-    yield()
+  if self.activeWindow then
     self.activeWindow:checkInput()
+  end
+  while not self.activeWindow or self.activeWindow.result == nil do
+    yield()
+    if self.activeWindow then
+      self.activeWindow:checkInput()
+    end
   end
   return self.activeWindow.result
 end

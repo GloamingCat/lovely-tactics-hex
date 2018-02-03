@@ -294,7 +294,7 @@
 					}
 				}
 			},
-      {
+			{
 				"name": "Heal",
 				"data": {
 					"id": 17,
@@ -327,7 +327,13 @@
 							"path": "BattleEffect",
 							"param": ""
 						},
-						"audio": []
+						"audio": [
+							{
+								"name": "GameAudio/heal.wav",
+								"volume": 70,
+								"pitch": 110
+							}
+						]
 					}
 				}
 			}

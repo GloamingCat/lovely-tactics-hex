@@ -26,6 +26,7 @@ function WindowCursor:init(window)
   self.anim.sprite:setVisible(false)
   local x, y, w, h = self.anim.sprite.quad:getViewport()
   self.displacement = Vector(-w / 2, window:cellHeight() / 2)
+  self.hideOnDeactive = true
   window.content:add(self)
 end
 
@@ -53,7 +54,8 @@ function WindowCursor:updatePosition(wpos)
 end
 -- Shows sprite.
 function WindowCursor:show()
-  self.anim.sprite:setVisible(#self.window.matrix > 0)
+  local active = not self.hideOnDeactive or self.window.active
+  self.anim.sprite:setVisible(active and #self.window.matrix > 0)
 end
 -- Hides sprite.
 function WindowCursor:hide()

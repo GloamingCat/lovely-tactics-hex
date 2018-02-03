@@ -43,8 +43,10 @@ local Battler = class()
 ---------------------------------------------------------------------------------------------------
 
 -- Constructor.
+-- @param(troop : Troop)
 -- @param(save : table)
-function Battler:init(save)
+function Battler:init(troop, save)
+  self.troop = troop
   local id = save and save.battlerID or -1
   if id < 0 then
     local charID = save and save.charID
@@ -55,7 +57,9 @@ function Battler:init(save)
   self:initProperties(data, save)
   self:initState(data, save)
 end
-
+-- Initializes general battler information.
+-- @param(data : table) the battler's data from database
+-- @param(save : table) the data from save
 function Battler:initProperties(data, save)
   self.key = save.key
   self.charID = save.charID
@@ -69,7 +73,9 @@ function Battler:initProperties(data, save)
     self.AI = require('custom/ai/battler/' .. ai.path)(self, ai.param)
   end
 end
-
+-- Initializes battle state.
+-- @param(data : table) the battler's data from database
+-- @param(save : table) the data from save
 function Battler:initState(data, save)
   self.class = Class(self, save)
   self.inventory = Inventory(save and save.items or data.items or {})
@@ -107,6 +113,11 @@ end
 -- HP and SP damage
 ---------------------------------------------------------------------------------------------------
 
+-- Limits each state variable to its maximum.
+function Battler:updateState()
+  self.state.hp = min(self.mhp(), self.state.hp)
+  self.state.sp = min(self.msp(), self.state.sp)
+end
 -- Damages HP.
 -- @param(value : number) the number of the damage
 -- @ret(boolean) true if reached 0, otherwise
@@ -174,12 +185,27 @@ function Battler:popupResults(pos, results, character)
   end
   popupText:popup()
 end
-
-function Battler:updateState()
-  self.state.hp = min(self.mhp(), self.state.hp)
-  self.state.sp = min(self.msp(), self.state.sp)
+-- Applies the result of a skill.
+function Battler:applyResults(results, character)
+  for i = 1, #results.points do
+    local points = results.points[i]
+    if points.heal then
+      self:damage(points.key, -points.value)
+    else
+      self:damage(points.key, points.value)
+    end
+  end
+  for i = 1, #results.status do
+    local r = results.status[i]
+    if r.add then
+      self.statusList:addStatus(r.id, nil, character)
+    else
+      self.statusList:removeAllStatus(r.id, character)
+    end
+  end
 end
-
+-- Applies a list of costs (HP, SP or other state variable).
+-- @param(costs : table) array of tables with the variable key and the cost functions
 function Battler:damageCosts(costs)
   for i = 1, #costs do
     local value = costs[i].cost(self.att)
@@ -213,7 +239,7 @@ function Battler:getAI()
 end
 
 ---------------------------------------------------------------------------------------------------
--- Battle
+-- Battle Callbacks
 ---------------------------------------------------------------------------------------------------
 
 -- Callback for when the battle ends.
@@ -230,6 +256,19 @@ function Battler:onBattleEnd(char)
     self.AI:BattleEnd(self, char)
   end
   self.statusList:callback('BattleEnd', char)
+end
+
+---------------------------------------------------------------------------------------------------
+-- Skill callbacks
+---------------------------------------------------------------------------------------------------
+
+-- Callback for when the character finished using a skill.
+function Battler:onSkillUse(input, character)
+  self.statusList:callback('SkillUse', input, character)
+end
+-- Callback for when the characters ends receiving a skill's effect.
+function Battler:onSkillEffect(input, results, character)
+  self.statusList:callback('SkillEffect', input, results, character)
 end
 
 ---------------------------------------------------------------------------------------------------

@@ -40,9 +40,6 @@ end
 -- @param(button : Button) the button selected
 function ActionItemWindow:onButtonConfirm(button)
   self:selectAction(button.skill)
-  if self.result and self.result.executed and button.item.use.consume then
-    self.inventory:removeItem(button.item.id)
-  end
 end
 -- Tells if an item can be used.
 -- @param(button : Button) the button to check

@@ -4,18 +4,18 @@
 		"data": {
 			"id": 1,
 			"type": 2,
-      "targetType": 1, // 0 => Any tile, 1 => any character, 2 => Living only, 3 => dead only
+			"targetType": 1, // 0 => Any tile, 1 => any character, 2 => Living only, 3 => dead only
 			"description": "",
 			"icon": {
-			  "id": -1,
-			  "col": 0,
-			  "row": 0
+				"id": -1,
+				"col": 0,
+				"row": 0
 			},
 			"radius": 1,
 			"range": 3,
 			"script": {
-			  "path": "",
-			  "param": ""
+				"path": "",
+				"param": ""
 			},
 			"costs": [],
 			"restriction": 0,
@@ -26,11 +26,11 @@
 			},
 			"battleAnim": {
 				"loadID": -1,
-				"castID": -1,
-				"individualID": 17,
+				"castID": 17,
+				"individualID": -1,
 				"mirror": true
 			},
-      "damageAnim": true,
+			"damageAnim": true,
 			"elements": [],
 			"status": [],
 			"tags": []
@@ -41,7 +41,7 @@
 		"data": {
 			"id": 2,
 			"type": 0,
-      "targetType": 1,
+			"targetType": 1,
 			"description": "",
 			"icon": {
 				"id": -1,
@@ -67,7 +67,7 @@
 				"individualID": -1,
 				"mirror": true
 			},
-      "damageAnim": true,
+			"damageAnim": true,
 			"elements": [],
 			"status": [],
 			"tags": []

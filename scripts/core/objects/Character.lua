@@ -260,19 +260,6 @@ function Character:onSelfTurnEnd(result)
 end
 
 ---------------------------------------------------------------------------------------------------
--- Skill callbacks
----------------------------------------------------------------------------------------------------
-
--- Callback for when the character finished using a skill.
-function Character:onSkillUse(input)
-  self.battler.statusList:callback('SkillUse', input)
-end
--- Callback for when the characters ends receiving a skill's effect.
-function Character:onSkillEffect(input, results)
-  self.battler.statusList:callback('SkillEffect', input, results)
-end
-
----------------------------------------------------------------------------------------------------
 -- Other callbacks
 ---------------------------------------------------------------------------------------------------
 
