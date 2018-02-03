@@ -54,7 +54,7 @@ function BattlerWindow:createContent(width, height)
   local sprite = self.character.sprite:clone(GUIManager.renderer)
   self.portraitAnim = self.character.animation:clone(sprite)
   self.portraitAnim:setRow(6)
-  self.portraitAnim:setIndex(0)
+  self.portraitAnim:setIndex(1)
   sprite:setXYZ(0, 0, 0)
   local portrait = SimpleImage(sprite, self:hPadding() - self.width / 2, self:vPadding() - self.height / 2, 
       nil, round(self.width / 3) - self:hPadding(), self.height - self:vPadding() * 2)

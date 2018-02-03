@@ -13,9 +13,8 @@ local Sprite = require('core/graphics/Sprite')
 local TagMap = require('core/datastruct/TagMap')
 
 -- Alias
-local abs = math.abs
 local mod = math.mod
-local sign = math.sign
+local mod1 = math.mod1
 local deltaTime = love.timer.getDelta
 local Quad = love.graphics.newQuad
 
@@ -32,10 +31,11 @@ function Animation:init(sprite, data)
   -- Current quad indexes col/row in the spritesheet
   self.col = 0
   self.row = 0
-  self.index = 0
+  self.index = 1
   -- Frame count (adapted to the frame rate)
   self.time = 0
   self.speed = 1
+  self.direction = 1
   self.paused = sprite == nil
   if data and data.animation then
     -- The size of each quad
@@ -47,19 +47,11 @@ function Animation:init(sprite, data)
     -- Loop type
     self.loop = data.animation.loop
     -- Pattern
-    local pattern = data.animation.pattern
-    self.pattern = {}
-    if pattern then
-      for i = 0, #pattern - 1 do
-        self.pattern[i] = pattern[i + 1]
-      end
-    else
-      for i = 0, self.colCount - 1 do
-        self.pattern[i] = i
-      end
-    end
+    self.pattern = data.animation.pattern
     -- Duration
     self:setTiming(data.animation.duration, data.animation.timing)
+    -- Audio
+    self.audio = data.animation.audio
     -- Tags
     if data.tags and #data.tags > 0 then
       self.tags = TagMap(data.tags)
@@ -82,9 +74,13 @@ function Animation:clone(sprite)
   local anim = Animation(sprite or self.sprite, self.data)
   anim.col = self.col
   anim.row = self.row
+  anim.index = self.index
   anim.paused = self.paused
   anim.time = self.time
   anim.speed = self.speed
+  anim.direction = self.direction
+  anim.audioIndex = self.audioIndex
+  anim.audioTime = self.audioTime
   return anim
 end
 -- Sets the time for each frame. 
@@ -93,22 +89,23 @@ end
 -- @param(timing : table) array of frame times, one element per frame
 function Animation:setTiming(duration, timing)
   self.frameTime = nil
+  local indexCount = (self.pattern and #self.pattern or self.colCount)
   if duration and duration > 0 then
     self.frameTime = {}
-    local frameDuration = duration / (#self.pattern + 1)
-    for i = 0, #self.pattern do
+    local frameDuration = duration / indexCount
+    for i = 1, indexCount do
       self.frameTime[i] = frameDuration
     end
   end
   if timing then
     self.frameTime = self.frameTime or {}
-    for i = 0, #self.pattern do
-      self.frameTime[i] = timing[i + 1] or self.frameTime[i]
+    for i = 1, indexCount do
+      self.frameTime[i] = timing[i] or self.frameTime[i]
     end
   end
   if self.frameTime then
     self.duration = 0
-    for i = 0, #self.pattern do
+    for i = 1, indexCount do
       assert(self.frameTime[i], 'Frame time not defined: ' .. i)
       self.duration = self.duration + self.frameTime[i]
     end
@@ -124,7 +121,7 @@ function Animation:update()
   if self.paused or not self.duration or not self.frameTime then
     return
   end
-  self.time = self.time + deltaTime() * 60 * abs(self.speed)
+  self.time = self.time + deltaTime() * 60 * self.speed
   if self.time >= self.frameTime[self.index] then
     self.time = self.time - self.frameTime[self.index]
     self:nextFrame()
@@ -132,11 +129,11 @@ function Animation:update()
 end
 -- Sets to next frame.
 function Animation:nextFrame()
-  local lastCol = 0
-  if self.speed > 0 then
-    lastCol = #self.pattern
+  local lastIndex = 1
+  if self.direction > 0 then
+    lastIndex = self.pattern and #self.pattern or self.colCount
   end
-  if self.index ~= lastCol then
+  if self.index ~= lastIndex then
     self:nextCol()
   else
     self:onEnd()
@@ -149,29 +146,34 @@ function Animation:onEnd()
   elseif self.loop == 1 then
     self:nextCol()
   elseif self.loop == 2 then
-    self.speed = -self.speed
-    if self.colCount > 1 then
-      self:nextCol()
-    end
+    self.direction = -self.direction
+    self:nextCol()
   end
 end
 -- Sets to the next column.
 function Animation:nextCol()
-  self:setIndex(self.index + sign(self.speed))
-  assert(self.pattern[self.index], "Pattern not defined in index "..self.index..' '..self.data.id)
+  self:setIndex(self.index + self.direction)
 end
 -- Sets to the next row.
 function Animation:nextRow()
-  self:setRow(self.row + sign(self.speed))
+  self:setRow(self.row + self.direction)
 end
-
+-- Sets the frame counter.
+-- @param(i : number) number of the frame, from 0 to #pattern
 function Animation:setIndex(i)
   if self.pattern then
-    self.index = mod(i, #self.pattern + 1)
+    self.index = mod1(i, #self.pattern)
     self:setCol(self.pattern[self.index])
   else
-    self.index = mod(i, self.colCount)
-    self:setCol(self.index)
+    self.index = mod1(i, self.colCount)
+    self:setCol(self.index - 1)
+  end
+  self:playAudio()
+end
+-- Plays the audio in the current index, if any.
+function Animation:playAudio()
+  if self.audio and self.audio[self.index] then
+    AudioManager:playSFX(self.audio[self.index])
   end
 end
 -- Changes the column of the current quad
@@ -205,8 +207,9 @@ end
 
 function Animation:reset()
   self.time = 0
+  self.audioIndex = 1
   self:setRow(0)
-  self:setIndex(0)
+  self:setIndex(1)
 end
 -- Destroy this animation.
 function Animation:destroy()

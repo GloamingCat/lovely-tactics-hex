@@ -142,13 +142,20 @@
 					  "brightness": 100
 					},
 					"animation": {
-						"timing": [20, 4, 4, 4, 10],
+						"timing": [15, 4, 4, 4, 10],
 						"loop": 0,
 						"script": {
 							"path": "",
 							"param": ""
 						},
-						"audio": []
+						"audio": [
+							null,
+							{
+								"name": "sword-unsheathe5.wav",
+								"pitch": 100,
+								"volume": 100
+							}
+						]
 					}
 				}
 			},

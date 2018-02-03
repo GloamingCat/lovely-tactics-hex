@@ -98,7 +98,7 @@ end
 -- Sets state and the sprite animation ends.
 -- State 0 means it's the openning animation, 2 means it's closing.
 function Balloon:onEnd()
-  self.speed = -self.speed
+  self.direction = -self.direction
   if self.state == 0 then
     self.state = 1
     if self.iconAnim then

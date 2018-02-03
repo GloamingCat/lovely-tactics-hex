@@ -44,7 +44,8 @@ Thanks to the following people for source code:
 
 Thanks to the following people for general art resources used in the project:
 * GameAudio for the sound effects: https://freesound.org/people/GameAudio/packs/13940/;
-* Aaron Krogh for the MP3 BGM: https://soundcloud.com/aaron-anderson-11;
+* artisticdude for the sound effects: https://opengameart.org/content/rpg-sound-pack;
+* Aaron Krogh for MP3 BGM: https://soundcloud.com/aaron-anderson-11;
 * Mr. Bubble for the battle animations: https://mrbubblewand.wordpress.com/;
 * Alex dos Ventos for the scenery art.
 
@@ -57,9 +58,9 @@ Also, please check the LÖVE2D license here: https://love2d.org/wiki/License.
 
 ## To-do list
 
-* Multi-layered fields;
 * Field/Main GUI, with all other sub-GUI (items, skills, etc);
 * Save/Load GUI;
+* Multi-layered fields;
 * Shop GUI;
 * Mouse interaction;
 * Isometric and orthogonal grid cells.

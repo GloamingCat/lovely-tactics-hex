@@ -34,6 +34,13 @@ function BattleEffect:nextFrame()
     self:onEnd()
   end
 end
+-- Plays the audio in the current index, if any.
+function BattleEffect:playAudio()
+  local index = self.row * self.colCount + self.col + 1
+  if self.audio and self.audio[index] then
+    AudioManager:playSFX(self.audio[index])
+  end
+end
 -- What happens when the animations finishes.
 function BattleEffect:onEnd()
   if self.loop == 0 then
