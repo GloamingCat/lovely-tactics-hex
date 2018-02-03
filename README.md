@@ -43,8 +43,9 @@ Thanks to the following people for source code:
 * kevinclancy, for class module: https://bitbucket.org/kevinclancy/basic-class-system/wiki/Home.
 
 Thanks to the following people for general art resources used in the project:
-* GameAudio for the sound effects: https://freesound.org/people/GameAudio/packs/13940/;
-* artisticdude for the sound effects: https://opengameart.org/content/rpg-sound-pack;
+* GameAudio for sound effects: https://freesound.org/people/GameAudio/packs/13940/;
+* artisticdude for sound effects: https://opengameart.org/content/rpg-sound-pack;
+* ViRiX Dreamcore (David Mckee) for sound effects: https://opengameart.org/content/magic-sfx-sample;
 * Aaron Krogh for MP3 BGM: https://soundcloud.com/aaron-anderson-11;
 * Mr. Bubble for the battle animations: https://mrbubblewand.wordpress.com/;
 * Alex dos Ventos for the scenery art.

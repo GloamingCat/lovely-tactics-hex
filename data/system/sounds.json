@@ -1,71 +1,80 @@
 {
-  // GUI
-  "buttonConfirm": {
-    "name": "button-confirm.wav",
-    "pitch": 100,
-    "volume": 100
-  },
-  "buttonCancel": {
-    "name": "button-confirm.wav",
-    "pitch": 75,
-    "volume": 100
-  },
-  "buttonError": {
-    "name": "button-error.wav",
-    "pitch": 100,
-    "volume": 100
-  },
-  "buttonSelect": {
-    "name": "button-select.wav",
-    "pitch": 100,
-    "volume": 100
-  },
-  "buy": {
-    "name": "button-confirm.wav",
-    "pitch": 100,
-    "volume": 100
-  },
-  "sell": {
-    "name": "button-confirm.wav",
-    "pitch": 100,
-    "volume": 100
-  },
-  "equip": {
-    "name": "button-confirm.wav",
-    "pitch": 100,
-    "volume": 100
-  },
-  "unequip": {
-    "name": "button-confirm.wav",
-    "pitch": 100,
-    "volume": 100
-  },
-  
-  // Battle
-  "allyDamage": {
-    "name": "battle-dmg.wav",
-    "pitch": 100,
-    "volume": 100
-  },
-  "enemyDamage": {
-    "name": "battle-dmg.wav",
-    "pitch": 100,
-    "volume": 100
-  },
-  "allyKO": {
-    "name": "battle-ko.wav",
-    "pitch": 100,
-    "volume": 100
-  },
-  "enemyKO": {
-    "name": "battle-ko.wav",
-    "pitch": 100,
-    "volume": 100
-  },
-  "battleTheme": {
-    "name": "battle1.ogg",
-    "pitch": 100,
-    "volume": 100
-  }
-  
+	// GUI
+	"buttonConfirm": {
+		"name": "GameAudio/button-confirm.wav",
+		"pitch": 100,
+		"volume": 100
+	},
+	"buttonCancel": {
+		"name": "GameAudio/button-cancel.wav",
+		"pitch": 100,
+		"volume": 100
+	},
+	"buttonError": {
+		"name": "GameAudio/button-error.wav",
+		"pitch": 120,
+		"volume": 70
+	},
+	"buttonSelect": {
+		"name": "GameAudio/button-select.wav",
+		"pitch": 100,
+		"volume": 80
+	},
+	"equip": {
+		"name": "artisticdude/equip.wav",
+		"pitch": 100,
+		"volume": 100
+	},
+	"unequip": {
+		"name": "artisticdude/equip.wav",
+		"pitch": 100,
+		"volume": 100
+	},
+	"buy": {
+		"name": "GameAudio/button-confirm.wav",
+		"pitch": 100,
+		"volume": 100
+	},
+	"sell": {
+		"name": "GameAudio/button-confirm.wav",
+		"pitch": 100,
+		"volume": 100
+	},
+	"menu": {
+		"name": "GameAudio/button-confirm.wav",
+		"pitch": 100,
+		"volume": 100
+	},
+
+	// Battle
+	"allyDamage": {
+		"name": "battle-dmg.wav",
+		"pitch": 100,
+		"volume": 100
+	},
+	"enemyDamage": {
+		"name": "battle-dmg.wav",
+		"pitch": 100,
+		"volume": 100
+	},
+	"allyKO": {
+		"name": "battle-ko.wav",
+		"pitch": 100,
+		"volume": 100
+	},
+	"enemyKO": {
+		"name": "battle-ko.wav",
+		"pitch": 100,
+		"volume": 100
+	},
+	"battleIntro": {
+		"name": "battle-intro.wav",
+		"pitch": 100,
+		"volume": 100
+	},
+	"battleTheme": {
+		"name": "battle1.ogg",
+		"pitch": 100,
+		"volume": 100
+	}
 }

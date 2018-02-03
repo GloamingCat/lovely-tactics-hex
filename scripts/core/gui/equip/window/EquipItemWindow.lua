@@ -13,6 +13,10 @@ local Vector = require('core/math/Vector')
 local Button = require('core/gui/widget/Button')
 local InventoryWindow = require('core/gui/general/window/InventoryWindow')
 
+-- Constans
+local equipSound = Config.sounds.equip
+local unequipSound = Config.sounds.unequip
+
 local EquipItemWindow = class(InventoryWindow)
 
 ----------------------------------------------------------------------------------------------------
@@ -35,6 +39,7 @@ function EquipItemWindow:createWidgets(...)
     local button = Button(self)
     button:createText(Vocab.unequip, 'gui_medium')
     button:setEnabled(self.member.equipSet:canUnequip(self.slotKey))
+    button.confirmSound = unequipSound
     InventoryWindow.createWidgets(self, ...)
   end
 end
@@ -42,6 +47,7 @@ end
 function EquipItemWindow:createListButton(itemSlot)
   local button = InventoryWindow.createListButton(self, itemSlot)
   button:setEnabled(self.member.equipSet:canEquip(self.slotKey, button.item))
+  button.confirmSound = equipSound
   return button
 end
 -- @param(member : Battler)

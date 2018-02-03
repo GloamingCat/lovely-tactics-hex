@@ -215,6 +215,10 @@ function GridWindow:onConfirm()
       AudioManager:playSFX(button.confirmSound)
     end
     button.onConfirm(self, button)
+  else
+    if button.errorSound then
+      AudioManager:playSFX(button.errorSound)
+    end
   end
 end
 -- Called when player cancels.

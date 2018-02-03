@@ -23,6 +23,7 @@ local yield = coroutine.yield
 -- Constants
 local conf = Config.player
 local tg = math.field.tg
+local menuSound = Config.sounds.menu
 
 local Player = class(Character)
 
@@ -209,6 +210,7 @@ end
 
 -- Opens game's main GUI.
 function Player:openGUI()
+  AudioManager:playSFX(menuSound)
   GUIManager:showGUIForResult(MainGUI())
 end
 

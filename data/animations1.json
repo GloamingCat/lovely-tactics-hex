@@ -37,7 +37,7 @@
 						},
 						"audio": [
 							{
-								"name": "sword-unsheathe5.wav",
+								"name": "artisticdude/blade.wav",
 								"pitch": 100,
 								"volume": 100
 							}
@@ -77,7 +77,15 @@
 						"script": {
 							"path": "BattleEffect",
 							"param": ""
-						}
+						},
+						"audio": [
+							null,
+							{
+								"name": "David Mckee/Fire.wav",
+								"volume": 100,
+								"pitch": 100
+							}
+						]
 					}
 				}
 			},
@@ -114,7 +122,14 @@
 							"path": "BattleEffect",
 							"param": ""
 						},
-						"audio": []
+						"audio": [
+							null,
+							{
+								"name": "David Mckee/Fire.wav",
+								"volume": 100,
+								"pitch": 100
+							}
+						]
 					}
 				}
 			},
@@ -151,7 +166,14 @@
 							"path": "BattleEffect",
 							"param": ""
 						},
-						"audio": []
+						"audio": [
+							null,
+							{
+								"name": "David Mckee/Fire.wav",
+								"volume": 100,
+								"pitch": 100
+							}
+						]
 					}
 				}
 			},
