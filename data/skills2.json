@@ -18,10 +18,10 @@
 			  "param": ""
 			},
 			"costs": [
-			  {
-			  	"key": "sp",
-          "value": "10"
-			  }
+				{
+					"key": "sp",
+					"value": "10"
+				}
 			],
 			"restriction": 1,
 			"userAnim": {
@@ -35,18 +35,18 @@
 				"individualID": -1,
 				"mirror": true
 			},
-      "damageAnim": true,
+			"damageAnim": true,
 			"elements": [
-			  {
-          "id": 2,
-          "value": 100
-			  }
+				{
+					"id": 2,
+					"value": 100
+				}
 			],
 			"status": [
 				{
 					"id": 1,
 					"rate": "100",
-          "add": true
+					"add": true
 				}
 			],
 			"tags": []

@@ -18,6 +18,8 @@ local RewardItemWindow = class(InventoryWindow)
 ---------------------------------------------------------------------------------------------------
 
 function RewardItemWindow:init(GUI, w, h, pos)
+  self.noCursor = true
+  self.noHighlight = true
   InventoryWindow.init(self, GUI, GUI.rewards.items, nil, w, h, pos)
 end
 

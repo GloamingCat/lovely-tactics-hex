@@ -46,9 +46,9 @@ function SkillAction:init(skillID)
   self:setTargetType(data.targetType)
   -- Animation time
   self.introTime = data.introTime or 22
-  self.targetTime = data.targetTime or 3
+  self.targetTime = data.targetTime or 0
   self.finishTime = data.finishTime or 20
-  self.castTime = data.castTime or 7.5
+  self.castTime = data.castTime or 6
   -- Cost formulas
   self.costs = {}
   for i = 1, #data.costs do

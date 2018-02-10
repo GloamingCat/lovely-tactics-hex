@@ -46,7 +46,8 @@ function ItemGUI:createDescriptionWindow()
   local pos = Vector(0, ScreenManager.height / 2 - h / 2 - self:windowMargin())
   self.descriptionWindow = DescriptionWindow(self, w, h, pos)
 end
-
+-- Called when player selects a member to use the item.
+-- @param(member : Battler)
 function ItemGUI:setMember(member)
   self.itemWindow:setMember(member)
 end

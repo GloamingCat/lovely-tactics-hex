@@ -9,6 +9,7 @@ The window that shows the list of items to be used.
 
 -- Imports
 local ActionInput = require('core/battle/action/ActionInput')
+local Button = require('core/gui/widget/Button')
 local InventoryWindow = require('core/gui/general/window/InventoryWindow')
 local ItemAction = require('core/battle/action/ItemAction')
 local MenuTargetGUI = require('core/gui/general/MenuTargetGUI')
@@ -47,6 +48,14 @@ function ItemWindow:createListButton(itemSlot)
   local id = button.item.use.skillID
   id = id >= 0 and id or defaultSkillID
   button.skill = ItemAction:fromData(id, button.item)
+end
+-- Overrides ListButtonWindow:createButtons.
+function ItemWindow:createWidgets()
+  if #self.list > 0 then
+    InventoryWindow.createWidgets(self)
+  else
+    Button(self)
+  end
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -87,9 +96,9 @@ end
 -- @param(button : Button) the button to check
 -- @ret(boolean)
 function ItemWindow:buttonEnabled(button)
-  return button.skill:canMenuUse(self.member)
+  return button.skill and button.skill:canMenuUse(self.member)
 end
-
+-- Updates buttons to match new state of the inventory.
 function ItemWindow:refreshItems()
   local items = self.GUI.inventory:getUsableItems(2)
   self:refreshButtons(items)

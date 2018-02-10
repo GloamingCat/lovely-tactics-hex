@@ -3,11 +3,11 @@
 		"name": "Green Swordman",
 		"data": {
 			"id": 20,
-			"level": 3,
+			"level": 1,
 			"attackID": 10,
 			"classID": 1,
-			"exp": 0,
-			"gold": 0,
+			"exp": 1,
+			"gold": 3,
 			"scriptAI": {
 				"path": "Rusher.lua",
 				"param": ""
@@ -54,11 +54,11 @@
 		"name": "Blue Mage",
 		"data": {
 			"id": 21,
-			"level": 3,
+			"level": 1,
 			"attackID": 11,
 			"classID": 2,
-			"exp": 50,
-			"gold": 0,
+			"exp": 1,
+			"gold": 5,
 			"scriptAI": {
 				"path": "Rusher.lua",
 				"param": ""

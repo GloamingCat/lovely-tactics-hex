@@ -3,7 +3,7 @@
 		"name": "Hero Swordman",
 		"data": {
 			"id": 10,
-			"level": 30,
+			"level": 3,
 			"attackID": 10,
 			"classID": 1,
 			"exp": 0,
@@ -34,7 +34,7 @@
 			},
 			"skills": [],
 			"items": [],
-			"status": [],
+			"status": [2],
 			"elements": [],
 			"equipment": {
 				"hand1": {
@@ -48,7 +48,7 @@
 		"name": "Hero Mage",
 		"data": {
 			"id": 11,
-			"level": 30,
+			"level": 3,
 			"attackID": 11,
 			"classID": 2,
 			"exp": 0,
