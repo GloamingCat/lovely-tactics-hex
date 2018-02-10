@@ -14,10 +14,6 @@ local SimpleImage = require('core/gui/widget/SimpleImage')
 local SimpleText = require('core/gui/widget/SimpleText')
 local Vector = require('core/math/Vector')
 
--- Constants
-local hpName = Config.attributes[Config.battle.attHP].shortName
-local spName = Config.attributes[Config.battle.attSP].shortName
-
 local MemberInfo = class()
 
 ---------------------------------------------------------------------------------------------------
@@ -52,12 +48,12 @@ function MemberInfo:init(battler, w, h, topLeft)
   local txtName = SimpleText(battler.name, topLeft, rw, 'left', medium)
   -- HP
   local middleLeft = Vector(topLeft.x, topLeft.y + 17, topLeft.z)
-  local txtHP = SimpleText(hpName, middleLeft, rw, 'left', small)
+  local txtHP = SimpleText(Vocab.hp, middleLeft, rw, 'left', small)
   local hp = battler.state.hp .. '/' .. battler.mhp()
   local valueHP = SimpleText(hp, middleLeft, rw, 'right', tiny)
   -- SP
   local bottomLeft = Vector(middleLeft.x, middleLeft.y + 11, middleLeft.z)
-  local txtSP = SimpleText(spName, bottomLeft, rw, 'left', small)
+  local txtSP = SimpleText(Vocab.sp, bottomLeft, rw, 'left', small)
   local sp = battler.state.sp .. '/' .. battler.msp()
   local valueSP = SimpleText(sp, bottomLeft, rw, 'right', tiny)
   -- Status

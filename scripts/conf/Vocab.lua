@@ -39,6 +39,8 @@ return {
   cancel = 'Cancel',
   
   -- Battler info
+  hp = 'HP',
+  sp = 'SP',
   steps = 'Steps',
   turnCount = 'TC',
   exp = 'EXP',

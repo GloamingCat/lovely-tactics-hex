@@ -28,8 +28,6 @@ local pixel2Tile = math.field.pixel2Tile
 local len2D = math.len2D
 
 -- Constants
-local mhpName = Config.battle.attHP
-local mspName = Config.battle.attSP
 local speedLimit = (Config.player.dashSpeed + Config.player.walkSpeed) / 2
 local castStep = 6
 

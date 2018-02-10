@@ -40,7 +40,7 @@ function EquipSet:init(battler, save)
         local key = slot.key .. k
         local slotData = equips and equips[key] and deepCopyTable(equips[key]) or { id = -1 }
         self.slots[key] = slotData
-        if slotData.id >= 0 then
+        if battler and slotData.id >= 0 then
           local data = Database.items[slotData.id]
           self:addStatus(data.equip)
         end
@@ -78,6 +78,9 @@ function EquipSet:setEquip(key, item, inventory, character)
   else
     self:unequip(key, inventory, character)
   end
+  if self.battler then
+    self.battler:updateState()
+  end
 end
 -- Inserts equipment item in the given slot.
 -- @param(key : string) slot's key
@@ -110,8 +113,12 @@ function EquipSet:equip(key, item, inventory, character)
     self:setBlock(equip.type, equip.type)
   end
   slot = self.slots[key]
-  self:addStatus(item.equip, character)
-  inventory:removeItem(item.id)
+  if self.battler then
+    self:addStatus(item.equip, character)
+  end
+  if inventory then
+    inventory:removeItem(item.id)
+  end
   slot.id = item and item.id or -1
   self:updateSlotBonus(key)
 end
@@ -130,8 +137,12 @@ function EquipSet:unequip(key, inventory, character)
     if previousEquip >= 0 then
       local data = Database.items[previousEquip]
       local equip = data.equip
-      self:removeStatus(equip, character)
-      inventory:addItem(previousEquip)
+      if self.battler then
+        self:removeStatus(equip, character)
+      end
+      if inventory then
+        inventory:addItem(previousEquip)
+      end
       slot.id = -1
       -- Unblock slots
       for i = 1, #equip.block do

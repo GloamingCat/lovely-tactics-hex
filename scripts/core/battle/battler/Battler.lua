@@ -30,8 +30,8 @@ local min = math.min
 
 -- Constants
 local elementCount = #Config.elements
-local mhpName = Config.battle.attHP
-local mspName = Config.battle.attSP
+local hpKey = Config.battle.attHP
+local spKey = Config.battle.attSP
 local jumpName = Config.battle.attJump
 local stepName = Config.battle.attStep
 local weightName = Config.battle.attWeight
@@ -96,8 +96,8 @@ function Battler:initState(data, save)
   self.att = AttributeSet(self, save)
   self.jumpPoints = self.att[jumpName]
   self.maxSteps = self.att[stepName]
-  self.mhp = self.att[mhpName]
-  self.msp = self.att[mspName]
+  self.mhp = self.att[hpKey]
+  self.msp = self.att[spKey]
   -- State variables
   if save and save.state then
     self.state = deepCopyTable(save.state)
@@ -148,9 +148,9 @@ end
 -- @param(key : string) HP, SP or other designer-defined point type
 -- @param(value : number) value to be decreased
 function Battler:damage(key, value)
-  if key == mhpName then
+  if key == hpKey then
     self:damageHP(value)
-  elseif key == mspName then
+  elseif key == spKey then
     self:damageSP(value)
   else
     return false

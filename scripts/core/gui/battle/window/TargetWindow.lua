@@ -15,8 +15,8 @@ local Vector = require('core/math/Vector')
 local Window = require('core/gui/Window')
 
 -- Constants
-local hpName = Config.battle.attHP
-local spName = Config.battle.attSP
+local hpKey = Config.battle.attHP
+local spKey = Config.battle.attSP
 local font = Fonts.gui_small
 
 local TargetWindow = class(Window)
@@ -46,9 +46,9 @@ function TargetWindow:createContent(width, height)
   self.content:add(self.textName)
   -- State values texts
   local posHP = Vector(x, y + 15)
-  self.textHP = self:addStateVariable(Config.attributes[hpName].shortName, posHP, w)
+  self.textHP = self:addStateVariable(Vocab.hp, posHP, w)
   local posSP = Vector(x, y + 25)
-  self.textSP = self:addStateVariable(Config.attributes[spName].shortName, posSP, w)
+  self.textSP = self:addStateVariable(Vocab.sp, posSP, w)
   -- Icon List
   local posIcons = Vector(x + 8, y + 45)
   self.iconList = IconList(posIcons, w, 16)
@@ -83,11 +83,11 @@ function TargetWindow:setBattler(battler)
   self.textName:setText(battler.name)
   self.textName:redraw()
   -- HP text
-  local textHP = battler.state[hpName] .. '/' .. battler.att[hpName]()
+  local textHP = battler.state[hpKey] .. '/' .. battler.att[hpKey]()
   self.textHP:setText(textHP)
   self.textHP:redraw()
   -- SP text
-  local textSP = battler.state[spName] .. '/' .. battler.att[spName]()
+  local textSP = battler.state[spKey] .. '/' .. battler.att[spKey]()
   self.textSP:setText(textSP)
   self.textSP:redraw()
   -- Status icons

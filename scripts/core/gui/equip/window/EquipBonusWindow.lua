@@ -8,6 +8,7 @@ A window that shows the attribute and element bonus of the equip item.
 =================================================================================================]]
 
 -- Imports
+local EquipSet = require('core/battle/battler/EquipSet')
 local IconList = require('core/gui/general/widget/IconList')
 local List = require('core/datastruct/List')
 local SimpleText = require('core/gui/widget/SimpleText')
@@ -74,30 +75,25 @@ function EquipBonusWindow:setEquip(slotKey, newEquip)
   self.equip = newEquip
   self.slotKey = slotKey
   -- Attribute Bonus
-  local base, oldBonus, newBonus = self:calculateBonus(slotKey, newEquip and newEquip.equip)
+  local currentSet = self.member.equipSet
+  local save = { equips = currentSet:getState() }
+  local simulationSet = EquipSet(nil, save)
+  simulationSet:setEquip(slotKey, newEquip)
   local bonusList = {}
   for i = 1, #attConfig do
     local key = attConfig[i].key
-    if oldBonus[key] ~= newBonus[key] then
+    local oldValue = self.member.att[key]()
+    self.member.equipSet = simulationSet
+    local newValue = self.member.att[key]()
+    self.member.equipSet = currentSet
+    if oldValue ~= newValue then
       bonusList[#bonusList + 1] = {
-        oldValue = base[key] + oldBonus[key],
-        newValue = base[key] + newBonus[key],
+        oldValue = oldValue,
+        newValue = newValue,
         key = key }
     end
   end
-  -- Status
-  newEquip = newEquip and newEquip.equip
-  local status = {}
-  if newEquip and newEquip.status then
-    for i = 1, #newEquip.status do
-      local id = newEquip.status[i]
-      local s = Database.status[id]
-      if s.visible and s.icon.id >= 0 then
-        status[#status + 1] = s.icon
-      end
-    end
-  end
-  self:updateBonus(bonusList, status)
+  self:updateBonus(bonusList)
 end
 
 function EquipBonusWindow:setMember(member)
@@ -106,81 +102,8 @@ function EquipBonusWindow:setMember(member)
 end
 
 ----------------------------------------------------------------------------------------------------
--- Calculate Bonus
+-- Properties
 ----------------------------------------------------------------------------------------------------
-
-function EquipBonusWindow:calculateBonus(slotKey, newEquip)
-  local base = self:baseAttributes()
-  -- Unequip
-  if not newEquip then
-    local oldEquip = self.member.equipSet:getEquip(slotKey)
-    local oldBonus = self:equipAttributes(base, oldEquip and oldEquip.equip)
-    return base, oldBonus, self:equipAttributes(base)
-  end
-  -- New equip
-  local newBonus = self:equipAttributes(base, newEquip)
-  local oldBonus = self:equipAttributes(base, nil)
-  -- Slots to be unequiped
-  local unequipSlots = {}
-  for i = 1, #newEquip.block do
-    local key = newEquip.block[i]
-    self:insertSlots(unequipSlots, key)
-  end
-  if newEquip.allSlots then
-    self:insertSlots(unequipSlots, newEquip.type)
-  else
-    unequipSlots[slotKey] = true
-  end
-  -- Merge bonus
-  for slot in pairs(unequipSlots) do
-    local item = self.member.equipSet:getEquip(slot)
-    if item then
-      local bonus = self:equipAttributes(base, item and item.equip)
-      for i = 1, #attConfig do
-        local k = attConfig[i].key
-        oldBonus[k] = oldBonus[k] + bonus[k]
-      end
-    end
-  end
-  return base, oldBonus, newBonus
-end
-
-function EquipBonusWindow:insertSlots(slots, key)
-  if not equipTypes[key] then
-    slots[key] = true
-  else
-    for i = 1, equipTypes[key].count do
-      local keyi = key .. i
-      slots[keyi] = true
-    end
-  end
-end
-
-function EquipBonusWindow:baseAttributes()
-  local base = {}
-  for i = 1, #attConfig do
-    local key = attConfig[i].key
-    base[key] = self.member.att:getBase(key)
-  end
-  return base
-end
-
-function EquipBonusWindow:equipAttributes(base, equip)
-  local att = {}
-  if equip then
-    local add, mul = self.member.equipSet:equipAttributes(equip)
-    for i = 1, #attConfig do
-      local key = attConfig[i].key
-      att[key] = (add[key] or 0) + (mul[key] or 0) * base[key]
-    end
-  else
-    for i = 1, #attConfig do
-      local key = attConfig[i].key
-      att[key] = 0
-    end
-  end
-  return att
-end
 
 -- @ret(string) string representation (for debugging)
 function EquipBonusWindow:__tostring()

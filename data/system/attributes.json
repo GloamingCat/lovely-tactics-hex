@@ -1,128 +1,128 @@
 [
-  {
-    "name": "Strength",
-    "shortName": "STR",
-    "key": "str",
-    "script": "",
-    "tags": []
-  },
-  {
-    "name": "Magic",
-    "shortName": "MAG",
-    "key": "mag",
-    "script": "",
-    "tags": []
-  },
-  {
-    "name": "Dexterity",
-    "shortName": "DEX",
-    "key": "dex",
-    "script": "",
-    "tags": []
-  },
-  {
-    "name": "Resistance",
-    "shortName": "RES",
-    "key": "res",
-    "script": "",
-    "tags": []
-  },
-  {
-    "name": "Agility",
-    "shortName": "AGI",
-    "key": "agi",
-    "script": "",
-    "tags": []
-  },
-  {
-    "name": "Movement",
-    "shortName": "MOV",
-    "key": "mov",
-    "script": "",
-    "tags": []
-  },
-  {
-    "name": "Jump",
-    "shortName": "JMP",
-    "key": "jmp",
-    "script": "",
-    "tags": []
-  },
-  {
-    "name": "Health",
-    "shortName": "HP",
-    "key": "hp",
-    "script": "att.str() * 2 + att.res() * 2",
-    "tags": []
-  },
-  {
-    "name": "Skill",
-    "shortName": "SP",
-    "key": "sp",
-    "script": "att.mag() * 2 + att.dex() * 2",
-    "tags": []
-  },
-  {
-    "name": "Physical Attack",
-    "shortName": "ATKP",
-    "key": "atkp",
-    "script": "att.str() * 0.7 + att.dex() * 0.3",
-    "tags": []
-  },
-  {
-    "name": "Physical Defense",
-    "shortName": "DEFP",
-    "key": "defp",
-    "script": "att.str() * 0.3 + att.res() * 0.7",
-    "tags": []
-  },
-  {
-    "name": "Magical Attack",
-    "shortName": "ATKM",
-    "key": "atkm",
-    "script": "att.mag() * 0.5 + att.dex() * 0.5",
-    "tags": []
-  },
-  {
-    "name": "Magical Defense",
-    "shortName": "DEFM",
-    "key": "defm",
-    "script": "att.mag() * 0.5 + att.res() * 0.5",
-    "tags": []
-  },
-  {
-    "name": "Physical Precision",
-    "shortName": "PREP",
-    "key": "prep",
-    "script": "att.dex()",
-    "tags": []
-  },
-  {
-    "name": "Physical Evade",
-    "shortName": "EVDP",
-    "key": "evdp",
-    "script": "att.agi() * 0.5 + att.dex() * 0.5",
-    "tags": []
-  },
-  {
-    "name": "Magical Precision",
-    "shortName": "PREM",
-    "key": "prem",
-    "script": "att.mag() * 0.3 + att.dex() * 0.7",
-    "tags": []
-  },
-  {
-    "name": "Magical Evade",
-    "shortName": "EVDM",
-    "key": "evdm",
-    "script": "att.agi() * 0.5 + att.mag() * 0.5",
-    "tags": []
-  },
-  {
-    "name": "Carry",
-    "shortName": "CAR",
-    "key": "car",
-    "script": "att.str() * 100",
-    "tags": []
-  }
+	{
+		"name": "Strength",
+		"shortName": "STR",
+		"key": "str",
+		"script": "",
+		"tags": []
+	},
+	{
+		"name": "Magic",
+		"shortName": "MAG",
+		"key": "mag",
+		"script": "",
+		"tags": []
+	},
+	{
+		"name": "Dexterity",
+		"shortName": "DEX",
+		"key": "dex",
+		"script": "",
+		"tags": []
+	},
+	{
+		"name": "Resistance",
+		"shortName": "RES",
+		"key": "res",
+		"script": "",
+		"tags": []
+	},
+	{
+		"name": "Agility",
+		"shortName": "AGI",
+		"key": "agi",
+		"script": "",
+		"tags": []
+	},
+	{
+		"name": "Movement",
+		"shortName": "MOV",
+		"key": "mov",
+		"script": "",
+		"tags": []
+	},
+	{
+		"name": "Jump",
+		"shortName": "JMP",
+		"key": "jmp",
+		"script": "",
+		"tags": []
+	},
+	{
+		"name": "Health",
+		"shortName": "MHP",
+		"key": "hp",
+		"script": "att.str() * 2 + att.res() * 2",
+		"tags": []
+	},
+	{
+		"name": "Skill",
+		"shortName": "MSP",
+		"key": "sp",
+		"script": "att.mag() * 2 + att.dex() * 2",
+		"tags": []
+	},
+	{
+		"name": "Physical Attack",
+		"shortName": "ATKP",
+		"key": "atkp",
+		"script": "att.str() * 0.7 + att.dex() * 0.3",
+		"tags": []
+	},
+	{
+		"name": "Physical Defense",
+		"shortName": "DEFP",
+		"key": "defp",
+		"script": "att.str() * 0.3 + att.res() * 0.7",
+		"tags": []
+	},
+	{
+		"name": "Magical Attack",
+		"shortName": "ATKM",
+		"key": "atkm",
+		"script": "att.mag() * 0.5 + att.dex() * 0.5",
+		"tags": []
+	},
+	{
+		"name": "Magical Defense",
+		"shortName": "DEFM",
+		"key": "defm",
+		"script": "att.mag() * 0.5 + att.res() * 0.5",
+		"tags": []
+	},
+	{
+		"name": "Physical Precision",
+		"shortName": "PREP",
+		"key": "prep",
+		"script": "att.dex()",
+		"tags": []
+	},
+	{
+		"name": "Physical Evade",
+		"shortName": "EVDP",
+		"key": "evdp",
+		"script": "att.agi() * 0.5 + att.dex() * 0.5",
+		"tags": []
+	},
+	{
+		"name": "Magical Precision",
+		"shortName": "PREM",
+		"key": "prem",
+		"script": "att.mag() * 0.3 + att.dex() * 0.7",
+		"tags": []
+	},
+	{
+		"name": "Magical Evade",
+		"shortName": "EVDM",
+		"key": "evdm",
+		"script": "att.agi() * 0.5 + att.mag() * 0.5",
+		"tags": []
+	},
+	{
+		"name": "Carry",
+		"shortName": "CAR",
+		"key": "car",
+		"script": "att.str() * 100",
+		"tags": []
+	}
 ]
