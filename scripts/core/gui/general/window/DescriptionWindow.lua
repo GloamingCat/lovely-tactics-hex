@@ -34,7 +34,7 @@ function DescriptionWindow:setText(txt)
   self.text:setText(txt or '')
   self.text:redraw()
 end
--- @ret(string) string representation (for debugging)
+-- @ret(string) String representation (for debugging)
 function DescriptionWindow:__tostring()
   return 'Description Window'
 end

@@ -20,12 +20,10 @@ local ItemGUI = class(GUI)
 ---------------------------------------------------------------------------------------------------
 
 -- Constructor.
--- @param(memberGUI : MemberGUI) parent GUI
--- @param(y : number) top Y of the GUI
-function ItemGUI:init(memberGUI, y)
+-- @param(memberGUI : MemberGUI) Parent GUI.
+function ItemGUI:init(memberGUI)
   self.memberGUI = memberGUI
-  self.name = 'Equip GUI'
-  self.initY = y
+  self.name = 'Item GUI'
   self.inventory = memberGUI.troop.inventory
   GUI.init(self)
 end
@@ -37,19 +35,33 @@ function ItemGUI:createWindows()
 end
 -- Creates the main item window.
 function ItemGUI:createItemWindow()
-  self.itemWindow = ItemWindow(self, self.initY)
+  local window = ItemWindow(self)
+  window:setXYZ(0, self.memberGUI:getHeight() - ScreenManager.height / 2 + window.height / 2)
+  self.itemWindow = window
 end
 -- Creates the item description window.
 function ItemGUI:createDescriptionWindow()
+  local initY = self.memberGUI:getHeight()
   local w = ScreenManager.width - self:windowMargin() * 2
-  local h = ScreenManager.height - self.initY - self.itemWindow.height - self:windowMargin() * 2
+  local h = ScreenManager.height - initY - self.itemWindow.height - self:windowMargin() * 2
   local pos = Vector(0, ScreenManager.height / 2 - h / 2 - self:windowMargin())
   self.descriptionWindow = DescriptionWindow(self, w, h, pos)
 end
+
+---------------------------------------------------------------------------------------------------
+-- Member
+---------------------------------------------------------------------------------------------------
+
 -- Called when player selects a member to use the item.
--- @param(member : Battler)
+-- @param(member : Battler) New member to use the item.
 function ItemGUI:setMember(member)
   self.itemWindow:setMember(member)
+end
+-- Verifies if a member can use an item.
+-- @param(member : Battler) Member to check.
+-- @ret(boolean) True if the member is active, false otherwise.
+function ItemGUI:memberEnabled(member)
+  return member:isActive()
 end
 
 return ItemGUI

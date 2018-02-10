@@ -33,9 +33,6 @@ function EquipSlotWindow:init(GUI)
   end
   self.visibleRowCount = min(6, max(self.visibleRowCount, 4))
   ListButtonWindow.init(self, Config.equipTypes, GUI)
-  local x = GUI:windowMargin() - ScreenManager.width / 2 + self.width / 2
-  local y = GUI.initY + self.height / 2 - ScreenManager.height / 2
-  self:setXYZ(x, y)
 end
 -- Overrides ListButtonWindow:createListButton.
 -- @param(slot : table) The table with the equip slot info (name, key, state, id).
@@ -83,11 +80,7 @@ end
 -- Called when player selects an item button.
 -- @param(button : Button)
 function EquipSlotWindow:onButtonSelect(button)
-  if button.item then
-    self.GUI.descriptionWindow:setText(button.item.description)
-  else
-    self.GUI.descriptionWindow:setText('')
-  end
+  self.GUI.descriptionWindow:setText(button.item and button.item.description)
   self.GUI.bonusWindow:setEquip(button.key, button.item)
 end
 -- Called when player presses "confirm".
@@ -125,7 +118,7 @@ end
 function EquipSlotWindow:rowCount()
   return self.visibleRowCount
 end
--- @ret(string) string representation (for debugging)
+-- @ret(string) String representation (for debugging)
 function EquipSlotWindow:__tostring()
   return 'Equip Slot Window'
 end

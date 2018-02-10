@@ -57,25 +57,30 @@ end
 
 -- Selected next troop members.
 function MemberGUI:nextMember()
-  if self.memberID == #self.members then
-    self.memberID = 1
-  else
-    self.memberID = self.memberID + 1
-  end
+  repeat
+    if self.memberID == #self.members then
+      self.memberID = 1
+    else
+      self.memberID = self.memberID + 1
+    end
+  until not self.subGUI or self.subGUI:memberEnabled(self:currentMember())
   self:refreshMember()
 end
 -- Selected previous troop members.
 function MemberGUI:prevMember()
-  if self.memberID == 1 then
-    self.memberID = #self.members
-  else
-    self.memberID = self.memberID - 1
-  end
+  repeat
+    if self.memberID == 1 then
+      self.memberID = #self.members
+    else
+      self.memberID = self.memberID - 1
+    end
+  until not self.subGUI or self.subGUI:memberEnabled(self:currentMember())
   self:refreshMember()
 end
 -- Refreshs current open windows to match the new selected member.
 function MemberGUI:refreshMember()
   local member = self:currentMember()
+  self.commandWindow:setMember(member)
   self.infoWindow:setMember(member)
   if self.subGUI then
     self.subGUI:setMember(member)
@@ -103,16 +108,20 @@ end
 ---------------------------------------------------------------------------------------------------
 
 -- Shows a sub GUI under the command window.
--- @param(GUI : class)
+-- @param(GUI : class) The class of the GUI to be open.
 function MemberGUI:showSubGUI(GUI)
-  local y = self.commandWindow.height + self:windowMargin() * 2
-  local gui = GUI(self, y)
+  local gui = GUI(self)
   self.subGUI = gui
   gui:setMember(self:currentMember(), self.battler)
   self:setActiveWindow(nil)
   GUIManager:showGUIForResult(gui)
   self:setActiveWindow(self.commandWindow)
   self.subGUI = nil
+end
+-- The total height occupied by the command and info windows.
+-- @ret(number) Height of the GUI including window margin.
+function MemberGUI:getHeight()
+  return self.commandWindow.height + self:windowMargin() * 2
 end
 
 return MemberGUI

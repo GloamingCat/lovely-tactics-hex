@@ -101,6 +101,9 @@ end
 -- Damage / Status
 ---------------------------------------------------------------------------------------------------
 
+-- Inserts a new effect in this skill.
+-- @param(key : string) The name of the effect's destination (hp or sp).
+-- @param(effect : table) Effect's properties (basicResult, successRate, heal and absorb).
 function SkillAction:addEffect(key, effect)
   self.effects[#self.effects + 1] = { key = key,
     basicResult = loadformula(effect.basicResult, 'action, a, b, rand'),
@@ -108,7 +111,8 @@ function SkillAction:addEffect(key, effect)
     heal = effect.heal,
     absorb = effect.absorb }
 end
-
+-- Inserts a new status in this skill.
+-- @param(status : table) Array with each status (id, rate, add).
 function SkillAction:addStatus(status)
   local last = #self.status
   for i = 1, #status do
@@ -145,7 +149,7 @@ function SkillAction:execute(input)
   end
 end
 -- @param(user : Battler)
-function SkillAction:canExecute(user)
+function SkillAction:canUse(user)
   local att = user.att
   local state = user.state
   for i = 1, #self.costs do
@@ -166,7 +170,7 @@ end
 -- @param(user : Character)
 -- @ret(boolean)
 function SkillAction:canBattleUse(user)
-  return self:canExecute(user.battler)
+  return self:canUse(user.battler)
 end
 -- The effect applied when the user is prepared to use the skill.
 -- It executes animations and applies damage/heal to the targets.
@@ -204,7 +208,7 @@ end
 -- @param(user : Battler)
 -- @ret(boolean)
 function SkillAction:canMenuUse(user)
-  return self:canExecute(user)
+  return self:canUse(user)
 end
 -- Executes the skill in the menu, out of the battle field.
 -- @param(user : Battler)
@@ -299,18 +303,6 @@ function SkillAction:calculateStatusResult(user, target)
     end
   end
   return result, dmg
-end
-
-function SkillAction:calculateExpectation(effect, user, target)
-  local rate = effect.successRate(self, user.att, target.att, expectation)  
-  local result = max(effect.basicResult(self, user.att, target.att, expectation), 0)
-  local bonus = 0
-  local skillElements = self.elementFactors
-  for i = 1, elementCount do
-    bonus = bonus + skillElements[i] * target:element(i)
-  end
-  bonus = result * bonus
-  return rate, round(bonus + result)
 end
 
 ---------------------------------------------------------------------------------------------------

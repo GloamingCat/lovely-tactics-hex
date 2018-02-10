@@ -26,13 +26,11 @@ local ItemWindow = class(InventoryWindow)
 
 -- @param(GUI : GUI)
 -- @param(y : number) space occupied by the member GUI
-function ItemWindow:init(GUI, y)
+function ItemWindow:init(GUI)
   local rowCount = 6
   local fith = rowCount * self:cellHeight() + self:vPadding() * 2
-  local pos = Vector(0, y - ScreenManager.height / 2 + fith / 2)
   local items = GUI.inventory:getUsableItems(2)
-  self.initY = y
-  InventoryWindow.init(self, GUI, GUI.inventory, items, nil, fith, pos, rowCount)
+  InventoryWindow.init(self, GUI, GUI.inventory, items, nil, fith, nil, rowCount)
 end
 -- @param(member : Battler)
 function ItemWindow:setMember(member)

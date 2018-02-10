@@ -22,12 +22,10 @@ local EquipGUI = class(GUI)
 ---------------------------------------------------------------------------------------------------
 
 -- Constructor.
--- @param(memberGUI : MemberGUI) parent GUI
--- @param(y : number) top Y of the GUI
-function EquipGUI:init(memberGUI, y)
+-- @param(memberGUI : MemberGUI) Parent GUI.
+function EquipGUI:init(memberGUI)
   self.memberGUI = memberGUI
   self.name = 'Equip GUI'
-  self.initY = y
   self.inventory = memberGUI.troop.inventory
   GUI.init(self)
 end
@@ -41,7 +39,11 @@ function EquipGUI:createWindows()
 end
 -- Creates the window with the battler's slots.
 function EquipGUI:createSlotWindow()
-  self.slotWindow = EquipSlotWindow(self)
+  local window = EquipSlotWindow(self)
+  local x = self:windowMargin() - ScreenManager.width / 2 + window.width / 2
+  local y = self.memberGUI:getHeight() + window.height / 2 - ScreenManager.height / 2
+  window:setXYZ(x, y)
+  self.slotWindow = window
 end
 -- Creates the window with the possible equipment items for a chosen slot.
 function EquipGUI:createItemWindow()
@@ -61,8 +63,9 @@ function EquipGUI:createBonusWindow()
 end
 -- Creates the window with the selected equipment item's description.
 function EquipGUI:createDescriptionWindow()
+  local initY = self.memberGUI:getHeight()
   local w = ScreenManager.width - self:windowMargin() * 2
-  local h = ScreenManager.height - self.initY - self.slotWindow.height - self:windowMargin() * 2
+  local h = ScreenManager.height - initY - self.slotWindow.height - self:windowMargin() * 2
   local pos = Vector(0, ScreenManager.height / 2 - h / 2 - self:windowMargin())
   self.descriptionWindow = DescriptionWindow(self, w, h, pos)
 end
@@ -78,6 +81,12 @@ function EquipGUI:setMember(member)
   self.slotWindow:setMember(member)
   self.slotWindow:onButtonSelect(self.slotWindow:currentButton())
   self.itemWindow:setMember(member)
+end
+-- Verifies if a member can use this GUI (anyone can).
+-- @param(member : Battler) Member to check. Does not matter.
+-- @ret(boolean) Always true.
+function EquipGUI:memberEnabled(member)
+  return true
 end
 
 return EquipGUI

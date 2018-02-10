@@ -26,6 +26,11 @@ function MemberCommandWindow:createWidgets()
   Button:fromKey(self, 'skills')
   Button:fromKey(self, 'equips')
 end
+
+---------------------------------------------------------------------------------------------------
+-- Confirm Callbacks
+---------------------------------------------------------------------------------------------------
+
 -- Items button.
 function MemberCommandWindow:itemsConfirm()
   self:showGUI(ItemGUI)
@@ -37,6 +42,17 @@ end
 -- Equips button.
 function MemberCommandWindow:equipsConfirm()
   self:showGUI(EquipGUI)
+end
+
+---------------------------------------------------------------------------------------------------
+-- Enabled Conditions
+---------------------------------------------------------------------------------------------------
+
+function MemberCommandWindow:itemsEnabled()
+  return ItemGUI:memberEnabled(self.GUI:currentMember())
+end
+function MemberCommandWindow:skillsEnabled()
+  return self.GUI:currentMember():isActive()
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -58,6 +74,14 @@ end
 function MemberCommandWindow:onPrev()
   self.GUI:prevMember()
 end
+-- Changes current selected member.
+-- @param(member : Battler)
+function MemberCommandWindow:setMember(member)
+  for i = 1, #self.matrix do
+    self.matrix[i]:updateEnabled()
+    self.matrix[i]:refreshState()
+  end
+end
 
 ---------------------------------------------------------------------------------------------------
 -- Properties
@@ -71,7 +95,7 @@ end
 function MemberCommandWindow:rowCount()
   return 3
 end
-
+-- @ret(string) String representation (for debugging).
 function MemberCommandWindow:__tostring()
   return 'Member Command Window'
 end

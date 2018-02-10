@@ -111,7 +111,7 @@ end
 -- Properties
 ----------------------------------------------------------------------------------------------------
 
--- @ret(string) string representation (for debugging)
+-- @ret(string) String representation (for debugging)
 function EquipBonusWindow:__tostring()
   return 'Equip Bonus Window'
 end
