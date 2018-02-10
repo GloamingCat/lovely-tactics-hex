@@ -9,7 +9,6 @@ A window that shows the attribute and element bonus of the equip item.
 
 -- Imports
 local EquipSet = require('core/battle/battler/EquipSet')
-local IconList = require('core/gui/general/widget/IconList')
 local List = require('core/datastruct/List')
 local SimpleText = require('core/gui/widget/SimpleText')
 local Vector = require('core/math/Vector')
@@ -28,12 +27,16 @@ local EquipBonusWindow = class(Window)
 -- Initialization
 ----------------------------------------------------------------------------------------------------
 
+-- Constructor.
+-- @param(GUI : GUI)
+-- @param(...) Other arguments to Window:init.
 function EquipBonusWindow:init(GUI, ...)
   self.member = GUI.memberGUI:currentMember()
   Window.init(self, GUI, ...)
 end
-
-function EquipBonusWindow:updateBonus(att, status, elements)
+-- Prints a list of attributes to receive a bonus.
+-- @param(att : table) Array of attributes bonus (with key, oldValue and newValue).
+function EquipBonusWindow:updateBonus(att)
   for i = 1, #self.content do
     self.content[i]:destroy()
   end
@@ -70,7 +73,9 @@ function EquipBonusWindow:updateBonus(att, status, elements)
     self.content[i]:updatePosition(self.position)
   end
 end
-
+-- Shows the bonus for this item when equipped in the given slot.
+-- @param(slotKey : string) Key of the slot to be changed.
+-- @param(newEquip : table) Item's data from Database (nil to unequip).
 function EquipBonusWindow:setEquip(slotKey, newEquip)
   self.equip = newEquip
   self.slotKey = slotKey
@@ -95,7 +100,8 @@ function EquipBonusWindow:setEquip(slotKey, newEquip)
   end
   self:updateBonus(bonusList)
 end
-
+-- @param(member : Battler) The owner of the current equipment set.
+--  It is necessary so the attribute to calculate the attribute bonus.
 function EquipBonusWindow:setMember(member)
   self.member = member
   self:setEquip(self.slotKey, self.equip)

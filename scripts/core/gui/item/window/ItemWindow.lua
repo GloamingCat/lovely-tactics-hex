@@ -39,6 +39,7 @@ function ItemWindow:setMember(member)
   self.member = member
   for i = 1, #self.matrix do
     self.matrix[i]:updateEnabled()
+    self.matrix[i]:refreshState()
   end
 end
 -- Creates a button from an item ID.
@@ -81,6 +82,7 @@ function ItemWindow:onButtonConfirm(button)
     GUIManager:showGUIForResult(gui)
     self:refreshItems()
     GUIManager.fiberList:fork(memberGUI.show, memberGUI)
+    _G.Fiber:wait()
     self.GUI:show()
   end
 end

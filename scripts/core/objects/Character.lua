@@ -10,17 +10,11 @@ The [COUROUTINE] functions must ONLY be called from a fiber.
 
 -- Imports
 local CharacterBase = require('core/objects/CharacterBase')
-local Vector = require('core/math/Vector')
 local Stack = require('core/datastruct/Stack')
-local Sprite = require('core/graphics/Sprite')
-local PopupText = require('core/battle/PopupText')
 
 -- Alias
-local abs = math.abs
 local max = math.max
-local min = math.min
 local round = math.round
-local sqrt = math.sqrt
 local time = love.timer.getDelta
 local angle2Coord = math.angle2Coord
 local tile2Pixel = math.field.tile2Pixel

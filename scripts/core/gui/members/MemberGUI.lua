@@ -91,6 +91,12 @@ function MemberGUI:hide(...)
   self.troop:storeSave()
   GUI.hide(self, ...)
 end
+-- Overrides GUI:show.
+-- Refreshes member info.
+function MemberGUI:show(...)
+  self:refreshMember()
+  GUI.show(self, ...)
+end
 
 ---------------------------------------------------------------------------------------------------
 -- Sub GUI

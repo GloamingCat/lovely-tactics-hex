@@ -24,7 +24,7 @@ local EquipSlotWindow = class(ListButtonWindow)
 ---------------------------------------------------------------------------------------------------
 
 -- Constructor.
--- @param(GUI : EquipGUI) que parent GUI
+-- @param(GUI : EquipGUI) The parent GUI.
 function EquipSlotWindow:init(GUI)
   self.member = GUI.memberGUI:currentMember()
   self.visibleRowCount = 0
@@ -38,7 +38,7 @@ function EquipSlotWindow:init(GUI)
   self:setXYZ(x, y)
 end
 -- Overrides ListButtonWindow:createListButton.
--- @param(slot : table)
+-- @param(slot : table) The table with the equip slot info (name, key, state, id).
 function EquipSlotWindow:createListButton(slot)
   for i = 1, slot.count do
     local button = Button(self)
@@ -49,7 +49,7 @@ function EquipSlotWindow:createListButton(slot)
     button.slot = slot
   end
 end
--- @param(member : Battler)
+-- @param(member : Battler) The battler which the current equipment belongs to.
 function EquipSlotWindow:setMember(member)
   self.member = member
   self:refreshSlots()
@@ -70,6 +70,9 @@ function EquipSlotWindow:refreshSlots()
     button:setInfoText(name)
     local slotType = self.member.equipSet.types[button.slot.key]
     button:setEnabled(slotType.state <= 2)
+    if not self.open then
+      button:hide()
+    end
   end
 end
 
@@ -78,6 +81,7 @@ end
 ----------------------------------------------------------------------------------------------------
 
 -- Called when player selects an item button.
+-- @param(button : Button)
 function EquipSlotWindow:onButtonSelect(button)
   if button.item then
     self.GUI.descriptionWindow:setText(button.item.description)
@@ -88,6 +92,7 @@ function EquipSlotWindow:onButtonSelect(button)
 end
 -- Called when player presses "confirm".
 -- Open item window to choose the new equip.
+-- @param(button : Button)
 function EquipSlotWindow:onButtonConfirm(button)
   self:hide()
   self.GUI.itemWindow:setSlot(button.key, button.slot)

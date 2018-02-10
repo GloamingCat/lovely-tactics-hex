@@ -43,6 +43,9 @@ function MemberInfoWindow:setMember(member)
   self.info = MemberInfo(self.member, w, h, Vector(-w / 2, -h / 2))
   self.info:updatePosition(self.position)
   self.content:add(self.info)
+  if not self.open then
+    self.info:hide()
+  end
 end
 
 ---------------------------------------------------------------------------------------------------
