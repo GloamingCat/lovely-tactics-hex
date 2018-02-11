@@ -40,7 +40,8 @@ function EventSheet:init(root, commands, event, state)
   event.field = FieldManager.currentField
   Fiber.init(self, root, nil, event)
 end
-
+-- Persistent state to save.
+-- @ret(table) Table with command list, current command index and local variables.
 function EventSheet:getState()
   return {
     index = self.index,
@@ -175,7 +176,10 @@ function EventSheet:execute(event)
     player.blocks = player.blocks - 1
   end
 end
-
+-- Reads a boolean expression and calculates its result.
+-- @param(event : table) Event argument to the funciton.
+-- @param(expression : string) The boolean expression.
+-- @ret(boolean) The resulting boolean from the expression.
 function EventSheet:decodeExpression(event, expression)
   return loadformula(expression, 'sheet, event')(self, event)
 end

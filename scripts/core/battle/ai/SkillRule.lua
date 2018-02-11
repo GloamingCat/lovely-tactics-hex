@@ -3,7 +3,7 @@
 
 SkillRule
 ---------------------------------------------------------------------------------------------------
-An AIRule that executes a skill defined by the param field "id", which means the id-th skill of the
+An AIRule that executes a skill defined by the tag field "id", which means the id-th skill of the
 battler. If there's no such field, it will use battler's attack skill.
 
 =================================================================================================]]
@@ -22,7 +22,7 @@ local SkillRule = class(AIRule)
 -- @param(...) AIRule constructor arguments.
 function SkillRule:init(...)
   AIRule.init(self, ...)
-  local id = self.param and self.param.id
+  local id = self.tags and self.tags.id
   self.skill = id and self.battler.skillList[id] or self.battler.attackSkill
 end
 -- Prepares the rule to be executed (or not, if it1s not possible).

@@ -11,6 +11,8 @@ ActionInput to be used according to the state.
 
 -- Imports
 local ActionInput = require('core/battle/action/ActionInput')
+local BattleAction = require('core/battle/action/BattleAction')
+local TagMap = require('core/datastruct/TagMap')
 
 local AIRule = class()
 
@@ -19,10 +21,9 @@ local AIRule = class()
 ---------------------------------------------------------------------------------------------------
 
 -- @param(action : BattleAction) the BattleAction executed in the rule
-function AIRule:init(battler, condition, param)
+function AIRule:init(battler, tags)
   self.battler = battler
-  self.condition = condition and condition ~= '' and loadformula(condition, 'user')
-  self.param = param
+  self.tags = TagMap(tags)
 end
 -- Creates an AIRule from the given rule data.
 -- @param(data : table) Rule data with path, param and condition fields.
@@ -32,7 +33,7 @@ function AIRule:fromData(data, battler)
   if data.path and data.path ~= '' then
     class = require('custom/ai/rule/' .. data.path)
   end
-  return class(battler, data.condition, data.param)
+  return class(battler, data.tags)
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -53,17 +54,14 @@ end
 ---------------------------------------------------------------------------------------------------
 
 -- Checks if a rule can be executed.
--- @ret(boolean)
+-- @ret(boolean) 
 function AIRule:canExecute()
-  if self.condition then
-    return self.condition(self.battler)
-  else
-    return true
-  end
+  return true
 end
 -- Executes the rule.
--- @ret(number) action time cost
+-- @ret(table) The action result table.
 function AIRule:execute()
+  return BattleAction:execute()
 end
 
 return AIRule

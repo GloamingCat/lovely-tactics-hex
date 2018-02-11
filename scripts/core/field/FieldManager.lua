@@ -213,7 +213,7 @@ function FieldManager:loadTransition(transition, fromSave)
   -- Create/call start listeners
   local script = self.currentField.startScript
   if script then
-    self.currentField.fiberList:forkFromScript(script, {fromSave = fromSave})
+    self.currentField.fiberList:forkFromScript(script.commands, {fromSave = fromSave})
   end
   for char in self.characterList:iterator() do
     local script = char.startScript
@@ -243,7 +243,7 @@ function FieldManager:loadBattle(fieldID, params)
   BattleManager:setUp(params)
   if self.currentField.startScript then
     local script = self.currentField.startScript
-    local fiber = self.fiberList:forkFromScript(script.path, {})
+    local fiber = self.fiberList:forkFromScript(script.commands, {})
     fiber:execAll()
   end
   collectgarbage('collect')

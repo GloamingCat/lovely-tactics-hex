@@ -10,9 +10,14 @@
 			"gold": 3,
 			"scriptAI": {
 				"path": "",
-				"rules": [
+				"commands": [
 					{
-						"path": "RushRule.lua"
+						"name": "battleRule",
+						"param": {
+							"path": "RushRule",
+							"condition": "",
+							"tags": []
+						}
 					}
 				]
 			},
@@ -65,9 +70,14 @@
 			"gold": 5,
 			"scriptAI": {
 				"path": "",
-				"rules": [
+				"commands": [
 					{
-						"path": "RushRule.lua"
+						"name": "battleRule",
+						"param": {
+							"path": "RushRule",
+							"condition": "",
+							"tags": []
+						}
 					}
 				]
 			},

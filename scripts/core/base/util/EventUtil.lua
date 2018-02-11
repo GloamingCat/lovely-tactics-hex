@@ -8,8 +8,9 @@ Functions that are loaded from the EventSheet.
 =================================================================================================]]
 
 -- Imports
-local GUI = require('core/gui/GUI')
+local AIRule = require('core/battle/ai/AIRule')
 local DialogueWindow = require('core/gui/general/window/DialogueWindow')
+local GUI = require('core/gui/GUI')
 
 -- Alias
 local deltaTime = love.timer.getDelta
@@ -31,18 +32,20 @@ end
 -- Variables
 ---------------------------------------------------------------------------------------------------
 
--- @param(name : string) variable's name
--- @param(expression : string) the expression that returns the new value of the variable
+-- General parameters:
+-- @param(name : string) The name of the variable. Two variables of the same type and the same name
+--  will the considered the same variable.
+-- @param(expression : string) The expression that returns the new value of the variable.
+
+-- Sets a global variable, accessible from anywhere in the game.
 function util.setGlobalVar(sheet, event, param)
   SaveManager.current.vars[param.name] = sheet:decodeExpression(event, param.expression)
 end
--- @param(name : string) variable's name
--- @param(expression : string) the expression that returns the new value of the variable
+-- Sets a character variable, accessible from any sheet of this character.
 function util.setCharacterVar(sheet, event, param)
   event.char.vars[param.name] = sheet:decodeExpression(event, param.expression)
 end
--- @param(name : string) variable's name
--- @param(expression : string) the expression that returns the new value of the variable
+-- Sets a local variable, accessible from this sheet only.
 function util.setLocalVar(sheet, event, param)
   sheet.vars[param.name] = sheet:decodeExpression(event, param.expression)
 end
@@ -51,11 +54,14 @@ end
 -- Dialogue
 ---------------------------------------------------------------------------------------------------
 
--- @param(id : number) ID of the dialogue window
--- @param(width : number) width of the window (optional)
--- @param(height : number) height of the window (optional)
--- @param(x : number) pixel x of the window (optional)
--- @param(y : number) pixel y of the window (optional)
+-- General parameters:
+-- @param(id : number) ID of the dialogue window.
+
+-- Opens a new dialogue window and stores in the given ID.
+-- @param(width : number) Width of the window (optional).
+-- @param(height : number) Height of the window (optional).
+-- @param(x : number) Pixel x of the window (optional).
+-- @param(y : number) Pixel y of the window (optional).
 function util.openDialogueWindow(sheet, event, param)
   if not sheet.gui then
     sheet.gui = GUI()
@@ -75,17 +81,18 @@ function util.openDialogueWindow(sheet, event, param)
   window:show()
   window:activate()
 end
--- @param(id : number) the ID of the window
--- @param(portrait : table) character face
--- @param(message : string) dialogue text
+-- Shows a dialogue in the given window.
+-- @param(portrait : table) Character face.
+-- @param(message : string) Dialogue text.
 function util.showDialogue(sheet, event, param)
   assert(sheet.gui, 'You must open a GUI first.')
   local window = sheet.gui.dialogues[param.id]
   assert(window, 'You must open window ' .. param.id .. ' first.')
   window:setPortrait(param.portrait)
+  -- TODO: dialogue name
   window:showDialogue(param.message)
 end
--- @param(id : number) ID of the window
+-- Closes and deletes a dialogue window.
 function util.closeDialogueWindow(sheet, event, param)
   if sheet.gui and sheet.gui.dialogues then
     local window = sheet.gui.dialogues[param.id]
@@ -116,6 +123,8 @@ end
 
 -- @param(fade : boolean) fade time (optional, no fading by default)
 -- @param(fieldID : number) field to loaded's ID
+
+-- Teleports player to other field.
 -- @param(x : number) player's destination x
 -- @param(y : number) player's destination y
 -- @param(h : number) player's destination height
@@ -127,8 +136,7 @@ function util.moveToField(sheet, event, param)
   end
   FieldManager:loadTransition(param)
 end
--- @param(fade : boolean) fade time (optional, no fading by default)
--- @param(fieldID : number) field to loaded's ID
+-- Loads battle field.
 -- @param(intro : boolean) player battle introduction animation
 -- @param(gameOverCondition : number) 0 => no gameover, 1 => only when lost, 2 => lost or draw
 -- @param(escapeEnabled : boolean) true to enable the whole party to escape
@@ -136,7 +144,8 @@ function util.startBattle(sheet, event, param)
   local fiber = FieldManager.fiberList:fork(function()
     if param.fade then
       local previousBGM = AudioManager:pauseBGM()
-      -- TODO
+      -- TODO: play battle intro SFX
+      -- TODO: play battle theme
       local shader = ScreenManager.shader
       ScreenManager.shader = battleIntroShader
       local time = deltaTime()
@@ -153,19 +162,57 @@ function util.startBattle(sheet, event, param)
 end
 
 ---------------------------------------------------------------------------------------------------
--- BGM
+-- Battle
 ---------------------------------------------------------------------------------------------------
 
+-- Executes a battle rule during AI processing.
+-- @param(path : string) Path to the rule from "custom/ai/rule/" folder.
+-- @param(condition : string) Boolean expression that must be true to execute the rule.
+-- @param(tags : table) Array of tags of the rule.
+function util.battleRule(sheet, event, param)
+  local rule = AIRule:fromData(param, event.user)
+  rule:onSelect(event.origin)
+  local condition = param.condition ~= '' and param.condition
+  if not condition or sheet:decodeExpression(condition) then
+    if rule:canExecute() then
+      event.AI.result = rule:execute()
+    end
+  end
+end
+
+---------------------------------------------------------------------------------------------------
+-- Sound
+---------------------------------------------------------------------------------------------------
+
+-- @param(name : string) The path to the sound from audio/bgm (BGMs) or audio/sfx (SFX).
+-- @param(volume : number) Volume in percentage.
+-- @param(pitch : number) Pitch in percentage.
+-- @param(time : number) The duration of the BGM fading transition.
+-- @param(wait : boolean) Wait for the BGM fading transition.
+
+-- Changes the current BGM.
 function util.playBGM(sheet, event, param)
   AudioManager:playBGM(param, param.time, param.wait)
 end
-
+-- Pauses current BGM.
 function util.pauseBGM(sheet, event, param)
   AudioManager:pauseBGM(param, param.time, param.wait)
 end
-
+-- Resumes current BGM.
 function util.resumeBGM(sheet, event, param)
   AudioManager:resumeBGM(param, param.time, param.wait)
+end
+-- Play a sound effect.
+function util.playSFX(sheet, event, param)
+  AudioManager:playSFX(param)
+end
+
+---------------------------------------------------------------------------------------------------
+-- Character
+---------------------------------------------------------------------------------------------------
+
+function util.moveCharacter(sheet, event, param)
+  -- TODO
 end
 
 return util

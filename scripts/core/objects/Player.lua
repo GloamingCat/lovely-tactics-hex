@@ -34,8 +34,6 @@ local Player = class(Character)
 -- Overrides BaseCharacter:init.
 function Player:init(initTile, dir)
   self.blocks = 0
-  self.dashSpeed = conf.dashSpeed
-  self.walkSpeed = conf.walkSpeed
   self.inputDelay = 4 / 60
   local troopData = Database.troops[SaveManager.current.playerTroopID]
   local leader = troopData.current[1]
@@ -53,6 +51,8 @@ end
 function Player:initProperties(name, collisionTiles, colliderHeight)
   Character.initProperties(self, 'Player', collisionTiles, colliderHeight)
   self.inputOn = true
+  self.dashSpeed = conf.dashSpeed
+  self.walkSpeed = conf.walkSpeed
   self.speed = conf.walkSpeed
 end
 
@@ -255,6 +255,9 @@ end
 -- Tile collision
 ---------------------------------------------------------------------------------------------------
 
+-- Looks for collisions with characters in the given tile.
+-- @param(tile : ObjectTile) The tile that the player is in or is trying to go.
+-- @ret(boolean) True if there was any blocking collision, false otherwise.
 function Player:collideTile(tile)
   if not tile then
     return false
@@ -266,7 +269,9 @@ function Player:collideTile(tile)
         origin = self,
         dest = char }
       char:onCollide(event)
-      return true
+      if not char.passable then
+        return true
+      end
     end
   end
   return false

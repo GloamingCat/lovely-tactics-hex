@@ -18,6 +18,8 @@ local FiberList = class(List)
 -- General
 ---------------------------------------------------------------------------------------------------
 
+-- Constructor.
+-- @param(state : table) Persistent state if loaded from save (optional).
 function FiberList:init(state)
   List.init(self)
   self.eventSheets = List()
@@ -35,8 +37,8 @@ function FiberList:update()
   self:conditionalRemove(self.finished)
 end
 -- Function that resumes a Fiber.
--- @param(fiber : Fiber) Fiber to resume
--- @ret(boolean) true if Fiber ended, false otherwise
+-- @param(fiber : Fiber) Fiber to resume.
+-- @ret(boolean) True if Fiber ended, false otherwise.
 function FiberList.finished(fiber)
   return fiber.coroutine == nil
 end
@@ -46,22 +48,24 @@ end
 ---------------------------------------------------------------------------------------------------
 
 -- Creates new Fiber from function.
--- @param(func : function) the function of the Fiber
--- @param(...) any arguments to the function
--- @ret(Fiber) the newly created Fiber
+-- @param(func : function) The function of the Fiber.
+-- @param(...) Any arguments to the function.
+-- @ret(Fiber) The newly created Fiber.
 function FiberList:fork(func, ...)
   return Fiber(self, func, ...)
 end
 -- Creates new Fiber from a script table.
--- @ret(EventSheet) the newly created Fiber
+-- @ret(EventSheet) The newly created Fiber.
 function FiberList:forkFromScript(script, event)
-  return EventSheet(self, script.commands, event)
+  return EventSheet(self, script, event)
 end
 
 ---------------------------------------------------------------------------------------------------
 -- State
 ---------------------------------------------------------------------------------------------------
 
+-- Fiber's state. It considers only its event sheets.
+-- @ret(table) Array with the states of each event sheet.
 function FiberList:getState()
   local state = {}
   for i = 1, #self.eventSheets do

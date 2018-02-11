@@ -9,7 +9,6 @@ Implements basic functions to be used in AI classes.
 
 -- Imports
 local AIRule = require('core/battle/ai/AIRule')
-local List = require('core/datastruct/List')
 
 local BattlerAI = class()
 
@@ -18,15 +17,13 @@ local BattlerAI = class()
 ---------------------------------------------------------------------------------------------------
 
 -- Constructor.
--- @param(key : string) the AI's identifier (needs to be set by children of this class)
--- @param(battler : Battler)
-function BattlerAI:init(rules, battler, param)
+-- @param(commands : table) Array of event sheet commands.
+-- @param(battler : Battler) The battler with this AI.
+-- @param(param : string) Any custom arguments.
+function BattlerAI:init(battler, commands, param)
   self.battler = battler
-  self.rules = List()
+  self.commands = commands
   self.param = param
-  for i = 1, #rules do
-    self.rules:add(AIRule:fromData(rules[i], battler))
-  end
 end
 -- Creates an AI script from the given rule data.
 -- @param(data : table) Rule data with path, param and condition fields.
@@ -36,7 +33,7 @@ function BattlerAI:fromData(data, battler)
   if data.path and data.path ~= '' then
     class = require('custom/ai/battler/' .. data.path)
   end
-  return class(data.rules, battler, data.param)
+  return class(battler, data.commands, data.param)
 end
 -- @ret(string) String identifier.
 function BattlerAI:__tostring()
@@ -49,27 +46,18 @@ end
 
 -- Executes next action of the current character, when it's the character's turn.
 -- By default, just skips turn, with no time loss.
--- @param(it : number) the number of iterations since last turn
--- @param(user : Character)
--- @ret(number) action time cost
+-- @ret(number) The action result table.
 function BattlerAI:runTurn()
   TurnManager:characterTurnStart()
-  local rule = self:nextRule()
-  local result = rule:execute()
+  local event = { AI = self,
+    origin = TurnManager:currentCharacter(),
+    user = self.battler }
+  local fiber = FieldManager.fiberList:forkFromScript(self.commands, event)
+  fiber:waitForEnd()
+  local result = self.result or AIRule(self.battler):execute()
+  self.result = nil
   TurnManager:characterTurnEnd(result)
   return result
-end
--- Selects a rule to be executed.
-function BattlerAI:nextRule()
-  for i = 1, #self.rules do
-    local user = TurnManager:currentCharacter()
-    local rule = self.rules[i]
-    rule:onSelect(user)
-    if self.rules[i]:canExecute() then
-      return self.rules[i]
-    end
-  end
-  return AIRule(self.battler)
 end
 
 return BattlerAI
