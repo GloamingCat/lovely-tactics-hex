@@ -215,8 +215,9 @@ function Character:damage(skill, origin, results)
     self:turnToTile(origin.x, origin.y)
   end
   self:playAnimation(self.damageAnim, true)
-  self:playAnimation(self.idleAnim)
-  if not self.battler:isAlive() then
+  if self.battler:isAlive() then
+    self:playAnimation(self.idleAnim)
+  else
     self:playAnimation(self.koAnim, true)
   end
 end

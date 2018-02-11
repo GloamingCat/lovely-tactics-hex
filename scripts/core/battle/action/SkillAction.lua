@@ -24,7 +24,6 @@ local time = love.timer.getDelta
 local now = love.timer.getTime
 local random = math.random
 local round = math.round
-local ceil = math.ceil
 
 -- Constants
 local elementCount = #Config.elements
@@ -47,7 +46,7 @@ function SkillAction:init(skillID)
   self.introTime = data.introTime or 22
   self.targetTime = data.targetTime or 0
   self.finishTime = data.finishTime or 20
-  self.castTime = data.castTime or 6
+  self.castTime = data.castTime or 5
   -- Cost formulas
   self.costs = {}
   for i = 1, #data.costs do
@@ -213,16 +212,17 @@ end
 -- @param(user : Battler)
 -- @param(target : Battler)
 function SkillAction:menuUse(input)
-  local character = BattleManager.onBattle and TroopManager:getBattlerCharacter(input.user)
   if input.target then
     local results = self:calculateEffectResults(input.user, input.target)
-    input.target:applyResults(results)
-    input.target:onSkillEffect(input, results, character)
+    local char = TroopManager:getBattlerCharacter(input.target)
+    input.target:applyResults(results, char)
+    input.target:onSkillEffect(input, results, char)
   elseif input.targets then
     for i = 1, #input.targets do
       local results = self:calculateEffectResults(input.user, input.targets[i])
-      input.targets[i]:applyResults(results)
-      input.targets[i]:onSkillEffect(input, results, character)
+      local char = TroopManager:getBattlerCharacter(input.targets[i])
+      input.targets[i]:applyResults(results, char)
+      input.targets[i]:onSkillEffect(input, results, char)
     end
   else
     return { executed = false }
@@ -231,7 +231,7 @@ function SkillAction:menuUse(input)
   if self.data.battleAnim.castID >= 0 then
     BattleManager:playMenuAnimation(self.data.battleAnim.castID, false)
   end
-  input.user:onSkillUse(input)
+  input.user:onSkillUse(input, TroopManager:getBattlerCharacter(input.user))
   return BattleAction.execute(self, input)
 end
 
