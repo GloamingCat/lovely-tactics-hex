@@ -117,12 +117,5 @@
 		"key": "evdm",
 		"script": "att.agi() * 0.5 + att.mag() * 0.5",
 		"tags": []
-	},
-	{
-		"name": "Carry",
-		"shortName": "CAR",
-		"key": "car",
-		"script": "att.str() * 100",
-		"tags": []
 	}
 ]

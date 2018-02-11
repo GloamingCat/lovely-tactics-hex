@@ -38,9 +38,13 @@ function AttributeSet:init(battler, save)
     -- Total
     self[key] = function()
       local base = self:getBase(key)
-      return self:getBonus(key, base, battler)
+      if self.bonus then
+        base = self:getBonus(key, base, battler)
+      end
+      return base
     end
   end
+  self.bonus = true
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -52,19 +56,27 @@ end
 function AttributeSet:getBase(key)
   local base = self.classBase[key] + self.battlerBase[key]
   if self.formula[key] then
-    return self.formula[key](self) + base
-  else
-    return base
+    base = base + self.formula[key](self)
   end
+  return base
 end
 -- @param(key : string) attribute's key
 -- @param(base : number) attribute's basic value
 -- @param(battler : Battler) battler that contains the bonus information
 -- @ret(number) the basic + the bonus value
 function AttributeSet:getBonus(key, base, battler)
-  local add1, mul1 = battler.statusList:attBonus(key)
-  local add2, mul2 = battler.equipSet:attBonus(key)
-  return add1 + add2 + base * (mul1 + mul2 + 1)
+  local add, mul = 0, 1
+  if battler.statusList then
+    local add1, mul1 = battler.statusList:attBonus(key)
+    add = add + add1
+    mul = mul + mul1
+  end
+  if battler.equipSet then
+    local add2, mul2 = battler.equipSet:attBonus(key)
+    add = add + add2
+    mul = mul + mul2
+  end
+  return add + base * mul
 end
 
 ---------------------------------------------------------------------------------------------------

@@ -77,16 +77,26 @@ end
 -- @param(y : number) initial y of the texts
 -- @param(w : number) width of the text box
 function BattlerWindow:createAtts(attList, x, y, w)
-  local attValues = self.character.battler.att
+  local battler = self.character.battler
   for i = 1, #attList do
     local pos = Vector(x, y + 10 * i)
     local att = attList[i]
     -- Attribute name
-    local textName = SimpleText(att.shortName .. ':', pos, w, 'left', font)
+    local textName = SimpleText(att.shortName .. ':', pos, w - 30, 'left', font)
     self.content:add(textName)
     -- Attribute value
-    local value = attValues[att.key]()
-    local textValue = SimpleText(value .. '', pos, w, 'right', font)
+    local total = round(battler.att[att.key]())
+    battler.att.bonus = false
+    local base = round(battler.att:getBase(att.key))
+    battler.att.bonus = true
+    local value = base
+    if base < total then
+      value = value .. ' + ' .. (total - base)
+    elseif base > total then
+      value = value .. ' - ' .. (base - total)
+    end
+    local pos2 = Vector(x + 30, y + 10 * i)
+    local textValue = SimpleText(value .. '', pos2, w, 'left', font)
     self.content:add(textValue)
   end
 end
@@ -102,7 +112,7 @@ function BattlerWindow:destroy()
     self.portraitAnim:destroy()
   end
 end
-
+-- @ret(string) String representation (for debugging).
 function BattlerWindow:__tostring()
   return 'Battler Description Window'
 end
