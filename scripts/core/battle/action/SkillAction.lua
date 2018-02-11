@@ -23,7 +23,6 @@ local mathf = math.field
 local time = love.timer.getDelta
 local now = love.timer.getTime
 local random = math.random
-local expectation = math.randomExpectation
 local round = math.round
 local ceil = math.ceil
 
@@ -271,11 +270,12 @@ end
 -- Calculates the final damage / heal for the target from an specific effect.
 -- It considers all element bonuses provided by the skill data.
 function SkillAction:calculateEffectResult(effect, user, target)
-  local rate = effect.successRate(self, user.att, target.att, random)
-  if random() * 100 > rate then
+  local rand = self.rand or random
+  local rate = effect.successRate(self, user.att, target.att, rand)
+  if rand() * 100 > rate then
     return nil
   end
-  local result = max(effect.basicResult(self, user.att, target.att, random), 0)
+  local result = max(effect.basicResult(self, user.att, target.att, rand), 0)
   local bonus = 0
   local skillElements = self.elementFactors
   for i = 1, elementCount do
@@ -290,12 +290,13 @@ end
 -- @param(rand : function)
 -- @ret(table) array with status results
 function SkillAction:calculateStatusResult(user, target)
+  local rand = self.rand or random
   local result = {}
   local dmg = false
   for i = 1, #self.status do
     local s = self.status[i]
-    local r = s.rate(self, user.att, target.att, random)
-    if random() * 100 <= r then
+    local r = s.rate(self, user.att, target.att, rand)
+    if rand() * 100 <= r then
       result[#result + 1] = {
         id = s.id,
         add = s.add }

@@ -8,15 +8,8 @@ Implements basic functions to be used in AI classes.
 =================================================================================================]]
 
 -- Imports
-local ActionInput = require('core/battle/action/ActionInput')
-
--- Alias
-local rand = love.math.random
-local readFile = love.filesystem.read
-local writeFile = love.filesystem.write
-
--- Static
-local thread = nil
+local AIRule = require('core/battle/ai/AIRule')
+local List = require('core/datastruct/List')
 
 local BattlerAI = class()
 
@@ -27,24 +20,27 @@ local BattlerAI = class()
 -- Constructor.
 -- @param(key : string) the AI's identifier (needs to be set by children of this class)
 -- @param(battler : Battler)
--- @param(parallel : boolean)
-function BattlerAI:init(key, battler, parallel)
-  self.key = key
+function BattlerAI:init(rules, battler, param)
   self.battler = battler
-  self.parallel = parallel
-end
--- String identifier.
--- @ret(string)
-function BattlerAI:__tostring()
-  return 'AI: ' .. self.key
-end
-
-function BattlerAI:decodeParam(param)
-  if param == '' then
-    return nil
-  else
-    return JSON.decode(param)
+  self.rules = List()
+  self.param = param
+  for i = 1, #rules do
+    self.rules:add(AIRule:fromData(rules[i], battler))
   end
+end
+-- Creates an AI script from the given rule data.
+-- @param(data : table) Rule data with path, param and condition fields.
+-- @return(BattlerAI)
+function BattlerAI:fromData(data, battler)
+  local class = self
+  if data.path and data.path ~= '' then
+    class = require('custom/ai/battler/' .. data.path)
+  end
+  return class(data.rules, battler, data.param)
+end
+-- @ret(string) String identifier.
+function BattlerAI:__tostring()
+  return 'AI: ' .. self.battler.key
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -59,71 +55,21 @@ end
 function BattlerAI:runTurn()
   TurnManager:characterTurnStart()
   local rule = self:nextRule()
-  local result = nil
-  if rule:canExecute() then
-    result = rule:execute()
-  else
-    result = self.waitRule:execute()
-  end
+  local result = rule:execute()
   TurnManager:characterTurnEnd(result)
   return result
 end
-
 -- Selects a rule to be executed.
 function BattlerAI:nextRule()
-  return nil -- Abstract.
-end
-
----------------------------------------------------------------------------------------------------
--- Action Selection
----------------------------------------------------------------------------------------------------
-
--- @param(character : Character)
--- @ret(table) array of actions
-function BattlerAI:getCharacterActions(character)
-  local b = character.battler
-  return {b.attackSkill, unpack(b.skillList)} -- TODO: add Wait
-end
-
--- Gets a random action from the action list given by BattlerAI:getCharacterActions.
--- @param(character : Character)
--- @ret(BattleAction)
-function BattlerAI:getRandomAction(character)
-  local actions = self:getCharacterActions(character)
-  return actions[rand(#actions)]
-end
-
----------------------------------------------------------------------------------------------------
--- Script Data
----------------------------------------------------------------------------------------------------
-
--- Loads the file from AI data folder and decodes from JSON.
--- @ret(unknown) the data in the file
-function BattlerAI:loadJsonData(sufix)
-  local data = self:loadData(sufix)
-  if data then
-    return JSON.decode(data)
-  else
-    return nil
+  for i = 1, #self.rules do
+    local user = TurnManager:currentCharacter()
+    local rule = self.rules[i]
+    rule:onSelect(user)
+    if self.rules[i]:canExecute() then
+      return self.rules[i]
+    end
   end
-end
-
--- Encodes the data as JSON saves in AI data folder.
--- @param(data : unknown) the data to write
-function BattlerAI:saveJsonData(data, sufix)
-  self:saveData(JSON.encode(data), sufix)
-end
-
--- Loads the file from AI data folder.
--- @ret(string) the data in the file
-function BattlerAI:loadData(sufix)
-  return readFile(self.key .. (sufix or '') .. '.json')
-end
-
--- Saves the data in AI data folder.
--- @param(data : string) the data to write
-function BattlerAI:saveData(data, sufix)
-  writeFile(self.key .. (sufix or '')  .. '.json', data)
+  return AIRule(self.battler)
 end
 
 return BattlerAI

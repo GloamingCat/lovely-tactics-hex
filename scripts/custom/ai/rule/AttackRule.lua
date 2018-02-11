@@ -8,42 +8,32 @@ The rule for an AI that moves to the safest tile that still has a reachable targ
 =================================================================================================]]
 
 -- Imports
-local ActionInput = require('core/battle/action/ActionInput')
 local BattleTactics = require('core/battle/ai/BattleTactics')
-local AIRule = require('core/battle/ai/AIRule')
+local SkillRule = require('core/battle/ai/SkillRule')
 
 -- Alias
 local expectation = math.randomExpectation
 
-local AttackRule = class(AIRule)
-
----------------------------------------------------------------------------------------------------
--- Initialization
----------------------------------------------------------------------------------------------------
-
--- Constructor.
-function AttackRule:init(action)
-  local name = action.skillID or tostring(action)
-  AIRule.init(self, 'Attack: ' .. name, action)
-end
+local AttackRule = class(SkillRule)
 
 ---------------------------------------------------------------------------------------------------
 -- Execution
 ---------------------------------------------------------------------------------------------------
 
--- Overrides AIRule:onSelect.
+-- Overrides SkillRule:onSelect.
 function AttackRule:onSelect(user)
-  local skill = self.input.action
-  self.input.user = user
-  skill:onSelect(self.input)
+  SkillRule.onSelect(self, user)
+  -- Find target with higher chance of dying
+  local oldRand = self.skill.rand
+  self.skill.rand = expectation
   local bestTile = nil
   local bestChance = -math.huge
   for char in TroopManager.characterList:iterator() do
     local tile = char:getTile()
     if tile.gui.selectable and tile.gui.reachable then
-      local dmg = skill:calculateEffectResult(self.input, char, expectation)
+      local dmg = self.skill:calculateEffectResult(self.skills.effects[1], self.input, char)
       if dmg then
-        local chance = (char.battler.state.HP - dmg) / char.battler.att:MHP()
+        local chance = (char.battler.state.hp - dmg) / char.battler.mhp()
         if chance > bestChance then
           bestChance = chance
           bestTile = tile
@@ -51,6 +41,7 @@ function AttackRule:onSelect(user)
       end
     end
   end
+  self.skill.rand = oldRand
   if bestTile then
     self.input.taget = bestTile
   else

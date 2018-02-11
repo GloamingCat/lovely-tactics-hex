@@ -54,8 +54,7 @@ function ActionSkillWindow:createListButton(skill)
       cost = cost + skill.costs[i].cost(skill, char.battler.att)
     end
   end
-  local sp = Config.attributes[spName].shortName
-  button:createInfoText(cost .. sp, 'gui_medium')
+  button:createInfoText(cost .. Vocab.sp, 'gui_medium')
   return button
 end
 

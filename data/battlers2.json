@@ -9,8 +9,12 @@
 			"exp": 1,
 			"gold": 3,
 			"scriptAI": {
-				"path": "Rusher.lua",
-				"param": ""
+				"path": "",
+				"rules": [
+					{
+						"path": "RushRule.lua"
+					}
+				]
 			},
 			"attributes": {
 				"str": 0,
@@ -60,8 +64,12 @@
 			"exp": 1,
 			"gold": 5,
 			"scriptAI": {
-				"path": "Rusher.lua",
-				"param": ""
+				"path": "",
+				"rules": [
+					{
+						"path": "RushRule.lua"
+					}
+				]
 			},
 			"attributes": {
 				"str": 0,

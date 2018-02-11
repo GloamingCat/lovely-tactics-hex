@@ -9,6 +9,7 @@ A class the holds character's information for battle formula.
 
 -- Imports
 local AttributeSet = require('core/battle/battler/AttributeSet')
+local BattlerAI = require('core/battle/ai/BattlerAI')
 local Class = require('core/battle/battler/Class')
 local EquipSet = require('core/battle/battler/EquipSet')
 local Inventory = require('core/battle/Inventory')
@@ -56,6 +57,9 @@ function Battler:init(troop, save)
   local data = Database.battlers[id]
   self:initProperties(data, save)
   self:initState(data, save)
+  if data.scriptAI then
+    self.AI = BattlerAI:fromData(data.scriptAI, self)
+  end
 end
 -- Initializes general battler information.
 -- @param(data : table) the battler's data from database
@@ -68,10 +72,6 @@ function Battler:initProperties(data, save)
   self.x = save and save.x
   self.y = save and save.y
   self.tags = TagMap(data.tags)
-  local ai = data.scriptAI
-  if ai.path ~= '' then
-    self.AI = require('custom/ai/battler/' .. ai.path)(self, ai.param)
-  end
 end
 -- Initializes battle state.
 -- @param(data : table) the battler's data from database

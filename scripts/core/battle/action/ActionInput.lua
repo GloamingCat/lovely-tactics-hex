@@ -78,8 +78,10 @@ end
 -- String representation.
 -- @ret(string) 
 function ActionInput:__tostring()
-  return 'ActionInput: ' .. tostring(self.action) .. ' | ' .. tostring(self.user) .. 
-    ' | ' .. tostring(self.target) .. ' | ' .. tostring(self.moveTarget)
+  return 'ActionInput: ' .. tostring(self.action) .. 
+    ' | ' .. tostring(self.user) .. 
+    ' | ' .. tostring(self.target) .. 
+    ' | ' .. tostring(self.moveTarget)
 end
 
 return ActionInput

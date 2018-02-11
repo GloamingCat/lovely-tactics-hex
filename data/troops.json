@@ -4,10 +4,6 @@
 		"data": {
 			"id": 1,
 			"persistent": true, // True if the troop should be saved.
-			"scriptAI": {
-				"path": "",
-				"param": ""
-			},
 			"gold": 100,
 			"items": [
 				{
@@ -71,7 +67,7 @@
 			"id": 2,
 			"persistent": false,
 			"scriptAI": {
-				"path": "ai/troop/TroopAI.lua",
+				"path": "",
 				"param": ""
 			},
 			"gold": 0,

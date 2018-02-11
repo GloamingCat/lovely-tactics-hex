@@ -8,10 +8,6 @@
 			"classID": 1,
 			"exp": 0,
 			"gold": 0,
-			"scriptAI": {
-				"path": "",
-				"param": ""
-			},
 			"attributes": {
 				"str": 0,
 				"mag": 0,
@@ -53,10 +49,6 @@
 			"classID": 2,
 			"exp": 0,
 			"gold": 0,
-			"scriptAI": {
-				"path": "",
-				"param": ""
-			},
 			"attributes": {
 				"str": 0,
 				"mag": 0,

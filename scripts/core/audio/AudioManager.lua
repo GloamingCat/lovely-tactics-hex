@@ -8,9 +8,9 @@ AudioManager
 =================================================================================================]]
 
 -- Imports
+local List = require('core/datastruct/List')
 local Music = require('core/audio/Music')
 local Sound = require('core/audio/Sound')
-local List = require('core/datastruct/List')
 
 -- Alias
 local deltaTime = love.timer.getDelta
