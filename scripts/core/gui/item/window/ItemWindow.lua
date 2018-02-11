@@ -25,7 +25,6 @@ local ItemWindow = class(InventoryWindow)
 ---------------------------------------------------------------------------------------------------
 
 -- @param(GUI : GUI)
--- @param(y : number) space occupied by the member GUI
 function ItemWindow:init(GUI)
   local rowCount = 6
   local fith = rowCount * self:cellHeight() + self:vPadding() * 2
@@ -70,6 +69,7 @@ function ItemWindow:onButtonConfirm(button)
     input.targets = self.GUI.member.troop.current
     self.input.action:menuUse(self.input)
     self:refreshItems()
+    self.GUI.memberGUI:refreshMember()
   else
     -- Choose a target
     local memberGUI = self.GUI.memberGUI

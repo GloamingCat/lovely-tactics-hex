@@ -12,7 +12,7 @@ local Button = require('core/gui/widget/Button')
 
 local ItemGUI = require('core/gui/item/ItemGUI')
 local EquipGUI = require('core/gui/equip/EquipGUI')
---local SkillGUI = require('core/gui/skill/SkillGUI')
+local SkillGUI = require('core/gui/skill/SkillGUI')
 --local StatGUI = require('core/gui/stat/StatGUI')
 
 local MemberCommandWindow = class(GridWindow)
@@ -37,7 +37,7 @@ function MemberCommandWindow:itemsConfirm()
 end
 -- Skills button.
 function MemberCommandWindow:skillsConfirm()
-  --self:showGUI(SkillGUI)
+  self:showGUI(SkillGUI)
 end
 -- Equips button.
 function MemberCommandWindow:equipsConfirm()
@@ -52,7 +52,7 @@ function MemberCommandWindow:itemsEnabled()
   return ItemGUI:memberEnabled(self.GUI:currentMember())
 end
 function MemberCommandWindow:skillsEnabled()
-  return self.GUI:currentMember():isActive()
+  return SkillGUI:memberEnabled(self.GUI:currentMember())
 end
 
 ---------------------------------------------------------------------------------------------------

@@ -1,7 +1,7 @@
 
 --[[===============================================================================================
 
-ItemGUI
+SkillGUI
 ---------------------------------------------------------------------------------------------------
 The GUI to manage and use a item from party's inventory.
 
@@ -10,10 +10,10 @@ The GUI to manage and use a item from party's inventory.
 -- Imports
 local DescriptionWindow = require('core/gui/general/window/DescriptionWindow')
 local GUI = require('core/gui/GUI')
-local ItemWindow = require('core/gui/item/window/ItemWindow')
+local SkillWindow = require('core/gui/skill/window/SkillWindow')
 local Vector = require('core/math/Vector')
 
-local ItemGUI = class(GUI)
+local SkillGUI = class(GUI)
 
 ---------------------------------------------------------------------------------------------------
 -- Initialization
@@ -21,26 +21,26 @@ local ItemGUI = class(GUI)
 
 -- Constructor.
 -- @param(memberGUI : MemberGUI) Parent GUI.
-function ItemGUI:init(memberGUI)
+function SkillGUI:init(memberGUI)
   self.memberGUI = memberGUI
-  self.name = 'Item GUI'
+  self.name = 'Skill GUI'
   self.inventory = memberGUI.troop.inventory
   GUI.init(self)
 end
 -- Overrides GUI:createWindows.
-function ItemGUI:createWindows()
-  self:createItemWindow()
+function SkillGUI:createWindows()
+  self:createSkillWindow()
   self:createDescriptionWindow()
   self:setActiveWindow(self.mainWindow)
 end
 -- Creates the main item window.
-function ItemGUI:createItemWindow()
-  local window = ItemWindow(self)
+function SkillGUI:createSkillWindow()
+  local window = SkillWindow(self)
   window:setXYZ(0, self.memberGUI:getHeight() - ScreenManager.height / 2 + window.height / 2)
   self.mainWindow = window
 end
 -- Creates the item description window.
-function ItemGUI:createDescriptionWindow()
+function SkillGUI:createDescriptionWindow()
   local initY = self.memberGUI:getHeight()
   local w = ScreenManager.width - self:windowMargin() * 2
   local h = ScreenManager.height - initY - self.mainWindow.height - self:windowMargin() * 2
@@ -54,14 +54,14 @@ end
 
 -- Called when player selects a member to use the item.
 -- @param(member : Battler) New member to use the item.
-function ItemGUI:setMember(member)
+function SkillGUI:setMember(member)
   self.mainWindow:setMember(member)
 end
 -- Verifies if a member can use an item.
 -- @param(member : Battler) Member to check.
 -- @ret(boolean) True if the member is active, false otherwise.
-function ItemGUI:memberEnabled(member)
-  return member:isActive()
+function SkillGUI:memberEnabled(member)
+  return not member.skillList:isEmpty()
 end
 
-return ItemGUI
+return SkillGUI

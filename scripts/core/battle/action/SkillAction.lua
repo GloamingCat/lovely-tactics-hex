@@ -89,8 +89,7 @@ function SkillAction:fromData(skillID, ...)
     return self(skillID, ...)
   end
 end
--- Converting to string.
--- @ret(string) a string with skill's ID and name
+-- @ret(string) A string with skill's ID and name.
 function SkillAction:__tostring()
   return 'SkillAction (' .. self.data.id .. ': ' .. self.data.name .. ')'
 end
@@ -206,7 +205,7 @@ end
 -- @param(user : Battler)
 -- @ret(boolean)
 function SkillAction:canMenuUse(user)
-  return self:canUse(user)
+  return self:canUse(user) and self.support
 end
 -- Executes the skill in the menu, out of the battle field.
 -- @param(user : Battler)
