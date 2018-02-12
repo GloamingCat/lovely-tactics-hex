@@ -30,20 +30,19 @@ local BattlerWindow = class(Window)
 
 -- Constructor.
 -- @param(character : Character) the character of the battler to be shown
-function BattlerWindow:init(GUI, character)
-  local simple = {}
-  local comp = {}
+function BattlerWindow:init(GUI)
+  local primary = {}
+  local secondary = {}
   for i = 1, #attConfig do
-    if attConfig[i].script == '' then
-      simple[#simple + 1] = attConfig[i]
-    else
-      comp[#comp + 1] = attConfig[i]
+    if attConfig[i].visibility == 1 then
+      primary[#primary + 1] = attConfig[i]
+    elseif attConfig[i].visibility == 2 then
+      secondary[#secondary + 1] = attConfig[i]
     end
   end
-  self.simple, self.comp = simple, comp
-  self.character = character
+  self.primary, self.secondary = primary, secondary
   local hsw = round(ScreenManager.width * 3 / 4)
-  local hsh = max(#simple, #comp) * 10 + 15 + 2 * self:vPadding()
+  local hsh = max(#primary, #secondary) * 10 + 15 + 2 * self:vPadding()
   local margin = 80
   Window.init(self, GUI, hsw, hsh)
 end
@@ -51,67 +50,104 @@ end
 function BattlerWindow:createContent(width, height)
   Window.createContent(self, width, height)
   -- Portrait
-  local sprite = self.character.sprite:clone(GUIManager.renderer)
-  self.portraitAnim = self.character.animation:clone(sprite)
-  self.portraitAnim:setRow(6)
-  self.portraitAnim:setIndex(1)
-  sprite:setXYZ(0, 0, 0)
-  local portrait = SimpleImage(sprite, self:hPadding() - self.width / 2, self:vPadding() - self.height / 2, 
+  self.portrait = SimpleImage(nil, self:hPadding() - self.width / 2, self:vPadding() - self.height / 2, 
       nil, round(self.width / 3) - self:hPadding(), self.height - self:vPadding() * 2)
-  self.content:add(portrait)
-  portrait:updatePosition(self.position)
+  self.content:add(self.portrait)
   -- Content pos
   local x = round(self.width / 3 - self.width / 2)
   local y = round(self:vPadding() - self.height / 2)
   local w = round((self.width - self:hPadding()) / 3)
   -- Name
-  local textName = SimpleText(self.character.battler.name, Vector(x, y), w)
-  self.content:add(textName)
+  self.textName = SimpleText('', Vector(x, y), w)
+  self.content:add(self.textName)
   -- Attributes
-  self:createAtts(self.simple, x, y + 5, w - self:hPadding())
-  self:createAtts(self.comp, x + round(self.width / 3), y + 5, w - self:hPadding())
+  self.attValues = {}
+  self:createAtts(self.primary, x, y + 5, w - self:hPadding())
+  self:createAtts(self.secondary, x + round(self.width / 3), y + 5, w - self:hPadding())
 end
 -- Creates the text content from a list of attributes.
--- @param(attList : table) array of attribute data
--- @param(x : number) x of the texts
--- @param(y : number) initial y of the texts
--- @param(w : number) width of the text box
+-- @param(attList : table) Array of attribute data.
+-- @param(x : number) Pixel x of the texts.
+-- @param(y : number) Initial pixel y of the texts.
+-- @param(w : number) Pixel width of the text box.
 function BattlerWindow:createAtts(attList, x, y, w)
-  local battler = self.character.battler
   for i = 1, #attList do
-    local pos = Vector(x, y + 10 * i)
     local att = attList[i]
     -- Attribute name
-    local textName = SimpleText(att.shortName .. ':', pos, w - 30, 'left', font)
-    self.content:add(textName)
+    local posName = Vector(x, y + 10 * i)
+    local textName = SimpleText(att.shortName .. ':', posName, w - 30, 'left', font)
     -- Attribute value
-    local total = round(battler.att[att.key]())
-    battler.att.bonus = false
-    local base = round(battler.att:getBase(att.key))
-    battler.att.bonus = true
-    local value = base
+    local posValue = Vector(x + 30, y + 10 * i)
+    local textValue = SimpleText('', posValue, w, 'left', font)
+    -- Store
+    self.content:add(textName)
+    self.content:add(textValue)
+    self.attValues[att.key] = textValue
+  end
+end
+
+---------------------------------------------------------------------------------------------------
+-- Member
+---------------------------------------------------------------------------------------------------
+
+-- Shows the given member stats.
+-- @param(member : Battler) The battler shown in the window.
+function BattlerWindow:setMember(member)
+  self:setPortrait(member)
+  self.textName:setText(member.name)
+  self.textName:redraw()
+  -- Attributes
+  for key, text in pairs(self.attValues) do
+      -- Attribute value
+    local total = round(member.att[key]())
+    member.att.bonus = false
+    local base = round(member.att:getBase(key))
+    member.att.bonus = true
+    local value = base .. ''
     if base < total then
       value = value .. ' + ' .. (total - base)
     elseif base > total then
       value = value .. ' - ' .. (base - total)
     end
-    local pos2 = Vector(x + 30, y + 10 * i)
-    local textValue = SimpleText(value .. '', pos2, w, 'left', font)
-    self.content:add(textValue)
+    text:setText(value)
+    text:redraw()
+  end
+  if not self.open then
+    self:hideContent()
   end
 end
-
----------------------------------------------------------------------------------------------------
--- General
----------------------------------------------------------------------------------------------------
-
+-- Shows the graphics of the given member.
+-- If they have a full body image, it is used. Otherwise, it uses the idle animation.
+-- @param(member : Battler) The battler shown in the window.
+function BattlerWindow:setPortrait(member)
+  local char = Database.characters[member.charID]
+  if char.portraits.bigIcon then
+    local sprite = ResourceManager:loadIcon(char.portraits.bigIcon, GUIManager.renderer)
+    sprite:applyTransformation(char.transform)
+    self.portrait:setSprite(sprite)
+  else
+    local anim = char.animations.default.Idle
+    local data = Database.animations[anim]
+    self.portraitAnim = ResourceManager:loadAnimation(anim, GUIManager.renderer)
+    self.portraitAnim:setRow(6)
+    self.portraitAnim.sprite:setXYZ(0, 0, 0)
+    self.portraitAnim.sprite:applyTransformation(char.transform)
+    self.portrait:setSprite(self.portraitAnim.sprite)
+  end
+  self.portrait:updatePosition(self.position)
+end
 -- Overrides Window:destroy.
-function BattlerWindow:destroy()
+--[[function BattlerWindow:destroy()
   Window.destroy(self)
   if self.portraitAnim then
     self.portraitAnim:destroy()
   end
-end
+end]]
+
+---------------------------------------------------------------------------------------------------
+-- Properties
+---------------------------------------------------------------------------------------------------
+
 -- @ret(string) String representation (for debugging).
 function BattlerWindow:__tostring()
   return 'Battler Description Window'

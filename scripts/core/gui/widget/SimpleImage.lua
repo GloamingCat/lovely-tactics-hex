@@ -27,32 +27,36 @@ local SimpleImage = class()
 -- @param(w : number) max width of the image
 -- @param(h : number) max height of the image
 function SimpleImage:init(sprite, x, y, depth, w, h)
-  self.sprite = sprite
-  if w or h then
-    self:centerSpriteQuad(x, y, w, h)
-  else
-    self.x = x
-    self.y = y
-  end
-  self.sprite:setCenterOffset(depth or -1)
+  self.depth = depth
+  self.width = w
+  self.height = h
+  self.x = x
+  self.y = y
+  self:setSprite(sprite)
 end
--- Creates a SimpleImage from quad data
--- @param(quadData : table) quad's data from database
--- @param(...) params from SimpleImage.init
--- @ret(SimpleImage) the newly created component 
-function SimpleImage:fromQuad(quad, ...)
-  return self(Sprite.fromQuad(quad, GUIManager.renderer), ...)
+
+function SimpleImage:setSprite(sprite)
+  if self.sprite then
+    self.sprite:destroy()
+  end
+  self.sprite = sprite
+  if sprite then
+    if (self.width or self.height) then
+      self:centerSpriteQuad()
+    end
+    self.sprite:setCenterOffset(self.depth or -1)
+  end
 end
 -- Centers sprite inside the given rectangle.
-function SimpleImage:centerSpriteQuad(x, y, w, h)
-  local px, py, pw, ph = self.sprite.quad:getViewport()
-  x, y = x or 0, y or 0
-  w, h = w or pw, h or ph
+function SimpleImage:centerSpriteQuad()
+  local px, py, pw, ph = self.sprite:totalBounds()
+  local x, y = self.x or 0, self.y or 0
+  local w, h = self.width or pw, self.height or ph
   local mw, mh = min(pw, w), min(ph, h)
   local mx, my = px + (pw - mw) / 2, py + (ph - mh) / 2
-  self.sprite:setQuad(mx, my, mw, mh)
-  self.x = x + w / 2
-  self.y = y + h / 2
+  --self.sprite:setQuad(mx, my, mw, mh)
+  self.sx = x + w / 2
+  self.sy = y + h / 2
 end
 
 -------------------------------------------------------------------------------
@@ -61,19 +65,27 @@ end
 
 -- Sets image position.
 function SimpleImage:updatePosition(pos)
-  self.sprite:setXYZ(pos.x + self.x, pos.y + self.y, pos.z)
+  if self.sprite then
+    self.sprite:setXYZ(pos.x + self.sx, pos.y + self.sy, pos.z)
+  end
 end
 -- Shows image.
 function SimpleImage:show()
-  self.sprite:setVisible(true)
+  if self.sprite then
+    self.sprite:setVisible(true)
+  end
 end
 -- Hides image.
 function SimpleImage:hide()
-  self.sprite:setVisible(false)
+  if self.sprite then
+    self.sprite:setVisible(false)
+  end
 end
 -- Destroys sprite.
 function SimpleImage:destroy()
-  self.sprite:destroy()
+  if self.sprite then
+    self.sprite:destroy()
+  end
 end
 
 return SimpleImage

@@ -81,12 +81,12 @@
 					"portraits": {
 						"smallIcon": {
 							"id": 30,
-							"col": 1,
+							"col": 0,
 							"row": 0
 						},
 						"bigIcon": {
 							"id": 31,
-							"col": 1,
+							"col": 0,
 							"row": 0
 						}
 					},

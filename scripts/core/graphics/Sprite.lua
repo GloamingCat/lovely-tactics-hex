@@ -47,16 +47,6 @@ function Sprite:init(renderer, texture, quad)
   self:insertSelf(1)
   self.visible = true
 end
--- Creates a new Sprite from quad data.
--- @param(quadData : table) data from database
--- @param(renderer : Renderer) the renderer of the sprite
--- @ret(Sprite) the newly created Sprite
-function Sprite:fromQuad(quadData, renderer)
-  local texture = love.graphics.newImage('images/' .. quadData.imagePath)
-  local w, h = texture:getWidth(), texture:getHeight()
-  local quad = Quad(quadData.x, quadData.y, quadData.width, quadData.height, w, h)
-  return self(renderer, texture, quad)
-end
 -- Creates a deep copy of this sprite (does not clone texture).
 -- @param(renderer : Renderer) the renderer of the copy (optional)
 -- @ret(Sprite) the newly created copy

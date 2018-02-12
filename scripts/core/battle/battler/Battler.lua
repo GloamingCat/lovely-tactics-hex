@@ -13,7 +13,6 @@ local BattlerAI = require('core/battle/ai/BattlerAI')
 local Class = require('core/battle/battler/Class')
 local EquipSet = require('core/battle/battler/EquipSet')
 local Inventory = require('core/battle/Inventory')
-local List = require('core/datastruct/List')
 local PopupText = require('core/battle/PopupText')
 local SkillAction = require('core/battle/action/SkillAction')
 local SkillList = require('core/battle/battler/SkillList')
@@ -22,20 +21,16 @@ local TagMap = require('core/datastruct/TagMap')
 
 -- Alias
 local copyArray = util.array.copy
-local copyTable = util.table.shallowCopy
-local deepCopyTable = util.table.deepCopy
+local copyTable = util.table.deepCopy
 local newArray = util.array.new
-local readFile = love.filesystem.read
-local sum = util.array.sum
 local min = math.min
 
 -- Constants
 local elementCount = #Config.elements
 local hpKey = Config.battle.attHP
 local spKey = Config.battle.attSP
-local jumpName = Config.battle.attJump
-local stepName = Config.battle.attStep
-local weightName = Config.battle.attWeight
+local jumpKey = Config.battle.attJump
+local stepKey = Config.battle.attStep
 
 local Battler = class()
 
@@ -94,13 +89,13 @@ function Battler:initState(data, save)
   end
   -- Attributes
   self.att = AttributeSet(self, save)
-  self.jumpPoints = self.att[jumpName]
-  self.maxSteps = self.att[stepName]
+  self.jumpPoints = self.att[jumpKey]
+  self.maxSteps = self.att[stepKey]
   self.mhp = self.att[hpKey]
   self.msp = self.att[spKey]
   -- State variables
   if save and save.state then
-    self.state = deepCopyTable(save.state)
+    self.state = copyTable(save.state)
   else
     self.state = {}
     self.state.hp = math.huge
@@ -292,8 +287,8 @@ function Battler:createPersistentData()
     name = self.name,
     charID = self.charID,
     battlerID = self.data.id,
-    state = deepCopyTable(self.state),
-    elements = deepCopyTable(self.elementBase),
+    state = copyTable(self.state),
+    elements = copyTable(self.elementBase),
     att = self.att:getState(),
     class = self.class:getState(),
     equips = self.equipSet:getState(),

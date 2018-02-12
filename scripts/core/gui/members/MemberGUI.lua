@@ -8,6 +8,7 @@ The GUI that is shown when the player chooses a troop member to manage.
 =================================================================================================]]
 
 -- Imports
+local BattlerWindow = require('core/gui/battle/window/BattlerWindow')
 local GUI = require('core/gui/GUI')
 local MemberCommandWindow = require('core/gui/members/window/MemberCommandWindow')
 local MemberInfoWindow = require('core/gui/members/window/MemberInfoWindow')
@@ -32,6 +33,7 @@ end
 function MemberGUI:createWindows()
   self:createCommandWindow()
   self:createInfoWindow()
+  self:createBattlerWindow()
   self:setActiveWindow(self.commandWindow)
 end
 -- Creates the window with the commands for the chosen member.
@@ -49,6 +51,11 @@ function MemberGUI:createInfoWindow()
   local y = (h - ScreenManager.height) / 2 + self:windowMargin()
   local member = self:currentMember()
   self.infoWindow = MemberInfoWindow(member, self, w, h, Vector(x, y))
+end
+-- Creates the window that is shown when no sub GUI is open.
+function MemberGUI:createBattlerWindow()
+  self.battlerWindow = BattlerWindow(self)
+  self.battlerWindow:setXYZ(0, self:getHeight() / 2)
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -84,6 +91,8 @@ function MemberGUI:refreshMember()
   self.infoWindow:setMember(member)
   if self.subGUI then
     self.subGUI:setMember(member)
+  else
+    self.battlerWindow:setMember(member)
   end
 end
 -- Gets the current selected troop member.
@@ -110,6 +119,7 @@ end
 -- Shows a sub GUI under the command window.
 -- @param(GUI : class) The class of the GUI to be open.
 function MemberGUI:showSubGUI(GUI)
+  self.battlerWindow:hide()
   local gui = GUI(self)
   self.subGUI = gui
   gui:setMember(self:currentMember(), self.battler)
@@ -117,6 +127,8 @@ function MemberGUI:showSubGUI(GUI)
   GUIManager:showGUIForResult(gui)
   self:setActiveWindow(self.commandWindow)
   self.subGUI = nil
+  self.battlerWindow:show()
+  self.battlerWindow:setMember(self:currentMember())
 end
 -- The total height occupied by the command and info windows.
 -- @ret(number) Height of the GUI including window margin.

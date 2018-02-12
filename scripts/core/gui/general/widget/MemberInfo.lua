@@ -30,9 +30,10 @@ function MemberInfo:init(battler, w, h, topLeft)
   local margin = 4
   -- Icon
   local char = Database.characters[battler.charID]
-  local icon = char.portraits and char.portraits.bigIcon
+  local icon = char.portraits and char.portraits.smallIcon
   if icon then
     local sprite = ResourceManager:loadIcon(icon, GUIManager.renderer)
+    sprite:applyTransformation(char.transform)
     self.icon = SimpleImage(sprite, topLeft.x, topLeft.y, topLeft.z, nil, h)   
     local ix, iy, iw, ih = sprite:totalBounds()
     topLeft.x = topLeft.x + iw + margin

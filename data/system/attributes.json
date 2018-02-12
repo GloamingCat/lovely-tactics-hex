@@ -4,6 +4,7 @@
 		"shortName": "STR",
 		"key": "str",
 		"script": "",
+		"visibility": 1, // 1 => primary, 2 => secondary, -1 => not visible
 		"tags": []
 	},
 	{
@@ -11,6 +12,7 @@
 		"shortName": "MAG",
 		"key": "mag",
 		"script": "",
+		"visibility": 1,
 		"tags": []
 	},
 	{
@@ -18,6 +20,7 @@
 		"shortName": "DEX",
 		"key": "dex",
 		"script": "",
+		"visibility": 1,
 		"tags": []
 	},
 	{
@@ -25,6 +28,7 @@
 		"shortName": "RES",
 		"key": "res",
 		"script": "",
+		"visibility": 1,
 		"tags": []
 	},
 	{
@@ -32,6 +36,7 @@
 		"shortName": "AGI",
 		"key": "agi",
 		"script": "",
+		"visibility": 1,
 		"tags": []
 	},
 	{
@@ -39,6 +44,7 @@
 		"shortName": "MOV",
 		"key": "mov",
 		"script": "",
+		"visibility": 1,
 		"tags": []
 	},
 	{
@@ -46,6 +52,7 @@
 		"shortName": "JMP",
 		"key": "jmp",
 		"script": "",
+		"visibility": 1,
 		"tags": []
 	},
 	{
@@ -53,6 +60,7 @@
 		"shortName": "MHP",
 		"key": "hp",
 		"script": "att.str() * 2 + att.res() * 2",
+		"visibility": 2,
 		"tags": []
 	},
 	{
@@ -60,6 +68,7 @@
 		"shortName": "MSP",
 		"key": "sp",
 		"script": "att.mag() * 2 + att.dex() * 2",
+		"visibility": 2,
 		"tags": []
 	},
 	{
@@ -67,6 +76,7 @@
 		"shortName": "ATKP",
 		"key": "atkp",
 		"script": "att.str() * 0.7 + att.dex() * 0.3",
+		"visibility": 2,
 		"tags": []
 	},
 	{
@@ -74,6 +84,7 @@
 		"shortName": "DEFP",
 		"key": "defp",
 		"script": "att.str() * 0.3 + att.res() * 0.7",
+		"visibility": 2,
 		"tags": []
 	},
 	{
@@ -81,6 +92,7 @@
 		"shortName": "ATKM",
 		"key": "atkm",
 		"script": "att.mag() * 0.5 + att.dex() * 0.5",
+		"visibility": 2,
 		"tags": []
 	},
 	{
@@ -88,6 +100,7 @@
 		"shortName": "DEFM",
 		"key": "defm",
 		"script": "att.mag() * 0.5 + att.res() * 0.5",
+		"visibility": 2,
 		"tags": []
 	},
 	{
@@ -95,6 +108,7 @@
 		"shortName": "PREP",
 		"key": "prep",
 		"script": "att.dex()",
+		"visibility": 2,
 		"tags": []
 	},
 	{
@@ -102,6 +116,7 @@
 		"shortName": "EVDP",
 		"key": "evdp",
 		"script": "att.agi() * 0.5 + att.dex() * 0.5",
+		"visibility": 2,
 		"tags": []
 	},
 	{
@@ -109,6 +124,7 @@
 		"shortName": "PREM",
 		"key": "prem",
 		"script": "att.mag() * 0.3 + att.dex() * 0.7",
+		"visibility": 2,
 		"tags": []
 	},
 	{
@@ -116,6 +132,7 @@
 		"shortName": "EVDM",
 		"key": "evdm",
 		"script": "att.agi() * 0.5 + att.mag() * 0.5",
+		"visibility": 2,
 		"tags": []
 	}
 ]
