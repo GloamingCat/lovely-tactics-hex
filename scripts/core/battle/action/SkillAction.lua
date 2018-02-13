@@ -337,7 +337,7 @@ function SkillAction:singleTargetAnimation(input, targetChar, originTile)
     local wasAlive = targetChar.battler:isAlive()
     targetChar.battler:popupResults(targetChar.position, results, targetChar)
     if self.data.battleAnim.individualID >= 0 then
-      local dir = targetChar:angleToPoint(originTile.x, originTile.y)
+      local dir = targetChar:pointToAngle(originTile.x, originTile.y)
       local mirror = dir > 90 and dir <= 270
       local pos = targetChar.position
       BattleManager:playBattleAnimation(self.data.battleAnim.individualID,

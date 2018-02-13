@@ -7,10 +7,11 @@ File run before main. Prepares window.
 
 =================================================================================================]]
 
+love.filesystem.setRequirePath('scripts/?.lua;/?.lua')
+local Serializer = require('core/save/Serializer')
+
 function love.conf(t)
-  love.filesystem.setRequirePath('scripts/?.lua;/?.lua')
-  JSON = require('core/save/JsonParser')
-  Config = JSON.load('data/system/config.json')
+  Config = Serializer.load('data/system/config.json')
   t.identity = Config.name 
   t.window.title = Config.name
   t.window.icon = 'images/icon24.png'

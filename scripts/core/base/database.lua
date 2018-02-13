@@ -7,6 +7,11 @@ Loads data from the data folder and stores in the Database or Config global tabl
 
 =================================================================================================]]
 
+-- Imports
+local Serializer = require('core/save/Serializer')
+
+local Database = {}
+
 ---------------------------------------------------------------------------------------------------
 -- Auxiliar functions
 ---------------------------------------------------------------------------------------------------
@@ -46,7 +51,7 @@ local function getRootArray(file)
   local files = love.filesystem.getDirectoryItems('data/')
   for i = 1, #files do
     if files[i]:find(file .. '%w*' .. '%.json') then
-      local data = JSON.load('data/' .. files[i])
+      local data = Serializer.load('data/' .. files[i])
       util.array.addAll(root, data)
     end
   end
@@ -60,7 +65,6 @@ end
 -- Database files
 ---------------------------------------------------------------------------------------------------
 
-Database = {}
 local db = {'animations', 'battlers', 'characters', 'classes', 'items', 'obstacles', 'scripts',
   'skills', 'status', 'terrains', 'troops'}
 for i = 1, #db do
@@ -76,11 +80,13 @@ end
 local sys = {'attributes', 'elements', 'regions', 'equipTypes', 'sounds', 'plugins'}
 for i = 1, #sys do
   local file = sys[i]
-  local data = JSON.load('data/system/' .. file .. '.json')
+  local data = Serializer.load('data/system/' .. file .. '.json')
   Config[file] = data
 end
-local vars = JSON.load('data/system/variables.json')
+local vars = Serializer.load('data/system/variables.json')
 Config.variables = toArray(vars)
 insertKeys(Config.variables)
 insertKeys(Config.attributes)
 insertKeys(Config.equipTypes)
+
+return Database

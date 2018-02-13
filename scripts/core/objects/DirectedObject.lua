@@ -46,6 +46,8 @@ function DirectedObject:setDirection(angle)
   self.direction = angle
   self.animation:setRow(angle2Row(angle))
 end
+-- Gets the direction rounded to one of the canon angles.
+-- @ret(number) Direction in degrees.
 function DirectedObject:getRoundedDirection()
   local row = angle2Row(self.direction)
   return row * 45
@@ -72,7 +74,7 @@ end
 -- @param(y : number) vector's y
 -- @ret(number) the angle to the given vector
 function DirectedObject:turnToVector(x, y)
-  local angle = self:angleToVector(x, y)
+  local angle = self:vectorToAngle(x, y)
   self:setDirection(angle)
   return angle
 end
@@ -81,7 +83,7 @@ end
 -- @param(y : number) the pixel y
 -- @ret(number) the angle to the given point
 function DirectedObject:turnToPoint(x, y)
-  local angle = self:angleToPoint(x, y)
+  local angle = self:pointToAngle(x, y)
   self:setDirection(angle)
   return angle
 end
@@ -90,7 +92,7 @@ end
 -- @param(y : number) the tile y
 -- @ret(number) the angle to the given tile
 function DirectedObject:turnToTile(x, y)
-  local angle = self:angleToTile(x, y)
+  local angle = self:tileToAngle(x, y)
   self:setDirection(angle)
   return angle
 end
@@ -103,7 +105,7 @@ end
 -- @param(x : number) vector's x
 -- @param(y : number) vector's y
 -- @ret(number) the angle to the given vector
-function DirectedObject:angleToVector(x, y)
+function DirectedObject:vectorToAngle(x, y)
   if abs(x) > 0.01 or abs(y) > 0.01 then
     return coord2Angle(x, y)
   else
@@ -114,19 +116,19 @@ end
 -- @param(x : number) the pixel x
 -- @param(y : number) the pixel y
 -- @ret(number) the angle to the given point
-function DirectedObject:angleToPoint(x, y)
+function DirectedObject:pointToAngle(x, y)
   local dx = x - self.position.x
   local dy = y + self.position.z
-  return self:angleToVector(dx, dy)
+  return self:vectorToAngle(dx, dy)
 end
 -- Gets the angle to a given grid point.
 -- @param(x : number) the tile x
 -- @param(y : number) the tile y
 -- @ret(number) the angle to the given tile
-function DirectedObject:angleToTile(x, y)
+function DirectedObject:tileToAngle(x, y)
   local h = self:getTile().layer.height
   local destx, desty, destz = tile2Pixel(x, y, h)
-  return self:angleToPoint(destx, -destz)
+  return self:pointToAngle(destx, -destz)
 end
 
 return DirectedObject

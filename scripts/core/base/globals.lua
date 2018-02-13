@@ -23,7 +23,7 @@ util.table = require('core/base/util/TableUtil')
 -- Database
 ---------------------------------------------------------------------------------------------------
 
-require('core/base/database')
+Database = require('core/base/database')
 
 ---------------------------------------------------------------------------------------------------
 -- Configuration files
@@ -34,6 +34,10 @@ Color   = require('conf/Color')
 Fonts   = require('conf/Fonts')
 Icons   = require('conf/Icons')
 KeyMap  = require('conf/KeyMap')
+
+---------------------------------------------------------------------------------------------------
+-- Event
+---------------------------------------------------------------------------------------------------
 
 util.event = require('core/base/util/EventUtil')
 

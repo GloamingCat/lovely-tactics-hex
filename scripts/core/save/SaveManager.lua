@@ -7,6 +7,9 @@ Responsible for storing and loading game saves.
 
 =================================================================================================]]
 
+-- Imports
+local Serializer = require('core/save/Serializer')
+
 local SaveManager = class()
 
 ---------------------------------------------------------------------------------------------------
@@ -50,13 +53,15 @@ end
 -- Loads the specified save.
 -- @param(name : string) file name
 function SaveManager:loadSave(name)
+  name = name or 'auto'
+  self.current = Serializer.load(name .. '.save')
   self.loadTime = love.timer.getTime()
-  -- TODO: load file
 end
 -- Stores current save.
-function SaveManager:storeSave()
+function SaveManager:storeSave(name)
+  name = name or 'auto'
   self.current.playTime = self:getPlayTime()
-  -- TODO: store file
+  Serializer.store(name .. 'save', self.current)
   self.loadTime = love.timer.getTime()
 end
 

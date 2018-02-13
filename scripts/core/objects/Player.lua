@@ -60,26 +60,29 @@ end
 -- Input
 ---------------------------------------------------------------------------------------------------
 
--- Overrides CharacterBase:update.
--- Checks movement and interaction inputs.
-function Player:checkFieldInput()
+-- Coroutine that runs in non-battle fields.
+function Player:fieldInputLoop()
   while true do
     if self:fieldInputEnabled() then
-      if InputManager.keys['confirm']:isTriggered() then
-        self:interact()
-      elseif InputManager.keys['cancel']:isTriggered() then
-        self:openGUI()
-      else
-        local dx, dy, dir = self:inputAxis()
-        if InputManager.keys['dash']:isPressing() then
-          self.speed = self.dashSpeed
-        else
-          self.speed = self.walkSpeed
-        end
-        self:moveByInput(dx, dy, dir)
-      end
+      self:checkFieldInput()
     end
     yield()
+  end
+end
+-- Checks movement and interaction inputs.
+function Player:checkFieldInput()
+  if InputManager.keys['confirm']:isTriggered() then
+    self:interact()
+  elseif InputManager.keys['cancel']:isTriggered() then
+    self:openGUI()
+  else
+    local dx, dy, dir = self:inputAxis()
+    if InputManager.keys['dash']:isPressing() then
+      self.speed = self.dashSpeed
+    else
+      self.speed = self.walkSpeed
+    end
+    self:moveByInput(dx, dy, dir)
   end
 end
 -- Checks if field input is enabled.

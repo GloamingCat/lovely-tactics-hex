@@ -9,14 +9,15 @@ game's data.
 =================================================================================================]]
 
 -- Imports
-local List = require('core/datastruct/List')
-local Renderer = require('core/graphics/Renderer')
-local Interactable = require('core/objects/Interactable')
 local Character = require('core/objects/Character')
-local Player = require('core/objects/Player')
-local FiberList = require('core/fiber/FiberList')
+local Interactable = require('core/objects/Interactable')
 local FieldCamera = require('core/field/FieldCamera')
+local FiberList = require('core/fiber/FiberList')
 local FieldLoader = require('core/field/FieldLoader')
+local List = require('core/datastruct/List')
+local Player = require('core/objects/Player')
+local Renderer = require('core/graphics/Renderer')
+local Serializer = require('core/save/Serializer')
 
 -- Alias
 local mathf = math.field
@@ -58,7 +59,7 @@ function FieldManager:loadField(fieldID)
   if self.currentField ~= nil then
     --self:storePersistentData()
   end
-  local fieldData = JSON.load('data/fields/' .. fieldID .. '.json')
+  local fieldData = Serializer.load('data/fields/' .. fieldID .. '.json')
   self.updateList = List()
   self.characterList = List()
   if self.renderer then
@@ -222,7 +223,7 @@ function FieldManager:loadTransition(transition, fromSave)
       char:onStart(event)
     end
   end
-  self.player.fiberList:fork(self.player.checkFieldInput, self.player)
+  self.player.fiberList:fork(self.player.fieldInputLoop, self.player)
   FieldLoader.createTransitions(self.currentField, fieldData.prefs.transitions)
   if fieldData.prefs.bgm then
     local bgm = fieldData.prefs.bgm

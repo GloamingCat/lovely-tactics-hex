@@ -710,20 +710,4 @@ if always_try_using_lpeg then
   pcall (json.use_lpeg)
 end
 
----------------------------------------------------------------------------------------------------
--- Data load
----------------------------------------------------------------------------------------------------
-
-local readFile = love.filesystem.read
-function json.load(path)
-  local content = readFile(path)
-  assert(content, "Could not load " .. path)
-  local table, err, msg = json.decode(content)
-  if err and msg  then
-    print (err, msg)
-    error('Could not parse ' .. path)
-  end
-  return table
-end
-
 return json
