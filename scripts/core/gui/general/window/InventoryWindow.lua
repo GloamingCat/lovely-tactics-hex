@@ -8,9 +8,9 @@ The GUI that is open to choose an item from character's inventory.
 =================================================================================================]]
 
 -- Imports
+local Button = require('core/gui/widget/Button')
 local ListButtonWindow = require('core/gui/ListButtonWindow')
 local Vector = require('core/math/Vector')
-local Button = require('core/gui/widget/Button')
 
 local InventoryWindow = class(ListButtonWindow)
 
@@ -77,7 +77,7 @@ end
 function InventoryWindow:rowCount()
   return self.visibleRowCount
 end
--- String identifier.
+-- @ret(string) String representation (for debugging).
 function InventoryWindow:__tostring()
   return 'Inventory Window'
 end

@@ -30,6 +30,13 @@
 		"gaugeBarID": 29,
 		"sets": ["default", "battle", "sleep"]
 	},
+	"icons": {
+		"gold": {
+			"id": 44,
+			"col": 0,
+			"row": 3
+		}
+	}
 	"battle": {
 		"maxLevel": 100,
 		"overpassAllies": false,

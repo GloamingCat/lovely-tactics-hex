@@ -3,7 +3,8 @@
 
 IconList
 ---------------------------------------------------------------------------------------------------
-
+A list of icons to the drawn in a given rectangle.
+Commonly used to show status icons in windows.
 
 =================================================================================================]]
 
@@ -16,6 +17,12 @@ local IconList = class()
 -- Initialization
 ---------------------------------------------------------------------------------------------------
 
+-- Constructor.
+-- @param(topLeft : Vector) Position of the top left corner.
+-- @param(width : number) The max width.
+-- @param(height : number) The max height.
+-- @param(frameWidth : number) The width of each icon (optional, 16 by default).
+-- @param(frameHeight : number) The height of each icon (optional, 16 by default).
 function IconList:init(topLeft, width, height, frameWidth, frameHeight)
   self.icons = {}
   self.frames = {}
@@ -26,7 +33,8 @@ function IconList:init(topLeft, width, height, frameWidth, frameHeight)
   self.frameHeight = frameHeight or 16
   self.visible = true
 end
-
+-- Sets the content of this list.
+-- @param(icons : table) Array of icon tables (id, col and row).
 function IconList:setIcons(icons)
   self:destroy()
   self.icons = {}
@@ -56,8 +64,7 @@ function IconList:setIcons(icons)
     x = x + self.frameWidth - 1
   end
 end
--- Icon frame's skin.
--- @ret(table) 
+-- @ret(table) Icon frame's skin.
 function IconList:getSkin()
   return Database.animations[Config.animations.frameID]
 end
@@ -66,6 +73,7 @@ end
 -- Widget
 ---------------------------------------------------------------------------------------------------
 
+-- Shows each icon.
 function IconList:show()
   for i = 1, #self.icons do
     self.frames[i]:setVisible(true)
@@ -73,7 +81,7 @@ function IconList:show()
   end
   self.visible = true
 end
-
+-- Hides each icon.
 function IconList:hide()
   for i = 1, #self.icons do
     self.frames[i]:setVisible(false)
@@ -81,21 +89,22 @@ function IconList:hide()
   end
   self.visible = false
 end
-
+-- Updates each icon animation.
 function IconList:update()
   for i = 1, #self.icons do
     self.frames[i]:update()
     self.icons[i]:update()
   end
 end
-
+-- Destroys each icon.
 function IconList:destroy()
   for i = 1, #self.icons do
     self.frames[i]:destroy()
     self.icons[i]:destroy()
   end
 end
-
+-- Updates each icon's position.
+-- @param(wpos : Vector) Parent position.
 function IconList:updatePosition(wpos)
   for i = 1, #self.icons do
     local x = wpos.x + self.topLeft.x + self.icons[i].x

@@ -57,5 +57,9 @@ function ListButtonWindow:cellWidth()
   local w = ScreenManager.width - self.GUI:windowMargin() * 2
   return (w - self:hPadding() * 2 - self:colMargin()) / 2
 end
+-- @ret(string) String representation (for debugging).
+function ListButtonWindow:__tostring()
+  return 'List Button Window'
+end
 
 return ListButtonWindow

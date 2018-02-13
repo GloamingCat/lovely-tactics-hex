@@ -24,7 +24,8 @@ local ItemWindow = class(InventoryWindow)
 -- Initialization
 ---------------------------------------------------------------------------------------------------
 
--- @param(GUI : GUI)
+-- Constructor.
+-- @param(GUI : GUI) Parent GUI.
 function ItemWindow:init(GUI)
   local rowCount = 6
   local fith = rowCount * self:cellHeight() + self:vPadding() * 2
@@ -103,6 +104,15 @@ function ItemWindow:refreshItems()
   local items = self.GUI.inventory:getUsableItems(2)
   self:refreshButtons(items)
   self:packWidgets()
+end
+
+---------------------------------------------------------------------------------------------------
+-- Properties
+---------------------------------------------------------------------------------------------------
+
+-- @ret(string) String representation (for debugging).
+function ItemWindow:__tostring()
+  return 'Menu Item Window'
 end
 
 return ItemWindow

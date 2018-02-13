@@ -22,15 +22,15 @@ local SpriteGrid = class()
 ---------------------------------------------------------------------------------------------------
 
 -- Constructor.
--- @param(skin : Image) the image to be 9-sliced
+-- @param(skin : Image) The image to be 9-sliced.
 function SpriteGrid:init(skin, relativePos)
   self.skin = skin
   self.position = relativePos or Vector(0, 0)
 end
 -- Creates sprites and skinData.
--- @param(renderer : Renderer) the renderer of the sprites
--- @param(width : number) the width of the final image
--- @param(height : number) the height of the final image
+-- @param(renderer : Renderer) The renderer of the sprites.
+-- @param(width : number) The width of the final image.
+-- @param(height : number) The height of the final image.
 function SpriteGrid:createGrid(renderer, width, height)
   local w = floor(self.skin.width / 3)
   local h = floor(self.skin.height / 3)
@@ -91,6 +91,7 @@ end
 -- General
 ---------------------------------------------------------------------------------------------------
 
+-- Updates each slice animation.
 function SpriteGrid:update()
   for i = 1, 9 do
     self.slices[i]:update()
@@ -107,19 +108,21 @@ function SpriteGrid:updateTransform(t)
     sprite:setScale(self.skinData[i].sx * t.scaleX, self.skinData[i].sy * t.scaleY)
   end
 end
--- Destroys all sprites.
+-- Destroys all slices.
 function SpriteGrid:destroy()
   for i = 1, 9 do
     self.slices[i]:destroy()
   end
 end
-
+-- Sets each slice visibility.
+-- @param(value : boolean) True to show, false to hide.
 function SpriteGrid:setVisible(value)
   for i = 1, 9 do
     self.slices[i]:setVisible(value)
   end
 end
-
+-- Updates each slice position.
+-- @param(pos : Vector) Parent position.
 function SpriteGrid:updatePosition(pos)
   pos = pos + self.position
   for i = 1, 9 do

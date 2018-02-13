@@ -28,6 +28,7 @@ local Text = class(Sprite)
 -- Initialization
 ---------------------------------------------------------------------------------------------------
 
+-- Constructor.
 -- @param(text : string) the rich text
 -- @param(resources : table) table of resources used in text
 -- @param(renderer : Renderer) the destination renderer of the sprite
@@ -90,8 +91,7 @@ end
 -- Bounds
 ---------------------------------------------------------------------------------------------------
 
--- Gets the total width in world coordinates.
--- @ret(number)
+-- @ret(number) The total width in world coordinates.
 function Text:getWidth()
   local w = 0
   for i = 1, #self.lines do
@@ -100,8 +100,7 @@ function Text:getWidth()
   end
   return w
 end
--- Gets the total height in world coordinates.
--- @ret(number)
+-- @ret(number) The total height in world coordinates.
 function Text:getHeight()
   local h = 0
   for i = 1, #self.lines do
@@ -110,7 +109,9 @@ function Text:getHeight()
   end
   return h
 end
-
+-- Total bounds in world coordinates.
+-- @ret(number) Width.
+-- @ret(number) Height.
 function Text:quadBounds()
   return self:getWidth(), self:getHeight()
 end

@@ -3,7 +3,7 @@
 
 TextRenderer
 ---------------------------------------------------------------------------------------------------
-Module to parser a rich text string to generate table of fragments.
+Module to create each rendered line of text.
 
 =================================================================================================]]
 
