@@ -5,42 +5,47 @@
 			"id": 1,
 			"commands": [
 				{
-				  "name": "openDialogueWindow",
-				  "param": {
-					"id": 1,
-					"width": 225,
-					"height": 60
-				  }
+					"name": "turnCharTile",
+					"param": {
+						"key": "self",
+						"other": "player"
+					}
 				},
 				{
-				  "name": "showDialogue",
-				  "param": {
-					"id": 1,
-					"portrait": {
-					  "id": 44,
-					  "col": 0,
-					  "row": 0
-					},
-					"message": "Hi."
-				  }
+					"name": "openDialogueWindow",
+					"param": {
+						"id": 1,
+						"width": 225,
+						"height": 60
+					}
 				},
 				{
-				  "name": "showDialogue",
-				  "param": {
-					"id": 1,
-					"portrait": {
-					  "id": 44,
-					  "col": 0,
-					  "row": 0
-					},
-					"message": "How you doing?"
-				  }
+					"name": "showDialogue",
+					"param": {
+						"id": 1,
+						"portrait": {
+							"charID": 11,
+							"name": "bigIcon"
+						},
+						"message": "Hi."
+					}
 				},
 				{
-				  "name": "closeDialogueWindow",
-				  "param": {
-					"id": 1
-				  }
+					"name": "showDialogue",
+					"param": {
+						"id": 1,
+						"portrait": {
+							"charID": 11,
+							"name": "bigIcon"
+						},
+						"message": "How {i}you doing?"
+					}
+				},
+				{
+					"name": "closeDialogueWindow",
+					"param": {
+						"id": 1
+					}
 				}
 			],
 			"global": false

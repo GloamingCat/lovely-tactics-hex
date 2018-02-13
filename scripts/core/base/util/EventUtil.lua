@@ -99,7 +99,7 @@ function util.openDialogueWindow(sheet, event, args)
     dialogues[args.id] = window
   end
   window:show()
-  window:activate()
+  sheet.gui:setActiveWindow(window)
 end
 -- Shows a dialogue in the given window.
 -- @param(args.portrait : table) Character face.
@@ -282,11 +282,18 @@ function util.moveCharPath(sheet, event, args)
   input.action:execute(input)
 end
 -- Turns character to the given tile.
+-- @param(args.other : string) Key of a character in the destination tile (optional).
 -- @param(args.x : number) Tile destination x.
 -- @param(args.y : number) Tile destination y.
 function util.turnCharTile(sheet, event, args)
   local char = findCharacter(event, args.key)
-  char:turnToTile(args.x, args.y)
+  if args.other then
+    local other = findCharacter(event, args.other)
+    local tile = other:getTile()
+    char:turnToTile(tile.x, tile.y)
+  else
+    char:turnToTile(args.x, args.y)
+  end
 end
 -- Turn character to the given direction.
 -- @param(args.angle : number) The direction angle in degrees.

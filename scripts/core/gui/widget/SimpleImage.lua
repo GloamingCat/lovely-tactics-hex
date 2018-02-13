@@ -43,6 +43,9 @@ function SimpleImage:setSprite(sprite)
   if sprite then
     if (self.width or self.height) then
       self:centerSpriteQuad()
+    else
+      self.sx = self.x
+      self.sy = self.y
     end
     self.sprite:setCenterOffset(self.depth or -1)
   end

@@ -36,12 +36,14 @@ This should run the game.
 
 ## How to Play
 
-* Use arrow keys or WASD to move around to the field or interact with GUI;
-* Press Z, Enter or Space to confirm a GUI selection;
+* Use arrow keys or WASD to navigate around the field or GUI;
+* Press hold to walk faster;
+* Press Z, Enter or Space to confirm a GUI selection or interact with NPCs;
 * Press X, Backspace or Escape to cancel a GUI selection;
 * Press a cancel button in field to show the Field Menu (you can manage characters there, although not all options where implemented);
-* Collide with any other character to start a battle;
-* Press F1 to save and F2 to load.
+* Interact with pink character to test dialogue;
+* Collide with green characters to start a battle;
+* Press F1 to save and F5 to load.
 
 ## Credits
 
@@ -68,7 +70,6 @@ Also, please check the LÖVE2D license here: https://love2d.org/wiki/License.
 
 ## To-do list
 
-* Animated dialogue;
 * Multi-layered fields;
 * Save/Load GUI;
 * Shop GUI;

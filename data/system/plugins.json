@@ -48,7 +48,7 @@
 		"on": true,
 		"param": {
 			"saveKey": "f1",
-			"loadKey": "f2"
+			"loadKey": "f5"
 		}
 	}
 ]

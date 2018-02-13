@@ -49,7 +49,10 @@ function TextParser.parse(text)
         error('Text command not identified: ' .. (t or 'nil'))
       end
 		end
-		TextParser.parseFragment(fragments, text:match('[^}]+$'))
+    text = text:match('[^}]+$')
+    if text then
+      TextParser.parseFragment(fragments, text)
+    end
 	end
   return fragments
 end

@@ -60,7 +60,30 @@
 		"parties": [],
 		"playerParty": -1
 	},
-	"characters": [],
+	"characters": [
+		{
+			"key": "Mage",
+			"persistent": false,
+			"x": 7,
+			"y": 4,
+			"h": 0,
+			"party": -1,
+			"charID": 11,
+			"battlerID": -1,
+			"anim": "Idle",
+			"direction": 315,
+			"interactScript": {
+				"commands": [
+					{
+						"name": "eventScript",
+						"param": 1
+					}
+				],
+				"global": true
+			},
+			"tags": []
+		}
+	],
 	"layers": [
 		{
 			"name": "Sand",

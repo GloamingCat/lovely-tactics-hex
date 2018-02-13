@@ -23,6 +23,11 @@ local SimpleImage = require('core/gui/widget/SimpleImage')
 local Vector = require('core/math/Vector')
 local Window = require('core/gui/Window')
 
+-- Alias
+local deltaTime = love.timer.getDelta
+local round = math.round
+local yield = coroutine.yield
+
 local DialogueWindow = class(Window)
 
 ---------------------------------------------------------------------------------------------------
@@ -35,6 +40,7 @@ function DialogueWindow:init(GUI, w, h, x, y)
   x = x or (w - ScreenManager.width) / 2 + GUI:windowMargin()
   y = y or (ScreenManager.height - h) / 2 - GUI:windowMargin()
   Window.init(self, GUI, w, h, Vector(x, y))
+  self.textSpeed = 40
 end
 -- Overrides Window:createContent.
 -- Creates a simple text for dialogue.
@@ -46,6 +52,24 @@ function DialogueWindow:createContent(width, height)
   local pos = Vector(-width / 2 + self:hPadding(), -height / 2 + self:vPadding())
   self.dialogue = SimpleText('', pos, width - self:hPadding() * 2, self.align, Fonts.gui_dialogue)
   self.content:add(self.dialogue)
+end
+
+function DialogueWindow:cutText(text, time)
+  local i = 0
+  for textFragment, resourceKey in text:gmatch('([^{]*){(.-)}') do
+    if time <= #textFragment then
+      return text:sub(1, round(time) + i)
+    else
+      time = time - #textFragment
+      i = i + #textFragment + #resourceKey + 2
+    end
+  end
+  local textFragment = text:match('[^}]+$')
+  if textFragment then
+    if time <= #textFragment then
+      return text:sub(1, round(time) + i)
+    end
+  end
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -60,8 +84,17 @@ function DialogueWindow:setPortrait(icon)
     self.content:removeElement(self.portrait)
   end
   self.indent = 0
+  local char = nil
+  if icon and not icon.id then
+    char = Database.characters[icon.charID]
+    icon = char.portraits[icon.name]
+  end
   if icon and icon.id >= 0 then
     local portrait = ResourceManager:loadIcon(icon, GUIManager.renderer)
+    if char then
+      portrait:applyTransformation(char.transform)
+    end
+    portrait:setOffset(0, 0)
     local x, y, w, h = portrait:totalBounds()
     x = -self.width / 2 + x + w / 2
     y = self.height / 2 - h / 2
@@ -73,10 +106,25 @@ function DialogueWindow:setPortrait(icon)
 end
 -- Sets the message to be spoken.
 -- @param(text : string) the rich text
-function DialogueWindow:setText(text)
+function DialogueWindow:rollText(text)
   self.dialogue:setMaxWidth(self.width - self:hPadding() * 2 - (self.fixedIndent or self.indent))
   self.dialogue:setAlign(self.align)
   self.dialogue:updatePosition(self.position + Vector(self.fixedIndent or self.indent, 0))
+  local time = 0
+  while true do
+    if InputManager.keys['confirm']:isTriggered() then
+      yield()
+      break
+    end
+    time = time + deltaTime() * self.textSpeed 
+    local subText = self:cutText(text, time)
+    if not subText then
+      break
+    end
+    self.dialogue:setText(subText)
+    self.dialogue:redraw()
+    yield()
+  end
   self.dialogue:setText(text)
   self.dialogue:redraw()
 end
@@ -87,10 +135,9 @@ function DialogueWindow:showDialogue(text, portrait)
   if portrait then
     self:setPortrait(portrait)
   end
-  self:setText(text)
+  self:rollText(text)
   self.GUI:waitForResult()
-  self.dialogue:hide()
-  coroutine.yield()
+  yield()
 end
 
 return DialogueWindow
