@@ -44,6 +44,7 @@
 	"characters": [
 		{
 			"key": "Enemy",
+			"persistent": true,
 			"x": 9,
 			"y": 5,
 			"h": 0,
@@ -59,7 +60,7 @@
 						"param": 2
 					}
 				],
-				"global": false
+				"global": true
 			},
 			"tags": []
 		}

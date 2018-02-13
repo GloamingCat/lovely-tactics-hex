@@ -52,6 +52,7 @@ function BattlerAI:runTurn()
   local event = { AI = self,
     origin = TurnManager:currentCharacter(),
     user = self.battler }
+  event.self = event.origin
   local fiber = FieldManager.fiberList:forkFromScript(self.commands, event)
   fiber:waitForEnd()
   local result = self.result or AIRule(self.battler):execute()

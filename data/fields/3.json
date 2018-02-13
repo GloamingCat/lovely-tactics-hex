@@ -55,11 +55,12 @@
 	"characters": [
 		{
 			"key": "Enemy",
+			"persistent": true,
 			"x": 6,
 			"y": 11,
 			"h": 0,
 			"party": -1,
-			"charID": 22,
+			"charID": 20,
 			"battlerID": -1,
 			"anim": "Idle",
 			"direction": 315,
@@ -70,7 +71,7 @@
 						"param": 2
 					}
 				],
-				"global": false
+				"global": true
 			},
 			"tags": []
 		}

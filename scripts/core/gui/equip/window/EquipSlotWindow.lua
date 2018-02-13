@@ -118,7 +118,7 @@ end
 function EquipSlotWindow:rowCount()
   return self.visibleRowCount
 end
--- @ret(string) String representation (for debugging)
+-- @ret(string) String representation (for debugging).
 function EquipSlotWindow:__tostring()
   return 'Equip Slot Window'
 end

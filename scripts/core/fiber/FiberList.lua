@@ -69,7 +69,7 @@ end
 function FiberList:getState()
   local state = {}
   for i = 1, #self.eventSheets do
-    state[i] = self.eventSheets:getState()
+    state[i] = self.eventSheets[i]:getState()
   end
   return state
 end

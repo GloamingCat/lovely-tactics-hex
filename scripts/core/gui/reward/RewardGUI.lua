@@ -51,7 +51,7 @@ function EndGUI:createTopText()
   local y = -ScreenManager.height / 2 + self:windowMargin() * 2
   self.topText:setXYZ(x, y)
   self.topText:setVisible(false)
-  self.topTextSpeed = 4
+  self.topTextSpeed = 8
 end
 -- Creates the window that shows battle results.
 function EndGUI:createEXPWindow(x, y, w, h)

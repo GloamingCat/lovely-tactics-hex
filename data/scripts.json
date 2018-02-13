@@ -56,7 +56,7 @@
 					"param": {
 						"fieldID": 0,
 						"fade": 5,
-            "intro": true,
+						"intro": true,
 						"gameOverCondition": 0,
 						"escapeEnabled": true
 					}
@@ -71,16 +71,14 @@
 						"expression": "BattleManager:playerWon()",
 						"if": [
 							{
-								"name": "luaScript",
-								"param": "print 'You won!'"
+								"name": "deleteChar",
+								"param": {
+									"key": "Enemy",
+									"permanent": true
+								}
 							}
 						],
-						"else": [
-							{
-								"name": "luaScript",
-								"param": "print ('You lost...', BattleManager:playerWon())"
-							}
-						]
+						"else": []
 					}
 				}
 			],
@@ -92,15 +90,15 @@
 		"data": {
 			"id": 3,
 			"commands": [
-        {
-          "name": "label",
-          "param": "start"
-        },
+				{
+					"name": "label",
+					"param": "start"
+				},
 				{
 					"name": "playBGM",
 					"param": {
 						"name": "Serenity.mp3",
-            "time": 120
+						"time": 120
 					}
 				},
 				{
@@ -111,7 +109,7 @@
 					"name": "playBGM",
 					"param": {
 						"name": "whicks.ogg",
-            "time": 120
+						"time": 120
 					}
 				},
 				{
@@ -122,22 +120,22 @@
 					"name": "playBGM",
 					"param": {
 						"name": "Heated Battle.mp3",
-            "time": 120
+						"time": 120
 					}
 				},
 				{
 					"name": "wait",
 					"param": 90
 				},
-        {
-          "name": "luaScript",
-          "param": "print(love.audio.getSourceCount())"
-        }
+				{
+					"name": "luaScript",
+					"param": "print(love.audio.getSourceCount())"
+				}
 				{
 					"name": "jump",
 					"param": {
-            "label": "start"
-          }
+						"label": "start"
+					}
 				}
 			],
 			"global": false

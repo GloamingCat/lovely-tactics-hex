@@ -23,7 +23,6 @@ local Quad = love.graphics.newQuad
 local round = math.round
 local time = love.timer.getDelta
 local tile2Pixel = math.field.tile2Pixel
-local copyTable = util.table.deepCopy
 
 -- Constants
 local animSets = Config.animations.sets
@@ -37,14 +36,20 @@ local CharacterBase = class(DirectedObject, Interactable)
 -- Constructor.
 -- @param(instData : table) the character's data from field file
 function CharacterBase:init(instData, save)
+  print(save, instData.key)
+  if save then
+    print(save.deleted)
+  end
+  assert(not (save and save.deleted), 'Deleted character.')
   -- Character data
   local data = Database.characters[instData.charID]
   -- Position
-  local x, y, h = instData.x, instData.y, instData.h
+  local pos = Vector(0, 0, 0)
   if save then
-    x, y, h = save.x, save.y, save.h
+    pos.x, pos.y, pos.z = save.x, save.y, save.z
+  else
+    pos.x, pos.y, pos.z = tile2Pixel(instData.x, instData.y, instData.h)
   end
-  local pos = Vector(tile2Pixel(x, y, h))
   -- Old init
   DirectedObject.init(self, data, pos)
   -- Battle info
@@ -53,14 +58,15 @@ function CharacterBase:init(instData, save)
   self.battlerID = instData.battlerID or -1
   if self.battlerID == -1 then
     self.battlerID = data.battlerID or -1
-  end
-  FieldManager.characterList[self.key] = self
+  end  
   FieldManager.characterList:add(self)
   FieldManager.updateList:add(self)
+  FieldManager.characterList[self.key] = self
   -- Initialize properties
+  self.persistent = instData.persistent
   self:initProperties(data.name, data.tiles, data.collider, save)
   self:initGraphics(data.animations, instData.direction, instData.anim, data.transform, data.shadowID, save)
-  self:initScripts(instData)
+  self:initScripts(instData, save)
   -- Initial position
   self:setPosition(pos)
   self:addToTiles()
@@ -83,8 +89,6 @@ function CharacterBase:initProperties(name, tiles, colliderHeight, save)
   self.koAnim = 'KO'
   self.cropMovement = false
   self.paused = false
-  self.deleted = false
-  self.vars = {}
 end
 -- Overrides to create the animation sets.
 function CharacterBase:initGraphics(animations, dir, initAnim, transform, shadowID, save)
@@ -138,10 +142,15 @@ function CharacterBase:destroy()
   if self.shadow then
     self.shadow:destroy()
   end
+  FieldManager.characterList:removeElement(self)
+  FieldManager.characterList[self.key] = false
   DirectedObject.destroy(self)
   Interactable.destroy(self)
 end
 function CharacterBase:setXYZ(x, y, z)
+  x = x or self.position.x
+  y = y or self.position.y
+  z = z or self.position.z
   DirectedObject.setXYZ(self, x, y, z)
   if self.shadow then
     self.shadow:setXYZ(x, y, z + 1)
@@ -249,17 +258,16 @@ end
 -- Persistent Data
 ---------------------------------------------------------------------------------------------------
 
--- Gets persistent data.
--- @ret(table) character's data
+-- Overrides Interactable:getPersistenData.
+-- Included position, direction and animation.
+-- @ret(table) Character's state to be saved.
 function CharacterBase:getPersistentData()
-  local data = {}
-  data.lastx = self.position.x
-  data.lasty = self.position.y
-  data.lastz = self.position.z
-  data.lastDir = self.direction
-  data.lastAnim = self.animName
-  data.vars = copyTable(self.vars)
-  data.deleted = self.deleted
+  local data = Interactable.getPersistentData(self)
+  data.x = self.position.x
+  data.y = self.position.y
+  data.z = self.position.z
+  data.direction = self.direction
+  data.animName = self.animName
   return data
 end
 -- Sets persistent data.

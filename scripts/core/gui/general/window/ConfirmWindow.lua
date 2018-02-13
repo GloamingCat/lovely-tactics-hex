@@ -45,7 +45,7 @@ end
 function ConfirmWindow:cancelConfirm(button)
   self.result = 0
 end
--- @ret(string) String representation (for debugging)
+-- @ret(string) String representation (for debugging).
 function ConfirmWindow:__tostring()
   return 'Confirm Window'
 end

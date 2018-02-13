@@ -52,7 +52,11 @@ end
 -- Field Data
 ---------------------------------------------------------------------------------------------------
 
+-- Gets the persistent data of a field.
+-- @param(id : number) Field's ID.
+-- @ret(table) The data table.
 function SaveManager:getFieldData(id)
+  id = id .. ''
   local persistentData = self.current.fields[id]
   if persistentData == nil then
     persistentData = { chars = {}, vars = {} }
@@ -60,20 +64,25 @@ function SaveManager:getFieldData(id)
   end
   return persistentData
 end
-
+-- Stores current field's information in the save data table.
+-- @param(field : Field) Field to store (current field by default).
 function SaveManager:storeFieldData(field)
   field = field or FieldManager.currentField
   if field.prefs.persistent then
     local persistentData = self:getFieldData(field.id)
     for char in FieldManager.characterList:iterator() do
-      persistentData.chars[char.key] = char:getPersistentData()
+      if char.persistent then
+        persistentData.chars[char.key] = char:getPersistentData()
+      end
     end
     persistentData.vars = copyTable(field.vars)
   end
 end
-
-function SaveManager:storeCharData(id, char)
-  local persistentData = self:getFieldData(id)
+-- Stores a character's information in the save data table.
+-- @param(fieldID : number) The ID of the character's field.
+-- @param(char : Character) Character to store.
+function SaveManager:storeCharData(fieldID, char)
+  local persistentData = self:getFieldData(fieldID)
   persistentData.chars[char.key] = char:getPersistentData()
 end
 

@@ -11,6 +11,7 @@ Functions that are loaded from the EventSheet.
 local AIRule = require('core/battle/ai/AIRule')
 local DialogueWindow = require('core/gui/general/window/DialogueWindow')
 local GUI = require('core/gui/GUI')
+local TagMap = require('core/datastruct/TagMap')
 
 -- Alias
 local deltaTime = love.timer.getDelta
@@ -24,8 +25,17 @@ local util = {}
 -- Functions
 ---------------------------------------------------------------------------------------------------
 
-function util.luaScript(sheet, event, param)
-  loadfunction(param, 'sheet, event')(sheet, event)
+-- Calls a Lua script given by a string.
+-- @param(args : string) The encoded script.
+function util.luaScript(sheet, event, args)
+  loadfunction(args, 'sheet, event')(sheet, event)
+end
+-- Calls a custom event command.
+-- @param(args.name : string) The name of the command.
+-- @param(args.args : table) Array of custom parameters (key and value).
+function util.customCommand(sheet, event, args)
+  local commandParam = TagMap(args.args)
+  util[args.command](sheet, event, commandParam)
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -33,21 +43,28 @@ end
 ---------------------------------------------------------------------------------------------------
 
 -- General parameters:
--- @param(name : string) The name of the variable. Two variables of the same type and the same name
---  will the considered the same variable.
--- @param(expression : string) The expression that returns the new value of the variable.
+-- @param(args.name : string) The name of the variable. Two variables of the same type and the 
+--  same name will the considered as the same variable.
+-- @param(args.expression : string) The expression that returns the new value of the variable.
 
 -- Sets a global variable, accessible from anywhere in the game.
-function util.setGlobalVar(sheet, event, param)
-  SaveManager.current.vars[param.name] = sheet:decodeExpression(event, param.expression)
+function util.setGlobalVar(sheet, event, args)
+  SaveManager.current.vars[args.name] = sheet:decodeExpression(event, args.expression)
+end
+-- Sets a field variable, accessible from anywhere in the field.
+function util.setFieldVar(sheet, event, args)
+  FieldManager.currentField.vars[args.name] = sheet:decodeExpression(event, args.expression)
 end
 -- Sets a character variable, accessible from any sheet of this character.
-function util.setCharacterVar(sheet, event, param)
-  event.char.vars[param.name] = sheet:decodeExpression(event, param.expression)
+-- @param(args.key : string) The key of the character.
+function util.setCharacterVar(sheet, event, args)
+  local char = event[args.key] or FieldManager:search(args.key)
+  assert(char, 'Character not found:', args.key or 'nil key')
+  char.vars[args.name] = sheet:decodeExpression(event, args.expression)
 end
 -- Sets a local variable, accessible from this sheet only.
-function util.setLocalVar(sheet, event, param)
-  sheet.vars[param.name] = sheet:decodeExpression(event, param.expression)
+function util.setLocalVar(sheet, event, args)
+  sheet.vars[args.name] = sheet:decodeExpression(event, args.expression)
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -55,53 +72,54 @@ end
 ---------------------------------------------------------------------------------------------------
 
 -- General parameters:
--- @param(id : number) ID of the dialogue window.
+-- @param(args : table) Argument table.
+-- @param(args.id : number) ID of the dialogue window.
 
 -- Opens a new dialogue window and stores in the given ID.
--- @param(width : number) Width of the window (optional).
--- @param(height : number) Height of the window (optional).
--- @param(x : number) Pixel x of the window (optional).
--- @param(y : number) Pixel y of the window (optional).
-function util.openDialogueWindow(sheet, event, param)
+-- @param(args.width : number) Width of the window (optional).
+-- @param(args.height : number) Height of the window (optional).
+-- @param(args.x : number) Pixel x of the window (optional).
+-- @param(args.y : number) Pixel y of the window (optional).
+function util.openDialogueWindow(sheet, event, args)
   if not sheet.gui then
     sheet.gui = GUI()
     sheet.gui.dialogues = {}
     GUIManager:showGUI(sheet.gui)
   end
   local dialogues = sheet.gui.dialogues
-  local window = dialogues[param.id]
+  local window = dialogues[args.id]
   if window then
-    window:resize(param.width, param.height)
-    window:setXYZ(param.x, param.y)
+    window:resize(args.width, args.height)
+    window:setXYZ(args.x, args.y)
   else
     window = DialogueWindow(sheet.gui, 
-      param.width, param.height, param.x, param.y)
-    dialogues[param.id] = window
+      args.width, args.height, args.x, args.y)
+    dialogues[args.id] = window
   end
   window:show()
   window:activate()
 end
 -- Shows a dialogue in the given window.
--- @param(portrait : table) Character face.
--- @param(message : string) Dialogue text.
-function util.showDialogue(sheet, event, param)
+-- @param(args.portrait : table) Character face.
+-- @param(args.message : string) Dialogue text.
+function util.showDialogue(sheet, event, args)
   assert(sheet.gui, 'You must open a GUI first.')
-  local window = sheet.gui.dialogues[param.id]
-  assert(window, 'You must open window ' .. param.id .. ' first.')
-  window:setPortrait(param.portrait)
+  local window = sheet.gui.dialogues[args.id]
+  assert(window, 'You must open window ' .. args.id .. ' first.')
+  window:setPortrait(args.portrait)
   -- TODO: dialogue name
-  window:showDialogue(param.message)
+  window:showDialogue(args.message)
 end
 -- Closes and deletes a dialogue window.
-function util.closeDialogueWindow(sheet, event, param)
+function util.closeDialogueWindow(sheet, event, args)
   if sheet.gui and sheet.gui.dialogues then
-    local window = sheet.gui.dialogues[param.id]
+    local window = sheet.gui.dialogues[args.id]
     if window then
       window:hide()
     end
     window:removeSelf()
     window:destroy()
-    sheet.gui.dialogues[param.id] = nil
+    sheet.gui.dialogues[args.id] = nil
     if sheet.gui.windowList.size == 0 then
       GUIManager:returnGUI()
       sheet.gui = nil
@@ -109,11 +127,11 @@ function util.closeDialogueWindow(sheet, event, param)
   end
 end
 
-function util.openChoiceWindow(sheet, event, param)
+function util.openChoiceWindow(sheet, event, args)
   -- TODO
 end
 
-function util.openPasswordWindow(sheet, event, param)
+function util.openPasswordWindow(sheet, event, args)
   -- TODO
 end
 
@@ -121,28 +139,31 @@ end
 -- Field
 ---------------------------------------------------------------------------------------------------
 
--- @param(fade : boolean) fade time (optional, no fading by default)
--- @param(fieldID : number) field to loaded's ID
+-- General parameters:
+-- @param(args : table) Argument table.
+-- @param(args.fade : boolean) Fade time (optional, no fading by default);
+-- @param(args.fieldID : number) Field to loaded's ID;
 
 -- Teleports player to other field.
--- @param(x : number) player's destination x
--- @param(y : number) player's destination y
--- @param(h : number) player's destination height
--- @param(direction : number) player's destination direction (in degrees) 
-function util.moveToField(sheet, event, param)
-  if param.fade then
-    FieldManager.renderer:fadeout(255 / param.fade)
+-- @param(args.x : number) Player's destination x.
+-- @param(args.y : number) Player's destination y.
+-- @param(args.h : number) Player's destination height.
+-- @param(args.direction : number) Player's destination direction (in degrees).
+function util.moveToField(sheet, event, args)
+  if args.fade then
+    FieldManager.renderer:fadeout(255 / args.fade)
     event.origin:walkToTile(event.tile:coordinates())
   end
-  FieldManager:loadTransition(param)
+  FieldManager:loadTransition(args)
 end
 -- Loads battle field.
--- @param(intro : boolean) player battle introduction animation
--- @param(gameOverCondition : number) 0 => no gameover, 1 => only when lost, 2 => lost or draw
--- @param(escapeEnabled : boolean) true to enable the whole party to escape
-function util.startBattle(sheet, event, param)
+-- @param(args.intro : boolean) Battle introduction animation.
+-- @param(args.gameOverCondition : number) GameOver condition:
+--  0 => no gameover, 1 => only when lost, 2 => lost or draw.
+-- @param(args.escapeEnabled : boolean) True to enable the whole party to escape.
+function util.startBattle(sheet, event, args)
   local fiber = FieldManager.fiberList:fork(function()
-    if param.fade then
+    if args.fade then
       local previousBGM = AudioManager:pauseBGM()
       -- TODO: play battle intro SFX
       -- TODO: play battle theme
@@ -156,7 +177,7 @@ function util.startBattle(sheet, event, param)
       end
       ScreenManager.shader = nil
     end
-    FieldManager:loadBattle(param.fieldID, param)
+    FieldManager:loadBattle(args.fieldID, args)
   end)
   fiber:waitForEnd()
 end
@@ -166,13 +187,13 @@ end
 ---------------------------------------------------------------------------------------------------
 
 -- Executes a battle rule during AI processing.
--- @param(path : string) Path to the rule from "custom/ai/rule/" folder.
--- @param(condition : string) Boolean expression that must be true to execute the rule.
--- @param(tags : table) Array of tags of the rule.
-function util.battleRule(sheet, event, param)
-  local rule = AIRule:fromData(param, event.user)
+-- @param(args.path : string) Path to the rule from "custom/ai/rule/" folder.
+-- @param(args.condition : string) Boolean expression that must be true to execute the rule.
+-- @param(args.tags : table) Array of tags of the rule.
+function util.battleRule(sheet, event, args)
+  local rule = AIRule:fromData(args, event.user)
   rule:onSelect(event.origin)
-  local condition = param.condition ~= '' and param.condition
+  local condition = args.condition ~= '' and args.condition
   if not condition or sheet:decodeExpression(condition) then
     if rule:canExecute() then
       event.AI.result = rule:execute()
@@ -184,35 +205,96 @@ end
 -- Sound
 ---------------------------------------------------------------------------------------------------
 
--- @param(name : string) The path to the sound from audio/bgm (BGMs) or audio/sfx (SFX).
--- @param(volume : number) Volume in percentage.
--- @param(pitch : number) Pitch in percentage.
--- @param(time : number) The duration of the BGM fading transition.
--- @param(wait : boolean) Wait for the BGM fading transition.
+-- General parameters:
+-- @param(args : table) Argument table.
+-- @param(args.name : string) The path to the sound from audio/bgm (BGMs) or audio/sfx (SFX).
+-- @param(args.volume : number) Volume in percentage.
+-- @param(args.pitch : number) Pitch in percentage.
+-- @param(args.time : number) The duration of the BGM fading transition.
+-- @param(args.wait : boolean) Wait for the BGM fading transition.
 
 -- Changes the current BGM.
-function util.playBGM(sheet, event, param)
-  AudioManager:playBGM(param, param.time, param.wait)
+function util.playBGM(sheet, event, args)
+  AudioManager:playBGM(args, args.time, args.wait)
 end
 -- Pauses current BGM.
-function util.pauseBGM(sheet, event, param)
-  AudioManager:pauseBGM(param, param.time, param.wait)
+function util.pauseBGM(sheet, event, args)
+  AudioManager:pauseBGM(args, args.time, args.wait)
 end
 -- Resumes current BGM.
-function util.resumeBGM(sheet, event, param)
-  AudioManager:resumeBGM(param, param.time, param.wait)
+function util.resumeBGM(sheet, event, args)
+  AudioManager:resumeBGM(args, args.time, args.wait)
 end
 -- Play a sound effect.
-function util.playSFX(sheet, event, param)
-  AudioManager:playSFX(param)
+function util.playSFX(sheet, event, args)
+  AudioManager:playSFX(args)
 end
 
 ---------------------------------------------------------------------------------------------------
 -- Character
 ---------------------------------------------------------------------------------------------------
 
-function util.moveCharacter(sheet, event, param)
+-- General parameters:
+-- @param(args : table) Argument table.
+-- @param(args.key : string) The key of the character.
+--  "origin" or "dest" to refer to event's characters, or any other key to refer to any other
+--  character in the current field.
+
+-- Moves straight to the given tile.
+-- @param(args.x : number) Tile x difference.
+-- @param(args.y : number) Tile y difference.
+-- @param(args.h : number) Tile height difference (0 by default).
+function util.moveCharTile(sheet, event, args)
+  local char = event[args.key] or FieldManager:search(args.key)
+  assert(char, 'Character not found:', args.key or 'nil key')
+  char:walkTiles(args.x, args.y, args.h)
+end
+-- Moves in the given direction.
+-- @param(args.angle : number) The direction in degrees.
+-- @param(args.distance : number) The distance to move (in tiles).
+function util.moveCharDir(sheet, event, args)
+  local char = event[args.key] or FieldManager:search(args.key)
+  assert(char, 'Character not found:', args.key or 'nil key')
+  local nextTile = char:frontTile(args.angle)
+  if nextTile then
+    local ox, oy, oh = char:getTile():coordinates()
+    local dx, dy, dh = nextTile:coordinates()
+    dx, dy, dh = dx - ox, dy - oy, dh - oh
+    dx, dy, dh = dx * args.distance, dy * args.distance, dh * args.distance
+    char:walkToTile(ox + dx, oy + dy, oh + dh, false)
+  end
+end
+-- Moves a path to the given tile.
+-- @param(args.x : number) Tile destination x.
+-- @param(args.y : number) Tile destination y.
+-- @param(args.h : number) Tile destination height.
+function util.moveCharPath(sheet, event, args)
   -- TODO
+end
+-- Turns character to the given tile.
+-- @param(args.x : number) Tile destination x.
+-- @param(args.y : number) Tile destination y.
+function util.turnCharTile(sheet, event, args)
+  local char = event[args.key] or FieldManager:search(args.key)
+  assert(char, 'Character not found:', args.key or 'nil key')
+  char:turnToTile(args.x, args.y)
+end
+-- Turn character to the given direction.
+-- @param(args.angle : number) The direction angle in degrees.
+function util.turnCharDir(sheet, event, args)
+  local char = event[args.key] or FieldManager:search(args.key)
+  assert(char, 'Character not found:', args.key or 'nil key')
+  char:setDirection(args.angle)
+end
+-- Removes a character from the field.
+-- @param(args.permanent : boolean) If false, character shows up again when field if reloaded.
+function util.deleteChar(sheet, event, args)
+  local char = event[args.key] or FieldManager:search(args.key)
+  assert(char, 'Character not found:', args.key or 'nil key')
+  if args.permanent then
+    char.deleted = true
+  end
+  char:destroy()
 end
 
 return util

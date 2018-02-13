@@ -101,7 +101,7 @@ end
 function EquipItemWindow:colCount()
   return 1
 end
--- @ret(string) String representation (for debugging)
+-- @ret(string) String representation (for debugging).
 function EquipItemWindow:__tostring()
   return 'Equip Item Window'
 end

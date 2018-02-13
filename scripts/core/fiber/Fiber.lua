@@ -58,6 +58,7 @@ function Fiber:update()
   if not self.coroutine then
     return
   end
+  
   if status(self.coroutine) == 'dead' then
     self.coroutine = nil
   else

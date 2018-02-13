@@ -68,11 +68,13 @@ function FieldLoader.loadCharacters(field, characters)
   local persistentData = SaveManager:getFieldData(field.id)
   -- Create characters
   for i, char in ipairs(characters) do
-    local save = persistentData[char.key]
-    if char.charID then
-      Character(char, save)
-    else
-      Interactable(char, save)
+    local save = persistentData.chars[char.key]
+    if not (save and save.deleted) then
+      if save and save.charID or char.charID then
+        Character(char, save)
+      else
+        Interactable(char, save)
+      end
     end
   end
 end
@@ -128,7 +130,7 @@ function FieldLoader.createTransitions(field, transitions)
       for y = miny, maxy do
         local tile = field:getObjectTile(x, y, 0)
         if not tile:collidesObstacle(0, 0) then
-          local char = { key = '',
+          local char = { key = 'Transition',
             x = x, y = y, h = 0,
             collideScript = script }
           Interactable(char)
