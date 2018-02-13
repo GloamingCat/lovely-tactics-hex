@@ -8,6 +8,7 @@ Loads and prepares field from file data.
 =================================================================================================]]
 
 -- Imports
+local Character = require('core/objects/Character')
 local Field = require('core/field/Field')
 local Interactable = require('core/objects/Interactable')
 
@@ -57,6 +58,23 @@ function FieldLoader.getIDs(fieldID)
     i = i + 1
   end
   return t
+end
+
+---------------------------------------------------------------------------------------------------
+-- Character
+---------------------------------------------------------------------------------------------------
+
+function FieldLoader.loadCharacters(field, characters)
+  local persistentData = SaveManager:getFieldData(field.id)
+  -- Create characters
+  for i, char in ipairs(characters) do
+    local save = persistentData[char.key]
+    if char.charID then
+      Character(char, save)
+    else
+      Interactable(char, save)
+    end
+  end
 end
 
 ---------------------------------------------------------------------------------------------------

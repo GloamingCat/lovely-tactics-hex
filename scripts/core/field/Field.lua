@@ -35,6 +35,7 @@ function Field:init(data)
   self.sizeY = data.sizeY
   self.tags = TagMap(data.prefs.tags)
   self.prefs = data.prefs
+  self.vars = {}
   local script = data.prefs.onStart
   if script and script.path ~= '' then
     self.startScript = script

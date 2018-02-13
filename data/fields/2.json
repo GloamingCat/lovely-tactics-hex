@@ -1,98 +1,99 @@
 {
-  "id": 2,
-  "sizeX": 15,
-  "sizeY": 8,
-  "prefs": {
-    "name": "Forest 2",
-    "defaultRegion": 0,
-    //"bgm": {
-    //  "name": "The Brother I Never Had.mp3",
-    //  "time": 30
-    //},
-    // Automatically generated transitions interactables.
-    "transitions": [
-      {
-        "side": "south",
-        "fieldID": 1,
-        "x": 3,
-        "y": 2,
-        "h": 0,
-        "min": 9,
-        "max": 13,
-        "direction": 315,
-        "fade": 60
-      },
-      {
-        "side": "north",
-        "fieldID": 4,
-        "x": 6,
-        "y": 10,
-        "h": 0,
-        "min": 7,
-        "max": 13,
-        "direction": 135,
-        "fade": 60
-      }
-    ],
-    "tags": []
-  },
-  "battle": {
-    "parties": [],
-    "playerParty": -1
-  },
-  "characters": [
-    {
-      "key": "Enemy",
-      "x": 9,
-      "y": 5,
-      "h": 0,
-      "party": -1,
-      "charID": 22,
-      "battlerID": -1,
-      "anim": "Idle",
-      "direction": 315,
-      "collideScript": {
-        "commands": [
-          {
-            "name": "eventScript",
-            "param": 2
-          }
-        ],
-        "global": false
-      },
-      "tags": []
-    }
-  ],
-  "layers": [
-    {
-  		"name": "Sand",
-  		"type": 0,
-  		"height": 0,
-  		"tags": []
-    },
-    {
-  		"name": "Grass",
-  		"type": 0,
-  		"height": 0,
-  		"tags": []
-    },
-    {
-  		"name": "Bush",
-  		"type": 0,
-  		"height": 0,
-  		"tags": []
-    },
-    {
-  		"name": "Water",
-  		"type": 0,
-  		"height": 0,
-  		"tags": []
-    },
-    {
-  		"name": "Obstacles",
-  		"type": 1,
-  		"height": 0,
-  		"tags": []
-    }
-  ]
+	"id": 2,
+	"sizeX": 15,
+	"sizeY": 8,
+	"prefs": {
+		"name": "Forest 2",
+		"persistent": true,
+		"defaultRegion": 0,
+		//"bgm": {
+		//  "name": "The Brother I Never Had.mp3",
+		//  "time": 30
+		//},
+		// Automatically generated transitions interactables.
+		"transitions": [
+			{
+				"side": "south",
+				"fieldID": 1,
+				"x": 3,
+				"y": 2,
+				"h": 0,
+				"min": 9,
+				"max": 13,
+				"direction": 315,
+				"fade": 60
+			},
+			{
+				"side": "north",
+				"fieldID": 4,
+				"x": 6,
+				"y": 10,
+				"h": 0,
+				"min": 7,
+				"max": 13,
+				"direction": 135,
+				"fade": 60
+			}
+		],
+		"tags": []
+	},
+	"battle": {
+		"parties": [],
+		"playerParty": -1
+	},
+	"characters": [
+		{
+			"key": "Enemy",
+			"x": 9,
+			"y": 5,
+			"h": 0,
+			"party": -1,
+			"charID": 20,
+			"battlerID": -1,
+			"anim": "Idle",
+			"direction": 315,
+			"collideScript": {
+				"commands": [
+					{
+						"name": "eventScript",
+						"param": 2
+					}
+				],
+				"global": false
+			},
+			"tags": []
+		}
+	],
+	"layers": [
+		{
+			"name": "Sand",
+			"type": 0,
+			"height": 0,
+			"tags": []
+		},
+		{
+			"name": "Grass",
+			"type": 0,
+			"height": 0,
+			"tags": []
+		},
+		{
+			"name": "Bush",
+			"type": 0,
+			"height": 0,
+			"tags": []
+		},
+		{
+			"name": "Water",
+			"type": 0,
+			"height": 0,
+			"tags": []
+		},
+		{
+			"name": "Obstacles",
+			"type": 1,
+			"height": 0,
+			"tags": []
+		}
+	]
 }

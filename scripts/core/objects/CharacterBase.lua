@@ -23,6 +23,7 @@ local Quad = love.graphics.newQuad
 local round = math.round
 local time = love.timer.getDelta
 local tile2Pixel = math.field.tile2Pixel
+local copyTable = util.table.deepCopy
 
 -- Constants
 local animSets = Config.animations.sets
@@ -35,12 +36,17 @@ local CharacterBase = class(DirectedObject, Interactable)
 
 -- Constructor.
 -- @param(instData : table) the character's data from field file
-function CharacterBase:init(instData)
+function CharacterBase:init(instData, save)
   -- Character data
   local data = Database.characters[instData.charID]
+  -- Position
+  local x, y, h = instData.x, instData.y, instData.h
+  if save then
+    x, y, h = save.x, save.y, save.h
+  end
+  local pos = Vector(tile2Pixel(x, y, h))
   -- Old init
-  local x, y, z = tile2Pixel(instData.x, instData.y, instData.h)
-  DirectedObject.init(self, data, Vector(x, y, z))
+  DirectedObject.init(self, data, pos)
   -- Battle info
   self.key = instData.key or ''
   self.party = instData.party or -1
@@ -52,15 +58,36 @@ function CharacterBase:init(instData)
   FieldManager.characterList:add(self)
   FieldManager.updateList:add(self)
   -- Initialize properties
-  self:initProperties(data.name, data.tiles, data.collider)
-  self:initGraphics(data.animations, instData.direction, instData.anim, data.transform, data.shadowID)
+  self:initProperties(data.name, data.tiles, data.collider, save)
+  self:initGraphics(data.animations, instData.direction, instData.anim, data.transform, data.shadowID, save)
   self:initScripts(instData)
   -- Initial position
-  self:setXYZ(x, y, z)
+  self:setPosition(pos)
   self:addToTiles()
 end
+-- Sets generic properties.
+-- @param(name : string) the name of the character
+-- @param(tiles : table) a list of collision tiles
+-- @param(colliderHeight : number) collider's height in height units
+function CharacterBase:initProperties(name, tiles, colliderHeight, save)
+  self.name = name
+  self.collisionTiles = tiles
+  self.passable = false
+  self.speed = 60
+  self.autoAnim = true
+  self.autoTurn = true
+  self.walkAnim = 'Walk'
+  self.idleAnim = 'Idle'
+  self.dashAnim = 'Dash'
+  self.damageAnim = 'Damage'
+  self.koAnim = 'KO'
+  self.cropMovement = false
+  self.paused = false
+  self.deleted = false
+  self.vars = {}
+end
 -- Overrides to create the animation sets.
-function CharacterBase:initGraphics(animations, dir, initAnim, transform, shadowID)
+function CharacterBase:initGraphics(animations, dir, initAnim, transform, shadowID, save)
   if shadowID and shadowID >= 0 then
     local shadowData = Database.animations[shadowID]
     self.shadow = ResourceManager:loadSprite(shadowData, FieldManager.renderer)
@@ -78,26 +105,6 @@ function CharacterBase:initGraphics(animations, dir, initAnim, transform, shadow
     end
   end
   self.animationData = default
-end
--- Sets generic properties.
--- @param(name : string) the name of the character
--- @param(tiles : table) a list of collision tiles
--- @param(colliderHeight : number) collider's height in height units
-function CharacterBase:initProperties(name, tiles, colliderHeight)
-  self.name = name
-  self.collisionTiles = tiles
-  self.passable = false
-  self.speed = 60
-  self.autoAnim = true
-  self.autoTurn = true
-  self.walkAnim = 'Walk'
-  self.idleAnim = 'Idle'
-  self.dashAnim = 'Dash'
-  self.damageAnim = 'Damage'
-  self.koAnim = 'KO'
-  self.cropMovement = false
-  self.paused = false
-  self.vars = {}
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -251,6 +258,8 @@ function CharacterBase:getPersistentData()
   data.lastz = self.position.z
   data.lastDir = self.direction
   data.lastAnim = self.animName
+  data.vars = copyTable(self.vars)
+  data.deleted = self.deleted
   return data
 end
 -- Sets persistent data.

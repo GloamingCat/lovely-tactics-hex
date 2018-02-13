@@ -1,76 +1,77 @@
 {
-  "id": 6,
-  "sizeX": 13,
-  "sizeY": 8,
-  "prefs": {
-    "name": "Forest 6",
-    "defaultRegion": 0,
-    //"bgm": {
-    //  "name": "The Brother I Never Had.mp3",
-    //  "time": 30
-    //},
-    // Automatically generated transitions interactables.
-    "transitions": [
-      {
-        "side": "south",
-        "fieldID": 4,
-        "x": 8,
-        "y": 2,
-        "h": 0,
-        "min": 4,
-        "max": 6,
-        "direction": 315,
-        "fade": 60
-      },
-      {
-        "side": "east",
-        "fieldID": 5,
-        "x": 2,
-        "y": 3,
-        "h": 0,
-        "min": 5,
-        "max": 7,
-        "direction": 45,
-        "fade": 60
-      }
-    ],
-    "tags": []
-  },
-  "battle": {
-    "parties": [],
-    "playerParty": -1
-  },
-  "characters": [],
-  "layers": [
-    {
-      "name": "Sand",
-      "type": 0,
-      "height": 0,
-      "tags": []
-    },
-    {
-      "name": "Grass",
-      "type": 0,
-      "height": 0,
-      "tags": []
-    },
-    {
-      "name": "Bush",
-      "type": 0,
-      "height": 0,
-      "tags": []
-    },
-    {
-      "name": "Water",
-      "type": 0,
-      "height": 0,
-      "tags": []
-    },
-    {
-      "name": "Obstacles",
-      "type": 1,
-      "height": 0,
-      "tags": []
-    }
-  ]
+	"id": 6,
+	"sizeX": 13,
+	"sizeY": 8,
+	"prefs": {
+		"name": "Forest 6",
+		"persistent": true,
+		"defaultRegion": 0,
+		//"bgm": {
+		//  "name": "The Brother I Never Had.mp3",
+		//  "time": 30
+		//},
+		// Automatically generated transitions interactables.
+		"transitions": [
+			{
+				"side": "south",
+				"fieldID": 4,
+				"x": 8,
+				"y": 2,
+				"h": 0,
+				"min": 4,
+				"max": 6,
+				"direction": 315,
+				"fade": 60
+			},
+			{
+				"side": "east",
+				"fieldID": 5,
+				"x": 2,
+				"y": 3,
+				"h": 0,
+				"min": 5,
+				"max": 7,
+				"direction": 45,
+				"fade": 60
+			}
+		],
+		"tags": []
+	},
+	"battle": {
+		"parties": [],
+		"playerParty": -1
+	},
+	"characters": [],
+	"layers": [
+		{
+			"name": "Sand",
+			"type": 0,
+			"height": 0,
+			"tags": []
+		},
+		{
+			"name": "Grass",
+			"type": 0,
+			"height": 0,
+			"tags": []
+		},
+		{
+			"name": "Bush",
+			"type": 0,
+			"height": 0,
+			"tags": []
+		},
+		{
+			"name": "Water",
+			"type": 0,
+			"height": 0,
+			"tags": []
+		},
+		{
+			"name": "Obstacles",
+			"type": 1,
+			"height": 0,
+			"tags": []
+		}
+	]
 }

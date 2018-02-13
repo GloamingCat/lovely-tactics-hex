@@ -9,8 +9,6 @@ game's data.
 =================================================================================================]]
 
 -- Imports
-local Character = require('core/objects/Character')
-local Interactable = require('core/objects/Interactable')
 local FieldCamera = require('core/field/FieldCamera')
 local FiberList = require('core/fiber/FiberList')
 local FieldLoader = require('core/field/FieldLoader')
@@ -56,9 +54,6 @@ end
 -- Creates field from ID.
 -- @param(fieldID : number) the field's ID
 function FieldManager:loadField(fieldID)
-  if self.currentField ~= nil then
-    --self:storePersistentData()
-  end
   local fieldData = Serializer.load('data/fields/' .. fieldID .. '.json')
   self.updateList = List()
   self.characterList = List()
@@ -68,6 +63,7 @@ function FieldManager:loadField(fieldID)
   self.renderer = self:createCamera(fieldData.sizeX, fieldData.sizeY, #fieldData.layers)
   self.currentField = FieldLoader.loadField(fieldData)
   FieldLoader.mergeLayers(self.currentField, fieldData.layers)
+  FieldLoader.loadCharacters(self.currentField, fieldData.characters)
   collectgarbage('collect')
   return fieldData
 end
@@ -102,33 +98,11 @@ function FieldManager:getPlayerTransition()
   end
   local x, y, h = self.player:getTile():coordinates()
   return {
-    tileX = x,
-    tileY = y,
-    height = h,
+    x = x,
+    y = y,
+    h = h,
     direction = self.player.direction,
     fieldID = self.currentField.id }
-end
--- Gets a generic variable of this field.
--- @param(id : number) the ID of the variable
--- @ret(unknown) the currently stored value for this variable
-function FieldManager:getVariable(id)
-  local persistentData = SaveManager.current.fieldData[id]
-  if persistentData.variables then
-    return persistentData.variables[id]
-  else
-    return nil
-  end
-end
--- Sets a generic variable of this field.
--- @param(id : number) the ID of the variable
--- @param(value : unknown) the content of the variable
-function FieldManager:setVariable(id, value)
-  if value == nil then
-    value = true
-  end
-  local persistentData = SaveManager.current.fieldData[id]
-  persistentData.switches = persistentData.switches or {}
-  persistentData.switches[id] = value
 end
 -- Gets manager's state (returns to a previous field).
 -- @ret(table) the table with the state's contents
@@ -154,41 +128,6 @@ function FieldManager:setState(state)
 end
 
 ---------------------------------------------------------------------------------------------------
--- Persistent Data
----------------------------------------------------------------------------------------------------
-
--- Loads each character's persistent data.
--- @param(id : number) the field id
-function FieldManager:loadPersistentData(id)
-  local persistentData = SaveManager.current.fieldData[id]
-  if persistentData == nil then
-    persistentData = {}
-    SaveManager.current.fieldData[id] = persistentData
-  end
-  for char in self.characterList:iterator() do
-    char:setPersistentData(persistentData[char.id])
-  end
-end
--- Stores each character's persistent data.
-function FieldManager:storePersistentData()
-  local id = self.currentField.id
-  local persistentData = SaveManager.current.fieldData[id]
-  if persistentData == nil then
-    persistentData = {}
-    SaveManager.current.fieldData[id] = persistentData
-  end
-  for char in self.characterList:iterator() do
-    persistentData[char.id] = char:getPersistentData()
-  end
-end
--- Gets current field's persistent data from save.
--- @ret(table) the data table from save
-function FieldManager:getPersistentData()
-  local id = self.currentField.id
-  return SaveManager.current.fieldData[id]
-end
-
----------------------------------------------------------------------------------------------------
 -- Field transition
 ---------------------------------------------------------------------------------------------------
 
@@ -198,19 +137,13 @@ end
 -- Don't use this function if you just want to move the player to another tile in the same field.
 -- @param(transition : table) the transition data
 function FieldManager:loadTransition(transition, fromSave)
+  if self.currentField then
+    SaveManager:storeFieldData(self.currentField)
+  end
   local fieldID = transition.fieldID
   local fieldData = self:loadField(fieldID)
-  -- Create characters
-  for i, char in ipairs(fieldData.characters) do
-    if char.charID then
-      Character(char)
-    else
-      Interactable(char)
-    end
-  end
   self.player = self:createPlayer(transition)
   self.renderer.focusObject = self.player
-  --self:loadPersistentData(fieldID)
   -- Create/call start listeners
   local script = self.currentField.startScript
   if script then

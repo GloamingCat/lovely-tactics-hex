@@ -27,7 +27,6 @@ end
 function GameManager:start(arg)
   self.fpsFont = ResourceManager:loadFont(Fonts.fps)
   SaveManager:newSave()
-  FieldManager:loadTransition(SaveManager.current.playerTransition)
 end
 
 ---------------------------------------------------------------------------------------------------

@@ -4,6 +4,7 @@
 	"sizeY": 15,
 	"prefs": {
 		"name": "Battle Field",
+		"persistent": false,
 		"defaultRegion": 0,
 		"transitions": [],
 		"tags": []

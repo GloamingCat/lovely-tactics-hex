@@ -40,7 +40,15 @@
 		"path": "FocusPause",
 		"on": true,
 		"param": {
-			"pauseAudio": true
+			"pauseAudio": "true"
+		}
+	},
+	{
+		"path": "QuickSave",
+		"on": true,
+		"param": {
+			"saveKey": "f1",
+			"loadKey": "f2"
 		}
 	}
 ]
