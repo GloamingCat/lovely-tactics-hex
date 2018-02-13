@@ -11,7 +11,7 @@ The BattleAction that is executed when players chooses a skill to use.
 local ActionInput = require('core/battle/action/ActionInput')
 local BattleAction = require('core/battle/action/BattleAction')
 local List = require('core/datastruct/List')
-local MoveAction = require('core/battle/action/MoveAction')
+local BattleMoveAction = require('core/battle/action/BattleMoveAction')
 local PathFinder = require('core/battle/ai/PathFinder')
 local PopupText = require('core/battle/PopupText')
 local TagMap = require('core/datastruct/TagMap')
@@ -133,7 +133,7 @@ end
 -- Overrides BattleAction:onConfirm.
 -- Executes the movement action and the skill's effect.
 function SkillAction:execute(input)
-  local moveAction = MoveAction(self.data.range)
+  local moveAction = BattleMoveAction(self.data.range)
   local moveInput = ActionInput(moveAction, input.user, input.target)
   moveInput.skipAnimations = input.skipAnimations
   local result = moveInput:execute(moveInput)

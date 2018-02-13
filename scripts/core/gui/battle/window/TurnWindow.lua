@@ -15,7 +15,7 @@ local BattleCursor = require('core/battle/BattleCursor')
 local Button = require('core/gui/widget/Button')
 local CallAction = require('core/battle/action/CallAction')
 local EscapeAction = require('core/battle/action/EscapeAction')
-local MoveAction = require('core/battle/action/MoveAction')
+local BattleMoveAction = require('core/battle/action/BattleMoveAction')
 local VisualizeAction = require('core/battle/action/VisualizeAction')
 local WaitAction = require('core/battle/action/WaitAction')
 
@@ -32,7 +32,7 @@ local TurnWindow = class(ActionWindow)
 ---------------------------------------------------------------------------------------------------
 
 function TurnWindow:init(...)
-  self.moveAction = MoveAction()
+  self.moveAction = BattleMoveAction()
   self.callAction = CallAction()
   self.escapeAction = EscapeAction()
   self.visualizeAction = VisualizeAction()

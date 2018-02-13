@@ -8,7 +8,7 @@ An action that represents a full decision for the turn (a movement, a BattleActi
 =================================================================================================]]
 
 -- Imports
-local MoveAction = require('core/battle/action/MoveAction')
+local BattleMoveAction = require('core/battle/action/BattleMoveAction')
 
 -- Alias
 local expectation = math.randomExpectation
@@ -22,7 +22,7 @@ local ActionInput = class()
 -- @param(action : BattleAction)
 -- @param(user : Character)
 -- @param(target : ObjectTile) action target (optional)
--- @param(moveTarget : ObjectTile) MoveAction target (optional)
+-- @param(moveTarget : ObjectTile) BattleMoveAction target (optional)
 -- @param(GUI : ActionGUI) current ActionGUI, if any (optional)
 function ActionInput:init(action, user, target, moveTarget, GUI)
   self.action = action
@@ -35,7 +35,7 @@ end
 -- Creates an ActionInput that skips animation and estimates random output.
 -- @param(user : Character)
 -- @param(target : ObjectTile) action target (optional)
--- @param(moveTarget : ObjectTile) MoveAction target (optional)
+-- @param(moveTarget : ObjectTile) BattleMoveAction target (optional)
 -- @param(GUI : ActionGUI) current ActionGUI, if any (optional)
 function ActionInput.newSimulation(action, user, target, moveTarget)
   local input = ActionInput(action, user, target, moveTarget)
@@ -67,10 +67,10 @@ function ActionInput:execute()
     return 0
   end
 end
--- Executes the MoveAction to the specified move target.
+-- Executes the BattleMoveAction to the specified move target.
 function ActionInput:executeMovement()
   if self.moveTarget then
-    local moveInput = ActionInput(MoveAction(), self.user, self.moveTarget)
+    local moveInput = ActionInput(BattleMoveAction(), self.user, self.moveTarget)
     moveInput.skipAnimations = self.skipAnimations
     moveInput:execute()
   end

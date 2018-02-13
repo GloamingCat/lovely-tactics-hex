@@ -13,10 +13,21 @@
 		// Script that runs when player enters the field
 		"onStart": {
 			"commands": [
-			//{
-			//  "name": "eventScript",
-			//  "param": 3
-			//}
+				/*
+				{
+				  "name": "eventScript",
+				  "param": 3
+				},
+				{
+					"name": "moveCharPath",
+					"param": {
+						"key": "player",
+						"x": 12,
+						"y": 2,
+						"h": 0
+					}
+				}
+				*/
 			],
 			"global": false
 		},

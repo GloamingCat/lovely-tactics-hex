@@ -8,18 +8,18 @@ ControlZone
 =================================================================================================]]
 
 -- Imports
-local MoveAction = require('core/battle/action/MoveAction')
+local BattleMoveAction = require('core/battle/action/BattleMoveAction')
 local ObjectTile = require('core/field/ObjectTile')
 local Battler = require('core/battle/Battler')
 
 ---------------------------------------------------------------------------------------------------
--- MoveAction
+-- BattleMoveAction
 ---------------------------------------------------------------------------------------------------
 
 -- Override.
-local MoveAction_passable = MoveAction.isPassableBetween
-function MoveAction:isPassableBetween(initial, final, user)
-  local passable = MoveAction_passable(self, initial, final, user)
+local BattleMoveAction_passable = BattleMoveAction.isPassableBetween
+function BattleMoveAction:isPassableBetween(initial, final, user)
+  local passable = BattleMoveAction_passable(self, initial, final, user)
   return passable and initial:isControlZone(user.battler)
 end
 

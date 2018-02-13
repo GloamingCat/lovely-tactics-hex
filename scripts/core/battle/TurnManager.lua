@@ -8,7 +8,7 @@ Provides methods for battle's turn management.
 =================================================================================================]]
 
 -- Imports
-local MoveAction = require('core/battle/action/MoveAction')
+local BattleMoveAction = require('core/battle/action/BattleMoveAction')
 local PathFinder = require('core/battle/ai/PathFinder')
 local BattleGUI = require('core/gui/battle/BattleGUI')
 
@@ -45,7 +45,7 @@ function TurnManager:pathMatrix()
 end
 -- Recalculates the distance matrix.
 function TurnManager:updatePathMatrix()
-  local moveAction = MoveAction()
+  local moveAction = BattleMoveAction()
   local path = PathFinder.dijkstra(moveAction, self:currentCharacter())
   self.pathMatrixes[self.characterIndex] = path
 end

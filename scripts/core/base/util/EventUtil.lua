@@ -8,9 +8,11 @@ Functions that are loaded from the EventSheet.
 =================================================================================================]]
 
 -- Imports
+local ActionInput = require('core/battle/action/ActionInput')
 local AIRule = require('core/battle/ai/AIRule')
 local DialogueWindow = require('core/gui/general/window/DialogueWindow')
 local GUI = require('core/gui/GUI')
+local MoveAction = require('core/battle/action/MoveAction')
 local TagMap = require('core/datastruct/TagMap')
 
 -- Alias
@@ -240,21 +242,25 @@ end
 --  "origin" or "dest" to refer to event's characters, or any other key to refer to any other
 --  character in the current field.
 
+local function findCharacter(event, key)
+  local char = event[key] or FieldManager:search(key)
+  assert(char, 'Character not found:', key or 'nil key')
+  return char
+end
+
 -- Moves straight to the given tile.
 -- @param(args.x : number) Tile x difference.
 -- @param(args.y : number) Tile y difference.
 -- @param(args.h : number) Tile height difference (0 by default).
 function util.moveCharTile(sheet, event, args)
-  local char = event[args.key] or FieldManager:search(args.key)
-  assert(char, 'Character not found:', args.key or 'nil key')
+  local char = findCharacter(event, args.key)
   char:walkTiles(args.x, args.y, args.h)
 end
 -- Moves in the given direction.
 -- @param(args.angle : number) The direction in degrees.
 -- @param(args.distance : number) The distance to move (in tiles).
 function util.moveCharDir(sheet, event, args)
-  local char = event[args.key] or FieldManager:search(args.key)
-  assert(char, 'Character not found:', args.key or 'nil key')
+  local char = findCharacter(event, args.key)
   local nextTile = char:frontTile(args.angle)
   if nextTile then
     local ox, oy, oh = char:getTile():coordinates()
@@ -269,28 +275,29 @@ end
 -- @param(args.y : number) Tile destination y.
 -- @param(args.h : number) Tile destination height.
 function util.moveCharPath(sheet, event, args)
-  -- TODO
+  local char = findCharacter(event, args.key)
+  local tile = FieldManager.currentField:getObjectTile(args.x, args.y, args.h)
+  assert(tile, 'Tile not reachable: ', args.x, args.y, args.h)
+  local input = ActionInput(MoveAction(), char, tile)
+  input.action:execute(input)
 end
 -- Turns character to the given tile.
 -- @param(args.x : number) Tile destination x.
 -- @param(args.y : number) Tile destination y.
 function util.turnCharTile(sheet, event, args)
-  local char = event[args.key] or FieldManager:search(args.key)
-  assert(char, 'Character not found:', args.key or 'nil key')
+  local char = findCharacter(event, args.key)
   char:turnToTile(args.x, args.y)
 end
 -- Turn character to the given direction.
 -- @param(args.angle : number) The direction angle in degrees.
 function util.turnCharDir(sheet, event, args)
-  local char = event[args.key] or FieldManager:search(args.key)
-  assert(char, 'Character not found:', args.key or 'nil key')
+  local char = findCharacter(event, args.key)
   char:setDirection(args.angle)
 end
 -- Removes a character from the field.
 -- @param(args.permanent : boolean) If false, character shows up again when field if reloaded.
 function util.deleteChar(sheet, event, args)
-  local char = event[args.key] or FieldManager:search(args.key)
-  assert(char, 'Character not found:', args.key or 'nil key')
+  local char = findCharacter(event, args.key)
   if args.permanent then
     char.deleted = true
   end

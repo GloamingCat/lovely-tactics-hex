@@ -8,7 +8,7 @@ A module with some search algorithms to solve optimization problems in the battl
 =================================================================================================]]
 
 -- Imports
-local MoveAction = require('core/battle/action/MoveAction')
+local BattleMoveAction = require('core/battle/action/BattleMoveAction')
 local PriorityQueue = require('core/datastruct/PriorityQueue')
 local PathFinder = require('core/battle/ai/PathFinder')
 
@@ -29,7 +29,7 @@ local BattleTactics = {}
 -- @ret(PriorityQueue) the queue of the characters' tiles and their paths from the user's tile
 function BattleTactics.closestCharacters(input)
   local range = input.action.range
-  local moveAction = MoveAction(range)
+  local moveAction = BattleMoveAction(range)
   local tempQueue = PriorityQueue()
   local initialTile = input.user:getTile()
   local pathMatrix = TurnManager:pathMatrix()
