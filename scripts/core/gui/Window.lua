@@ -37,7 +37,7 @@ function Window:init(GUI, width, height, position)
   Transformable.init(self, position)
   self.GUI = GUI
   self.speed = 10
-  self.spriteGrid = SpriteGrid(self:getSkin(), Vector(0, 0, 2))
+  self.spriteGrid = SpriteGrid(self:getSkin(), Vector(0, 0, 10))
   self.content = List()
   self.width = width
   self.height = height
@@ -67,6 +67,15 @@ function Window:update()
   for c in self.content:iterator() do
     if c.update then
       c:update()
+    end
+  end
+end
+-- Updates all content element's position.
+function Window:updatePosition()
+  self.spriteGrid:updatePosition(self.position)
+  for c in self.content:iterator() do
+    if c.updatePosition then
+      c:updatePosition(self.position)
     end
   end
 end
@@ -112,12 +121,7 @@ end
 -- @param(position : Vector) new position
 function Window:setXYZ(...)
   Transformable.setXYZ(self, ...)
-  self.spriteGrid:updateTransform(self)
-  for c in self.content:iterator() do
-    if c.updatePosition then
-      c:updatePosition(self.position)
-    end
-  end
+  self:updatePosition()
 end
 -- Scales this window.
 -- @param(sx : number) scale in axis x

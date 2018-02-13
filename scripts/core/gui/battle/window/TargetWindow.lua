@@ -8,6 +8,7 @@ Window that shows when the battle cursor is over a character.
 =================================================================================================]]
 
 -- Imports
+local Gauge = require('core/gui/widget/Gauge')
 local IconList = require('core/gui/general/widget/IconList')
 local SimpleText = require('core/gui/widget/SimpleText')
 local Sprite = require('core/graphics/Sprite')
@@ -41,16 +42,23 @@ function TargetWindow:createContent(width, height)
   local y = -self.height / 2 + self:vPadding()
   local w = self.width - self:hPadding() * 2
   -- Name text
-  local posName = Vector(x, y)
+  local posName = Vector(x, y - 1)
   self.textName = SimpleText('', posName, w, 'center')
   self.content:add(self.textName)
+  -- Class text
+  local posClass = Vector(x, y + 15)
+  self.textClass = SimpleText('', posClass, w, 'right', font)
+  self.content:add(self.textClass)
+  -- Level text
+  self.textLevel = SimpleText('', posClass, w, 'left', font)
+  self.content:add(self.textLevel)
   -- State values texts
-  local posHP = Vector(x, y + 15)
-  self.textHP = self:addStateVariable(Vocab.hp, posHP, w)
-  local posSP = Vector(x, y + 25)
-  self.textSP = self:addStateVariable(Vocab.sp, posSP, w)
+  local posHP = Vector(x, y + 25)
+  self.textHP, self.gaugeHP = self:addStateVariable(Vocab.hp, posHP, w, Color.barHP)
+  local posSP = Vector(x, y + 35)
+  self.textSP, self.gaugeSP = self:addStateVariable(Vocab.sp, posSP, w, Color.barSP)
   -- Icon List
-  local posIcons = Vector(x + 8, y + 45)
+  local posIcons = Vector(x + 8, y + 55)
   self.iconList = IconList(posIcons, w, 16)
   self.content:add(self.iconList)
   collectgarbage('collect')
@@ -59,12 +67,19 @@ end
 -- @param(name : string) the name of the variable
 -- @param(pos : Vector) the position of the text
 -- @param(w : width) the max width of the text
-function TargetWindow:addStateVariable(name, pos, w)
-  local textName = SimpleText(name .. ':', pos, w, 'left', font)
-  local textValue = SimpleText('', pos, w, 'right', font)
+function TargetWindow:addStateVariable(name, pos, w, barColor)
+  local textName = SimpleText(name .. ':', pos, w, 'left', Fonts.gui_small)
+  local textValue = SimpleText('', pos, w, 'right', Fonts.gui_tiny)
   self.content:add(textName)
   self.content:add(textValue)
-  return textValue
+  local gaugePos = pos:clone()
+  gaugePos.x = gaugePos.x + 30
+  gaugePos.y = gaugePos.y + 3
+  gaugePos.z = gaugePos.z + 1
+  local gauge = Gauge(gaugePos, w - 30, 6, 1)
+  gauge.bar.sprite:setColor(barColor)
+  self.content:add(gauge)
+  return textValue, gauge
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -82,14 +97,22 @@ function TargetWindow:setBattler(battler)
   -- Name text
   self.textName:setText(battler.name)
   self.textName:redraw()
+  -- Class text
+  self.textClass:setText(battler.class.data.name)
+  self.textClass:redraw()
+  -- Level text
+  self.textLevel:setText(Vocab.level .. ' ' .. battler.class.level)
+  self.textLevel:redraw()
   -- HP text
   local textHP = battler.state[hpKey] .. '/' .. battler.att[hpKey]()
   self.textHP:setText(textHP)
   self.textHP:redraw()
+  self.gaugeHP:setValue(battler.state.hp / battler.mhp())
   -- SP text
   local textSP = battler.state[spKey] .. '/' .. battler.att[spKey]()
   self.textSP:setText(textSP)
   self.textSP:redraw()
+  self.gaugeSP:setValue(battler.state.sp / battler.msp())
   -- Status icons
   self.iconList:setIcons(icons)
   self.iconList:updatePosition(self.position)
@@ -102,8 +125,8 @@ end
 
 -- Calculates the height given the shown variables.
 function TargetWindow:calculateHeight(showStatus)
-  -- Margin + name + HP + SP
-  local h = self:vPadding() * 2 + 15 + 10 + 10
+  -- Margin + name + Class/level + HP + SP
+  local h = self:vPadding() * 2 + 15 + 10 + 10 + 10
   return showStatus and h + 16 or h
 end
 -- String representation.

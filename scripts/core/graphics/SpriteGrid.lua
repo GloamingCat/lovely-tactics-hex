@@ -99,9 +99,10 @@ end
 -- Updates position and scale according to the given parent transformable.
 -- @param(t : Transformable)
 function SpriteGrid:updateTransform(t)
+  local pos = t.position + self.position
   for i = 1, 9 do
     local sprite = self.slices[i].sprite
-    sprite:setPosition(t.position + self.position)
+    sprite:setPosition(pos)
     sprite:setOffset(self.skinData[i].x, self.skinData[i].y)
     sprite:setScale(self.skinData[i].sx * t.scaleX, self.skinData[i].sy * t.scaleY)
   end
@@ -120,9 +121,10 @@ function SpriteGrid:setVisible(value)
 end
 
 function SpriteGrid:updatePosition(pos)
+  pos = pos + self.position
   for i = 1, 9 do
     local sprite = self.slices[i].sprite
-    sprite:setPosition(pos + self.position)
+    sprite:setPosition(pos)
   end
 end
 
