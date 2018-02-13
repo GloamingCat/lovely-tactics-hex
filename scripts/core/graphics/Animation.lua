@@ -208,7 +208,7 @@ end
 function Animation:reset()
   self.time = 0
   self.audioIndex = 1
-  self:setRow(0)
+  --self:setRow(0)
   self:setIndex(1)
 end
 -- Destroy this animation.

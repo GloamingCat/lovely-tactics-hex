@@ -185,7 +185,7 @@ function BattleManager:playAnimation(manager, animID, x, y, z, mirror, wait)
   local animData = Database.animations[animID]
   assert(animData, 'Animation does not exist: ' .. animID)
   local animation = ResourceManager:loadAnimation(animData, manager.renderer)
-  animation.sprite:setXYZ(x, y, z)
+  animation.sprite:setXYZ(x, y, z - 10)
   animation.sprite:setTransformation(animData.transform)
   if mirror then
     animation.sprite:setScale(-animation.sprite.scaleX, animation.sprite.scaleY)

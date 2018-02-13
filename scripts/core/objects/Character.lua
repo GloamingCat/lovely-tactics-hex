@@ -170,8 +170,7 @@ function Character:castSkill(skill, dir, tile)
   local minTime = 0
   if skill.userAnim.cast ~= '' then
     local anim = self:playAnimation(skill.userAnim.cast)
-    anim.time = 0
-    anim:setIndex(1)
+    anim:reset()
     minTime = anim.duration
   end
   -- Cast animation (effect on tile)
@@ -214,7 +213,9 @@ function Character:damage(skill, origin, results)
   if currentTile ~= origin then
     self:turnToTile(origin.x, origin.y)
   end
-  self:playAnimation(self.damageAnim, true)
+  local anim = self:playAnimation(self.damageAnim)
+  anim:reset()
+  _G.Fiber:wait(anim.duration)
   if self.battler:isAlive() then
     self:playAnimation(self.idleAnim)
   else

@@ -36,10 +36,6 @@ local CharacterBase = class(DirectedObject, Interactable)
 -- Constructor.
 -- @param(instData : table) the character's data from field file
 function CharacterBase:init(instData, save)
-  print(save, instData.key)
-  if save then
-    print(save.deleted)
-  end
   assert(not (save and save.deleted), 'Deleted character.')
   -- Character data
   local data = Database.characters[instData.charID]

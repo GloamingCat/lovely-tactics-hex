@@ -49,7 +49,7 @@ end
 ---------------------------------------------------------------------------------------------------
 
 -- New col count.
-function InventoryWindow:colCount()
+function RewardItemWindow:colCount()
   return 1
 end
 -- @ret(string) String representation (for debugging).
