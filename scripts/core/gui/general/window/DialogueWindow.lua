@@ -34,6 +34,11 @@ local DialogueWindow = class(Window)
 -- Initialization
 ---------------------------------------------------------------------------------------------------
 
+-- @param(GUI : GUI) Parent GUI.
+-- @param(w : number) Width of the window.
+-- @param(h : number) Height of the window.
+-- @param(x : number) Pixel x of the window.
+-- @param(y : number) Pixel y of the window.
 function DialogueWindow:init(GUI, w, h, x, y)
   w = w or ScreenManager.width - GUI:windowMargin()
   h = h or ScreenManager.height / 4
@@ -53,7 +58,9 @@ function DialogueWindow:createContent(width, height)
   self.dialogue = SimpleText('', pos, width - self:hPadding() * 2, self.align, Fonts.gui_dialogue)
   self.content:add(self.dialogue)
 end
-
+-- Gets the substring of a text without breaking rich text commands.
+-- @param(text : string) Text to be cut.
+-- @param(time : number) Character index to be cut at.
 function DialogueWindow:cutText(text, time)
   local i = 0
   for textFragment, resourceKey in text:gmatch('([^{]*){(.-)}') do
@@ -77,7 +84,7 @@ end
 ---------------------------------------------------------------------------------------------------
 
 -- Sets te portrait of the speaker.
--- @param(icon : table) table with id, col and row values
+-- @param(icon : table) Table with id, col and row values.
 function DialogueWindow:setPortrait(icon)
   if self.portrait then
     self.portrait:destroy()
@@ -104,8 +111,8 @@ function DialogueWindow:setPortrait(icon)
     self.indent = w
   end
 end
--- Sets the message to be spoken.
--- @param(text : string) the rich text
+-- Shows text character by character.
+-- @param(text : string) The message.
 function DialogueWindow:rollText(text)
   self.dialogue:setMaxWidth(self.width - self:hPadding() * 2 - (self.fixedIndent or self.indent))
   self.dialogue:setAlign(self.align)
@@ -128,15 +135,17 @@ function DialogueWindow:rollText(text)
   self.dialogue:setText(text)
   self.dialogue:redraw()
 end
--- Shows text
+-- [COROUTINE] Shows a message and waits until player presses the confirm button.
+-- @param(text : string) The message.
+-- @param(portrait : table) The speaker's portrait icon (optional).
 function DialogueWindow:showDialogue(text, portrait)
-  self.result = nil
   self.dialogue:show()
   if portrait then
     self:setPortrait(portrait)
   end
   self:rollText(text)
   self.GUI:waitForResult()
+  self.result = nil
   yield()
 end
 

@@ -10,6 +10,7 @@ Functions that are loaded from the EventSheet.
 -- Imports
 local ActionInput = require('core/battle/action/ActionInput')
 local AIRule = require('core/battle/ai/AIRule')
+local ChoiceWindow = require('core/gui/general/window/ChoiceWindow')
 local DialogueWindow = require('core/gui/general/window/DialogueWindow')
 local GUI = require('core/gui/GUI')
 local MoveAction = require('core/battle/action/MoveAction')
@@ -22,6 +23,24 @@ local deltaTime = love.timer.getDelta
 local battleIntroShader = love.graphics.newShader('shaders/BattleIntro.glsl')
 
 local util = {}
+
+---------------------------------------------------------------------------------------------------
+-- Auxiliary
+---------------------------------------------------------------------------------------------------
+
+local function openGUI(sheet)
+  if not sheet.gui then
+    sheet.gui = GUI()
+    sheet.gui.dialogues = {}
+    GUIManager:showGUI(sheet.gui)
+  end
+end
+
+local function findCharacter(event, key)
+  local char = event[key] or FieldManager:search(key)
+  assert(char, 'Character not found:', key or 'nil key')
+  return char
+end
 
 ---------------------------------------------------------------------------------------------------
 -- Functions
@@ -83,11 +102,7 @@ end
 -- @param(args.x : number) Pixel x of the window (optional).
 -- @param(args.y : number) Pixel y of the window (optional).
 function util.openDialogueWindow(sheet, event, args)
-  if not sheet.gui then
-    sheet.gui = GUI()
-    sheet.gui.dialogues = {}
-    GUIManager:showGUI(sheet.gui)
-  end
+  openGUI(sheet)
   local dialogues = sheet.gui.dialogues
   local window = dialogues[args.id]
   if window then
@@ -107,10 +122,10 @@ end
 function util.showDialogue(sheet, event, args)
   assert(sheet.gui, 'You must open a GUI first.')
   local window = sheet.gui.dialogues[args.id]
+  sheet.gui:setActiveWindow(window)
   assert(window, 'You must open window ' .. args.id .. ' first.')
-  window:setPortrait(args.portrait)
   -- TODO: dialogue name
-  window:showDialogue(args.message)
+  window:showDialogue(args.message, args.portrait)
 end
 -- Closes and deletes a dialogue window.
 function util.closeDialogueWindow(sheet, event, args)
@@ -118,19 +133,23 @@ function util.closeDialogueWindow(sheet, event, args)
     local window = sheet.gui.dialogues[args.id]
     if window then
       window:hide()
-    end
-    window:removeSelf()
-    window:destroy()
-    sheet.gui.dialogues[args.id] = nil
-    if sheet.gui.windowList.size == 0 then
-      GUIManager:returnGUI()
-      sheet.gui = nil
+      window:removeSelf()
+      window:destroy()
+      sheet.gui.dialogues[args.id] = nil
     end
   end
 end
 
 function util.openChoiceWindow(sheet, event, args)
-  -- TODO
+  openGUI(sheet)
+  local window = ChoiceWindow(sheet.gui, args)
+  window:show()
+  sheet.gui:setActiveWindow(window)
+  local result = sheet.gui:waitForResult()
+  window:hide()
+  window:removeSelf()
+  window:destroy()
+  sheet.gui.choice = result
 end
 
 function util.openPasswordWindow(sheet, event, args)
@@ -241,12 +260,6 @@ end
 -- @param(args.key : string) The key of the character.
 --  "origin" or "dest" to refer to event's characters, or any other key to refer to any other
 --  character in the current field.
-
-local function findCharacter(event, key)
-  local char = event[key] or FieldManager:search(key)
-  assert(char, 'Character not found:', key or 'nil key')
-  return char
-end
 
 -- Moves straight to the given tile.
 -- @param(args.x : number) Tile x difference.

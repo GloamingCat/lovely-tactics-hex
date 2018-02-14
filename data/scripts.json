@@ -34,11 +34,45 @@
 					"name": "showDialogue",
 					"param": {
 						"id": 1,
-						"portrait": {
-							"charID": 11,
-							"name": "bigIcon"
-						},
-						"message": "How {i}you doing?"
+						"message": "How you {i}doing{r}?~"
+					}
+				},
+				{
+					"name": "openChoiceWindow",
+					"param": {
+						"choices": ["Good.", "Bad."],
+						"width": 50
+					}
+				},
+				{
+					"name": "condition",
+					"param": {
+						"expression": "sheet.gui.choice == 1",
+						"if": [
+							{
+								"name": "showDialogue",
+								"param": {
+									"id": 1,
+									"message": "That's good."
+								}
+							}
+						],
+						"else": [
+							{
+								"name": "showDialogue",
+								"param": {
+									"id": 1,
+									"message": "That's bad."
+								}
+							}
+						]
+					}
+				},
+				{
+					"name": "showDialogue",
+					"param": {
+						"id": 1,
+						"message": "I'm hungry."
 					}
 				},
 				{

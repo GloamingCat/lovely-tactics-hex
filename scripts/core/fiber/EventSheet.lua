@@ -61,13 +61,13 @@ function EventSheet:preprocess(raw, depth)
   local commands = {}
   local n = 0
   for i = 1, #raw do
-    n = n + 1
     local name = raw[i].name
     if name == 'condition' then
-      n = self:preprocessCondition(raw[i], commands, n, depth)
+      n = self:preprocessCondition(raw[i], commands, n + 1, depth)
     elseif name == 'eventScript' then
-      n = self:preprocessEventScript(raw[i], commands, n, depth)
-    else
+      n = self:preprocessEventScript(raw[i], commands, n + 1, depth)
+    elseif name ~= 'comment' then
+      n = n + 1
       commands[n] = raw[i]
     end
   end
@@ -92,8 +92,8 @@ end
 -- @param(depth : number) the indentation depth
 -- @ret(number) new number of commands
 function EventSheet:preprocessCondition(command, commands, n, depth)
-  local _if = self:preprocess(command.param['if'], depth + 1)
-  local _else = self:preprocess(command.param['else'], depth + 1)
+  local _if = self:preprocess(command.param['if'], depth + n)
+  local _else = self:preprocess(command.param['else'], depth + n)
   local exp = 'not (' .. command.param.expression .. ')'
   -- Labels
   local endif = 'endif' .. depth .. '.' .. (n + #_if)
@@ -155,7 +155,7 @@ function EventSheet:execute(event)
       local expr = command.param.expression
       local value = expr == nil or self:decodeExpression(event, expr)
       if value then
-        self.index = self.labels[command.param.label]
+        self.index = self.labels[command.param.label] - 1
       end
     elseif command.name == 'fork' then
       EventSheet(self.root, command.param)
