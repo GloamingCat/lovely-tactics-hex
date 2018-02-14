@@ -46,6 +46,8 @@ function DialogueWindow:init(GUI, w, h, x, y)
   y = y or (ScreenManager.height - h) / 2 - GUI:windowMargin()
   Window.init(self, GUI, w, h, Vector(x, y))
   self.textSpeed = 40
+  self.textSound = Config.sounds.text
+  self.soundFrequence = 4
 end
 -- Overrides Window:createContent.
 -- Creates a simple text for dialogue.
@@ -117,13 +119,18 @@ function DialogueWindow:rollText(text)
   self.dialogue:setMaxWidth(self.width - self:hPadding() * 2 - (self.fixedIndent or self.indent))
   self.dialogue:setAlign(self.align)
   self.dialogue:updatePosition(self.position + Vector(self.fixedIndent or self.indent, 0))
-  local time = 0
+  local time, soundTime = 0, self.soundFrequence
   while true do
+    if self.textSound and soundTime >= self.soundFrequence then
+      soundTime = soundTime - self.soundFrequence
+      AudioManager:playSFX(self.textSound)
+    end
     if InputManager.keys['confirm']:isTriggered() then
       yield()
       break
     end
-    time = time + deltaTime() * self.textSpeed 
+    time = time + deltaTime() * self.textSpeed
+    soundTime = soundTime + deltaTime() * self.textSpeed
     local subText = self:cutText(text, time)
     if not subText then
       break
