@@ -11,7 +11,7 @@ return  {
   -- Fonts
   gui_default = default_font,
   gui_button = medium_font,
-  gui_dialogue = default_font,
+  gui_dialogue = medium_font,
   gui_tiny = tiny_font,
   gui_small = small_font,
   gui_medium = medium_font,

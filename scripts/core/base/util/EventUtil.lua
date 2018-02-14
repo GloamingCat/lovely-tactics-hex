@@ -125,7 +125,7 @@ function util.showDialogue(sheet, event, args)
   sheet.gui:setActiveWindow(window)
   assert(window, 'You must open window ' .. args.id .. ' first.')
   -- TODO: dialogue name
-  window:showDialogue(args.message, args.portrait)
+  window:showDialogue(args.message, args.portrait, args.name)
 end
 -- Closes and deletes a dialogue window.
 function util.closeDialogueWindow(sheet, event, args)
