@@ -8,7 +8,7 @@ A container for a battler's main information.
 =================================================================================================]]
 
 -- Imports
-local Gauge = require('core/gui/widget/Gauge')
+local Gauge = require('core/gui/general/widget/Gauge')
 local IconList = require('core/gui/general/widget/IconList')
 local SimpleImage = require('core/gui/widget/SimpleImage')
 local SimpleText = require('core/gui/widget/SimpleText')
@@ -50,13 +50,17 @@ function MemberInfo:init(battler, w, h, topLeft)
   -- HP
   local middleLeft = Vector(topLeft.x, topLeft.y + 17, topLeft.z)
   local txtHP = SimpleText(Vocab.hp, middleLeft, rw, 'left', small)
-  local hp = battler.state.hp .. '/' .. battler.mhp()
-  local valueHP = SimpleText(hp, middleLeft, rw, 'right', tiny)
   -- SP
   local bottomLeft = Vector(middleLeft.x, middleLeft.y + 11, middleLeft.z)
   local txtSP = SimpleText(Vocab.sp, bottomLeft, rw, 'left', small)
-  local sp = battler.state.sp .. '/' .. battler.msp()
-  local valueSP = SimpleText(sp, bottomLeft, rw, 'right', tiny)
+  -- HP gauge
+  local gaugeX = 2 + math.max(txtSP.sprite:getWidth(), txtHP.sprite:getWidth())
+  local gaugeHP = Gauge(middleLeft, rw, Color.barHP, gaugeX)
+  gaugeHP:setValues(battler.state.hp, battler.mhp())
+  -- SP gauge
+  local gaugeSP = Gauge(bottomLeft, rw, Color.barSP, gaugeX)
+  gaugeSP:setValues(battler.state.sp, battler.msp())
+  
   -- Status
   local topRight = Vector(topLeft.x + rw + margin + 8, topLeft.y + 8, topLeft.z - 20)
   local status = IconList(topRight, rw, 24)
@@ -68,35 +72,18 @@ function MemberInfo:init(battler, w, h, topLeft)
   local txtClass = SimpleText(battler.class.data.name, middleRight, rw, 'right', small)
   -- EXP
   local bottomRight = Vector(middleRight.x, middleRight.y + 11, middleRight.z)
+  local txtEXP = SimpleText(Vocab.exp, bottomRight, rw, 'left', small)
+  -- EXP gauge
+  local gaugeEXP = Gauge(bottomRight, rw, Color.barEXP, 2 + txtEXP.sprite:getWidth())
   local expCurrent = battler.class.expCurve(battler.class.level)
   local expNext = battler.class.expCurve(battler.class.level + 1)
-  local exp = '/' .. (expNext - expCurrent)
-  if battler.class.level == Config.battle.maxLevel then
-    exp = (expNext - expCurrent) .. exp
-  else
-    exp = (battler.class.exp - expCurrent) .. exp
-  end
-  local txtEXP = SimpleText(Vocab.exp, bottomRight, rw, 'left', small)
-  local valueEXP = SimpleText(exp, bottomRight, rw, 'right', tiny)
-  -- HP / SP gauges
-  local gaugeX = 2 + math.max(txtSP.sprite:getWidth(), txtHP.sprite:getWidth())
-  local gaugePosHP = Vector(topLeft.x + gaugeX, middleLeft.y + 3, middleLeft.z + 1)
-  local gaugePosSP = Vector(topLeft.x + gaugeX, bottomLeft.y + 3, bottomLeft.z + 1)
-  local gaugeHP = Gauge(gaugePosHP, rw - gaugeX, 6, battler.state.hp / battler.mhp())
-  local gaugeSP = Gauge(gaugePosSP, rw - gaugeX, 6, battler.state.sp / battler.msp())
-  gaugeHP.bar.sprite:setColor(Color.barHP)
-  gaugeSP.bar.sprite:setColor(Color.barSP)
-  -- EXP gauge
-  gaugeX = 2 + txtEXP.sprite:getWidth()
-  local gaugePosEXP = Vector(topRight.x + gaugeX - 7, bottomRight.y + 3, bottomRight.z + 1)
-  local expRate = (battler.class.exp - expCurrent) / (expNext - expCurrent)
-  local gaugeEXP = Gauge(gaugePosEXP, rw - gaugeX, 6, expRate)
-  gaugeEXP.bar.sprite:setColor(Color.barEXP)
+  local expMax = expNext - expCurrent
+  local exp = battler.class.level == Config.battle.maxLevel and expMax or battler.class.exp - expCurrent
+  gaugeEXP:setValues(exp, expMax)
   
   self.content = { txtName, txtLevel, txtClass, status,
-    txtHP, valueHP, gaugeHP, 
-    txtSP, valueSP, gaugeSP,
-    txtEXP, valueEXP, gaugeEXP  }
+    txtHP, gaugeHP, txtSP, gaugeSP,
+    txtEXP, gaugeEXP  }
 end
 
 ---------------------------------------------------------------------------------------------------

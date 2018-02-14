@@ -8,7 +8,7 @@ Window that shows when the battle cursor is over a character.
 =================================================================================================]]
 
 -- Imports
-local Gauge = require('core/gui/widget/Gauge')
+local Gauge = require('core/gui/general/widget/Gauge')
 local IconList = require('core/gui/general/widget/IconList')
 local SimpleText = require('core/gui/widget/SimpleText')
 local Sprite = require('core/graphics/Sprite')
@@ -54,9 +54,9 @@ function TargetWindow:createContent(width, height)
   self.content:add(self.textLevel)
   -- State values texts
   local posHP = Vector(x, y + 25)
-  self.textHP, self.gaugeHP = self:addStateVariable(Vocab.hp, posHP, w, Color.barHP)
+  self.gaugeHP = self:addStateVariable(Vocab.hp, posHP, w, Color.barHP)
   local posSP = Vector(x, y + 35)
-  self.textSP, self.gaugeSP = self:addStateVariable(Vocab.sp, posSP, w, Color.barSP)
+  self.gaugeSP = self:addStateVariable(Vocab.sp, posSP, w, Color.barSP)
   -- Icon List
   local posIcons = Vector(x + 8, y + 55)
   self.iconList = IconList(posIcons, w, 16)
@@ -68,18 +68,11 @@ end
 -- @param(pos : Vector) the position of the text
 -- @param(w : width) the max width of the text
 function TargetWindow:addStateVariable(name, pos, w, barColor)
-  local textName = SimpleText(name .. ':', pos, w, 'left', Fonts.gui_small)
-  local textValue = SimpleText('', pos, w, 'right', Fonts.gui_tiny)
+  local textName = SimpleText(name, pos, w, 'left', Fonts.gui_small)
   self.content:add(textName)
-  self.content:add(textValue)
-  local gaugePos = pos:clone()
-  gaugePos.x = gaugePos.x + 30
-  gaugePos.y = gaugePos.y + 3
-  gaugePos.z = gaugePos.z + 1
-  local gauge = Gauge(gaugePos, w - 30, 6, 1)
-  gauge.bar.sprite:setColor(barColor)
+  local gauge = Gauge(pos, w, barColor, 30)
   self.content:add(gauge)
-  return textValue, gauge
+  return gauge
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -103,19 +96,16 @@ function TargetWindow:setBattler(battler)
   -- Level text
   self.textLevel:setText(Vocab.level .. ' ' .. battler.class.level)
   self.textLevel:redraw()
-  -- HP text
-  local textHP = battler.state[hpKey] .. '/' .. battler.att[hpKey]()
-  self.textHP:setText(textHP)
-  self.textHP:redraw()
-  self.gaugeHP:setValue(battler.state.hp / battler.mhp())
-  -- SP text
-  local textSP = battler.state[spKey] .. '/' .. battler.att[spKey]()
-  self.textSP:setText(textSP)
-  self.textSP:redraw()
-  self.gaugeSP:setValue(battler.state.sp / battler.msp())
+  -- HP Gauge
+  self.gaugeHP:setValues(battler.state.hp, battler.mhp())
+  -- SP Gauge
+  self.gaugeSP:setValues(battler.state.sp, battler.msp())
   -- Status icons
   self.iconList:setIcons(icons)
   self.iconList:updatePosition(self.position)
+  if not self.open then
+    self.iconList:hide()
+  end
   collectgarbage('collect')
 end
 

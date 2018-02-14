@@ -212,9 +212,11 @@ function TargetWindow:createContent(width, height)
   -- Turn count text
   if self.showTC then
     local w = self.width - self:hPadding() * 2
-    local pos = self.textSP.relativePosition:clone()
+    local pos = self.gaugeSP.topLeft:clone()
+    pos.x = pos.x - 30
     pos.y = pos.y + 10
-    self.textTC, self.gaugeTC = self:addStateVariable(Vocab.turnCount, pos, w, Color.barTC)
+    self.gaugeTC = self:addStateVariable(Vocab.turnCount, pos, w, Color.barTC)
+    self.gaugeTC.percentage = true
     self.iconList.topLeft.y = self.iconList.topLeft.y + 10
   end
 end
@@ -223,10 +225,7 @@ local TargetWindow_setBattler = TargetWindow.setBattler
 function TargetWindow:setBattler(battler)
   -- Turn count value
   if self.showTC then
-    local tc = battler.turnCount / _G.TurnManager.turnLimit
-    self.textTC:setText(string.format( '%3.0f', tc * 100 ) .. '%')
-    self.textTC:redraw()
-    self.gaugeTC:setValue(tc)
+    self.gaugeTC:setValues(battler.turnCount, _G.TurnManager.turnLimit)
   end
   TargetWindow_setBattler(self, battler)
 end

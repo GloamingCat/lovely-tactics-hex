@@ -18,6 +18,7 @@ local RewardEXPWindow = class(Window)
 -- Initialization
 ---------------------------------------------------------------------------------------------------
 
+-- Overrides Window:createContent.
 function RewardEXPWindow:createContent(...)
   Window.createContent(self, ...)
   local font = Fonts.gui_medium
@@ -58,11 +59,16 @@ function RewardEXPWindow:createContent(...)
   end
 end
 
+---------------------------------------------------------------------------------------------------
+-- Properties
+---------------------------------------------------------------------------------------------------
+
+-- Overrides Window:hide.
 function RewardEXPWindow:hide(...)
   AudioManager:playSFX(Config.sounds.buttonConfirm)
   Window.hide(self, ...)
 end
-
+-- @ret(string) String representation (for debugging).
 function RewardEXPWindow:__tostring()
   return 'EXP Reward Window'
 end
