@@ -35,7 +35,7 @@
 					"name": "showDialogue",
 					"param": {
 						"id": 1,
-						"message": "How you {i}doing{r}?~"
+						"message": "How you {i}doing{r}? ~"
 					}
 				},
 				{
@@ -73,7 +73,7 @@
 					"name": "showDialogue",
 					"param": {
 						"id": 1,
-						"message": "I'm hungry."
+						"message": "I'm hungry. Maybe I'll have some pudding."
 					}
 				},
 				{

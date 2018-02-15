@@ -78,8 +78,8 @@ end
 -- @ret(table) the array of lines
 function TextParser.createLines(fragments, initialFont, maxWidth)
   local currentFont = ResourceManager:loadFont(initialFont)
-  local currentLine = { width = 0, height = 0, { content = currentFont } }
-  local lines = { currentLine }
+  local currentLine = { width = 0, height = 0, length = 0, { content = currentFont } }
+  local lines = { currentLine, length = 0 }
   local font = { unpack(initialFont) }
 	for i = 1, #fragments do
     local fragment = fragments[i]
@@ -101,13 +101,42 @@ function TextParser.createLines(fragments, initialFont, maxWidth)
       elseif fragment.type == 'font' then
         font = fragment.value
       elseif fragment.type == 'size' then
-        font[3] = fragment.size + currentFont[3]
+        font[3] = fragment.size + font[3]
       end
       currentFont = ResourceManager:loadFont(font)
       insert(currentLine, { content = currentFont })
     end
 	end
 	return lines
+end
+-- Cuts the text in the given character index.
+-- @param(lines : table) Array of parsed lines.
+-- @param(point : number) The index of the last text character.
+-- @ret(table) New array of parsed lines.
+function TextParser.cutText(lines, point)
+  local newLines = { length = 0 }
+  for l = 1, #lines do
+    if point < lines[l].length then
+      local newLine = { width = 0, height = 0, length = 0 }
+      for i = 1, #lines[l] do
+        local fragment = lines[l][i]
+        if fragment.length and point < fragment.length then
+          local content = fragment.content:sub(1, point)
+          TextParser.insertFragment(newLines, newLine, content, fragment.font)
+          break
+        else
+          point = point - (fragment.length or 0)
+          TextParser.insertFragment(newLines, newLine, fragment)
+        end
+      end
+      insert(newLines, newLine)
+      break
+    else
+      insert(newLines, lines[l])
+      point = point - lines[l].length
+    end
+  end
+  return newLines
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -122,18 +151,14 @@ end
 function TextParser.addTextFragment(lines, currentLine, fragment, font, width)
   if fragment == '\n' then
     -- New line
-    currentLine = { width = 0, height = 0 }
+    currentLine = { width = 0, height = 0, length = 0 }
     insert(lines, currentLine)
     return currentLine
   end
   if width then
-    return TextParser.wrapText(lines, currentLine, fragment, font, width)
+    return TextParser.wrapText(lines, currentLine, fragment, font, width * Fonts.scale)
   else
-    local fw = font:getWidth(fragment)
-    local fh = font:getHeight(fragment) * font:getLineHeight()
-    insert(currentLine, { content = fragment, width = fw, height = fh })
-    currentLine.width = currentLine.width + fw
-    currentLine.height = max(currentLine.height, fh)
+    TextParser.insertFragment(lines, currentLine, fragment, font)
     return currentLine
   end
 end
@@ -145,34 +170,41 @@ end
 function TextParser.wrapText(lines, currentLine, fragment, font, width)
   local x = currentLine.width
   local breakPoint = nil
-  local nextBreakPoint = fragment:find(' ', 1, true)
+  local nextBreakPoint = fragment:find(' ', 1, true) or #fragment + 1
   while nextBreakPoint do
-    breakPoint = nextBreakPoint
-    nextBreakPoint = fragment:find(' ', nextBreakPoint + 1, true)
-    local nextx = x + font:getWidth(fragment:sub(1, breakPoint - 1))
+    local nextx = x + font:getWidth(fragment:sub(1, nextBreakPoint - 1))
     if nextx > width then
       break
     end
+    breakPoint = nextBreakPoint
+    nextBreakPoint = fragment:find(' ', nextBreakPoint + 1, true)
   end
-  if nextBreakPoint then
-    local wrappedFragment = fragment:sub(1, breakPoint - 1)
-    local fw = font:getWidth(wrappedFragment)
-    local fh = font:getHeight(wrappedFragment) * font:getLineHeight()
-    insert(currentLine, { content = wrappedFragment, width = fw, height = fh })
-    currentLine.width = currentLine.width + fw
-    currentLine.height = max(currentLine.height, fh)
-    currentLine = { width = 0, height = 0 }
+  if breakPoint and nextBreakPoint then
+    TextParser.insertFragment(lines, currentLine, fragment:sub(1, breakPoint - 1), font)
+    currentLine = { width = 0, height = 0, length = 0 }
     insert(lines, currentLine)
-    return TextParser.wrapText(lines, currentLine, 
-      fragment:sub(breakPoint + 1), font, width)
+    return TextParser.wrapText(lines, currentLine, fragment:sub(breakPoint + 1), font, width)
   else
-    local fw = font:getWidth(fragment)
-    local fh = font:getHeight(fragment) * font:getLineHeight()
-    currentLine.width = currentLine.width + fw
-    currentLine.height = max(currentLine.height, fh)
-    insert(currentLine, { content = fragment, width = fw, height = fh })
+    TextParser.insertFragment(lines, currentLine, fragment, font)
     return currentLine
   end
+end
+-- Inserts a new fragment into the line.
+-- @param(lines : table) Array of all lines.
+-- @param(currentLine : table) The line that the fragment will be inserted.
+-- @param(fragment : table | string) The fragment to insert.
+-- @param(font : Font) The font of the fragment's text (in case the fragment is a string).
+function TextParser.insertFragment(lines, currentLine, fragment, font)
+  if type(fragment) == 'string' then
+    local fw = font:getWidth(fragment)
+    local fh = font:getHeight(fragment) * font:getLineHeight()
+    fragment = { content = fragment, width = fw, height = fh, length = #fragment, font = font }
+  end
+  currentLine.width = currentLine.width + (fragment.width or 0)
+  currentLine.height = max(currentLine.height, (fragment.height or 0))
+  currentLine.length = currentLine.length + (fragment.length or 0)
+  insert(currentLine, fragment)
+  lines.length = lines.length + (fragment.length or 0)
 end
 
 return TextParser

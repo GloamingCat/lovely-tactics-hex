@@ -59,6 +59,7 @@ function DialogueWindow:createContent(width, height)
   self.fixedIndent = 75
   local pos = Vector(-width / 2 + self:hPadding(), -height / 2 + self:vPadding())
   self.dialogue = SimpleText('', pos, width - self:hPadding() * 2, self.align, Fonts.gui_dialogue)
+  self.dialogue.sprite.wrap = true
   self.content:add(self.dialogue)
   self.nameWindow = DescriptionWindow(self.GUI, 80, 24)
   self.nameWindow:setVisible(false)
@@ -84,36 +85,12 @@ function DialogueWindow:showDialogue(text, portrait, name)
   self.result = nil
   yield()
 end
-
----------------------------------------------------------------------------------------------------
--- Message
----------------------------------------------------------------------------------------------------
-
--- Gets the substring of a text without breaking rich text commands.
--- @param(text : string) Text to be cut.
--- @param(time : number) Character index to be cut at.
-function DialogueWindow:cutText(text, time)
-  local i = 0
-  for textFragment, resourceKey in text:gmatch('([^{]*){(.-)}') do
-    if time <= #textFragment then
-      return text:sub(1, round(time) + i)
-    else
-      time = time - #textFragment
-      i = i + #textFragment + #resourceKey + 2
-    end
-  end
-  local textFragment = text:match('[^}]+$')
-  if textFragment then
-    if time <= #textFragment then
-      return text:sub(1, round(time) + i)
-    end
-  end
-end
 -- Shows text character by character.
 -- @param(text : string) The message.
 function DialogueWindow:rollText(text)
   self.dialogue:setMaxWidth(self.width - self:hPadding() * 2 - (self.fixedIndent or self.indent))
   self.dialogue:setAlign(self.align)
+  self.dialogue.sprite:setText(text)
   self.dialogue:updatePosition(self.position + Vector(self.fixedIndent or self.indent, 0))
   local time, soundTime = 0, self.soundFrequence
   while true do
@@ -127,16 +104,15 @@ function DialogueWindow:rollText(text)
     end
     time = time + deltaTime() * self.textSpeed
     soundTime = soundTime + deltaTime() * self.textSpeed
-    local subText = self:cutText(text, time)
-    if not subText then
+    if time >= self.dialogue.sprite.parsedLines.length then
       break
     end
-    self.dialogue:setText(subText)
-    self.dialogue:redraw()
+    self.dialogue.sprite.cutPoint = math.ceil(time)
+    self.dialogue.sprite:redrawBuffers()
     yield()
   end
-  self.dialogue:setText(text)
-  self.dialogue:redraw()
+  self.dialogue.sprite.cutPoint = nil
+  self.dialogue.sprite:redrawBuffers()
 end
 
 ---------------------------------------------------------------------------------------------------

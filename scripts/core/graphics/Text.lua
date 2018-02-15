@@ -45,8 +45,8 @@ function Text:init(text, properties, renderer)
   self.alignX = properties[2] or 'left'
   self.alignY = 'top'
   self.defaultFont = properties[3] or defaultFont
-  self.maxchar = properties[4]
   self.text = text
+  self.wrap = false
   if text == nil or text == '' then
     self.lines = {}
   else
@@ -63,9 +63,17 @@ function Text:setText(text)
     self.lines = nil
     return
   end
-  local maxWidth = self.maxWidth and self.maxWidth * Fonts.scale
   local fragments = TextParser.parse(text)
-	local lines = TextParser.createLines(fragments, self.defaultFont, maxWidth)
+  local lines = TextParser.createLines(fragments, self.defaultFont, self.wrap and self.maxWidth)
+  self.parsedLines = lines
+  self:redrawBuffers()
+end
+
+function Text:redrawBuffers()
+  local lines = self.parsedLines
+  if self.cutPoint then
+    lines = TextParser.cutText(lines, self.cutPoint)
+  end
   self.lines = TextRenderer.createLineBuffers(lines)
   local width, height = 0, 0
   for i = 1, #self.lines do
