@@ -8,7 +8,7 @@ AudioManager
 =================================================================================================]]
 
 -- Imports
-local List = require('core/datastruct/List')
+local List = require('core/base/datastruct/List')
 local Music = require('core/audio/Music')
 local Sound = require('core/audio/Sound')
 

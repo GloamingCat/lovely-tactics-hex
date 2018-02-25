@@ -38,7 +38,9 @@ function love.focus(f)
     ResourceManager:refreshImages()
     local renderers = _G.ScreenManager.renderers
     for i = 1, #renderers do
-      renderers[i].neddRedraw = true
+      if renderers[i] then
+        renderers[i].needRedraw = true
+      end
     end
   end
 end

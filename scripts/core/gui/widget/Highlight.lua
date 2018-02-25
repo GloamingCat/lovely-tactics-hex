@@ -10,7 +10,7 @@ The light background that is visible behind the selected widget.
 -- Imports
 local SpriteGrid = require('core/graphics/SpriteGrid')
 local Vector = require('core/math/Vector')
-local Transformable = require('core/transform/Transformable')
+local Transformable = require('core/math/transform/Transformable')
 
 local Highlight = class(Transformable)
 

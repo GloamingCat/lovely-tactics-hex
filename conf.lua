@@ -8,7 +8,7 @@ File run before main. Prepares window.
 =================================================================================================]]
 
 love.filesystem.setRequirePath('scripts/?.lua;/?.lua')
-local Serializer = require('core/save/Serializer')
+local Serializer = require('core/base/save/Serializer')
 
 function love.conf(t)
   Config = Serializer.load('data/system/config.json')

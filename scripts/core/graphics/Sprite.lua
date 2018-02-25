@@ -13,7 +13,7 @@ the world's coordinate system) and the depth/render order (z axis).
 -- Imports
 local Affine = require('core/math/Affine')
 local Vector = require('core/math/Vector')
-local Colorable = require('core/transform/Colorable')
+local Colorable = require('core/math/transform/Colorable')
 
 -- Alias
 local abs = math.abs

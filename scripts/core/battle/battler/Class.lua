@@ -8,7 +8,7 @@ Represents a battler's class.
 =================================================================================================]]
 
 -- Imports
-local List = require('core/datastruct/List')
+local List = require('core/base/datastruct/List')
 
 local Class = class()
 

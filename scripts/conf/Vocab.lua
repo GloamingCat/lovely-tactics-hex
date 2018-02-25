@@ -1,8 +1,11 @@
 
 return {
+  -- Title Window
+  newGame = 'New Game',
+  loadGame = 'Load Game',
+  
   -- Main Window
   members = 'Characters',
-  formation = 'Formation',
   config = 'Settings',
   save = 'Save',
   quit = 'Quit',
@@ -19,6 +22,7 @@ return {
   
   -- Battle intro Window
   start = 'Start',
+  formation = 'Formation',
   none = 'None',
   
   -- Battle win

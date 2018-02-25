@@ -13,7 +13,7 @@ etc.
 =================================================================================================]]
 
 -- Imports
-local List = require('core/datastruct/List')
+local List = require('core/base/datastruct/List')
 
 -- Alias
 local mod1 = math.mod1

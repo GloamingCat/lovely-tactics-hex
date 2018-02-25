@@ -8,7 +8,7 @@ Provides the base for windows with buttons.
 =================================================================================================]]
 
 -- Imports
-local List = require('core/datastruct/List')
+local List = require('core/base/datastruct/List')
 local Matrix2 = require('core/math/Matrix2')
 local Vector = require('core/math/Vector')
 local Sprite = require('core/graphics/Sprite')

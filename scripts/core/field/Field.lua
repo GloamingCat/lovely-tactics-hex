@@ -8,10 +8,10 @@ The class implements methods to check collisions.
 =================================================================================================]]
 
 -- Imports
-local TagMap = require('core/datastruct/TagMap')
+local TagMap = require('core/base/datastruct/TagMap')
 local TerrainLayer = require('core/field/TerrainLayer')
 local ObjectLayer = require('core/field/ObjectLayer')
-local FiberList = require('core/fiber/FiberList')
+local FiberList = require('core/base/fiber/FiberList')
 
 -- Alias
 local round = math.round

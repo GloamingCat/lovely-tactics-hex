@@ -11,7 +11,7 @@ Creates and manages battle troops.
 local Animation = require('core/graphics/Animation')
 local Battler = require('core/battle/battler/Battler')
 local Character = require('core/objects/Character')
-local List = require('core/datastruct/List')
+local List = require('core/base/datastruct/List')
 local Troop = require('core/battle/Troop')
 
 -- Alias

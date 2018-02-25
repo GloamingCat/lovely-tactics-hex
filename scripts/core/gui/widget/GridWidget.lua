@@ -9,7 +9,7 @@ Generic widget for windows (like button or spinner).
 
 -- Imports
 local Vector = require('core/math/Vector')
-local List = require('core/datastruct/List')
+local List = require('core/base/datastruct/List')
 
 -- Alias
 local ceil = math.ceil

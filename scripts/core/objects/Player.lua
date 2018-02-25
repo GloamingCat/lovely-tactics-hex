@@ -11,8 +11,8 @@ It only exists for exploration fields.
 -- Imports
 local Vector = require('core/math/Vector')
 local Character = require('core/objects/Character')
-local Fiber = require('core/fiber/Fiber')
-local MainGUI = require('core/gui/field/MainGUI')
+local Fiber = require('core/base/fiber/Fiber')
+local FieldGUI = require('core/gui/field/FieldGUI')
 
 -- Alias
 local timer = love.timer
@@ -214,7 +214,7 @@ end
 -- Opens game's main GUI.
 function Player:openGUI()
   AudioManager:playSFX(menuSound)
-  GUIManager:showGUIForResult(MainGUI())
+  GUIManager:showGUIForResult(FieldGUI())
 end
 
 ---------------------------------------------------------------------------------------------------

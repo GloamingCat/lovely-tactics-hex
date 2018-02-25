@@ -10,12 +10,12 @@ game's data.
 
 -- Imports
 local FieldCamera = require('core/field/FieldCamera')
-local FiberList = require('core/fiber/FiberList')
+local FiberList = require('core/base/fiber/FiberList')
 local FieldLoader = require('core/field/FieldLoader')
-local List = require('core/datastruct/List')
+local List = require('core/base/datastruct/List')
 local Player = require('core/objects/Player')
 local Renderer = require('core/graphics/Renderer')
-local Serializer = require('core/save/Serializer')
+local Serializer = require('core/base/save/Serializer')
 
 -- Alias
 local mathf = math.field
@@ -36,7 +36,7 @@ function FieldManager:init()
 end
 -- Calls all the update functions.
 function FieldManager:update()
-  if self.blocks > 0 then
+  if self.blocks > 0 or not self.currentField then
     return
   end
   self.fiberList:update()

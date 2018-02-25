@@ -8,7 +8,7 @@ A set of windows.
 =================================================================================================]]
 
 -- Imports
-local List = require('core/datastruct/List')
+local List = require('core/base/datastruct/List')
 
 -- Alias
 local yield = coroutine.yield

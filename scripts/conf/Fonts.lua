@@ -9,6 +9,7 @@ local fps_font = { 'FogSans', 'otf', 3 }
 return  {
   
   -- Fonts
+  gui_title = big_font,
   gui_default = default_font,
   gui_button = medium_font,
   gui_dialogue = medium_font,

@@ -8,8 +8,8 @@ A common class for Obstacles and Characters.
 =================================================================================================]]
 
 -- Imports
-local TagMap = require('core/datastruct/TagMap')
-local Transformable = require('core/transform/Transformable')
+local TagMap = require('core/base/datastruct/TagMap')
+local Transformable = require('core/math/transform/Transformable')
 local Vector = require('core/math/Vector')
 local Sprite = require('core/graphics/Sprite')
 

@@ -10,9 +10,9 @@ Manipulates the matrix of battler IDs to the instatiated in the beginning of the
 -- Imports
 local Battler = require('core/battle/battler/Battler')
 local Inventory = require('core/battle/Inventory')
-local List = require('core/datastruct/List')
+local List = require('core/base/datastruct/List')
 local Matrix2 = require('core/math/Matrix2')
-local TagMap = require('core/datastruct/TagMap')
+local TagMap = require('core/base/datastruct/TagMap')
 local TroopAI = require('core/battle/ai/TroopAI')
 
 -- Alias

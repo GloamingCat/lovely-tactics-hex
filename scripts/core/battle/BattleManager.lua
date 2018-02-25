@@ -16,7 +16,7 @@ Results: 1 => win, 0 => draw, -1 => lost
 local Animation = require('core/graphics/Animation')
 local TileGraphics = require('core/field/TileGUI')
 local IntroGUI = require('core/gui/battle/IntroGUI')
-local RewardGUI = require('core/gui/reward/RewardGUI')
+local RewardGUI = require('core/gui/battle/RewardGUI')
 
 -- Constants
 local defaultParams = {

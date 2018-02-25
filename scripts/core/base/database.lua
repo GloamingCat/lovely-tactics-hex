@@ -8,7 +8,7 @@ Loads data from the data folder and stores in the Database or Config global tabl
 =================================================================================================]]
 
 -- Imports
-local Serializer = require('core/save/Serializer')
+local Serializer = require('core/base/save/Serializer')
 
 local Database = {}
 

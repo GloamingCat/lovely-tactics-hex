@@ -12,7 +12,7 @@ ActionInput to be used according to the state.
 -- Imports
 local ActionInput = require('core/battle/action/ActionInput')
 local BattleAction = require('core/battle/action/BattleAction')
-local TagMap = require('core/datastruct/TagMap')
+local TagMap = require('core/base/datastruct/TagMap')
 
 local AIRule = class()
 

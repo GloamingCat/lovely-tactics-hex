@@ -14,7 +14,7 @@ local ChoiceWindow = require('core/gui/general/window/ChoiceWindow')
 local DialogueWindow = require('core/gui/general/window/DialogueWindow')
 local GUI = require('core/gui/GUI')
 local MoveAction = require('core/battle/action/MoveAction')
-local TagMap = require('core/datastruct/TagMap')
+local TagMap = require('core/base/datastruct/TagMap')
 
 -- Alias
 local deltaTime = love.timer.getDelta

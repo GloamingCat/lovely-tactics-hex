@@ -10,7 +10,7 @@ The [COUROUTINE] functions must ONLY be called from a fiber.
 
 -- Imports
 local CharacterBase = require('core/objects/CharacterBase')
-local Stack = require('core/datastruct/Stack')
+local Stack = require('core/base/datastruct/Stack')
 
 -- Alias
 local max = math.max

@@ -61,7 +61,9 @@ function ScreenManager:draw()
   lgraphics.setCanvas(self.canvas)
   lgraphics.clear()
   for i = 1, #self.renderers do
-    self.renderers[i]:draw()
+    if self.renderers[i] then
+      self.renderers[i]:draw()
+    end
   end
   lgraphics.setCanvas()
   lgraphics.setShader(self.shader)

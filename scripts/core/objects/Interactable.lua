@@ -8,7 +8,7 @@ Base methods for objects with start/collision/interaction scripts.
 =================================================================================================]]
 
 -- Imports
-local FiberList = require('core/fiber/FiberList')
+local FiberList = require('core/base/fiber/FiberList')
 
 -- Alias
 local copyTable = util.table.deepCopy

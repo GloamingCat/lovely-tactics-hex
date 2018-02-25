@@ -7,6 +7,9 @@ Handles basic game flow.
 
 =================================================================================================]]
 
+-- Imports
+local TitleGUI = require('core/gui/start/TitleGUI')
+
 local GameManager = class()
 
 ---------------------------------------------------------------------------------------------------
@@ -26,7 +29,9 @@ end
 -- Starts the game.
 function GameManager:start(arg)
   self.fpsFont = ResourceManager:loadFont(Fonts.fps)
-  SaveManager:newSave()
+  GUIManager.fiberList:fork(function()
+    GUIManager:showGUIForResult(TitleGUI())
+  end)
 end
 
 ---------------------------------------------------------------------------------------------------

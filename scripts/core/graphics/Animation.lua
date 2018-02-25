@@ -10,7 +10,7 @@ is a spritesheet.
 
 -- Imports
 local Sprite = require('core/graphics/Sprite')
-local TagMap = require('core/datastruct/TagMap')
+local TagMap = require('core/base/datastruct/TagMap')
 
 -- Alias
 local mod = math.mod

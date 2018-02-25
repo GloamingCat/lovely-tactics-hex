@@ -3,17 +3,16 @@
 
 MemberCommandWindow
 ---------------------------------------------------------------------------------------------------
-
+The small windows with the commands for character management.
 
 =================================================================================================]]
 
-local GridWindow = require('core/gui/GridWindow')
+-- Imports
 local Button = require('core/gui/widget/Button')
-
-local ItemGUI = require('core/gui/item/ItemGUI')
-local EquipGUI = require('core/gui/equip/EquipGUI')
-local SkillGUI = require('core/gui/skill/SkillGUI')
---local StatGUI = require('core/gui/stat/StatGUI')
+local EquipGUI = require('core/gui/members/EquipGUI')
+local ItemGUI = require('core/gui/members/ItemGUI')
+local GridWindow = require('core/gui/GridWindow')
+local SkillGUI = require('core/gui/members/SkillGUI')
 
 local MemberCommandWindow = class(GridWindow)
 
@@ -21,6 +20,7 @@ local MemberCommandWindow = class(GridWindow)
 -- Buttons
 ---------------------------------------------------------------------------------------------------
 
+-- Constructor.
 function MemberCommandWindow:createWidgets()
   Button:fromKey(self, 'items')
   Button:fromKey(self, 'skills')
@@ -48,9 +48,11 @@ end
 -- Enabled Conditions
 ---------------------------------------------------------------------------------------------------
 
+-- @ret(boolean) True if Item GUI may be open, false otherwise.
 function MemberCommandWindow:itemsEnabled()
   return ItemGUI:memberEnabled(self.GUI:currentMember())
 end
+-- @ret(boolean) True if Skill GUI may be open, false otherwise.
 function MemberCommandWindow:skillsEnabled()
   return SkillGUI:memberEnabled(self.GUI:currentMember())
 end

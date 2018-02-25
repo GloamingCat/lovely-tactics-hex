@@ -14,10 +14,10 @@ Every content element for the window must have all the following methods:
 =================================================================================================]]
 
 -- Imports
-local Transformable = require('core/transform/Transformable')
+local Transformable = require('core/math/transform/Transformable')
 local Vector = require('core/math/Vector')
 local SpriteGrid = require('core/graphics/SpriteGrid')
-local List = require('core/datastruct/List')
+local List = require('core/base/datastruct/List')
 
 -- Alias
 local floor = math.floor
@@ -37,7 +37,7 @@ function Window:init(GUI, width, height, position)
   Transformable.init(self, position)
   self.GUI = GUI
   self.speed = 10
-  self.spriteGrid = SpriteGrid(self:getSkin(), Vector(0, 0, 10))
+  self.spriteGrid = (not self.noSkin) and SpriteGrid(self:getSkin(), Vector(0, 0, 10))
   self.content = List()
   self.width = width
   self.height = height
@@ -53,7 +53,9 @@ end
 function Window:createContent(width, height)
   self.width = width
   self.height = height
-  self.spriteGrid:createGrid(GUIManager.renderer, width, height)
+  if self.spriteGrid then
+    self.spriteGrid:createGrid(GUIManager.renderer, width, height)
+  end
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -63,7 +65,9 @@ end
 -- Updates all content elements.
 function Window:update()
   Transformable.update(self)
-  self.spriteGrid:update()
+  if self.spriteGrid then
+    self.spriteGrid:update()
+  end
   for c in self.content:iterator() do
     if c.update then
       c:update()
@@ -72,7 +76,9 @@ function Window:update()
 end
 -- Updates all content element's position.
 function Window:updatePosition()
-  self.spriteGrid:updatePosition(self.position)
+  if self.spriteGrid then
+    self.spriteGrid:updatePosition(self.position)
+  end
   for c in self.content:iterator() do
     if c.updatePosition then
       c:updatePosition(self.position)
@@ -81,7 +87,9 @@ function Window:updatePosition()
 end
 -- Erases content.
 function Window:destroy()
-  self.spriteGrid:destroy()
+  if self.spriteGrid then
+    self.spriteGrid:destroy()
+  end
   for c in self.content:iterator() do
     c:destroy()
   end
@@ -128,7 +136,9 @@ end
 -- @param(sy : number) scale in axis y
 function Window:setScale(sx, sy)
   Transformable.setScale(self, sx, sy)
-  self.spriteGrid:updateTransform(self)
+  if self.spriteGrid then
+    self.spriteGrid:updateTransform(self)
+  end
 end
 -- Changes the window's size.
 -- It recreates all contents.
