@@ -209,11 +209,14 @@ function Text:draw(renderer)
       x = self:alignOffsetX(w) - 1
     end
     r, g, b, a = lgraphics.getColor()
+    local shader = lgraphics.getShader()
+    lgraphics.setShader()
     lgraphics.setColor(self.color.red, self.color.green, self.color.blue, self.color.alpha)
     lgraphics.draw(line.buffer, line.quad, self.position.x + x, self.position.y + y, 
       self.rotation, lsx, sy, self.offsetX, self.offsetY)
     lgraphics.setColor(r, g, b, a)
     y = y + line.height * sy
+    lgraphics.setShader(shader)
   end
 end
 

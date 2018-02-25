@@ -19,7 +19,8 @@ local rotate = math.rotate
 
 -- Constants
 local blankTexture = lgraphics.newImage(love.image.newImageData(1, 1))
-local spriteShader = lgraphics.newShader('shaders/Sprite.glsl')
+local spriteShader = lgraphics.newShader('shaders/sprite.glsl')
+local vertexFormat = { { 'vhsv', 'float', 3 } }
 
 local Renderer = class(Transformable)
 
@@ -37,6 +38,7 @@ function Renderer:init(size, minDepth, maxDepth, order)
   self.size = size
   self.list = {}
   self.batch = lgraphics.newSpriteBatch(blankTexture, size, 'dynamic')
+  --self.mesh = lgraphics.newMesh(vertexFormat, size * 4)
   self.canvas = lgraphics.newCanvas(1, 1)
   self.order = order
   self.batchHSV = {0, 1, 1}
@@ -174,7 +176,10 @@ function Renderer:draw()
     self:redrawCanvas()
   end
   local r, g, b, a = lgraphics.getColor()
-  local shader = lgraphics.getShader()
+  -- When drawing the canvas to the screen, the default shader should be used
+  -- because we aren't passing hsv information here, so it will just
+  -- turn everything to black (the default Love values for attributes is 0)
+  lgraphics.setShader()
   lgraphics.setColor(self:getRGBA())
   spriteShader:send('phsv', {self:getHSV()})
   lgraphics.draw(self.canvas, 0, 0)
@@ -190,7 +195,6 @@ function Renderer:redrawCanvas()
   local sy = ScreenManager.scaleY * self.scaleY
   local firstCanvas = lgraphics.getCanvas()
   local firstShader = lgraphics.getShader()
-  lgraphics.setShader(spriteShader)
   lgraphics.push()
   lgraphics.setCanvas(self.canvas)
   lgraphics.translate(-ox, -oy)
@@ -198,6 +202,9 @@ function Renderer:redrawCanvas()
   lgraphics.rotate(self.rotation)
   lgraphics.translate(-self.position.x + ox * 2 / sx, -self.position.y + oy * 2 / sy)
   lgraphics.clear()
+  -- Now we set the sprite shader for everythng else
+  lgraphics.setShader(spriteShader)
+  local drawCalls = 0
   local started = false
   local w, h = ScreenManager.width * self.scaleX / 2, ScreenManager.height * self.scaleY / 2
   self.minx, self.maxx = self.position.x - w, self.position.x + w
@@ -242,12 +249,27 @@ end
 -- Draws current and clears.
 function Renderer:clearBatch()
   if self.batch and self.toDraw.size > 0 then
+    --self:setMeshAttributes(self.toDraw)
+    --self.batch:attachAttribute('vhsv', self.mesh)
     spriteShader:send('phsv', self.batchHSV)
     self.batch:setTexture(self.batchTexture)
     lgraphics.draw(self.batch)
     self.batch:clear()
     self.toDraw.size = 0
   end
+end
+-- Updates vertices in the mesh.
+function Renderer:setMeshAttributes(list)
+  local n = #list - 1
+  for i = 0, n do
+    local h, s, v = list[i + 1]:getHSV()
+    local i4 = i * 4
+    self.mesh:setVertex(i4 + 1, h, s, v)
+    self.mesh:setVertex(i4 + 2, h, s, v)
+    self.mesh:setVertex(i4 + 3, h, s, v)
+    self.mesh:setVertex(i4 + 4, h, s, v)
+  end
+  self.mesh:setDrawRange(1, #list * 4)
 end
 -- Organizes current sprite list by texture.
 -- @param(list : Sprite Table) list of sprites to be sorted
