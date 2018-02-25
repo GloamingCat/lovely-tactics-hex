@@ -61,7 +61,15 @@ function DirectedObject:frontTile(angle)
   if FieldManager.currentField:exceedsBorder(tile.x + dx, tile.y + dy) then
     return nil
   else
-    return tile.layer.grid[tile.x + dx][tile.y + dy]
+    local nextTile = tile.layer.grid[tile.x + dx][tile.y + dy]
+    for i = 1, #tile.ramps do
+      local t = tile.ramps[i]
+      if t.x == nextTile.x and t.y == nextTile.y then
+        nextTile = t
+        break
+      end
+    end
+    return nextTile
   end
 end
 

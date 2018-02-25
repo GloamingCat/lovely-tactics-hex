@@ -36,6 +36,7 @@ function ObjectTile:init(layer, x, y, defaultRegion)
   self.battlerTypeList = List()
   self.parties = {}
   self.neighborList = nil
+  self.ramps = {}
   if defaultRegion then
     self.regionList:add(defaultRegion)
   end
@@ -49,6 +50,16 @@ function ObjectTile:createNeighborList()
       local tile = row[n.y + self.y]
       if tile then
         self.neighborList:add(tile)
+      end
+    end
+  end
+  for r = 1, #self.ramps do
+    local tr = self.ramps[r]
+    for n = 1, #self.neighborList do
+      local tn = self.neighborList[n]
+      if tr.x == tn.x and tr.y == tn.y then
+        self.neighborList[n] = tr
+        break
       end
     end
   end
