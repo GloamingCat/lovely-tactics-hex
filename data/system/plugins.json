@@ -50,5 +50,10 @@
 			"saveKey": "f1",
 			"loadKey": "f5"
 		}
+	},
+	{
+		"path": "BatchMesh",
+		"on": false,
+		"param": {}
 	}
 ]

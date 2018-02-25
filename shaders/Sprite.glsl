@@ -31,15 +31,6 @@ vec3 hsv2rgb(vec3 c) {
 // Code above from: 
 // https://gamedev.stackexchange.com/questions/59797/glsl-shader-change-hue-saturation-brightness
 
-#ifdef VERTEX
-// Vertex
-attribute vec3 vhsv;
-vec4 position(mat4 transform_projection, vec4 vertex_position) {
-    // The order of operations matters when doing matrix multiplication.
-    return transform_projection * vertex_position;
-}
-#endif
-
 #ifdef PIXEL
 vec4 effect(vec4 color, sampler2D texture, vec2 texture_coords, vec2 screen_coords) {
   vec4 initialColor = texture2D(texture, texture_coords) * color;
