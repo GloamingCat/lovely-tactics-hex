@@ -8,9 +8,10 @@ The GUI that is shown in the end of the battle.
 =================================================================================================]]
 
 -- Imports
-local TitleCommandWindow = require('core/gui/start/window/TitleCommandWindow')
 local GUI = require('core/gui/GUI')
+local LoadWindow = require('core/gui/start/window/LoadWindow')
 local Text = require('core/graphics/Text')
+local TitleCommandWindow = require('core/gui/start/window/TitleCommandWindow')
 
 local TitleGUI = class(GUI)
 
@@ -23,6 +24,7 @@ function TitleGUI:createWindows()
   self.name = 'Title GUI'
   self:createTopText()
   self:createCommandWindow()
+  self:createLoadWindow()
   self:setActiveWindow(self.commandWindow)
 end
 -- Creates the text at the top of the screen to show that the player won.
@@ -44,6 +46,13 @@ function TitleGUI:createCommandWindow()
     (ScreenManager.height - window.height) / 2 - self:windowMargin())
   self.commandWindow = window
 end
+function TitleGUI:createLoadWindow()
+  if next(SaveManager.saves) ~= nil then
+    local window = LoadWindow(self)
+    window:setVisible(false)
+    self.loadWindow = window
+  end
+end
 
 ---------------------------------------------------------------------------------------------------
 -- General
@@ -61,8 +70,8 @@ function TitleGUI:show(...)
 end
 -- Overrides GUI:hide to hide top text after closing windows.
 function TitleGUI:hide(...)
-  GUI.hide(self, ...)
   self.topText:setVisible(false)
+  GUI.hide(self, ...)
 end
 
 return TitleGUI

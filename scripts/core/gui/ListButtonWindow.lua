@@ -52,6 +52,10 @@ end
 -- Properties
 ----------------------------------------------------------------------------------------------------
 
+-- Overrides GridWindow:colCount.
+function ListButtonWindow:colCount()
+  return 2
+end
 -- Larger buttons.
 function ListButtonWindow:cellWidth()
   local w = ScreenManager.width - self.GUI:windowMargin() * 2

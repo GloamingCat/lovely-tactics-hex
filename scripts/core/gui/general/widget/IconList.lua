@@ -31,13 +31,16 @@ function IconList:init(topLeft, width, height, frameWidth, frameHeight)
   self.height = height
   self.frameWidth = frameWidth or 16
   self.frameHeight = frameHeight or 16
+  self.frameID = Config.animations.frameID
   self.visible = true
 end
 -- Sets the content of this list.
 -- @param(icons : table) Array of icon tables (id, col and row).
 function IconList:setIcons(icons)
   self:destroy()
+  local frameSkin = self.frameID >= 0 and Database.animations[self.frameID]
   self.icons = {}
+  self.frames = frameSkin and {}
   if not icons then
     return
   end
@@ -56,17 +59,15 @@ function IconList:setIcons(icons)
       end
     end
     self.icons[i] = anim
-    self.frames[i] = SpriteGrid(self:getSkin())
-    self.frames[i]:createGrid(GUIManager.renderer, self.frameWidth, self.frameHeight)
+    if frameSkin then
+      self.frames[i] = SpriteGrid(frameSkin)
+      self.frames[i]:createGrid(GUIManager.renderer, self.frameWidth, self.frameHeight)
+    end
     anim.x = x
     anim.y = y
     anim.sprite:setVisible(self.visible)
     x = x + self.frameWidth - 1
   end
-end
--- @ret(table) Icon frame's skin.
-function IconList:getSkin()
-  return Database.animations[Config.animations.frameID]
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -76,7 +77,9 @@ end
 -- Shows each icon.
 function IconList:show()
   for i = 1, #self.icons do
-    self.frames[i]:setVisible(true)
+    if self.frames then
+      self.frames[i]:setVisible(true)
+    end
     self.icons[i]:show()
   end
   self.visible = true
@@ -84,7 +87,9 @@ end
 -- Hides each icon.
 function IconList:hide()
   for i = 1, #self.icons do
-    self.frames[i]:setVisible(false)
+    if self.frames then
+      self.frames[i]:setVisible(false)
+    end
     self.icons[i]:hide()
   end
   self.visible = false
@@ -92,14 +97,18 @@ end
 -- Updates each icon animation.
 function IconList:update()
   for i = 1, #self.icons do
-    self.frames[i]:update()
+    if self.frames then
+      self.frames[i]:update()
+    end
     self.icons[i]:update()
   end
 end
 -- Destroys each icon.
 function IconList:destroy()
   for i = 1, #self.icons do
-    self.frames[i]:destroy()
+    if self.frames then
+      self.frames[i]:destroy()
+    end
     self.icons[i]:destroy()
   end
 end
@@ -111,7 +120,9 @@ function IconList:updatePosition(wpos)
     local y = wpos.y + self.topLeft.y + self.icons[i].y
     local z = wpos.z + self.topLeft.z - 1
     self.icons[i].sprite:setXYZ(x, y, z)
-    self.frames[i]:updateTransform(self.icons[i].sprite)
+    if self.frames then
+      self.frames[i]:updateTransform(self.icons[i].sprite)
+    end
     self.icons[i].sprite:setXYZ(x, y, z - 2)
   end
 end

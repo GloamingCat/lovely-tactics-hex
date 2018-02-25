@@ -43,8 +43,20 @@ function TitleCommandWindow:newGameConfirm()
 end
 -- Load Game button.
 function TitleCommandWindow:loadGameConfirm()
-  -- TODO: open load window
-  self.result = 2
+  self:hide()
+  self.GUI.loadWindow:show()
+  self.GUI.loadWindow:activate()
+  local result = self.GUI:waitForResult()
+  self.GUI.loadWindow.result = nil
+  if result ~= '' then
+    self.result = 1
+    self.GUI:hide()
+    SaveManager:loadSave(result)
+  else
+    self.GUI.loadWindow:hide()
+    self:show()
+  end
+  self:activate()
 end
 -- Quit button.
 function TitleCommandWindow:quitConfirm()
@@ -62,7 +74,7 @@ end
 
 -- @ret(boolean) True if Item GUI may be open, false otherwise.
 function TitleCommandWindow:loadGameEnabled()
-  return false
+  return self.GUI.loadWindow
 end
 
 ---------------------------------------------------------------------------------------------------

@@ -23,6 +23,15 @@ local SaveManager = class()
 -- Constructor. 
 function SaveManager:init()
   self.current = nil
+  if love.filesystem.exists('saves.json') then
+    self.saves = Serializer.load('saves.json')
+  else
+    self.saves = {}
+  end
+  if not love.filesystem.exists('saves/') then
+    love.filesystem.createDirectory('saves/')
+  end
+  self.maxSaves = 3
 end
 -- Loads a new save.
 function SaveManager:newSave()
@@ -91,27 +100,44 @@ end
 ---------------------------------------------------------------------------------------------------
 
 -- Gets the total play time of the current save.
-function SaveManager:getPlayTime()
-  return self.current.playTime + (now() - self.loadTime)
+-- @ret(number) The time in seconds.
+function SaveManager:getPlayTime(save)
+  save = save or self.current
+  return save.playTime + (now() - self.loadTime)
+end
+-- Gets the header of the save.
+-- @param(save : table) The save, uses the current save if nil.
+-- @ret(table) Header of the save.
+function SaveManager:getHeader(save)
+  save = save or self.current
+  local troop = save.troops[self.playerTroopID]
+  return { name = save.name,
+    playTime = save.playTime,
+    gold = troop.gold,
+    members = copyTable(troop.current),
+    fieldName = FieldManager.currentField.name }
 end
 -- Loads the specified save.
--- @param(name : string) File name.
-function SaveManager:loadSave(name)
-  if love.filesystem.exists(name .. '.save') then
-    self.current = Serializer.load(name .. '.save')
+-- @param(file : string) File name.
+function SaveManager:loadSave(file)
+  if love.filesystem.exists('saves/' .. file .. '.save') then
+    self.current = Serializer.load('saves/' .. file .. '.save')
     self.loadTime = now()
     FieldManager:loadTransition(self.current.playerTransition)
     print('Loaded game.')
   else
-    print('No such save file: ' .. name .. '.save')
+    print('No such save file: ' .. file .. '.save')
   end
 end
 -- Stores current save.
-function SaveManager:storeSave(name)
+-- @param(name : string) File name.
+function SaveManager:storeSave(file)
   self.current.playTime = self:getPlayTime()
   self.current.playerTransition = FieldManager:getPlayerTransition()
   self:storeFieldData()
-  Serializer.store(name .. '.save', self.current)
+  self.saves[file] = self:getHeader(self.current)
+  Serializer.store('saves/' .. file .. '.save', self.current)
+  Serializer.store('saves.json', self.saves)
   self.loadTime = now()
   print('Saved game.')
 end

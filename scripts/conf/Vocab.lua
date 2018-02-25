@@ -3,11 +3,14 @@ return {
   -- Title Window
   newGame = 'New Game',
   loadGame = 'Load Game',
+  noSave = 'Empty',
+  quickSave = 'Quick Save',
   
   -- Main Window
   members = 'Characters',
   config = 'Settings',
   save = 'Save',
+  saveName = 'Save',
   quit = 'Quit',
   
   -- Member Window
@@ -17,7 +20,7 @@ return {
   stats = 'Stats',
   
   -- Equip Window
-  empty = 'Empty',
+  noEquip = 'Empty',
   unequip = 'Unequip',
   
   -- Battle intro Window

@@ -41,7 +41,7 @@ function EquipSlotWindow:createListButton(slot)
     local button = Button(self)
     local w = self:cellWidth()
     button:createText(slot.name, 'gui_medium', 'left', w / 3)
-    button:createInfoText(Vocab.empty, 'gui_medium', 'left', w / 3 * 2, Vector(w / 3, 1, 0))
+    button:createInfoText(Vocab.noEquip, 'gui_medium', 'left', w / 3 * 2, Vector(w / 3, 1, 0))
     button.key = slot.key .. i
     button.slot = slot
   end
@@ -56,7 +56,7 @@ function EquipSlotWindow:refreshSlots()
   for i = 1, #self.matrix do
     local button = self.matrix[i]
     local slot = self.member.equipSet.slots[button.key]
-    local name = Vocab.empty
+    local name = Vocab.noEquip
     if slot and slot.id >= 0 then
       local item = Database.items[slot.id]
       name = item.name
