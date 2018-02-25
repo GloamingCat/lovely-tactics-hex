@@ -12,6 +12,8 @@ return {
   save = 'Save',
   saveName = 'Save',
   quit = 'Quit',
+  title = 'Title Screen',
+  close = 'Close Game',
   
   -- Member Window
   items = 'Use Item',

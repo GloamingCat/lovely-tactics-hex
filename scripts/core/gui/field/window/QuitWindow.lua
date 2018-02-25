@@ -19,32 +19,28 @@ local FieldCommandWindow = class(GridWindow)
 
 -- Implements GridWindow:createWidgets.
 function FieldCommandWindow:createWidgets()
-  Button:fromKey(self, 'members')
-  Button:fromKey(self, 'config')
-  Button:fromKey(self, 'save')
-  Button:fromKey(self, 'quit')
+  Button:fromKey(self, 'cancel')
+  Button:fromKey(self, 'title')
+  Button:fromKey(self, 'close')
 end
 
 ---------------------------------------------------------------------------------------------------
 -- Buttons
 ---------------------------------------------------------------------------------------------------
 
-function FieldCommandWindow:membersConfirm()
+-- When player cancels the quit action.
+function FieldCommandWindow:cancelConfirm()
+  self.result = 0
+end
+-- When players chooses to return to TitleGUI.
+function FieldCommandWindow:titleConfirm()
   self:hide()
-  self.GUI.membersWindow:show()
-  self.GUI.membersWindow:activate()
+  FieldManager.renderer:fadeout(nil, true)
+  GameManager:restart()
 end
-
-function FieldCommandWindow:configConfirm()
-  
-end
-
-function FieldCommandWindow:saveConfirm()
-  
-end
-
-function FieldCommandWindow:quitConfirm()
-  self.GUI:showWindowForResult(self.GUI.quitWindow)
+-- When player chooses to shut the game down.
+function FieldCommandWindow:closeConfirm()
+  GameManager:close()
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -53,11 +49,11 @@ end
 
 -- Overrides GridWindow:colCount.
 function FieldCommandWindow:colCount()
-  return 2
+  return 1
 end
 -- Overrides GridWindow:rowCount.
 function FieldCommandWindow:rowCount()
-  return 2
+  return 3
 end
 -- @ret(string) String representation (for debugging).
 function FieldCommandWindow:__tostring()

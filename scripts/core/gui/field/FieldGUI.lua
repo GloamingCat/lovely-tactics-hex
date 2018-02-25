@@ -12,6 +12,7 @@ local GUI = require('core/gui/GUI')
 local FieldCommandWindow = require('core/gui/field/window/FieldCommandWindow')
 local MemberGUI = require('core/gui/members/MemberGUI')
 local MemberListWindow = require('core/gui/members/window/MemberListWindow')
+local QuitWindow = require('core/gui/field/window/QuitWindow')
 local Troop = require('core/battle/Troop')
 
 local FieldGUI = class(GUI)
@@ -26,6 +27,7 @@ function FieldGUI:createWindows()
   self.troop = Troop()
   self:createMainWindow()
   self:createMembersWindow()
+  self:createQuitWindow()
 end
 -- Creates the list with the main commands.
 function FieldGUI:createMainWindow()
@@ -39,6 +41,11 @@ end
 function FieldGUI:createMembersWindow()
   self.membersWindow = MemberListWindow(self.troop, self)
   self.membersWindow:setVisible(false)
+end
+-- Creates the window the shows when player selects "Quit" button.
+function FieldGUI:createQuitWindow()
+  self.quitWindow = QuitWindow(self)
+  self.quitWindow:setVisible(false)
 end
 
 ---------------------------------------------------------------------------------------------------

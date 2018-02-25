@@ -111,10 +111,13 @@ end
 function SaveManager:getHeader(save)
   save = save or self.current
   local troop = save.troops[self.playerTroopID]
-  return { name = save.name,
+  local members = {}
+  for i = 1, #troop.current do
+    members[i] = troop.current[i].charID
+  end
+  return { members = members,
     playTime = save.playTime,
     gold = troop.gold,
-    members = copyTable(troop.current),
     fieldName = FieldManager.currentField.name }
 end
 -- Loads the specified save.

@@ -144,6 +144,7 @@ function FieldManager:loadTransition(transition, fromSave)
   local fieldData = self:loadField(fieldID)
   self.player = self:createPlayer(transition)
   self.renderer.focusObject = self.player
+  self.renderer:setPosition(self.player.position)
   -- Create/call start listeners
   local script = self.currentField.startScript
   if script then

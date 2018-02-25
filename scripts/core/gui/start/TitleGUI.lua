@@ -46,6 +46,7 @@ function TitleGUI:createCommandWindow()
     (ScreenManager.height - window.height) / 2 - self:windowMargin())
   self.commandWindow = window
 end
+-- Creates the window with the save files to load.
 function TitleGUI:createLoadWindow()
   if next(SaveManager.saves) ~= nil then
     local window = LoadWindow(self)

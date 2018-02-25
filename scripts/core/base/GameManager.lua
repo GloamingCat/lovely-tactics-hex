@@ -120,4 +120,23 @@ function GameManager:setPaused(paused, audio, input)
   end
 end
 
+---------------------------------------------------------------------------------------------------
+-- Quit
+---------------------------------------------------------------------------------------------------
+
+-- Restarts the game from the TitleGUI.
+function GameManager:restart()
+  ScreenManager.renderers = {}
+  FieldManager = require('core/field/FieldManager')()
+  GUIManager = require('core/gui/GUIManager')()
+  self:start()
+end
+-- Closes game.
+function GameManager:close()
+  if _G.Fiber then
+    _G.Fiber:wait(15)
+  end
+  love.event.quit()
+end
+
 return GameManager

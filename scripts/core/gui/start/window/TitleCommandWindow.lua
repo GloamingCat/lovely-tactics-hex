@@ -44,25 +44,19 @@ end
 -- Load Game button.
 function TitleCommandWindow:loadGameConfirm()
   self:hide()
-  self.GUI.loadWindow:show()
-  self.GUI.loadWindow:activate()
-  local result = self.GUI:waitForResult()
-  self.GUI.loadWindow.result = nil
+  local result = self.GUI:showWindowForResult(self.GUI.loadWindow)
   if result ~= '' then
     self.result = 1
     self.GUI:hide()
     SaveManager:loadSave(result)
   else
-    self.GUI.loadWindow:hide()
     self:show()
   end
-  self:activate()
 end
 -- Quit button.
 function TitleCommandWindow:quitConfirm()
   self.GUI:hide()
-  _G.Fiber:wait(15)
-  love.event.quit()
+  GameManager:close()
 end
 -- Cancel button.
 function TitleCommandWindow:onButtonCancel()

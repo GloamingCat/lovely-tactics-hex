@@ -73,7 +73,7 @@ function GUI:setActiveWindow(window)
   end
 end
 -- [COROUTINE] Waits until GUI closes and returns a result.
--- @ret(unknown) the result of GUI (will never be nil)
+-- @ret The result of GUI (will never be nil).
 function GUI:waitForResult()
   if self.activeWindow then
     self.activeWindow:checkInput()
@@ -85,6 +85,19 @@ function GUI:waitForResult()
     end
   end
   return self.activeWindow.result
+end
+-- [COROUTINE] Waits until window closes and returns a result.
+-- @param(window : Window) The new active window.
+-- @ret The result of window (will never be nil).
+function GUI:showWindowForResult(window)
+  local previous = self.activeWindow
+  window:show()
+  window:activate()
+  local result = self:waitForResult()
+  window.result = nil
+  window:hide()
+  previous:activate()
+  return result
 end
 
 ---------------------------------------------------------------------------------------------------

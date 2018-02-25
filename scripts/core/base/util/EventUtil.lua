@@ -172,10 +172,16 @@ end
 -- @param(args.direction : number) Player's destination direction (in degrees).
 function util.moveToField(sheet, event, args)
   if args.fade then
-    FieldManager.renderer:fadeout(255 / args.fade)
-    event.origin:walkToTile(event.tile:coordinates())
+    _G.Fiber:fork(function()
+      event.origin:walkToTile(event.tile:coordinates())
+    end)
+    FieldManager.renderer:fadeout(255 / args.fade, true)
   end
   FieldManager:loadTransition(args)
+  if args.fade then
+    FieldManager.renderer:fadeout(0)
+    FieldManager.renderer:fadein(255 / args.fade, true)
+  end
 end
 -- Loads battle field.
 -- @param(args.intro : boolean) Battle introduction animation.
