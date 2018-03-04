@@ -36,7 +36,7 @@ function ObjectTile:init(layer, x, y, defaultRegion)
   self.battlerTypeList = List()
   self.parties = {}
   self.neighborList = nil
-  self.ramps = {}
+  self.ramps = List()
   if defaultRegion then
     self.regionList:add(defaultRegion)
   end

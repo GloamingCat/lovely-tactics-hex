@@ -35,16 +35,6 @@ function FieldLoader.loadField(fieldData)
     end
     layerData[l].grid = grid
   end
-  local transitions = fieldData.layerTransitions
-  if transitions then
-    for i = 1, #transitions do
-      local t = transitions[i]
-      local tile1 = field:getObjectTile(t.x1, t.y1, t.h1)
-      local tile2 = field:getObjectTile(t.x2, t.y2, t.h2)
-      tile1.ramps[#tile1.ramps + 1] = tile2
-      tile2.ramps[#tile2.ramps + 1] = tile1
-    end
-  end
   return field
 end
 -- @param(fieldID : number) the ID of the field

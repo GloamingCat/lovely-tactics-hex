@@ -259,7 +259,7 @@ function Field:collidesTerrain(x, y, h)
       end
     end
   end
-  return noGround
+  return noGround and #(self:getObjectTile(x, y, h).ramps) == 0
 end
 -- Check if collides with obstacles.
 -- @param(object : Object) the object to check collision

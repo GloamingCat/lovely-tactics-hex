@@ -65,8 +65,7 @@ function DirectedObject:frontTile(angle)
     for i = 1, #tile.ramps do
       local t = tile.ramps[i]
       if t.x == nextTile.x and t.y == nextTile.y then
-        nextTile = t
-        break
+        return t
       end
     end
     return nextTile

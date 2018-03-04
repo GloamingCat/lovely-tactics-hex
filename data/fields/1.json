@@ -98,6 +98,12 @@
 			"tags": []
 		},
 		{
+			"name": "Grass2",
+			"type": 0,
+			"height": 2,
+			"tags": []
+		},
+		{
 			"name": "Bush",
 			"type": 0,
 			"height": 0,
