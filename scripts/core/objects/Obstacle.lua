@@ -107,7 +107,8 @@ function Obstacle:removeFromTiles()
     end
   end
 end
-
+-- Gets an array of tiles to each the obstacle's ramp transits.
+-- @ret(table) Array of tiles if the obstacle is a ramp, nil if it's not.
 function Obstacle:getRampNeighbors(tile)
   if not self.rampHeight then
     return nil

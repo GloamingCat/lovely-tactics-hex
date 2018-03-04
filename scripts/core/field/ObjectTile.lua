@@ -92,6 +92,18 @@ function ObjectTile:getMoveCost()
   return FieldManager.currentField:getMoveCost(self.x, self.y, 
     self.layer.height)
 end
+-- Searchs for a tile from the ramp list with the given x and y.
+-- @param(x : number) Tile x.
+-- @param(y : number) Tile y.
+-- @ret(ObjectTile) The ramp's destination tile if found, nil if not found.
+function ObjectTile:getRamp(x, y)
+  for i = 1, #self.ramps do
+    local r = self.ramps[i]
+    if r.x == x and r.y == y then
+      return r
+    end
+  end
+end
 -- Updates graphics animation.
 function ObjectTile:update()
   if self.gui then

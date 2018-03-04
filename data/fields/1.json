@@ -101,6 +101,7 @@
 			"name": "Grass2",
 			"type": 0,
 			"height": 2,
+			"noAuto": true,
 			"tags": []
 		},
 		{

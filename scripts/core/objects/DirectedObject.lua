@@ -13,6 +13,7 @@ local AnimatedObject = require('core/objects/AnimatedObject')
 -- Alias
 local angle2Row = math.angle2Row
 local coord2Angle = math.coord2Angle
+local frontTile = math.field.frontTile
 local nextCoordDir = math.field.nextCoordDir
 local tile2Pixel = math.field.tile2Pixel
 local abs = math.abs
@@ -56,20 +57,7 @@ end
 -- @ret(ObjectTile) the front tile (nil if exceeds field border)
 function DirectedObject:frontTile(angle)
   angle = angle or self:getRoundedDirection()
-  local dx, dy = nextCoordDir(angle)
-  local tile = self:getTile()
-  if FieldManager.currentField:exceedsBorder(tile.x + dx, tile.y + dy) then
-    return nil
-  else
-    local nextTile = tile.layer.grid[tile.x + dx][tile.y + dy]
-    for i = 1, #tile.ramps do
-      local t = tile.ramps[i]
-      if t.x == nextTile.x and t.y == nextTile.y then
-        return t
-      end
-    end
-    return nextTile
-  end
+  return frontTile(self:getTile(), nextCoordDir(angle))
 end
 
 ---------------------------------------------------------------------------------------------------
