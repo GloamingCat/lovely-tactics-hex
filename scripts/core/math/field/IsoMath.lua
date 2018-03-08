@@ -80,18 +80,8 @@ end
 -- Field center
 ---------------------------------------------------------------------------
 
-function IsoMath.pixelCenter(field)
-  local x1 = IsoMath.tile2Pixel(1, 1, 0)
-  local x2 = IsoMath.tile2Pixel(field.sizeX, field.sizeY, 0)
-  return (x1 + x2) / 2, 0
-end
-
----------------------------------------------------------------------------
--- Field center
----------------------------------------------------------------------------
-
 function IsoMath.pixelBounds(field)
-  local x, y = IsoMath.pixelCenter(field)
+  local x, y = IsoMath.pixelCenter(field.sizeX, field.sizeY)
   local w = IsoMath.pixelWidth(field.sizeX, field.sizeY)
   local h = IsoMath.pixelHeight(field.sizeX, field.sizeY, table.maxn(field.objectLayers))
   -- TODO

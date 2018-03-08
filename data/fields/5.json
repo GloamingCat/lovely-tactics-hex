@@ -17,7 +17,7 @@
 				"fieldID": 3,
 				"x": 8,
 				"y": 2,
-				"h": 0,
+				"h": 1,
 				"min": 2,
 				"max": 4,
 				"direction": 315,
@@ -28,7 +28,7 @@
 				"fieldID": 6,
 				"x": 12,
 				"y": 6,
-				"h": 0,
+				"h": 1,
 				"min": 2,
 				"max": 4,
 				"direction": 225,
@@ -47,7 +47,7 @@
 			"persistent": true,
 			"x": 4,
 			"y": 5,
-			"h": 0,
+			"h": 1,
 			"party": -1,
 			"charID": 20,
 			"battlerID": -1,
@@ -69,31 +69,31 @@
 		{
 			"name": "Sand",
 			"type": 0,
-			"height": 0,
+			"height": 1,
 			"tags": []
 		},
 		{
 			"name": "Grass",
 			"type": 0,
-			"height": 0,
+			"height": 1,
 			"tags": []
 		},
 		{
 			"name": "Bush",
 			"type": 0,
-			"height": 0,
+			"height": 1,
 			"tags": []
 		},
 		{
 			"name": "Water",
 			"type": 0,
-			"height": 0,
+			"height": 1,
 			"tags": []
 		},
 		{
 			"name": "Obstacles",
 			"type": 1,
-			"height": 0,
+			"height": 1,
 			"tags": []
 		}
 	]

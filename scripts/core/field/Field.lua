@@ -57,7 +57,7 @@ function Field:init(data)
   end
   self:initLayers()
   -- Border and center
-  self.centerX, self.centerY = math.field.pixelCenter(self)
+  self.centerX, self.centerY = math.field.pixelCenter(self.sizeX, self.sizeY)
   self.minx, self.miny, self.maxx, self.maxy = math.field.pixelBounds(self)
   self.fiberList = FiberList()
 end

@@ -70,4 +70,18 @@ function FieldMath.frontTile(tile, dx, dy)
   end
 end
 
+-----------------------------------------------------------------------------------------------
+-- Field center
+-----------------------------------------------------------------------------------------------
+
+-- Gets the world center of the given field.
+-- @param(field : Field)
+-- @ret(number) center x
+-- @ret(number) center y
+function FieldMath.pixelCenter(sizeX, sizeY)
+  local x1, y1 = FieldMath.tile2Pixel(1, 1, 0)
+  local x2, y2 = FieldMath.tile2Pixel(sizeX, sizeY, 0)
+  return (x1 + x2) / 2, (y1 + y2) / 2
+end
+
 return FieldMath

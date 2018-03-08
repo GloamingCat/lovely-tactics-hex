@@ -79,7 +79,9 @@ function FieldManager:createCamera(data)
   end
   local mind = mathf.minDepth(data.sizeX, data.sizeY, h)
   local maxd = mathf.maxDepth(data.sizeX, data.sizeY, h)
-  return FieldCamera(data.sizeX * data.sizeY * #data.layers * 4, mind, maxd, 1)
+  local camera = FieldCamera(data.sizeX * data.sizeY * #data.layers * 4, mind, maxd, 1)
+  camera:setXYZ(mathf.pixelCenter(data.sizeX, data.sizeY))
+  return camera
 end
 -- Creates a character representing player.
 -- @ret(Player) the newly created player

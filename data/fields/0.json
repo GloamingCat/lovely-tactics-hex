@@ -21,7 +21,7 @@
 				// Position of the top-left corner of the party (or left corner, in isometric/hexagonal grid).
 				"x": 12,
 				"y": 5,
-				"h": 0,
+				"h": 1,
 				// The initial direction of the characters.
 				// The troop's grid is also rotated to reposition them, in case they are generated from grid.
 				"rotation": 3,
@@ -34,7 +34,7 @@
 				"memberPos": [],
 				"x": 2,
 				"y": 5,
-				"h": 0,
+				"h": 1,
 				"rotation": 1,
 				"troops": [2],
 				"tags": []
@@ -47,43 +47,43 @@
 		{
 			"name": "Sand",
 			"type": 0, // 0 => terrain, 1 => obstacles, 2 => regions, 3 => parties
-			"height": 0,
+			"height": 1,
 			"tags": []
 		},
 		{
 			"name": "Glass",
 			"type": 0,
-			"height": 0,
+			"height": 1,
 			"tags": []
 		},
 		{
 			"name": "Bush",
 			"type": 0,
-			"height": 0,
+			"height": 1,
 			"tags": []
 		},
 		{
 			"name": "Water",
 			"type": 0,
-			"height": 0,
+			"height": 1,
 			"tags": []
 		},
 		{
 			"name": "Tree",
 			"type": 1,
-			"height": 0,
+			"height": 1,
 			"tags": []
 		},
 		{
 			"name": "Parties",
 			"type": 3,
-			"height": 0,
+			"height": 1,
 			"tags": []
 		},
 		{
 			"name": "Sand2",
 			"type": 0,
-			"height": 1,
+			"height": 2,
 			"noAuto": true,
 			"tags": []
 		}

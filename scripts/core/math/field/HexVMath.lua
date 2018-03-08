@@ -57,20 +57,6 @@ function HexVMath.createVertexShift()
 end
 
 -----------------------------------------------------------------------------------------------
--- Field center
------------------------------------------------------------------------------------------------
-
--- Gets the world center of the given field.
--- @param(field : Field)
--- @ret(number) center x
--- @ret(number) center y
-function HexVMath.pixelCenter(field)
-  local x1 = HexVMath.tile2Pixel(1, 1, 0)
-  local x2 = HexVMath.tile2Pixel(field.sizeX, field.sizeY, 0)
-  return (x1 + x2) / 2, 0
-end
-
------------------------------------------------------------------------------------------------
 -- Field bounds
 -----------------------------------------------------------------------------------------------
 
@@ -81,7 +67,7 @@ end
 -- @ret(number) bounding rect width
 -- @ret(number) bounding rect height
 function HexVMath.pixelBounds(field)
-  local x, y = HexVMath.pixelCenter(field)
+  local x, y = HexVMath.pixelCenter(field.sizeX, field.sizeY)
   local w = HexVMath.pixelWidth(field.sizeX, field.sizeY)
   local h = HexVMath.pixelHeight(field.sizeX, field.sizeY, #field.objectLayers + 1)
   return x - w / 2, y - h / 2, w, h
@@ -115,7 +101,7 @@ end
 -- @param(height : number) Field's maximum height.
 -- @ret(number) The minimum depth of the field's renderer.
 function HexVMath.minDepth(sizeX, sizeY, height)
-  return -(sizeX + sizeY) * (tileW + tileB) / 2 - pph - dph * height
+  return -(sizeX + sizeY) * (tileW + tileB) / 2 - pph - dph * (height - 1)
 end
 
 -----------------------------------------------------------------------------------------------
@@ -126,7 +112,7 @@ end
 -- @param(j : number) Tile y coordinate.
 -- @param(h : number) Tile height.
 function HexVMath.tile2Pixel(i, j, h)
-  i, j = i - 1, j - 1
+  i, j, h = i - 1, j - 1, h - 1
   local d = -(j - i) * tileH / 2
   local x = (i + j) * (tileW + tileB) / 2
   local y = -d - h * pph
@@ -147,7 +133,7 @@ function HexVMath.pixel2Tile(x, y, d)
   local dji = -d * 2 / tileH
   local i = (sij - dji) / 2
   local j = (sij + dji) / 2
-  return i + 1, j + 1, h
+  return i + 1, j + 1, h + 1
 end
 
 -----------------------------------------------------------------------------------------------

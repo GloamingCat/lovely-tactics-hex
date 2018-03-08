@@ -109,7 +109,7 @@ end
 
 -- @param(transitions : table) array of field's transitions
 function FieldLoader.createTransitions(field, transitions)
-  local function instantiate(transition, minx, maxx, miny, maxy)
+  local function instantiate(transition, minx, maxx, miny, maxy, h)
     local script = { 
       commands = { {
         name = "moveToField",
@@ -118,10 +118,10 @@ function FieldLoader.createTransitions(field, transitions)
       global = true }
     for x = minx, maxx do
       for y = miny, maxy do
-        local tile = field:getObjectTile(x, y, 0)
+        local tile = field:getObjectTile(x, y, h or 1)
         if not tile:collidesObstacle(0, 0) then
           local char = { key = 'Transition',
-            x = x, y = y, h = 0,
+            x = x, y = y, h = h or 1,
             collideScript = script }
           Interactable(char)
         end
@@ -132,13 +132,13 @@ function FieldLoader.createTransitions(field, transitions)
   for i = 1, #transitions do
     local t = transitions[i]
     if t.side == 'north' then
-      instantiate(t, t.min or 1, t.max or w, 1, 1)
+      instantiate(t, t.min or 1, t.max or w, 1, 1, t.height)
     elseif t.side == 'south' then
-      instantiate(t, t.min or 1, t.max or w, h, h)
+      instantiate(t, t.min or 1, t.max or w, h, h, t.height)
     elseif t.side == 'west' then
-      instantiate(t, 1, 1, t.min or 1, t.max or h)
+      instantiate(t, 1, 1, t.min or 1, t.max or h, t.height)
     elseif t.side == 'east' then
-      instantiate(t, w, w, t.min or 1, t.max or h)
+      instantiate(t, w, w, t.min or 1, t.max or h, t.height)
     end
   end
 end

@@ -320,7 +320,10 @@ function BattleAction:nextLayer(input, axis)
     return self:nextTarget(input, axis, axis)
   end
   local tile = input.target
-  return FieldManager.currentField:getObjectTile(tile.x, tile.y, tile.layer.height + axis)
+  repeat
+    tile = FieldManager.currentField:getObjectTile(tile.x, tile.y, tile.layer.height + axis)
+  until not tile or FieldManager.currentField:isGrounded(tile:coordinates())
+  return tile or input.target
 end
 
 return BattleAction

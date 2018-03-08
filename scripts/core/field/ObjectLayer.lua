@@ -63,7 +63,7 @@ function ObjectLayer:mergeObstacles(layerData)
           if obstacleData.transform then
             group.sprite:applyTransformation(obstacleData.transform)
           end
-          local pos = Vector(tile2Pixel(i, j, 0))
+          local pos = Vector(tile2Pixel(i, j, self.height))
           if obstacleData.position then
             pos:add(obstacleData.position)
           end
