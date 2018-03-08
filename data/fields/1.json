@@ -98,13 +98,6 @@
 			"tags": []
 		},
 		{
-			"name": "Grass2",
-			"type": 0,
-			"height": 2,
-			"noAuto": true,
-			"tags": []
-		},
-		{
 			"name": "Bush",
 			"type": 0,
 			"height": 0,
@@ -121,6 +114,13 @@
 			"type": 1,
 			"height": 0,
 			"tags": []
-		}
+		},
+		{
+			"name": "Sand2",
+			"type": 0,
+			"height": 2,
+			"noAuto": true,
+			"tags": []
+		},
 	]
 }

@@ -44,6 +44,7 @@ end
 -- Stores the list of neighbor tiles.
 function ObjectTile:createNeighborList()
   self.neighborList = List()
+  -- Create neighbors from the same layer.
   for i, n in ipairs(neighborShift) do
     local row = self.layer.grid[n.x + self.x]
     if row then
@@ -53,6 +54,7 @@ function ObjectTile:createNeighborList()
       end
     end
   end
+  -- Replaces neighbors with tiles from other layers if there are any ramps.
   for r = 1, #self.ramps do
     local tr = self.ramps[r]
     for n = 1, #self.neighborList do

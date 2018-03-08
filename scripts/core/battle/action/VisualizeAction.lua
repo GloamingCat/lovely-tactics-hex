@@ -46,7 +46,9 @@ function VisualizeAction:resetTileProperties(input)
 end
 -- Overrides BattleAction:resetTileColors.
 function VisualizeAction:resetTileColors(input)
-  self:clearTileColors()
+  for tile in self.field:gridIterator() do
+    tile.gui:setColor('')
+  end
 end
 
 ---------------------------------------------------------------------------------------------------

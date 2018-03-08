@@ -271,5 +271,23 @@ end
 function Field:collidesObstacle(object, origx, origy, origh, tile)
   return tile:collidesObstacle(origx, origy, object)
 end
+-- Checks if there's any terrain in the given coordinates.
+-- @param(x : number) Tile x coordinate.
+-- @param(y : number) Tile y coordinate.
+-- @param(h : number) Layer's height.
+-- @ret(boolean)
+function Field:isGrounded(x, y, h)
+  local layerList = self.terrainLayers[h]
+  if layerList ~= nil then
+    for i = 1, #layerList do
+      local layer = layerList[i]
+      local tile = layer.grid[x][y]
+      if tile.data ~= nil then
+        return true
+      end
+    end
+  end
+  return false
+end
 
 return Field

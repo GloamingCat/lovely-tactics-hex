@@ -91,6 +91,16 @@ function ActionGUI:checkInput()
     end
   elseif InputManager.keys['cancel']:isTriggered() then
     self.result = self.input.action:onCancel(self.input)
+  elseif InputManager.keys['next']:isTriggered() then
+    local target = self.input.action:nextLayer(self.input, 1)
+    if target then
+      self:selectTarget(target)
+    end
+  elseif InputManager.keys['prev']:isTriggered() then
+    local target = self.input.action:nextLayer(self.input, -1)
+    if target then
+      self:selectTarget(target)
+    end
   else
     local dx, dy = InputManager:axis(0.5, 0.0625)
     if dx ~= 0 or dy ~= 0 then

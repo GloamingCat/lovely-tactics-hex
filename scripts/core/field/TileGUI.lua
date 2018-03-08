@@ -41,6 +41,7 @@ function TileGUI:init(tile)
     self.highlightAnim.sprite:setXYZ(x, y, z)
   end
   self.x, self.y, self.h = tile:coordinates()
+  self.grounded = FieldManager.currentField:isGrounded(tile:coordinates())
   self:hide()
 end
 
@@ -74,6 +75,9 @@ end
 -- Updates graphics pixel depth according to the terrains' 
 --  depth in this tile's coordinates.
 function TileGUI:updateDepth()
+  if not self.grounded then
+    return
+  end
   local layers = FieldManager.currentField.terrainLayers[self.h]
   local minDepth = layers[1].grid[self.x][self.y].depth
   for i = #layers, 2, -1 do
@@ -115,7 +119,7 @@ end
 -- Shows tile edges.
 function TileGUI:show()
   if self.baseAnim then
-    self.baseAnim.sprite:setVisible(true)
+    self.baseAnim.sprite:setVisible(self.grounded)
   end
 end
 -- Hides tile edges.
