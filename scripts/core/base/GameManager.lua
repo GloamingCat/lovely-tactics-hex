@@ -23,6 +23,7 @@ function GameManager:init()
   self.cleanCount = 0
   self.startedProfi = false
   self.frame = 0
+  self.garbage = setmetatable({}, {__mode = 'v'})
   --PROFI = require('core/base/ProFi')
   --require('core/base/Stats').printStats()
 end

@@ -115,8 +115,7 @@ function FieldManager:getState()
     player = self.player,
     renderer = self.renderer,
     updateList = self.updateList,
-    characterList = self.characterList,
-    fiberList = self.fiberList }
+    characterList = self.characterList }
 end
 -- Sets manager's state (returns to a previous field).
 -- @param(state : table) the table with the state's contents
@@ -124,7 +123,6 @@ function FieldManager:setState(state)
   self.currentField = state.field
   self.player = state.player
   self.renderer = state.renderer
-  self.fiberList = state.fiberList
   self.updateList = state.updateList
   self.characterList = state.updateList
   self.renderer:activate()
