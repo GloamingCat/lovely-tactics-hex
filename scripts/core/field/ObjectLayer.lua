@@ -12,6 +12,7 @@ There's only one ObjectLayer in the field per height.
 local ObjectTile = require('core/field/ObjectTile')
 local Obstacle = require('core/objects/Obstacle')
 local Sprite = require('core/graphics/Sprite')
+local Vector = require('core/math/Vector')
 
 -- Alias
 local floor = math.floor
@@ -62,7 +63,11 @@ function ObjectLayer:mergeObstacles(layerData)
           if obstacleData.transform then
             group.sprite:applyTransformation(obstacleData.transform)
           end
-          group.sprite:setXYZ(tile2Pixel(i, j, 0))
+          local pos = Vector(tile2Pixel(i, j, 0))
+          if obstacleData.position then
+            pos:add(obstacleData.position)
+          end
+          group.sprite:setPosition(pos)
         end
         -- Collision tiles
         for k = 1, #obstacleData.tiles do

@@ -173,6 +173,10 @@ end
 function util.moveToField(sheet, event, args)
   if args.fade then
     _G.Fiber:fork(function()
+      -- Character
+      if event.origin.autoTurn then
+        event.origin:turnToTile(event.tile.x, event.tile.y)
+      end
       event.origin:walkToTile(event.tile:coordinates())
     end)
     FieldManager.renderer:fadeout(255 / args.fade, true)
@@ -286,6 +290,9 @@ function util.moveCharDir(sheet, event, args)
     local dx, dy, dh = nextTile:coordinates()
     dx, dy, dh = dx - ox, dy - oy, dh - oh
     dx, dy, dh = dx * args.distance, dy * args.distance, dh * args.distance
+    if char.autoTurn then
+      char:turnToTile(ox + dx, oy + dy)
+    end
     char:walkToTile(ox + dx, oy + dy, oh + dh, false)
   end
 end

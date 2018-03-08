@@ -47,7 +47,7 @@ function BattleMoveAction:execute(input)
   end
   FieldManager.renderer:moveToObject(input.user, nil, true)
   FieldManager.renderer.focusObject = input.user
-  input.user:walkPath(path)
+  input.user:walkPath(path, false, true)
   input.user:onMove(path)
   TurnManager:updatePathMatrix()
   return { executed = fullPath }

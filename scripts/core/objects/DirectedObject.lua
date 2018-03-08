@@ -109,21 +109,22 @@ function DirectedObject:vectorToAngle(x, y)
 end
 -- Gets the angle to a given pixel point.
 -- @param(x : number) the pixel x
--- @param(y : number) the pixel y
+-- @param(y : number) the pixel depth
 -- @ret(number) the angle to the given point
-function DirectedObject:pointToAngle(x, y)
+function DirectedObject:pointToAngle(x, z)
   local dx = x - self.position.x
-  local dy = y + self.position.z
-  return self:vectorToAngle(dx, dy)
+  local dz = self.position.z - z
+  return self:vectorToAngle(dx, dz)
 end
 -- Gets the angle to a given grid point.
 -- @param(x : number) the tile x
 -- @param(y : number) the tile y
 -- @ret(number) the angle to the given tile
 function DirectedObject:tileToAngle(x, y)
-  local h = self:getTile().layer.height
-  local destx, desty, destz = tile2Pixel(x, y, h)
-  return self:pointToAngle(destx, -destz)
+  local tile = self:getTile()
+  local ox, oy, oz = tile2Pixel(tile.x, tile.y, 0)
+  local dx, dy, dz = tile2Pixel(x, y, 0)
+  return self:vectorToAngle(dx - ox, oz - dz)
 end
 
 return DirectedObject

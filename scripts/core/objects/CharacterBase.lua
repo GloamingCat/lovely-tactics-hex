@@ -24,9 +24,6 @@ local round = math.round
 local time = love.timer.getDelta
 local tile2Pixel = math.field.tile2Pixel
 
--- Constants
-local animSets = Config.animations.sets
-
 local CharacterBase = class(DirectedObject, Interactable)
 
 ---------------------------------------------------------------------------------------------------
@@ -95,8 +92,8 @@ function CharacterBase:initGraphics(animations, dir, initAnim, transform, shadow
   DirectedObject.initGraphics(self, animations.default, dir, initAnim, transform)
   self.animationSets = {}
   local default = self.animationData
-  for i = 1, #animSets do
-    local k = animSets[i]
+  for i = 1, #Config.animations.sets do
+    local k = Config.animations.sets[i]
     if animations[k] then
       self:initAnimationTable(animations[k])
       self.animationSets[k] = self.animationData

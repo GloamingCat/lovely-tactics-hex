@@ -23,7 +23,6 @@ local yield = coroutine.yield
 -- Constants
 local conf = Config.player
 local tg = math.field.tg
-local menuSound = Config.sounds.menu
 
 local Player = class(Character)
 
@@ -102,7 +101,7 @@ function Player:moveByInput(dx, dy, dir)
       return
     end
     if self.autoAnim then
-      if self.speed < conf.dashSpeed then
+      if self.speed < self.dashSpeed then
         self:playAnimation(self.walkAnim)
       else
         self:playAnimation(self.dashAnim)
@@ -191,14 +190,17 @@ function Player:tryAngleMovement(angle)
         self:playAnimation(self.idleAnim)
       end
       if self.autoTurn then
-        self:turnToTile(dx, dy) -- character
+        self:turnToTile(dx, dy)
       end
-      self:collideTile(nextTile)
+      self:collideTile(nextTile) -- character
       return true
     end
   else
     local autoAnim = self.autoAnim
     self.autoAnim = false
+    if self.autoTurn then
+      self:turnToTile(dx, dy)
+    end
     self:walkToTile(dx, dy, dh, false)
     self.autoAnim = autoAnim
     self:collideTile(nextTile)
@@ -213,7 +215,7 @@ end
 
 -- Opens game's main GUI.
 function Player:openGUI()
-  AudioManager:playSFX(menuSound)
+  AudioManager:playSFX(Config.sounds.menu)
   GUIManager:showGUIForResult(FieldGUI())
 end
 

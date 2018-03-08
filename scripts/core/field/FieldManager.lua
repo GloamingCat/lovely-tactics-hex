@@ -60,7 +60,7 @@ function FieldManager:loadField(fieldID)
   if self.renderer then
     self.renderer:deactivate()
   end
-  self.renderer = self:createCamera(fieldData.sizeX, fieldData.sizeY, #fieldData.layers)
+  self.renderer = self:createCamera(fieldData)
   self.currentField = FieldLoader.loadField(fieldData)
   FieldLoader.mergeLayers(self.currentField, fieldData.layers)
   FieldLoader.loadCharacters(self.currentField, fieldData.characters)
@@ -68,15 +68,18 @@ function FieldManager:loadField(fieldID)
   return fieldData
 end
 -- Create new field camera.
--- @param(sizeX : number) the number of tiles in x axis
--- @param(sizeY : number) the number of tiles in y axis
--- @param(layerCount : number) the total number of layers in the field
--- @ret(FieldCamera) newly created camera
-function FieldManager:createCamera(sizeX, sizeY, layerCount)
-  local mind, maxd = mathf.minDepth(sizeX, sizeY), mathf.maxDepth(sizeX, sizeY)
-  local renderer = FieldCamera(sizeX * sizeY * layerCount * 4, mind, maxd, 1)
-  renderer:setXYZ(mathf.pixelWidth(sizeX, sizeY) / 2, 0)
-  return renderer
+-- @param(sizeX : number) The number of tiles in x axis.
+-- @param(sizeY : number) The number of tiles in y axis.
+-- @param(layerCount : number) The total number of layers in the field.
+-- @ret(FieldCamera) Newly created camera.
+function FieldManager:createCamera(data)
+  local h = 0
+  for i = 1, #data.layers do
+    h = math.max(h, data.layers[i].height)
+  end
+  local mind = mathf.minDepth(data.sizeX, data.sizeY, h)
+  local maxd = mathf.maxDepth(data.sizeX, data.sizeY, h)
+  return FieldCamera(data.sizeX * data.sizeY * #data.layers * 4, mind, maxd, 1)
 end
 -- Creates a character representing player.
 -- @ret(Player) the newly created player

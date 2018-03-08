@@ -252,9 +252,13 @@ end
 function BattleAction:onSelectTarget(input)
   if input.GUI then
     FieldManager.renderer:moveToTile(input.target)
-    local targets = self:getAllAffectedTiles(input)
-    for i = #targets, 1, -1 do
-      targets[i].gui:setSelected(true)
+    if input.target.gui.selectable then
+      local targets = self:getAllAffectedTiles(input)
+      for i = #targets, 1, -1 do
+        targets[i].gui:setSelected(true)
+      end
+    else
+      input.target.gui:setSelected(true)
     end
   end
 end

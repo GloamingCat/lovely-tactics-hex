@@ -117,8 +117,8 @@
 				{
 					"dx": 0,
 					"dy": 0,
-					"height": 8,
-					"rampHeight": 2
+					"height": 2,
+					"rampHeight": 1
 					"neighbors": [ true, false, true, true, true, false, true, true, true ]
 				}
 			]

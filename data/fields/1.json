@@ -118,7 +118,7 @@
 		{
 			"name": "Sand2",
 			"type": 0,
-			"height": 2,
+			"height": 1,
 			"noAuto": true,
 			"tags": []
 		},

@@ -59,6 +59,7 @@
 		"tileB": 16,
 		"tileS": 0,
 		"pixelsPerHeight": 8,
+		"depthPerHeight": 24,
 		"allNeighbors": false,
 	}
 }
