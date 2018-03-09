@@ -15,6 +15,7 @@ local List = require('core/base/datastruct/List')
 local overpassAllies = Config.battle.overpassAllies
 local overpassDeads = Config.battle.overpassDeads
 local neighborShift = math.field.neighborShift
+local frontTile = math.field.frontTile
 
 local ObjectTile = class()
 
@@ -46,23 +47,9 @@ function ObjectTile:createNeighborList()
   self.neighborList = List()
   -- Create neighbors from the same layer.
   for i, n in ipairs(neighborShift) do
-    local row = self.layer.grid[n.x + self.x]
-    if row then
-      local tile = row[n.y + self.y]
-      if tile then
-        self.neighborList:add(tile)
-      end
-    end
-  end
-  -- Replaces neighbors with tiles from other layers if there are any ramps.
-  for r = 1, #self.ramps do
-    local tr = self.ramps[r]
-    for n = 1, #self.neighborList do
-      local tn = self.neighborList[n]
-      if tr.x == tn.x and tr.y == tn.y then
-        self.neighborList[n] = tr
-        break
-      end
+    local tile = frontTile(self, n.x, n.y)
+    if tile then
+      self.neighborList:add(tile)
     end
   end
 end

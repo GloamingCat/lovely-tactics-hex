@@ -145,12 +145,8 @@ end
 -- Sets all movable tiles as selectable or not and resets color to default.
 function BattleAction:resetMovableTiles(input)
   local matrix = TurnManager:pathMatrix()
-  local h = TurnManager:currentCharacter():getTile().layer.height
-  for i = 1, self.field.sizeX do
-    for j = 1, self.field.sizeY do
-      local tile = self.field:getObjectTile(i, j, h)
-      tile.gui.movable = matrix:get(i, j) ~= nil
-    end
+  for tile in self.field:gridIterator() do
+    tile.gui.movable = matrix:get(tile:coordinates()) ~= nil
   end
 end
 
@@ -164,22 +160,18 @@ end
 function BattleAction:resetReachableTiles(input)
   local matrix = TurnManager:pathMatrix()
   local charTile = TurnManager:currentCharacter():getTile()
-  local h = charTile.layer.height
   local borderTiles = List()
   -- Find all border tiles
-  for i = 1, self.field.sizeX do
-    for j = 1, self.field.sizeY do
-       -- If this tile is reachable
-      local tile = self.field:getObjectTile(i, j, h)
-      tile.gui.reachable = matrix:get(i, j) ~= nil
-      if tile.gui.reachable then
-        for n = 1, #tile.neighborList do
-          local neighbor = tile.neighborList[n]
-          -- If this tile has any non-reachable neighbors, it's a border tile
-          if matrix:get(neighbor.x, neighbor.y) then
-            borderTiles:add(tile)
-            break
-          end
+  for tile in self.field:gridIterator() do
+     -- If this tile is reachable
+    tile.gui.reachable = matrix:get(tile:coordinates()) ~= nil
+    if tile.gui.reachable then
+      for n = 1, #tile.neighborList do
+        local neighbor = tile.neighborList[n]
+        -- If this tile has any non-reachable neighbors, it's a border tile
+        if matrix:get(neighbor:coordinates()) then
+          borderTiles:add(tile)
+          break
         end
       end
     end
@@ -191,7 +183,7 @@ function BattleAction:resetReachableTiles(input)
   for tile in borderTiles:iterator() do
     for i, j in mathf.radiusIterator(self.range, tile.x, tile.y, 
         self.field.sizeX, self.field.sizeY) do
-      local n = self.field:getObjectTile(i, j, h) 
+      local n = self.field:getObjectTile(i, j, tile.layer.height) 
       n.gui.reachable = true
     end
   end
