@@ -64,7 +64,7 @@ end
 -- @param(button : Button) the button selected
 function SkillWindow:onButtonConfirm(button)
   local input = ActionInput(button.skill, self.member)
-  if button.skill.radius > 1 then
+  if button.skill:isArea() then
     -- Use in all members
     input.targets = self.member.troop.current
     input.action:menuUse(input)

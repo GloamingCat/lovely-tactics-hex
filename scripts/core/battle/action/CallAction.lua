@@ -19,7 +19,7 @@ local CallAction = class(BattleAction)
 
 -- Constructor.
 function CallAction:init()
-  BattleAction.init(self, 0, 1, 'general')
+  BattleAction.init(self, 'general')
   self.showTargetWindow = false
   self.allTiles = true
 end

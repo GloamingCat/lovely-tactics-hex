@@ -23,7 +23,7 @@ local BattleMoveAction = class(MoveAction)
 
 -- Overrides BattleAction:init.
 function BattleMoveAction:init(range)
-  MoveAction.init(self, range or 0, 1)
+  MoveAction.init(self, '', range)
   self.showTargetWindow = false
   self.showStepWindow = true
   self.allTiles = true
@@ -37,7 +37,7 @@ end
 function BattleMoveAction:execute(input)
   local path = input.path
   if not path then
-    path = self.range == 0 and TurnManager:pathMatrix():get(input.target.x, input.target.y)
+    path = self.range.size == 0 and TurnManager:pathMatrix():get(input.target.x, input.target.y)
     path = path or PathFinder.findPath(self, input.user, input.target)
   end
   local fullPath = true
@@ -72,8 +72,12 @@ end
 -- @param(tile : ObjectTile) tile to check
 -- @ret(boolean) true if it's final, false otherwise
 function BattleMoveAction:isFinal(tile, final, user)
+  local dh = final.layer.height - tile.layer.height
+  if dh > self.range.maxh or dh < -self.range.minh then
+    return false
+  end
   local cost = self:estimateCost(tile, final, user)
-  return cost <= self.range and self:isStandable(tile, user)
+  return cost <= self.range.size and self:isStandable(tile, user)
 end
 -- Checks passability between two tiles.
 -- @param(initial : ObjectTile) origin tile

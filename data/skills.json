@@ -11,8 +11,16 @@
 				"col": 0,
 				"row": 0
 			},
-			"radius": 1,
-			"range": 3,
+			"area": {
+				"size": 1,
+				"minh": 0,
+				"maxh": 0
+			},
+			"range": {
+				"size": 1,
+				"minh": 2,
+				"maxh": 2
+			},
 			"script": {
 				"path": "",
 				"param": ""
@@ -48,8 +56,16 @@
 				"col": 0,
 				"row": 0
 			},
-			"radius": 1,
-			"range": 1,
+			"area": {
+				"size": 1,
+				"minh": 0,
+				"maxh": 0
+			},
+			"range": {
+				"size": 1,
+				"minh": 2,
+				"maxh": 2
+			},
 			"script": {
 				"path": "",
 				"param": ""

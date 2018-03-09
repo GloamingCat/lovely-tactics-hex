@@ -4,24 +4,32 @@
 		"data": {
 			"id": 30,
 			"type": 2,
-      "targetType": 2,
+			"targetType": 2,
 			"description": "Cures a single ally character.",
 			"icon": {
-			  "id": 42,
-			  "col": 0,
-			  "row": 0
+				"id": 42,
+				"col": 0,
+				"row": 0
 			},
-			"radius": 1,
-			"range": 3,
+			"area": {
+				"size": 1,
+				"minh": 0,
+				"maxh": 0
+			},
+			"range": {
+				"size": 3,
+				"minh": 3,
+				"maxh": 3
+			},
 			"script": {
-			  "path": "",
-			  "param": ""
+				"path": "",
+				"param": ""
 			},
 			"costs": [
-			  {
-			  	"key": "sp",
-          "value": "10"
-			  }
+				{
+					"key": "sp",
+					"value": "10"
+				}
 			],
 			"restriction": 0,
 			"userAnim": {
@@ -35,18 +43,18 @@
 				"individualID": 17,
 				"mirror": true
 			},
-      "damageAnim": false,
-      "hpEffect": {
-        "successRate": "100",
-        "basicResult": "(a.atkm() * 2 - b.defm()) * rand(80, 120) / 100",
-        "heal": true,
-        "absorb": 0
-      },
+			"damageAnim": false,
+			"hpEffect": {
+				"successRate": "100",
+				"basicResult": "(a.atkm() * 2 - b.defm()) * rand(80, 120) / 100",
+				"heal": true,
+				"absorb": 0
+			},
 			"elements": [
-			  {
-          "id": 2,
-          "value": 100
-			  }
+				{
+					"id": 2,
+					"value": 100
+				}
 			],
 			"status": [],
 			"tags": []

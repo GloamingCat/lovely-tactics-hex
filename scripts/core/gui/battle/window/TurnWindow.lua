@@ -121,20 +121,7 @@ end
 --  enemies that the skill can reach.
 function TurnWindow:attackEnabled(button)
   local user = TurnManager:currentCharacter()
-  return self:skillActionEnabled(button, user.battler.attackSkill)
-end
--- Move condition. Enabled if there are any tiles for the character to move to.
-function TurnWindow:moveEnabled(button)
-  local user = TurnManager:currentCharacter()
-  if user.steps <= 0 then
-    return false
-  end
-  for path in TurnManager:pathMatrix():iterator() do
-    if path and path.totalCost <= user.steps then
-      return true
-    end
-  end
-  return false
+  return self:skillActionEnabled(user.battler.attackSkill)
 end
 -- Skill condition. Enabled if character has any skills to use.
 function TurnWindow:skillEnabled(button)
@@ -157,30 +144,6 @@ end
 -- Call Ally condition. Enabled if there any any backup members.
 function TurnWindow:callAllyEnabled()
   return TroopManager:getMemberCount() < maxMembers and not self.backupBattlers:isEmpty()
-end
--- Checks if a given skill action is enabled to use.
-function TurnWindow:skillActionEnabled(button, skill)
-  local field = FieldManager.currentField
-  local user = TurnManager:currentCharacter()
-  local input = ActionInput(skill, user)
-  if self:moveEnabled(button) then
-    for tile in field:gridIterator() do
-      if skill:isSelectable(input, tile) then
-        return true
-      end
-    end
-  else
-    local range = skill.data.range
-    local tile = user:getTile()
-    local h = tile.layer.height
-    for i, j in mathf.radiusIterator(range, tile.x, tile.y, field.sizeX, field.sizeY) do
-      local t = field:getObjectTile(i, j, h)
-      if skill:isSelectable(input, t) then
-        return true
-      end
-    end
-  end
-  return false
 end
 
 ---------------------------------------------------------------------------------------------------

@@ -11,8 +11,16 @@
 				"col": 1,
 				"row": 0
 			},
-			"radius": 1,
-			"range": 1,
+			"area": {
+				"size": 1,
+				"minh": 0,
+				"maxh": 0
+			},
+			"range": {
+				"size": 1,
+				"minh": 1,
+				"maxh": 1
+			},
 			"script": {
 				"path": "",
 				"param": ""
@@ -60,8 +68,16 @@
 				"col": 0,
 				"row": 0
 			},
-			"radius": 1,
-			"range": 4,
+			"area": {
+				"size": 1,
+				"minh": 0,
+				"maxh": 0
+			},
+			"range": {
+				"size": 4,
+				"minh": 4,
+				"maxh": 4
+			},
 			"script": {
 				"path": "",
 				"param": ""
@@ -108,8 +124,16 @@
 				"col": 0,
 				"row": 0
 			},
-			"radius": 2,
-			"range": 4,
+			"area": {
+				"size": 2,
+				"minh": 2,
+				"maxh": 2
+			},
+			"range": {
+				"size": 4,
+				"minh": 4,
+				"maxh": 4
+			},
 			"script": {
 				"path": "",
 				"param": ""
@@ -165,8 +189,16 @@
 				"col": 0,
 				"row": 0
 			},
-			"radius": 3,
-			"range": 4,
+			"area": {
+				"size": 3,
+				"minh": 3,
+				"maxh": 3
+			},
+			"range": {
+				"size": 4,
+				"minh": 4,
+				"maxh": 4
+			},
 			"script": {
 				"path": "",
 				"param": ""

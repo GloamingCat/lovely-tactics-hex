@@ -144,7 +144,6 @@ function BattleTactics.bestDistance(user, input, getDistance, order)
     evaluate,
     order or PriorityQueue.descending)
 end
-
 -- @param(tile : ObjectTile)
 -- @param(user : Character)
 -- @param(input : ActionInput)
@@ -158,61 +157,28 @@ function BattleTactics.potentialMoveTarget(tile, user, input)
       local t = input.target
       return tileDistance(t.x, t.y, tile.x, tile.y) <= input.action.range
     else
-      return BattleTactics.hasReachableTargets(tile, input)
+      return #input.action:getAllAccessedTiles(input, tile) > 0
     end
   else
     return true
   end
 end
-
--- Checks if a given tile has reachable target for the given skill.
--- @param(tile : ObjectTile)
--- @param(input : ActionInput)
--- @ret(boolean)
-function BattleTactics.hasReachableTargets(tile, input)
-  local h = tile.layer.height
-  local field = FieldManager.currentField
-  for i, j in radiusIterator(input.action.range, tile.x, tile.y, field.sizeX, field.sizeY) do
-    local n = field:getObjectTile(i, j, h)
-    if n.gui.selectable then
-      return true
-    end
-  end
-  return false
-end
-
-function BattleTactics.reachableTargets(tile, input)
-  local h = tile.layer.height
-  local field = FieldManager.currentField
-  local t = {}
-  for i, j in radiusIterator(input.action.range, tile.x, tile.y, field.sizeX, field.sizeY) do
-    local n = field:getObjectTile(i, j, h)
-    if n.gui.selectable then
-      t[#t + 1] = n
-    end
-  end
-  return t
-end
-
 -- @param(party : number) character's party
 -- @ret(PriorityQueue) queue of tiles sorted by distance from enemies
 function BattleTactics.runAway(user, input)
   return BattleTactics.bestDistance(user, input, BattleTactics.minEnemyDistance)
 end
-
 -- @param(party : number) character's party
 -- @ret(PriorityQueue) queue of tiles sorted by distance from enemies
 function BattleTactics.runToAllies(user, input)
   return BattleTactics.bestDistance(user, input, BattleTactics.allyDistance, 
     PriorityQueue.ascending)
 end
-
 -- @param(party : number) character's party
 -- @ret(PriorityQueue) queue of tiles sorted by distance from enemies
 function BattleTactics.runFromEnemies(user, input)
   return BattleTactics.bestDistance(user, input, BattleTactics.enemyDistance)
 end
-
 -- @param(party : number) character's party
 -- @ret(PriorityQueue) queue of tiles sorted by distance from enemies
 function BattleTactics.runFromEnemiesToAllies(user, input)

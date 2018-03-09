@@ -15,6 +15,9 @@ local ActionInput = require('core/battle/action/ActionInput')
 local GridWindow = require('core/gui/GridWindow')
 local SkillAction = require('core/battle/action/SkillAction')
 
+-- Alias
+local radiusIterator = math.field.radiusIterator
+
 local ActionWindow = class(GridWindow)
 
 ---------------------------------------------------------------------------------------------------
@@ -40,6 +43,38 @@ function ActionWindow:selectAction(action, input)
     end
     self.GUI:show()
   end
+end
+-- Checks if a given skill action is enabled to use.
+function ActionWindow:skillActionEnabled(skill)
+  if skill.allTiles then
+    return true
+  else
+    local user = TurnManager:currentCharacter()
+    local input = ActionInput(skill, user)
+    if self:moveEnabled() then
+      for tile in FieldManager.currentField:gridIterator() do
+        if skill:isSelectable(input, tile) then
+          return true
+        end
+      end
+    else
+      return #skill:getAllAccessedTiles(input, user:getTile()) > 0
+    end
+  end
+  return false
+end
+-- Move condition. Enabled if there are any tiles for the character to move to.
+function ActionWindow:moveEnabled()
+  local user = TurnManager:currentCharacter()
+  if user.steps <= 0 then
+    return false
+  end
+  for path in TurnManager:pathMatrix():iterator() do
+    if path and path.totalCost <= user.steps then
+      return true
+    end
+  end
+  return false
 end
 
 ---------------------------------------------------------------------------------------------------

@@ -39,7 +39,7 @@ local SkillAction = class(BattleAction)
 function SkillAction:init(skillID)
   local data = Database.skills[skillID]
   self.data = data
-  BattleAction.init(self, data.range, data.radius)
+  BattleAction.init(self, nil, data.range, data.area)
   self:setType(data.type)
   self:setTargetType(data.targetType)
   -- Animation time
@@ -133,7 +133,7 @@ end
 -- Overrides BattleAction:onConfirm.
 -- Executes the movement action and the skill's effect.
 function SkillAction:execute(input)
-  local moveAction = BattleMoveAction(self.data.range)
+  local moveAction = BattleMoveAction(self.data.range, self.minh, self.maxh)
   local moveInput = ActionInput(moveAction, input.user, input.target)
   moveInput.skipAnimations = input.skipAnimations
   local result = moveInput:execute(moveInput)
@@ -344,7 +344,7 @@ function SkillAction:singleTargetAnimation(input, targetChar, originTile)
         pos.x, pos.y, pos.z - 10, mirror)
     end
     if results.damage and self.data.damageAnim and wasAlive then
-      if self.data.radius > 1 then
+      if self:isArea() then
         originTile = input.target
       end
       _G.Fiber:fork(function()

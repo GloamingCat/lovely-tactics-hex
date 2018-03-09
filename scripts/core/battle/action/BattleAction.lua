@@ -27,12 +27,12 @@ local BattleAction = class()
 ---------------------------------------------------------------------------------------------------
 
 -- Constructor.
--- @param(range : number) the range of the action to the target tile (in tiles)
--- @param(radius : number) the radius of the action effect (in tiles)
--- @param(colorName : string) the color of the selectable tiles
-function BattleAction:init(range, radius, colorName)
-  self.range = range
-  self.radius = radius
+-- @param(colorName : string) The color of the selectable tiles.
+-- @param(range : table) The range of the action to the target tile (in tiles).
+-- @param(area : table) The area of the action effect (in tiles).
+function BattleAction:init(colorName, range, area)
+  self.range = range or { size = 0, minh = 0, maxh = 0 }
+  self.area = area or { size = 1, minh = 0, maxh = 0 }
   self.colorName = colorName
   self.field = FieldManager.currentField
   self.showTargetWindow = true
@@ -181,7 +181,7 @@ function BattleAction:resetReachableTiles(input)
   end
   -- Paint border tiles
   for tile in borderTiles:iterator() do
-    for i, j in mathf.radiusIterator(self.range, tile.x, tile.y, 
+    for i, j in mathf.radiusIterator(self.range.size, tile.x, tile.y, 
         self.field.sizeX, self.field.sizeY) do
       local n = self.field:getObjectTile(i, j, tile.layer.height) 
       n.gui.reachable = true
@@ -265,14 +265,40 @@ function BattleAction:onDeselectTarget(input)
 end
 -- Gets all tiles that will be affected by skill's effect.
 -- @ret(table) An array of tiles.
-function BattleAction:getAllAffectedTiles(input)
+function BattleAction:getAllAffectedTiles(input, tile)
+  tile = tile or input.target
+  local sizeX, sizeY = self.field.sizeX, self.field.sizeY
   local tiles = {}
   local height = input.target.layer.height
-  for i, j in mathf.radiusIterator(self.radius - 1, input.target.x, input.target.y,
-      self.field.sizeX, self.field.sizeY) do
-    tiles[#tiles + 1] = self.field:getObjectTile(i, j, height)
+  for i, j in mathf.radiusIterator(self.area.size - 1, tile.x, tile.y, sizeX, sizeY) do
+    for h = height - self.area.minh, height + self.area.maxh do
+      if self.field:isGrounded(i, j, h) then
+        tiles[#tiles + 1] = self.field:getObjectTile(i, j, h)
+      end
+    end
   end
   return tiles
+end
+-- Gets all tiles that may be a target from the target tile in the input.
+-- @ret(table) An array of tiles.
+function BattleAction:getAllAccessedTiles(input, tile)
+  tile = tile or input.target
+  local sizeX, sizeY = self.field.sizeX, self.field.sizeY
+  local tiles = {}
+  local height = tile.layer.height
+  for i, j in mathf.radiusIterator(self.range.size, tile.x, tile.y, sizeX, sizeY) do
+    for h = height - self.range.minh, height + self.range.maxh do
+      local t = self.field:getObjectTile(i, j, h)
+      if t and self:isSelectable(input, t) then
+        tiles[#tiles + 1] = t
+      end
+    end
+  end
+  return tiles
+end
+-- @ret(boolean) True if it's an area action, false otherwise.
+function BattleAction:isArea()
+  return self.area.size > 1 or self.area.size > 0 and (self.area.minh > 0 or self.area.maxh > 0)
 end
 -- Gets the first selected target tile.
 -- @ret(ObjectTile) The first tile.

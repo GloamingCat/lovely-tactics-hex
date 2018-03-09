@@ -11,8 +11,16 @@
 			  "col": 2,
 			  "row": 0
 			},
-			"radius": 1,
-			"range": 3,
+			"area": {
+				"size": 1,
+				"minh": 0,
+				"maxh": 0
+			},
+			"range": {
+				"size": 3,
+				"minh": 3,
+				"maxh": 3
+			},
 			"script": {
 			  "path": "",
 			  "param": ""
@@ -57,24 +65,32 @@
 		"data": {
 			"id": 21,
 			"type": 1,
-      "targetType": 2, 
+			"targetType": 2, 
 			"description": "Makes an enemy fall asleep.",
 			"icon": {
-			  "id": 42,
-			  "col": 3,
-			  "row": 0
+				"id": 42,
+				"col": 3,
+				"row": 0
 			},
-			"radius": 1,
-			"range": 3,
+			"area": {
+				"size": 1,
+				"minh": 0,
+				"maxh": 0
+			},
+			"range": {
+				"size": 3,
+				"minh": 3,
+				"maxh": 3
+			},
 			"script": {
 			  "path": "",
 			  "param": ""
 			},
 			"costs": [
-			  {
-			  	"key": "sp",
-          "value": "10"
-			  }
+				{
+					"key": "sp",
+					"value": "10"
+				}
 			],
 			"restriction": 1,
 			"userAnim": {
@@ -88,18 +104,18 @@
 				"individualID": -1,
 				"mirror": true
 			},
-      "damageAnim": false,
+			"damageAnim": false,
 			"elements": [
-			  {
-          "id": 2,
-          "value": 100
-			  }
+				{
+					"id": 2,
+					"value": 100
+				}
 			],
 			"status": [
 				{
 					"id": 2,
 					"rate": "100",
-          "add": true
+					"add": true
 				}
 			],
 			"tags": []

@@ -46,7 +46,7 @@ end
 -- @ret(boolean)
 function ActionItemWindow:buttonEnabled(button)
   local user = TurnManager:currentCharacter()
-  return button.skill:canBattleUse(user)
+  return button.skill:canBattleUse(user) and self:skillActionEnabled(button.skill)
 end
 -- Called when player cancels.
 function ActionItemWindow:onCancel()
