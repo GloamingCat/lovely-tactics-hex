@@ -14,7 +14,7 @@
 			"fieldID": 1,
 			"x": 9,
 			"y": 6,
-			"h": 0,
+			"h": 1,
 			"direction": 135
 		}
 	},
@@ -36,7 +36,7 @@
 			"col": 0,
 			"row": 3
 		}
-	}
+	},
 	"battle": {
 		"maxLevel": 100,
 		"overpassAllies": false,
@@ -59,6 +59,7 @@
 		"tileB": 16,
 		"tileS": 0,
 		"pixelsPerHeight": 8,
+		"depthPerHeight": 24,
 		"allNeighbors": false,
 	}
 }

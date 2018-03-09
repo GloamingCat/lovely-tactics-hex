@@ -23,6 +23,7 @@ function GameManager:init()
   self.cleanCount = 0
   self.startedProfi = false
   self.frame = 0
+  self.garbage = setmetatable({}, {__mode = 'v'})
   --PROFI = require('core/base/ProFi')
   --require('core/base/Stats').printStats()
 end
@@ -90,16 +91,21 @@ function GameManager:draw()
   love.graphics.setFont(self.fpsFont)
   love.graphics.print(love.timer.getFPS())
   love.graphics.print(ScreenManager.drawCalls, 24, 0)
-  --[[
+  self:printCoordinates()
+  if self.paused then
+    love.graphics.printf('PAUSED', 0, 0, ScreenManager:totalWidth(), 'right')
+  end
+end
+
+function GameManager:printCoordinates()
+  if not FieldManager.renderer then
+    return
+  end
   local pos = InputManager.mouse.position
   local wx, wy = FieldManager.renderer:screen2World(pos.x, pos.y)
   local tx, ty = math.field.pixel2Tile(wx, wy, -wy)
   tx, ty = math.round(tx), math.round(ty)
   love.graphics.print('(' .. tx .. ',' .. ty .. ')', 0, 12)
-  ]]
-  if self.paused then
-    love.graphics.printf('PAUSED', 0, 0, ScreenManager:totalWidth(), 'right')
-  end
 end
 
 ---------------------------------------------------------------------------------------------------

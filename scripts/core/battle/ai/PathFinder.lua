@@ -11,7 +11,7 @@ this module must inherit from this class.
 
 -- Imports
 local List = require('core/base/datastruct/List')
-local Matrix2 = require('core/math/Matrix2')
+local Matrix3 = require('core/math/Matrix3')
 local Path = require('core/base/datastruct/Path')
 local PriorityQueue = require('core/base/datastruct/PriorityQueue')
 
@@ -20,9 +20,6 @@ local max = math.max
 local min = math.min
 local mathf = math.field
 local floor = math.floor
-
--- Constants
-local nan = 0 / 0
 
 local PathFinder = {}
 
@@ -47,40 +44,29 @@ function PathFinder.dijkstra(action, user, initial)
   minx = max (initial.x + minx, 1);
   maxx = min (initial.x + maxx, field.sizeX);
   
-  local matrix = Matrix2(field.sizeX, field.sizeY)
-  matrix:set(Path(initial), initial.x, initial.y)
+  local matrix = Matrix3(field.sizeX, field.sizeY, field.maxh)
+  matrix:set(Path(initial), initial:coordinates())
   
   local queue = PriorityQueue()
   queue:enqueue (initial, 0)
   repeat
     local current = queue:dequeue()
     for neighbor in current.neighborList:iterator() do
-      local i = neighbor.x
-      local j = neighbor.y
-      if i >= minx and i <= maxx then
-				local miny, maxy = mathf.radiusLimitsX(md, i - initial.x)
-        miny = max (initial.y + miny, 1)
-				maxy = min (initial.y + maxy, field.sizeY);
-        if j >= miny and j <= maxy then
-          if action:isPassableBetween(current, neighbor, user) then
-            local d = action:getDistanceBetween(current, neighbor, user)
-            local oldPath = matrix:get(i, j)
-            local newPath = matrix:get(current.x, current.y):addStep(neighbor, d)
-            if newPath.totalCost <= md and (oldPath == nil or newPath.totalCost < oldPath.totalCost) then
-              matrix:set(newPath, i, j)
-              queue:enqueue(neighbor, newPath.totalCost)
-            end
-          end
+      if action:isPassableBetween(current, neighbor, user) then
+        local d = action:getDistanceBetween(current, neighbor, user)
+        local oldPath = matrix:get(neighbor:coordinates())
+        local newPath = matrix:get(current:coordinates()):addStep(neighbor, d)
+        if newPath.totalCost <= md and (oldPath == nil or newPath.totalCost < oldPath.totalCost) then
+          matrix:set(newPath, neighbor:coordinates())
+          queue:enqueue(neighbor, newPath.totalCost)
         end
       end
     end
   until queue:isEmpty()
   local grid = initial.layer.grid
-  for i = 1, field.sizeX do
-    for j = 1, field.sizeY do
-      if not action:isStandable(grid[i][j], user) then
-        matrix:set(nil, i, j)
-      end
+  for tile in field:gridIterator() do
+    if not action:isStandable(tile, user) then
+      matrix:set(nil, tile:coordinates())
     end
   end
   --matrix:set(nil, initial.x, initial.y)
@@ -114,13 +100,13 @@ function PathFinder.findPath(action, user, target, initial, ignoreDistance)
   local queue = PriorityQueue()
   queue:enqueue (Path(initial), 0)
   
-  local closedTiles = Matrix2(field.sizeX, field.sizeY, false)
+  local closedTiles = Matrix3(field.sizeX, field.sizeY, field.maxh, false)
   
   while not queue:isEmpty() do
     local currentPath = queue:dequeue()
     local currentTile = currentPath.lastStep
-    if not closedTiles:get(currentTile.x, currentTile.y) then
-      closedTiles:set(true, currentTile.x, currentTile.y)
+    if not closedTiles:get(currentTile:coordinates()) then
+      closedTiles:set(true, currentTile:coordinates())
       for neighbor in currentTile.neighborList:iterator() do
         local d = action:getDistanceBetween(currentTile, neighbor, user)
         if (d + currentPath.totalCost <= action:maxDistance(user) or ignoreDistance) then
@@ -157,14 +143,14 @@ function PathFinder.findPathToUnreachable(action, user, target, initial, ignoreD
   
   local queue = PriorityQueue()
   queue:enqueue (Path(initial), 0)
-  local closedTiles = Matrix2(field.sizeX, field.sizeY, false)
+  local closedTiles = Matrix3(field.sizeX, field.sizeY, field.maxh, false)
   local maxDistance = action:maxDistance(user)
   
   while not queue:isEmpty() do
     local currentPath = queue:dequeue()
     local currentTile = currentPath.lastStep
-    if not closedTiles:get(currentTile.x, currentTile.y) then
-      closedTiles:set(true, currentTile.x, currentTile.y)
+    if not closedTiles:get(currentTile:coordinates()) then
+      closedTiles:set(true, currentTile:coordinates())
       if (currentPath.totalCost <= maxDistance or ignoreDistance) then
         for neighbor in currentTile.neighborList:iterator() do
           local d = action:getDistanceBetween(currentTile, neighbor, user)

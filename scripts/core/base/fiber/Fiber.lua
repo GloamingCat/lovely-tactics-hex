@@ -36,6 +36,8 @@ function Fiber:init(root, func, ...)
     insert(arg, 1, self)
     func = self.execute
   end
+  self.execute = func
+  self.origin = debug.getinfo(3, "n")
   self.coroutine = create(function()
     func(unpack(arg))
   end)
@@ -131,7 +133,7 @@ function Fiber:waitUntil(func)
 end
 -- @ret(string) String identification.
 function Fiber:__tostring()
-  return 'Fiber: ' .. tostring(self.coroutine)
+  return 'Fiber: ' .. tostring(self.origin.name)
 end
 
 return Fiber

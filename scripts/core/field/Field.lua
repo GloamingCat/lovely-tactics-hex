@@ -57,7 +57,7 @@ function Field:init(data)
   end
   self:initLayers()
   -- Border and center
-  self.centerX, self.centerY = math.field.pixelCenter(self)
+  self.centerX, self.centerY = math.field.pixelCenter(self.sizeX, self.sizeY)
   self.minx, self.miny, self.maxx, self.maxy = math.field.pixelBounds(self)
   self.fiberList = FiberList()
 end
@@ -167,7 +167,7 @@ end
 function Field:getMoveCost(x, y, height)
   local cost = 0
   local layers = self.terrainLayers[height]
-  for i, layer in ipairs(layers) do
+  for _, layer in ipairs(layers) do
     cost = max(cost, layer.grid[x][y].moveCost)
   end
   return cost
@@ -259,7 +259,7 @@ function Field:collidesTerrain(x, y, h)
       end
     end
   end
-  return noGround
+  return noGround and #(self:getObjectTile(x, y, h).ramps) == 0
 end
 -- Check if collides with obstacles.
 -- @param(object : Object) the object to check collision
@@ -270,6 +270,24 @@ end
 -- @ret(boolean) true if collides, false otherwise
 function Field:collidesObstacle(object, origx, origy, origh, tile)
   return tile:collidesObstacle(origx, origy, object)
+end
+-- Checks if there's any terrain in the given coordinates.
+-- @param(x : number) Tile x coordinate.
+-- @param(y : number) Tile y coordinate.
+-- @param(h : number) Layer's height.
+-- @ret(boolean)
+function Field:isGrounded(x, y, h)
+  local layerList = self.terrainLayers[h]
+  if layerList ~= nil then
+    for i = 1, #layerList do
+      local layer = layerList[i]
+      local tile = layer.grid[x][y]
+      if tile.data ~= nil then
+        return true
+      end
+    end
+  end
+  return false
 end
 
 return Field

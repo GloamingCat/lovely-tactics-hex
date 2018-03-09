@@ -75,8 +75,6 @@ function BattleAction:onSelect(input)
 end
 -- Called when the ActionGUI is open.
 -- By default, just updates the "selectable" field in all tiles for grid selecting.
--- @param(GUI : ActionGUI) the current Action GUI
--- @param(user : Character) the user of the action
 function BattleAction:onActionGUI(input)
   self:resetTileColors()
   if self.showTargetWindow then
@@ -147,12 +145,8 @@ end
 -- Sets all movable tiles as selectable or not and resets color to default.
 function BattleAction:resetMovableTiles(input)
   local matrix = TurnManager:pathMatrix()
-  local h = TurnManager:currentCharacter():getTile().layer.height
-  for i = 1, self.field.sizeX do
-    for j = 1, self.field.sizeY do
-      local tile = self.field:getObjectTile(i, j, h)
-      tile.gui.movable = matrix:get(i, j) ~= nil
-    end
+  for tile in self.field:gridIterator() do
+    tile.gui.movable = matrix:get(tile:coordinates()) ~= nil
   end
 end
 
@@ -166,22 +160,18 @@ end
 function BattleAction:resetReachableTiles(input)
   local matrix = TurnManager:pathMatrix()
   local charTile = TurnManager:currentCharacter():getTile()
-  local h = charTile.layer.height
   local borderTiles = List()
   -- Find all border tiles
-  for i = 1, self.field.sizeX do
-    for j = 1, self.field.sizeY do
-       -- If this tile is reachable
-      local tile = self.field:getObjectTile(i, j, h)
-      tile.gui.reachable = matrix:get(i, j) ~= nil
-      if tile.gui.reachable then
-        for n = 1, #tile.neighborList do
-          local neighbor = tile.neighborList[n]
-          -- If this tile has any non-reachable neighbors, it's a border tile
-          if matrix:get(neighbor.x, neighbor.y) then
-            borderTiles:add(tile)
-            break
-          end
+  for tile in self.field:gridIterator() do
+     -- If this tile is reachable
+    tile.gui.reachable = matrix:get(tile:coordinates()) ~= nil
+    if tile.gui.reachable then
+      for n = 1, #tile.neighborList do
+        local neighbor = tile.neighborList[n]
+        -- If this tile has any non-reachable neighbors, it's a border tile
+        if matrix:get(neighbor:coordinates()) then
+          borderTiles:add(tile)
+          break
         end
       end
     end
@@ -193,7 +183,7 @@ function BattleAction:resetReachableTiles(input)
   for tile in borderTiles:iterator() do
     for i, j in mathf.radiusIterator(self.range, tile.x, tile.y, 
         self.field.sizeX, self.field.sizeY) do
-      local n = self.field:getObjectTile(i, j, h) 
+      local n = self.field:getObjectTile(i, j, tile.layer.height) 
       n.gui.reachable = true
     end
   end
@@ -221,12 +211,6 @@ function BattleAction:resetTileColors(input)
     end
   end
 end
--- Sets all tiles' colors as the "nothing" color.
-function BattleAction:clearTileColors()
-  for tile in self.field:gridIterator() do
-    tile.gui:setColor('')
-  end
-end
 
 ---------------------------------------------------------------------------------------------------
 -- Grid navigation
@@ -234,8 +218,8 @@ end
 
 -- Tells if a tile can be chosen as target. 
 -- By default, no tile is selectable.
--- @param(tile : ObjectTile) the tile to check
--- @ret(boolean) true if can be chosen, false otherwise
+-- @param(tile : ObjectTile) The tile to check.
+-- @ret(boolean) True if can be chosen, false otherwise.
 function BattleAction:isSelectable(input, tile)
   if self.allTiles then
     return tile.gui.reachable
@@ -248,8 +232,8 @@ function BattleAction:isSelectable(input, tile)
   return false
 end
 -- Tells if the given character is selectable.
--- @param(char : Character) the character to check
--- @ret(boolean) true if selectable, false otherwise
+-- @param(char : Character) The character to check.
+-- @ret(boolean) True if selectable, false otherwise.
 function BattleAction:isCharacterSelectable(input, char)
   local alive = char.battler:isAlive()
   local ally = input.user.party == char.party
@@ -257,18 +241,20 @@ function BattleAction:isCharacterSelectable(input, char)
     (ally == self.support or (not ally) == self.offensive)
 end
 -- Called when players selects (highlights) a tile.
--- @param(ActionInput : input) input with the tile as the target
 function BattleAction:onSelectTarget(input)
   if input.GUI then
     FieldManager.renderer:moveToTile(input.target)
-    local targets = self:getAllAffectedTiles(input)
-    for i = #targets, 1, -1 do
-      targets[i].gui:setSelected(true)
+    if input.target.gui.selectable then
+      local targets = self:getAllAffectedTiles(input)
+      for i = #targets, 1, -1 do
+        targets[i].gui:setSelected(true)
+      end
+    else
+      input.target.gui:setSelected(true)
     end
   end
 end
 -- Called when players deselects (highlights another tile) a tile.
--- @param(ActionInput : input) input with the tile as the target
 function BattleAction:onDeselectTarget(input)
   if input.GUI and input.target then
     local oldTargets = self:getAllAffectedTiles(input)
@@ -278,7 +264,7 @@ function BattleAction:onDeselectTarget(input)
   end
 end
 -- Gets all tiles that will be affected by skill's effect.
--- @ret(table) an array of tiles
+-- @ret(table) An array of tiles.
 function BattleAction:getAllAffectedTiles(input)
   local tiles = {}
   local height = input.target.layer.height
@@ -289,7 +275,7 @@ function BattleAction:getAllAffectedTiles(input)
   return tiles
 end
 -- Gets the first selected target tile.
--- @ret(ObjectTile) the first tile
+-- @ret(ObjectTile) The first tile.
 function BattleAction:firstTarget(input)
   if self.characterTiles then
     return self.characterTiles[1]
@@ -298,9 +284,9 @@ function BattleAction:firstTarget(input)
   end
 end
 -- Gets the next target given the player's input.
--- @param(dx : number) the input in axis x
--- @param(dy : number) the input in axis y
--- @ret(ObjectTile) the next tile
+-- @param(axisX : number) The input in axis x.
+-- @param(axisY : number) The input in axis y.
+-- @ret(ObjectTile) The next tile (nil if not accessible).
 function BattleAction:nextTarget(input, axisX, axisY)
   if self.characterTiles then
     if axisX > 0 or axisY > 0 then
@@ -310,19 +296,26 @@ function BattleAction:nextTarget(input, axisX, axisY)
     end
     return self.characterTiles[self.index]
   end
-  local h = input.target.layer.height
-  if axisY > 0 then
-    if h < #self.field.objectLayers then
-      return self.field:getObjectTile(input.target.x, input.target.y, h + 1)
-    end
-  elseif axisY < 0 then
-    if h > 0 then
-      return self.field:getObjectTile(input.target.x, input.target.y, h - 1)
-    end
-  end
   local x, y = mathf.nextTile(input.target.x, input.target.y, 
     axisX, axisY, self.field.sizeX, self.field.sizeY)
-  return self.field:getObjectTile(x, y, h)
+  local tile = mathf.frontTile(input.target, x - input.target.x, y - input.target.y)
+  while tile.layer.height > 0 and not FieldManager.currentField:isGrounded(tile:coordinates()) do
+    tile = FieldManager.currentField:getObjectTile(tile.x, tile.y, tile.layer.height - 1)
+  end
+  return tile
+end
+-- Moves tile cursor to another layer.
+-- @param(axis : number) The input direction (page up is 1, page down is -1).
+-- @ret(ObjectTile) The next tile (nil if not accessible).
+function BattleAction:nextLayer(input, axis)
+  if self.characterTiles then
+    return self:nextTarget(input, axis, axis)
+  end
+  local tile = input.target
+  repeat
+    tile = FieldManager.currentField:getObjectTile(tile.x, tile.y, tile.layer.height + axis)
+  until not tile or FieldManager.currentField:isGrounded(tile:coordinates())
+  return tile or input.target
 end
 
 return BattleAction

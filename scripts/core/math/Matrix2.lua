@@ -7,10 +7,6 @@ A 2D matrix of fixed size.
 
 =================================================================================================]]
 
--- Alias
-local insert = table.insert
-local remove = table.remove
-
 local Matrix2 = class()
 
 ---------------------------------------------------------------------------------------------------
@@ -18,9 +14,9 @@ local Matrix2 = class()
 ---------------------------------------------------------------------------------------------------
 
 -- Constructor.
--- @param(width : number) the number of lines
--- @param(height : number) the number of columns
--- @param(startValue : unknown) the initial value of every element (optional)
+-- @param(width : number) The number of lines.
+-- @param(height : number) The number of columns.
+-- @param(startValue : unknown) The initial value of every element (optional).
 function Matrix2:init(width, height, startValue)
   self.width = width
   self.height = height
@@ -120,7 +116,7 @@ function Matrix2:mulVector(vector)
   end
   return m
 end
--- @ret(string) the string representation
+-- @ret(string) The string representation (for debugging).
 function Matrix2:__tostring()
   local s = '{ '
   for i = 1, self.width do

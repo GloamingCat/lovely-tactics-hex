@@ -28,6 +28,7 @@ function TerrainLayer:init(data, sizeX, sizeY, order)
   self.height = data.height
   self.sizeX = sizeX
   self.sizeY = sizeY
+  self.noAuto = data.noAuto
   -- Initializes all tiles
   for i = 1, sizeX do
     self.grid[i] = {}
@@ -51,6 +52,9 @@ end
 ---------------------------------------------------------------------------
 
 function TerrainLayer:sameType(i1, j1, i2, j2)
+  if self.noAuto then
+    return true
+  end
   if (i1 < 1 or i1 > #self.grid or i2 < 1 or i2 > #self.grid) then
     return true
   end

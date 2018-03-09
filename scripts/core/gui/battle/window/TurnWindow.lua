@@ -31,6 +31,7 @@ local TurnWindow = class(ActionWindow)
 -- Initialization
 ---------------------------------------------------------------------------------------------------
 
+-- Constructor.
 function TurnWindow:init(...)
   self.moveAction = BattleMoveAction()
   self.callAction = CallAction()

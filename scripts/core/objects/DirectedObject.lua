@@ -13,6 +13,7 @@ local AnimatedObject = require('core/objects/AnimatedObject')
 -- Alias
 local angle2Row = math.angle2Row
 local coord2Angle = math.coord2Angle
+local frontTile = math.field.frontTile
 local nextCoordDir = math.field.nextCoordDir
 local tile2Pixel = math.field.tile2Pixel
 local abs = math.abs
@@ -56,13 +57,7 @@ end
 -- @ret(ObjectTile) the front tile (nil if exceeds field border)
 function DirectedObject:frontTile(angle)
   angle = angle or self:getRoundedDirection()
-  local dx, dy = nextCoordDir(angle)
-  local tile = self:getTile()
-  if FieldManager.currentField:exceedsBorder(tile.x + dx, tile.y + dy) then
-    return nil
-  else
-    return tile.layer.grid[tile.x + dx][tile.y + dy]
-  end
+  return frontTile(self:getTile(), nextCoordDir(angle))
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -114,21 +109,22 @@ function DirectedObject:vectorToAngle(x, y)
 end
 -- Gets the angle to a given pixel point.
 -- @param(x : number) the pixel x
--- @param(y : number) the pixel y
+-- @param(y : number) the pixel depth
 -- @ret(number) the angle to the given point
-function DirectedObject:pointToAngle(x, y)
+function DirectedObject:pointToAngle(x, z)
   local dx = x - self.position.x
-  local dy = y + self.position.z
-  return self:vectorToAngle(dx, dy)
+  local dz = self.position.z - z
+  return self:vectorToAngle(dx, dz)
 end
 -- Gets the angle to a given grid point.
 -- @param(x : number) the tile x
 -- @param(y : number) the tile y
 -- @ret(number) the angle to the given tile
 function DirectedObject:tileToAngle(x, y)
-  local h = self:getTile().layer.height
-  local destx, desty, destz = tile2Pixel(x, y, h)
-  return self:pointToAngle(destx, -destz)
+  local tile = self:getTile()
+  local ox, oy, oz = tile2Pixel(tile.x, tile.y, 0)
+  local dx, dy, dz = tile2Pixel(x, y, 0)
+  return self:vectorToAngle(dx - ox, oz - dz)
 end
 
 return DirectedObject

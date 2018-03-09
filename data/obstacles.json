@@ -68,40 +68,60 @@
 			"tiles": []
 		}
 	},
-  {
-    "name": "Grass 1",
-    "data": {
-      "id": 4,
-      "image": {
-        "id": 64,
-        "col": 0,
-        "row": 0
-      },
-      "tiles": []
-    }
-  },
-  {
-    "name": "Grass 2",
-    "data": {
-      "id": 5,
-      "image": {
-        "id": 65,
-        "col": 0,
-        "row": 0
-      },
-      "tiles": []
-    }
-  },
-  {
-    "name": "Fruit",
-    "data": {
-      "id": 6,
-      "image": {
-        "id": 40,
-        "col": 0,
-        "row": 0
-      },
-      "tiles": []
-    }
-  }
+	{
+		"name": "Grass 1",
+		"data": {
+			"id": 4,
+			"image": {
+				"id": 64,
+				"col": 0,
+				"row": 0
+			},
+			"tiles": []
+		}
+	},
+	{
+		"name": "Grass 2",
+		"data": {
+			"id": 5,
+			"image": {
+				"id": 65,
+				"col": 0,
+				"row": 0
+			},
+			"tiles": []
+		}
+	},
+	{
+		"name": "Fruit",
+		"data": {
+			"id": 6,
+			"image": {
+				"id": 40,
+				"col": 0,
+				"row": 0
+			},
+			"tiles": []
+		}
+	},
+	{
+		"name": "Block",
+		"data": {
+			"id": 7,
+			"image": {
+				"id": 610,
+				"col": 0,
+				"row": 0
+			},
+			"tiles": [
+				{
+					"dx": 0,
+					"dy": 0,
+					"height": 2,
+					"rampHeight": 1
+					"neighbors": [ true, false, true, true, true, false, true, true, true ]
+				}
+			]
+		}
+	},
 ]

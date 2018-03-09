@@ -47,9 +47,6 @@ function Character:walkToPoint(x, y, z, collisionCheck)
   if self.autoAnim then
     self:playAnimation(anim)
   end
-  if self.autoTurn then
-    self:turnToPoint(x, -z)
-  end
   local distance = len2D(self.position.x - x, self.position.y - y, self.position.z - z)
   self.collisionCheck = collisionCheck
   self:moveTo(x, y, z, self.speed / distance, true)
@@ -109,7 +106,7 @@ end
 -- @param(path : Path) a path of tiles
 -- @param(collisionCheck : boolean) if it shoudl check collisions
 -- @ret(boolean) true if the movement was completed, false otherwise
-function Character:walkPath(path, collisionCheck)
+function Character:walkPath(path, collisionCheck, autoTurn)
   local stack = Stack()
   for step in path:iterator() do
     stack:push(step)
@@ -118,6 +115,9 @@ function Character:walkPath(path, collisionCheck)
   local field = FieldManager.currentField
   while not stack:isEmpty() do
     local nextTile = stack:pop()
+    if autoTurn then
+      self:turnToTile(nextTile.x, nextTile.y)
+    end
     local h = nextTile.layer.height
     if not self:walkToTile(nextTile.x, nextTile.y, h, collisionCheck) and collisionCheck then
       break
@@ -161,10 +161,7 @@ end
 function Character:castSkill(skill, dir, tile)
   -- Forward step
   if skill.userAnim.stepOnCast then
-    local oldAutoTurn = self.autoTurn
-    self.autoTurn = false
     self:walkInAngle(castStep, dir)
-    self.autoTurn = oldAutoTurn
   end
   -- Cast animation (user)
   local minTime = 0
@@ -193,9 +190,7 @@ function Character:finishSkill(origin, skill)
       return
     end
     local autoTurn = self.autoTurn
-    self.autoTurn = false
     self:walkToPoint(x, y, z)
-    self.autoTurn = autoTurn
     self:setXYZ(x, y, z)
   end
   self:playAnimation(self.idleAnim)

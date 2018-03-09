@@ -10,7 +10,7 @@
 				"res": "4 * lvl",
 				"agi": "2.5 * lvl",
 				"mov": "6 + math.round(lvl / 25)",
-				"jmp": "2",
+				"jmp": "1",
 				"hp": "50",
 				"sp": "10",
 				"atkp": "15",
@@ -39,7 +39,7 @@
 				"res": "2 * lvl",
 				"agi": "3 * lvl",
 				"mov": "9 + math.round(lvl / 25)",
-				"jmp": "1.5",
+				"jmp": "1",
 				"hp": "50",
 				"sp": "10",
 				"atkp": "10",
@@ -58,13 +58,13 @@
 					"id": 12,
 					"level": 0,
 					"requirements": [],
-          "tags": []
+					"tags": []
 				},
 				{
 					"id": 13,
 					"level": 2,
 					"requirements": [],
-          "tags": []
+					"tags": []
 				}
 			],
 			"tags": []

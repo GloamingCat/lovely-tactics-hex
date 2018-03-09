@@ -59,6 +59,10 @@ function util.customCommand(sheet, event, args)
   util[args.command](sheet, event, commandParam)
 end
 
+function util.interrupt(sheet, event, args)
+  _G.Fiber:interrupt()
+end
+
 ---------------------------------------------------------------------------------------------------
 -- Variables
 ---------------------------------------------------------------------------------------------------
@@ -157,6 +161,28 @@ function util.openPasswordWindow(sheet, event, args)
 end
 
 ---------------------------------------------------------------------------------------------------
+-- Screen
+---------------------------------------------------------------------------------------------------
+
+function util.fadeout(sheet, event, args)
+  FieldManager.renderer:fadeout(255 / args.time)
+  if args.wait then
+    _G.Fiber:waitUntil(function()
+      return not FieldManager.renderer:colorizing()
+    end)
+  end
+end
+
+function util.fadein(sheet, event, args)
+  FieldManager.renderer:fadein(255 / args.time)
+  if args.wait then
+    _G.Fiber:waitUntil(function()
+      return not FieldManager.renderer:colorizing()
+    end)
+  end
+end
+
+---------------------------------------------------------------------------------------------------
 -- Field
 ---------------------------------------------------------------------------------------------------
 
@@ -171,16 +197,21 @@ end
 -- @param(args.h : number) Player's destination height.
 -- @param(args.direction : number) Player's destination direction (in degrees).
 function util.moveToField(sheet, event, args)
+  local fade = args.fade and {time = args.fade, wait = true}
   if args.fade then
-    _G.Fiber:fork(function()
+    event.origin.fiberList:fork(function()
+      -- Character
+      if event.origin.autoTurn then
+        event.origin:turnToTile(event.tile.x, event.tile.y)
+      end
       event.origin:walkToTile(event.tile:coordinates())
     end)
-    FieldManager.renderer:fadeout(255 / args.fade, true)
+    util.fadeout(sheet, event, fade)
   end
   FieldManager:loadTransition(args)
   if args.fade then
     FieldManager.renderer:fadeout(0)
-    FieldManager.renderer:fadein(255 / args.fade, true)
+    util.fadein(sheet, event, fade)
   end
 end
 -- Loads battle field.
@@ -286,6 +317,9 @@ function util.moveCharDir(sheet, event, args)
     local dx, dy, dh = nextTile:coordinates()
     dx, dy, dh = dx - ox, dy - oy, dh - oh
     dx, dy, dh = dx * args.distance, dy * args.distance, dh * args.distance
+    if char.autoTurn then
+      char:turnToTile(ox + dx, oy + dy)
+    end
     char:walkToTile(ox + dx, oy + dy, oh + dh, false)
   end
 end

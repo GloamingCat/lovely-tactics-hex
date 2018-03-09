@@ -18,6 +18,17 @@ local mathf = math.field
 local MoveAction = class(BattleAction)
 
 ---------------------------------------------------------------------------------------------------
+-- Reachable Tiles
+---------------------------------------------------------------------------------------------------
+
+-- Overrides BattleAction:resetReachableTiles.
+function BattleAction:resetReachableTiles(input)
+  for tile in self.field:gridIterator() do
+    tile.gui.reachable = tile.gui.movable
+  end
+end
+
+---------------------------------------------------------------------------------------------------
 -- Execution
 ---------------------------------------------------------------------------------------------------
 
@@ -32,7 +43,7 @@ function MoveAction:execute(input)
     fullPath = false
     path = PathFinder.findPathToUnreachable(self, input.user, input.target)
   end
-  input.user:walkPath(path)
+  input.user:walkPath(path, false, true)
   return { executed = fullPath }
 end
 

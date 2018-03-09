@@ -24,6 +24,7 @@ local tileH = Config.grid.tileH
 local tileB = Config.grid.tileB
 local allNeighbors = Config.grid.allNeighbors
 local pph = Config.grid.pixelsPerHeight
+local dph = Config.grid.depthPerHeight
 
 local HexVMath = require('core/math/field/FieldMath')
 
@@ -35,9 +36,6 @@ local HexVMath = require('core/math/field/FieldMath')
 -- @ret(table) array of Vectors
 function HexVMath.createNeighborShift()
   local s = HexVMath.createFullNeighborShift()
-  if allNeighbors then
-    --return s
-  end
   table.remove(s, 2)
   table.remove(s, 5)
   return s
@@ -50,32 +48,12 @@ function HexVMath.createVertexShift()
     v[#v + 1] = Vector(HexVMath.pixel2Tile(x, y, 0))
   end
   put(tileB / 2, -tileH / 2)
-  if allNeighbors then
-    --put(tileW / 2, 0)
-  end
   put(tileW / 2, 0)
   put(tileB / 2, tileH / 2)
   put(-tileB / 2, tileH / 2)
-  if allNeighbors then
-    --put(-tileW / 2, 0)
-  end
   put(-tileW / 2, 0)
   put(tileB / 2, -tileH / 2)
   return v
-end
-
------------------------------------------------------------------------------------------------
--- Field center
------------------------------------------------------------------------------------------------
-
--- Gets the world center of the given field.
--- @param(field : Field)
--- @ret(number) center x
--- @ret(number) center y
-function HexVMath.pixelCenter(field)
-  local x1 = HexVMath.tile2Pixel(1, 1, 0)
-  local x2 = HexVMath.tile2Pixel(field.sizeX, field.sizeY, 0)
-  return (x1 + x2) / 2, 0
 end
 
 -----------------------------------------------------------------------------------------------
@@ -89,7 +67,7 @@ end
 -- @ret(number) bounding rect width
 -- @ret(number) bounding rect height
 function HexVMath.pixelBounds(field)
-  local x, y = HexVMath.pixelCenter(field)
+  local x, y = HexVMath.pixelCenter(field.sizeX, field.sizeY)
   local w = HexVMath.pixelWidth(field.sizeX, field.sizeY)
   local h = HexVMath.pixelHeight(field.sizeX, field.sizeY, #field.objectLayers + 1)
   return x - w / 2, y - h / 2, w, h
@@ -111,40 +89,51 @@ end
 -- Field depth
 -----------------------------------------------------------------------------------------------
 
-function HexVMath.maxDepth(sizeX, sizeY)
+-- @param(sizeX : number) Field's maximum x.
+-- @param(sizeY : number) Field's maximum y.
+-- @param(height : number) Field's maximum height.
+-- @ret(number) The maximum depth of the field's renderer.
+function HexVMath.maxDepth(sizeX, sizeY, height)
   return (sizeX + sizeY) * tileH / 2 + pph * 2
 end
-
-function HexVMath.minDepth(sizeX, sizeY)
-  return -(sizeX + sizeY) * (tileW + tileB) / 2 - pph
+-- @param(sizeX : number) Field's maximum x.
+-- @param(sizeY : number) Field's maximum y.
+-- @param(height : number) Field's maximum height.
+-- @ret(number) The minimum depth of the field's renderer.
+function HexVMath.minDepth(sizeX, sizeY, height)
+  return -(sizeX + sizeY) * (tileW + tileB) / 2 - pph - dph * (height - 1)
 end
 
 -----------------------------------------------------------------------------------------------
 -- Tile coordinate to pixel point
 -----------------------------------------------------------------------------------------------
 
+-- @param(i : number) Tile x coordinate.
+-- @param(j : number) Tile y coordinate.
+-- @param(h : number) Tile height.
 function HexVMath.tile2Pixel(i, j, h)
-  i, j = i - 1, j - 1
+  i, j, h = i - 1, j - 1, h - 1
   local d = -(j - i) * tileH / 2
   local x = (i + j) * (tileW + tileB) / 2
   local y = -d - h * pph
-  return x, y, d
+  return x, y, d - h * dph
 end
 
 -----------------------------------------------------------------------------------------------
 -- Pixel point to tile coordinate
 -----------------------------------------------------------------------------------------------
 
+-- @param(x : number) Pixel x.
+-- @param(y : number) Pixel y.
+-- @param(d : number) Pixel depth.
 function HexVMath.pixel2Tile(x, y, d)  
-  local h = -(y + d) / pph
-  
+  local h = -(y + d) / (pph + dph)
+  d = d + h * dph
   local sij = x * 2 / (tileW + tileB)
   local dji = -d * 2 / tileH
-  
   local i = (sij - dji) / 2
   local j = (sij + dji) / 2
-  
-  return i + 1, j + 1, h
+  return i + 1, j + 1, h + 1
 end
 
 -----------------------------------------------------------------------------------------------
@@ -155,13 +144,10 @@ function HexVMath.autoTileRows(grid, i, j, sameType)
   local shift = HexVMath.neighborShift
   local rows = { 0, 0, 0, 0 }
   local step1, step2 = 1, 2
-  
   local n = 0
-  
   local function localSameType()
     return sameType(grid, i, j, i + shift[n+1].x, j + shift[n+1].y)
   end
-  
   for k = -1, 1 do
     n = (k + #shift) % #shift
     if localSameType() then
@@ -183,14 +169,12 @@ function HexVMath.autoTileRows(grid, i, j, sameType)
         rows[1] = rows[1] + pow(2, 1 + k)
     end
   end
-  
   if rows[1] == 0 and rows[2] == 0 and rows[3] == 0 and rows[4] == 0 then
     rows[1] = 8
     rows[2] = 8
     rows[3] = 8
     rows[4] = 8
   end
-  
   return rows
 end
 
@@ -282,18 +266,15 @@ end
 function HexVMath.nextTile(x, y, axisX, axisY, sizeX, sizeY)
   local dx, dy
   if axisX == 0 then
-    dx = -axisY
-    dy = axisY
+    dx, dy = -axisY, axisY
   elseif axisY == 0 then
     if x + axisX > sizeX or x + axisX <= 0 then
-      dx = 0
-      dy = axisX
+      dx, dy = 0, axisX
     elseif y + axisX > sizeY or y + axisX <= 0 then
-      dx = axisX
-      dy = 0
+      dx, dy = axisX, 0
     else
-      dx = ((x + y + 1) % 2) * axisX;
-      dy = ((x + y) % 2) * axisX;
+      dx = ((x + y + 1) % 2) * axisX
+      dy = ((x + y) % 2) * axisX
     end
   else
 		dx = (axisX - axisY) / 2;

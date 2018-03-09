@@ -38,7 +38,7 @@
 				"fieldID": 2,
 				"x": 11,
 				"y": 7,
-				"h": 0,
+				"h": 1,
 				"max": 5,
 				"direction": 135,
 				"fade": 60
@@ -48,7 +48,7 @@
 				"fieldID": 3,
 				"x": 5,
 				"y": 14,
-				"h": 0,
+				"h": 1,
 				"min": 10,
 				"direction": 135,
 				"fade": 60
@@ -66,7 +66,7 @@
 			"persistent": false,
 			"x": 8,
 			"y": 4,
-			"h": 0,
+			"h": 1,
 			"party": -1,
 			"charID": 11,
 			"battlerID": -1,
@@ -87,32 +87,39 @@
 	"layers": [
 		{
 			"name": "Sand",
-			"type": 0,
-			"height": 0,
+			"type": 0, // 0 => terrain, 1 => obstacles, 2 => regions, 3 => parties
+			"height": 1,
 			"tags": []
 		},
 		{
-			"name": "Grass",
+			"name": "Glass",
 			"type": 0,
-			"height": 0,
+			"height": 1,
 			"tags": []
 		},
 		{
 			"name": "Bush",
 			"type": 0,
-			"height": 0,
+			"height": 1,
 			"tags": []
 		},
 		{
 			"name": "Water",
 			"type": 0,
-			"height": 0,
+			"height": 1,
 			"tags": []
 		},
 		{
-			"name": "Obstacles",
+			"name": "Tree",
 			"type": 1,
-			"height": 0,
+			"height": 1,
+			"tags": []
+		},
+		{
+			"name": "Sand2",
+			"type": 0,
+			"height": 2,
+			"noAuto": true,
 			"tags": []
 		}
 	]

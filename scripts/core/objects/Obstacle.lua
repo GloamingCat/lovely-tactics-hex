@@ -17,6 +17,7 @@ local tile2Pixel = math.field.tile2Pixel
 
 -- Constants
 local pph = Config.grid.pixelsPerHeight
+local neighborShift = math.field.fullNeighborShift
 
 local Obstacle = class(Object)
 
@@ -35,6 +36,7 @@ function Obstacle:init(data, tileData, initTile, group)
   self.group = group
   self.sprite = group.sprite
   self.collisionHeight = tileData.height
+  self.rampHeight = tileData.rampHeight ~= 0 and tileData.rampHeight
   initTile.obstacleList:add(self)
   self:initNeighbors(tileData.neighbors)
   self:addToTiles()
@@ -49,7 +51,6 @@ function Obstacle:initNeighbors(neighbors)
     end
     self.neighbors[x][y] = neighbors[i]
   end
-  local neighborShift = math.field.fullNeighborShift
   for i, n in ipairs(neighborShift) do
     addNeighbor(n.x, n.y, i)
   end
@@ -73,7 +74,7 @@ function Obstacle:isPassable(dx, dy, obj)
   end
   return self.neighbors[dx][dy] == true
 end
--- Override.
+-- Overrides Object:getHeight.
 function Obstacle:getHeight(x, y)
   return self.collisionHeight
 end
@@ -84,18 +85,56 @@ end
 
 -- Overrides Object:addToTiles.
 function Obstacle:addToTiles()
-  self:getTile().obstacleList:add(self)
+  local tile = self:getTile()
+  tile.obstacleList:add(self)
+  local rampNeighbors, topTile = self:getRampNeighbors(tile)
+  if rampNeighbors then
+    for i = 1, #rampNeighbors do
+      topTile.ramps:add(rampNeighbors[i])
+      rampNeighbors[i].ramps:add(topTile)
+    end
+  end
 end
 -- Overrides Object:removeFromTiles.
 function Obstacle:removeFromTiles()
-  self:getTile().obstacleList:removeElement(self)
+  local tile = self:getTile()
+  tile.obstacleList:removeElement(self)
+  local rampNeighbors, topTile = self:getRampNeighbors(tile)
+  if rampNeighbors then
+    for i = 1, #rampNeighbors do
+      topTile.ramps:removeElement(rampNeighbors[i])
+      rampNeighbors[i].ramps:removeElement(topTile)
+    end
+  end
+end
+-- Gets an array of tiles to each the obstacle's ramp transits.
+-- @ret(table) Array of tiles if the obstacle is a ramp, nil if it's not.
+function Obstacle:getRampNeighbors(tile)
+  if not self.rampHeight then
+    return nil
+  end
+  tile = tile or self:getTile()
+  local field = FieldManager.currentField
+  local height = tile.layer.height
+  local neighbors = {}
+  if field.objectLayers[height] then
+    for _, n in ipairs(neighborShift) do
+      if self:isPassable(n.x, n.y) then
+        n = field:getObjectTile(n.x + tile.x, n.y + tile.y, height)
+        if n then
+          neighbors[#neighbors + 1] = n
+        end
+      end
+    end
+  end
+  return neighbors, field:getObjectTile(tile.x, tile.y, self.rampHeight + height)
 end
 
 ---------------------------------------------------------------------------------------------------
 -- General
 ---------------------------------------------------------------------------------------------------
 
--- Converting to string.
+-- @ret(string) String representation (for debugging).
 function Obstacle:__tostring()
   return 'Obstacle ' .. self.name .. ' ' .. tostring(self.position)
 end

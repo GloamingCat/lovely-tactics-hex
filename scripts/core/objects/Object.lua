@@ -3,7 +3,7 @@
 
 Object
 ---------------------------------------------------------------------------------------------------
-A common class for Obstacles and Characters.
+A common class for obstacles and characters.
 
 =================================================================================================]]
 
@@ -28,7 +28,7 @@ local Object = class(Transformable)
 ---------------------------------------------------------------------------------------------------
 
 -- Constructor.
--- @param(data : table) data from file (Obstacle or Character)
+-- @param(data : table) Data from file (obstacle or character).
 function Object:init(data, pos)
   Transformable.init(self, pos)
   self.data = data

@@ -7,12 +7,17 @@ A 3D matrix of fixed size.
 
 =============================================================================]]
 
--- Alias
-local insert = table.insert
-local remove = table.remove
-
 local Matrix3 = class()
 
+---------------------------------------------------------------------------------------------------
+-- Initialization
+---------------------------------------------------------------------------------------------------
+
+-- Constructor.
+-- @param(width : number) The number of lines.
+-- @param(height : number) The number of columns.
+-- @param(depth : number) The number of layers.
+-- @param(startValue : unknown) The initial value of every element (optional).
 function Matrix3:init(width, height, depth, startValue)
   depth = depth or 1
   self.width = width
@@ -23,19 +28,33 @@ function Matrix3:init(width, height, depth, startValue)
   end
 end
 
+---------------------------------------------------------------------------------------------------
+-- Get / Set
+---------------------------------------------------------------------------------------------------
+
+-- Gets the element at line i, column j and depth k.
+-- @param(i : number) Line.
+-- @param(j : number) Column.
+-- @param(k : number) Depth.
+-- @ret(unknown) The current value at that position.
 function Matrix3:get(i, j, k)
   k = k or 1
-  return self[(k - 1) * self.height + (j - 1) * self.width + i]
+  return self[(k - 1) * (self.height * self.width) + (j - 1) * self.width + i]
 end
-
+-- Sets the element at line i, column j and depth k.
+-- @param(value : unknown) The new value at that position.
+-- @param(i : number) Line.
+-- @param(j : number) Column.
+-- @param(k : number) Depth.
 function Matrix3:set(value, i, j, k)
   k = k or 1
-  self[(k - 1) * self.height + (j - 1) * self.width + i] = value
+  self[(k - 1) * (self.height * self.width) + (j - 1) * self.width + i] = value
 end
-
+-- Iterator function that returns each element.
+-- @ret(function)
 function Matrix3:iterator()
   local i = 0
-  local size = #self
+  local size = self.width * self.height * self.depth
   return function()
     i = i + 1
     while self[i] == nil and i <= size do
@@ -44,9 +63,7 @@ function Matrix3:iterator()
     return self[i]
   end
 end
-
--- Converting to string.
--- @ret(string) A string representation
+-- @ret(string) The string representation (for debugging).
 function Matrix3:__tostring()
   local s = '{ '
   for i = 1, self.width do
@@ -56,9 +73,9 @@ function Matrix3:__tostring()
       for k = 1, self.depth do
         s = s .. tostring(self:get(i, j, k)) .. ' '
       end
-      s - s .. '}'
+      s = s .. '}'
     end
-    s - s .. ' }'
+    s = s .. ' }'
   end
   s = s .. ' }'
 end

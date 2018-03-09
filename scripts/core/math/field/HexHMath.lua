@@ -84,18 +84,8 @@ end
 -- Field center
 ---------------------------------------------------------------------------
 
-function HexHMax.pixelCenter(field)
-  local x1 = HexHMax.tile2Pixel(1, 1, 0)
-  local x2 = HexHMax.tile2Pixel(field.sizeX, field.sizeY, 0)
-  return (x1 + x2) / 2, 0
-end
-
----------------------------------------------------------------------------
--- Field center
----------------------------------------------------------------------------
-
 function HexHMax.pixelBounds(field)
-  local x, y = HexHMax.pixelCenter(field)
+  local x, y = HexHMax.pixelCenter(field.sizeX, field.sizeY)
   local w = HexHMax.pixelWidth(field.sizeX, field.sizeY)
   local h = HexHMax.pixelHeight(field.sizeX, field.sizeY, table.maxn(field.objectLayers))
 end

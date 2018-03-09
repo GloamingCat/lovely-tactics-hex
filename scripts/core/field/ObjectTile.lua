@@ -15,6 +15,7 @@ local List = require('core/base/datastruct/List')
 local overpassAllies = Config.battle.overpassAllies
 local overpassDeads = Config.battle.overpassDeads
 local neighborShift = math.field.neighborShift
+local frontTile = math.field.frontTile
 
 local ObjectTile = class()
 
@@ -36,6 +37,7 @@ function ObjectTile:init(layer, x, y, defaultRegion)
   self.battlerTypeList = List()
   self.parties = {}
   self.neighborList = nil
+  self.ramps = List()
   if defaultRegion then
     self.regionList:add(defaultRegion)
   end
@@ -43,13 +45,11 @@ end
 -- Stores the list of neighbor tiles.
 function ObjectTile:createNeighborList()
   self.neighborList = List()
+  -- Create neighbors from the same layer.
   for i, n in ipairs(neighborShift) do
-    local row = self.layer.grid[n.x + self.x]
-    if row then
-      local tile = row[n.y + self.y]
-      if tile then
-        self.neighborList:add(tile)
-      end
+    local tile = frontTile(self, n.x, n.y)
+    if tile then
+      self.neighborList:add(tile)
     end
   end
 end
@@ -78,8 +78,19 @@ end
 -- Gets the terrain move cost in this tile.
 -- @ret(number) the move cost
 function ObjectTile:getMoveCost()
-  return FieldManager.currentField:getMoveCost(self.x, self.y, 
-    self.layer.height)
+  return FieldManager.currentField:getMoveCost(self:coordinates())
+end
+-- Searchs for a tile from the ramp list with the given x and y.
+-- @param(x : number) Tile x.
+-- @param(y : number) Tile y.
+-- @ret(ObjectTile) The ramp's destination tile if found, nil if not found.
+function ObjectTile:getRamp(x, y)
+  for i = 1, #self.ramps do
+    local r = self.ramps[i]
+    if r.x == x and r.y == y then
+      return r
+    end
+  end
 end
 -- Updates graphics animation.
 function ObjectTile:update()

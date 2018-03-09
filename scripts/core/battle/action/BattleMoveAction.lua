@@ -47,7 +47,7 @@ function BattleMoveAction:execute(input)
   end
   FieldManager.renderer:moveToObject(input.user, nil, true)
   FieldManager.renderer.focusObject = input.user
-  input.user:walkPath(path)
+  input.user:walkPath(path, false, true)
   input.user:onMove(path)
   TurnManager:updatePathMatrix()
   return { executed = fullPath }
@@ -61,7 +61,7 @@ end
 -- By default, no tile is selectable.
 -- @ret(boolean) true if can be chosen, false otherwise
 function BattleMoveAction:isSelectable(input, tile)
-  return tile.gui.movable and tile.characterList:isEmpty()
+  return tile.gui.movable
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -80,14 +80,14 @@ end
 -- @param(final : ObjectTile) destination tile
 -- @ret(boolean) true if it's passable, false otherwise
 function BattleMoveAction:isPassableBetween(initial, final, user)
-  local c = self.field:collisionXYZ(user, initial.x, initial.y, 
-    initial.layer.height, final:coordinates())
+  local x, y, h = initial:coordinates()
+  local c = self.field:collisionXYZ(user, x, y, h, final:coordinates())
   if c then
     return false
   end
   local maxdh = user.battler.jumpPoints()
   local mindh = -2 * maxdh
-  local dh = final.layer.height - initial.layer.height
+  local dh = final.layer.height - h
   return mindh <= dh and dh <= maxdh
 end
 -- The max distance the character can walk.
