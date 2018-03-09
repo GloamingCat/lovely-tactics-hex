@@ -21,6 +21,7 @@ local MoveAction = class(BattleAction)
 -- Reachable Tiles
 ---------------------------------------------------------------------------------------------------
 
+-- Overrides BattleAction:resetReachableTiles.
 function BattleAction:resetReachableTiles(input)
   for tile in self.field:gridIterator() do
     tile.gui.reachable = tile.gui.movable

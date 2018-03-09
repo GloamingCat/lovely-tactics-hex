@@ -54,7 +54,7 @@ end
 -- @ret(function)
 function Matrix3:iterator()
   local i = 0
-  local size = #self
+  local size = self.width * self.height * self.depth
   return function()
     i = i + 1
     while self[i] == nil and i <= size do

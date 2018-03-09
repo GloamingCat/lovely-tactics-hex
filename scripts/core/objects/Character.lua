@@ -115,10 +115,10 @@ function Character:walkPath(path, collisionCheck, autoTurn)
   local field = FieldManager.currentField
   while not stack:isEmpty() do
     local nextTile = stack:pop()
-    local h = nextTile.layer.height
     if autoTurn then
       self:turnToTile(nextTile.x, nextTile.y)
     end
+    local h = nextTile.layer.height
     if not self:walkToTile(nextTile.x, nextTile.y, h, collisionCheck) and collisionCheck then
       break
     end

@@ -78,8 +78,7 @@ end
 -- Gets the terrain move cost in this tile.
 -- @ret(number) the move cost
 function ObjectTile:getMoveCost()
-  return FieldManager.currentField:getMoveCost(self.x, self.y, 
-    self.layer.height)
+  return FieldManager.currentField:getMoveCost(self:coordinates())
 end
 -- Searchs for a tile from the ramp list with the given x and y.
 -- @param(x : number) Tile x.

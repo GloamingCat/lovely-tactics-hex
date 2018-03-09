@@ -167,7 +167,7 @@ end
 function Field:getMoveCost(x, y, height)
   local cost = 0
   local layers = self.terrainLayers[height]
-  for i, layer in ipairs(layers) do
+  for _, layer in ipairs(layers) do
     cost = max(cost, layer.grid[x][y].moveCost)
   end
   return cost
