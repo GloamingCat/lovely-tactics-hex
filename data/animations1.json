@@ -59,7 +59,7 @@
 					"transform": {
 					  "offsetX": 64,
 					  "offsetY": 72,
-					  "offsetDepth": 0,
+					  "offsetDepth": -22,
 					  "scaleX": 50,
 					  "scaleY": 50,
 					  "rotation": 0,
@@ -103,7 +103,7 @@
 					"transform": {
 					  "offsetX": 64,
 					  "offsetY": 64,
-					  "offsetDepth": 0,
+					  "offsetDepth": -44,
 					  "scaleX": 100,
 					  "scaleY": 100,
 					  "rotation": 0,
@@ -147,7 +147,7 @@
 					"transform": {
 					  "offsetX": 64,
 					  "offsetY": 64,
-					  "offsetDepth": 0,
+					  "offsetDepth": -66,
 					  "scaleX": 200,
 					  "scaleY": 200,
 					  "rotation": 0,
@@ -234,7 +234,7 @@
 					"transform": {
 					  "offsetX": 48,
 					  "offsetY": 72,
-					  "offsetDepth": 0,
+					  "offsetDepth": -11,
 					  "scaleX": 50,
 					  "scaleY": 50,
 					  "rotation": 0,
@@ -271,7 +271,7 @@
 					"transform": {
 					  "offsetX": 48,
 					  "offsetY": 72,
-					  "offsetDepth": 0,
+					  "offsetDepth": -11,
 					  "scaleX": 50,
 					  "scaleY": 50,
 					  "rotation": 0,
@@ -308,7 +308,7 @@
 					"transform": {
 					  "offsetX": 48,
 					  "offsetY": 72,
-					  "offsetDepth": 0,
+					  "offsetDepth": -11,
 					  "scaleX": 50,
 					  "scaleY": 50,
 					  "rotation": 0,

@@ -102,10 +102,11 @@ function TerrainTile:updateGraphics()
   end
   -- Create new terrain images.
   self.moveCost = self.data.moveCost / 100
-  self.depth = self.data.depth + self.order
+  self.depth = self.order
   if self.data.image >= 0 then
     local rows = mathf.autoTileRows(self.layer, self.x, self.y, self.layer.sameType)
     local imageData = Database.animations[self.data.image]
+    self.depth = self.depth + imageData.transform.offsetDepth
     self.quarters = self:createQuarters(imageData, rows)
     -- Create animation.
     if imageData.cols > 1 then

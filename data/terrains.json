@@ -5,7 +5,6 @@
 			"id": 0,
 			"image": 50,
 			"passable": true,
-			"depth": 12,
 			"moveCost": 100,
 			"attributes": {
 				"str": 0,
@@ -36,7 +35,6 @@
 			"id": 1,
 			"image": 51,
 			"passable": true,
-			"depth": 12,
 			"moveCost": 100,
 			"attributes": {
 				"str": 0,
@@ -67,7 +65,6 @@
 			"id": 2,
 			"image": 52,
 			"passable": true,
-			"depth": 12,
 			"moveCost": 100,
 			"attributes": {
 				"str": 0,
@@ -99,7 +96,6 @@
 			"id": 3,
 			"image": 53,
 			"passable": false,
-			"depth": 12,
 			"moveCost": 100,
 			"attributes": {
 				"str": 0,

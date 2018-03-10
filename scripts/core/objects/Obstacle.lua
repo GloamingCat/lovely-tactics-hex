@@ -16,7 +16,6 @@ local Object = require('core/objects/Object')
 local tile2Pixel = math.field.tile2Pixel
 
 -- Constants
-local pph = Config.grid.pixelsPerHeight
 local neighborShift = math.field.fullNeighborShift
 
 local Obstacle = class(Object)
