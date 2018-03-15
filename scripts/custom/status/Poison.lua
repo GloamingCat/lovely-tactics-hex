@@ -36,7 +36,7 @@ end
 
 function Poison:damage(char, times)
   local pos = char.position
-  local popupText = PopupText(pos.x, pos.y - 20, pos.z - 10)
+  local popupText = PopupText(pos.x, pos.y - 20, pos.z - 60)
   local value = floor(char.battler.mhp() / 10 * times)
   if value >= char.battler.state.hp then
     value = char.battler.state.hp - 1

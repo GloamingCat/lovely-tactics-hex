@@ -16,7 +16,7 @@ local GridWindow = require('core/gui/GridWindow')
 local ConfirmWindow = class(GridWindow)
 
 ---------------------------------------------------------------------------------------------------
--- General
+-- Initialization
 ---------------------------------------------------------------------------------------------------
 
 -- Constructor.
@@ -24,6 +24,11 @@ function ConfirmWindow:createWidgets()
   Button:fromKey(self, 'confirm')
   Button:fromKey(self, 'cancel')
 end
+
+---------------------------------------------------------------------------------------------------
+-- Properties
+---------------------------------------------------------------------------------------------------
+
 -- Overrides GridWindow:colCount.
 function ConfirmWindow:colCount()
   return 1

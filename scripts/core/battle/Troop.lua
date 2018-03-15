@@ -37,7 +37,7 @@ function Troop:init(data, party)
   self.data = data
   self.party = party
   self.tags = TagMap(data.tags)
-  local save = SaveManager.current.troops[data.id] or data
+  local save = SaveManager.current.troops[data.id .. ''] or data
   self.save = save
   self.inventory = Inventory(save.items)
   self.gold = save.gold
@@ -232,7 +232,7 @@ end
 -- Stores this troop in the current save.
 -- @param(saveFormation : boolean) true to save modified grid formation (optional)
 function Troop:storeSave(saveFormation)
-  SaveManager.current.troops[self.data.id] = self:createPersistentData(saveFormation)
+  SaveManager.current.troops[self.data.id .. ''] = self:createPersistentData(saveFormation)
 end
 -- Creates the table to represent troop's persistent data.
 -- @param(saveFormation : boolean) true to save modified grid formation (optional)

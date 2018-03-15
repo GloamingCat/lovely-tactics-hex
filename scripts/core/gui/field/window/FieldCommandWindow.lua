@@ -40,7 +40,7 @@ function FieldCommandWindow:configConfirm()
 end
 
 function FieldCommandWindow:saveConfirm()
-  
+  self.GUI:showWindowForResult(self.GUI.saveWindow)
 end
 
 function FieldCommandWindow:quitConfirm()

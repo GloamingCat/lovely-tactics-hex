@@ -266,7 +266,7 @@ function TroopManager:saveTroops()
   -- Store troop data in save
   for i, troop in pairs(self.troops) do
     if troop.data.persistent then
-      SaveManager.current.troops[troop.data.id] = troop:createPersistentData()
+      troop:storeSave()
     end
   end
 end

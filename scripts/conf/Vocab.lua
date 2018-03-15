@@ -58,5 +58,9 @@ return {
   level = 'Level',
   
   -- Miss pop-up
-  miss = 'Miss'
+  miss = 'Miss',
+  
+  -- Quicksave
+  saved = 'Saved',
+  loaded = 'Loaded'
 }

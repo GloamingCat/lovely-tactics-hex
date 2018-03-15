@@ -9,6 +9,7 @@ Responsible for storing and loading game saves.
 
 -- Imports
 local Serializer = require('core/base/save/Serializer')
+local Troop = require('core/battle/Troop')
 
 -- Alias
 local copyTable = util.table.deepCopy
@@ -54,6 +55,7 @@ function SaveManager:newSave()
     fieldID = startPos.fieldID or 0 }
   self.current = save
   self.loadTime = now()
+  Troop():storeSave()
   FieldManager:loadTransition(save.playerTransition)
 end
 
@@ -110,7 +112,7 @@ end
 -- @ret(table) Header of the save.
 function SaveManager:getHeader(save)
   save = save or self.current
-  local troop = save.troops[self.playerTroopID]
+  local troop = save.troops[self.current.playerTroopID .. '']
   local members = {}
   for i = 1, #troop.current do
     members[i] = troop.current[i].charID

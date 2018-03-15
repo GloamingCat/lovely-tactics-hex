@@ -29,15 +29,15 @@ local Text = class(Sprite)
 ---------------------------------------------------------------------------------------------------
 
 -- Constructor.
--- @param(text : string) the rich text
--- @param(resources : table) table of resources used in text
--- @param(renderer : Renderer) the destination renderer of the sprite
--- @param(properties : table) the table with text properties:
---  (properties[1] : number) the width of the text box
---  (properties[2] : string) the align type (left, right or center) 
---    (optional, left by default)
---  (properties[3] : number) the max number of characters that will be shown 
---    (optional, no limit by default)
+-- @param(text : string) The rich text.
+-- @param(resources : table) Table of resources used in text.
+-- @param(renderer : Renderer) The destination renderer of the sprite.
+-- @param(properties : table) The table with text properties:
+--  (properties[1] : number) The width of the text box;
+--  (properties[2] : string) The align type (left, right or center) 
+--    (optional, left by default);
+--  (properties[3] : number) The initial font 
+--    (if nil, uses defaultFont).
 local old_init = Text.init
 function Text:init(text, properties, renderer)
   old_init(self, renderer)
@@ -54,8 +54,7 @@ function Text:init(text, properties, renderer)
   end
 end
 -- Sets/changes the text content.
--- @param(text : string) the rich text
--- @param(resources : table) table of resources used in text
+-- @param(text : string) The rich text.
 function Text:setText(text)
   assert(text, 'Nil text')
   if text == '' then
@@ -68,7 +67,7 @@ function Text:setText(text)
   self.parsedLines = lines
   self:redrawBuffers()
 end
-
+-- Redraws each line buffer.
 function Text:redrawBuffers()
   local lines = self.parsedLines
   if self.cutPoint then

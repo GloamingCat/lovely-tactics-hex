@@ -60,7 +60,7 @@
 		"shortName": "MHP",
 		"key": "hp",
 		"script": "att.str() * 2 + att.res() * 2",
-		"visibility": 2,
+		"visibility": 1,
 		"tags": []
 	},
 	{
@@ -68,7 +68,7 @@
 		"shortName": "MSP",
 		"key": "sp",
 		"script": "att.mag() * 2 + att.dex() * 2",
-		"visibility": 2,
+		"visibility": 1,
 		"tags": []
 	},
 	{

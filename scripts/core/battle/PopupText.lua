@@ -18,7 +18,6 @@ local max = math.max
 local distance = 15
 local speed = 8
 local pause = 30
-local properties = {nil, 'left'}
 
 local PopupText = class()
 
@@ -37,6 +36,9 @@ function PopupText:init(x, y, z, renderer)
   self.text = nil
   self.lineCount = 0
   self.resources = {}
+  self.width = 100
+  self.align = 'center'
+  self.font = nil
   self.renderer = renderer or FieldManager.renderer
 end
 
@@ -102,9 +104,9 @@ function PopupText:popup(wait)
       self:popup(true)
     end)
   else
-    local sprite = Text(self.text, properties, self.renderer)
-    sprite:setXYZ(self.x, self.y, self.z)
-    sprite:setCenterOffset()
+    local p = {self.width, self.align}
+    local sprite = Text(self.text, p, self.renderer)
+    sprite:setXYZ(self.x - (self.width or 0) / 2, self.y, self.z)
     local d = 0
     while d < distance do
       d = d + distance * speed * time()

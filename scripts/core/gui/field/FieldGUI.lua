@@ -13,6 +13,7 @@ local FieldCommandWindow = require('core/gui/field/window/FieldCommandWindow')
 local MemberGUI = require('core/gui/members/MemberGUI')
 local MemberListWindow = require('core/gui/members/window/MemberListWindow')
 local QuitWindow = require('core/gui/field/window/QuitWindow')
+local SaveWindow = require('core/gui/general/window/SaveWindow')
 local Troop = require('core/battle/Troop')
 
 local FieldGUI = class(GUI)
@@ -28,6 +29,7 @@ function FieldGUI:createWindows()
   self:createMainWindow()
   self:createMembersWindow()
   self:createQuitWindow()
+  self:createSaveWindow()
 end
 -- Creates the list with the main commands.
 function FieldGUI:createMainWindow()
@@ -46,6 +48,11 @@ end
 function FieldGUI:createQuitWindow()
   self.quitWindow = QuitWindow(self)
   self.quitWindow:setVisible(false)
+end
+-- Creates the window with the save slots.
+function FieldGUI:createSaveWindow()
+  self.saveWindow = SaveWindow(self)
+  self.saveWindow:setVisible(false)
 end
 
 ---------------------------------------------------------------------------------------------------
