@@ -76,6 +76,10 @@
 				"commands": [
 					{
 						"name": "eventScript",
+						"param": 4
+					},
+					{
+						"name": "eventScript",
 						"param": 1
 					}
 				],

@@ -180,5 +180,27 @@
 			],
 			"global": false
 		}
+	},
+	{
+		"name": "Shop Test",
+		"data": {
+			"id": 4,
+			"commands": [
+				{
+					"name": "openShop",
+					"param": {
+						"sell": true,
+						"items": [
+							{
+								"id": 1
+							},
+							{
+								"id": 2
+							}
+						]
+					}
+				}
+			]
+		}
 	}
 ]

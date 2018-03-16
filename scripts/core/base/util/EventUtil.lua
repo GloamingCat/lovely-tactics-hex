@@ -14,6 +14,7 @@ local ChoiceWindow = require('core/gui/general/window/ChoiceWindow')
 local DialogueWindow = require('core/gui/general/window/DialogueWindow')
 local GUI = require('core/gui/GUI')
 local MoveAction = require('core/battle/action/MoveAction')
+local ShopGUI = require('core/gui/shop/ShopGUI')
 local TagMap = require('core/base/datastruct/TagMap')
 
 -- Alias
@@ -90,6 +91,17 @@ end
 -- Sets a local variable, accessible from this sheet only.
 function util.setLocalVar(sheet, event, args)
   sheet.vars[args.name] = sheet:decodeExpression(event, args.expression)
+end
+
+---------------------------------------------------------------------------------------------------
+-- GUI
+---------------------------------------------------------------------------------------------------
+
+-- Opens the ShopGUI.
+-- @param(args.items : table) Array of items.
+-- @param(args.sell : boolean) Sell enabling.
+function util.openShop(sheet, event, args)
+  GUIManager:showGUIForResult(ShopGUI(args.items, args.sell))
 end
 
 ---------------------------------------------------------------------------------------------------

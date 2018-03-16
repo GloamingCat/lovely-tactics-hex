@@ -30,6 +30,10 @@ return {
   formation = 'Formation',
   none = 'None',
   
+  -- Shop
+  buy = 'Buy',
+  sell = 'Sell',
+  
   -- Battle win
   win = 'You won!',
   gold = 'Gold',
