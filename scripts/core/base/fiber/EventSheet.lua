@@ -28,9 +28,11 @@ function EventSheet:init(root, commands, event, state)
     self.commands = state.commands
     self.vars = state.vars
   else
+    self.ifcount = 0
     self.index = 0
     self.commands = self:preprocess(commands)
     self.vars = {}
+    self.ifcount = nil
   end
   self:addLabels()
   if root then
@@ -56,16 +58,15 @@ end
 -- @param(raw : table) array of raw commands (includes conditionals)
 -- @param(depth : number) indentation (0 by default)
 -- @ret(table) array of new commands (does not include conditionals)
-function EventSheet:preprocess(raw, depth)
-  depth = depth or 0
+function EventSheet:preprocess(raw)
   local commands = {}
   local n = 0
   for i = 1, #raw do
     local name = raw[i].name
     if name == 'condition' then
-      n = self:preprocessCondition(raw[i], commands, n + 1, depth)
+      n = self:preprocessCondition(raw[i], commands, n + 1)
     elseif name == 'eventScript' then
-      n = self:preprocessEventScript(raw[i], commands, n + 1, depth)
+      n = self:preprocessEventScript(raw[i], commands, n + 1)
     elseif name ~= 'comment' then
       n = n + 1
       commands[n] = raw[i]
@@ -78,26 +79,26 @@ end
 -- @param(n : number) the total number of commands
 -- @param(depth : number) the indentation depth
 -- @ret(number) new number of commands
-function EventSheet:preprocessEventScript(command, commands, n, depth)
+function EventSheet:preprocessEventScript(command, commands, n)
   local script = Database.scripts[command.param]
-  local scriptCommands = self:preprocess(script.commands, depth + 1)
+  local scriptCommands = self:preprocess(script.commands)
   for i = 1, #scriptCommands do
     commands[i + n - 1] = scriptCommands[i]
   end
-  return n + #scriptCommands
+  return n + #scriptCommands - 1
 end
 -- @param(command : table) condition command
 -- @param(commands : table) array of commands
 -- @param(n : number) the total number of commands
 -- @param(depth : number) the indentation depth
 -- @ret(number) new number of commands
-function EventSheet:preprocessCondition(command, commands, n, depth)
-  local _if = self:preprocess(command.param['if'], depth + n)
-  local _else = self:preprocess(command.param['else'], depth + n)
+function EventSheet:preprocessCondition(command, commands, n)
+  local _if = self:preprocess(command.param['if'])
+  local _else = self:preprocess(command.param['else'])
   local exp = 'not (' .. command.param.expression .. ')'
   -- Labels
-  local endif = 'endif' .. depth .. '.' .. (n + #_if)
-  local endelse = 'endelse' .. depth .. '.' .. (n + #_if + #_else + 1)
+  local endif = 'endif' .. self.ifcount
+  local endelse = 'endelse' .. self.ifcount
   -- Jumps to endif if condition is false
   commands[n] = {
     name = 'jump',
@@ -125,6 +126,7 @@ function EventSheet:preprocessCondition(command, commands, n, depth)
   commands[n] = {
     name = 'label',
     param = endelse }
+  self.ifcount = self.ifcount + 1
   return n
 end
 
