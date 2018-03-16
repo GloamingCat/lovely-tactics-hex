@@ -89,7 +89,7 @@ function MemberGUI:refreshMember()
   local member = self:currentMember()
   self.commandWindow:setMember(member)
   self.infoWindow:setMember(member)
-  self.infoWindow:setPage(self.memberID, #self.members)
+  self.infoWindow.page:set(self.memberID, #self.members)
   if self.subGUI then
     self.subGUI:setMember(member)
   else
