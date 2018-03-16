@@ -28,8 +28,9 @@ function ShopCommandWindow:init(GUI, buy, sell)
 end
 -- Implements GridWindow:createWidgets.
 function ShopCommandWindow:createWidgets()
-  Button:fromKey(self, 'buy')
-  Button:fromKey(self, 'sell')
+  Button:fromKey(self, 'buy').text:setAlign('center')
+  Button:fromKey(self, 'sell').text:setAlign('center')
+  Button:fromKey(self, 'cancel').text:setAlign('center')
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -42,6 +43,10 @@ end
 
 function ShopCommandWindow:sellConfirm()
   
+end
+
+function ShopCommandWindow:cancelConfirm()
+  self.result = 0
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -62,7 +67,7 @@ end
 ---------------------------------------------------------------------------------------------------
 
 function ShopCommandWindow:colCount()
-  return 2
+  return 3
 end
 
 function ShopCommandWindow:rowCount()

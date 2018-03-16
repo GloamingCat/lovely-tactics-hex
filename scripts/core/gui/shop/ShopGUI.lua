@@ -9,7 +9,7 @@ ShopGUI
 
 -- Imports
 local DescriptionWindow = require('core/gui/general/window/DescriptionWindow')
---local GoldWindow = require('core/gui/general/window/GoldWindow')
+local GoldWindow = require('core/gui/general/window/GoldWindow')
 local GUI = require('core/gui/GUI')
 --local ShopBonusWindow = require('core/gui/shop/window/ShopBonusWindow')
 local ShopCommandWindow = require('core/gui/shop/window/ShopCommandWindow')
@@ -27,8 +27,8 @@ local ShopGUI = class(GUI)
 -- Constructor.
 -- @param(items : table) Array of items to be sold.
 -- @param(sell : boolean) True if the player can sell anything here.
-function ShopGUI:init(items, sell, party)
-  party = party or Troop()
+function ShopGUI:init(items, sell, troop)
+  self.troop = troop or Troop()
   self.items = items
   self.sell = sell
   GUI.init(self)
@@ -36,7 +36,7 @@ end
 -- Implements GUI:createWindow.
 function ShopGUI:createWindows()
   self:createCommandWindow()
-  --self:createGoldWindow()
+  self:createGoldWindow()
   --self:createItemWindow()
   --self:createCountWindow()
   --self:createBonusWindow()
@@ -53,9 +53,10 @@ end
 function ShopGUI:createGoldWindow()
   local width = ScreenManager.width - self.commandWindow.width - self:windowMargin() * 3
   local height = self.commandWindow.height
-  local x = ScreenManager.width / 2 - self:windowMargin()
+  local x = ScreenManager.width / 2 - self:windowMargin() - width / 2
   local y = self.commandWindow.position.y
   self.goldWindow = GoldWindow(self, width, height, Vector(x, y))
+  self.goldWindow:setGold(self.troop.gold)
 end
 function ShopGUI:createItemWindow()
   local window = ShopItemWindow(self, self.items)

@@ -51,7 +51,7 @@ end
 -- Sets text alignment (must be redrawn later).
 -- @param(align : string)
 function SimpleText:setAlign(a)
-  self.sprite.align = a or 'left'
+  self.sprite.alignX = a or 'left'
 end
 -- Redraws text.
 function SimpleText:redraw()
