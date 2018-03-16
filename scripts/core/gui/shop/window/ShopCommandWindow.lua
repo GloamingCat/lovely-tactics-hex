@@ -37,8 +37,13 @@ end
 -- Confirm Callbacks
 ---------------------------------------------------------------------------------------------------
 
+
 function ShopCommandWindow:buyConfirm()
-  
+  --GUIManager.fiberList:fork(function()
+  --  self.GUI.bonusWindow:show()
+  --end)
+  self.GUI.itemWindow:show()
+  self.GUI.itemWindow:activate()
 end
 
 function ShopCommandWindow:sellConfirm()
@@ -66,10 +71,11 @@ end
 -- Properties
 ---------------------------------------------------------------------------------------------------
 
+-- Overrides GridWindow:colCount.
 function ShopCommandWindow:colCount()
   return 3
 end
-
+-- Overrides GridWindow:rowCount.
 function ShopCommandWindow:rowCount()
   return 1
 end
