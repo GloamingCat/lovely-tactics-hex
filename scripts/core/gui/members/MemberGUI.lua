@@ -100,14 +100,12 @@ end
 function MemberGUI:currentMember()
   return self.members[self.memberID]
 end
--- Overrides GUI:hide.
--- Saves troop modifications.
+-- Overrides GUI:hide. Saves troop modifications.
 function MemberGUI:hide(...)
   self.troop:storeSave()
   GUI.hide(self, ...)
 end
--- Overrides GUI:show.
--- Refreshes member info.
+-- Overrides GUI:show. Refreshes member info.
 function MemberGUI:show(...)
   self:refreshMember()
   GUI.show(self, ...)

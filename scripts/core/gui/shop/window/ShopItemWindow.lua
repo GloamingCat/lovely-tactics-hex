@@ -3,7 +3,7 @@
 
 ShopItemWindow
 ---------------------------------------------------------------------------------------------------
-
+Window with the list of items available to buy.
 
 =================================================================================================]]
 
@@ -42,6 +42,7 @@ end
 -- Enable Conditions
 ---------------------------------------------------------------------------------------------------
 
+-- @ret(boolean) True if at least one item of this type can be bought.
 function ShopItemWindow:buttonEnabled(button)
   return self.GUI.troop.gold >= button.price
 end
@@ -50,9 +51,14 @@ end
 -- Confirm Callbacks
 ---------------------------------------------------------------------------------------------------
 
+-- Shows the window to select the quantity.
 function ShopItemWindow:onButtonConfirm(button)
-  print('selected item', button.item.name)
+  self:setVisible(false)
+  self.GUI.countWindow:setItem(button.item, button.price)
+  self.GUI.countWindow:setVisible(true)
+  self.GUI.countWindow:activate()
 end
+-- Closes buy GUI.
 function ShopItemWindow:onButtonCancel(button)
   --GUIManager.fiberList:fork(function()
   --  self.GUI.bonusWindow:hide()
@@ -65,10 +71,11 @@ end
 -- Properties
 ---------------------------------------------------------------------------------------------------
 
+-- Overrides ListButtonWindow:colCount.
 function ShopItemWindow:colCount()
   return 1
 end
-
+-- Overrides GridWindow:rowCount.
 function ShopItemWindow:rowCount()
   return 7
 end

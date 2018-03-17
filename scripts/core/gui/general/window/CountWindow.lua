@@ -18,15 +18,20 @@ local CountWindow = class(GridWindow)
 ---------------------------------------------------------------------------------------------------
 
 -- Constructor.
-function CountWindow:createWidgets()
+function CountWindow:init(...)
   self.noCursor = true
+  self.noHighlight = true
+  GridWindow.init(self, ...)
+end
+-- Implements GridWindow:createWidgets.
+function CountWindow:createWidgets()
   local spinner = Spinner(self, 1, 1, 1)
   spinner.onConfirm = self.onSpinnerConfirm
   spinner.onCancel = self.onSpinnerCancel
+  spinner.onChange = self.onSpinnerChange
   self.spinner = spinner
 end
--- Sets the maximum number of items (item count) that may the transfered.
--- @param(max : number) the maximum item count
+-- @param(max : number) Sets the maximum number of the spinner.
 function CountWindow:setMax(max)
   self.spinner.maxValue = max
   self.spinner:setValue(1)
@@ -41,7 +46,7 @@ end
 function CountWindow:onSpinnerConfirm(spinner)
   self.result = spinner.value
 end
--- Cancel transfering.
+-- Cancel.
 function CountWindow:onSpinnerCancel(spinner)
   self.result = 0
 end

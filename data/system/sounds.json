@@ -36,12 +36,12 @@
 		"volume": 100
 	},
 	"buy": {
-		"name": "GameAudio/button-confirm.wav",
+		"name": "artisticdude/coin.wav",
 		"pitch": 100,
 		"volume": 100
 	},
 	"sell": {
-		"name": "GameAudio/button-confirm.wav",
+		"name": "artisticdude/coin.wav",
 		"pitch": 100,
 		"volume": 100
 	},

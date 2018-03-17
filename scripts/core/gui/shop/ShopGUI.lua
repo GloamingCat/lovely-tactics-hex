@@ -13,7 +13,7 @@ local GoldWindow = require('core/gui/general/window/GoldWindow')
 local GUI = require('core/gui/GUI')
 --local ShopBonusWindow = require('core/gui/shop/window/ShopBonusWindow')
 local ShopCommandWindow = require('core/gui/shop/window/ShopCommandWindow')
---local ShopCountWindow = require('core/gui/shop/window/ShopCountWindow')
+local ShopCountWindow = require('core/gui/shop/window/ShopCountWindow')
 local ShopItemWindow = require('core/gui/shop/window/ShopItemWindow')
 local Troop = require('core/battle/Troop')
 local Vector = require('core/math/Vector')
@@ -38,7 +38,7 @@ function ShopGUI:createWindows()
   self:createCommandWindow()
   self:createGoldWindow()
   self:createItemWindow()
-  --self:createCountWindow()
+  self:createCountWindow()
   --self:createBonusWindow()
   --self:createDescriptionWindow()
   self:setActiveWindow(self.commandWindow)
@@ -70,8 +70,9 @@ function ShopGUI:createItemWindow()
   self.itemWindow = window
   window:setVisible(false)
 end
+-- Creates the window with the number of items to buy.
 function ShopGUI:createCountWindow()
-  local window = self.itemwindow
+  local window = self.itemWindow
   self.countWindow = ShopCountWindow(self, window.width, window.height, window.position)
   self.countWindow:setVisible(false)
 end
@@ -90,6 +91,11 @@ function ShopGUI:createDescriptionWindow()
   local y = ScreenManager.height / 2 - height / 2 - self:windowMargin()
   self.descriptionWindow = DescriptionWindow(self, width, height, Vector(0, y))
   self.bonusWindow:setVisible(true)
+end
+-- Overrides GUI:hide. Saves troop modifications.
+function ShopGUI:hide(...)
+  self.troop:storeSave()
+  GUI.hide(self, ...)
 end
 
 return ShopGUI

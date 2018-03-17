@@ -62,16 +62,27 @@ end
 
 -- Called when player presses arrows on this spinner.
 function Spinner.onMove(window, spinner, dx, dy)
-  if dy == 0 then
-    if dx < 0 then
-      if spinner.value > spinner.minValue then
-        spinner:onDecrease()
-      end
+  if dy ~= 0 then
+    return
+  end
+  if dx < 0 then
+    if spinner.value > spinner.minValue then
+      spinner:setValue(spinner.value - 1)
     else
-      if spinner.value < spinner.maxValue then
-        spinner:onIncrease()
-      end
+      return
     end
+  else
+    if spinner.value < spinner.maxValue then
+      spinner:setValue(spinner.value + 1)
+    else
+      return
+    end
+  end
+  if spinner.onChange then
+    spinner.onChange(window, spinner)
+  end
+  if spinner.selectSound then
+    AudioManager:playSFX(spinner.selectSound)
   end
 end
 
@@ -79,20 +90,12 @@ end
 -- Value
 ---------------------------------------------------------------------------------------------------
 
--- When presses left arrow on this spinner.
-function Spinner:onDecrease()
-  self:setValue(self.value - 1)
-end
--- When presses right arrow on this spinner.
-function Spinner:onIncrease()
-  self:setValue(self.value + 1)
-end
 -- Changes the current value.
 -- @param(value : number) new value, assuming it is inside limit bounds
 function Spinner:setValue(value)
   if self.value ~= value then
     self.value = value
-    self.valueText:setText(value)
+    self.valueText:setText(value .. '')
     self.valueText:redraw()
   end
 end

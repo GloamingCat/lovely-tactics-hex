@@ -32,6 +32,10 @@ function GridWidget:init(window)
   self.content = List()
   self.enabled = true
   self.selected = false
+  self.confirmSound = Config.sounds.buttonConfirm
+  self.cancelSound = Config.sounds.buttonCancel
+  self.selectSound = Config.sounds.buttonSelect
+  self.errorSound = Config.sounds.buttonError
 end
 -- Changes the index.
 function GridWidget:setIndex(i)
