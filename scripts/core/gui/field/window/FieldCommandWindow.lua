@@ -30,6 +30,9 @@ end
 ---------------------------------------------------------------------------------------------------
 
 function FieldCommandWindow:membersConfirm()
+  GUIManager.fiberList:fork(function()
+    self.GUI.goldWindow:hide()
+  end)
   self:hide()
   self.GUI.membersWindow:show()
   self.GUI.membersWindow:activate()

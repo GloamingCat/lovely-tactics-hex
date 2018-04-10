@@ -10,11 +10,13 @@ The GUI that is openned when player presses the menu button in the field.
 -- Imports
 local GUI = require('core/gui/GUI')
 local FieldCommandWindow = require('core/gui/field/window/FieldCommandWindow')
+local GoldWindow = require('core/gui/general/window/GoldWindow')
 local MemberGUI = require('core/gui/members/MemberGUI')
 local MemberListWindow = require('core/gui/members/window/MemberListWindow')
 local QuitWindow = require('core/gui/field/window/QuitWindow')
 local SaveWindow = require('core/gui/general/window/SaveWindow')
 local Troop = require('core/battle/Troop')
+local Vector = require('core/math/Vector')
 
 local FieldGUI = class(GUI)
 
@@ -27,6 +29,7 @@ function FieldGUI:createWindows()
   self.name = 'Main GUI'
   self.troop = Troop()
   self:createMainWindow()
+  self:createGoldWindow()
   self:createMembersWindow()
   self:createQuitWindow()
   self:createSaveWindow()
@@ -38,6 +41,14 @@ function FieldGUI:createMainWindow()
   w:setXYZ((w.width - ScreenManager.width) / 2 + m, (w.height - ScreenManager.height) / 2 + m)
   self.mainWindow = w
   self:setActiveWindow(self.mainWindow)
+end
+-- Creates the window that shows the troop's gold.
+function FieldGUI:createGoldWindow()
+  local w, h = 100, 30
+  local x = ScreenManager.width / 2 - self:windowMargin() - w / 2
+  local y = ScreenManager.height / 2 - self:windowMargin() - h / 2
+  self.goldWindow = GoldWindow(self, w, h, Vector(x, y))
+  self.goldWindow:setGold(self.troop.gold)
 end
 -- Creates the member list window the shows when player selects "Characters" button.
 function FieldGUI:createMembersWindow()
@@ -70,6 +81,9 @@ end
 -- When player cancels from the member list window.
 function FieldGUI:onMemberCancel()
   self.membersWindow:hide()
+  GUIManager.fiberList:fork(function()
+    self.goldWindow:show()
+  end)
   self.mainWindow:show()
   self.mainWindow:activate()
 end
