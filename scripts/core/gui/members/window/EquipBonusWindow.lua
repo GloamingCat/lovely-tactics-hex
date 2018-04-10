@@ -30,22 +30,34 @@ local EquipBonusWindow = class(Window)
 -- Constructor.
 -- @param(GUI : GUI)
 -- @param(...) Other arguments to Window:init.
-function EquipBonusWindow:init(GUI, ...)
-  self.member = GUI.memberGUI:currentMember()
-  Window.init(self, GUI, ...)
+function EquipBonusWindow:init(GUI, w, h, pos, member)
+  self.member = member or GUI.memberGUI:currentMember()
+  self.bonus = List()
+  Window.init(self, GUI, w, h, pos)
 end
 -- Prints a list of attributes to receive a bonus.
 -- @param(att : table) Array of attributes bonus (with key, oldValue and newValue).
 function EquipBonusWindow:updateBonus(att)
-  for i = 1, #self.content do
-    self.content[i]:destroy()
+  for i = 1, #self.bonus do
+    self.bonus[i]:destroy()
+    self.content:removeElement(self.bonus[i])
   end
-  self.content = List()
-  local font = Fonts.gui_small
+  self.bonus = List()
   local x = self:hPadding() - self.width / 2
   local y = self:vPadding() - self.height / 2
   local w = self.width - self:hPadding() * 2
-  -- Attributes
+  self:createBonusText(att, x, y, w)
+  for i = 1, #self.bonus do
+    self.bonus[i]:updatePosition(self.position)
+  end
+end
+-- Creates the list of text components for each attribute bonus.
+-- @param(att : table) Array of attributes bonus (with key, oldValue and newValue).
+-- @param(x : number) Position x of the list.
+-- @param(y : number) Position y of the list.
+-- @param(width : number) Width of the list.
+function EquipBonusWindow:createBonusText(att, x, y, w)
+  local font = Fonts.gui_small
   for i = 1, #att do
     local key = att[i].key
     local valueW = 30
@@ -53,24 +65,25 @@ function EquipBonusWindow:updateBonus(att)
     local namePos = Vector(x, y, 0)
     local name = SimpleText(attConfig[key].shortName, namePos, w / 2, 'left', font)
     self.content:add(name)
+    self.bonus:add(name)
     local valuePos1 = Vector(x + w / 2, y, 0)
     local value1 = SimpleText(round(att[i].oldValue), valuePos1, valueW, 'left', font)
     self.content:add(value1)
+    self.bonus:add(value1)
     local arrowPos = Vector(x + w / 2 + valueW, y - 2, 0)
     local arrow = SimpleText('→', arrowPos, arrowW, 'left')
     self.content:add(arrow)
+    self.bonus:add(arrow)
     local valuePos2 = Vector(x + w / 2 + valueW + arrowW, y, 0)
     local value2 = SimpleText(round(att[i].newValue), valuePos2, valueW, 'left', font)
     self.content:add(value2)
+    self.bonus:add(value2)
     if att[i].newValue > att[i].oldValue then
       value2.sprite:setColor(Color.green)
     else
       value2.sprite:setColor(Color.red)
     end
     y = y + 10
-  end
-  for i = 1, #self.content do
-    self.content[i]:updatePosition(self.position)
   end
 end
 -- Shows the bonus for this item when equipped in the given slot.

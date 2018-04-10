@@ -60,11 +60,23 @@ function ShopItemWindow:onButtonConfirm(button)
 end
 -- Closes buy GUI.
 function ShopItemWindow:onButtonCancel(button)
-  --GUIManager.fiberList:fork(function()
-  --  self.GUI.bonusWindow:hide()
-  --end)
+  GUIManager.fiberList:fork(function()
+    self.GUI.bonusWindow:hide()
+  end)
   self.GUI.itemWindow:hide()
   self.GUI.commandWindow:activate()
+end
+
+---------------------------------------------------------------------------------------------------
+-- Member
+---------------------------------------------------------------------------------------------------
+
+function ShopItemWindow:onNext()
+  self.GUI.bonusWindow:nextMember()
+end
+
+function ShopItemWindow:onPrev()
+  self.GUI.bonusWindow:prevMember()
 end
 
 ---------------------------------------------------------------------------------------------------

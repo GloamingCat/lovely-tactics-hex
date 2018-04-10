@@ -3,7 +3,7 @@
 
 ShopCommandWindow
 ---------------------------------------------------------------------------------------------------
-
+Window with the initial commands of the shop GUI (buy, sell, cancel).
 
 =================================================================================================]]
 
@@ -37,19 +37,19 @@ end
 -- Confirm Callbacks
 ---------------------------------------------------------------------------------------------------
 
-
+-- Shows the windows to buy.
 function ShopCommandWindow:buyConfirm()
-  --GUIManager.fiberList:fork(function()
-  --  self.GUI.bonusWindow:show()
-  --end)
+  GUIManager.fiberList:fork(function()
+    self.GUI.bonusWindow:show()
+  end)
   self.GUI.itemWindow:show()
   self.GUI.itemWindow:activate()
 end
-
+-- Shows the windows to sell.
 function ShopCommandWindow:sellConfirm()
   
 end
-
+-- Closes shop GUI.
 function ShopCommandWindow:cancelConfirm()
   self.result = 0
 end

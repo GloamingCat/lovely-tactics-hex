@@ -3,6 +3,7 @@
 
 ShopCountWindow
 ---------------------------------------------------------------------------------------------------
+Window that shows the total price to be paidin the Shop GUI.
 
 =================================================================================================]]
 
@@ -25,10 +26,10 @@ function ShopCountWindow:createContent(...)
   local y = self.height / 2 - self:vPadding()
   local w = self.width - self:hPadding() * 2
   local font = Fonts.gui_default
-  self.total = SimpleText('C', Vector(x, y - 15, -1), w, 'right', font)
+  self.total = SimpleText('', Vector(x, y - 15, -1), w, 'right', font)
   local line = SimpleText('__________', Vector(x, y - 28), w, 'right', font)
-  self.decrease = SimpleText('B', Vector(x, y - 32, -1), w, 'right', font)
-  self.current = SimpleText('A', Vector(x, y - 45, -1), w, 'right', font)
+  self.decrease = SimpleText('', Vector(x, y - 32, -1), w, 'right', font)
+  self.current = SimpleText('', Vector(x, y - 45, -1), w, 'right', font)
   self.content:add(line)
   self.content:add(self.total)
   self.content:add(self.decrease)
@@ -68,6 +69,7 @@ end
 -- Confirm Callbacks
 ---------------------------------------------------------------------------------------------------
 
+-- Confirms the buy action.
 function ShopCountWindow:onSpinnerConfirm(spinner)
   local troop = self.GUI.troop
   troop.gold = troop.gold - spinner.value * self.price
@@ -75,9 +77,11 @@ function ShopCountWindow:onSpinnerConfirm(spinner)
   self.GUI.goldWindow:setGold(troop.gold)
   self:returnWindow()
 end
+-- Cancels the buy action.
 function ShopCountWindow:onSpinnerCancel(spinner)
   self:returnWindow()
 end
+-- Increments / decrements the quantity of items to buy.
 function ShopCountWindow:onSpinnerChange(spinner)
   self:setTexts(self.GUI.troop.gold, spinner.value * self.price)
 end

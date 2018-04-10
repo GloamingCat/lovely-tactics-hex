@@ -28,8 +28,8 @@ local EquipItemWindow = class(InventoryWindow)
 -- @param(w : number) window's width (optional)
 -- @param(h : number) window's height (optional)
 -- @param(pos : Vector) position of the window's center (optional)
-function EquipItemWindow:init(GUI, w, h, pos, rowCount)
-  self.member = GUI.memberGUI:currentMember()
+function EquipItemWindow:init(GUI, w, h, pos, rowCount, member)
+  self.member = member or GUI.memberGUI:currentMember()
   InventoryWindow.init(self, GUI, GUI.inventory, {}, w, h, pos, rowCount)
 end
 -- Overrides ListButtonWindow:createWidgets.

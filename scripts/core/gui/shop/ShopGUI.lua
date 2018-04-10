@@ -11,7 +11,7 @@ ShopGUI
 local DescriptionWindow = require('core/gui/general/window/DescriptionWindow')
 local GoldWindow = require('core/gui/general/window/GoldWindow')
 local GUI = require('core/gui/GUI')
---local ShopBonusWindow = require('core/gui/shop/window/ShopBonusWindow')
+local ShopBonusWindow = require('core/gui/shop/window/ShopBonusWindow')
 local ShopCommandWindow = require('core/gui/shop/window/ShopCommandWindow')
 local ShopCountWindow = require('core/gui/shop/window/ShopCountWindow')
 local ShopItemWindow = require('core/gui/shop/window/ShopItemWindow')
@@ -29,6 +29,7 @@ local ShopGUI = class(GUI)
 -- @param(sell : boolean) True if the player can sell anything here.
 function ShopGUI:init(items, sell, troop)
   self.troop = troop or Troop()
+  self.members = self.troop:visibleMembers()
   self.items = items
   self.sell = sell
   GUI.init(self)
@@ -39,7 +40,7 @@ function ShopGUI:createWindows()
   self:createGoldWindow()
   self:createItemWindow()
   self:createCountWindow()
-  --self:createBonusWindow()
+  self:createBonusWindow()
   --self:createDescriptionWindow()
   self:setActiveWindow(self.commandWindow)
 end
@@ -76,12 +77,13 @@ function ShopGUI:createCountWindow()
   self.countWindow = ShopCountWindow(self, window.width, window.height, window.position)
   self.countWindow:setVisible(false)
 end
+-- Creates the window with the attribute bonus for equipments.
 function ShopGUI:createBonusWindow()
   local width = ScreenManager.width - self.itemWindow.width - self:windowMargin() * 3
   local height = self.itemWindow.height
-  local x = ScreenManager.width / 2 - self:windowMargin()
+  local x = ScreenManager.width / 2 - self:windowMargin() - width / 2
   local y = self.itemWindow.position.y
-  self.bonusWindow = ShopBonusWindow(self, width, height, Vector(x, y))
+  self.bonusWindow = ShopBonusWindow(self, width, height, Vector(x, y), self.members[1])
   self.bonusWindow:setVisible(false)
 end
 function ShopGUI:createDescriptionWindow()

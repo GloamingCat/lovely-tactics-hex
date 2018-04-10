@@ -44,6 +44,8 @@ function Pagination:set(current, max)
       text = current .. ''
     end
   end
+  self.current = current
+  self.max = max
   self:setText(text)
   self:redraw()
 end

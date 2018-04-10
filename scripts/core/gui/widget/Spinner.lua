@@ -66,18 +66,15 @@ function Spinner.onMove(window, spinner, dx, dy)
     return
   end
   if dx < 0 then
-    if spinner.value > spinner.minValue then
-      spinner:setValue(spinner.value - 1)
-    else
+    if spinner.value <= spinner.minValue then
       return
     end
   else
-    if spinner.value < spinner.maxValue then
-      spinner:setValue(spinner.value + 1)
-    else
+    if spinner.value >= spinner.maxValue then
       return
     end
   end
+  spinner:setValue(spinner.value + dx)
   if spinner.onChange then
     spinner.onChange(window, spinner)
   end
