@@ -41,7 +41,7 @@ function ShopGUI:createWindows()
   self:createItemWindow()
   self:createCountWindow()
   self:createBonusWindow()
-  --self:createDescriptionWindow()
+  self:createDescriptionWindow()
   self:setActiveWindow(self.commandWindow)
 end
 -- Creates the window with the main "buy" and "sell" commands.
@@ -86,13 +86,14 @@ function ShopGUI:createBonusWindow()
   self.bonusWindow = ShopBonusWindow(self, width, height, Vector(x, y), self.members[1])
   self.bonusWindow:setVisible(false)
 end
+-- Creates the window with the description of the selected item.
 function ShopGUI:createDescriptionWindow()
   local width = ScreenManager.width - self:windowMargin() * 2
-  local height = ScreenManager.height - self:windowMargin() * 3 - 
+  local height = ScreenManager.height - self:windowMargin() * 4 - 
     self.commandWindow.height - self.itemWindow.height
   local y = ScreenManager.height / 2 - height / 2 - self:windowMargin()
   self.descriptionWindow = DescriptionWindow(self, width, height, Vector(0, y))
-  self.bonusWindow:setVisible(true)
+  self.descriptionWindow:setVisible(false)
 end
 -- Overrides GUI:hide. Saves troop modifications.
 function ShopGUI:hide(...)

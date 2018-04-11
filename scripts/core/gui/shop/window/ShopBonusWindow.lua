@@ -53,5 +53,15 @@ function ShopBonusWindow:setMember(i)
   self.name:setText(self.GUI.members[page].name)
   self.name:redraw()
 end
+-- Shows attribute bonus of the given item.
+-- @param(item : table) The item data from database.
+function ShopBonusWindow:setItem(item)
+  if item.equip then
+    self:showContent()
+    --self:setEquip(item)
+  else
+    self:hideContent()
+  end
+end
 
 return ShopBonusWindow

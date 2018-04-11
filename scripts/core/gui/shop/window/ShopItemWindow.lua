@@ -63,18 +63,27 @@ function ShopItemWindow:onButtonCancel(button)
   GUIManager.fiberList:fork(function()
     self.GUI.bonusWindow:hide()
   end)
+  GUIManager.fiberList:fork(function()
+    self.GUI.descriptionWindow:hide()
+  end)
   self.GUI.itemWindow:hide()
   self.GUI.commandWindow:activate()
+end
+-- Updates item description.
+function ShopItemWindow:onButtonSelect(button)
+  self.GUI.descriptionWindow:setText(button.item.description)
+  self.GUI.bonusWindow:setItem(button.item)
 end
 
 ---------------------------------------------------------------------------------------------------
 -- Member
 ---------------------------------------------------------------------------------------------------
 
+-- Called when player presses "next" button.
 function ShopItemWindow:onNext()
   self.GUI.bonusWindow:nextMember()
 end
-
+-- Called when player presses "prev" button.
 function ShopItemWindow:onPrev()
   self.GUI.bonusWindow:prevMember()
 end
