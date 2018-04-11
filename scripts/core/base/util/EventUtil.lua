@@ -339,11 +339,14 @@ end
 -- @param(args.x : number) Tile destination x.
 -- @param(args.y : number) Tile destination y.
 -- @param(args.h : number) Tile destination height.
+-- @param(args.limit : number) The maxium length of the path to be calculated.
 function util.moveCharPath(sheet, event, args)
   local char = findCharacter(event, args.key)
   local tile = FieldManager.currentField:getObjectTile(args.x, args.y, args.h)
   assert(tile, 'Tile not reachable: ', args.x, args.y, args.h)
-  local input = ActionInput(MoveAction(), char, tile)
+  local action = MoveAction()
+  action.pathLimit = args.limit
+  local input = ActionInput(action, char, tile)
   input.action:execute(input)
 end
 -- Turns character to the given tile.

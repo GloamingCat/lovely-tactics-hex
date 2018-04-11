@@ -43,7 +43,9 @@ function MoveAction:execute(input)
     fullPath = false
     path = PathFinder.findPathToUnreachable(self, input.user, input.target)
   end
-  input.user:walkPath(path, false, true)
+  if path then
+    input.user:walkPath(path, false, true)
+  end
   return { executed = fullPath }
 end
 
@@ -73,12 +75,12 @@ end
 -- @param(final : ObjectTile) destination tile
 -- @ret(boolean) true if it's passable, false otherwise
 function MoveAction:isPassableBetween(initial, final, user)
-  local c = self.field:collisionXYZ(user, initial.x, initial.y, 
-    initial.layer.height, final:coordinates())
+  local x, y, h = initial:coordinates()
+  local c = self.field:collisionXYZ(user, x, y, h, final:coordinates())
   if c then
     return false
   end
-  return final.layer.height == initial.layer.height
+  return true
 end
 -- Gets the move cost between the two tiles.
 -- @param(initial : ObjectTile) the initial tile
@@ -102,7 +104,7 @@ end
 -- The max distance the character can walk.
 -- @ret(number) the distance in tiles (may not be integer)
 function MoveAction:maxDistance(user)
-  return math.huge
+  return self.limit or math.huge
 end
 
 return MoveAction

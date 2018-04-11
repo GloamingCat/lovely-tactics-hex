@@ -17,9 +17,13 @@ local GameKey = require('core/input/GameKey')
 
 -- Alias
 local timer = love.timer
+local round = math.round
+local pixel2Tile = math.field.pixel2Tile
 
 -- Constants
-local hideTime = 3
+local hideTime = 2
+local pph = Config.grid.pixelsPerHeight
+local dph = Config.grid.depthPerHeight
 
 local GameMouse = class()
 
@@ -33,9 +37,6 @@ function GameMouse:init()
   self.lastMove = 0
   self.active = false
   self.buttons = {}
-  self.buttons[1] = GameKey()
-  self.buttons[2] = GameKey()
-  self.buttons[3] = GameKey()
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -46,12 +47,6 @@ end
 function GameMouse:update()
   if InputManager.usingKeyboard or (timer.getTime() - self.lastMove) > hideTime then
     self:hide()
-  else
-    for i = 1, 3 do
-      if self.buttons[i].pressState == 2 then
-        self.buttons[i].pressState = 1
-      end
-    end
   end
 end
 
@@ -62,17 +57,13 @@ end
 -- Called when player clicks.
 -- @param(id : number) button type, from 1 to 3
 function GameMouse:onPress(id)
-  self.buttons[id]:onPress()
   self.active = true
   self:show()
 end
-
 -- Called when player releases button.
 -- @param(id : number) button type, from 1 to 3
 function GameMouse:onRelease(id)
-  self.buttons[id]:onRelease()
 end
-
 -- Called when player moves cursor.
 -- @param(x : number) current cursor x coordinate
 -- @param(y : number) current cursor y coordinate
@@ -88,13 +79,31 @@ end
 -- Shows cursor.
 function GameMouse:show()
   self.lastMove = timer.getTime()
+  self.active = true
   love.mouse.setVisible(true)
 end
-
 -- Hides and deactivates cursor.
 function GameMouse:hide()
   self.active = false
   love.mouse.setVisible(false)
+end
+
+---------------------------------------------------------------------------------------------------
+-- Position
+---------------------------------------------------------------------------------------------------
+
+function GameMouse:fieldCoord(h)
+  h = h or 1
+  local pos = self.position
+  local wx, wy = FieldManager.renderer:screen2World(pos.x, pos.y)
+  local tx, ty, th = pixel2Tile(wx, wy, -(h - 1) * (pph + dph) - wy)
+  return round(tx), round(ty), round(th)
+end
+
+function GameMouse:guiCoord()
+  local pos = self.position
+  local wx, wy = GUIManager.renderer:screen2World(pos.x, pos.y)
+  return round(wx), round(wy)
 end
 
 return GameMouse

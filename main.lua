@@ -55,7 +55,7 @@ end
 -- @param(isrepeat : boolean) if the call is a repeat
 function love.keypressed(code, scancode, isrepeat)
   code = KeyMap[code]
-  if code then
+  if code and not isrepeat then
     InputManager.keys[code]:onPress(isrepeat)
   end
 end
@@ -78,6 +78,10 @@ end
 -- @param(y : number) cursor's y coordinate
 -- @param(button : number) button type (1 to 3)
 function love.mousepressed(x, y, button)
+  local code = KeyMap['mouse' .. button]
+  if code then
+    InputManager.keys[code]:onPress()
+  end
   InputManager.mouse:onPress(button)
 end
 -- Called when a mouse button is released.
@@ -85,6 +89,10 @@ end
 -- @param(y : number) cursor's y coordinate
 -- @param(button : number) button type (1 to 3)
 function love.mousereleased(x, y, button)
+  local code = KeyMap['mouse' .. button]
+  if code then
+    InputManager.keys[code]:onRelease()
+  end
   InputManager.mouse:onRelease(button)
 end
 -- Called the cursor moves.

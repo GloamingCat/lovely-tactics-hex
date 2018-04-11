@@ -80,14 +80,9 @@ end
 ---------------------------------------------------------------------------------------------------
 
 -- Called when this key is pressed.
--- @param(isrepeat : boolean) is this call is a repeat
-function GameKey:onPress(isrepeat)
-  if isrepeat then
-    self.pressState = 1
-  else
-    self.pressTime = now()
-    self.pressState = 2
-  end
+function GameKey:onPress()
+  self.pressTime = now()
+  self.pressState = 2
 end
 -- Called when this kay is released.
 function GameKey:onRelease()

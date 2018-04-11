@@ -101,11 +101,8 @@ function GameManager:printCoordinates()
   if not FieldManager.renderer then
     return
   end
-  local pos = InputManager.mouse.position
-  local wx, wy = FieldManager.renderer:screen2World(pos.x, pos.y)
-  local tx, ty = math.field.pixel2Tile(wx, wy, -wy)
-  tx, ty = math.round(tx), math.round(ty)
-  love.graphics.print('(' .. tx .. ',' .. ty .. ')', 0, 12)
+  local tx, ty, th = InputManager.mouse:fieldCoord()
+  love.graphics.print('(' .. tx .. ',' .. ty .. ',' .. th .. ')', 0, 12)
 end
 
 ---------------------------------------------------------------------------------------------------

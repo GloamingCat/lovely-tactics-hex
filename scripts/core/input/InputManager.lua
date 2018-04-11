@@ -22,28 +22,28 @@ local InputManager = class()
 -- General
 ---------------------------------------------------------------------------------------------------
 
+-- Constructor.
 function InputManager:init()
   self.usingKeyboard = true
+  self.mouse = GameMouse()
   self.keys = {}
   for k, v in pairs(KeyMap) do
     self.keys[v] = GameKey()
   end
-  self.mouse = GameMouse()
   self.paused = false
 end
-
 -- Checks if player is using keyboard and updates all keys' states.
 function InputManager:update()
   self.usingKeyboard = false
   for code, key in pairs(self.keys) do
-    if key.pressState > 0 then
+    if key.pressState > 0 and not code:match('mouse') then
       self.usingKeyboard = true
     end
     key:update()
   end
   self.mouse:update()
 end
-
+-- Pauses / unpauses the input update.
 function InputManager:setPaused(paused)
   self.paused = paused
 end

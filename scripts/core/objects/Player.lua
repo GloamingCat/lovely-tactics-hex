@@ -9,10 +9,12 @@ It only exists for exploration fields.
 =================================================================================================]]
 
 -- Imports
-local Vector = require('core/math/Vector')
+local ActionInput = require('core/battle/action/ActionInput')
 local Character = require('core/objects/Character')
 local Fiber = require('core/base/fiber/Fiber')
 local FieldGUI = require('core/gui/field/FieldGUI')
+local MoveAction = require('core/battle/action/MoveAction')
+local Vector = require('core/math/Vector')
 
 -- Alias
 local timer = love.timer
@@ -74,6 +76,10 @@ function Player:checkFieldInput()
     self:interact()
   elseif InputManager.keys['cancel']:isTriggered() then
     self:openGUI()
+  elseif InputManager.keys['mouse1']:isTriggered() then
+    self:moveByMouse()
+  elseif InputManager.keys['mouse2']:isTriggered() then
+    self:openGUI()
   else
     local dx, dy, dir = self:inputAxis()
     if InputManager.keys['dash']:isPressing() then
@@ -89,6 +95,21 @@ end
 function Player:fieldInputEnabled()
   local gui = GUIManager:isWaitingInput() or BattleManager.onBattle
   return not gui and self.inputOn and self.moveTime >= 1 and self.blocks == 0
+end
+-- [COROUTINE] Moves player to the mouse coordinate.
+function Player:moveByMouse()
+  local field = FieldManager.currentField
+  for l = field.maxh, field.minh, -1 do
+    local x, y = InputManager.mouse:fieldCoord(l)
+    if field:isGrounded(x, y, l) then
+      local action = MoveAction()
+      local input = ActionInput(action, self, field:getObjectTile(x, y, l))
+      action.pathLimit = 12
+      print(x, y, l)
+      print(input.action:execute(input).executed)
+      break
+    end
+  end
 end
 -- [COROUTINE] Moves player depending on input.
 -- @param(dx : number) input x
