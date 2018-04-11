@@ -90,10 +90,10 @@ function GridWindow:setActive(value)
         self.highlight:show()
       end
     else
+      if self.cursor then
+        self.cursor:hide()
+      end
       if not (button and button.selected) then
-        if self.cursor then
-          self.cursor:hide()
-        end
         if self.highlight then
           self.highlight:hide()
         end

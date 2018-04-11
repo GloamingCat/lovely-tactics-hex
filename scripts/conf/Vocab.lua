@@ -33,6 +33,8 @@ return {
   -- Shop
   buy = 'Buy',
   sell = 'Sell',
+  owned = 'Owned',
+  equipped = 'Equipped',
   
   -- Battle win
   win = 'You won!',

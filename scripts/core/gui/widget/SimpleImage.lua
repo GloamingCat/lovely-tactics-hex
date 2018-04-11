@@ -34,7 +34,7 @@ function SimpleImage:init(sprite, x, y, depth, w, h)
   self.y = y
   self:setSprite(sprite)
 end
-
+-- Changes the sprite in the component.
 function SimpleImage:setSprite(sprite)
   if self.sprite then
     self.sprite:destroy()

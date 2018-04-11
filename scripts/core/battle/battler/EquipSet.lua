@@ -21,8 +21,8 @@ local EquipSet = class()
 ---------------------------------------------------------------------------------------------------
 
 -- Constructor.
--- @param(battler : Battler) this set's battler
--- @param(save : table) battler's save data (optional)
+-- @param(battler : Battler) This set's battler.
+-- @param(save : table) Battler's save data (optional).
 function EquipSet:init(battler, save)
   self.battler = battler
   self.slots = {}
@@ -58,17 +58,17 @@ end
 ---------------------------------------------------------------------------------------------------
 
 -- Gets the ID of the current equip in the given slot.
--- @param(key : string) slot's key
--- @ret(number) the ID of the equip item (-1 if none)
+-- @param(key : string) Slot's key.
+-- @ret(number) The ID of the equip item (-1 if none).
 function EquipSet:getEquip(key)
   assert(self.slots[key], 'Slot ' .. key .. ' does not exist.')
   return Database.items[self.slots[key].id]
 end
 -- Sets the equip item in the given slot.
--- @param(key : string) slot's key
--- @param(item : table) item's data from database
--- @param(inventory : Inventory) troop's inventory
--- @param(character : Character) battler's character, in case it's during battle (optional)
+-- @param(key : string) Slot's key.
+-- @param(item : table) Item's data from database.
+-- @param(inventory : Inventory) Troop's inventory.
+-- @param(character : Character) Battler's character, in case it's during battle (optional).
 function EquipSet:setEquip(key, item, inventory, character)
   if item then
     assert(item.equip, 'Item is not an equipment: ' .. item.id)
@@ -83,10 +83,10 @@ function EquipSet:setEquip(key, item, inventory, character)
   end
 end
 -- Inserts equipment item in the given slot.
--- @param(key : string) slot's key
--- @param(item : table) item's data from database
--- @param(inventory : Inventory) troop's inventory
--- @param(character : Character) battler's character, in case it's during battle (optional)
+-- @param(key : string) Slot's key.
+-- @param(item : table) Item's data from database.
+-- @param(inventory : Inventory) Troop's inventory.
+-- @param(character : Character) Battler's character, in case it's during battle (optional).
 function EquipSet:equip(key, item, inventory, character)
   local slot = self.slots[key]
   local equip = item.equip
@@ -123,9 +123,9 @@ function EquipSet:equip(key, item, inventory, character)
   self:updateSlotBonus(key)
 end
 -- Removes equipment item (if any) from the given slot.
--- @param(key : string) slot's key
--- @param(inventory : Inventory) troop's inventory
--- @param(character : Character) battler's character, in case it's during battle (optional)
+-- @param(key : string) Slot's key.
+-- @param(inventory : Inventory) Troop's inventory.
+-- @param(character : Character) Battler's character, in case it's during battle (optional).
 function EquipSet:unequip(key, inventory, character)
   if self.types[key] then
     for i = 1, self.types[key].count do
@@ -157,8 +157,8 @@ function EquipSet:unequip(key, inventory, character)
   end
 end
 -- Sets the block of all slots from the given type to hte given value.
--- @param(key : string) the type of slot (includes a number if it's a specific slot)
--- @param(block : string) the name of the slot that it blocking, or nil to unblock
+-- @param(key : string) The type of slot (includes a number if it's a specific slot).
+-- @param(block : string) The name of the slot that it blocking, or nil to unblock.
 function EquipSet:setBlock(key, block)
   if self.types[key] then
     for i = 1, self.types[key].count do
@@ -169,8 +169,8 @@ function EquipSet:setBlock(key, block)
     self.slots[key].block = block
   end
 end
--- @param(key : string) 
--- @ret(boolean) if the item may be equiped
+-- @param(key : string) The key of the slot.
+-- @ret(boolean) If the item may be equiped.
 function EquipSet:canEquip(key, item)
   local slotType = self.types[item.equip.type]
   if slotType.state >= 3 then
@@ -199,7 +199,9 @@ function EquipSet:canEquip(key, item)
   end
   return true
 end
-
+-- Checks if an slot can have its equipment item removed.
+-- @param(key : string) The key of the slot.
+-- @ret(boolean) True if already empty of if the item may be removed.
 function EquipSet:canUnequip(key)
   if self.types[key] then
     for i = 1, self.types[key].count do
@@ -337,11 +339,23 @@ end
 -- State
 ---------------------------------------------------------------------------------------------------
 
--- @ret(table) persistent state
+-- @ret(table) Persistent state.
 function EquipSet:getState()
   return {
     slots = deepCopyTable(self.slots),
     types = deepCopyTable(self.types) }
+end
+-- Gets the number of items of the given ID equipped.
+-- @param(id : number) The ID of the equipment item.
+-- @ret(number) The number of items equipped.
+function EquipSet:getCount(id)
+  local count = 0
+  for _, v in pairs(self.slots) do
+    if v.id == id then
+      count = count + 1
+    end
+  end
+  return count
 end
 
 return EquipSet

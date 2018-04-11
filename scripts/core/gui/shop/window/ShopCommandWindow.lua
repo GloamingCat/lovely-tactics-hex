@@ -39,14 +39,7 @@ end
 
 -- Shows the windows to buy.
 function ShopCommandWindow:buyConfirm()
-  GUIManager.fiberList:fork(function()
-    self.GUI.bonusWindow:show()
-  end)
-  GUIManager.fiberList:fork(function()
-    self.GUI.descriptionWindow:show()
-  end)
-  self.GUI.itemWindow:show()
-  self.GUI.itemWindow:activate()
+  self.GUI:showBuyGUI()
 end
 -- Shows the windows to sell.
 function ShopCommandWindow:sellConfirm()
