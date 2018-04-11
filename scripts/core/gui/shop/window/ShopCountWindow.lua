@@ -73,9 +73,13 @@ end
 -- @param(price : number) The price for each unit.
 function ShopCountWindow:setItem(item, price)
   local gold = self.GUI.troop.gold
-  self.price = price
   self.item = item
-  self:setMax(math.floor(gold / price))
+  self.price = price
+  if self.buy then
+    self:setMax(math.floor(gold / price))
+  else
+    self:setMax(self.GUI.troop.inventory:getCount(item.id))
+  end
   if item.icon and item.icon.id >= 0 then
     local sprite = ResourceManager:loadIcon(item.icon, GUIManager.renderer)
     self.icon:setSprite(sprite)
@@ -92,7 +96,11 @@ end
 function ShopCountWindow:setPrice(gold, price)
   self.current:setText(gold .. '')
   self.current:redraw()
-  self.decrease:setText('-' .. price)
+  if self.buy then
+    self.decrease:setText('-' .. price)
+  else
+    self.decrease:setText('+' .. -price)
+  end
   self.decrease:redraw()
   self.total:setText((gold - price) .. '')
   self.total:redraw()
@@ -122,7 +130,11 @@ end
 function ShopCountWindow:onSpinnerConfirm(spinner)
   local troop = self.GUI.troop
   troop.gold = troop.gold - spinner.value * self.price
-  troop.inventory:addItem(self.item.id, spinner.value)
+  if self.buy then
+    troop.inventory:addItem(self.item.id, spinner.value)
+  else
+    troop.inventory:removeItem(self.item.id, spinner.value)
+  end
   self.GUI.goldWindow:setGold(troop.gold)
   self:returnWindow()
 end
@@ -137,11 +149,21 @@ end
 -- Hides this window and returns to the window with the item list.
 function ShopCountWindow:returnWindow()
   local w = self.GUI.itemWindow
-  for i = 1, #w.matrix do
-    w.matrix[i]:updateEnabled()
-    w.matrix[i]:refreshState()
-  end
+  w:refreshButtons()
   w:activate()
+end
+
+---------------------------------------------------------------------------------------------------
+-- Mode
+---------------------------------------------------------------------------------------------------
+
+-- Use this window to buy items.
+function ShopCountWindow:setBuyMode()
+  self.buy = true
+end
+-- Use this window to sell items.
+function ShopCountWindow:setSellMode()
+  self.buy = false
 end
 
 ---------------------------------------------------------------------------------------------------

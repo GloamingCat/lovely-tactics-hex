@@ -31,11 +31,31 @@ function ShopItemWindow:createListButton(item)
   local button = Button(self)
   button:createText(item.name, 'gui_medium')
   button:createIcon(icon)
-  button:createInfoText(price, 'gui_medium')
+  if self.buy then
+    button:createInfoText(price, 'gui_medium')
+  else
+    price = -(math.floor(price / 2))
+    button:createInfoText(-price, 'gui_medium')
+  end
   button.item = item
   button.description = item.description
   button.price = price
   return button
+end
+
+---------------------------------------------------------------------------------------------------
+-- Mode
+---------------------------------------------------------------------------------------------------
+
+-- Use this window to buy items.
+function ShopItemWindow:setBuyMode()
+  self.buy = true
+  self:refreshButtons(self.GUI.items)
+end
+-- Use this window to sell items.
+function ShopItemWindow:setSellMode()
+  self.buy = false
+  self:refreshButtons(self.GUI.troop.inventory)
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -44,7 +64,11 @@ end
 
 -- @ret(boolean) True if at least one item of this type can be bought.
 function ShopItemWindow:buttonEnabled(button)
-  return self.GUI.troop.gold >= button.price
+  if self.buy then
+    return self.GUI.troop.gold >= button.price
+  else
+    return button.item.sellable
+  end
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -58,7 +82,7 @@ function ShopItemWindow:onButtonConfirm(button)
 end
 -- Closes buy GUI.
 function ShopItemWindow:onButtonCancel(button)
-  self.GUI:hideBuyGUI()
+  self.GUI:hideShopGUI()
 end
 -- Updates item description.
 function ShopItemWindow:onButtonSelect(button)

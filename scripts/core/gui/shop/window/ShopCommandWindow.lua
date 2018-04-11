@@ -39,11 +39,15 @@ end
 
 -- Shows the windows to buy.
 function ShopCommandWindow:buyConfirm()
-  self.GUI:showBuyGUI()
+  self.GUI.countWindow:setBuyMode()
+  self.GUI.itemWindow:setBuyMode()
+  self.GUI:showShopGUI()
 end
 -- Shows the windows to sell.
 function ShopCommandWindow:sellConfirm()
-  
+  self.GUI.countWindow:setSellMode()
+  self.GUI.itemWindow:setSellMode()
+  self.GUI:showShopGUI()
 end
 -- Closes shop GUI.
 function ShopCommandWindow:cancelConfirm()

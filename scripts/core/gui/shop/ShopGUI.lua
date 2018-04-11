@@ -61,7 +61,7 @@ function ShopGUI:createGoldWindow()
 end
 -- Creates the window with the list of items to buy.
 function ShopGUI:createItemWindow()
-  local window = ShopItemWindow(self.items, self)
+  local window = ShopItemWindow({}, self)
   local x = window.width / 2 - ScreenManager.width / 2 + self:windowMargin()
   local y = window.height / 2 - ScreenManager.height / 2 +
     self.commandWindow.height + self:windowMargin() * 2
@@ -92,8 +92,8 @@ end
 -- Show / Hide
 ---------------------------------------------------------------------------------------------------
 
--- Shows buy windows.
-function ShopGUI:showBuyGUI()
+-- Shows shop windows.
+function ShopGUI:showShopGUI()
   GUIManager.fiberList:fork(function()
     self.countWindow:show()
   end)
@@ -101,12 +101,11 @@ function ShopGUI:showBuyGUI()
     self.descriptionWindow:show()
   end)
   coroutine.yield()
-
   self.itemWindow:show()
   self.itemWindow:activate()
 end
--- Hides buy windows.
-function ShopGUI:hideBuyGUI()
+-- Hides shop windows.
+function ShopGUI:hideShopGUI()
   GUIManager.fiberList:fork(function()
     self.countWindow:hide()
   end)

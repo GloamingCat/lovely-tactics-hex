@@ -106,7 +106,7 @@ end
 -- @ret(number)
 function Button:iconWidth()
   if self.icon then
-    local _, _, w = self.icon.sprite.quad:getViewport()
+    local x, y, w, h = self.icon.sprite:totalBounds()
     return w
   else
     return 0
