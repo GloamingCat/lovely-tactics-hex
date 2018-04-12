@@ -206,7 +206,7 @@ end
 
 -- [COROUTINE] Tries to move to the given tile.
 -- @param(tile : ObjectTile) The destination tile.
--- @ret(boolean) Returns false if the next angle must be tried, true to stop trying.
+-- @ret(number) Returns nil if the next angle must be tried, a number to stop trying.
 function Player:tryTileMovement(tile)
   local ox, oy, oh = self:getTile():coordinates()
   local dx, dy, dh = tile:coordinates()
@@ -222,22 +222,25 @@ function Player:tryTileMovement(tile)
     self:walkToTile(dx, dy, dh, false)
     self.autoAnim = autoAnim
     self:collideTile(tile)
-    return true
+    return 0
   else
     self:playIdleAnimation(self.idleAnim)
     if collision == 3 then -- character
       self:collideTile(tile)
-      return true
+      return 1
     else
-      return false
+      return nil
     end
   end
 end
 -- [COROUTINE] Walks the next tile of the path.
 function Player:consumePath()
   if not self.path:isEmpty() then
-    if self:tryTileMovement(self.path:pop()) then
+    local tile = self.path:pop()
+    if self:tryTileMovement(tile) == 0 then
       return true
+    else
+      self:interactTile(tile)
     end
   end
   self.path = nil
