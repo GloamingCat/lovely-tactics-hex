@@ -92,6 +92,11 @@ end
 -- Position
 ---------------------------------------------------------------------------------------------------
 
+-- Gets the tile that the mouse is over.
+-- @param(h : number) The height of the tile layer (1 by default).
+-- @ret(number) Tile x.
+-- @ret(number) Tile y.
+-- @ret(number) Tile height.
 function GameMouse:fieldCoord(h)
   h = h or 1
   local pos = self.position
@@ -99,7 +104,9 @@ function GameMouse:fieldCoord(h)
   local tx, ty, th = pixel2Tile(wx, wy, -(h - 1) * (pph + dph) - wy)
   return round(tx), round(ty), round(th)
 end
-
+-- Gets the pixel in the GUI that the mouse is over.
+-- @ret(number) Pixel x.
+-- @ret(number) Pixel y.
 function GameMouse:guiCoord()
   local pos = self.position
   local wx, wy = GUIManager.renderer:screen2World(pos.x, pos.y)

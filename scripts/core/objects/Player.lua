@@ -105,8 +105,8 @@ function Player:moveByMouse()
       local action = MoveAction()
       local input = ActionInput(action, self, field:getObjectTile(x, y, l))
       action.pathLimit = 12
-      print(x, y, l)
-      print(input.action:execute(input).executed)
+      action.callback = true
+      input.action:execute(input)
       break
     end
   end

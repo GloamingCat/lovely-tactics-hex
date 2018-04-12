@@ -44,7 +44,7 @@ function MoveAction:execute(input)
     path = PathFinder.findPathToUnreachable(self, input.user, input.target)
   end
   if path then
-    input.user:walkPath(path, false, true)
+    input.user:walkPath(path, self.callback, true)
   end
   return { executed = fullPath }
 end

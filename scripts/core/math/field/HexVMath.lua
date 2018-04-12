@@ -140,6 +140,14 @@ end
 -- Auto Tile
 -----------------------------------------------------------------------------------------------
 
+-- Gets the row for each tile quarter.
+-- @param(grid : table) The grid of tiles.
+-- @param(i : number) The x coordinate of the tile.
+-- @param(j : number) The y coordinate of the tile.
+-- @param(sameType : funcion) A function that verifies if two tiles are from the same type.
+--  This function must receive the grid, the x and y of the first tile and x and y of the 
+--  second tile.
+-- @ret(table) An array of 4 elements, one number for each quarter.
 function HexVMath.autoTileRows(grid, i, j, sameType)
   local shift = HexVMath.neighborShift
   local rows = { 0, 0, 0, 0 }

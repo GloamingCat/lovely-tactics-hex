@@ -8,13 +8,7 @@ Functions that are loaded from the EventSheet.
 =================================================================================================]]
 
 -- Imports
-local ActionInput = require('core/battle/action/ActionInput')
 local AIRule = require('core/battle/ai/AIRule')
-local ChoiceWindow = require('core/gui/general/window/ChoiceWindow')
-local DialogueWindow = require('core/gui/general/window/DialogueWindow')
-local GUI = require('core/gui/GUI')
-local MoveAction = require('core/battle/action/MoveAction')
-local ShopGUI = require('core/gui/shop/ShopGUI')
 local TagMap = require('core/base/datastruct/TagMap')
 
 -- Alias
@@ -26,25 +20,22 @@ local battleIntroShader = love.graphics.newShader('shaders/BattleIntro.glsl')
 local util = {}
 
 ---------------------------------------------------------------------------------------------------
--- Auxiliary
+-- Other util
 ---------------------------------------------------------------------------------------------------
 
-local function openGUI(sheet)
-  if not sheet.gui then
-    sheet.gui = GUI()
-    sheet.gui.dialogues = {}
-    GUIManager:showGUI(sheet.gui)
+do
+  local CharacterUtil = require('core/base/util/CharacterUtil')
+  local GUIUtil = require('core/base/util/GUIUtil')
+  for k, v in pairs(GUIUtil) do
+    util[k] = v
+  end
+  for k, v in pairs(CharacterUtil) do
+    util[k] = v
   end
 end
 
-local function findCharacter(event, key)
-  local char = event[key] or FieldManager:search(key)
-  assert(char, 'Character not found:', key or 'nil key')
-  return char
-end
-
 ---------------------------------------------------------------------------------------------------
--- Functions
+-- General
 ---------------------------------------------------------------------------------------------------
 
 -- Calls a Lua script given by a string.
@@ -59,7 +50,7 @@ function util.customCommand(sheet, event, args)
   local commandParam = TagMap(args.args)
   util[args.command](sheet, event, commandParam)
 end
-
+-- Interrupts the current executing sheet.
 function util.interrupt(sheet, event, args)
   _G.Fiber:interrupt()
 end
@@ -94,88 +85,14 @@ function util.setLocalVar(sheet, event, args)
 end
 
 ---------------------------------------------------------------------------------------------------
--- GUI
----------------------------------------------------------------------------------------------------
-
--- Opens the ShopGUI.
--- @param(args.items : table) Array of items.
--- @param(args.sell : boolean) Sell enabling.
-function util.openShop(sheet, event, args)
-  GUIManager:showGUIForResult(ShopGUI(args.items, args.sell))
-end
-
----------------------------------------------------------------------------------------------------
--- Dialogue
----------------------------------------------------------------------------------------------------
-
--- General parameters:
--- @param(args : table) Argument table.
--- @param(args.id : number) ID of the dialogue window.
-
--- Opens a new dialogue window and stores in the given ID.
--- @param(args.width : number) Width of the window (optional).
--- @param(args.height : number) Height of the window (optional).
--- @param(args.x : number) Pixel x of the window (optional).
--- @param(args.y : number) Pixel y of the window (optional).
-function util.openDialogueWindow(sheet, event, args)
-  openGUI(sheet)
-  local dialogues = sheet.gui.dialogues
-  local window = dialogues[args.id]
-  if window then
-    window:resize(args.width, args.height)
-    window:setXYZ(args.x, args.y)
-  else
-    window = DialogueWindow(sheet.gui, 
-      args.width, args.height, args.x, args.y)
-    dialogues[args.id] = window
-  end
-  window:show()
-  sheet.gui:setActiveWindow(window)
-end
--- Shows a dialogue in the given window.
--- @param(args.portrait : table) Character face.
--- @param(args.message : string) Dialogue text.
-function util.showDialogue(sheet, event, args)
-  assert(sheet.gui, 'You must open a GUI first.')
-  local window = sheet.gui.dialogues[args.id]
-  sheet.gui:setActiveWindow(window)
-  assert(window, 'You must open window ' .. args.id .. ' first.')
-  -- TODO: dialogue name
-  window:showDialogue(args.message, args.portrait, args.name)
-end
--- Closes and deletes a dialogue window.
-function util.closeDialogueWindow(sheet, event, args)
-  if sheet.gui and sheet.gui.dialogues then
-    local window = sheet.gui.dialogues[args.id]
-    if window then
-      window:hide()
-      window:removeSelf()
-      window:destroy()
-      sheet.gui.dialogues[args.id] = nil
-    end
-  end
-end
-
-function util.openChoiceWindow(sheet, event, args)
-  openGUI(sheet)
-  local window = ChoiceWindow(sheet.gui, args)
-  window:show()
-  sheet.gui:setActiveWindow(window)
-  local result = sheet.gui:waitForResult()
-  window:hide()
-  window:removeSelf()
-  window:destroy()
-  sheet.gui.choice = result
-end
-
-function util.openPasswordWindow(sheet, event, args)
-  -- TODO
-end
-
----------------------------------------------------------------------------------------------------
 -- Screen
 ---------------------------------------------------------------------------------------------------
 
+-- General parameters:
+-- @param(args.time : number) The duration of the fading in frames.
+-- @param(args.wait : boolean) True to wait until the fading finishes.
+
+-- Fades out the screen.
 function util.fadeout(sheet, event, args)
   FieldManager.renderer:fadeout(255 / args.time)
   if args.wait then
@@ -184,7 +101,7 @@ function util.fadeout(sheet, event, args)
     end)
   end
 end
-
+-- Fades in the screen.
 function util.fadein(sheet, event, args)
   FieldManager.renderer:fadein(255 / args.time)
   if args.wait then
@@ -199,7 +116,6 @@ end
 ---------------------------------------------------------------------------------------------------
 
 -- General parameters:
--- @param(args : table) Argument table.
 -- @param(args.fade : boolean) Fade time (optional, no fading by default);
 -- @param(args.fieldID : number) Field to loaded's ID;
 
@@ -276,12 +192,11 @@ end
 ---------------------------------------------------------------------------------------------------
 
 -- General parameters:
--- @param(args : table) Argument table.
 -- @param(args.name : string) The path to the sound from audio/bgm (BGMs) or audio/sfx (SFX).
 -- @param(args.volume : number) Volume in percentage.
 -- @param(args.pitch : number) Pitch in percentage.
 -- @param(args.time : number) The duration of the BGM fading transition.
--- @param(args.wait : boolean) Wait for the BGM fading transition.
+-- @param(args.wait : boolean) Wait for the BGM fading transition or until SFX finishes.
 
 -- Changes the current BGM.
 function util.playBGM(sheet, event, args)
@@ -298,85 +213,6 @@ end
 -- Play a sound effect.
 function util.playSFX(sheet, event, args)
   AudioManager:playSFX(args)
-end
-
----------------------------------------------------------------------------------------------------
--- Character
----------------------------------------------------------------------------------------------------
-
--- General parameters:
--- @param(args : table) Argument table.
--- @param(args.key : string) The key of the character.
---  "origin" or "dest" to refer to event's characters, or any other key to refer to any other
---  character in the current field.
-
--- Moves straight to the given tile.
--- @param(args.x : number) Tile x difference.
--- @param(args.y : number) Tile y difference.
--- @param(args.h : number) Tile height difference (0 by default).
-function util.moveCharTile(sheet, event, args)
-  local char = findCharacter(event, args.key)
-  char:walkTiles(args.x, args.y, args.h)
-end
--- Moves in the given direction.
--- @param(args.angle : number) The direction in degrees.
--- @param(args.distance : number) The distance to move (in tiles).
-function util.moveCharDir(sheet, event, args)
-  local char = findCharacter(event, args.key)
-  local nextTile = char:frontTile(args.angle)
-  if nextTile then
-    local ox, oy, oh = char:getTile():coordinates()
-    local dx, dy, dh = nextTile:coordinates()
-    dx, dy, dh = dx - ox, dy - oy, dh - oh
-    dx, dy, dh = dx * args.distance, dy * args.distance, dh * args.distance
-    if char.autoTurn then
-      char:turnToTile(ox + dx, oy + dy)
-    end
-    char:walkToTile(ox + dx, oy + dy, oh + dh, false)
-  end
-end
--- Moves a path to the given tile.
--- @param(args.x : number) Tile destination x.
--- @param(args.y : number) Tile destination y.
--- @param(args.h : number) Tile destination height.
--- @param(args.limit : number) The maxium length of the path to be calculated.
-function util.moveCharPath(sheet, event, args)
-  local char = findCharacter(event, args.key)
-  local tile = FieldManager.currentField:getObjectTile(args.x, args.y, args.h)
-  assert(tile, 'Tile not reachable: ', args.x, args.y, args.h)
-  local action = MoveAction()
-  action.pathLimit = args.limit
-  local input = ActionInput(action, char, tile)
-  input.action:execute(input)
-end
--- Turns character to the given tile.
--- @param(args.other : string) Key of a character in the destination tile (optional).
--- @param(args.x : number) Tile destination x.
--- @param(args.y : number) Tile destination y.
-function util.turnCharTile(sheet, event, args)
-  local char = findCharacter(event, args.key)
-  if args.other then
-    local other = findCharacter(event, args.other)
-    local tile = other:getTile()
-    char:turnToTile(tile.x, tile.y)
-  else
-    char:turnToTile(args.x, args.y)
-  end
-end
--- Turn character to the given direction.
--- @param(args.angle : number) The direction angle in degrees.
-function util.turnCharDir(sheet, event, args)
-  local char = findCharacter(event, args.key)
-  char:setDirection(args.angle)
-end
--- Removes a character from the field.
--- @param(args.permanent : boolean) If false, character shows up again when field if reloaded.
-function util.deleteChar(sheet, event, args)
-  local char = findCharacter(event, args.key)
-  if args.permanent then
-    char.deleted = true
-  end
-  char:destroy()
 end
 
 return util
