@@ -76,7 +76,7 @@ function Player:checkFieldInput()
     self:interact()
   elseif InputManager.keys['cancel']:isTriggered() then
     self:openGUI()
-  elseif InputManager.keys['mouse1']:isTriggered() then
+  elseif InputManager.keys['mouse1']:isPressing() then
     self:moveByMouse()
   elseif InputManager.keys['mouse2']:isTriggered() then
     self:openGUI()
@@ -87,7 +87,7 @@ function Player:checkFieldInput()
     else
       self.speed = self.walkSpeed
     end
-    self:moveByInput(dx, dy, dir)
+    self:moveByKeyboard(dx, dy, dir)
   end
 end
 -- Checks if field input is enabled.
@@ -95,55 +95,6 @@ end
 function Player:fieldInputEnabled()
   local gui = GUIManager:isWaitingInput() or BattleManager.onBattle
   return not gui and self.inputOn and self.moveTime >= 1 and self.blocks == 0
-end
--- [COROUTINE] Moves player to the mouse coordinate.
-function Player:moveByMouse()
-  local field = FieldManager.currentField
-  for l = field.maxh, field.minh, -1 do
-    local x, y = InputManager.mouse:fieldCoord(l)
-    if field:isGrounded(x, y, l) then
-      local action = MoveAction()
-      local input = ActionInput(action, self, field:getObjectTile(x, y, l))
-      action.pathLimit = 12
-      action.callback = true
-      input.action:execute(input)
-      break
-    end
-  end
-end
--- [COROUTINE] Moves player depending on input.
--- @param(dx : number) input x
--- @param(dy : number) input y
-function Player:moveByInput(dx, dy, dir)
-  if dx ~= 0 or dy ~= 0 then
-    if dir then
-      local dir = math.coord2Angle(dx, dy)
-      self:setDirection(dir)
-      return
-    end
-    if self.autoAnim then
-      if self.speed < self.dashSpeed then
-        self:playAnimation(self.walkAnim)
-      else
-        self:playAnimation(self.dashAnim)
-      end
-    end
-    local moved = self:tryMovement(dx, dy)
-    if not moved then
-      if self.autoAnim then
-        self:playAnimation(self.idleAnim)
-      end
-      if self.autoTurn then
-        local dir = math.coord2Angle(dx, dy)
-        self:setDirection(dir)
-      end
-      self:adjustToTile()
-    end
-  else
-    if self.autoAnim then
-      self:playAnimation(self.idleAnim)
-    end
-  end
 end
 -- @ret(number) x axis input
 -- @ret(number) y axis input
@@ -178,55 +129,118 @@ function Player:inputAxis()
 end
 
 ---------------------------------------------------------------------------------------------------
--- Movement
+-- Mouse Movement
 ---------------------------------------------------------------------------------------------------
 
--- [COROUTINE] Moves player with keyboard input (a complete tile).
+-- [COROUTINE] Moves player to the mouse coordinate.
+function Player:moveByMouse()
+  local field = FieldManager.currentField
+  for l = field.maxh, field.minh, -1 do
+    local x, y = InputManager.mouse:fieldCoord(l)
+    if field:exceedsBorder(x, y) then
+      self:playIdleAnimation()
+    elseif field:isGrounded(x, y, l) then
+      if not self:tryPathMovement(field:getObjectTile(x, y, l)) then
+        self:playIdleAnimation()
+      end
+      break
+    end
+  end
+end
+-- [COROUTINE] Tries to walk a path to the given tile.
+-- @param(tile : ObjectTile) Destination tile.
+function Player:tryPathMovement(tile)
+  local range = { size = 0, minh = 0, maxh = 0 }
+  local input = ActionInput(MoveAction(range, 12), self, tile)
+  local path = input.action:calculatePath(input)
+  if not path then
+    range.size, range.minh, range.maxh = 1, 1, 1
+    path = input.action:calculatePath(input)
+    if not path then
+      return false
+    end
+    path = path:addStep(tile, 1)
+  end
+  self.path = path:toStack()
+  return self:consumePath()
+end
+
+---------------------------------------------------------------------------------------------------
+-- Keyboard Movement
+---------------------------------------------------------------------------------------------------
+
+-- [COROUTINE] Moves player depending on input.
 -- @param(dx : number) input x
 -- @param(dy : number) input y
--- @ret(boolean) true if player actually moved, false otherwise
-function Player:tryMovement(dx, dy)
-  local angle = coord2Angle(dx, dy)
-  return self:tryAngleMovement(angle) or 
-    self:tryAngleMovement(angle - 45) or 
-    self:tryAngleMovement(angle + 45)
+function Player:moveByKeyboard(dx, dy, dir)
+  if dx ~= 0 or dy ~= 0 then
+    self.path = nil
+    local angle = coord2Angle(dx, dy)
+    local result = self:tryAngleMovement(angle)
+      or self:tryAngleMovement(angle - 45)
+      or self:tryAngleMovement(angle + 45)
+    if not result then
+      self:setDirection(angle)
+      self:playIdleAnimation(self.idleAnim)
+    end
+  elseif self.path then
+    self:consumePath()
+  else
+    self:playIdleAnimation(self.idleAnim)
+  end
 end
 -- [COROUTINE] Tries to move in a given angle.
 -- @param(angle : number) the angle in degrees to move
--- @ret(boolean) returns false if the next angle must be tried, true to stop trying
+-- @ret(boolean) Returns false if the next angle must be tried, true to stop trying.
 function Player:tryAngleMovement(angle)  
   local nextTile = self:frontTile(angle)
   if nextTile == nil then
     return false
   end
+  return self:tryTileMovement(nextTile)
+end
+
+---------------------------------------------------------------------------------------------------
+-- Movement
+---------------------------------------------------------------------------------------------------
+
+-- [COROUTINE] Tries to move to the given tile.
+-- @param(tile : ObjectTile) The destination tile.
+-- @ret(boolean) Returns false if the next angle must be tried, true to stop trying.
+function Player:tryTileMovement(tile)
   local ox, oy, oh = self:getTile():coordinates()
-  local dx, dy, dh = nextTile:coordinates()
+  local dx, dy, dh = tile:coordinates()
   local collision = FieldManager.currentField:collisionXYZ(self,
     ox, oy, oh, dx, dy, dh)
-  if collision ~= nil then
-    if collision ~= 3 then -- not a character
-      return false
-    else
-      if self.autoAnim then
-        self:playAnimation(self.idleAnim)
-      end
-      if self.autoTurn then
-        self:turnToTile(dx, dy)
-      end
-      self:collideTile(nextTile) -- character
-      return true
-    end
-  else
+  if self.autoTurn then
+    self:turnToTile(dx, dy)
+  end
+  if collision == nil then
+    self:playMoveAnimation()
     local autoAnim = self.autoAnim
     self.autoAnim = false
-    if self.autoTurn then
-      self:turnToTile(dx, dy)
-    end
     self:walkToTile(dx, dy, dh, false)
     self.autoAnim = autoAnim
-    self:collideTile(nextTile)
+    self:collideTile(tile)
     return true
+  else
+    self:playIdleAnimation(self.idleAnim)
+    if collision == 3 then -- character
+      self:collideTile(tile)
+      return true
+    else
+      return false
+    end
   end
+end
+-- [COROUTINE] Walks the next tile of the path.
+function Player:consumePath()
+  if not self.path:isEmpty() then
+    if self:tryTileMovement(self.path:pop()) then
+      return true
+    end
+  end
+  self.path = nil
   return false
 end
 

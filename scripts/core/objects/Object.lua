@@ -125,7 +125,7 @@ function Object:collision(tile, dx, dy, dh)
   local orig = Vector(tile:coordinates())
   local dest = Vector(dx, dy, dh)
   dest:add(orig)
-  return FieldManager:collision(self, orig, dest)
+  return FieldManager.currentField:collision(self, orig, dest)
 end
 -- Gets the collider's height in grid coordinates.
 -- @param(x : number) the x of the tile of check the height

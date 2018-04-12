@@ -192,7 +192,7 @@ function CharacterBase:instantMoveTo(x, y, z, collisionCheck)
     end
     if collisionCheck and not self.passable then
       for i = #tiles, 1, -1 do
-        local collision = self:collision(tiles[i])
+        local collision = self:collision(tiles[i], dx, dy, dh)
         if collision ~= nil then
           return collision
         end

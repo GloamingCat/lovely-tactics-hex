@@ -22,11 +22,11 @@ local BattleMoveAction = class(MoveAction)
 ---------------------------------------------------------------------------------------------------
 
 -- Overrides BattleAction:init.
-function BattleMoveAction:init(range)
-  MoveAction.init(self, '', range)
+function BattleMoveAction:init(...)
   self.showTargetWindow = false
   self.showStepWindow = true
   self.allTiles = true
+  MoveAction.init(self, ...)
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -34,7 +34,16 @@ end
 ---------------------------------------------------------------------------------------------------
 
 -- Overrides BattleAction:execute.
-function BattleMoveAction:execute(input)
+function BattleMoveAction:execute(input)  
+  FieldManager.renderer:moveToObject(input.user, nil, true)
+  FieldManager.renderer.focusObject = input.user  
+  local result = MoveAction.execute(self, input)
+  input.user:onMove(result.path)
+  TurnManager:updatePathMatrix()
+  return result
+end
+-- Overrides MoveAction:calculatePath.
+function BattleMoveAction:calculatePath(input)
   local path = input.path
   if not path then
     path = self.range.size == 0 and TurnManager:pathMatrix():get(input.target.x, input.target.y)
@@ -45,12 +54,7 @@ function BattleMoveAction:execute(input)
     fullPath = false
     path = PathFinder.findPathToUnreachable(self, input.user, input.target)
   end
-  FieldManager.renderer:moveToObject(input.user, nil, true)
-  FieldManager.renderer.focusObject = input.user
-  input.user:walkPath(path, false, true)
-  input.user:onMove(path)
-  TurnManager:updatePathMatrix()
-  return { executed = fullPath }
+  return path, fullPath
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -68,17 +72,6 @@ end
 -- Path Finder
 ---------------------------------------------------------------------------------------------------
 
--- Tells if a tile is last of the movement.
--- @param(tile : ObjectTile) tile to check
--- @ret(boolean) true if it's final, false otherwise
-function BattleMoveAction:isFinal(tile, final, user)
-  local dh = final.layer.height - tile.layer.height
-  if dh > self.range.maxh or dh < -self.range.minh then
-    return false
-  end
-  local cost = self:estimateCost(tile, final, user)
-  return cost <= self.range.size and self:isStandable(tile, user)
-end
 -- Checks passability between two tiles.
 -- @param(initial : ObjectTile) origin tile
 -- @param(final : ObjectTile) destination tile

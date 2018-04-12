@@ -10,7 +10,6 @@ The [COUROUTINE] functions must ONLY be called from a fiber.
 
 -- Imports
 local CharacterBase = require('core/objects/CharacterBase')
-local Stack = require('core/base/datastruct/Stack')
 
 -- Alias
 local max = math.max
@@ -19,13 +18,28 @@ local time = love.timer.getDelta
 local angle2Coord = math.angle2Coord
 local tile2Pixel = math.field.tile2Pixel
 local pixel2Tile = math.field.pixel2Tile
-local len2D = math.len2D
+local len = math.len2D
 
 -- Constants
 local speedLimit = (Config.player.dashSpeed + Config.player.walkSpeed) / 2
 local castStep = 6
 
 local Character = class(CharacterBase)
+
+---------------------------------------------------------------------------------------------------
+-- Animation
+---------------------------------------------------------------------------------------------------
+
+function Character:playMoveAnimation()
+  if self.autoAnim then
+    self:playAnimation(self.speed < speedLimit and self.walkAnim or self.dashAnim)
+  end
+end
+function Character:playIdleAnimation()
+  if self.autoAnim then
+    self:playAnimation(self.idleAnim)
+  end
+end
 
 ---------------------------------------------------------------------------------------------------
 -- General Movement
@@ -38,22 +52,14 @@ local Character = class(CharacterBase)
 -- @param(collisionCheck : boolean) if it should check collisions
 -- @ret(boolean) true if the movement was completed, false otherwise
 function Character:walkToPoint(x, y, z, collisionCheck)
-  local anim = self.walkAnim
-  if self.speed >= speedLimit then
-    anim = self.dashAnim
-  end
   z = z or self.position.z
   x, y, z = round(x), round(y), round(z)
-  if self.autoAnim then
-    self:playAnimation(anim)
-  end
-  local distance = len2D(self.position.x - x, self.position.y - y, self.position.z - z)
+  self:playMoveAnimation()
+  local distance = len(self.position.x - x, self.position.y - y, self.position.z - z)
   self.collisionCheck = collisionCheck
   self:moveTo(x, y, z, self.speed / distance, true)
-  if self.autoAnim then
-    self:playAnimation(self.idleAnim)
-  end
-  return self.position:almostEquals(x, y, z)
+  self:playIdleAnimation()
+  return self.position:almostEquals(x, y, z, 0.2)
 end
 -- Walks a given distance in each axis.
 -- @param(dx : number) the distance in axis x (in pixels)
@@ -107,20 +113,17 @@ end
 -- @param(collisionCheck : boolean) if it shoudl check collisions
 -- @ret(boolean) true if the movement was completed, false otherwise
 function Character:walkPath(path, collisionCheck, autoTurn)
-  local stack = Stack()
-  for step in path:iterator() do
-    stack:push(step)
-  end
-  stack:pop()
   local field = FieldManager.currentField
+  local stack = path:toStack()
   while not stack:isEmpty() do
     local nextTile = stack:pop()
+    local x, y, h = nextTile:coordinates()
     if autoTurn then
-      self:turnToTile(nextTile.x, nextTile.y)
+      self:turnToTile(x, y)
     end
-    local h = nextTile.layer.height
-    if not self:walkToTile(nextTile.x, nextTile.y, h, collisionCheck) and collisionCheck then
-      break
+    local moved = self:walkToTile(x, y, h, collisionCheck)
+    if not moved and collisionCheck then
+      return
     end
   end
   self:moveToTile(path.lastStep)

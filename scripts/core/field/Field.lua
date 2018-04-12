@@ -222,7 +222,7 @@ end
 --  nil => none, 0 => border, 1 => terrain, 2 => obstacle, 3 => character
 function Field:collision(object, origCoord, destCoord)
   local ox, oy, oz = origCoord:coordinates()
-  return self:collision(object, ox, oy, oz, destCoord:coordinates())
+  return self:collisionXYZ(object, ox, oy, oz, destCoord:coordinates())
 end
 
 ---------------------------------------------------------------------------------------------------

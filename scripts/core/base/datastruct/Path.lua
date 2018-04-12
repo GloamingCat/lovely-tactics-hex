@@ -9,6 +9,7 @@ A generic path of nodes (steps).
 
 -- Imports
 local List = require('core/base/datastruct/List')
+local Stack = require('core/base/datastruct/Stack')
 
 local Path = class()
 
@@ -21,7 +22,6 @@ function Path:init(lastStep, previousPath, totalCost)
   self.previousPath = previousPath
   self.totalCost = totalCost
 end
-
 -- Creates a new path with a new last node.
 -- @param(step : unknown) the new step
 -- @param(cost : number) the cost of the movement to this node
@@ -29,7 +29,6 @@ end
 function Path:addStep(step, cost)
   return Path(step, self, self.totalCost + cost)
 end
-
 -- Iterates through the tiles, from the final tile to the first.
 -- @ret(function) the iterator function
 function Path:iterator()
@@ -42,7 +41,6 @@ function Path:iterator()
     end
   end
 end
-
 -- Creates a list with all steps of this path, from the initial until the last.
 -- @ret(List) the list of steps
 function Path:toList()
@@ -54,7 +52,14 @@ function Path:toList()
   until path == nil
   return list
 end
-
+function Path:toStack()
+  local stack = Stack()
+  for step in self:iterator() do
+    stack:push(step)
+  end
+  stack:pop()
+  return stack
+end
 -- Converting to string.
 -- @ret(string) A string representation
 function Path:__tostring()

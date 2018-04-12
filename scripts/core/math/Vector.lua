@@ -18,7 +18,7 @@ local min = math.min
 local max = math.max
 local sqrt = math.sqrt
 local len2D = math.len2D
-local almostEquals = math.almostEquals
+local equals = math.almostEquals
 
 local Vector = class()
 
@@ -77,8 +77,8 @@ end
 -- @param(number) The y coordinate of the Vector
 -- @param(number) The z coordinate of the Vector
 -- @ret(boolean) true if and only if each coordinate is almost equal to the given one
-function Vector:almostEquals(x, y, z)
-  return almostEquals(x, self.x) and almostEquals(y, self.y) and almostEquals(z, self.z)
+function Vector:almostEquals(x, y, z, e)
+  return equals(x, self.x, e) and equals(y, self.y, e) and equals(z, self.z, e)
 end
 
 -- Checks if the velor is null.

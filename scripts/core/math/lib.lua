@@ -105,8 +105,8 @@ end
 -- @param(x : number) the first value
 -- @param(y : number) the second value
 -- @ret(boolean) true if they are almost equal, false otherwise
-function math.almostEquals(x, y)
-  return abs(x - y) < E
+function math.almostEquals(x, y, e)
+  return abs(x - y) < (e or E)
 end
 
 ---------------------------------------------------------------------------------------------------

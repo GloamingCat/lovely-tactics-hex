@@ -57,8 +57,10 @@ end
 -- Called when player clicks.
 -- @param(id : number) button type, from 1 to 3
 function GameMouse:onPress(id)
-  self.active = true
-  self:show()
+  if not InputManager.usingKeyboard then
+    self.active = true
+    self:show()
+  end
 end
 -- Called when player releases button.
 -- @param(id : number) button type, from 1 to 3

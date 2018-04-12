@@ -18,6 +18,16 @@ local mathf = math.field
 local MoveAction = class(BattleAction)
 
 ---------------------------------------------------------------------------------------------------
+-- Initalization
+---------------------------------------------------------------------------------------------------
+
+-- Overrides BattleAction:init.
+function MoveAction:init(range, limit)
+  self.pathLimit = limit
+  BattleAction.init(self, '', range)
+end
+
+---------------------------------------------------------------------------------------------------
 -- Reachable Tiles
 ---------------------------------------------------------------------------------------------------
 
@@ -34,19 +44,21 @@ end
 
 -- Overrides BattleAction:execute.
 function MoveAction:execute(input)
-  local path = input.path or PathFinder.findPath(self, input.user, input.target)
-  if not path then
-    path = path 
+  local path, fullPath = self:calculatePath(input)
+  if path then
+    input.user:walkPath(path, false, true, self.player)
   end
+  return { executed = fullPath, path = path }
+end
+
+function MoveAction:calculatePath(input)
+  local path = input.path or PathFinder.findPath(self, input.user, input.target)
   local fullPath = true
   if not path then
     fullPath = false
     path = PathFinder.findPathToUnreachable(self, input.user, input.target)
   end
-  if path then
-    input.user:walkPath(path, self.callback, true)
-  end
-  return { executed = fullPath }
+  return path, fullPath
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -54,8 +66,8 @@ end
 ---------------------------------------------------------------------------------------------------
 
 -- Checks if a character can stay in this tile.
--- @param(tile : ObjectTile) tile to check
--- @ret(boolean) true if it can stay, false otherwise
+-- @param(tile : ObjectTile) Tile to check.
+-- @ret(boolean) True if it can stay, false otherwise.
 function MoveAction:isStandable(tile, user)
   for c in tile.characterList:iterator() do
     if c ~= user and not c.passable then
@@ -65,10 +77,15 @@ function MoveAction:isStandable(tile, user)
   return true
 end
 -- Tells if a tile is last of the movement.
--- @param(tile : ObjectTile) tile to check
--- @ret(boolean) true if it's final, false otherwise
+-- @param(tile : ObjectTile) Tile to check.
+-- @ret(boolean) True if it's final, false otherwise.
 function MoveAction:isFinal(tile, final, user)
-  return tile == final
+  local dh = final.layer.height - tile.layer.height
+  if dh > self.range.maxh or dh < -self.range.minh then
+    return false
+  end
+  local cost = self:estimateCost(tile, final, user)
+  return cost <= self.range.size and self:isStandable(tile, user)
 end
 -- Checks passability between two tiles.
 -- @param(initial : ObjectTile) origin tile
