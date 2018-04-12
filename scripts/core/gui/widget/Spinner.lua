@@ -63,18 +63,14 @@ end
 -- Called when player presses arrows on this spinner.
 function Spinner.onMove(window, spinner, dx, dy)
   if dy ~= 0 then
-    return
-  end
-  if dx < 0 then
-    if spinner.value <= spinner.minValue then
-      return
-    end
-  else
-    if spinner.value >= spinner.maxValue then
+    if spinner.bigIncrement then
+      dx = -dy * spinner.bigIncrement
+    else
       return
     end
   end
-  spinner:setValue(spinner.value + dx)
+  local value = math.min(spinner.maxValue, math.max(spinner.minValue, spinner.value + dx))
+  spinner:setValue(value)
   if spinner.onChange then
     spinner.onChange(window, spinner)
   end

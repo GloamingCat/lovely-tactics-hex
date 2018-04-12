@@ -27,6 +27,7 @@ function ShopCountWindow:createContent(...)
   self:createIcon()
   self:createStats()
   self.spinner.confirmSound = Config.sounds.buy or self.spinner.confirmSound
+  self.spinner.bigIncrement = 5
 end
 -- Creates the texts of each gold value.
 function ShopCountWindow:createValues()
