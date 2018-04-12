@@ -69,6 +69,11 @@ end
 -- Dialogue
 ---------------------------------------------------------------------------------------------------
 
+-- @ret(boolean) True if player pressed the button to pass the dialogue.
+function DialogueWindow:buttonPressed()
+  return InputManager.keys['confirm']:isTriggered() or InputManager.keys['cancel']:isTriggered() 
+    or InputManager.keys['mouse1']:isTriggered() or InputManager.keys['mouse2']:isTriggered()
+end
 -- [COROUTINE] Shows a message and waits until player presses the confirm button.
 -- @param(text : string) The message.
 -- @param(portrait : table) The speaker's portrait icon (optional).
@@ -98,7 +103,7 @@ function DialogueWindow:rollText(text)
       soundTime = soundTime - self.soundFrequence
       AudioManager:playSFX(self.textSound)
     end
-    if InputManager.keys['confirm']:isTriggered() then
+    if self:buttonPressed() then
       yield()
       break
     end
@@ -166,6 +171,10 @@ end
 function DialogueWindow:hideContent(...)
   self.nameWindow:setVisible(false)
   Window.hideContent(self, ...)
+end
+-- Called when player presses a mouse button.
+function DialogueWindow:onClick(button, x, y)
+  self:onConfirm()
 end
 
 return DialogueWindow

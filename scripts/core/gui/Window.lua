@@ -103,6 +103,10 @@ end
 function Window:setActive(value)
   self.active = value
 end
+function Window:isInside(x, y)
+  return x >= -self.width / 2 and x <= self.width / 2
+      and y >= -self.height / 2 and y <= self.height / 2
+end
 
 ---------------------------------------------------------------------------------------------------
 -- Properties
@@ -235,6 +239,8 @@ end
 -- Checks if player pressed any GUI button.
 -- By default, only checks the "cancel" key.
 function Window:checkInput()
+  local x, y = InputManager.mouse:guiCoord()
+  x, y = x - self.position.x, y - self.position.y
   if InputManager.keys['confirm']:isTriggered() then
     self:onConfirm()
   elseif InputManager.keys['cancel']:isTriggered() then
@@ -243,6 +249,12 @@ function Window:checkInput()
     self:onNext()
   elseif InputManager.keys['prev']:isTriggered() then
     self:onPrev()
+  elseif InputManager.mouse.moved then
+    self:onMouseMove(x, y)
+  elseif InputManager.keys['mouse1']:isTriggered() then
+    self:onClick(1, x, y)
+  elseif InputManager.keys['mouse2']:isTriggered() then
+    self:onClick(2, x, y)
   else
     local dx, dy = InputManager:ortAxis(0.5, 0.0625)
     if dx ~= 0 or dy ~= 0 then
@@ -268,6 +280,19 @@ function Window:onNext()
 end
 -- Called when player presses "prev" key.
 function Window:onPrev()
+end
+-- Called when player presses a mouse button.
+function Window:onClick(button, x, y)
+  if button == 1 then
+    if self:isInside(x, y) then
+      self:onConfirm()
+    end
+  else
+    self:onCancel()
+  end
+end
+-- Called when player moves mouse.
+function Window:onMouseMove(x, y)
 end
 
 return Window

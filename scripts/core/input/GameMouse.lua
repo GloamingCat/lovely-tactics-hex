@@ -45,6 +45,7 @@ end
 
 -- Checks if player is using keyboard and updates state.
 function GameMouse:update()
+  self.moved = false
   if InputManager.usingKeyboard or (timer.getTime() - self.lastMove) > hideTime then
     self:hide()
   end
@@ -71,6 +72,7 @@ end
 -- @param(y : number) current cursor y coordinate
 function GameMouse:onMove(x, y)
   self.position:set(x, y)
+  self.moved = true
   self:show()
 end
 

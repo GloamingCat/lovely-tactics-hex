@@ -177,9 +177,11 @@ function GridWindow:setSelectedButton(button)
   if button then
     button:setSelected(true)
     if self.cursor then
+      self.cursor:updatePosition(self.position)
       self.cursor:show()
     end
     if self.highlight then
+      self.highlight:updatePosition(self.position)
       self.highlight:show()
     end
   else
@@ -194,6 +196,11 @@ function GridWindow:setSelectedButton(button)
       self.highlight:hide()
     end
   end
+end
+-- Gets the cell shown in the given position.
+-- @ret(Widget)
+function GridWindow:getCell(x, y)
+  return self.matrix:get(self.offsetCol + x, self.offsetRow + y)
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -248,6 +255,19 @@ function GridWindow:onMove(dx, dy)
   end
   if self.highlight then
     self.highlight:updatePosition(self.position)
+  end
+end
+-- Called when plauer moves the mouse.
+function GridWindow:onMouseMove(x, y)
+  if self:isInside(x, y) then
+    x, y = x + self.width / 2 - self:hPadding(), y + self.height / 2 - self:vPadding()
+    x, y = math.floor(x / self:cellWidth()) + 1, math.floor(y / self:cellHeight()) + 1
+    local button = self:getCell(x, y)
+    if button then
+      self.currentCol = x + self.offsetCol
+      self.currentRow = y + self.offsetRow
+      self:setSelectedButton(button)
+    end
   end
 end
 
