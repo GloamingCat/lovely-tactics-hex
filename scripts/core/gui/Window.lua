@@ -104,8 +104,9 @@ function Window:setActive(value)
   self.active = value
 end
 function Window:isInside(x, y)
-  return x >= -self.width / 2 and x <= self.width / 2
-      and y >= -self.height / 2 and y <= self.height / 2
+  local w = self.width / 2
+  local h = self.height / 2
+  return x >= -w and x <= w and y >= -h and y <= h
 end
 
 ---------------------------------------------------------------------------------------------------

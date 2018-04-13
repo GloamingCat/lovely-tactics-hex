@@ -353,6 +353,34 @@
 					  "brightness": 100
 					}
 				}
+			},
+			{
+				"name": "Arrows",
+				"data": {
+					"id": 210,
+					"path": "GUI/arrows.png",
+					"x": 0,
+					"y": 0,
+					"width": 12,
+					"height": 12,
+					"cols": 2,
+					"rows": 2,
+					"transform": {
+					  "offsetX": 3,
+					  "offsetY": 3,
+					  "offsetDepth": 0,
+					  "scaleX": 100,
+					  "scaleY": 100,
+					  "rotation": 0,
+					  "red": 255,
+					  "green": 255,
+					  "blue": 255,
+					  "alpha": 255,
+					  "hue": 0,
+					  "saturation": 100,
+					  "brightness": 100
+					}
+				}
 			}
 		]
 	}

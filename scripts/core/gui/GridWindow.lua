@@ -8,16 +8,16 @@ Provides the base for windows with buttons.
 =================================================================================================]]
 
 -- Imports
+local Button = require('core/gui/widget/Button')
+local GridScroll = require('core/gui/widget/GridScroll')
+local Highlight = require('core/gui/widget/Highlight')
 local List = require('core/base/datastruct/List')
 local Matrix2 = require('core/math/Matrix2')
-local Vector = require('core/math/Vector')
-local Sprite = require('core/graphics/Sprite')
-local Button = require('core/gui/widget/Button')
-local WindowCursor = require('core/gui/widget/WindowCursor')
-local Highlight = require('core/gui/widget/Highlight')
-local VSlider = require('core/gui/widget/VSlider')
 local SimpleText = require('core/gui/widget/SimpleText')
+local Sprite = require('core/graphics/Sprite')
+local Vector = require('core/math/Vector')
 local Window = require('core/gui/Window')
+local WindowCursor = require('core/gui/widget/WindowCursor')
 
 -- Alias
 local ceil = math.ceil
@@ -51,11 +51,11 @@ end
 function GridWindow:packWidgets()
   self.matrix.height = ceil(#self.matrix / self:colCount())
   if self:actualRowCount() > self:rowCount() then
-    self.vSlider = self.vSlider or VSlider(self, Vector(self.width / 2 - self:hPadding(), 0), 
+    self.scroll = self.scroll or GridScroll(self, Vector(self.width / 2 - self:hPadding(), 0), 
       self.height - self:vPadding() * 2)
-  elseif self.vSlider then
-    self.vSlider:destroy()
-    self.vSlider = nil
+  elseif self.scroll then
+    self.scroll:destroy()
+    self.scroll = nil
   end
   self:updateViewport(self.currentCol, self.currentRow)
   if self.cursor then
@@ -200,6 +200,9 @@ end
 -- Gets the cell shown in the given position.
 -- @ret(Widget)
 function GridWindow:getCell(x, y)
+  if x < 1 or x > self:colCount() or y < 1 or y > self:rowCount() then
+    return nil
+  end
   return self.matrix:get(self.offsetCol + x, self.offsetRow + y)
 end
 
@@ -231,6 +234,26 @@ function GridWindow:onCancel()
 end
 -- Called when player moves cursor.
 function GridWindow:onMove(dx, dy)
+  self:nextButton(dx, dy)
+end
+-- Called when plauer moves the mouse.
+function GridWindow:onMouseMove(x, y)
+  if self:isInside(x, y) then
+    if self.scroll then
+      self.scroll:onMouseMove(x, y)
+    end
+    x, y = x + self.width / 2 - self:hPadding(), y + self.height / 2 - self:vPadding()
+    x, y = math.floor(x / self:cellWidth()) + 1, math.floor(y / self:cellHeight()) + 1
+    local button = self:getCell(x, y)
+    if button then
+      self.currentCol = x + self.offsetCol
+      self.currentRow = y + self.offsetRow
+      self:setSelectedButton(button)
+    end
+  end
+end
+
+function GridWindow:nextButton(dx, dy)
   local c, r = self:movedCoordinates(self.currentCol, self.currentRow, dx, dy)
   local oldButton = self:currentButton()
   self.currentCol = c
@@ -255,19 +278,6 @@ function GridWindow:onMove(dx, dy)
   end
   if self.highlight then
     self.highlight:updatePosition(self.position)
-  end
-end
--- Called when plauer moves the mouse.
-function GridWindow:onMouseMove(x, y)
-  if self:isInside(x, y) then
-    x, y = x + self.width / 2 - self:hPadding(), y + self.height / 2 - self:vPadding()
-    x, y = math.floor(x / self:cellWidth()) + 1, math.floor(y / self:cellHeight()) + 1
-    local button = self:getCell(x, y)
-    if button then
-      self.currentCol = x + self.offsetCol
-      self.currentRow = y + self.offsetRow
-      self:setSelectedButton(button)
-    end
   end
 end
 
@@ -357,8 +367,8 @@ function GridWindow:updateViewport(c, r)
       button:updatePosition(self.position)
       button:show()
     end
-    if self.vSlider then
-      self.vSlider:updatePosition(self.position)
+    if self.scroll then
+      self.scroll:updatePosition(self.position)
     end
   end
 end

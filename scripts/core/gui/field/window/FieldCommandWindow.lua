@@ -56,11 +56,11 @@ end
 
 -- Overrides GridWindow:colCount.
 function FieldCommandWindow:colCount()
-  return 2
+  return 1
 end
 -- Overrides GridWindow:rowCount.
 function FieldCommandWindow:rowCount()
-  return 2
+  return 4
 end
 -- @ret(string) String representation (for debugging).
 function FieldCommandWindow:__tostring()
