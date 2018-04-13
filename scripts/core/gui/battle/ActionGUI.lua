@@ -32,6 +32,8 @@ function ActionGUI:init(input)
   self.name = 'Action GUI'
   self.input = input
   input.GUI = self
+  self.slideMargin = 20
+  self.slideSpeed = 3
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -58,6 +60,7 @@ function ActionGUI:createTargetWindow()
   end
   return self.targetWindow
 end
+-- Updates the battler shown in the target window.
 function ActionGUI:updateTargetWindow(char)
   self.targetWindow:setBattler(char.battler)
   self.targetWindow:setVisible(false)
@@ -85,31 +88,7 @@ function ActionGUI:waitForResult()
 end
 -- Verifies player's input. Stores result of action in self.result.
 function ActionGUI:checkInput()
-  if InputManager.keys['confirm']:isTriggered() then
-    if self.input.target.gui.selectable then
-      self.result = self.input.action:onConfirm(self.input)
-    end
-  elseif InputManager.keys['cancel']:isTriggered() then
-    self.result = self.input.action:onCancel(self.input)
-  elseif InputManager.keys['next']:isTriggered() then
-    local target = self.input.action:nextLayer(self.input, 1)
-    if target then
-      self:selectTarget(target)
-    end
-  elseif InputManager.keys['prev']:isTriggered() then
-    local target = self.input.action:nextLayer(self.input, -1)
-    if target then
-      self:selectTarget(target)
-    end
-  else
-    local dx, dy = InputManager:axis(0.5, 0.0625)
-    if dx ~= 0 or dy ~= 0 then
-      local target = self.input.action:nextTarget(self.input, dx, dy)
-      if target then
-        self:selectTarget(target)
-      end
-    end
-  end
+  return self:mouseInput() or self:keyboardInput()
 end
 -- Sets given tile as current target.
 -- @param(target : ObjectTile) the new target tile
@@ -127,6 +106,116 @@ function ActionGUI:selectTarget(target)
       GUIManager.fiberList:fork(self.targetWindow.hide, self.targetWindow)
     end
   end
+end
+
+---------------------------------------------------------------------------------------------------
+-- Keyboard
+---------------------------------------------------------------------------------------------------
+
+-- Checks the keyboard input.
+function ActionGUI:keyboardInput()
+  if InputManager.keys['confirm']:isTriggered() then
+    if self.input.target.gui.selectable then
+      self.result = self.input.action:onConfirm(self.input)
+    end
+  elseif InputManager.keys['cancel']:isTriggered() then
+    self.result = self.input.action:onCancel(self.input)
+  elseif InputManager.keys['next']:isTriggered() then
+    local target = self.input.action:nextLayer(self.input, 1)
+    if target then
+      FieldManager.renderer:moveToTile(target)
+      self:selectTarget(target)
+    end
+  elseif InputManager.keys['prev']:isTriggered() then
+    local target = self.input.action:nextLayer(self.input, -1)
+    if target then
+      FieldManager.renderer:moveToTile(target)
+      self:selectTarget(target)
+    end
+  else
+    local dx, dy = InputManager:axis(0.5, 0.0625)
+    if dx ~= 0 or dy ~= 0 then
+      local target = self.input.action:nextTarget(self.input, dx, dy)
+      if target then
+        FieldManager.renderer:moveToTile(target)
+        self:selectTarget(target)
+      end
+    else
+      return false
+    end
+  end
+  return true
+end
+
+---------------------------------------------------------------------------------------------------
+-- Mouse Input
+---------------------------------------------------------------------------------------------------
+
+-- Check the mouse input.
+function ActionGUI:mouseInput()
+  self:checkSlide()
+  if InputManager.mouse.moved then
+    local target = self:mouseTarget()
+    if target and target ~= self.input.target then
+      self:selectTarget(target)
+    end
+  elseif InputManager.keys['mouse1']:isTriggered() then
+    local target = self:mouseTarget()
+    if target then
+      if target ~= self.input.target then
+        self:selectTarget(target)
+      end
+      self.result = self.input.action:onConfirm(self.input)
+    end
+  elseif InputManager.keys['mouse2']:isTriggered() then
+    self.result = self.input.action:onCancel(self.input)
+  else
+    return false
+  end
+  return true
+end
+-- @ret(ObjectTile) The tile that the mouse is over.
+function ActionGUI:mouseTarget()
+  local field = FieldManager.currentField
+  for l = field.maxh, field.minh, -1 do
+    local x, y = InputManager.mouse:fieldCoord(l)
+    if not field:exceedsBorder(x, y) and field:isGrounded(x, y, l) then
+      return field:getObjectTile(x, y, l)
+    end
+  end
+end
+
+---------------------------------------------------------------------------------------------------
+-- Screen Slide
+---------------------------------------------------------------------------------------------------
+
+-- Checks if the mouse pointer in the slide area.
+function ActionGUI:checkSlide()
+  if InputManager.mouse.active and not InputManager.usingKeyboard then
+    local w = ScreenManager.width / 2 - self.slideMargin
+    local h = ScreenManager.height / 2 - self.slideMargin
+    local x, y = InputManager.mouse:guiCoord()
+    if x > w or x < -w then
+      self:slideX(math.sign(x))
+    end
+    if y > h or y < -h then
+      self:slideY(math.sign(y))
+    end
+  end
+end
+-- Slides the screen horizontally.
+-- @param(d : number) Direction (1 or -1).
+function ActionGUI:slideX(d)
+  local camera = FieldManager.renderer
+  camera:setXYZ(camera.position.x + d * self.slideSpeed, nil)
+  InputManager.mouse:show()
+end
+-- Slides the screen vertically.
+-- @param(d : number) Direction (1 or -1).
+function ActionGUI:slideY(d)
+  local camera = FieldManager.renderer
+  camera:setXYZ(nil, camera.position.y + d * self.slideSpeed)
+  InputManager.mouse:show()
 end
 
 ---------------------------------------------------------------------------------------------------

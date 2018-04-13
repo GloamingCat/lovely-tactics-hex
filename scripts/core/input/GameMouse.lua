@@ -5,9 +5,7 @@ GameMouse
 ---------------------------------------------------------------------------------------------------
 Entity that represents game's mouse.
 Buttons:
-1 => left
-2 => right
-3 => middle
+1 => left | 2 => right | 3 => middle
 
 =================================================================================================]]
 
@@ -59,7 +57,6 @@ end
 -- @param(id : number) button type, from 1 to 3
 function GameMouse:onPress(id)
   if not InputManager.usingKeyboard then
-    self.active = true
     self:show()
   end
 end

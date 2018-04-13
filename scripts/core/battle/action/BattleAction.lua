@@ -243,7 +243,6 @@ end
 -- Called when players selects (highlights) a tile.
 function BattleAction:onSelectTarget(input)
   if input.GUI then
-    FieldManager.renderer:moveToTile(input.target)
     if input.target.gui.selectable then
       local targets = self:getAllAffectedTiles(input)
       for i = #targets, 1, -1 do

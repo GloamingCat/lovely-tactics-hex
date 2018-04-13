@@ -140,8 +140,8 @@ end
 -- @param(x : number) pixel x
 -- @param(y : number) pixel y
 function Renderer:setXYZ(x, y, z)
-  x = round(x)
-  y = round(y)
+  x = round(x or self.position.x)
+  y = round(y or self.position.y)
   if self.position.x ~= x or self.position.y ~= y then
     Transformable.setXYZ(self, x, y, 0)
     self.needsRedraw = true
