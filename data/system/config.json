@@ -36,6 +36,16 @@
 			"id": 44,
 			"col": 0,
 			"row": 3
+		},
+		"location": {
+			"id": 44,
+			"col": 2,
+			"row": 0
+		},
+		"playtime": {
+			"id": 44,
+			"col": 2,
+			"row": 1
 		}
 	},
 	"battle": {

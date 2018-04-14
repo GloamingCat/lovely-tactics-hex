@@ -16,6 +16,7 @@ local MemberGUI = require('core/gui/members/MemberGUI')
 local MemberListWindow = require('core/gui/members/window/MemberListWindow')
 local QuitWindow = require('core/gui/field/window/QuitWindow')
 local SaveWindow = require('core/gui/general/window/SaveWindow')
+local TimeWindow = require('core/gui/general/window/TimeWindow')
 local Troop = require('core/battle/Troop')
 local Vector = require('core/math/Vector')
 
@@ -32,6 +33,7 @@ function FieldGUI:createWindows()
   self:createMainWindow()
   self:createGoldWindow()
   self:createLocalWindow()
+  self:createTimeWindow()
   self:createMembersWindow()
   self:createQuitWindow()
   self:createSaveWindow()
@@ -59,6 +61,14 @@ function FieldGUI:createLocalWindow()
   local y = self.goldWindow.position.y
   self.localWindow = LocalWindow(self, w, h, Vector(x, y))
   self.localWindow:setLocal(FieldManager.currentField.prefs.name)
+end
+-- Creates the window that shows the troop's gold.
+function FieldGUI:createTimeWindow()
+  local w, h = self.goldWindow.width, self.goldWindow.height
+  local x = self.mainWindow.position.x
+  local y = self.goldWindow.position.y
+  self.timeWindow = TimeWindow(self, w, h, Vector(x, y))
+  self.timeWindow:setTime(SaveManager:playTime())
 end
 -- Creates the member list window the shows when player selects "Characters" button.
 function FieldGUI:createMembersWindow()

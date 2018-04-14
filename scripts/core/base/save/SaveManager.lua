@@ -103,7 +103,7 @@ end
 
 -- Gets the total play time of the current save.
 -- @ret(number) The time in seconds.
-function SaveManager:getPlayTime(save)
+function SaveManager:playTime(save)
   save = save or self.current
   return save.playTime + (now() - self.loadTime)
 end
@@ -137,7 +137,7 @@ end
 -- Stores current save.
 -- @param(name : string) File name.
 function SaveManager:storeSave(file)
-  self.current.playTime = self:getPlayTime()
+  self.current.playTime = self:playTime()
   self.current.playerTransition = FieldManager:getPlayerTransition()
   self:storeFieldData()
   self.saves[file] = self:getHeader(self.current)

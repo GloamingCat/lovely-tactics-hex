@@ -121,9 +121,9 @@
 					"path": "Icon/gui.png",
 					"x": 0,
 					"y": 0,
-					"width": 48,
+					"width": 72,
 					"height": 96,
-					"cols": 2,
+					"cols": 3,
 					"rows": 4,
 					"transform": {
 					  "offsetX": 12,
