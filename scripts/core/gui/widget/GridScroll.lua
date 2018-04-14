@@ -23,6 +23,8 @@ local GridScroll = class()
 -- Initialization
 ---------------------------------------------------------------------------------------------------
 
+-- Constructor.
+-- @param(window : GridWindow) Parent window.
 function GridScroll:init(window)
   window.content:add(self)
   self.speed = 5
@@ -41,6 +43,8 @@ end
 -- Position
 ---------------------------------------------------------------------------------------------------
 
+-- Updates the position of each arrow.
+-- @param(pos : Vector) The position of the window.
 function GridScroll:updatePosition(pos)
   local w = self.window.width / 2 - self.window:hPadding() / 2
   local h = self.window.height / 2 - self.window:vPadding() / 2
@@ -55,6 +59,7 @@ end
 -- Position
 ---------------------------------------------------------------------------------------------------
 
+-- Updates scroll count.
 function GridScroll:update()
   if self.count then
     self.count = self.count + self.speed * delta()
@@ -64,7 +69,9 @@ function GridScroll:update()
     end
   end
 end
-
+-- Called when player moves the mouse.
+-- @param(x : number) Position x relative to the center of the window.
+-- @param(y : number) Position y relative to the center of the window.
 function GridScroll:onMouseMove(x, y)
   local w = self.window
   local dx, dy = 0, 0
@@ -91,6 +98,7 @@ end
 -- Content methods
 ---------------------------------------------------------------------------------------------------
 
+-- Shows the arrows.
 function GridScroll:show()
   local w = self.window
   --local col = w:actualColCount() - w:colCount()
@@ -100,14 +108,14 @@ function GridScroll:show()
   self.up:setVisible(w.offsetRow > 0)
   self.down:setVisible(w.offsetRow < row)
 end
-
+-- Hides the arrows.
 function GridScroll:hide()
   self.right:setVisible(false)
   self.up:setVisible(false)
   self.down:setVisible(false)
   self.left:setVisible(false)
 end
-
+-- Destroys the arrows.
 function GridScroll:destroy()
   self.right:destroy()
   self.up:destroy()

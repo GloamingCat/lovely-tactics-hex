@@ -94,7 +94,7 @@ function MemberListWindow:rowCount()
 end
 -- Overrides ListButtonWindow:cellWidth.
 function MemberListWindow:cellWidth()
-  return ListButtonWindow.cellWidth(self) + 100
+  return ListButtonWindow.cellWidth(self) + 101
 end
 -- Overrides GridWindow:cellHeight.
 function MemberListWindow:cellHeight()

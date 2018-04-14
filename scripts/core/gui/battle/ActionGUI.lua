@@ -18,6 +18,7 @@ local BattleCursor = require('core/battle/BattleCursor')
 
 -- Alias
 local yield = coroutine.yield
+local delta = love.timer.getDelta
 
 local ActionGUI = class(GUI)
 
@@ -207,7 +208,7 @@ end
 -- @param(d : number) Direction (1 or -1).
 function ActionGUI:slideX(d)
   local camera = FieldManager.renderer
-  camera:setXYZ(camera.position.x + d * self.slideSpeed, nil)
+  camera:setXYZ(camera.position.x + d * self.slideSpeed * delta() * 60, nil)
   InputManager.mouse:show()
 end
 -- Slides the screen vertically.

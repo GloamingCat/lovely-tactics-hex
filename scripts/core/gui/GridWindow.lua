@@ -110,6 +110,13 @@ function GridWindow:showContent()
     if button.onSelect then
       button.onSelect(self, button)
     end
+  else
+    if self.cursor then
+      self.cursor:hide()
+    end
+    if self.highlight then
+      self.highlight:hide()
+    end
   end
 end
 
@@ -234,7 +241,7 @@ function GridWindow:onCancel()
 end
 -- Called when player moves cursor.
 function GridWindow:onMove(dx, dy)
-  self:nextButton(dx, dy)
+  self:nextButton(dx, dy, true)
 end
 -- Called when plauer moves the mouse.
 function GridWindow:onMouseMove(x, y)
@@ -253,14 +260,14 @@ function GridWindow:onMouseMove(x, y)
   end
 end
 
-function GridWindow:nextButton(dx, dy)
+function GridWindow:nextButton(dx, dy, playSound)
   local c, r = self:movedCoordinates(self.currentCol, self.currentRow, dx, dy)
   local oldButton = self:currentButton()
   self.currentCol = c
   self.currentRow = r
   local newButton = self:currentButton()
   if oldButton ~= newButton then 
-    if newButton.selectSound then
+    if playSound and newButton.selectSound then
       AudioManager:playSFX(newButton.selectSound)
     end
     oldButton:setSelected(false)

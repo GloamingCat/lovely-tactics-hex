@@ -19,6 +19,7 @@ local FieldCommandWindow = class(GridWindow)
 
 -- Implements GridWindow:createWidgets.
 function FieldCommandWindow:createWidgets()
+  Button:fromKey(self, 'inventory')
   Button:fromKey(self, 'members')
   Button:fromKey(self, 'config')
   Button:fromKey(self, 'save')
@@ -29,12 +30,11 @@ end
 -- Buttons
 ---------------------------------------------------------------------------------------------------
 
+function FieldCommandWindow:inventoryConfirm()
+  
+end
+
 function FieldCommandWindow:membersConfirm()
-  GUIManager.fiberList:fork(function()
-    self.GUI.goldWindow:hide()
-  end)
-  self:hide()
-  self.GUI.membersWindow:show()
   self.GUI.membersWindow:activate()
 end
 
@@ -60,7 +60,7 @@ function FieldCommandWindow:colCount()
 end
 -- Overrides GridWindow:rowCount.
 function FieldCommandWindow:rowCount()
-  return 4
+  return 5
 end
 -- @ret(string) String representation (for debugging).
 function FieldCommandWindow:__tostring()

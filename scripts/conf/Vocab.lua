@@ -7,6 +7,7 @@ return {
   quickSave = 'Quick Save',
   
   -- Main Window
+  inventory = 'Inventory',
   members = 'Characters',
   config = 'Settings',
   save = 'Save',
