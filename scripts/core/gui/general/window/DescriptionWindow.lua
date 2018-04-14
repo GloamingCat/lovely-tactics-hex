@@ -26,9 +26,9 @@ local DescriptionWindow = class(Window)
 -- @param(h : number) window's total height
 function DescriptionWindow:createContent(w, h)
   Window.createContent(self, w, h)
-  local x = self:hPadding() - w / 2
-  local y = self:vPadding() - h / 2
-  self.text = SimpleText('', Vector(x, y, -1), w - self:hPadding() * 2, 'left', Fonts.gui_medium)
+  local x = self:paddingX() - w / 2
+  local y = self:paddingY() - h / 2
+  self.text = SimpleText('', Vector(x, y, -1), w - self:paddingX() * 2, 'left', Fonts.gui_medium)
   self.content:add(self.text)
 end
 -- Sets text to be shown.
@@ -47,7 +47,7 @@ function DescriptionWindow:packText()
   local w, h = self.text.sprite:quadBounds()
   w, h = round(w), round(h)
   self.text.relativePosition = Vector(-w / 2, -h / 2, -1)
-  self:resize(w + self:hPadding() * 2, h + self:vPadding() * 2)
+  self:resize(w + self:paddingX() * 2, h + self:paddingY() * 2)
 end
 -- @ret(string) String representation (for debugging).
 function DescriptionWindow:__tostring()

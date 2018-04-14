@@ -33,7 +33,7 @@ end
 function ShopCountWindow:createValues()
   local p = self.spinner:relativePosition()
   local x, y = p.x, p.y + self:cellHeight()
-  local w = self.width - self:hPadding() * 2
+  local w = self.width - self:paddingX() * 2
   local font = Fonts.gui_default
   self.current = SimpleText('', Vector(x, y, -1), w, 'right', font)
   self.decrease = SimpleText('', Vector(x, y + 13, -1), w, 'right', font)
@@ -46,19 +46,19 @@ function ShopCountWindow:createValues()
 end
 -- Create the component for the item icon.
 function ShopCountWindow:createIcon()
-  local w = self.width - self:hPadding() * 2 - self:cellWidth()
+  local w = self.width - self:paddingX() * 2 - self:cellWidth()
   local h = self:cellHeight()
-  local x = self:cellWidth() + self:hPadding() - self.width / 2
-  local y = self:vPadding() - self.height / 2
+  local x = self:cellWidth() + self:paddingX() - self.width / 2
+  local y = self:paddingY() - self.height / 2
   self.icon = SimpleImage(nil, x, y, -1, w, h)
   self.content:add(self.icon)
 end
 -- Creates the texts for the inventory stats (owned and equipped).
 function ShopCountWindow:createStats()
   local font = Fonts.gui_medium
-  local x = -self.width / 2 + self.vPadding()
-  local y = self.height / 2 - 12 - self.vPadding()
-  local w = self.width - self:hPadding() * 2
+  local x = -self.width / 2 + self.paddingY()
+  local y = self.height / 2 - 12 - self.paddingY()
+  local w = self.width - self:paddingX() * 2
   self.owned = SimpleText('', Vector(x, y - 12, -1), w, 'left', font)
   self.equipped = SimpleText('', Vector(x, y, -1), w, 'left', font) 
   self.content:add(self.owned)

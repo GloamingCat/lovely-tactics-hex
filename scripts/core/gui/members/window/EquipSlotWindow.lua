@@ -11,13 +11,13 @@ The window that shows each equipment slot.
 local Vector = require('core/math/Vector')
 local SimpleText = require('core/gui/widget/SimpleText')
 local Button = require('core/gui/widget/Button')
-local ListButtonWindow = require('core/gui/ListButtonWindow')
+local ListWindow = require('core/gui/ListWindow')
 
 -- Alias
 local max = math.max
 local min = math.min
 
-local EquipSlotWindow = class(ListButtonWindow)
+local EquipSlotWindow = class(ListWindow)
 
 ---------------------------------------------------------------------------------------------------
 -- Initialization
@@ -32,9 +32,9 @@ function EquipSlotWindow:init(GUI)
     self.visibleRowCount = Config.equipTypes[i].count + self.visibleRowCount
   end
   self.visibleRowCount = min(6, max(self.visibleRowCount, 4))
-  ListButtonWindow.init(self, Config.equipTypes, GUI)
+  ListWindow.init(self, Config.equipTypes, GUI)
 end
--- Overrides ListButtonWindow:createListButton.
+-- Overrides ListWindow:createListButton.
 -- @param(slot : table) The table with the equip slot info (name, key, state, id).
 function EquipSlotWindow:createListButton(slot)
   for i = 1, slot.count do

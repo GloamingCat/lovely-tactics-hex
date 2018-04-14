@@ -76,7 +76,7 @@ function FieldGUI:createMembersWindow()
   local x = ScreenManager.width / 2 - w.width / 2 - self:windowMargin()
   local y = -ScreenManager.height / 2 + w.height / 2 + self:windowMargin()
   w:setXYZ(x, y)
-  w:setSelectedButton(nil)
+  w:setSelectedWidget(nil)
   self.membersWindow = w
 end
 -- Creates the window the shows when player selects "Quit" button.

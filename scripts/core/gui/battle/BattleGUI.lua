@@ -71,7 +71,7 @@ end
 -- @param(window : Window) the window with the items with descriptions
 function BattleGUI:showDescriptionWindow(window)
   if self.descriptionWindow then
-    local text = window:currentButton().description
+    local text = window:currentWidget().description
     self.descriptionWindow:setText(text)
     self.descriptionWindow:insertSelf()
     GUIManager.fiberList:fork(self.descriptionWindow.show, self.descriptionWindow)

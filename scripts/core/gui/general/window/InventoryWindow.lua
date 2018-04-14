@@ -9,10 +9,10 @@ The GUI that is open to choose an item from character's inventory.
 
 -- Imports
 local Button = require('core/gui/widget/Button')
-local ListButtonWindow = require('core/gui/ListButtonWindow')
+local ListWindow = require('core/gui/ListWindow')
 local Vector = require('core/math/Vector')
 
-local InventoryWindow = class(ListButtonWindow)
+local InventoryWindow = class(ListWindow)
 
 ---------------------------------------------------------------------------------------------------
 -- Initialization
@@ -31,11 +31,11 @@ function InventoryWindow:init(GUI, inventory, itemList, w, h, pos, rowCount)
   self.inventory = inventory
   local m = GUI:windowMargin()
   w = w or ScreenManager.width - GUI:windowMargin() * 2
-  h = h or ScreenManager.height * 4 / 5 - self:vPadding() * 2 - m * 3
+  h = h or ScreenManager.height * 4 / 5 - self:paddingY() * 2 - m * 3
   self.visibleRowCount = rowCount or math.floor(h / self:cellHeight())
-  local fith = self.visibleRowCount * self:cellHeight() + self:vPadding() * 2
+  local fith = self.visibleRowCount * self:cellHeight() + self:paddingY() * 2
   pos = pos or Vector(0, fith / 2 - ScreenManager.height / 2 + m / 2, 0)
-  ListButtonWindow.init(self, itemList or inventory, GUI, w, h, pos)
+  ListWindow.init(self, itemList or inventory, GUI, w, h, pos)
 end
 -- Creates a button from an item ID.
 -- @param(itemSlot : table) a slot from the inventory (with item's ID and count)

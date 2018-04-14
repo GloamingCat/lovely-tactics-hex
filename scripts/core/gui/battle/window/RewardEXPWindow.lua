@@ -22,9 +22,9 @@ local RewardEXPWindow = class(Window)
 function RewardEXPWindow:createContent(...)
   Window.createContent(self, ...)
   local font = Fonts.gui_medium
-  local x = - self.width / 2 + self:hPadding()
-  local y = - self.height / 2 + self:vPadding()
-  local w = self.width - self:hPadding() * 2
+  local x = - self.width / 2 + self:paddingX()
+  local y = - self.height / 2 + self:paddingY()
+  local w = self.width - self:paddingX() * 2
   local title = SimpleText(Vocab.experience, Vector(x, y), w, 'center')
   self.content:add(title)
   y = y + 20

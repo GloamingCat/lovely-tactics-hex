@@ -43,7 +43,7 @@ end
 
 -- Updates position to the selected button.
 function Highlight:updatePosition(wpos)
-  local button = self.window:currentButton()
+  local button = self.window:currentWidget()
   if button then
     local pos = button:relativePosition()
     pos:add(wpos)

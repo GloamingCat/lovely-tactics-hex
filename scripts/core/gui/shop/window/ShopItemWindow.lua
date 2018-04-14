@@ -9,15 +9,15 @@ Window with the list of items available to buy.
 
 -- Imports
 local Button = require('core/gui/widget/Button')
-local ListButtonWindow = require('core/gui/ListButtonWindow')
+local ListWindow = require('core/gui/ListWindow')
 
-local ShopItemWindow = class(ListButtonWindow)
+local ShopItemWindow = class(ListWindow)
 
 ---------------------------------------------------------------------------------------------------
 -- Initialization
 ---------------------------------------------------------------------------------------------------
 
--- Implements ListButtonWindow:createListButton.
+-- Implements ListWindow:createListButton.
 function ShopItemWindow:createListButton(item)
   local price = item.price
   local id = item.id
@@ -94,7 +94,7 @@ end
 -- Properties
 ---------------------------------------------------------------------------------------------------
 
--- Overrides ListButtonWindow:colCount.
+-- Overrides ListWindow:colCount.
 function ShopItemWindow:colCount()
   return 1
 end

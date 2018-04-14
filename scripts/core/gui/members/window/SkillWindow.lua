@@ -10,14 +10,14 @@ The window that shows the list of skills to be used.
 -- Imports
 local ActionInput = require('core/battle/action/ActionInput')
 local Button = require('core/gui/widget/Button')
-local ListButtonWindow = require('core/gui/ListButtonWindow')
+local ListWindow = require('core/gui/ListWindow')
 local MenuTargetGUI = require('core/gui/general/MenuTargetGUI')
 local Vector = require('core/math/Vector')
 
 -- Constants
 local spName = Config.battle.attSP
 
-local SkillWindow = class(ListButtonWindow)
+local SkillWindow = class(ListWindow)
 
 ---------------------------------------------------------------------------------------------------
 -- Initialization
@@ -26,7 +26,7 @@ local SkillWindow = class(ListButtonWindow)
 -- @param(GUI : GUI)
 function SkillWindow:init(GUI, ...)
   self.member = GUI.memberGUI:currentMember()
-  ListButtonWindow.init(self, self.member.skillList, GUI, ...)
+  ListWindow.init(self, self.member.skillList, GUI, ...)
 end
 -- @param(member : Battler)
 function SkillWindow:setMember(member)

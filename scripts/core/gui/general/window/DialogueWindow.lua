@@ -57,8 +57,8 @@ function DialogueWindow:createContent(width, height)
   self.indent = 0
   self.align = 'left'
   self.fixedIndent = 75
-  local pos = Vector(-width / 2 + self:hPadding(), -height / 2 + self:vPadding())
-  self.dialogue = SimpleText('', pos, width - self:hPadding() * 2, self.align, Fonts.gui_dialogue)
+  local pos = Vector(-width / 2 + self:paddingX(), -height / 2 + self:paddingY())
+  self.dialogue = SimpleText('', pos, width - self:paddingX() * 2, self.align, Fonts.gui_dialogue)
   self.dialogue.sprite.wrap = true
   self.content:add(self.dialogue)
   self.nameWindow = DescriptionWindow(self.GUI, 80, 24)
@@ -93,7 +93,7 @@ end
 -- Shows text character by character.
 -- @param(text : string) The message.
 function DialogueWindow:rollText(text)
-  self.dialogue:setMaxWidth(self.width - self:hPadding() * 2 - (self.fixedIndent or self.indent))
+  self.dialogue:setMaxWidth(self.width - self:paddingX() * 2 - (self.fixedIndent or self.indent))
   self.dialogue:setAlign(self.align)
   self.dialogue.sprite:setText(text)
   self.dialogue:updatePosition(self.position + Vector(self.fixedIndent or self.indent, 0))
@@ -159,7 +159,7 @@ function DialogueWindow:setName(text)
     self.nameWindow:setText(text)
     self.nameWindow:packText()
     local nameX = - self.width / 2 + self.position.x + self.fixedIndent + 10
-    local nameY = - self.height / 2 + self.position.y + self:vPadding() / 2
+    local nameY = - self.height / 2 + self.position.y + self:paddingY() / 2
     self.nameWindow:setVisible(true)
     self.nameWindow:setXYZ(nameX + self.nameWindow.width / 2,
       nameY - self.nameWindow.height / 2, -5)

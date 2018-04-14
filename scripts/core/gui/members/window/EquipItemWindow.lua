@@ -32,7 +32,7 @@ function EquipItemWindow:init(GUI, w, h, pos, rowCount, member)
   self.member = member or GUI.memberGUI:currentMember()
   InventoryWindow.init(self, GUI, GUI.inventory, {}, w, h, pos, rowCount)
 end
--- Overrides ListButtonWindow:createWidgets.
+-- Overrides ListWindow:createWidgets.
 -- Adds the "unequip" button.
 function EquipItemWindow:createWidgets(...)
   if self.slotKey then
@@ -43,7 +43,7 @@ function EquipItemWindow:createWidgets(...)
     InventoryWindow.createWidgets(self, ...)
   end
 end
--- Overrides ListButtonWindow:createListButton.
+-- Overrides ListWindow:createListButton.
 function EquipItemWindow:createListButton(itemSlot)
   local button = InventoryWindow.createListButton(self, itemSlot)
   button:setEnabled(self.member.equipSet:canEquip(self.slotKey, button.item))

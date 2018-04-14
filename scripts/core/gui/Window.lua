@@ -164,11 +164,11 @@ function Window:getSkin()
   return Database.animations[Config.animations.windowSkinID]
 end
 -- Horizontal padding.
-function Window:hPadding()
+function Window:paddingX()
   return 8
 end
 -- Vertical padding.
-function Window:vPadding()
+function Window:paddingY()
   return 8
 end
 

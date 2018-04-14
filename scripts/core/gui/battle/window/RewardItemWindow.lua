@@ -32,7 +32,7 @@ function RewardItemWindow:init(GUI, w, h, pos)
   self.gold = GUI.rewards.gold
   InventoryWindow.init(self, GUI, GUI.rewards.items, nil, w, h, pos)
 end
--- Overrides ListButtonWindow:createWidgets.
+-- Overrides ListWindow:createWidgets.
 -- Adds the Gold button.
 function RewardItemWindow:createWidgets()
   local icon = goldIcon.id >= 0 and 

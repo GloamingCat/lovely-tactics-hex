@@ -60,7 +60,7 @@ function ChoiceWindow:rowCount()
 end
 
 function ChoiceWindow:cellWidth()
-  return self.width - self:hPadding() * 2
+  return self.width - self:paddingX() * 2
 end
 -- @ret(string) String representation (for debugging).
 function ChoiceWindow:__tostring()

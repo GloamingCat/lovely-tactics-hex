@@ -28,13 +28,13 @@ function LocalWindow:createContent(width, height)
   local sprite = icon and icon.id >= 0 and ResourceManager:loadIcon(icon, GUIManager.renderer)
   local icon = SimpleImage(sprite, -width / 2, -height / 2, -1, nil, height)
   self.content:add(icon)
-  local pos = Vector(self:hPadding() - width / 2, self:vPadding() - height / 2, -1)
+  local pos = Vector(self:paddingX() - width / 2, self:paddingY() - height / 2, -1)
   if sprite then
-    pos.x = pos.x + self:hPadding() * 2
+    pos.x = pos.x + self:paddingX() * 2
   end
-  local text = SimpleText('', pos, width - self:hPadding() * 2, 'left', Fonts.gui_medium)
+  local text = SimpleText('', pos, width - self:paddingX() * 2, 'left', Fonts.gui_medium)
   text.sprite.alignY = 'center'
-  text.sprite.maxHeight = height - self:vPadding() * 2
+  text.sprite.maxHeight = height - self:paddingY() * 2
   self.content:add(text)
   self.name = text
 end

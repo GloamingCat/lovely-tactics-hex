@@ -47,9 +47,9 @@ end
 function GridWidget:relativePosition()
   local w = self.window
   local col, row = self.col - w.offsetCol, self.row - w.offsetRow
-  local x = w:gridX() - w.width / 2 + w:hPadding() + 
+  local x = w:gridX() - w.width / 2 + w:paddingX() + 
     (col - 1) * (w:cellWidth() + w:colMargin())
-  local y = w:gridY() - w.height / 2 + w:vPadding() + 
+  local y = w:gridY() - w.height / 2 + w:paddingY() + 
     (row - 1) * (w:cellHeight() + w:rowMargin())
   return Vector(x, y, -1)
 end

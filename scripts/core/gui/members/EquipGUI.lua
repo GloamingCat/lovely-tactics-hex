@@ -79,7 +79,7 @@ end
 function EquipGUI:setMember(member)
   self.bonusWindow:setMember(member)
   self.slotWindow:setMember(member)
-  self.slotWindow:onButtonSelect(self.slotWindow:currentButton())
+  self.slotWindow:onButtonSelect(self.slotWindow:currentWidget())
   self.itemWindow:setMember(member)
 end
 -- Verifies if a member can use this GUI (anyone can).

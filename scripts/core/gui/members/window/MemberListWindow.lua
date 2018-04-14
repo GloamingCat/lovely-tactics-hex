@@ -10,11 +10,11 @@ A button window that shows all the visibles members in the troop.
 -- Imports
 local Button = require('core/gui/widget/Button')
 local List = require('core/base/datastruct/List')
-local ListButtonWindow = require('core/gui/ListButtonWindow')
+local ListWindow = require('core/gui/ListWindow')
 local MemberInfo = require('core/gui/general/widget/MemberInfo')
 local Vector = require('core/math/Vector')
 
-local MemberListWindow = class(ListButtonWindow)
+local MemberListWindow = class(ListWindow)
 
 ---------------------------------------------------------------------------------------------------
 -- Initialization
@@ -22,12 +22,12 @@ local MemberListWindow = class(ListButtonWindow)
 
 -- Gets the member list from the troop.
 -- @param(troop : TroopBase)
--- @param(...) parameters from ListButtonWindow:init
+-- @param(...) parameters from ListWindow:init
 function MemberListWindow:init(troop, ...)
   local memberList = troop:visibleMembers()
-  ListButtonWindow.init(self, memberList, ...)
+  ListWindow.init(self, memberList, ...)
 end
--- Overrides ListButtonWindow:createListButton.
+-- Overrides ListWindow:createListButton.
 -- Creates a button for the given member.
 -- @param(member : table)
 -- @ret(Button)
@@ -49,7 +49,7 @@ function MemberListWindow:refreshMembers()
       button.content:removeElement(button.memberInfo)
     end
     local w, h = self:cellWidth(), self:cellHeight()
-    button.memberInfo = MemberInfo(button.member, w - self:hPadding(), h)
+    button.memberInfo = MemberInfo(button.member, w - self:paddingX(), h)
     button.content:add(button.memberInfo)
     button:updatePosition(self.position)
   end
@@ -60,7 +60,7 @@ function MemberListWindow:show(...)
     self:refreshMembers()
     self:hideContent()
   end
-  ListButtonWindow.show(self, ...)
+  ListWindow.show(self, ...)
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -92,13 +92,13 @@ end
 function MemberListWindow:rowCount()
   return 4
 end
--- Overrides ListButtonWindow:cellWidth.
+-- Overrides ListWindow:cellWidth.
 function MemberListWindow:cellWidth()
-  return ListButtonWindow.cellWidth(self) + 101
+  return ListWindow.cellWidth(self) + 101
 end
 -- Overrides GridWindow:cellHeight.
 function MemberListWindow:cellHeight()
-  return (ListButtonWindow.cellHeight(self) * 3 + self:rowMargin() * 2)
+  return (ListWindow.cellHeight(self) * 3 + self:rowMargin() * 2)
 end
 
 function MemberListWindow:__tostring()

@@ -43,9 +43,9 @@ function EquipBonusWindow:updateBonus(att)
     self.content:removeElement(self.bonus[i])
   end
   self.bonus = List()
-  local x = self:hPadding() - self.width / 2
-  local y = self:vPadding() - self.height / 2
-  local w = self.width - self:hPadding() * 2
+  local x = self:paddingX() - self.width / 2
+  local y = self:paddingY() - self.height / 2
+  local w = self.width - self:paddingX() * 2
   self:createBonusText(att, x, y, w)
   for i = 1, #self.bonus do
     self.bonus[i]:updatePosition(self.position)

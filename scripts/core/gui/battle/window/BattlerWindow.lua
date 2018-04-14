@@ -42,7 +42,7 @@ function BattlerWindow:init(GUI)
   end
   self.primary, self.secondary = primary, secondary
   local hsw = round(ScreenManager.width * 3 / 4)
-  local hsh = max(#primary, #secondary) * 10 + 15 + 2 * self:vPadding()
+  local hsh = max(#primary, #secondary) * 10 + 15 + 2 * self:paddingY()
   local margin = 80
   Window.init(self, GUI, hsw, hsh)
 end
@@ -50,20 +50,20 @@ end
 function BattlerWindow:createContent(width, height)
   Window.createContent(self, width, height)
   -- Portrait
-  self.portrait = SimpleImage(nil, self:hPadding() - self.width / 2, self:vPadding() - self.height / 2, 
-      nil, round(self.width / 3) - self:hPadding(), self.height - self:vPadding() * 2)
+  self.portrait = SimpleImage(nil, self:paddingX() - self.width / 2, self:paddingY() - self.height / 2, 
+      nil, round(self.width / 3) - self:paddingX(), self.height - self:paddingY() * 2)
   self.content:add(self.portrait)
   -- Content pos
   local x = round(self.width / 3 - self.width / 2)
-  local y = round(self:vPadding() - self.height / 2)
-  local w = round((self.width - self:hPadding()) / 3)
+  local y = round(self:paddingY() - self.height / 2)
+  local w = round((self.width - self:paddingX()) / 3)
   -- Name
   self.textName = SimpleText('', Vector(x, y), w)
   self.content:add(self.textName)
   -- Attributes
   self.attValues = {}
-  self:createAtts(self.primary, x, y + 5, w - self:hPadding())
-  self:createAtts(self.secondary, x + round(self.width / 3), y + 5, w - self:hPadding())
+  self:createAtts(self.primary, x, y + 5, w - self:paddingX())
+  self:createAtts(self.secondary, x + round(self.width / 3), y + 5, w - self:paddingX())
 end
 -- Creates the text content from a list of attributes.
 -- @param(attList : table) Array of attribute data.

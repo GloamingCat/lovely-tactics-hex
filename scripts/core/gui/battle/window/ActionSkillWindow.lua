@@ -10,13 +10,13 @@ The window that is open to choose a skill from character's skill list.
 -- Imports
 local ActionWindow = require('core/gui/battle/window/ActionWindow')
 local Button = require('core/gui/widget/Button')
-local ListButtonWindow = require('core/gui/ListButtonWindow')
+local ListWindow = require('core/gui/ListWindow')
 local Vector = require('core/math/Vector')
 
 -- Constants
 local spName = Config.battle.attSP
 
-local ActionSkillWindow = class(ActionWindow, ListButtonWindow)
+local ActionSkillWindow = class(ActionWindow, ListWindow)
 
 ---------------------------------------------------------------------------------------------------
 -- Initialization
@@ -28,11 +28,11 @@ local ActionSkillWindow = class(ActionWindow, ListButtonWindow)
 function ActionSkillWindow:init(GUI, skillList)
   local m = GUI:windowMargin()
   local w = ScreenManager.width - GUI:windowMargin() * 2
-  local h = ScreenManager.height * 4 / 5 - self:vPadding() * 2 - m * 3
+  local h = ScreenManager.height * 4 / 5 - self:paddingY() * 2 - m * 3
   self.visibleRowCount = math.floor(h / self:cellHeight())
-  local fith = self.visibleRowCount * self:cellHeight() + self:vPadding() * 2
+  local fith = self.visibleRowCount * self:cellHeight() + self:paddingY() * 2
   local pos = Vector(0, fith / 2 - ScreenManager.height / 2 + m / 2, 0)
-  ListButtonWindow.init(self, skillList, GUI, w, h, pos)
+  ListWindow.init(self, skillList, GUI, w, h, pos)
 end
 -- Creates a button from a skill ID.
 -- @param(skill : SkillAction) the SkillAction from battler's skill list

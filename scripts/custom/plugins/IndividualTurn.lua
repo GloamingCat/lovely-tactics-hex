@@ -211,7 +211,7 @@ function TargetWindow:createContent(width, height)
   TargetWindow_content(self, width, height)
   -- Turn count text
   if self.showTC then
-    local w = self.width - self:hPadding() * 2
+    local w = self.width - self:paddingX() * 2
     local pos = self.gaugeSP.topLeft:clone()
     pos.x = pos.x - 30
     pos.y = pos.y + 10

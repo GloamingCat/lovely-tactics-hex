@@ -3,12 +3,11 @@
 
 GridWindow
 ---------------------------------------------------------------------------------------------------
-Provides the base for windows with buttons.
+Provides the base for windows with widgets in a matrix.
 
 =================================================================================================]]
 
 -- Imports
-local Button = require('core/gui/widget/Button')
 local GridScroll = require('core/gui/widget/GridScroll')
 local Highlight = require('core/gui/widget/Highlight')
 local List = require('core/base/datastruct/List')
@@ -51,8 +50,8 @@ end
 function GridWindow:packWidgets()
   self.matrix.height = ceil(#self.matrix / self:colCount())
   if self:actualRowCount() > self:rowCount() then
-    self.scroll = self.scroll or GridScroll(self, Vector(self.width / 2 - self:hPadding(), 0), 
-      self.height - self:vPadding() * 2)
+    self.scroll = self.scroll or GridScroll(self, Vector(self.width / 2 - self:paddingX(), 0), 
+      self.height - self:paddingY() * 2)
   elseif self.scroll then
     self.scroll:destroy()
     self.scroll = nil
@@ -71,16 +70,16 @@ end
 ---------------------------------------------------------------------------------------------------
 
 -- Overrides Window:setActive.
--- Hides cursor and unselected button if deactivated.
+-- Hides cursor and unselected widget if deactivated.
 function GridWindow:setActive(value)
   if self.active ~= value then
     self.active = value
-    local button = self:currentButton()
+    local widget = self:currentWidget()
     if value then
-      if button then
-        button:setSelected(true)
-        if button.onSelect then
-          button.onSelect(self, button)
+      if widget then
+        widget:setSelected(true)
+        if widget.onSelect then
+          widget.onSelect(self, widget)
         end
       end
       if self.cursor and self.open then
@@ -93,7 +92,7 @@ function GridWindow:setActive(value)
       if self.cursor then
         self.cursor:hide()
       end
-      if not (button and button.selected) then
+      if not (widget and widget.selected) then
         if self.highlight then
           self.highlight:hide()
         end
@@ -102,13 +101,13 @@ function GridWindow:setActive(value)
   end
 end
 -- Overrides Window:showContent.
--- Checks if there is a selected button to show/hide the cursor.
+-- Checks if there is a selected widget to show/hide the cursor.
 function GridWindow:showContent()
   Window.showContent(self)
-  local button = self:currentButton()
-  if button and button.selected then
-    if button.onSelect then
-      button.onSelect(self, button)
+  local widget = self:currentWidget()
+  if widget and widget.selected then
+    if widget.onSelect then
+      widget.onSelect(self, widget)
     end
   else
     if self.cursor then
@@ -121,89 +120,9 @@ function GridWindow:showContent()
 end
 
 ---------------------------------------------------------------------------------------------------
--- Buttons
+-- Widgets
 ---------------------------------------------------------------------------------------------------
 
--- Adds the grid widgets of the window.
-function GridWindow:createWidgets()
-  -- Abstract.
-end
--- Getscurrent selected button.
--- @ret(Button) the selected button
-function GridWindow:currentButton()
-  return self.matrix:get(self.currentCol, self.currentRow)
-end
--- Gets the number of buttons.
--- @ret(number)
-function GridWindow:buttonCount()
-  return #self.matrix
-end
--- Insert button at the given index.
--- @param(button : Button) the button to insert
--- @param(pos : number) the index of the button (optional, last position by default)
-function GridWindow:insertButton(button, pos)
-  pos = pos or #self.matrix + 1
-  local last = #self.matrix
-  assert(pos >= 1 and pos <= last + 1, 'invalid button index: ' .. pos)
-  for i = last + 1, pos + 1, -1 do
-    self.matrix[i] = self.matrix[i - 1]
-    self.matrix[i]:setIndex(i)
-    self.matrix[i]:updatePosition(self.position)
-  end
-  self.matrix[pos] = button
-  button:setIndex(pos)
-  button:updatePosition(self.position)
-end
--- Removes button at the given index.
--- @param(pos : number) the index of the button
--- @ret(Button) the removed button
-function GridWindow:removeButton(pos)
-  local last = #self.matrix
-  assert(pos >= 1 and pos <= last, 'invalid button index: ' .. pos)
-  local button = self.matrix[pos]
-  button:destroy()
-  for i = pos, last - 1 do
-    self.matrix[i] = self.matrix[i+1]
-    self.matrix[i]:setIndex(i)
-    self.matrix[i]:updatePosition(self.position)
-  end
-  self.matrix[last] = nil
-  return button
-end
--- Removes all buttons.
-function GridWindow:clearWidgets()
-  local last = #self.matrix
-  for i = 1, last do
-    self.matrix[i]:destroy()
-    self.matrix[i] = nil
-  end
-end
--- Sets the current selected button.
--- @param(button : Button) nil to unselected all buttons
-function GridWindow:setSelectedButton(button)
-  if button then
-    button:setSelected(true)
-    if self.cursor then
-      self.cursor:updatePosition(self.position)
-      self.cursor:show()
-    end
-    if self.highlight then
-      self.highlight:updatePosition(self.position)
-      self.highlight:show()
-    end
-  else
-    button = self:currentButton()
-    if button then
-      button:setSelected(false)
-    end
-    if self.cursor then
-      self.cursor:hide()
-    end
-    if self.highlight then
-      self.highlight:hide()
-    end
-  end
-end
 -- Gets the cell shown in the given position.
 -- @ret(Widget)
 function GridWindow:getCell(x, y)
@@ -212,6 +131,112 @@ function GridWindow:getCell(x, y)
   end
   return self.matrix:get(self.offsetCol + x, self.offsetRow + y)
 end
+-- Adds the grid widgets of the window.
+function GridWindow:createWidgets()
+  -- Abstract.
+end
+-- Getscurrent selected widget.
+-- @ret(GridWidget) the selected widget
+function GridWindow:currentWidget()
+  return self.matrix:get(self.currentCol, self.currentRow)
+end
+-- Gets the number of buttons.
+-- @ret(number)
+function GridWindow:widgetCount()
+  return #self.matrix
+end
+-- Insert widget at the given index.
+-- @param(widget : GridWidget) the widget to insert
+-- @param(i : number) the index of the widget (optional, last position by default)
+function GridWindow:insertWidget(widget, i)
+  i = i or #self.matrix + 1
+  local last = #self.matrix
+  assert(i >= 1 and i <= last + 1, 'invalid widget index: ' .. pos)
+  for w = last + 1, i + 1, -1 do
+    self.matrix[w] = self.matrix[w - 1]
+    self.matrix[w]:setIndex(w)
+    self.matrix[w]:updatePosition(self.position)
+  end
+  self.matrix[i] = widget
+  widget:setIndex(i)
+  widget:updatePosition(self.position)
+end
+-- Removes widget at the given index.
+-- @param(i : number) the index of the widget
+-- @ret(GridWidget) the removed widget
+function GridWindow:removeWidget(i)
+  local last = #self.matrix
+  assert(i >= 1 and i <= last, 'invalid widget index: ' .. i)
+  local widget = self.matrix[i]
+  widget:destroy()
+  for w = i, last - 1 do
+    self.matrix[w] = self.matrix[w+1]
+    self.matrix[w]:setIndex(w)
+    self.matrix[w]:updatePosition(self.position)
+  end
+  self.matrix[last] = nil
+  return widget
+end
+-- Removes all widgets.
+function GridWindow:clearWidgets()
+  local last = #self.matrix
+  for w = 1, last do
+    self.matrix[w]:destroy()
+    self.matrix[w] = nil
+  end
+end
+-- Selects the next widget in the grid from the given direction.
+-- @param(dx : number) Horizontal direction (from -1 to 1).
+-- @param(dy : number) Horizontal direction (from -1 ot 1).
+-- @param(playSound : boolean) True of play the select sound.
+function GridWindow:nextWidget(dx, dy, playSound)
+  local c, r = self:movedCoordinates(self.currentCol, self.currentRow, dx, dy)
+  local oldWidget = self:currentWidget()
+  self.currentCol = c
+  self.currentRow = r
+  local newWidget = self:currentWidget()
+  if oldWidget ~= newWidget then 
+    if playSound and newWidget.selectSound then
+      AudioManager:playSFX(newWidget.selectSound)
+    end
+    oldWidget:setSelected(false)
+  end
+  self:setSelectedWidget(newWidget)
+end
+-- Sets the current selected widget.
+-- @param(widget : GridWidget) Nil to unselected all widgets.
+function GridWindow:setSelectedWidget(widget)
+  if widget then
+    widget:setSelected(true)
+    if widget.onSelect then
+      widget.onSelect(self, widget)
+    end
+    self:updateViewport()
+    if self.cursor then
+      self.cursor:updatePosition(self.position)
+      if self.open then
+        self.cursor:show()
+      end
+    end
+    if self.highlight then
+      self.highlight:updatePosition(self.position)
+      if self.open then
+        self.highlight:show()
+      end
+    end
+  else
+    widget = self:currentWidget()
+    if widget then
+      widget:setSelected(false)
+    end
+    if self.cursor then
+      self.cursor:hide()
+    end
+    if self.highlight then
+      self.highlight:hide()
+    end
+  end
+end
 
 ---------------------------------------------------------------------------------------------------
 -- Input
@@ -219,29 +244,33 @@ end
 
 -- Called when player confirms.
 function GridWindow:onConfirm()
-  local button = self:currentButton()
-  if button.enabled then
-    if button.confirmSound then
-      AudioManager:playSFX(button.confirmSound)
+  local widget = self:currentWidget()
+  if widget.enabled then
+    if widget.confirmSound then
+      AudioManager:playSFX(widget.confirmSound)
     end
-    button.onConfirm(self, button)
+    widget.onConfirm(self, widget)
   else
-    if button.errorSound then
-      AudioManager:playSFX(button.errorSound)
+    if widget.errorSound then
+      AudioManager:playSFX(widget.errorSound)
     end
   end
 end
 -- Called when player cancels.
 function GridWindow:onCancel()
-  local button = self:currentButton()
-  if button.cancelSound then
-    AudioManager:playSFX(button.cancelSound)
+  local widget = self:currentWidget()
+  if widget.cancelSound then
+    AudioManager:playSFX(widget.cancelSound)
   end
-  button.onCancel(self, button)
+  widget.onCancel(self, widget)
 end
 -- Called when player moves cursor.
 function GridWindow:onMove(dx, dy)
-  self:nextButton(dx, dy, true)
+  local widget = self:currentWidget()
+  if widget and widget.onMove then
+    widget.onMove(self, widget, dx, dy)
+  end
+  self:nextWidget(dx, dy, true)
 end
 -- Called when plauer moves the mouse.
 function GridWindow:onMouseMove(x, y)
@@ -249,42 +278,14 @@ function GridWindow:onMouseMove(x, y)
     if self.scroll then
       self.scroll:onMouseMove(x, y)
     end
-    x, y = x + self.width / 2 - self:hPadding(), y + self.height / 2 - self:vPadding()
+    x, y = x + self.width / 2 - self:paddingX(), y + self.height / 2 - self:paddingY()
     x, y = math.floor(x / self:cellWidth()) + 1, math.floor(y / self:cellHeight()) + 1
-    local button = self:getCell(x, y)
-    if button then
+    local widget = self:getCell(x, y)
+    if widget then
       self.currentCol = x + self.offsetCol
       self.currentRow = y + self.offsetRow
-      self:setSelectedButton(button)
+      self:setSelectedWidget(widget)
     end
-  end
-end
-
-function GridWindow:nextButton(dx, dy, playSound)
-  local c, r = self:movedCoordinates(self.currentCol, self.currentRow, dx, dy)
-  local oldButton = self:currentButton()
-  self.currentCol = c
-  self.currentRow = r
-  local newButton = self:currentButton()
-  if oldButton ~= newButton then 
-    if playSound and newButton.selectSound then
-      AudioManager:playSFX(newButton.selectSound)
-    end
-    oldButton:setSelected(false)
-    newButton:setSelected(true)
-  end
-  if oldButton.onMove then
-    oldButton.onMove(self, oldButton, dx, dy)
-  end
-  if newButton.onSelect then
-    newButton.onSelect(self, newButton)
-  end
-  self:updateViewport(c, r)
-  if self.cursor then
-    self.cursor:updatePosition(self.position)
-  end
-  if self.highlight then
-    self.highlight:updatePosition(self.position)
   end
 end
 
@@ -301,8 +302,8 @@ end
 -- @ret(number) new row number
 -- @ret(boolean) true if visible buttons changed
 function GridWindow:movedCoordinates(c, r, dx, dy)
-  local button = self.matrix:get(c + dx, r + dy)
-  if button then
+  local widget = self.matrix:get(c + dx, r + dy)
+  if widget then
     return c + dx, r + dy
   end
   if dx ~= 0 then
@@ -362,27 +363,28 @@ end
 ---------------------------------------------------------------------------------------------------
 
 -- Adapts the visible buttons.
--- @param(c : number) the current button's column
--- @param(r : number) the current button's row
+-- @param(c : number) the current widget's column
+-- @param(r : number) the current widget's row
 function GridWindow:updateViewport(c, r)
   local newOffsetCol, newOffsetRow = self:newViewport(c, r)
   if newOffsetCol ~= self.offsetCol or newOffsetRow ~= self.offsetRow then
     self.offsetCol = newOffsetCol
     self.offsetRow = newOffsetRow
-    for button in self.matrix:iterator() do
-      button:hide()
-      button:updatePosition(self.position)
-      button:show()
+    for widget in self.matrix:iterator() do
+      widget:hide()
+      widget:updatePosition(self.position)
+      widget:show()
     end
     if self.scroll then
       self.scroll:updatePosition(self.position)
     end
   end
 end
--- Determines the new (c, r) coordinates of the button matrix viewport.
--- @param(newc : number) the selected button's column
--- @param(newr : number) the selected button's row
+-- Determines the new (c, r) coordinates of the widget matrix viewport.
+-- @param(newc : number) the selected widget's column
+-- @param(newr : number) the selected widget's row
 function GridWindow:newViewport(newc, newr)
+  newc, newr = newc or self.currentCol, newr or self.currentRow
   local c, r = self.offsetCol, self.offsetRow
   if newc < c + 1 then
     c = newc - 1
@@ -401,12 +403,12 @@ end
 -- Properties
 ---------------------------------------------------------------------------------------------------
 
--- Columns of the button matrix.
+-- Columns of the widget matrix.
 -- @ret(number) the number of visible columns
 function GridWindow:colCount()
   return 3
 end
--- Rows of the button matrix.
+-- Rows of the widget matrix.
 -- @ret(number) the number of visible lines
 function GridWindow:rowCount()
   return 4
@@ -431,14 +433,14 @@ end
 function GridWindow:calculateWidth()
   local cols = self:colCount()
   local buttons = cols * self:cellWidth() + (cols - 1) * self:colMargin()
-  return self:hPadding() * 2 + buttons + self:gridX()
+  return self:paddingX() * 2 + buttons + self:gridX()
 end
 -- Gets the total height of the window.
 -- @ret(number) the window's height in pixels
 function GridWindow:calculateHeight()
   local rows = self:rowCount()
-  local buttons = rows * self:cellHeight() + (rows - 1) * self:rowMargin()
-  return self:vPadding() * 2 + buttons + self:gridY()
+  local cells = rows * self:cellHeight() + (rows - 1) * self:rowMargin()
+  return self:paddingY() * 2 + cells + self:gridY()
 end
 -- Gets the width of a single cell.
 -- @ret(number) the width in pixels

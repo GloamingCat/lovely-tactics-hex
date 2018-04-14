@@ -28,7 +28,7 @@ local ItemWindow = class(InventoryWindow)
 -- @param(GUI : GUI) Parent GUI.
 function ItemWindow:init(GUI)
   local rowCount = 6
-  local fith = rowCount * self:cellHeight() + self:vPadding() * 2
+  local fith = rowCount * self:cellHeight() + self:paddingY() * 2
   local items = GUI.inventory:getUsableItems(2)
   InventoryWindow.init(self, GUI, GUI.inventory, items, nil, fith, nil, rowCount)
 end
@@ -48,7 +48,7 @@ function ItemWindow:createListButton(itemSlot)
   id = id >= 0 and id or defaultSkillID
   button.skill = ItemAction:fromData(id, button.item)
 end
--- Overrides ListButtonWindow:createButtons.
+-- Overrides ListWindow:createButtons.
 function ItemWindow:createWidgets()
   if #self.list > 0 then
     InventoryWindow.createWidgets(self)

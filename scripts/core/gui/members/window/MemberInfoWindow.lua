@@ -47,8 +47,8 @@ function MemberInfoWindow:setMember(member)
     self.info:destroy()
     self.content:removeElement(self.info)
   end
-  local w = self.width - self:hPadding() * 2
-  local h = self.height - self:vPadding() * 2
+  local w = self.width - self:paddingX() * 2
+  local h = self.height - self:paddingY() * 2
   self.info = MemberInfo(self.member, w, h, Vector(-w / 2, -h / 2))
   self.info:updatePosition(self.position)
   self.content:add(self.info)
