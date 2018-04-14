@@ -1,7 +1,7 @@
 
 --[[===============================================================================================
 
-MemberListWindow
+MemberWindow
 ---------------------------------------------------------------------------------------------------
 A button window that shows all the visibles members in the troop.
 
@@ -14,7 +14,7 @@ local ListWindow = require('core/gui/ListWindow')
 local MemberInfo = require('core/gui/general/widget/MemberInfo')
 local Vector = require('core/math/Vector')
 
-local MemberListWindow = class(ListWindow)
+local MemberWindow = class(ListWindow)
 
 ---------------------------------------------------------------------------------------------------
 -- Initialization
@@ -23,7 +23,7 @@ local MemberListWindow = class(ListWindow)
 -- Gets the member list from the troop.
 -- @param(troop : TroopBase)
 -- @param(...) parameters from ListWindow:init
-function MemberListWindow:init(troop, ...)
+function MemberWindow:init(troop, ...)
   local memberList = troop:visibleMembers()
   ListWindow.init(self, memberList, ...)
 end
@@ -31,7 +31,7 @@ end
 -- Creates a button for the given member.
 -- @param(member : table)
 -- @ret(Button)
-function MemberListWindow:createListButton(battler)
+function MemberWindow:createListButton(battler)
   local button = Button(self)
   button.member = battler
 end
@@ -41,7 +41,7 @@ end
 ---------------------------------------------------------------------------------------------------
 
 -- Refresh each member info.
-function MemberListWindow:refreshMembers()
+function MemberWindow:refreshMembers()
   for i = 1, #self.matrix do
     local button = self.matrix[i]
     if button.memberInfo then
@@ -55,7 +55,7 @@ function MemberListWindow:refreshMembers()
   end
 end
 -- Overrides Window:show.
-function MemberListWindow:show(...)
+function MemberWindow:show(...)
   if not self.open then
     self:refreshMembers()
     self:hideContent()
@@ -70,13 +70,13 @@ end
 -- Called when player presses "confirm" on this button.
 -- Shows the GUI for member management.
 -- @param(button : Button)
-function MemberListWindow:onButtonConfirm(button)
+function MemberWindow:onButtonConfirm(button)
   self.GUI:onMemberConfirm(button.index)
 end
 -- @param(button : Button)
 -- Called when player presses "cancel" on this button.
 -- Hides this windows and shows the main window.
-function MemberListWindow:onButtonCancel(button)
+function MemberWindow:onButtonCancel(button)
   self.GUI:onMemberCancel()
 end
 
@@ -85,24 +85,24 @@ end
 ---------------------------------------------------------------------------------------------------
 
 -- Overrides GridWindow:colCount.
-function MemberListWindow:colCount()
+function MemberWindow:colCount()
   return 1
 end
 -- Overrides GridWindow:rowCount.
-function MemberListWindow:rowCount()
+function MemberWindow:rowCount()
   return 4
 end
 -- Overrides ListWindow:cellWidth.
-function MemberListWindow:cellWidth()
+function MemberWindow:cellWidth()
   return ListWindow.cellWidth(self) + 101
 end
 -- Overrides GridWindow:cellHeight.
-function MemberListWindow:cellHeight()
+function MemberWindow:cellHeight()
   return (ListWindow.cellHeight(self) * 3 + self:rowMargin() * 2)
 end
-
-function MemberListWindow:__tostring()
+-- @ret(string) String representation (for debugging).
+function MemberWindow:__tostring()
   return 'Member List Window'
 end
 
-return MemberListWindow
+return MemberWindow

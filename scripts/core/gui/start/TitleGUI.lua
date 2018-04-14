@@ -9,7 +9,7 @@ The GUI that is shown in the end of the battle.
 
 -- Imports
 local GUI = require('core/gui/GUI')
-local LoadWindow = require('core/gui/start/window/LoadWindow')
+local LoadWindow = require('core/gui/save/window/LoadWindow')
 local Text = require('core/graphics/Text')
 local TitleCommandWindow = require('core/gui/start/window/TitleCommandWindow')
 

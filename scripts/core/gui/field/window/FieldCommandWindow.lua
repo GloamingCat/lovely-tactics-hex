@@ -10,6 +10,7 @@ Main GUI's selectable window.
 -- Imports
 local Button = require('core/gui/widget/Button')
 local GridWindow = require('core/gui/GridWindow')
+local SaveGUI = require('core/gui/save/SaveGUI')
 
 local FieldCommandWindow = class(GridWindow)
 
@@ -43,7 +44,9 @@ function FieldCommandWindow:configConfirm()
 end
 
 function FieldCommandWindow:saveConfirm()
-  self.GUI:showWindowForResult(self.GUI.saveWindow)
+  self.GUI:hide()
+  GUIManager:showGUIForResult(SaveGUI())
+  self.GUI:show()
 end
 
 function FieldCommandWindow:quitConfirm()

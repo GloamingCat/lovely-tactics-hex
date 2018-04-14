@@ -278,8 +278,10 @@ function GridWindow:onMouseMove(x, y)
     if self.scroll then
       self.scroll:onMouseMove(x, y)
     end
-    x, y = x + self.width / 2 - self:paddingX(), y + self.height / 2 - self:paddingY()
-    x, y = math.floor(x / self:cellWidth()) + 1, math.floor(y / self:cellHeight()) + 1
+    x = x + self.width / 2 - self:paddingX() - self:gridX() + self:colMargin() / 2
+    y = y + self.height / 2 - self:paddingY() - self:gridY() + self:rowMargin() / 2
+    x = math.floor( x / (self:cellWidth() + self:colMargin() ) ) + 1
+    y = math.floor( y / (self:cellHeight() + self:rowMargin() ) ) + 1
     local widget = self:getCell(x, y)
     if widget then
       self.currentCol = x + self.offsetCol

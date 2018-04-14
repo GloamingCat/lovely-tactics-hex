@@ -3,15 +3,17 @@ return {
   -- Title Window
   newGame = 'New Game',
   loadGame = 'Load Game',
-  noSave = 'Empty',
   quickSave = 'Quick Save',
+  
+  -- Save
+  saveName = 'Save',
+  noSave = 'Empty',
   
   -- Main Window
   inventory = 'Inventory',
   members = 'Characters',
   config = 'Settings',
   save = 'Save',
-  saveName = 'Save',
   quit = 'Quit',
   title = 'Title Screen',
   close = 'Close Game',

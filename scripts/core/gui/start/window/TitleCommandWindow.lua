@@ -43,14 +43,14 @@ function TitleCommandWindow:newGameConfirm()
 end
 -- Load Game button.
 function TitleCommandWindow:loadGameConfirm()
-  self:hide()
+  self.GUI:hide()
   local result = self.GUI:showWindowForResult(self.GUI.loadWindow)
   if result ~= '' then
     self.result = 1
     self.GUI:hide()
     SaveManager:loadSave(result)
   else
-    self:show()
+    self.GUI:show()
   end
 end
 -- Quit button.

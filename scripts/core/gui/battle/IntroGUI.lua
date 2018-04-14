@@ -11,7 +11,7 @@ The GUI that is shown in the beginning of the battle.
 local GUI = require('core/gui/GUI')
 local IntroWindow = require('core/gui/battle/window/IntroWindow')
 local MemberGUI = require('core/gui/members/MemberGUI')
-local MemberListWindow = require('core/gui/members/window/MemberListWindow')
+local MemberWindow = require('core/gui/members/window/MemberWindow')
 local Troop = require('core/battle/Troop')
 
 local IntroGUI = class(GUI)
@@ -39,7 +39,7 @@ function IntroGUI:createMainWindow()
 end
 -- Creates window with members to manage.
 function IntroGUI:createMembersWindow()
-  self.membersWindow = MemberListWindow(self.troop, self)
+  self.membersWindow = MemberWindow(self.troop, self)
   self.membersWindow:setVisible(false)
 end
 

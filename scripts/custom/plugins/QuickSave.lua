@@ -14,7 +14,7 @@ KeyMap[args.loadKey] = 'load'
 -- Imports
 local Player = require('core/objects/Player')
 local PopupText = require('core/battle/PopupText')
-local LoadWindow = require('core/gui/start/window/LoadWindow')
+local LoadWindow = require('core/gui/save/window/LoadWindow')
 
 ---------------------------------------------------------------------------------------------------
 -- Player

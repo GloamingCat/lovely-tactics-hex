@@ -13,9 +13,8 @@ local FieldCommandWindow = require('core/gui/field/window/FieldCommandWindow')
 local GoldWindow = require('core/gui/general/window/GoldWindow')
 local LocalWindow = require('core/gui/general/window/LocalWindow')
 local MemberGUI = require('core/gui/members/MemberGUI')
-local MemberListWindow = require('core/gui/members/window/MemberListWindow')
+local MemberWindow = require('core/gui/members/window/MemberWindow')
 local QuitWindow = require('core/gui/field/window/QuitWindow')
-local SaveWindow = require('core/gui/general/window/SaveWindow')
 local TimeWindow = require('core/gui/general/window/TimeWindow')
 local Troop = require('core/battle/Troop')
 local Vector = require('core/math/Vector')
@@ -36,7 +35,6 @@ function FieldGUI:createWindows()
   self:createTimeWindow()
   self:createMembersWindow()
   self:createQuitWindow()
-  self:createSaveWindow()
 end
 -- Creates the list with the main commands.
 function FieldGUI:createMainWindow()
@@ -72,7 +70,7 @@ function FieldGUI:createTimeWindow()
 end
 -- Creates the member list window the shows when player selects "Characters" button.
 function FieldGUI:createMembersWindow()
-  local w = MemberListWindow(self.troop, self)
+  local w = MemberWindow(self.troop, self)
   local x = ScreenManager.width / 2 - w.width / 2 - self:windowMargin()
   local y = -ScreenManager.height / 2 + w.height / 2 + self:windowMargin()
   w:setXYZ(x, y)
@@ -83,11 +81,6 @@ end
 function FieldGUI:createQuitWindow()
   self.quitWindow = QuitWindow(self)
   self.quitWindow:setVisible(false)
-end
--- Creates the window with the save slots.
-function FieldGUI:createSaveWindow()
-  self.saveWindow = SaveWindow(self)
-  self.saveWindow:setVisible(false)
 end
 
 ---------------------------------------------------------------------------------------------------

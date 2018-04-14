@@ -9,8 +9,9 @@ Window that shows the list of save slots.
 
 -- Imports
 local Button = require('core/gui/widget/Button')
-local GridWindow = require('core/gui/GridWindow')
 local ConfirmWindow = require('core/gui/general/window/ConfirmWindow')
+local GridWindow = require('core/gui/GridWindow')
+local SaveInfo = require('core/gui/general/widget/SaveInfo')
 
 local SaveWindow = class(GridWindow)
 
@@ -35,12 +36,36 @@ end
 -- @param(name : string) Name of the button that will be shown.
 -- @ret(Button) Newly created button.
 function SaveWindow:createSaveButton(file, name)
-  local save = SaveManager.saves[file]
   local button = Button(self)
   button.file = file
-  button.save = save
-  button:createText(save and (name or file) or Vocab.noSave)
   return button
+end
+
+---------------------------------------------------------------------------------------------------
+-- Saves
+---------------------------------------------------------------------------------------------------
+
+-- Refresh each member info.
+function SaveWindow:refreshSave(button)  
+  if button.saveInfo then
+    button.saveInfo:destroy()
+    button.content:removeElement(button.saveInfo)
+  end
+  local w, h = self:cellWidth(), self:cellHeight()
+  button.saveInfo = SaveInfo(button.file, w - self:paddingX(), h)
+  button.content:add(button.saveInfo)
+  button:updatePosition(self.position)
+  button:updateEnabled()
+end
+-- Overrides Window:show.
+function SaveWindow:show(...)
+  if not self.open then
+    for button in self.matrix:iterator() do
+      self:refreshSave(button)
+    end
+    self:hideContent()
+  end
+  GridWindow.show(self, ...)
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -49,13 +74,13 @@ end
 
 -- When player chooses a file to load.
 function SaveWindow:onButtonConfirm(button)
-  if button.save then
+  if SaveManager.saves[button.file] then
     local result = self.GUI:showWindowForResult(self.confirmWindow)
     if result == 0 then
       return
     end
   end
-  button:createText(Vocab.saveName .. ' ' .. button.file)
+  self:refreshSave(button)
   SaveManager:storeSave(button.file)
   self.result = button.file
 end
@@ -75,6 +100,14 @@ end
 -- Overrides GridWindow:rowCount.
 function SaveWindow:rowCount()
   return math.min(SaveManager.maxSaves, 4)
+end
+-- Overrides ListWindow:cellWidth.
+function SaveWindow:cellWidth()
+  return GridWindow.cellWidth(self) + 200
+end
+-- Overrides GridWindow:cellHeight.
+function SaveWindow:cellHeight()
+  return (GridWindow.cellHeight(self) * 3 + self:rowMargin() * 2)
 end
 -- @ret(string) String representation (for debugging).
 function SaveWindow:__tostring()
