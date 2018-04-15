@@ -229,6 +229,7 @@ function ActionGUI:startGridSelecting(target)
     GUIManager.fiberList:fork(self.stepWindow.show, self.stepWindow)
   end
   FieldManager:showGrid()
+  FieldManager.renderer:moveToTile(target)
   self.cursor = self.cursor or BattleCursor()
   self:selectTarget(target)
   self.gridSelecting = true

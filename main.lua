@@ -7,6 +7,8 @@ Implements basic game callbacks (load, update and draw).
 
 =================================================================================================]]
 
+require('core/base/globals')
+
 ---------------------------------------------------------------------------------------------------
 -- General
 ---------------------------------------------------------------------------------------------------
@@ -14,7 +16,6 @@ Implements basic game callbacks (load, update and draw).
 -- This function is called exactly once at the beginning of the game.
 -- @param(arg : table) a sequence strings which are command line arguments given to the game
 function love.load(arg)
-  require('core/base/globals')
   GameManager:start(arg)
 end
 -- Callback function used to update the state of the game every frame.
@@ -34,15 +35,7 @@ end
 -- Callback function triggered when window receives or loses focus.
 -- @param(f : boolean) window focus
 function love.focus(f)
-  if f then
-    ResourceManager:refreshImages()
-    local renderers = _G.ScreenManager.renderers
-    for i = 1, #renderers do
-      if renderers[i] then
-        renderers[i].needRedraw = true
-      end
-    end
-  end
+  ScreenManager:onFocus(f)
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -54,19 +47,13 @@ end
 -- @param(scancode : string) the code of the key
 -- @param(isrepeat : boolean) if the call is a repeat
 function love.keypressed(code, scancode, isrepeat)
-  code = KeyMap[code]
-  if code and not isrepeat then
-    InputManager.keys[code]:onPress(isrepeat)
-  end
+  InputManager:onPress(code, scancode, isrepeat)
 end
 -- Called when player releases any key.
 -- @param(code : string) the code of the key based on keyboard layout
 -- @param(scancode : string) the code of the key
-function love.keyreleased(code, scancode, ...)
-  code = KeyMap[code]
-  if code then
-    InputManager.keys[code]:onRelease()
-  end
+function love.keyreleased(code, scancode)
+  InputManager:onRelease(code, scancode)
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -78,26 +65,18 @@ end
 -- @param(y : number) cursor's y coordinate
 -- @param(button : number) button type (1 to 3)
 function love.mousepressed(x, y, button)
-  local code = KeyMap['mouse' .. button]
-  if code then
-    InputManager.keys[code]:onPress()
-  end
-  InputManager.mouse:onPress(button)
+  InputManager:onMousePress(x, y, button)
 end
 -- Called when a mouse button is released.
 -- @param(x : number) cursor's x coordinate
 -- @param(y : number) cursor's y coordinate
 -- @param(button : number) button type (1 to 3)
 function love.mousereleased(x, y, button)
-  local code = KeyMap['mouse' .. button]
-  if code then
-    InputManager.keys[code]:onRelease()
-  end
-  InputManager.mouse:onRelease(button)
+  InputManager:onMouseRelease(x, y, button)
 end
--- Called the cursor moves.
+-- Called when the cursor moves.
 -- @param(x : number) cursor's x coordinate
 -- @param(y : number) cursor's y coordinate
 function love.mousemoved(x, y)
-  InputManager.mouse:onMove(x, y)
+  InputManager:onMouseMove(x, y)
 end

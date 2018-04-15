@@ -111,4 +111,56 @@ function InputManager:ortAxis(startGap, repeatGap, delay)
   end
 end
 
+---------------------------------------------------------------------------------------------------
+-- Callbacks
+---------------------------------------------------------------------------------------------------
+
+-- Called when player presses any key.
+-- @param(code : string) the code of the key based on keyboard layout
+-- @param(scancode : string) the code of the key
+-- @param(isrepeat : boolean) if the call is a repeat
+function InputManager:onPress(code, scancode, isrepeat)
+  code = KeyMap[code]
+  if code and not isrepeat then
+    self.keys[code]:onPress(isrepeat)
+  end
+end
+-- Called when player releases any key.
+-- @param(code : string) the code of the key based on keyboard layout
+-- @param(scancode : string) the code of the key
+function InputManager:onRelease(code, scancode)
+  code = KeyMap[code]
+  if code then
+    self.keys[code]:onRelease()
+  end
+end
+-- Called when a mouse button is pressed.
+-- @param(x : number) cursor's x coordinate
+-- @param(y : number) cursor's y coordinate
+-- @param(button : number) button type (1 to 3)
+function InputManager:onMousePress(x, y, button)
+  local code = KeyMap['mouse' .. button]
+  if code then
+    self.keys[code]:onPress()
+  end
+  self.mouse:onPress(button)
+end
+-- Called when a mouse button is released.
+-- @param(x : number) cursor's x coordinate
+-- @param(y : number) cursor's y coordinate
+-- @param(button : number) button type (1 to 3)
+function InputManager:onMouseRelease(x, y, button)
+  local code = KeyMap['mouse' .. button]
+  if code then
+    self.keys[code]:onRelease()
+  end
+  self.mouse:onRelease(button)
+end
+-- Called when the cursor moves.
+-- @param(x : number) cursor's x coordinate
+-- @param(y : number) cursor's y coordinate
+function InputManager:onMouseMove(x, y)
+  self.mouse:onMove(x, y)
+end
+
 return InputManager

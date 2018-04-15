@@ -10,6 +10,9 @@ Handles basic game flow.
 -- Imports
 local TitleGUI = require('core/gui/start/TitleGUI')
 
+-- Constants
+local framerate = Config.screen.fpsLimit
+
 local GameManager = class()
 
 ---------------------------------------------------------------------------------------------------
@@ -41,6 +44,7 @@ end
 
 -- Game loop.
 function GameManager:update(dt)
+  local t = os.clock()  
   if not self.paused then
     if not FieldManager.paused then 
       FieldManager:update() 
@@ -67,6 +71,12 @@ function GameManager:update(dt)
     end
     collectgarbage('collect')
   end
+  if framerate then
+    local sleep = 1 / framerate - (os.clock() - t)
+    if sleep > 0 then
+      love.timer.sleep(sleep)
+    end
+  end
 end
 -- Updates profi state.
 function GameManager:updateProfi()
@@ -89,13 +99,13 @@ function GameManager:draw()
   drawCalls = 0
   ScreenManager:draw()
   love.graphics.setFont(self.fpsFont)
-  --self:printStats()
+  self:printStats()
   --self:printCoordinates()
   if self.paused then
     love.graphics.printf('PAUSED', 0, 0, ScreenManager:totalWidth(), 'right')
   end
 end
-
+-- Prints mouse tile coordinates on the screen.
 function GameManager:printCoordinates()
   if not FieldManager.renderer then
     return
@@ -103,10 +113,10 @@ function GameManager:printCoordinates()
   local tx, ty, th = InputManager.mouse:fieldCoord()
   love.graphics.print('(' .. tx .. ',' .. ty .. ',' .. th .. ')', 0, 12)
 end
-
+-- Prints FPS and draw call counts on the screen.
 function GameManager:printStats()
   love.graphics.print(love.timer.getFPS())
-  love.graphics.print(ScreenManager.drawCalls, 24, 0)
+  love.graphics.print(ScreenManager.drawCalls, 32, 0)
 end
 
 ---------------------------------------------------------------------------------------------------

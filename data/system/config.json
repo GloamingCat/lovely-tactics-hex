@@ -5,7 +5,8 @@
 		"nativeHeight": 225,
 		"widthScale": 2,
 		"heightScale": 2,
-		"scaleType": 1
+		"scaleType": 1,
+		"fpsLimit": 120
 	},
 	"player": {
 		"walkSpeed": 104,

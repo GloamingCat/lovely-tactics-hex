@@ -143,5 +143,18 @@ function ScreenManager:setFullscreen()
   self.offsetY = (mode.height - self.canvas:getHeight()) / 2
   setWindowMode(mode.width, mode.height, {fullscreen = true})
 end
+-- Called when window receives/loses focus.
+-- @param(f : boolean) True if screen received focus, false if lost.
+function ScreenManager:onFocus(f)
+  if f then
+    ResourceManager:refreshImages()
+    local renderers = _G.ScreenManager.renderers
+    for i = 1, #renderers do
+      if renderers[i] then
+        renderers[i].needRedraw = true
+      end
+    end
+  end
+end
 
 return ScreenManager
