@@ -136,13 +136,6 @@ function BattlerWindow:setPortrait(member)
   end
   self.portrait:updatePosition(self.position)
 end
--- Overrides Window:destroy.
---[[function BattlerWindow:destroy()
-  Window.destroy(self)
-  if self.portraitAnim then
-    self.portraitAnim:destroy()
-  end
-end]]
 
 ---------------------------------------------------------------------------------------------------
 -- Properties

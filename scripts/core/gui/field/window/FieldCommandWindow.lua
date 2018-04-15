@@ -31,26 +31,29 @@ end
 -- Buttons
 ---------------------------------------------------------------------------------------------------
 
+-- Opens the inventory screen.
 function FieldCommandWindow:inventoryConfirm()
   
 end
-
+-- Chooses a member to manage.
 function FieldCommandWindow:membersConfirm()
   self.GUI.membersWindow:activate()
 end
-
+-- Opens the settings screen.
 function FieldCommandWindow:configConfirm()
   
 end
-
+-- Opens the save screen.
 function FieldCommandWindow:saveConfirm()
   self.GUI:hide()
   GUIManager:showGUIForResult(SaveGUI())
   self.GUI:show()
 end
-
+-- Opens the exit screen.
 function FieldCommandWindow:quitConfirm()
+  self.GUI:hide()
   self.GUI:showWindowForResult(self.GUI.quitWindow)
+  self.GUI:show()
 end
 
 ---------------------------------------------------------------------------------------------------

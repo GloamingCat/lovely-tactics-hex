@@ -89,9 +89,8 @@ function GameManager:draw()
   drawCalls = 0
   ScreenManager:draw()
   love.graphics.setFont(self.fpsFont)
-  love.graphics.print(love.timer.getFPS())
-  love.graphics.print(ScreenManager.drawCalls, 24, 0)
-  self:printCoordinates()
+  --self:printStats()
+  --self:printCoordinates()
   if self.paused then
     love.graphics.printf('PAUSED', 0, 0, ScreenManager:totalWidth(), 'right')
   end
@@ -103,6 +102,11 @@ function GameManager:printCoordinates()
   end
   local tx, ty, th = InputManager.mouse:fieldCoord()
   love.graphics.print('(' .. tx .. ',' .. ty .. ',' .. th .. ')', 0, 12)
+end
+
+function GameManager:printStats()
+  love.graphics.print(love.timer.getFPS())
+  love.graphics.print(ScreenManager.drawCalls, 24, 0)
 end
 
 ---------------------------------------------------------------------------------------------------

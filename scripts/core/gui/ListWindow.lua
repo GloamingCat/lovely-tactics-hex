@@ -44,6 +44,10 @@ function ListWindow:refreshButtons(list)
     self.currentCol = last.col
     self.currentRow = last.row
   end
+  local current = self:currentWidget()
+  if current then
+    self:setSelectedWidget(current)
+  end
   self:packWidgets()
 end
 

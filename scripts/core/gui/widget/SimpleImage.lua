@@ -1,11 +1,11 @@
 
---[[===========================================================================
+--[[===============================================================================================
 
 SimpleImage
--------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
 A generic window content that stores a sprite with a given viewport.
 
-=============================================================================]]
+=================================================================================================]]
 
 -- Imports
 local Sprite = require('core/graphics/Sprite')
@@ -16,9 +16,9 @@ local min = math.min
 
 local SimpleImage = class()
 
--------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
 -- Initialization
--------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
 
 -- @param(sprite : Sprite) image's sprite
 -- @param(x : number) the x position of the top-left corner inside window
@@ -52,19 +52,20 @@ function SimpleImage:setSprite(sprite)
 end
 -- Centers sprite inside the given rectangle.
 function SimpleImage:centerSpriteQuad()
-  local px, py, pw, ph = self.sprite:totalBounds()
+  local px, py, pw, ph = self.sprite.quad:getViewport()
+  pw, ph = pw * self.sprite.scaleX, ph * self.sprite.scaleY
   local x, y = self.x or 0, self.y or 0
   local w, h = self.width or pw, self.height or ph
   local mw, mh = min(pw, w), min(ph, h)
-  local mx, my = px + (pw - mw) / 2, py + (ph - mh) / 2
-  --self.sprite:setQuad(mx, my, mw, mh)
+  local mx, my = (pw - mw) / 2, (ph - mh) / 2
+  self.sprite:setQuad(px + mx, py + my, mw / self.sprite.scaleX, mh / self.sprite.scaleY)
   self.sx = x + w / 2
   self.sy = y + h / 2
 end
 
--------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
 -- Window Content methods
--------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
 
 -- Sets image position.
 function SimpleImage:updatePosition(pos)

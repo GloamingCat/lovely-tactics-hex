@@ -14,7 +14,7 @@ local Vector = require('core/math/Vector')
 local Window = require('core/gui/Window')
 
 -- Constants
-local icon = Config.icons.playtime
+local icon = Config.icons.time
 
 local TimeWindow = class(Window)
 
@@ -41,10 +41,7 @@ function TimeWindow:setTime(time)
   time = math.floor(time)
   if not self.time or self.time ~= time then
     self.time = time
-    local sec = time % 60
-    local min = (time - sec) % 60
-    local hour = (time - 60 * min - sec) % 60 
-    self.text:setText(string.format("%02d:%02d:%02d", hour, min, sec))
+    self.text:setText(string.time(time))
     self.text:redraw()
   end
 end
