@@ -10,6 +10,7 @@ Main GUI's selectable window.
 -- Imports
 local Button = require('core/gui/widget/Button')
 local GridWindow = require('core/gui/GridWindow')
+local InventoryGUI = require('core/gui/field/InventoryGUI')
 local SaveGUI = require('core/gui/save/SaveGUI')
 
 local FieldCommandWindow = class(GridWindow)
@@ -33,7 +34,9 @@ end
 
 -- Opens the inventory screen.
 function FieldCommandWindow:inventoryConfirm()
-  
+  self.GUI:hide()
+  GUIManager:showGUIForResult(InventoryGUI(self.GUI.troop))
+  self.GUI:show()
 end
 -- Chooses a member to manage.
 function FieldCommandWindow:membersConfirm()

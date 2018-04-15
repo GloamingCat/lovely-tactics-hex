@@ -8,15 +8,10 @@ The window that shows the list of items to be used.
 =================================================================================================]]
 
 -- Imports
-local ActionInput = require('core/battle/action/ActionInput')
 local Button = require('core/gui/widget/Button')
 local InventoryWindow = require('core/gui/general/window/InventoryWindow')
-local ItemAction = require('core/battle/action/ItemAction')
 local MenuTargetGUI = require('core/gui/general/MenuTargetGUI')
 local Vector = require('core/math/Vector')
-
--- Constants
-local defaultSkillID = Config.battle.itemSkillID
 
 local ItemWindow = class(InventoryWindow)
 
@@ -30,23 +25,7 @@ function ItemWindow:init(GUI)
   local rowCount = 6
   local fith = rowCount * self:cellHeight() + self:paddingY() * 2
   local items = GUI.inventory:getUsableItems(2)
-  InventoryWindow.init(self, GUI, GUI.inventory, items, nil, fith, nil, rowCount)
-end
--- @param(member : Battler)
-function ItemWindow:setMember(member)
-  self.member = member
-  for i = 1, #self.matrix do
-    self.matrix[i]:updateEnabled()
-    self.matrix[i]:refreshState()
-  end
-end
--- Creates a button from an item ID.
--- @param(id : number) the item ID
-function ItemWindow:createListButton(itemSlot)
-  local button = InventoryWindow.createListButton(self, itemSlot)
-  local id = button.item.use.skillID
-  id = id >= 0 and id or defaultSkillID
-  button.skill = ItemAction:fromData(id, button.item)
+  InventoryWindow.init(self, GUI, nil, GUI.inventory, items, nil, fith, nil, rowCount)
 end
 -- Overrides ListWindow:createButtons.
 function ItemWindow:createWidgets()
@@ -58,33 +37,27 @@ function ItemWindow:createWidgets()
 end
 
 ---------------------------------------------------------------------------------------------------
+-- General
+---------------------------------------------------------------------------------------------------
+
+-- @param(member : Battler)
+function ItemWindow:setMember(member)
+  self.member = member
+  for i = 1, #self.matrix do
+    self.matrix[i]:updateEnabled()
+    self.matrix[i]:refreshState()
+  end
+end
+-- Updates buttons to match new state of the inventory.
+function ItemWindow:refreshItems()
+  local items = self.GUI.inventory:getUsableItems(2)
+  self:refreshButtons(items)
+end
+
+---------------------------------------------------------------------------------------------------
 -- Input handlers
 ---------------------------------------------------------------------------------------------------
 
--- Called when player chooses an item.
--- @param(button : Button) the button selected
-function ItemWindow:onButtonConfirm(button)
-  local input = ActionInput(button.skill, self.member)
-  if button.skill:isArea() then
-    -- Use in all members
-    input.targets = self.GUI.member.troop.current
-    self.input.action:menuUse(self.input)
-    self:refreshItems()
-    self.GUI.memberGUI:refreshMember()
-  else
-    -- Choose a target
-    local memberGUI = self.GUI.memberGUI
-    GUIManager.fiberList:fork(memberGUI.hide, memberGUI)
-    self.GUI:hide()
-    local gui = MenuTargetGUI(self.member.troop)
-    gui.input = input
-    GUIManager:showGUIForResult(gui)
-    self:refreshItems()
-    GUIManager.fiberList:fork(memberGUI.show, memberGUI)
-    _G.Fiber:wait()
-    self.GUI:show()
-  end
-end
 -- Called when player presses "next" key.
 function ItemWindow:onNext()
   self.GUI.memberGUI:nextMember()
@@ -99,11 +72,23 @@ end
 function ItemWindow:buttonEnabled(button)
   return button.skill and button.skill:canMenuUse(self.member)
 end
--- Updates buttons to match new state of the inventory.
-function ItemWindow:refreshItems()
-  local items = self.GUI.inventory:getUsableItems(2)
-  self:refreshButtons(items)
-  self:packWidgets()
+
+---------------------------------------------------------------------------------------------------
+-- Item Skill
+---------------------------------------------------------------------------------------------------
+
+-- Overrides InventoryWindow:singleTargetItem.
+function ItemWindow:singleTargetItem(input)
+  local memberGUI = self.GUI.memberGUI
+  GUIManager.fiberList:fork(memberGUI.hide, memberGUI)
+  self.GUI:hide()
+  local gui = MenuTargetGUI(self.member.troop)
+  gui.input = input
+  GUIManager:showGUIForResult(gui)
+  self:refreshItems()
+  GUIManager.fiberList:fork(memberGUI.show, memberGUI)
+  _G.Fiber:wait()
+  self.GUI:show()
 end
 
 ---------------------------------------------------------------------------------------------------

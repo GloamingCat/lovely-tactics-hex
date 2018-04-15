@@ -30,7 +30,7 @@ function RewardItemWindow:init(GUI, w, h, pos)
   self.noCursor = true
   self.noHighlight = true
   self.gold = GUI.rewards.gold
-  InventoryWindow.init(self, GUI, GUI.rewards.items, nil, w, h, pos)
+  InventoryWindow.init(self, GUI, nil, GUI.rewards.items, nil, w, h, pos)
 end
 -- Overrides ListWindow:createWidgets.
 -- Adds the Gold button.

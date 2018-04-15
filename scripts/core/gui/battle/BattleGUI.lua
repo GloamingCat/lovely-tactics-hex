@@ -52,7 +52,7 @@ function BattleGUI:createItemWindow()
   local inventory = TurnManager:currentTroop().inventory
   local itemList = inventory:getUsableItems(1)
   if #itemList > 0 then
-    self.itemWindow = ActionItemWindow(self, inventory, itemList)
+    self.itemWindow = ActionItemWindow(self, nil, inventory, itemList)
     self.itemWindow.lastOpen = false
   end
 end

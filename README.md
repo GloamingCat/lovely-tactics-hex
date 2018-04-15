@@ -71,7 +71,6 @@ Also, please check the LÖVE2D license here: https://love2d.org/wiki/License.
 ## To-do list
 
 * Settings screen;
-* Inventory screen;
 * GameOver screen;
 * Isometric and orthogonal grid cells.
 
