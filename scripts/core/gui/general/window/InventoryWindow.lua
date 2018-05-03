@@ -96,7 +96,7 @@ end
 -- @param(button : Button) the button to check
 -- @ret(boolean)
 function InventoryWindow:buttonEnabled(button)
-  return (self.member or not button.item.needsUser) and button.skill 
+  return (self.member or button.item and not button.item.needsUser) and button.skill 
     and button.skill:canMenuUse(self.member)
 end
 

@@ -29,19 +29,40 @@ function SaveInfo:init(file, w, h, topLeft)
   
   topLeft = topLeft and topLeft:clone() or Vector(0, 0, 0)
   local margin = 4
+  local iconSize = 20
+  topLeft.x = topLeft.x + 2
   topLeft.y = topLeft.y + 1
   topLeft.z = topLeft.z - 2
   
-  local rw = (w - margin) / 2
   local small = Fonts.gui_small
   local tiny = Fonts.gui_tiny
   local medium = Fonts.medium
   
-  -- Name
-  local name = save and (Vocab.saveName .. ' ' .. file) or Vocab.noSave
-  local txtName = SimpleText(name, topLeft, rw, 'left', medium)
- 
-  self.content = { txtName }
+  if save then
+    -- Name
+    local txtName = SimpleText(Vocab.saveName .. ' ' .. file, topLeft, w, 'left', small)
+    -- PlayTime
+    local topRight = Vector(w - iconSize, topLeft.y, topLeft.z)
+    local iconTime = ResourceManager:loadIcon(Config.icons.time, GUIManager.renderer)
+    local imgTime = SimpleImage(iconTime, topRight:coordinates())
+    local txtTime = SimpleText(string.time(save.playTime), topLeft, w - iconSize, 'right', small)
+    -- Location
+    local middleLeft = Vector(topLeft.x + iconSize, topLeft.y + 15, topLeft.z)
+    local txtLocal = SimpleText(save.location, middleLeft, w - iconSize, 'left', small)
+    -- Gold
+    local txtGold = SimpleText(save.gold .. '', middleLeft, w - iconSize, 'right', small)
+    -- Chars
+    local icons = {}
+    for i = 1, #save.members do
+      local char = Database.characters[save.members[i]]
+      print(char.name)
+    end
+    
+    self.content = { txtName, txtTime, imgTime, txtLocal, txtGold }
+  else
+    local txtName = SimpleText(Vocab.noSave, topLeft, rw, 'left', medium)
+    self.content = { txtName }
+  end
 end
 
 ---------------------------------------------------------------------------------------------------

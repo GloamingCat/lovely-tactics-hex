@@ -6,6 +6,7 @@ Text Shader
 Draws the text with an outline.
 
 =================================================================================================*/
+
 // Size of the pixel. It depends on the text's texture size.
 extern vec2 pixelSize = vec2(0.001f, 0.001f);
 // Scale of the font.

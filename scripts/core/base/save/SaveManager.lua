@@ -120,7 +120,7 @@ function SaveManager:getHeader(save)
   return { members = members,
     playTime = save.playTime,
     gold = troop.gold,
-    fieldName = FieldManager.currentField.name }
+    location = FieldManager.currentField.prefs.name }
 end
 -- Loads the specified save.
 -- @param(file : string) File name.

@@ -35,17 +35,17 @@
 	"icons": {
 		"gold": {
 			"id": 44,
-			"col": 0,
-			"row": 3
+			"col": 2,
+			"row": 1
 		},
 		"location": {
 			"id": 44,
-			"col": 2,
-			"row": 0
+			"col": 3,
+			"row": 1
 		},
 		"time": {
 			"id": 44,
-			"col": 2,
+			"col": 4,
 			"row": 1
 		}
 	},

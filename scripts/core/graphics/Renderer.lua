@@ -19,7 +19,7 @@ local rotate = math.rotate
 
 -- Constants
 local blankTexture = lgraphics.newImage(love.image.newImageData(1, 1))
-local spriteShader = lgraphics.newShader('shaders/sprite.glsl')
+local spriteShader = lgraphics.newShader('shaders/Sprite.glsl')
 
 local Renderer = class(Transformable)
 

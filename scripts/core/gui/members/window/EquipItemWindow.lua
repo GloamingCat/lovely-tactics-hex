@@ -30,7 +30,7 @@ local EquipItemWindow = class(InventoryWindow)
 -- @param(pos : Vector) position of the window's center (optional)
 function EquipItemWindow:init(GUI, w, h, pos, rowCount, member)
   self.member = member or GUI.memberGUI:currentMember()
-  InventoryWindow.init(self, GUI, GUI.inventory, {}, w, h, pos, rowCount)
+  InventoryWindow.init(self, GUI, nil, GUI.inventory, {}, w, h, pos, rowCount)
 end
 -- Overrides ListWindow:createWidgets.
 -- Adds the "unequip" button.
@@ -91,6 +91,12 @@ function EquipItemWindow:showSlotWindow()
   self:hide()
   self.GUI.slotWindow:show()
   self.GUI.slotWindow:activate()
+end
+-- Tells if an item can be used.
+-- @param(button : Button) the button to check
+-- @ret(boolean)
+function EquipItemWindow:buttonEnabled(button)
+  return button.item
 end
 
 ----------------------------------------------------------------------------------------------------

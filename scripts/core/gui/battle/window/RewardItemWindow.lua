@@ -43,6 +43,12 @@ function RewardItemWindow:createWidgets()
   button:createInfoText(self.gold, 'gui_medium')
   InventoryWindow.createWidgets(self)
 end
+-- Tells if an item can be used.
+-- @param(button : Button) the button to check
+-- @ret(boolean)
+function RewardItemWindow:buttonEnabled(button)
+  return true
+end
 
 ---------------------------------------------------------------------------------------------------
 -- Properties
