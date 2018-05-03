@@ -1,16 +1,15 @@
 
 --[[===============================================================================================
 
-RewardGUI
+GameOverGUI
 ---------------------------------------------------------------------------------------------------
-The GUI that is shown in the end of the battle.
+The GUI that is shown when player loses the battle.
 
 =================================================================================================]]
 
 -- Imports
 local GUI = require('core/gui/GUI')
-local RewardEXPWindow = require('core/gui/battle/window/RewardEXPWindow')
-local RewardItemWindow = require('core/gui/battle/window/RewardItemWindow')
+local GameOverWindow = require('core/gui/battle/window/GameOverWindow')
 local Vector = require('core/math/Vector')
 local Text = require('core/graphics/Text')
 
@@ -18,35 +17,28 @@ local Text = require('core/graphics/Text')
 local time = love.timer.getDelta
 local floor = math.floor
 
-local RewardGUI = class(GUI)
+local GameOverGUI = class(GUI)
 
 ---------------------------------------------------------------------------------------------------
 -- Initialize
 ---------------------------------------------------------------------------------------------------
 
 -- Overrides GUI:createWindows.
-function RewardGUI:createWindows()
-  self.name = 'Reward GUI'
+function GameOverGUI:createWindows()
+  self.name = 'Game Over GUI'
   self:createTopText()
   -- Reward windows
-  local w = (ScreenManager.width - self:windowMargin() * 3) / 2
-  local h = ScreenManager.height - self.topText:getHeight() - self:windowMargin() * 3
-  local x = ScreenManager.width / 2 - w / 2 - self:windowMargin()
-  local y = ScreenManager.height / 2 - h / 2 - self:windowMargin()
   self.troop = TroopManager:getPlayerTroop()
-  self.rewards = self.troop:getBattleRewards()
-  self:createEXPWindow(x, y, w, h)
-  self:createItemWindow(x, y, w, h)
-  self:setActiveWindow(self.expWindow)
-  self.troop:addRewards(self.rewards)
+  self:createMainWindow()
+  self:setActiveWindow(self.mainWindow)
 end
 -- Creates the text at the top of the screen to show that the player won.
-function RewardGUI:createTopText()
+function GameOverGUI:createTopText()
   local prop = {
     ScreenManager.width,
     'center',
     Fonts.gui_big }
-  self.topText = Text(Vocab.win, prop, GUIManager.renderer)
+  self.topText = Text(Vocab.lose, prop, GUIManager.renderer)
   local x = -ScreenManager.width / 2
   local y = -ScreenManager.height / 2 + self:windowMargin() * 2
   self.topText:setXYZ(x, y)
@@ -54,19 +46,12 @@ function RewardGUI:createTopText()
   self.topTextSpeed = 8
 end
 -- Creates the window that shows battle results.
-function RewardGUI:createEXPWindow(x, y, w, h)
-  local pos = Vector(-x, y)
-  local window = RewardEXPWindow(self, w, h, pos)
-  self.expWindow = window
-end
--- Creates the window that shows battle results.
-function RewardGUI:createItemWindow(x, y, w, h)
-  local pos = Vector(x, y)
-  local window = RewardItemWindow(self, w, h, pos)
-  self.itemWindow = window
+function GameOverGUI:createMainWindow()
+  local window = GameOverWindow(self)
+  self.mainWindow = window
 end
 -- Overrides GUI:destroy to destroy top text.
-function RewardGUI:destroy(...)
+function GameOverGUI:destroy(...)
   GUI.destroy(self, ...)
   self.topText:destroy()
 end
@@ -76,13 +61,13 @@ end
 ---------------------------------------------------------------------------------------------------
 
 -- Show top text before openning windows.
-function RewardGUI:show(...)
+function GameOverGUI:show(...)
   self:showTopText()
   _G.Fiber:wait(15)
   GUI.show(self, ...)
 end
 -- Animation that shows the text at the top.
-function RewardGUI:showTopText()
+function GameOverGUI:showTopText()
   local a = 0
   self.topText:setVisible(true)
   self.topText:setRGBA(nil, nil, nil, 0)
@@ -99,12 +84,12 @@ end
 ---------------------------------------------------------------------------------------------------
 
 -- Hide top text after closing windows.
-function RewardGUI:hide(...)
+function GameOverGUI:hide(...)
   GUI.hide(self, ...)
   self:hideTopText()
 end
 -- Animation that shows the text at the top.
-function RewardGUI:hideTopText()
+function GameOverGUI:hideTopText()
   local a = 255
   while a > 0 do
     a = a - time() * 60 * self.topTextSpeed
@@ -114,4 +99,4 @@ function RewardGUI:hideTopText()
   self.topText:setVisible(false)
 end
 
-return RewardGUI
+return GameOverGUI

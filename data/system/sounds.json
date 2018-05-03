@@ -81,5 +81,10 @@
 		"name": "battle1.ogg",
 		"pitch": 100,
 		"volume": 100
+	},
+	"gameOver": {
+		"name": "gameover.ogg",
+		"pitch": 85,
+		"volume": 100
 	}
 }

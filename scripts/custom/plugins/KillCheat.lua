@@ -8,7 +8,8 @@ Used to skip battles during game test.
 
 =================================================================================================]]
 
-KeyMap[args.key] = 'kill'
+KeyMap[args.win] = 'win'
+KeyMap[args.lose] = 'lose'
 
 -- Imports
 local TurnManager = require('core/battle/TurnManager')
@@ -23,9 +24,13 @@ end
 
 local TurnManager_runTurn = TurnManager.runTurn
 function TurnManager:runTurn()
-  if InputManager.keys['kill']:isPressing() then
+  if InputManager.keys['win']:isPressing() then
     killAll(TroopManager.playerParty)
     return 1, TroopManager.playerParty
+  elseif InputManager.keys['lose']:isPressing() then
+    local party = #TroopManager.troops - TroopManager.playerParty + 1
+    killAll(party)
+    return -1, party
   else
    return TurnManager_runTurn(self)
   end

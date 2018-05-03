@@ -15,6 +15,8 @@ return {
   config = 'Settings',
   save = 'Save',
   quit = 'Quit',
+  
+  -- Quit Window
   title = 'Title Screen',
   close = 'Close Game',
   
@@ -44,6 +46,11 @@ return {
   gold = 'Gold',
   g = 'G',
   experience = 'Experience',
+  
+  -- Battle lose
+  lose = 'Game Over',
+  continue = 'Continue',
+  retry = 'Retry',
   
   -- Turn Window
   attack = 'Attack',

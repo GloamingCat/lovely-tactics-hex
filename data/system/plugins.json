@@ -8,7 +8,8 @@
 		"path": "KillCheat",
 		"on": true,
 		"param": {
-			"key": "k"
+			"win": "k",
+			"lose": "l"
 		}
 	},
 	{

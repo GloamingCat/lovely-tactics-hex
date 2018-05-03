@@ -185,15 +185,11 @@ function FieldManager:loadBattle(fieldID, params)
     fiber:execAll()
   end
   collectgarbage('collect')
-  local winner, result = BattleManager:runBattle()
+  local result = BattleManager:runBattle()
   self:setState(previousState)
-  if not BattleManager:isGameOver() and params.fade then
-    self.renderer:fadeout(0)
-    self.renderer:fadein(params.fade / 4, true)
-  end
   previousState = nil
   collectgarbage('collect')
-  return winner, result
+  return result
 end
 
 ---------------------------------------------------------------------------------------------------

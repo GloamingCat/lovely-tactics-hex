@@ -21,6 +21,7 @@ local newQuad = love.graphics.newQuad
 -- Cache
 local ImageCache = {}
 local FontCache = {}
+local ShaderCache = {}
 
 local ResourceManager = class()
 
@@ -161,6 +162,29 @@ end
 function ResourceManager:clearFontCache()
   for k in pairs(FontCache) do
     FontCache[k] = nil
+  end
+end
+
+---------------------------------------------------------------------------------------------------
+-- Shader
+---------------------------------------------------------------------------------------------------
+
+-- Loads a GLSL shader.
+-- @param(name : string) Name of the shader file, from "shaders" folder.
+-- @ret(Shader) 
+function ResourceManager:loadShader(name)
+  local shader = ShaderCache[name]
+  if not shader then
+    shader = love.graphics.newShader('shaders/' .. name .. '.glsl')
+    ShaderCache[name] = shader
+  end
+  return shader
+end
+-- Clears Sahder cache table.
+-- Only use this if there is no other reference to the shaders.
+function ResourceManager:clearShaderCache()
+  for k in pairs(ShaderCache) do
+    ShaderCache[k] = nil
   end
 end
 

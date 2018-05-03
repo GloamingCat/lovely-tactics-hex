@@ -97,7 +97,7 @@
 						"fieldID": 0,
 						"fade": 5,
 						"intro": true,
-						"gameOverCondition": 0,
+						"gameOverCondition": 1,
 						"escapeEnabled": true
 					}
 				},

@@ -14,9 +14,6 @@ local TagMap = require('core/base/datastruct/TagMap')
 -- Alias
 local deltaTime = love.timer.getDelta
 
--- Constants
-local battleIntroShader = love.graphics.newShader('shaders/BattleIntro.glsl')
-
 local util = {}
 
 ---------------------------------------------------------------------------------------------------
@@ -110,6 +107,32 @@ function util.fadein(sheet, event, args)
     end)
   end
 end
+-- Shows the effect of a shader.
+-- @param(args.name : string)
+function util.shaderin(sheet, event, args)
+  ScreenManager.shader = ResourceManager:loadShader(args.name)
+  ScreenManager.shader:send('time', 0)
+  local time = deltaTime()
+  while time < 1 do
+    ScreenManager.shader:send('time', time)
+    coroutine.yield()
+    time = time + deltaTime() * (args.speed or 1)
+  end
+  ScreenManager.shader:send('time', 1)
+end
+-- Hides the effect of a shader.
+-- @param(args.name : string)
+function util.shaderout(sheet, event, args)
+  ScreenManager.shader:send('time', 1)
+  local time = deltaTime()
+  while time > 0 do
+    ScreenManager.shader:send('time', time)
+    coroutine.yield()
+    time = time - deltaTime() * (args.speed or 1)
+  end
+  ScreenManager.shader:send('time', 0)
+  ScreenManager.shader = nil
+end
 
 ---------------------------------------------------------------------------------------------------
 -- Field
@@ -149,21 +172,25 @@ end
 -- @param(args.escapeEnabled : boolean) True to enable the whole party to escape.
 function util.startBattle(sheet, event, args)
   local fiber = FieldManager.fiberList:fork(function()
+    local bgm = AudioManager:pauseBGM()
+    ::retry::
+    local shaderArgs = {name = 'BattleIntro'}
     if args.fade then
-      local previousBGM = AudioManager:pauseBGM()
+      local shader = ScreenManager.shader
+      util.shaderin(sheet, event, shaderArgs)
       -- TODO: play battle intro SFX
       -- TODO: play battle theme
-      local shader = ScreenManager.shader
-      ScreenManager.shader = battleIntroShader
-      local time = deltaTime()
-      while time <= 1 do
-        battleIntroShader:send('time', time)
-        coroutine.yield()
-        time = time + deltaTime()
-      end
-      ScreenManager.shader = nil
+      ScreenManager.shader = shader
     end
-    FieldManager:loadBattle(args.fieldID, args)
+    local result = FieldManager:loadBattle(args.fieldID, args)
+    AudioManager:pauseBGM()
+    if result == 2 then -- Retry
+      goto retry
+    elseif result == 3 then -- Title Screen
+      GameManager:restart()
+    elseif bgm then
+      AudioManager:playBGM({name = bgm.name, volume = bgm.volume * 100, pitch = bgm.pitch * 100})
+    end
   end)
   fiber:waitForEnd()
 end

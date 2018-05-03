@@ -17,6 +17,7 @@ local Animation = require('core/graphics/Animation')
 local TileGraphics = require('core/field/TileGUI')
 local IntroGUI = require('core/gui/battle/IntroGUI')
 local RewardGUI = require('core/gui/battle/RewardGUI')
+local GameOverGUI = require('core/gui/battle/GameOverGUI')
 
 -- Constants
 local defaultParams = {
@@ -60,7 +61,7 @@ end
 ---------------------------------------------------------------------------------------------------
 
 -- Runs until battle finishes.
--- @ret(number) the winner party
+-- @ret(number) The result of the end GUI.
 function BattleManager:runBattle()
   self.result = nil
   self.winner = nil
@@ -72,8 +73,7 @@ function BattleManager:runBattle()
   repeat
     self.result, self.winner = TurnManager:runTurn()
   until self.result
-  self:battleEnd()
-  return self.winner, self.result
+  return self:battleEnd()
 end
 -- Runs before battle loop.
 function BattleManager:battleStart()
@@ -103,10 +103,14 @@ function BattleManager:battleIntro()
 end
 -- Runs after winner was determined and battle loop ends.
 function BattleManager:battleEnd()
+  local result = 1
   if self:playerWon() then
     GUIManager:showGUIForResult(RewardGUI())
-  elseif self:isGameOver() then
-    return self:gameOver()
+  else
+    if Config.sounds.gameOver then
+      AudioManager:playBGM(Config.sounds.gameOver)
+    end
+    result = GUIManager:showGUIForResult(GameOverGUI())
   end
   if self.params.fade then
     FieldManager.renderer:fadeout(self.params.fade / 4, true)
@@ -114,6 +118,7 @@ function BattleManager:battleEnd()
   TroopManager:onBattleEnd()
   self:clear()
   self.onBattle = false
+  return result
 end
 -- Clears batte information from characters and field.
 function BattleManager:clear()
@@ -132,12 +137,6 @@ end
 -- Battle results
 ---------------------------------------------------------------------------------------------------
 
--- Called when player loses.
-function BattleManager:gameOver()
-  -- TODO: 
-  -- fade out screen
-  -- show game over GUI
-end
 -- Checks if player won battle.
 function BattleManager:playerWon()
   return self.result == 1

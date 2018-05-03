@@ -143,6 +143,7 @@ end
 
 -- Restarts the game from the TitleGUI.
 function GameManager:restart()
+  ScreenManager.shader = nil
   ScreenManager.renderers = {}
   FieldManager = require('core/field/FieldManager')()
   GUIManager = require('core/gui/GUIManager')()
