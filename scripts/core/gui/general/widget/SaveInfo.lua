@@ -13,6 +13,9 @@ local SimpleImage = require('core/gui/widget/SimpleImage')
 local SimpleText = require('core/gui/widget/SimpleText')
 local Vector = require('core/math/Vector')
 
+-- Constants
+local maxMembers = Config.troop.maxMembers
+
 local SaveInfo = class()
 
 ---------------------------------------------------------------------------------------------------
@@ -29,9 +32,8 @@ function SaveInfo:init(file, w, h, topLeft)
   
   topLeft = topLeft and topLeft:clone() or Vector(0, 0, 0)
   local margin = 4
-  local iconSize = 20
   topLeft.x = topLeft.x + 2
-  topLeft.y = topLeft.y + 1
+  topLeft.y = topLeft.y
   topLeft.z = topLeft.z - 2
   
   local small = Fonts.gui_small
@@ -39,28 +41,42 @@ function SaveInfo:init(file, w, h, topLeft)
   local medium = Fonts.medium
   
   if save then
-    -- Name
-    local txtName = SimpleText(Vocab.saveName .. ' ' .. file, topLeft, w, 'left', small)
     -- PlayTime
-    local topRight = Vector(w - iconSize, topLeft.y, topLeft.z)
-    local iconTime = ResourceManager:loadIcon(Config.icons.time, GUIManager.renderer)
-    local imgTime = SimpleImage(iconTime, topRight:coordinates())
-    local txtTime = SimpleText(string.time(save.playTime), topLeft, w - iconSize, 'right', small)
-    -- Location
-    local middleLeft = Vector(topLeft.x + iconSize, topLeft.y + 15, topLeft.z)
-    local txtLocal = SimpleText(save.location, middleLeft, w - iconSize, 'left', small)
+    local topRight = Vector(topLeft.x, topLeft.y + 3, topLeft.z)
+    local txtTime = SimpleText(string.time(save.playTime), topRight, w, 'right', small)
     -- Gold
-    local txtGold = SimpleText(save.gold .. '', middleLeft, w - iconSize, 'right', small)
+    local middleLeft = Vector(topLeft.x, topLeft.y + 13, topLeft.z)
+    local txtGold = SimpleText(save.gold .. ' ' .. Vocab.g, middleLeft, w , 'right', small)
     -- Chars
     local icons = {}
-    for i = 1, #save.members do
-      local char = Database.characters[save.members[i]]
-      print(char.name)
+    for i = 1, maxMembers do
+      if save.members[i] then
+        local char = Database.characters[save.members[i]]
+        local icon = {
+          id = char.animations.default.Idle,
+          col = 0, row = 7 }
+        local sprite = ResourceManager:loadIcon(icon, GUIManager.renderer)
+        sprite:applyTransformation(char.transform)
+        sprite:setCenterOffset()
+        icons[i] = sprite
+      else
+        icons[i] = false
+      end
     end
-    
-    self.content = { txtName, txtTime, imgTime, txtLocal, txtGold }
+    local iconList = IconList(Vector(topLeft.x + 10, topLeft.y + 12), w, 20, 20, 20)
+    iconList.iconWidth = 18
+    iconList.iconHeight = 18
+    iconList:setSprites(icons)
+    -- Location
+    local bottomLeft = Vector(middleLeft.x, middleLeft.y + 10, middleLeft.z)
+    local txtLocal = SimpleText(save.location, bottomLeft, w, 'left', small)
+
+    self.content = { txtTime, txtLocal, txtGold, iconList }
   else
-    local txtName = SimpleText(Vocab.noSave, topLeft, rw, 'left', medium)
+    local txtName = SimpleText(Vocab.noSave, topLeft, w, 'left', medium)
+    txtName.sprite.alignX = 'center'
+    txtName.sprite.alignY = 'center'
+    txtName.sprite.maxHeight = h
     self.content = { txtName }
   end
 end

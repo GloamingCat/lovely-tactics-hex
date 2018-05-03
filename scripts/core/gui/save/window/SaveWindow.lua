@@ -103,11 +103,11 @@ function SaveWindow:rowCount()
 end
 -- Overrides ListWindow:cellWidth.
 function SaveWindow:cellWidth()
-  return GridWindow.cellWidth(self) + 200
+  return GridWindow.cellWidth(self) + 100
 end
 -- Overrides GridWindow:cellHeight.
 function SaveWindow:cellHeight()
-  return (GridWindow.cellHeight(self) * 3 + self:rowMargin() * 2)
+  return (GridWindow.cellHeight(self) * 3 + self:rowMargin() * 2) - 4
 end
 -- @ret(string) String representation (for debugging).
 function SaveWindow:__tostring()

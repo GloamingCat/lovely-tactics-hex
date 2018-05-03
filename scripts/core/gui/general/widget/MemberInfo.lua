@@ -63,7 +63,7 @@ function MemberInfo:init(battler, w, h, topLeft)
   
   -- Status
   local topRight = Vector(topLeft.x + rw + margin + 8, topLeft.y + 8, topLeft.z - 20)
-  local status = IconList(topRight, rw, 24)
+  local status = IconList(topRight, rw, 20)
   status:setIcons(battler.statusList:getIcons())
   -- Level / Class
   local middleRight = Vector(topRight.x - 7, topRight.y + 8, topRight.z)

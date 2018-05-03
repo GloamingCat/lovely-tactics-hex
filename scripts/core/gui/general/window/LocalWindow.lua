@@ -26,7 +26,7 @@ local LocalWindow = class(Window)
 function LocalWindow:createContent(width, height)
   Window.createContent(self, width, height)
   local sprite = icon and icon.id >= 0 and ResourceManager:loadIcon(icon, GUIManager.renderer)
-  local icon = SimpleImage(sprite, -width / 2, -height / 2, -1, nil, height)
+  local icon = SimpleImage(sprite, -width / 2 + 4, -height / 2, -1, nil, height)
   self.content:add(icon)
   local pos = Vector(self:paddingX() - width / 2, self:paddingY() - height / 2, -1)
   if sprite then

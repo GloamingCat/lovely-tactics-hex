@@ -42,6 +42,7 @@ return {
   -- Battle win
   win = 'You won!',
   gold = 'Gold',
+  g = 'G',
   experience = 'Experience',
   
   -- Turn Window
