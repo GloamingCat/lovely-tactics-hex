@@ -12,6 +12,7 @@ local Button = require('core/gui/widget/Button')
 local GridWindow = require('core/gui/GridWindow')
 local InventoryGUI = require('core/gui/field/InventoryGUI')
 local SaveGUI = require('core/gui/save/SaveGUI')
+local SettingsGUI = require('core/gui/settings/SettingsGUI')
 
 local FieldCommandWindow = class(GridWindow)
 
@@ -44,7 +45,9 @@ function FieldCommandWindow:membersConfirm()
 end
 -- Opens the settings screen.
 function FieldCommandWindow:configConfirm()
-  
+  self.GUI:hide()
+  GUIManager:showGUIForResult(SettingsGUI())
+  self.GUI:show()
 end
 -- Opens the save screen.
 function FieldCommandWindow:saveConfirm()

@@ -25,30 +25,32 @@ local Spinner = class(GridWidget)
 
 -- Constructor.
 -- @param(window  : GridWindow) the window this spinner belongs to.
-function Spinner:init(window, initValue, minValue, maxValue)
+-- @param(minValue : number) Minimum value.
+-- @param(maxValue : number) Maximum value.
+-- @param(initValue : number) Initial value.
+function Spinner:init(window, minValue, maxValue, initValue)
   GridWidget.init(self, window)
   self.minValue = minValue or -math.huge
   self.maxValue = maxValue or math.huge
-  self:initContent(initValue or 0)
+  self:initContent(initValue or 0, self.window:cellWidth(), self.window:cellHeight() / 2)
 end
 -- Creates arrows and value test.
-function Spinner:initContent(initValue)
-  local dx = self.window:cellWidth()
-  local dy = self.window:cellHeight() / 2
+function Spinner:initContent(initValue, w, h, x, y)
+  x, y = x or 0, y or 0
   -- Left arrow icon
   local leftArrow = Image('images/GUI/Spinner/leftArrow.png')
   local leftArrowSprite = Sprite(GUIManager.renderer, leftArrow)
   leftArrowSprite:setQuad()
-  self.leftArrow = SimpleImage(leftArrowSprite, 0, dy)
+  self.leftArrow = SimpleImage(leftArrowSprite, x, y + h)
   -- Right arrow icon
   local rightArrow = Image('images/GUI/Spinner/rightArrow.png')
   local rightArrowSprite = Sprite(GUIManager.renderer, rightArrow)
   rightArrowSprite:setQuad()
-  self.rightArrow = SimpleImage(rightArrowSprite, dx, dy)
+  self.rightArrow = SimpleImage(rightArrowSprite, x + w, y + h)
   -- Value text in the middle
   self.value = initValue
-  local textPos = Vector(leftArrow:getWidth(), 0)
-  local textWidth = self.window:cellWidth() - leftArrow:getWidth() - rightArrow:getWidth() 
+  local textPos = Vector(x + leftArrow:getWidth(), y)
+  local textWidth = w - leftArrow:getWidth() - rightArrow:getWidth() 
   self.valueText = SimpleText('' .. initValue, textPos, textWidth, 'center', Fonts.gui_button)
   -- Add to content list
   self.content:add(self.leftArrow)
@@ -62,20 +64,26 @@ end
 
 -- Called when player presses arrows on this spinner.
 function Spinner.onMove(window, spinner, dx, dy)
+  spinner:changeValue(dx, dy)
+end
+-- Changes the current value according to input.
+-- @param(dx : number) Input axis X.
+-- @param(dy : number) Input axis Y.
+function Spinner:changeValue(dx, dy)
   if dy ~= 0 then
-    if spinner.bigIncrement then
-      dx = -dy * spinner.bigIncrement
+    if self.bigIncrement then
+      dx = -dy * self.bigIncrement
     else
       return
     end
   end
-  local value = math.min(spinner.maxValue, math.max(spinner.minValue, spinner.value + dx))
-  spinner:setValue(value)
-  if spinner.onChange then
-    spinner.onChange(window, spinner)
+  local value = math.min(self.maxValue, math.max(self.minValue, self.value + dx))
+  self:setValue(value)
+  if self.onChange then
+    self.onChange(self.window, self)
   end
-  if spinner.selectSound then
-    AudioManager:playSFX(spinner.selectSound)
+  if self.selectSound then
+    AudioManager:playSFX(self.selectSound)
   end
 end
 

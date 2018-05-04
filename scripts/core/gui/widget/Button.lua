@@ -34,7 +34,7 @@ function Button:init(window, onConfirm, enableCondition)
   self.onMove = window.onButtonMove or self.onMove
   self.enableCondition = enableCondition or window.buttonEnabled or self.enableCondition
 end
--- Creates a buttons for the action represented by the given key.
+-- Creates a button for the action represented by the given key.
 -- @param(window : GridWindow) the window that this button is component of
 -- @param(key : string) action's key
 -- @ret(Button)
@@ -48,6 +48,7 @@ function Button:fromKey(window, key)
   if text then
     button:createText(text)
   end
+  button.key = key
   return button
 end
 -- @param(text : string) the text shown in the button

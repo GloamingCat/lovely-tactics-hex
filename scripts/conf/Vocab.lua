@@ -16,6 +16,14 @@ return {
   save = 'Save',
   quit = 'Quit',
   
+  -- Settings
+  volumeBGM = 'BGM Volume',
+  volumeSFX = 'SFX Volume',
+  windowScroll = 'Window Scroll Speed',
+  fieldScroll = 'Field Scroll Speed',
+  resolution = 'Resolution',
+  keys = 'Controls',
+  
   -- Quit Window
   title = 'Title Screen',
   close = 'Close Game',
