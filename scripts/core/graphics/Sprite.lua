@@ -317,9 +317,11 @@ function Sprite:draw(renderer)
     local hsv = renderer.batchHSV
     hsv[1], hsv[2], hsv[3] = self.hsv.h, self.hsv.s, self.hsv.v
   end
+  local sx = ScreenManager.scaleX * renderer.scaleX
+  local sy = ScreenManager.scaleY * renderer.scaleY
   renderer.batch:setColor(self.color.red, self.color.green, self.color.blue, self.color.alpha)
-  renderer.batch:add(self.quad, self.position.x, self.position.y, 
-    self.rotation, self.scaleX, self.scaleY, self.offsetX, self.offsetY)
+  renderer.batch:add(self.quad, round(self.position.x * sx), round(self.position.y * sy), 
+    self.rotation, self.scaleX * sx, self.scaleY * sy, self.offsetX, self.offsetY)
   renderer.toDraw:add(self)
 end
 -- Deletes this sprite.

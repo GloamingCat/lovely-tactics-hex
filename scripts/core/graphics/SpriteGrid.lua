@@ -32,8 +32,8 @@ end
 -- @param(width : number) The width of the final image.
 -- @param(height : number) The height of the final image.
 function SpriteGrid:createGrid(renderer, width, height)
-  local w = floor(self.skin.width / 3)
-  local h = floor(self.skin.height / 3)
+  local w = self.skin.width / 3
+  local h = self.skin.height / 3
   local mw = width - 2 * w
   local mh = height - 2 * h
   self.skinData = {}

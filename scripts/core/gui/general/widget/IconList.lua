@@ -112,15 +112,6 @@ function IconList:hide()
   end
   self.visible = false
 end
--- Updates each icon animation.
-function IconList:update()
-  for i = 1, #self.icons do
-    if self.frames then
-      self.frames[i]:update()
-    end
-    self.icons[i]:update()
-  end
-end
 -- Destroys each icon.
 function IconList:destroy()
   for i = 1, #self.icons do

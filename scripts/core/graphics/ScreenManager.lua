@@ -77,7 +77,7 @@ end
 -- Scales the screen (deforms both field and GUI).
 -- @param(x : number) the scale factor in axis x
 -- @param(y : number) the scale factor in axis y
-function ScreenManager:setScale(x, y)
+function ScreenManager:setScale(x, y, fullScreen)
   if self.scalingType == 0 then
     return
   elseif self.scalingType == 1 then
@@ -89,13 +89,11 @@ function ScreenManager:setScale(x, y)
   y = y or x
   self.scaleX = x
   self.scaleY = y
+  self.offsetX = 0
+  self.offsetY = 0
   self.canvas = lgraphics.newCanvas(self.width * x, self.height * y)
-  if self.width * x == lgraphics.getWidth() 
-      and self.height * y == lgraphics.getHeight() then
-    return
-  end
-  setWindowMode(self.width * x, self.height * y, {fullscreen = false})
-  for i = 1, self.renderers.size do
+  setWindowMode(self.width * x, self.height * y, {fullscreen = fullScreen})
+  for i = 1, #self.renderers do
     self.renderers[i]:resizeCanvas()
   end
 end
@@ -115,7 +113,7 @@ end
 -- Changes screen to window mode.
 function ScreenManager:setWindowed()
   if isFullScreen() then
-    self:scale(defaultScaleX, defaultScaleY)
+    self:setScale(defaultScaleX, defaultScaleY)
   end
 end
 -- Changes screen to full screen mode.
@@ -127,21 +125,13 @@ function ScreenManager:setFullscreen()
   local mode = modes[1]
   local scaleX = mode.width / self.width
   local scaleY = mode.height / self.height
-  if self.scalingType == 1 then
-    local bestScale = 1
-    while bestScale * self.width <= mode.width and bestScale * self.height <= mode.height do
-      bestScale = bestScale + 1
-    end
-    scaleX = bestScale - 1
-    scaleY = bestScale - 1
-  elseif self.scalingType == 2 then
+  if self.scalingType == 1 or self.scalingType == 2 then
     scaleX = math.min(scaleX, scaleY)
     scaleY = scaleX
   end
-  self:scale(scaleX, scaleY)
-  self.offsetX = (mode.width - self.canvas:getWidth()) / 2
-  self.offsetY = (mode.height - self.canvas:getHeight()) / 2
-  setWindowMode(mode.width, mode.height, {fullscreen = true})
+  self:setScale(scaleX, scaleY, true)
+  self.offsetX = round((mode.width - self.canvas:getWidth()) / 2)
+  self.offsetY = round((mode.height - self.canvas:getHeight()) / 2)
 end
 -- Called when window receives/loses focus.
 -- @param(f : boolean) True if screen received focus, false if lost.

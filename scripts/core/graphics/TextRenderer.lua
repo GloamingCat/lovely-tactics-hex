@@ -72,7 +72,7 @@ end
 -- @ret(Canvas) rendered line
 function TextRenderer.createLineBuffer(line)
   local buffer = lgraphics.newCanvas(line.width + Fonts.outlineSize * 2, line.height * 1.5)
-  buffer:setFilter('linear', 'nearest')
+  buffer:setFilter('linear', 'linear')
   lgraphics.setCanvas(buffer)
   local x, y = Fonts.outlineSize, line.height
   for j = 1, #line do

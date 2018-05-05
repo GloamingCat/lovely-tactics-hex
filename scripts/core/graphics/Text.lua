@@ -41,13 +41,14 @@ local Text = class(Sprite)
 local old_init = Text.init
 function Text:init(text, properties, renderer)
   old_init(self, renderer)
+  assert(text, 'Nil text')
   self.maxWidth = properties[1]
   self.alignX = properties[2] or 'left'
   self.alignY = 'top'
   self.defaultFont = properties[3] or defaultFont
   self.text = text
   self.wrap = false
-  if text == nil or text == '' then
+  if text == '' then
     self.lines = {}
   else
     self:setText(text)
@@ -195,6 +196,8 @@ end
 function Text:draw(renderer)
   renderer:clearBatch()
   local sx, sy, lsx = self.scaleX / Fonts.scale, self.scaleY / Fonts.scale
+  local rsx = ScreenManager.scaleX * renderer.scaleX
+  local rsy = ScreenManager.scaleY * renderer.scaleY
   local x, y = 0, self:alignOffsetY() - 0.5
   local r, g, b, a
   for i = 1, #self.lines do
@@ -207,12 +210,13 @@ function Text:draw(renderer)
       lsx = sx
       x = self:alignOffsetX(w) - 1
     end
-    r, g, b, a = lgraphics.getColor()
     local shader = lgraphics.getShader()
     lgraphics.setShader()
+    r, g, b, a = lgraphics.getColor()
     lgraphics.setColor(self.color.red, self.color.green, self.color.blue, self.color.alpha)
-    lgraphics.draw(line.buffer, line.quad, self.position.x + x, self.position.y + y, 
-      self.rotation, lsx, sy, self.offsetX, self.offsetY)
+    lgraphics.draw(line.buffer, line.quad, 
+      round((self.position.x + x) * rsx), round((self.position.y + y) * rsy), 
+      self.rotation, lsx * rsx, sy * rsy, self.offsetX, self.offsetY)
     lgraphics.setColor(r, g, b, a)
     y = y + line.height * sy
     lgraphics.setShader(shader)

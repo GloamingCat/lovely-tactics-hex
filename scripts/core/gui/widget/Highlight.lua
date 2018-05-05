@@ -22,9 +22,9 @@ local Highlight = class(Transformable)
 function Highlight:init(window)
   Transformable.init(self)
   self.window = window
-  local mx = window:colMargin() / 2
-  local my = window:rowMargin() / 2
-  local w, h = window:cellWidth(), window:cellHeight() + my
+  local mx = window:colMargin() / 2 + 4
+  local my = window:rowMargin() / 2 + 4
+  local w, h = window:cellWidth() + mx, window:cellHeight() + my
   self.spriteGrid = SpriteGrid(self:getSkin(), Vector(0, 0, 1))
   self.spriteGrid:createGrid(GUIManager.renderer, w, h)
   self.spriteGrid:updateTransform(self)

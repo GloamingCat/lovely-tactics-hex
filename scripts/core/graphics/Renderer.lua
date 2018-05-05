@@ -55,6 +55,16 @@ function Renderer:resizeCanvas()
     self.canvas = lgraphics.newCanvas(newW, newH)
     self.needsRedraw = true
   end
+  for i = self.minDepth, self.maxDepth do
+    local list = self.list[i]
+    if list then
+      for j = 1, #list do
+        if list[j].text then
+          list[j]:redrawBuffers()
+        end
+      end
+    end
+  end
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -193,9 +203,11 @@ function Renderer:redrawCanvas()
   lgraphics.push()
   lgraphics.setCanvas(self.canvas)
   lgraphics.translate(-ox, -oy)
-  lgraphics.scale(sx, sy)
+  --lgraphics.scale(sx, sy)
   lgraphics.rotate(self.rotation)
-  lgraphics.translate(-self.position.x + ox * 2 / sx, -self.position.y + oy * 2 / sy)
+  local tx = -self.position.x + ox * 2 / sx
+  local ty = -self.position.y + oy * 2 / sy
+  lgraphics.translate(round(tx * sx), round(ty * sy))
   lgraphics.clear()
   lgraphics.setShader(spriteShader)
   local drawCalls = 0
@@ -239,6 +251,13 @@ function Renderer:drawList(list)
       end
     end
   end
+end
+function Renderer:drawSprite(sprite)
+    r, g, b, a = lgraphics.getColor()
+    lgraphics.setColor(self.color.red, self.color.green, self.color.blue, self.color.alpha)
+    lgraphics.draw(line.buffer, line.quad, self.position.x + x, self.position.y + y, 
+      self.rotation, lsx, sy, self.offsetX, self.offsetY)
+    lgraphics.setColor(r, g, b, a)
 end
 -- Draws current and clears.
 function Renderer:clearBatch()
