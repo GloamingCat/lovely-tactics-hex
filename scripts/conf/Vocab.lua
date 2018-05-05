@@ -25,6 +25,7 @@ return {
   keys = 'Controls',
   on = 'ON',
   off = 'OFF',
+  autoDash = 'Auto Dash',
   
   -- Quit Window
   title = 'Title Screen',

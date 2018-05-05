@@ -11,6 +11,7 @@ Window to change basic system settings.
 local Button = require('core/gui/widget/Button')
 local GridWindow = require('core/gui/GridWindow')
 local SpinnerButton = require('core/gui/widget/SpinnerButton')
+local SwitchButton = require('core/gui/widget/SwitchButton')
 
 local SettingsWindow = class(GridWindow)
 
@@ -30,9 +31,11 @@ function SettingsWindow:createWidgets()
     bigIncrement = 10
   SpinnerButton:fromKey(self, 'fieldScroll', 10, 100, config.fieldScroll).
     bigIncrement = 10
+    
+  SwitchButton:fromKey(self, 'autoDash', config.autoDash)
   
-  Button:fromKey(self, 'resolution')
-  Button:fromKey(self, 'keys')
+  Button:fromKey(self, 'resolution').text:setAlign('center')
+  Button:fromKey(self, 'keys').text:setAlign('center')
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -59,6 +62,13 @@ function SettingsWindow:fieldScrollChange(spinner)
 end
 
 ---------------------------------------------------------------------------------------------------
+-- Switches
+---------------------------------------------------------------------------------------------------
+
+function SettingsWindow:autoDashChange(button)
+  SaveManager.current.config.autoDash = button.value
+end
+
 -- Properties
 ---------------------------------------------------------------------------------------------------
 
