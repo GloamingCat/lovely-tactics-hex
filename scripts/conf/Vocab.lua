@@ -26,6 +26,7 @@ return {
   on = 'ON',
   off = 'OFF',
   autoDash = 'Auto Dash',
+  useMouse = 'Use Mouse',
   
   -- Quit Window
   title = 'Title Screen',

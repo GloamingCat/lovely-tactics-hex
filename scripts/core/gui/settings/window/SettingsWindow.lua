@@ -33,6 +33,7 @@ function SettingsWindow:createWidgets()
     bigIncrement = 10
     
   SwitchButton:fromKey(self, 'autoDash', config.autoDash)
+  SwitchButton:fromKey(self, 'useMouse', config.useMouse)
   
   Button:fromKey(self, 'resolution').text:setAlign('center')
   Button:fromKey(self, 'keys').text:setAlign('center')
@@ -65,10 +66,23 @@ end
 -- Switches
 ---------------------------------------------------------------------------------------------------
 
+-- Change auto dash option.
 function SettingsWindow:autoDashChange(button)
   SaveManager.current.config.autoDash = button.value
 end
+-- Change mouse enabled option.
+function SettingsWindow:useMouseChange(button)
+  SaveManager.current.config.useMouse = button.value
+  InputManager.mouseEnabled = button.value
+  if not button.value then
+    InputManager.mouse:hide()
+    for i = 1, 3 do
+      InputManager.keys['mouse' .. i]:onRelease()
+    end
+  end
+end
 
+---------------------------------------------------------------------------------------------------
 -- Properties
 ---------------------------------------------------------------------------------------------------
 
@@ -78,7 +92,7 @@ function SettingsWindow:colCount()
 end
 -- Overrides GridWindow:rowCount.
 function SettingsWindow:rowCount()
-  return 6
+  return 8
 end
 -- Overrides GridWindow:cellWidth.
 function SettingsWindow:cellWidth()

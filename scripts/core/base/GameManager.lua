@@ -42,6 +42,7 @@ end
 function GameManager:setConfig(config)
   AudioManager:setBGMVolume(config.volumeBGM)
   AudioManager:setSFXVolume(config.volumeSFX)
+  InputManager.mouseEnabled = config.useMouse
 end
 
 ---------------------------------------------------------------------------------------------------

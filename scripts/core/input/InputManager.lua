@@ -25,6 +25,7 @@ local InputManager = class()
 -- Constructor.
 function InputManager:init()
   self.usingKeyboard = true
+  self.mouseEnabled = true
   self.mouse = GameMouse()
   self.keys = {}
   for k, v in pairs(KeyMap) do
@@ -112,7 +113,7 @@ function InputManager:ortAxis(startGap, repeatGap, delay)
 end
 
 ---------------------------------------------------------------------------------------------------
--- Callbacks
+-- Keyboard
 ---------------------------------------------------------------------------------------------------
 
 -- Called when player presses any key.
@@ -134,11 +135,17 @@ function InputManager:onRelease(code, scancode)
     self.keys[code]:onRelease()
   end
 end
+
+---------------------------------------------------------------------------------------------------
+-- Mouse
+---------------------------------------------------------------------------------------------------
+
 -- Called when a mouse button is pressed.
 -- @param(x : number) cursor's x coordinate
 -- @param(y : number) cursor's y coordinate
 -- @param(button : number) button type (1 to 3)
 function InputManager:onMousePress(x, y, button)
+  if not self.mouseEnabled then return end
   local code = KeyMap['mouse' .. button]
   if code then
     self.keys[code]:onPress()
@@ -150,6 +157,7 @@ end
 -- @param(y : number) cursor's y coordinate
 -- @param(button : number) button type (1 to 3)
 function InputManager:onMouseRelease(x, y, button)
+  if not self.mouseEnabled then return end
   local code = KeyMap['mouse' .. button]
   if code then
     self.keys[code]:onRelease()
@@ -160,6 +168,7 @@ end
 -- @param(x : number) cursor's x coordinate
 -- @param(y : number) cursor's y coordinate
 function InputManager:onMouseMove(x, y)
+  if not self.mouseEnabled then return end
   self.mouse:onMove(x, y)
 end
 
