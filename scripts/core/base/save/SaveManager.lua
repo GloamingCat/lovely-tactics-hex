@@ -34,12 +34,15 @@ function SaveManager:init()
   end
   self.maxSaves = 3
 end
--- Loads a new save.
-function SaveManager:newSave()
+-- Creates a new save.
+-- ret(table) A brand new save table.
+function SaveManager:createSave()
   local save = {}
   save.playTime = 0
   -- Global vars
   save.vars = {}
+  -- Settings
+  save.config = { volumeBGM = 100, volumeSFX = 100 }
   -- Field data
   save.fields = {}
   -- Initial party
@@ -53,9 +56,15 @@ function SaveManager:newSave()
     h = startPos.h or 0,
     direction = startPos.direction or 270,
     fieldID = startPos.fieldID or 0 }
+  return save
+end
+-- Loads a new save.
+function SaveManager:newSave()
+  local save = self:createSave()
   self.current = save
   self.loadTime = now()
   Troop():storeSave()
+  GameManager:setConfig(save.config)
   FieldManager:loadTransition(save.playerTransition)
 end
 
@@ -128,6 +137,7 @@ function SaveManager:loadSave(file)
   if love.filesystem.exists('saves/' .. file .. '.save') then
     self.current = Serializer.load('saves/' .. file .. '.save')
     self.loadTime = now()
+    GameManager:setConfig(self.current.config)
     FieldManager:loadTransition(self.current.playerTransition)
     print('Loaded game.')
   else

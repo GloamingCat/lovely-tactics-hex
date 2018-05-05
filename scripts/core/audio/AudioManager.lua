@@ -74,7 +74,7 @@ end
 -- @param(v : number) volume multiplier for current BGM
 function AudioManager:setBGMVolume(v)
   self.volumeBGM = v
-  self:updateVolume()
+  self:updateBGMVolume()
 end
 -- Updates the volume of all BGM according to volume multiplier.
 function AudioManager:updateBGMVolume()
@@ -134,6 +134,7 @@ end
 -- @param(sfx : table) table with file's name (from audio/sfx folder), volume and pitch
 function AudioManager:playSFX(sfx)
   local sound = Sound(sfx.name, sfx.volume / 100, sfx.pitch / 100)
+  sound:setVolume(self.volumeSFX)
   self.sfx:add(sound)
   sound:play()
 end

@@ -37,6 +37,12 @@ function GameManager:start(arg)
     GUIManager:showGUIForResult(TitleGUI())
   end)
 end
+-- Sets the system config.
+-- @param(config : table)
+function GameManager:setConfig(config)
+  AudioManager:setBGMVolume(config.volumeBGM)
+  AudioManager:setSFXVolume(config.volumeSFX)
+end
 
 ---------------------------------------------------------------------------------------------------
 -- Update
