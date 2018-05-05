@@ -26,9 +26,6 @@ end
 -- Implements GridWindow:createWidgets.
 function CountWindow:createWidgets()
   local spinner = Spinner(self, 1, 1, 1)
-  spinner.onConfirm = self.onSpinnerConfirm
-  spinner.onCancel = self.onSpinnerCancel
-  spinner.onChange = self.onSpinnerChange
   self.spinner = spinner
 end
 -- @param(max : number) Sets the maximum number of the spinner.

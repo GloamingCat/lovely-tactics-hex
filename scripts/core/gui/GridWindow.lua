@@ -249,7 +249,9 @@ function GridWindow:onConfirm()
     if widget.confirmSound then
       AudioManager:playSFX(widget.confirmSound)
     end
-    widget.onConfirm(self, widget)
+    if widget.onConfirm then
+      widget.onConfirm(self, widget)
+    end
   else
     if widget.errorSound then
       AudioManager:playSFX(widget.errorSound)
@@ -262,7 +264,9 @@ function GridWindow:onCancel()
   if widget.cancelSound then
     AudioManager:playSFX(widget.cancelSound)
   end
-  widget.onCancel(self, widget)
+  if widget.onCancel then
+    widget.onCancel(self, widget)
+  end
 end
 -- Called when player moves cursor.
 function GridWindow:onMove(dx, dy)
@@ -289,6 +293,19 @@ function GridWindow:onMouseMove(x, y)
       self:setSelectedWidget(widget)
     end
   end
+end
+
+---------------------------------------------------------------------------------------------------
+-- Button Input
+---------------------------------------------------------------------------------------------------
+
+-- Called when player presses "Confirm" on this button.
+function GridWindow:onButtonConfirm(button)
+  self.result = button.index
+end
+-- Called when player presses "Cancel" on this button.
+function GridWindow:onButtonCancel(button)
+  self.result = 0
 end
 
 ---------------------------------------------------------------------------------------------------

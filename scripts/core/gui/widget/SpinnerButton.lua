@@ -22,7 +22,7 @@ local SpinnerButton = class(Spinner, Button)
 -- @param(minValue : number) Minimum value.
 -- @param(maxValue : number) Maximum value.
 -- @param(initValue : number) Initial value.
-function SpinnerButton:init(window, maxValue, minValue, initValue)
+function SpinnerButton:init(window, minValue, maxValue, initValue)
   Button.init(self, window)
   self.minValue = minValue or -math.huge
   self.maxValue = maxValue or math.huge

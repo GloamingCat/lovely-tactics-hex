@@ -55,23 +55,6 @@ function GridWidget:relativePosition()
 end
 
 ---------------------------------------------------------------------------------------------------
--- Input handlers
----------------------------------------------------------------------------------------------------
-
--- Called when player presses "Confirm" on this widget.
-function GridWidget.onConfirm(window, button)
-end
--- Called when player presses "Cancel" on this widget.
-function GridWidget.onCancel(window, button)
-end
--- Called when player presses arrows on this widget.
-function GridWidget.onMove(window, button, dx, dy)
-end
--- Called when this widget is selected (highlighted).
-function GridWidget.onSelect(window, button)
-end
-
----------------------------------------------------------------------------------------------------
 -- Content
 ---------------------------------------------------------------------------------------------------
 

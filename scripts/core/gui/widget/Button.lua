@@ -28,11 +28,11 @@ local Button = class(GridWidget)
 -- @param(onMove : function) the function called when player presses arrows (optinal)
 function Button:init(window, onConfirm, enableCondition)
   GridWidget.init(self, window)
-  self.onConfirm = onConfirm or window.onButtonConfirm or self.onConfirm
-  self.onCancel = window.onButtonCancel or self.onCancel
-  self.onSelect = window.onButtonSelect or self.onSelect
-  self.onMove = window.onButtonMove or self.onMove
-  self.enableCondition = enableCondition or window.buttonEnabled or self.enableCondition
+  self.enableCondition = enableCondition or self.enableCondition or window.buttonEnabled
+  self.onConfirm = onConfirm or self.onConfirm or window.onButtonConfirm
+  self.onCancel = self.onCancel or window.onButtonCancel
+  self.onSelect = self.onSelect or window.onButtonSelect
+  self.onMove = self.onMove or window.onButtonMove
 end
 -- Creates a button for the action represented by the given key.
 -- @param(window : GridWindow) the window that this button is component of
@@ -132,22 +132,10 @@ function Button:__tostring()
 end
 
 ---------------------------------------------------------------------------------------------------
--- Input handlers
----------------------------------------------------------------------------------------------------
-
--- Called when player presses "Confirm" on this button.
-function Button.onConfirm(window, button)
-  window.result = button.index
-end
--- Called when player presses "Cancel" on this button.
-function Button.onCancel(window, button)
-  window.result = 0
-end
-
----------------------------------------------------------------------------------------------------
 -- State
 ---------------------------------------------------------------------------------------------------
 
+-- Refreshes color, position and visibility.
 function Button:refreshState()
   self:updateColor()
   self:updatePosition(self.window.position)

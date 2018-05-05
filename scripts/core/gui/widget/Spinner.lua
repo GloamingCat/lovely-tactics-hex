@@ -30,6 +30,9 @@ local Spinner = class(GridWidget)
 -- @param(initValue : number) Initial value.
 function Spinner:init(window, minValue, maxValue, initValue)
   GridWidget.init(self, window)
+  self.onConfirm = self.onConfirm or window.onSpinnerConfirm
+  self.onCancel = self.onCancel or window.onSpinnerCancel
+  self.onChange = self.onChange or window.onSpinnerChange
   self.minValue = minValue or -math.huge
   self.maxValue = maxValue or math.huge
   self:initContent(initValue or 0, self.window:cellWidth(), self.window:cellHeight() / 2)
@@ -70,12 +73,8 @@ end
 -- @param(dx : number) Input axis X.
 -- @param(dy : number) Input axis Y.
 function Spinner:changeValue(dx, dy)
-  if dy ~= 0 then
-    if self.bigIncrement then
-      dx = -dy * self.bigIncrement
-    else
-      return
-    end
+  if self.bigIncrement and InputManager.keys['dash']:isPressing() then
+    dx = dx * self.bigIncrement
   end
   local value = math.min(self.maxValue, math.max(self.minValue, self.value + dx))
   self:setValue(value)
