@@ -72,7 +72,7 @@ function SettingsWindow:rowCount()
 end
 -- Overrides GridWindow:cellWidth.
 function SettingsWindow:cellWidth()
-  return 240
+  return 200
 end
 -- @ret(string) String representation (for debugging).
 function SettingsWindow:__tostring()

@@ -8,7 +8,6 @@ SpinnerButton
 
 -- Imports
 local Button = require('core/gui/widget/Button')
-local GridWidget = require('core/gui/widget/GridWidget')
 local Spinner = require('core/gui/widget/Spinner')
 
 local SpinnerButton = class(Spinner, Button)
@@ -22,12 +21,14 @@ local SpinnerButton = class(Spinner, Button)
 -- @param(minValue : number) Minimum value.
 -- @param(maxValue : number) Maximum value.
 -- @param(initValue : number) Initial value.
-function SpinnerButton:init(window, minValue, maxValue, initValue)
+-- @param(x : number) Position x of the spinner relative to the button width (from 0 to 1).
+function SpinnerButton:init(window, minValue, maxValue, initValue, x)
   Button.init(self, window)
   self.minValue = minValue or -math.huge
   self.maxValue = maxValue or math.huge
-  local w = self.window:cellWidth() / 2
-  self:initContent(initValue or 0, w, self.window:cellHeight() / 2, w)
+  x = x or 0.3
+  local w = self.window:cellWidth()
+  self:initContent(initValue or 0, w * x, self.window:cellHeight() / 2, w * (1 - x))
 end
 -- Creates a button for the action represented by the given key.
 -- @param(window : GridWindow) the window that this button is component of

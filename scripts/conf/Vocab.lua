@@ -23,6 +23,8 @@ return {
   fieldScroll = 'Field Scroll Speed',
   resolution = 'Resolution',
   keys = 'Controls',
+  on = 'ON',
+  off = 'OFF',
   
   -- Quit Window
   title = 'Title Screen',
