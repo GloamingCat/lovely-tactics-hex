@@ -78,6 +78,7 @@ end
 -- @param(x : number) the scale factor in axis x
 -- @param(y : number) the scale factor in axis y
 function ScreenManager:setScale(x, y, fullScreen)
+  fullScreen = fullScreen or false
   if self.scalingType == 0 then
     return
   elseif self.scalingType == 1 then
@@ -87,6 +88,9 @@ function ScreenManager:setScale(x, y, fullScreen)
     y = x
   end
   y = y or x
+  if x == self.scaleX and y == self.scaleY and fullScreen == isFullScreen() then
+    return
+  end
   self.scaleX = x
   self.scaleY = y
   self.offsetX = 0
@@ -94,7 +98,9 @@ function ScreenManager:setScale(x, y, fullScreen)
   self.canvas = lgraphics.newCanvas(self.width * x, self.height * y)
   setWindowMode(self.width * x, self.height * y, {fullscreen = fullScreen})
   for i = 1, #self.renderers do
-    self.renderers[i]:resizeCanvas()
+    if self.renderers[i] then
+      self.renderers[i]:resizeCanvas()
+    end
   end
 end
 -- Width in world size.

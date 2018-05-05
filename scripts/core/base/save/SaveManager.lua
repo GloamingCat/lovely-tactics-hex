@@ -44,7 +44,8 @@ function SaveManager:createSave()
   -- Settings
   save.config = { volumeBGM = 100, volumeSFX = 100, 
     windowScroll = 50, fieldScroll = 50,
-    autoDash = false, useMouse = true }
+    autoDash = false, useMouse = true,
+    resolution = 2 }
   -- Field data
   save.fields = {}
   -- Initial party

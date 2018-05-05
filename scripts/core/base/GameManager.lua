@@ -43,6 +43,11 @@ function GameManager:setConfig(config)
   AudioManager:setBGMVolume(config.volumeBGM)
   AudioManager:setSFXVolume(config.volumeSFX)
   InputManager.mouseEnabled = config.useMouse
+  if config.resolution == 4 then
+    ScreenManager:setFullScreen()
+  else
+    ScreenManager:setScale(config.resolution, config.resolution)
+  end
 end
 
 ---------------------------------------------------------------------------------------------------
