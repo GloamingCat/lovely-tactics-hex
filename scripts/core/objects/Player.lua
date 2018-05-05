@@ -183,12 +183,12 @@ function Player:moveByKeyboard(dx, dy, dir)
       or self:tryAngleMovement(angle + 45)
     if not result then
       self:setDirection(angle)
-      self:playIdleAnimation(self.idleAnim)
+      self:playIdleAnimation()
     end
   elseif self.path then
     self:consumePath()
   else
-    self:playIdleAnimation(self.idleAnim)
+    self:playIdleAnimation()
   end
 end
 -- [COROUTINE] Tries to move in a given angle.
@@ -226,7 +226,7 @@ function Player:tryTileMovement(tile)
     self:collideTile(tile)
     return 0
   else
-    self:playIdleAnimation(self.idleAnim)
+    self:playIdleAnimation()
     if collision == 3 then -- character
       self:collideTile(tile)
       return 1
@@ -255,6 +255,7 @@ end
 
 -- Opens game's main GUI.
 function Player:openGUI()
+  self:playIdleAnimation()
   AudioManager:playSFX(Config.sounds.menu)
   GUIManager:showGUIForResult(FieldGUI())
 end
@@ -265,6 +266,7 @@ end
 
 -- [COROUTINE] Interacts with whoever is the player looking at (if any).
 function Player:interact()
+  self:playIdleAnimation()
   local angle = self:getRoundedDirection()
   local interacted = self:interactTile(self:getTile()) or self:interactTile(self:frontTile())
     or self:interactAngle(angle - 45) or self:interactAngle(angle + 45)
