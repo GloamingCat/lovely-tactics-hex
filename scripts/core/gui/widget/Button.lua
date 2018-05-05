@@ -46,7 +46,7 @@ function Button:fromKey(window, key)
   end
   local text = Vocab[key]
   if text then
-    button:createText(text)
+    button:createText(text, window.buttonFont)
   end
   button.key = key
   return button

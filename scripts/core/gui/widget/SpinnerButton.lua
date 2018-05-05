@@ -31,8 +31,8 @@ function SpinnerButton:init(window, minValue, maxValue, initValue, x)
   self:initContent(initValue or 0, w * x, self.window:cellHeight() / 2, w * (1 - x))
 end
 -- Creates a button for the action represented by the given key.
--- @param(window : GridWindow) the window that this button is component of
--- @param(key : string) action's key
+-- @param(window : GridWindow) The window that this button is component of.
+-- @param(key : string) Action's key.
 -- @ret(SpinnerButton)
 function SpinnerButton:fromKey(window, key, maxValue, minValue, initValue)
   local button = self(window, maxValue, minValue, initValue)

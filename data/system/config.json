@@ -6,7 +6,8 @@
 		"widthScale": 2,
 		"heightScale": 2,
 		"scaleType": 1,
-		"fpsLimit": 120
+		"fpsLimit": 120,
+		"coverID": 211
 	},
 	"player": {
 		"walkSpeed": 104,

@@ -45,7 +45,7 @@ function RewardGUI:createTopText()
   local prop = {
     ScreenManager.width,
     'center',
-    Fonts.gui_big }
+    Fonts.gui_huge }
   self.topText = Text(Vocab.win, prop, GUIManager.renderer)
   local x = -ScreenManager.width / 2
   local y = -ScreenManager.height / 2 + self:windowMargin() * 2

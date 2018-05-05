@@ -381,6 +381,34 @@
 					  "brightness": 100
 					}
 				}
+			},
+			{
+				"name": "Cover",
+				"data": {
+					"id": 211,
+					"path": "cover.jpg",
+					"x": 0,
+					"y": 0,
+					"width": 1600,
+					"height": 900,
+					"cols": 1,
+					"rows": 1,
+					"transform": {
+					  "offsetX": 800,
+					  "offsetY": 450,
+					  "offsetDepth": 0,
+					  "scaleX": 25,
+					  "scaleY": 25,
+					  "rotation": 0,
+					  "red": 255,
+					  "green": 255,
+					  "blue": 255,
+					  "alpha": 255,
+					  "hue": 0,
+					  "saturation": 100,
+					  "brightness": 100
+					}
+				}
 			}
 		]
 	}

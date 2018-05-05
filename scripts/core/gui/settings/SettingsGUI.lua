@@ -25,11 +25,11 @@ function SettingsGUI:createWindows()
   self:createResolutionWindow()
   self:setActiveWindow(self.mainWindow)
 end
-
+-- Creates the window with the main config options.
 function SettingsGUI:createMainWindow()
   self.mainWindow = SettingsWindow(self)
 end
-
+-- Creates the window with the resolution options.
 function SettingsGUI:createResolutionWindow()
   self.resolutionWindow = ResolutionWindow(self)
   self.resolutionWindow:setVisible(false)

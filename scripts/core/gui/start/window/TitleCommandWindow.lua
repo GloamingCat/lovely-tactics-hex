@@ -19,9 +19,8 @@ local TitleCommandWindow = class(GridWindow)
 
 -- Constructor.
 function TitleCommandWindow:init(...)
-  self.noHighlight = true
-  self.noSkin = true
   self.speed = math.huge
+  self.buttonFont = 'gui_big'
   GridWindow.init(self, ...)
 end
 -- Implements GridWindow:createWidgets.
@@ -38,19 +37,23 @@ end
 -- New Game button.
 function TitleCommandWindow:newGameConfirm()
   self.GUI:hide()
+  self.GUI:hideCover()
   self.result = 1
   SaveManager:newSave()
 end
 -- Load Game button.
 function TitleCommandWindow:loadGameConfirm()
-  self.GUI:hide()
+  self.GUI.topText:setVisible(false)
+  self:hide()
   local result = self.GUI:showWindowForResult(self.GUI.loadWindow)
   if result ~= '' then
-    self.result = 1
     self.GUI:hide()
+    self.GUI:hideCover()
+    self.result = 1
     SaveManager:loadSave(result)
   else
-    self.GUI:show()
+    self.GUI.topText:setVisible(true)
+    self:show()
   end
 end
 -- Quit button.
@@ -82,6 +85,12 @@ end
 -- Overrides GridWindow:rowCount.
 function TitleCommandWindow:rowCount()
   return 3
+end
+function TitleCommandWindow:cellWidth()
+  return GridWindow.cellWidth(self) * 1.5
+end
+function TitleCommandWindow:cellHeight()
+  return GridWindow.cellHeight(self) * 1.5
 end
 -- @ret(string) String representation (for debugging).
 function TitleCommandWindow:__tostring()
