@@ -42,7 +42,7 @@ function SaveManager:createSave()
   -- Global vars
   save.vars = {}
   -- Settings
-  save.config = { volumeBGM = 100, volumeSFX = 100 }
+  save.config = { volumeBGM = 100, volumeSFX = 100, windowScroll = 50, fieldScroll = 50 }
   -- Field data
   save.fields = {}
   -- Initial party

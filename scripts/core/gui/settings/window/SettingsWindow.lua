@@ -20,13 +20,16 @@ local SettingsWindow = class(GridWindow)
 
 -- Implements GridWindow:createWidgets.
 function SettingsWindow:createWidgets()
-  SpinnerButton:fromKey(self, 'volumeBGM', 0, 100, SaveManager.current.config.volumeBGM).
+  local config = SaveManager.current.config
+  SpinnerButton:fromKey(self, 'volumeBGM', 0, 100, config.volumeBGM).
     bigIncrement = 10
-  SpinnerButton:fromKey(self, 'volumeSFX', 0, 100, SaveManager.current.config.volumeSFX).
+  SpinnerButton:fromKey(self, 'volumeSFX', 0, 100, config.volumeSFX).
     bigIncrement = 10
   
-  SpinnerButton:fromKey(self, 'windowScroll', 0, 100, 50)
-  SpinnerButton:fromKey(self, 'fieldScroll', 0, 100, 50)
+  SpinnerButton:fromKey(self, 'windowScroll', 10, 100, config.windowScroll).
+    bigIncrement = 10
+  SpinnerButton:fromKey(self, 'fieldScroll', 10, 100, config.fieldScroll).
+    bigIncrement = 10
   
   Button:fromKey(self, 'resolution')
   Button:fromKey(self, 'keys')
@@ -45,6 +48,14 @@ end
 function SettingsWindow:volumeSFXChange(spinner)
   SaveManager.current.config.volumeSFX = spinner.value
   AudioManager:setSFXVolume(spinner.value / 100)
+end
+-- Change window scroll speed.
+function SettingsWindow:windowScrollChange(spinner)
+  SaveManager.current.config.windowScroll = spinner.value
+end
+-- Change field scroll speed.
+function SettingsWindow:fieldScrollChange(spinner)
+  SaveManager.current.config.fieldScroll = spinner.value
 end
 
 ---------------------------------------------------------------------------------------------------
