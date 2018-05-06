@@ -20,6 +20,7 @@ local WindowCursor = class()
 -- @param(window : GridWindow) cursor's window
 function WindowCursor:init(window)
   self.window = window
+  self.paused = false
   local animData = Database.animations[Config.animations.cursorID]
   self.anim = ResourceManager:loadAnimation(animData, GUIManager.renderer)
   self.anim.sprite:setTransformation(animData.transform)
@@ -36,7 +37,7 @@ end
 
 -- Updates animation.
 function WindowCursor:update()
-  if self.window.active then
+  if self.window.active and not self.paused then
     self.anim:update()
   end
 end

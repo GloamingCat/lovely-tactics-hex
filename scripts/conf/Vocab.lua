@@ -32,6 +32,8 @@ return {
   resolution2 = '1x',
   resolution3 = '1.5x',
   fullScreen = 'Full Screen',
+  default = 'Default',
+  apply = 'Apply',
   
   -- Quit Window
   title = 'Title Screen',

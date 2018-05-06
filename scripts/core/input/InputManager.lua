@@ -31,6 +31,7 @@ function InputManager:init()
   self.paused = false
   self.usingKeyboard = true
   self.mouseEnabled = true
+  self.lastKey = nil
   self.mouse = GameMouse()
   self.keys = {}
   for k, v in pairs(KeyMap.main) do
@@ -82,6 +83,7 @@ function InputManager:update()
     key:update()
   end
   self.mouse:update()
+  self.lastKey = nil
 end
 -- Pauses / unpauses the input update.
 function InputManager:setPaused(paused)
@@ -160,18 +162,19 @@ end
 -- @param(scancode : string) the code of the key
 -- @param(isrepeat : boolean) if the call is a repeat
 function InputManager:onPress(code, scancode, isrepeat)
-  code = self.arrowMap[code] or self.keyMap[code]
-  if code and not isrepeat then
-    self.keys[code]:onPress(isrepeat)
+  local key = self.arrowMap[code] or self.keyMap[code]
+  if key and not isrepeat then
+    self.keys[key]:onPress(isrepeat)
   end
+  self.lastKey = code
 end
 -- Called when player releases any key.
 -- @param(code : string) the code of the key based on keyboard layout
 -- @param(scancode : string) the code of the key
 function InputManager:onRelease(code, scancode)
-  code = self.arrowMap[code] or self.keyMap[code]
-  if code then
-    self.keys[code]:onRelease()
+  local key = self.arrowMap[code] or self.keyMap[code]
+  if key then
+    self.keys[key]:onRelease()
   end
 end
 
