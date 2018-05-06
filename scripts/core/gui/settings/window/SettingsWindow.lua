@@ -34,6 +34,7 @@ function SettingsWindow:createWidgets()
     
   SwitchButton:fromKey(self, 'autoDash', config.autoDash)
   SwitchButton:fromKey(self, 'useMouse', config.useMouse)
+  SwitchButton:fromKey(self, 'wasd', config.wasd)
   
   Button:fromKey(self, 'resolution').text:setAlign('center')
   Button:fromKey(self, 'keys').text:setAlign('center')
@@ -81,6 +82,11 @@ function SettingsWindow:useMouseChange(button)
     end
   end
 end
+-- Change WASD enabled.
+function SettingsWindow:wasdChange(button)
+  SaveManager.current.config.wasd = button.value
+  InputManager:setArrowMap(button.value)
+end
 
 ---------------------------------------------------------------------------------------------------
 -- Buttons
@@ -102,7 +108,7 @@ function SettingsWindow:colCount()
 end
 -- Overrides GridWindow:rowCount.
 function SettingsWindow:rowCount()
-  return 8
+  return 9
 end
 -- Overrides GridWindow:cellWidth.
 function SettingsWindow:cellWidth()

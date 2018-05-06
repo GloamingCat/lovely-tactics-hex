@@ -16,23 +16,46 @@ local max = math.max
 local dt = love.timer.getDelta
 local now = love.timer.getTime
 
+-- Constants
+local arrows = { 'up', 'left', 'down', 'right' }
+local wasd = { 'w', 'a', 's', 'd' }
+
 local InputManager = class()
+
+---------------------------------------------------------------------------------------------------
+-- Initialization
+---------------------------------------------------------------------------------------------------
+
+-- Constructor.
+function InputManager:init()
+  self.paused = false
+  self.usingKeyboard = true
+  self.mouseEnabled = true
+  self.mouse = GameMouse()
+  self.keyMap = util.table.shallowCopy(KeyMap)
+  self.keys = {}
+  for k, v in pairs(KeyMap) do
+    self.keys[v] = self.keys[v] or GameKey()
+  end
+  for _, v in pairs(arrows) do
+    self.keys[v] = GameKey()
+  end
+  self:setArrowMap()
+end
+-- Sets axis keys.
+function InputManager:setArrowMap(useWASD)
+  self.arrowMap = {}
+  local keys = useWASD and wasd or arrows
+  for i, v in ipairs (arrows) do
+    self.arrowMap[keys[i]] = v
+    self.keys[v]:onRelease()
+  end
+end
 
 ---------------------------------------------------------------------------------------------------
 -- General
 ---------------------------------------------------------------------------------------------------
 
--- Constructor.
-function InputManager:init()
-  self.usingKeyboard = true
-  self.mouseEnabled = true
-  self.mouse = GameMouse()
-  self.keys = {}
-  for k, v in pairs(KeyMap) do
-    self.keys[v] = GameKey()
-  end
-  self.paused = false
-end
 -- Checks if player is using keyboard and updates all keys' states.
 function InputManager:update()
   self.usingKeyboard = false
@@ -121,7 +144,7 @@ end
 -- @param(scancode : string) the code of the key
 -- @param(isrepeat : boolean) if the call is a repeat
 function InputManager:onPress(code, scancode, isrepeat)
-  code = KeyMap[code]
+  code = self.arrowMap[code] or self.keyMap[code]
   if code and not isrepeat then
     self.keys[code]:onPress(isrepeat)
   end
@@ -130,7 +153,7 @@ end
 -- @param(code : string) the code of the key based on keyboard layout
 -- @param(scancode : string) the code of the key
 function InputManager:onRelease(code, scancode)
-  code = KeyMap[code]
+  code = self.arrowMap[code] or self.keyMap[code]
   if code then
     self.keys[code]:onRelease()
   end

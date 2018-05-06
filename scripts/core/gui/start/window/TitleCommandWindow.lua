@@ -86,9 +86,11 @@ end
 function TitleCommandWindow:rowCount()
   return 3
 end
+-- Overrides GridWindow:cellWidth.
 function TitleCommandWindow:cellWidth()
   return GridWindow.cellWidth(self) * 1.5
 end
+-- Overrides GridWindow:cellHeight.
 function TitleCommandWindow:cellHeight()
   return GridWindow.cellHeight(self) * 1.5
 end
