@@ -16,8 +16,8 @@ local SwitchButton = class(Button)
 ---------------------------------------------------------------------------------------------------
 
 -- Constructor.
--- @param(window  : GridWindow) the window this spinner belongs to.
--- @param(initValue : number) Initial value.
+-- @param(window  : GridWindow) The window this spinner belongs to.
+-- @param(initValue : boolean) Initial value.
 -- @param(x : number) Position x of the switch text relative to the button width (from 0 to 1).
 function SwitchButton:init(window, initValue, x)
   Button.init(self, window)
@@ -26,8 +26,8 @@ function SwitchButton:init(window, initValue, x)
   self:initContent(initValue or false, w * x, self.window:cellHeight() / 2, w * (1 - x))
 end
 -- Creates a button for the action represented by the given key.
--- @param(window : GridWindow) the window that this button is component of
--- @param(key : string) action's key
+-- @param(window : GridWindow) The window that this button is component of.
+-- @param(key : string) Action's key.
 -- @ret(SwitchButton)
 function SwitchButton:fromKey(window, key, initValue)
   local button = self(window, initValue)
@@ -44,6 +44,8 @@ function SwitchButton:fromKey(window, key, initValue)
   button.key = key
   return button
 end
+-- Creates on/off text.
+-- @param(initValue : boolean) Initial value.
 function SwitchButton:initContent(initValue)
   self.value = initValue
   local text = self.value and Vocab.on or Vocab.off
@@ -54,17 +56,17 @@ end
 -- Input
 ---------------------------------------------------------------------------------------------------
 
+-- Switches value.
 function SwitchButton.onConfirm(window, self)
   self:changeValue(not self.value)
 end
-
+-- Sets value by arrows.
 function SwitchButton.onMove(window, self, dx, dy)
   if dx ~= 0 then
-    print (dx > 0)
     self:changeValue(dx > 0)
   end
 end
-
+-- Changes current value.
 function SwitchButton:changeValue(value)
   if self.value ~= value then
     self:setValue(value)

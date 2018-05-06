@@ -22,22 +22,15 @@ local SettingsWindow = class(GridWindow)
 -- Implements GridWindow:createWidgets.
 function SettingsWindow:createWidgets()
   local config = SaveManager.current.config
-  SpinnerButton:fromKey(self, 'volumeBGM', 0, 100, config.volumeBGM).
-    bigIncrement = 10
-  SpinnerButton:fromKey(self, 'volumeSFX', 0, 100, config.volumeSFX).
-    bigIncrement = 10
-  
-  SpinnerButton:fromKey(self, 'windowScroll', 10, 100, config.windowScroll).
-    bigIncrement = 10
-  SpinnerButton:fromKey(self, 'fieldScroll', 10, 100, config.fieldScroll).
-    bigIncrement = 10
-    
+  SpinnerButton:fromKey(self, 'volumeBGM', 0, 100, config.volumeBGM).bigIncrement = 10
+  SpinnerButton:fromKey(self, 'volumeSFX', 0, 100, config.volumeSFX).bigIncrement = 10
+  SpinnerButton:fromKey(self, 'windowScroll', 10, 100, config.windowScroll).bigIncrement = 10
+  SpinnerButton:fromKey(self, 'fieldScroll', 10, 100, config.fieldScroll).bigIncrement = 10
   SwitchButton:fromKey(self, 'autoDash', config.autoDash)
   SwitchButton:fromKey(self, 'useMouse', config.useMouse)
   SwitchButton:fromKey(self, 'wasd', config.wasd)
-  
-  Button:fromKey(self, 'resolution').text:setAlign('center')
   Button:fromKey(self, 'keys').text:setAlign('center')
+  Button:fromKey(self, 'resolution').text:setAlign('center')
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -92,9 +85,16 @@ end
 -- Buttons
 ---------------------------------------------------------------------------------------------------
 
+-- Resolution settings.
 function SettingsWindow:resolutionConfirm()
   self:hide()
   self.GUI:showWindowForResult(self.GUI.resolutionWindow)
+  self:show()
+end
+-- Key map settings.
+function SettingsWindow:keysConfirm()
+  self:hide()
+  self.GUI:showWindowForResult(self.GUI.keyMapWindow)
   self:show()
 end
 

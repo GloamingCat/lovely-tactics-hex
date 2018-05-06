@@ -32,23 +32,39 @@ function InputManager:init()
   self.usingKeyboard = true
   self.mouseEnabled = true
   self.mouse = GameMouse()
-  self.keyMap = util.table.shallowCopy(KeyMap)
   self.keys = {}
-  for k, v in pairs(KeyMap) do
-    self.keys[v] = self.keys[v] or GameKey()
+  for k, v in pairs(KeyMap.main) do
+    self.keys[k] = GameKey()
   end
   for _, v in pairs(arrows) do
     self.keys[v] = GameKey()
   end
+  for i = 1, 3 do
+    self.keys['mouse' .. i] = GameKey()
+  end
+  self:setKeyMap(KeyMap)
   self:setArrowMap()
 end
 -- Sets axis keys.
+-- @param(useWASD : boolean)
 function InputManager:setArrowMap(useWASD)
   self.arrowMap = {}
   local keys = useWASD and wasd or arrows
   for i, v in ipairs (arrows) do
     self.arrowMap[keys[i]] = v
     self.keys[v]:onRelease()
+  end
+end
+-- Sets keys codes for each game key.
+-- @param(map : table) Key map with main and alt tables.
+function InputManager:setKeyMap(map)
+  self.keyMap = {}
+  for k, v in pairs(map.main) do
+    self.keyMap[v] = k
+    self.keys[k]:onRelease()
+  end
+  for k, v in pairs(map.alt) do
+    self.keyMap[v] = k
   end
 end
 
@@ -168,31 +184,28 @@ end
 -- @param(y : number) cursor's y coordinate
 -- @param(button : number) button type (1 to 3)
 function InputManager:onMousePress(x, y, button)
-  if not self.mouseEnabled then return end
-  local code = KeyMap['mouse' .. button]
-  if code then
-    self.keys[code]:onPress()
+  if self.mouseEnabled then
+    self.keys['mouse' .. button]:onPress()
+    self.mouse:onPress(button)
   end
-  self.mouse:onPress(button)
 end
 -- Called when a mouse button is released.
 -- @param(x : number) cursor's x coordinate
 -- @param(y : number) cursor's y coordinate
 -- @param(button : number) button type (1 to 3)
 function InputManager:onMouseRelease(x, y, button)
-  if not self.mouseEnabled then return end
-  local code = KeyMap['mouse' .. button]
-  if code then
-    self.keys[code]:onRelease()
+  if self.mouseEnabled then
+    self.keys['mouse' .. button]:onRelease()
+    self.mouse:onRelease(button)
   end
-  self.mouse:onRelease(button)
 end
 -- Called when the cursor moves.
 -- @param(x : number) cursor's x coordinate
 -- @param(y : number) cursor's y coordinate
 function InputManager:onMouseMove(x, y)
-  if not self.mouseEnabled then return end
-  self.mouse:onMove(x, y)
+  if self.mouseEnabled then
+    self.mouse:onMove(x, y)
+  end
 end
 
 return InputManager

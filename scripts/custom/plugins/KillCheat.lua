@@ -8,12 +8,14 @@ Used to skip battles during game test.
 
 =================================================================================================]]
 
-KeyMap[args.win] = 'win'
-KeyMap[args.lose] = 'lose'
+KeyMap.main['win'] = args.win
+KeyMap.main['lose'] = args.lose
 
 -- Imports
 local TurnManager = require('core/battle/TurnManager')
 
+-- Kills all enemies of the given party.
+-- @param(party : number)
 local function killAll(party)
   for char in TroopManager.characterList:iterator() do
     if char.party ~= party then
@@ -21,7 +23,7 @@ local function killAll(party)
     end
   end
 end
-
+-- Override. Check lose and win keys.
 local TurnManager_runTurn = TurnManager.runTurn
 function TurnManager:runTurn()
   if InputManager.keys['win']:isPressing() then

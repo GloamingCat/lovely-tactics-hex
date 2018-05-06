@@ -22,7 +22,8 @@ return {
   windowScroll = 'Window Scroll Speed',
   fieldScroll = 'Field Scroll Speed',
   resolution = 'Resolution',
-  keys = 'Controls',
+  keys = 'Key Map',
+  alt = 'alt',
   on = 'ON',
   off = 'OFF',
   autoDash = 'Auto Dash',
@@ -78,9 +79,13 @@ return {
   callAlly = 'Call Ally',
   wait = 'Wait',
   
-  -- Confirm Window
+  -- Keys
   confirm = 'Confirm',
   cancel = 'Cancel',
+  dash = 'Dash',
+  pause = 'Pause',
+  prev = 'Prev',
+  next = 'Next',
   
   -- Battler info
   hp = 'HP',

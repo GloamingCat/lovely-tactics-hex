@@ -8,8 +8,8 @@ Adds keys the save/load any time.
 =================================================================================================]]
 
 -- Arguments
-KeyMap[args.saveKey] = 'save'
-KeyMap[args.loadKey] = 'load'
+KeyMap.main['save'] = args.saveKey
+KeyMap.main['load'] = args.loadKey
 
 -- Imports
 local Player = require('core/objects/Player')

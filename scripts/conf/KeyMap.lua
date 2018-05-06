@@ -8,20 +8,22 @@ going to be used by the game logic.
 
 =================================================================================================]]
 
-return {
-  z           = 'confirm',
-  ['return']  = 'confirm',
-  x           = 'cancel',
-  backspace   = 'cancel',
-  p           = 'pause',
-  pause       = 'pause',
-  rshift      = 'dash',
-  lshift      = 'dash',
-  mouse1      = 'mouse1',
-  mouse2      = 'mouse2',
-  mouse3      = 'mouse3',
-  pagedown    = 'prev',
-  n           = 'prev',
-  pageup      = 'next',
-  m           = 'next'
+local main = {
+  confirm = 'z',
+  cancel = 'x',
+  pause = 'p',
+  dash = 'lshift',
+  prev = 'pagedown',
+  next = 'pageup'
 }
+
+local alt = {
+  confirm = 'return',
+  cancel = 'backspace',
+  pause = 'pause',
+  dash = 'rshift',
+  prev = 'n',
+  next = 'm'
+}
+
+return { main = main, alt = alt }
