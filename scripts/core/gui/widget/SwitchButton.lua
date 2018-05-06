@@ -41,6 +41,7 @@ function SwitchButton:fromKey(window, key, initValue)
   end
   button.onConfirm = window[key .. 'Confirm'] or button.onConfirm
   button.onChange = window[key .. 'Change'] or button.onChange
+  button.enableCondition = window[key .. 'Enabled'] or button.enableCondition
   button.key = key
   return button
 end
@@ -68,7 +69,7 @@ function SwitchButton.onMove(window, self, dx, dy)
 end
 -- Changes current value.
 function SwitchButton:changeValue(value)
-  if self.value ~= value then
+  if self.enabled and self.value ~= value then
     self:setValue(value)
     if self.onChange then
       self.onChange(self.window, self)

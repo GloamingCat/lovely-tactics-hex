@@ -46,6 +46,7 @@ function SpinnerButton:fromKey(window, key, maxValue, minValue, initValue)
   end
   button.onConfirm = window[key .. 'Confirm'] or button.onConfirm
   button.onChange = window[key .. 'Change'] or button.onChange
+  button.enableCondition = window[key .. 'Enabled'] or button.enableCondition
   button.key = key
   return button
 end

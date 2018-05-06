@@ -80,6 +80,18 @@ function SettingsWindow:wasdChange(button)
   SaveManager.current.config.wasd = button.value
   InputManager:setArrowMap(button.value)
 end
+-- Checks if any direction key is already in use.
+function SettingsWindow:wasdEnabled(button)
+  InputManager:setArrowMap(not button.value)
+  for k, v in pairs(InputManager.keyMap) do
+    if InputManager.arrowMap[k] then
+      InputManager:setArrowMap(button.value)
+      return false
+    end
+  end
+  InputManager:setArrowMap(button.value)
+  return true
+end
 
 ---------------------------------------------------------------------------------------------------
 -- Buttons

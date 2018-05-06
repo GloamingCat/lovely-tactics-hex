@@ -80,16 +80,21 @@ function KeyMapWindow:onButtonConfirm(button)
   repeat
     coroutine.yield()
   until InputManager.lastKey
-  button:createInfoText(InputManager.lastKey)
-  button:updatePosition(self.position)
+  local code = InputManager.lastKey
   local map = self.map[button.map]
-  map[button.key] = InputManager.lastKey
+  if InputManager.arrowMap[code] or InputManager.keyMap[code] then
+    code = map[button.key]
+  end
+  button:createInfoText(code)
+  button:updatePosition(self.position)
+  map[button.key] = code
   self.cursor.paused = false
 end
 -- Applies changes.
 function KeyMapWindow:applyConfirm()
   SaveManager.current.config.keyMap = copyTable(self.map)
   InputManager:setKeyMap(self.map)
+  self.result = 1
 end
 -- Sets default key map.
 function KeyMapWindow:defaultConfirm()

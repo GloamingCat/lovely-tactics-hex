@@ -29,6 +29,7 @@ local Spinner = class(GridWidget)
 -- @param(maxValue : number) Maximum value.
 -- @param(initValue : number) Initial value.
 function Spinner:init(window, minValue, maxValue, initValue)
+  self.enabled = true
   GridWidget.init(self, window)
   self.onConfirm = self.onConfirm or window.onSpinnerConfirm
   self.onCancel = self.onCancel or window.onSpinnerCancel
@@ -77,12 +78,14 @@ function Spinner:changeValue(dx, dy)
     dx = dx * self.bigIncrement
   end
   local value = math.min(self.maxValue, math.max(self.minValue, self.value + dx))
-  self:setValue(value)
-  if self.onChange then
-    self.onChange(self.window, self)
-  end
-  if self.selectSound then
-    AudioManager:playSFX(self.selectSound)
+  if self.enabled then
+    self:setValue(value)
+    if self.onChange then
+      self.onChange(self.window, self)
+    end
+    if self.selectSound then
+      AudioManager:playSFX(self.selectSound)
+    end
   end
 end
 
