@@ -36,6 +36,7 @@ function GridWidget:init(window)
   self.cancelSound = Config.sounds.buttonCancel
   self.selectSound = Config.sounds.buttonSelect
   self.errorSound = Config.sounds.buttonError
+  self.clickSound = self.confirmSound
 end
 -- Changes the index.
 function GridWidget:setIndex(i)

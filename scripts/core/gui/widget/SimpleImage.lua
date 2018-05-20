@@ -41,13 +41,7 @@ function SimpleImage:setSprite(sprite)
   end
   self.sprite = sprite
   if sprite then
-    if (self.width or self.height) then
-      self:centerSpriteQuad()
-    else
-      self.sx = self.x
-      self.sy = self.y
-    end
-    self.sprite:setCenterOffset(self.depth or -1)
+    self:centerSpriteQuad()
   end
 end
 -- Centers sprite inside the given rectangle.
@@ -59,6 +53,7 @@ function SimpleImage:centerSpriteQuad()
   local mw, mh = min(pw, w), min(ph, h)
   local mx, my = (pw - mw) / 2, (ph - mh) / 2
   self.sprite:setQuad(px + mx, py + my, mw / self.sprite.scaleX, mh / self.sprite.scaleY)
+  self.sprite:setCenterOffset(self.depth or -1)
   self.sx = x + w / 2
   self.sy = y + h / 2
 end

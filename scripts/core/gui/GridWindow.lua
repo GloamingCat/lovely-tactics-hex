@@ -10,16 +10,10 @@ Provides the base for windows with widgets in a matrix.
 -- Imports
 local GridScroll = require('core/gui/widget/GridScroll')
 local Highlight = require('core/gui/widget/Highlight')
-local List = require('core/base/datastruct/List')
 local Matrix2 = require('core/math/Matrix2')
-local SimpleText = require('core/gui/widget/SimpleText')
-local Sprite = require('core/graphics/Sprite')
 local Vector = require('core/math/Vector')
 local Window = require('core/gui/Window')
 local WindowCursor = require('core/gui/widget/WindowCursor')
-
--- Alias
-local ceil = math.ceil
 
 local GridWindow = class(Window)
 
@@ -48,7 +42,7 @@ function GridWindow:createContent(width, height)
 end
 -- Reposition widgets so they are aligned and inside the window and adjusts sliders.
 function GridWindow:packWidgets()
-  self.matrix.height = ceil(#self.matrix / self:colCount())
+  self.matrix.height = math.ceil(#self.matrix / self:colCount())
   if self:actualRowCount() > self:rowCount() then
     self.scroll = self.scroll or GridScroll(self, Vector(self.width / 2 - self:paddingX(), 0), 
       self.height - self:paddingY() * 2)
@@ -239,7 +233,7 @@ function GridWindow:setSelectedWidget(widget)
 end
 
 ---------------------------------------------------------------------------------------------------
--- Input
+-- Input - Keybord
 ---------------------------------------------------------------------------------------------------
 
 -- Called when player confirms.
@@ -276,7 +270,37 @@ function GridWindow:onMove(dx, dy)
   end
   self:nextWidget(dx, dy, true)
 end
--- Called when plauer moves the mouse.
+
+---------------------------------------------------------------------------------------------------
+-- Input - Mouse
+---------------------------------------------------------------------------------------------------
+
+-- Called when player presses a mouse button.
+-- Overrides Window:onClick.
+function GridWindow:onClick(button, x, y)
+  if button == 1 then
+    if self:isInside(x, y) then
+      local widget = self:currentWidget()
+      if widget.enabled then
+        if widget.clickSound then
+          AudioManager:playSFX(widget.clickSound)
+        end
+        if widget.onClick then
+          widget.onClick(self, widget, x, y)
+        end
+      else
+        if widget.errorSound then
+          AudioManager:playSFX(widget.errorSound)
+        end
+      end
+    end
+  else
+    self:onCancel()
+  end
+end
+-- Called when player moves the mouse.
+-- @param(x : number) Mouse delta x.
+-- @param(y : number) Mouse delta y.
 function GridWindow:onMouseMove(x, y)
   if self:isInside(x, y) then
     if self.scroll then
@@ -319,7 +343,6 @@ end
 -- @param(dy : number) the direction in y
 -- @ret(number) new column number
 -- @ret(number) new row number
--- @ret(boolean) true if visible buttons changed
 function GridWindow:movedCoordinates(c, r, dx, dy)
   local widget = self.matrix:get(c + dx, r + dy)
   if widget then
@@ -422,62 +445,51 @@ end
 -- Properties
 ---------------------------------------------------------------------------------------------------
 
--- Columns of the widget matrix.
--- @ret(number) the number of visible columns
+-- @ret(number) the number of visible columns.
 function GridWindow:colCount()
   return 3
 end
--- Rows of the widget matrix.
--- @ret(number) the number of visible lines
+-- @ret(number) The number of visible rows.
 function GridWindow:rowCount()
   return 4
 end
--- Gets the number of rows that where actually occupied by buttons.
--- @ret(number) row count
+-- @ret(number) Number of rows that where actually occupied by buttons.
 function GridWindow:actualRowCount()
   return self.matrix.height
 end
--- Grid X-axis displacement.
--- @ret(number) displacement in pixels
+-- @ret(number) Grid x-axis displacement in pixels
 function GridWindow:gridX()
   return 0
 end
--- Grid X-axis displacement.
--- @ret(number) displacement in pixels
+-- @ret(number) Grid y-axis displacement in pixels.
 function GridWindow:gridY()
   return 0
 end
--- Gets the total width of the window.
--- @ret(number) the window's width in pixels
+-- @ret(number) The window's width in pixels.
 function GridWindow:calculateWidth()
   local cols = self:colCount()
   local buttons = cols * self:cellWidth() + (cols - 1) * self:colMargin()
   return self:paddingX() * 2 + buttons + self:gridX()
 end
--- Gets the total height of the window.
--- @ret(number) the window's height in pixels
+-- @ret(number) The window's height in pixels.
 function GridWindow:calculateHeight()
   local rows = self:rowCount()
   local cells = rows * self:cellHeight() + (rows - 1) * self:rowMargin()
   return self:paddingY() * 2 + cells + self:gridY()
 end
--- Gets the width of a single cell.
--- @ret(number) the width in pixels
+-- @ret(number) The width of a cell in pixels.
 function GridWindow:cellWidth()
   return 70
 end
--- Gets the height of a single cell.
--- @ret(number) the height in pixels
+-- @ret(number) The height of a cell in pixels.
 function GridWindow:cellHeight()
   return 12
 end
--- Gets the space between columns.
--- @ret(number) the space in pixels
+-- @ret(number) The space between columns in pixels.
 function GridWindow:colMargin()
   return 6
 end
--- Gets the space between rows.
--- @ret(number) the space in pixels
+-- @ret(number) The space between rows in pixels.
 function GridWindow:rowMargin()
   return 2
 end

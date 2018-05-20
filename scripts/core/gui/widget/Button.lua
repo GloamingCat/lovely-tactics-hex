@@ -33,6 +33,7 @@ function Button:init(window, onConfirm, enableCondition)
   self.onCancel = self.onCancel or window.onButtonCancel
   self.onSelect = self.onSelect or window.onButtonSelect
   self.onMove = self.onMove or window.onButtonMove
+  self.onClick = self.onConfirm
 end
 -- Creates a button for the action represented by the given key.
 -- @param(window : GridWindow) the window that this button is component of

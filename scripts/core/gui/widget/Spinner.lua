@@ -31,6 +31,7 @@ local Spinner = class(GridWidget)
 function Spinner:init(window, minValue, maxValue, initValue)
   self.enabled = true
   GridWidget.init(self, window)
+  self.clickSound = nil
   self.onConfirm = self.onConfirm or window.onSpinnerConfirm
   self.onCancel = self.onCancel or window.onSpinnerCancel
   self.onChange = self.onChange or window.onSpinnerChange
@@ -45,12 +46,16 @@ function Spinner:initContent(initValue, w, h, x, y)
   local leftArrow = Image('images/GUI/Spinner/leftArrow.png')
   local leftArrowSprite = Sprite(GUIManager.renderer, leftArrow)
   leftArrowSprite:setQuad()
-  self.leftArrow = SimpleImage(leftArrowSprite, x, y + h)
+  self.leftArrow = SimpleImage(leftArrowSprite, 
+    x + leftArrow:getWidth() / 2, 
+    y + h - leftArrow:getHeight() / 2)
   -- Right arrow icon
   local rightArrow = Image('images/GUI/Spinner/rightArrow.png')
   local rightArrowSprite = Sprite(GUIManager.renderer, rightArrow)
   rightArrowSprite:setQuad()
-  self.rightArrow = SimpleImage(rightArrowSprite, x + w, y + h)
+  self.rightArrow = SimpleImage(rightArrowSprite, 
+    x + w - rightArrow:getWidth() / 2, 
+    y + h - rightArrow:getHeight() / 2)
   -- Value text in the middle
   self.value = initValue
   local textPos = Vector(x + leftArrow:getWidth(), y)
@@ -60,6 +65,11 @@ function Spinner:initContent(initValue, w, h, x, y)
   self.content:add(self.leftArrow)
   self.content:add(self.rightArrow)
   self.content:add(self.valueText)
+  -- Bounds
+  self.width = w
+  self.height = h
+  self.x = x
+  self.y = y
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -67,9 +77,32 @@ end
 ---------------------------------------------------------------------------------------------------
 
 -- Called when player presses arrows on this spinner.
-function Spinner.onMove(window, spinner, dx, dy)
-  spinner:changeValue(dx, dy)
+function Spinner.onMove(window, self, dx, dy)
+  self:changeValue(dx, dy)
 end
+-- Called when player presses a mouse button.
+function Spinner.onClick(window, self, x, y)
+  local pos = self:relativePosition()
+  x, y = x - pos.x, y - pos.y
+  if x < self.x or y < self.y or x > self.width + self.x then
+    return
+  end
+  if x <= self.x + self.width / 4 then
+    self:changeValue(-1, 0)
+  elseif x >= self.width * 3 / 4 + self.x then
+    self:changeValue(1, 0)
+  else
+    return
+  end
+  if self.confirmSound then
+    AudioManager:playSFX(self.confirmSound)
+  end
+end
+
+---------------------------------------------------------------------------------------------------
+-- Value
+---------------------------------------------------------------------------------------------------
+
 -- Changes the current value according to input.
 -- @param(dx : number) Input axis X.
 -- @param(dy : number) Input axis Y.
@@ -88,11 +121,6 @@ function Spinner:changeValue(dx, dy)
     end
   end
 end
-
----------------------------------------------------------------------------------------------------
--- Value
----------------------------------------------------------------------------------------------------
-
 -- Changes the current value.
 -- @param(value : number) new value, assuming it is inside limit bounds
 function Spinner:setValue(value)

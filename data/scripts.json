@@ -170,7 +170,7 @@
 				{
 					"name": "luaScript",
 					"param": "print(love.audio.getSourceCount())"
-				}
+				},
 				{
 					"name": "jump",
 					"param": {
