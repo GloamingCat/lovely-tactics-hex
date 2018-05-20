@@ -6,7 +6,7 @@
 			"level": 1,
 			"attackID": 10,
 			"classID": 1,
-			"exp": 10,
+			"exp": 100,
 			"gold": 3,
 			"scriptAI": {
 				"path": "",

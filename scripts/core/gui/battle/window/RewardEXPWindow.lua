@@ -8,9 +8,14 @@ The window that shows the gained experience.
 =================================================================================================]]
 
 -- Imports
+local PopupText = require('core/battle/PopupText')
 local SimpleText = require('core/gui/widget/SimpleText')
 local Vector = require('core/math/Vector')
 local Window = require('core/gui/Window')
+
+-- Alias
+local deltaTime = love.timer.getDelta
+local yield = coroutine.yield
 
 local RewardEXPWindow = class(Window)
 
@@ -21,6 +26,7 @@ local RewardEXPWindow = class(Window)
 -- Overrides Window:createContent.
 function RewardEXPWindow:createContent(...)
   Window.createContent(self, ...)
+  self.done = false
   local font = Fonts.gui_medium
   local x = - self.width / 2 + self:paddingX()
   local y = - self.height / 2 + self:paddingY()
@@ -32,31 +38,88 @@ function RewardEXPWindow:createContent(...)
     local battler = self.GUI.troop.battlers[k]
     -- Name
     local posName = Vector(x, y)
-    local name = SimpleText(battler.name, posName, w, 'left', font)
+    local name = SimpleText(battler.name, posName, w / 2, 'left', font)
     self.content:add(name)
     -- EXP - Arrow
-    local arrowPos = Vector(x + w / 2, y - 2, 0)
-    local arrow = SimpleText('→', arrowPos, w / 2, 'center')
+    local plusPos = Vector(x + w / 2, y - 2, 0)
+    local plus = SimpleText('+', plusPos, w / 2, 'center')
     local exp = battler.class.exp
-    local aw = arrow.sprite:getWidth()
+    local aw = plus.sprite:getWidth()
     local expw = w / 4 - aw / 2
-    self.content:add(arrow)
+    self.content:add(plus)
     -- EXP - Values
     local posEXP1 = Vector(x + w / 2, y)
-    local posEXP2 = Vector(x + w / 2 + expw + arrow.sprite:getWidth(), y)
+    local posEXP2 = Vector(x + w / 2 + expw + plus.sprite:getWidth(), y)
     local exp1 = SimpleText(exp .. '', posEXP1, expw, 'left', font)
-    local exp2 = SimpleText((exp + v) .. '', posEXP2, expw, 'left', font)    
+    local exp2 = SimpleText(v .. '', posEXP2, expw, 'left', font)    
     self.content:add(exp1)
     self.content:add(exp2)
-    local nextLevel = battler.class:levelup(v)
-    if nextLevel then
-      local levelup = SimpleText('Level ' .. nextLevel .. '!', Vector(x, y + 10), w, 'right', font)
-      levelup.sprite:setColor(Color.green)
-      self.content:add(levelup)
-      y = y + 12
-    end
+    exp1.battler = battler
+    exp1.value = exp
+    exp2.value = v
     y = y + 12
   end
+  self.soundFrequence = 4
+  self.expSound = Config.sounds.exp
+  self.expSpeed = 120
+  self.levelupSound = Config.sounds.levelup
+end
+
+---------------------------------------------------------------------------------------------------
+-- EXP Gain
+---------------------------------------------------------------------------------------------------
+
+-- [COROUTINE] Show EXP gain.
+function RewardEXPWindow:addEXP()
+  local done, levelup
+  local soundTime = self.soundFrequence
+  repeat
+    done, levelup = true, false
+    for i = 4, #self.content, 4 do
+      local exp1 = self.content[i]
+      local exp2 = self.content[i + 1]
+      if exp2.value > 0 then
+        done = false
+        local gain = math.min(math.floor(self.expSpeed * deltaTime()), exp2.value)
+        local nextLevel = exp1.battler.class:levelup(gain)
+        exp1.battler.class:addExperience(gain)
+        -- Level-up
+        if nextLevel then
+          local x = self:paddingX() - self.width / 2
+          local y = exp1.relativePosition.y + 8
+          local popupText = PopupText(x, y, -10, GUIManager.renderer)
+          popupText:addLine('Level ' .. nextLevel .. '!', 'popup_levelup', 'popup_levelup')
+          popupText:popup()
+          levelup = true
+        end
+        exp1.value = exp1.battler.class.exp
+        exp1:setText('' .. exp1.value)
+        exp1:redraw()
+        exp2.value = exp2.value - gain
+        exp2:setText('' .. exp2.value)
+        exp2:redraw()
+      end
+    end
+    soundTime = soundTime + deltaTime() * 60
+    if self.expSound and soundTime >= self.soundFrequence then
+      soundTime = soundTime - self.soundFrequence
+      AudioManager:playSFX(self.expSound)
+    end
+    if levelup and self.levelupSound then
+      AudioManager:playSFX(self.levelupSound)
+    end
+    yield()
+  until done
+end
+-- Overrides Window:onConfirm.
+function RewardEXPWindow:onConfirm()
+  if self.done then
+    self.result = 1
+    self.fiber:interrupt()
+    return
+  end
+  self.done = true
+  self.fiber = GUIManager.fiberList:fork(self.addEXP, self)
 end
 
 ---------------------------------------------------------------------------------------------------

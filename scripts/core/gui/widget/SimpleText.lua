@@ -9,9 +9,9 @@ It's a type of window content.
 =================================================================================================]]
 
 -- Imports
-local Vector = require('core/math/Vector')
 local Sprite = require('core/graphics/Sprite')
 local Text = require('core/graphics/Text')
+local Vector = require('core/math/Vector')
 
 local SimpleText = class()
 
@@ -19,11 +19,11 @@ local SimpleText = class()
 -- Initialization
 ---------------------------------------------------------------------------------------------------
 
--- @param(text : string) the text content (not rich text)
--- @param(relativePosition : Vector) position relative to its window (optional)
--- @param(width : number) the max width for texto box (optional)
--- @param(align : string) alignment inside the box (optional, left by default)
--- @param(font : string) font of the text (optional)
+-- @param(text : string) The text content (not rich text).
+-- @param(relativePosition : Vector) Position relative to its window (optional).
+-- @param(width : number) The max width for texto box (optional).
+-- @param(align : string) Alignment inside the box (optional, left by default).
+-- @param(font : string) Font of the text (optional).
 function SimpleText:init(text, relativePosition, width, align, font)
   assert(text, 'nil text')
   local p = { width, align or 'left', font or Fonts.gui_default }
@@ -31,7 +31,10 @@ function SimpleText:init(text, relativePosition, width, align, font)
   self.text = text
   self.relativePosition = relativePosition or Vector(0, 0, 0)
 end
-
+-- Sets the position relative to window's center.
+-- @param(x : number) Pixel x.
+-- @param(y : number) Pixel y.
+-- @param(z : number) Depth.
 function SimpleText:setRelativeXYZ(x, y, z)
   local pos = self.relativePosition
   pos.x = pos.x or x
@@ -39,7 +42,7 @@ function SimpleText:setRelativeXYZ(x, y, z)
   pos.z = pos.z or z
 end
 -- Changes text content (must be redrawn later).
--- @param(text : string) the new text content
+-- @param(text : string) The new text content.
 function SimpleText:setText(text)
   self.text = text
 end

@@ -38,14 +38,14 @@ function RewardGUI:createWindows()
   self:createEXPWindow(x, y, w, h)
   self:createItemWindow(x, y, w, h)
   self:setActiveWindow(self.expWindow)
-  self.troop:addRewards(self.rewards)
+  -- Gold / items
+  self.troop.gold = self.troop.gold + self.rewards.gold
+  self.troop.inventory:addAllItems(self.rewards.items)
 end
 -- Creates the text at the top of the screen to show that the player won.
 function RewardGUI:createTopText()
-  local prop = {
-    ScreenManager.width,
-    'center',
-    Fonts.gui_huge }
+  local prop = { ScreenManager.width,
+    'center', Fonts.gui_huge }
   self.topText = Text(Vocab.win, prop, GUIManager.renderer)
   local x = -ScreenManager.width / 2
   local y = -ScreenManager.height / 2 + self:windowMargin() * 2

@@ -120,7 +120,7 @@ function PopupText:popup(wait)
       sprite:setRGBA(nil, nil, nil, a)
       coroutine.yield()
     end
-    sprite:removeSelf()
+    sprite:destroy()
   end
 end
 -- Destroys this popup's sprite.

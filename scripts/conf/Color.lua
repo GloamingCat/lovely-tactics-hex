@@ -1,13 +1,27 @@
 
+local black = {red = 0, green = 0, blue = 0, alpha = 255}
+local red = {red = 255, green = 0, blue = 0, alpha = 255}
+local green = {red = 0, green = 255, blue = 0, alpha = 255}
+local blue = {red = 0, green = 0, blue = 255, alpha = 255}
+local yellow = {red = 255, green = 255, blue = 0, alpha = 255}
+local magenta = {red = 255, green = 0, blue = 255, alpha = 255}
+local cyan = {red = 0, green = 255, blue = 255, alpha = 255}
+local white = {red = 255, green = 255, blue = 255, alpha = 255}
+
 local babypink = {red = 255, green = 142, blue = 240, alpha = 255}
 local babyblue = {red = 170, green = 183, blue = 255, alpha = 255}
+local lightgray = {red = 200, green = 200, blue = 200, alpha = 200}
 
 return {
   -- Common colors
-  white = {red = 255, green = 255, blue = 255, alpha = 255},
-  red = {red = 255, green = 0, blue = 0, alpha = 255},
-  green = {red = 0, green = 255, blue = 0, alpha = 255},
-  blue = {red = 0, green = 0, blue = 255, alpha = 255},
+  black = black,
+  red = red,
+  green = green,
+  blue = blue,
+  yellow = yellow,
+  magenta = magenta,
+  cyan = cyan,
+  white = white,
   babypink = babypink,
   babyblue = babyblue,
 
@@ -31,14 +45,15 @@ return {
   popup_healhp = {red = 76, green = 255, blue = 76, alpha = 255},
   popup_healsp = {red = 76, green = 76, blue = 255, alpha = 255},
   popup_miss = {red = 204, green = 204, blue = 204, alpha = 255},
-  popup_status_add = {red = 255, green = 255, blue = 255, alpha = 255},
-  popup_status_remove = {red = 255, green = 255, blue = 255, alpha = 255},
+  popup_status_add = white,
+  popup_status_remove = white,
+  popup_levelup = yellow,
   
   -- GUI
-  gui_text_enabled = {red = 255, green = 255, blue = 255, alpha = 255},
-  gui_text_disabled = {red = 200, green = 200, blue = 200, alpha = 200},
-  gui_icon_enabled = {red = 255, green = 255, blue = 255, alpha = 255},
-  gui_icon_disabled = {red = 200, green = 200, blue = 200, alpha = 200},
+  gui_text_enabled = white,
+  gui_text_disabled = lightgray,
+  gui_icon_enabled = white,
+  gui_icon_disabled = lightgray,
   barHP = {red = 50, green = 255, blue = 100, alpha = 255},
   barSP = {red = 50, green = 100, blue = 255, alpha = 255},
   barEXP = {red = 255, green = 255, blue = 100, alpha = 255},

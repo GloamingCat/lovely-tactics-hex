@@ -1,10 +1,5 @@
 {
 	// GUI
-	"text": {
-		"name": "GameAudio/text2.wav",
-		"pitch": 60,
-		"volume": 80
-	},
 	"buttonConfirm": {
 		"name": "GameAudio/button-confirm.wav",
 		"pitch": 100,
@@ -50,6 +45,21 @@
 		"pitch": 100,
 		"volume": 100
 	},
+	"text": {
+		"name": "GameAudio/text2.wav",
+		"pitch": 60,
+		"volume": 80
+	},
+  "exp": {
+		"name": "GameAudio/text2.wav",
+		"pitch": 60,
+		"volume": 80
+  },
+  "levelup": {
+    "name": "GameAudio/levelup.wav",
+    "pitch": 120,
+    "volume": 90
+  },
 
 	// Battle
 	"allyDamage": {

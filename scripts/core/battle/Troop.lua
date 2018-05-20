@@ -212,18 +212,6 @@ function Troop:getBattleRewards()
   end
   return r
 end
--- Adds the given rewards to this troop.
--- @param(r : table) the battler results (optional, may be calculated with still in battle)
---  the table must contain <exp>, <items> and <gold> fields
-function Troop:addRewards(r)
-  r = r or self:getBattleRewards()
-  self.gold = self.gold + r.gold
-  self.inventory:addAllItems(r.items)
-  local characters = self:currentCharacters(true)
-  for key, exp in pairs(r.exp) do
-    self.battlers[key].class:addExperience(exp)
-  end
-end
 
 ---------------------------------------------------------------------------------------------------
 -- Persistent Data

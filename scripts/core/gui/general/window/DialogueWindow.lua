@@ -26,7 +26,6 @@ local Window = require('core/gui/Window')
 
 -- Alias
 local deltaTime = love.timer.getDelta
-local round = math.round
 local yield = coroutine.yield
 
 local DialogueWindow = class(Window)

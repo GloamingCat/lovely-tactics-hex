@@ -26,6 +26,7 @@ return  {
   popup_miss = default_font,
   popup_status_add = default_font,
   popup_status_remove = default_font,
+  popup_levelup = default_font,
   fps = fps_font,
   
   -- Settings

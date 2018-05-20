@@ -23,7 +23,7 @@ local TitleGUI = class(GUI)
 -- Implements GUI:createWindows.
 function TitleGUI:createWindows()
   self.name = 'Title GUI'
-  self.coverSpeed = 1
+  self.coverSpeed = 2
   self:createCover()
   self:createTopText()
   self:createCommandWindow()

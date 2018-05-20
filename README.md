@@ -68,12 +68,6 @@ Also, check the project that my mate Felipe Tavares is working on, a GUI to edit
 For now, this work is licensed under the Creative Commons Attribution-NonCommercial 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-nc/4.0/. It may have a commercial license in the future, maybe when it's finished.
 Also, please check the LÖVE2D license here: https://love2d.org/wiki/License.
 
-## To-do list
-
-* Settings screen;
-* GameOver screen;
-* Isometric and orthogonal grid cells.
-
 ## Contact
 
 My e-mail is nightlywhiskers (at) gmail.com. You may also find me in DeviantArt, Instagram and some random art/gamedev forums, as GloamingCat.
