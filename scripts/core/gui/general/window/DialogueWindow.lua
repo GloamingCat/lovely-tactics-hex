@@ -146,7 +146,7 @@ function DialogueWindow:setPortrait(icon)
     local x, y, w, h = portrait:totalBounds()
     x = -self.width / 2 + x + w / 2
     y = self.height / 2 - h / 2
-    self.portrait = SimpleImage(portrait, x, y, 1)
+    self.portrait = SimpleImage(portrait, x - w / 2, y - h / 2, 1)
     self.portrait:updatePosition(self.position)
     self.content:add(self.portrait)
     self.indent = w

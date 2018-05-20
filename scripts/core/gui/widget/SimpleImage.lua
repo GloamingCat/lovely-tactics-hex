@@ -27,7 +27,7 @@ local SimpleImage = class()
 -- @param(w : number) max width of the image
 -- @param(h : number) max height of the image
 function SimpleImage:init(sprite, x, y, depth, w, h)
-  self.depth = depth
+  self.depth = depth or -1
   self.width = w
   self.height = h
   self.x = x
@@ -53,7 +53,7 @@ function SimpleImage:centerSpriteQuad()
   local mw, mh = min(pw, w), min(ph, h)
   local mx, my = (pw - mw) / 2, (ph - mh) / 2
   self.sprite:setQuad(px + mx, py + my, mw / self.sprite.scaleX, mh / self.sprite.scaleY)
-  self.sprite:setCenterOffset(self.depth or -1)
+  self.sprite:setCenterOffset()
   self.sx = x + w / 2
   self.sy = y + h / 2
 end
@@ -65,7 +65,7 @@ end
 -- Sets image position.
 function SimpleImage:updatePosition(pos)
   if self.sprite then
-    self.sprite:setXYZ(pos.x + self.sx, pos.y + self.sy, pos.z)
+    self.sprite:setXYZ(pos.x + self.sx, pos.y + self.sy, pos.z + self.depth)
   end
 end
 -- Shows image.

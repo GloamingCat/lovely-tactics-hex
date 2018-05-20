@@ -8,6 +8,7 @@ Window that shows the total price to be paidin the Shop GUI.
 =================================================================================================]]
 
 -- Imports
+local Button = require('core/gui/widget/Button')
 local CountWindow = require('core/gui/general/window/CountWindow')
 local SimpleImage = require('core/gui/widget/SimpleImage')
 local SimpleText = require('core/gui/widget/SimpleText')
@@ -22,12 +23,18 @@ local ShopCountWindow = class(CountWindow)
 -- Overrides GridWindow:createContent. Creates the text with the price values.
 function ShopCountWindow:createContent(...)
   self.noCursor = false
+  self.noHighlight = false
   CountWindow.createContent(self, ...)
   self:createValues()
   self:createIcon()
   self:createStats()
   self.spinner.confirmSound = Config.sounds.buy or self.spinner.confirmSound
   self.spinner.bigIncrement = 5
+end
+-- Overrides CountWindow:createWidgets. Adds "buy" button.
+function ShopCountWindow:createWidgets(...)
+  CountWindow.createWidgets(self, ...)
+  Button:fromKey(self, "buy")
 end
 -- Creates the texts of each gold value.
 function ShopCountWindow:createValues()
@@ -127,6 +134,12 @@ end
 -- Confirm Callbacks
 ---------------------------------------------------------------------------------------------------
 
+function ShopCountWindow:onButtonConfirm(button)
+  if self.spinner.confirmSound then
+    AudioManager:playSFX(self.spinner.confirmSound)
+  end
+  self:onSpinnerConfirm(self.spinner)
+end
 -- Confirms the buy action.
 function ShopCountWindow:onSpinnerConfirm(spinner)
   local troop = self.GUI.troop
@@ -152,6 +165,7 @@ function ShopCountWindow:returnWindow()
   local w = self.GUI.itemWindow
   w:refreshButtons()
   w:activate()
+  self.highlight:hide()
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -171,6 +185,10 @@ end
 -- Properties
 ---------------------------------------------------------------------------------------------------
 
+-- Overrides GridWindow:rowCount.
+function ShopCountWindow:rowCount()
+  return 2
+end
 -- Overrides GridWindow:cellWidth.
 function ShopCountWindow:cellWidth()
   return 100

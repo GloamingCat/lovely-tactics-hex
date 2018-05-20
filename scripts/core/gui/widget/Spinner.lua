@@ -47,14 +47,14 @@ function Spinner:initContent(initValue, w, h, x, y)
   local leftArrowSprite = Sprite(GUIManager.renderer, leftArrow)
   leftArrowSprite:setQuad()
   self.leftArrow = SimpleImage(leftArrowSprite, 
-    x + leftArrow:getWidth() / 2, 
+    x , 
     y + h - leftArrow:getHeight() / 2)
   -- Right arrow icon
   local rightArrow = Image('images/GUI/Spinner/rightArrow.png')
   local rightArrowSprite = Sprite(GUIManager.renderer, rightArrow)
   rightArrowSprite:setQuad()
   self.rightArrow = SimpleImage(rightArrowSprite, 
-    x + w - rightArrow:getWidth() / 2, 
+    x + w - rightArrow:getWidth(), 
     y + h - rightArrow:getHeight() / 2)
   -- Value text in the middle
   self.value = initValue
@@ -93,9 +93,6 @@ function Spinner.onClick(window, self, x, y)
     self:changeValue(1, 0)
   else
     return
-  end
-  if self.confirmSound then
-    AudioManager:playSFX(self.confirmSound)
   end
 end
 
