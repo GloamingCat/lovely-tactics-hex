@@ -51,7 +51,7 @@ function RewardGUI:createTopText()
   local y = -ScreenManager.height / 2 + self:windowMargin() * 2
   self.topText:setXYZ(x, y)
   self.topText:setVisible(false)
-  self.topTextSpeed = 8
+  self.topTextSpeed = 2
 end
 -- Creates the window that shows battle results.
 function RewardGUI:createEXPWindow(x, y, w, h)
@@ -83,12 +83,15 @@ function RewardGUI:show(...)
 end
 -- Animation that shows the text at the top.
 function RewardGUI:showTopText()
+  if AudioManager.victoryTheme then
+    AudioManager:playBGM(AudioManager.victoryTheme)
+  end
   local a = 0
   self.topText:setVisible(true)
   self.topText:setRGBA(nil, nil, nil, 0)
-  while a < 255 do
-    a = a + time() * 60 * self.topTextSpeed
-    self.topText:setRGBA(nil, nil, nil, a)
+  while a < 1 do
+    a = a + time() * self.topTextSpeed
+    self.topText:setRGBA(nil, nil, nil, a * 255)
     coroutine.yield()
   end
   self.topText:setRGBA(nil, nil, nil, 255)
@@ -105,10 +108,13 @@ function RewardGUI:hide(...)
 end
 -- Animation that shows the text at the top.
 function RewardGUI:hideTopText()
-  local a = 255
+  if AudioManager.victoryTheme then
+    AudioManager:pauseBGM(120 / self.topTextSpeed, true)
+  end
+  local a = 1
   while a > 0 do
-    a = a - time() * 60 * self.topTextSpeed
-    self.topText:setRGBA(nil, nil, nil, a)
+    a = a - time() * self.topTextSpeed
+    self.topText:setRGBA(nil, nil, nil, a * 255)
     coroutine.yield()
   end
   self.topText:setVisible(false)

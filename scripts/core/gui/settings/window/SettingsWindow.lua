@@ -40,12 +40,12 @@ end
 -- Change the BGM volume.
 function SettingsWindow:volumeBGMChange(spinner)
   SaveManager.current.config.volumeBGM = spinner.value
-  AudioManager:setBGMVolume(spinner.value / 100)
+  AudioManager:setBGMVolume(spinner.value)
 end
 -- Change the SFX volume.
 function SettingsWindow:volumeSFXChange(spinner)
   SaveManager.current.config.volumeSFX = spinner.value
-  AudioManager:setSFXVolume(spinner.value / 100)
+  AudioManager:setSFXVolume(spinner.value)
 end
 -- Change window scroll speed.
 function SettingsWindow:windowScrollChange(spinner)

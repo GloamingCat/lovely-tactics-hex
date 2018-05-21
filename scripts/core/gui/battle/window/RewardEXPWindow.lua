@@ -59,7 +59,7 @@ function RewardEXPWindow:createContent(...)
     exp2.value = v
     y = y + 12
   end
-  self.soundFrequence = 4
+  self.soundPeriod = 5
   self.expSound = Config.sounds.exp
   self.expSpeed = 120
   self.levelupSound = Config.sounds.levelup
@@ -72,7 +72,7 @@ end
 -- [COROUTINE] Show EXP gain.
 function RewardEXPWindow:addEXP()
   local done, levelup
-  local soundTime = self.soundFrequence
+  local soundTime = self.soundPeriod
   repeat
     done, levelup = true, false
     for i = 4, #self.content, 4 do
@@ -101,8 +101,8 @@ function RewardEXPWindow:addEXP()
       end
     end
     soundTime = soundTime + deltaTime() * 60
-    if self.expSound and soundTime >= self.soundFrequence then
-      soundTime = soundTime - self.soundFrequence
+    if self.expSound and soundTime >= self.soundPeriod then
+      soundTime = soundTime - self.soundPeriod
       AudioManager:playSFX(self.expSound)
     end
     if levelup and self.levelupSound then

@@ -82,19 +82,32 @@
 		"pitch": 100,
 		"volume": 100
 	},
-	"battleIntro": {
-		"name": "battle-intro.wav",
+	//"battleIntro": {
+	//	"name": "battle-intro.wav",
+	//	"pitch": 100,
+	//	"volume": 100
+	//},
+  
+  // Themes
+  "titleTheme": {
+		"name": "David Vitas/Town Theme.ogg",
 		"pitch": 100,
 		"volume": 100
-	},
+  },
 	"battleTheme": {
-		"name": "battle1.ogg",
+		"name": "David Vitas/Battle Theme.ogg",
 		"pitch": 100,
 		"volume": 100
 	},
-	"gameOver": {
-		"name": "gameover.ogg",
-		"pitch": 85,
+  "victoryTheme": {
+		"name": "David Vitas/Victory Fanfare.ogg",
+		"pitch": 100,
+		"volume": 100
+  },
+	"gameoverTheme": {
+		"name": "Aaron Krogh/Music Box.ogg",
+		"pitch": 100,
 		"volume": 100
 	}
+  
 }

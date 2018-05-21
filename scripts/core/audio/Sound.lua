@@ -23,11 +23,11 @@ function Sound:init(name, volume, pitch)
 end
 
 function Sound:initSource(source, volume, pitch)
-  self.volume = volume or 1
-  self.pitch = pitch or 1
+  self.volume = volume or 100
+  self.pitch = pitch or 100
   self.source = source
-  self.source:setVolume(self.volume)
-  self.source:setPitch(self.pitch)
+  self:updateVolume()
+  self:updatePitch()
   self.paused = true
 end
 
@@ -82,25 +82,24 @@ end
 -- Volume & Pitch
 ---------------------------------------------------------------------------------------------------
 
--- @ret(number) local BGM volume
-function Sound:getVolume()
-  return self.volume
+-- @param(v : number) New local volume.
+function Sound:setVolume(v)
+  self.volume = v or self.volume
+  self:updateVolume()
 end
--- @param(m : number) AudioManager's BGM volume
--- @param(l : number) new local BGM volume
-function Sound:setVolume(m, l)
-  self.volume = l or self.volume
-  self.source:setVolume(self.volume * m)
+-- @param(p : number) New local pitch.
+function Sound:setPitch(p)
+  self.pitch = p or self.pitch
+  self:updatePitch()
 end
--- @ret(number) local BGM pitch
-function Sound:getPitch()
-  return self.pitch
+
+function Sound:updateVolume()
+  self.source:setVolume((self.volume / 100) * (AudioManager.volumeSFX / 100))
+  print ((self.volume / 100) * (AudioManager.volumeSFX / 100))
 end
--- @param(m : number) AudioManager's BGM pitch
--- @param(l : number) new local BGM pitch
-function Sound:setPitch(m, l)
-  self.pitch = m or self.pitch
-  self.source:setPitch(self.pitch * m)
+
+function Sound:updatePitch()
+  self.source:setPitch((self.pitch / 100) * (AudioManager.pitchSFX / 100))
 end
 
 return Sound

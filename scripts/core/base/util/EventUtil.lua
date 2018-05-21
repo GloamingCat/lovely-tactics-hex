@@ -178,18 +178,22 @@ function util.startBattle(sheet, event, args)
     if args.fade then
       local shader = ScreenManager.shader
       util.shaderin(sheet, event, shaderArgs)
+      if Config.sounds.battleIntro then
+        AudioManager:playSFX(Config.sounds.battleIntro)
+      end
+      if AudioManager.battleTheme then
+        AudioManager:playBGM(AudioManager.battleTheme)
+      end
       -- TODO: play battle intro SFX
-      -- TODO: play battle theme
       ScreenManager.shader = shader
     end
     local result = FieldManager:loadBattle(args.fieldID, args)
-    AudioManager:pauseBGM()
     if result == 2 then -- Retry
       goto retry
     elseif result == 3 then -- Title Screen
       GameManager:restart()
     elseif bgm then
-      AudioManager:playBGM({name = bgm.name, volume = bgm.volume * 100, pitch = bgm.pitch * 100})
+      AudioManager:playBGM(bgm)
     end
   end)
   fiber:waitForEnd()

@@ -107,9 +107,6 @@ function BattleManager:battleEnd()
   if self:playerWon() then
     GUIManager:showGUIForResult(RewardGUI())
   else
-    if Config.sounds.gameOver then
-      AudioManager:playBGM(Config.sounds.gameOver)
-    end
     result = GUIManager:showGUIForResult(GameOverGUI())
   end
   if self.params.fade then

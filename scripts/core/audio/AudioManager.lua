@@ -15,6 +15,7 @@ local Sound = require('core/audio/Sound')
 -- Alias
 local deltaTime = love.timer.getDelta
 local yield = coroutine.yield
+local max = math.max
 local min = math.min
 
 local AudioManager = class()
@@ -27,17 +28,21 @@ local AudioManager = class()
 function AudioManager:init()
   -- BGM
   self.BGM = nil
-  self.nextBGM = nil
   self.fading = 1
   self.fadingSpeed = 0
-  self.volumeBGM = 1
-  self.pitchBGM = 1
+  self.volumeBGM = 100
+  self.pitchBGM = 100
   self.pausedBGM = false
   -- SFX
   self.sfx = List()
-  self.volumeSFX = 1
-  self.pitchSFX = 1
+  self.volumeSFX = 100
+  self.pitchSFX = 100
   self.paused = false
+  -- Default sounds
+  self.titleTheme = Config.sounds.titleTheme
+  self.battleTheme = Config.sounds.battleTheme
+  self.victoryTheme = Config.sounds.victoryTheme
+  self.gameoverTheme = Config.sounds.gameoverTheme
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -55,9 +60,6 @@ function AudioManager:setPaused(paused)
   if self.BGM then
     self.BGM:setPaused(paused)
   end
-  if self.nextBGM then
-    self.nextBGM:setPaused(paused)
-  end
   for i = 1, #self.sfx do
     self.sfx[i]:setPaused(paused)
   end
@@ -74,15 +76,8 @@ end
 -- @param(v : number) volume multiplier for current BGM
 function AudioManager:setBGMVolume(v)
   self.volumeBGM = v
-  self:updateBGMVolume()
-end
--- Updates the volume of all BGM according to volume multiplier.
-function AudioManager:updateBGMVolume()
   if self.BGM then
-    self.BGM:setVolume((1 - self.fading) * self.volumeBGM)
-  end
-  if self.nextBGM then
-    self.nextBGM:setVolume(self.fading * self.volumeBGM)
+    self.BGM:updateVolume()
   end
 end
 -- @ret(number) volume multiplier for current SFX
@@ -93,7 +88,7 @@ end
 function AudioManager:setSFXVolume(v)
   self.volumeSFX = v
   for i = 1, #self.sfx do
-    self.sfx[i]:setVolume(v)
+    self.sfx[i]:updateVolume()
   end
 end
 
@@ -109,10 +104,7 @@ end
 function AudioManager:setBGMPitch(p)
   self.pitchBGM = p
   if self.BGM then 
-    self.BGM:setPitch(p)
-  end
-  if self.nextBGM then 
-    self.nextBGM:setPitch(p) 
+    self.BGM:updatePitch()
   end
 end
 -- @ret(number) pitch multiplier for current SFX
@@ -123,7 +115,7 @@ end
 function AudioManager:setSFXPitch(p)
   self.pitchSFX = p
   for i = 1, #self.sfx do
-    self.sfx[i]:setPitch(p)
+    self.sfx[i]:updatePitch()
   end
 end
 
@@ -133,7 +125,7 @@ end
 
 -- @param(sfx : table) table with file's name (from audio/sfx folder), volume and pitch
 function AudioManager:playSFX(sfx)
-  local sound = Sound(sfx.name, sfx.volume / 100, sfx.pitch / 100)
+  local sound = Sound(sfx.name, sfx.volume, sfx.pitch)
   sound:setVolume(self.volumeSFX)
   self.sfx:add(sound)
   sound:play()
@@ -154,39 +146,35 @@ end
 -- @param(time : number) the duration of the fading transition
 -- @param(wait : boolean) yields until the fading animation concludes
 function AudioManager:playBGM(bgm, time, wait)
-  if self.nextBGM then
-    if self.BGM then
-      self.BGM:stop()
-    end
-    self.BGM = self.nextBGM
-  end
+  self.pausedBGM = false
   if self.BGM then
-    self.BGM:play()
+    self.BGM:pause()
   end
-  self.nextBGM = Music(bgm.name, (bgm.volume or 100) / 100, (bgm.pitch or 100) / 100)
-  self.nextBGM:play()
-  self.nextBGM:setVolume(0)
+  self.BGM = Music(bgm.name, bgm.volume or 100, bgm.pitch or 100, bgm.intro, bgm.loop)
+  self.BGM:play()
   self:fade(time, wait)
 end
 -- @param(time : number) the duration of the fading transition
 -- @param(wait : boolean) yields until the fading animation concludes
 function AudioManager:resumeBGM(time, wait)
   if self.pausedBGM then
-    self.BGM, self.nextBGM = self.nextBGM, self.BGM
     if self.BGM then
       self.BGM:resume()
-    end
-    if self.nextBGM then
-      self.nextBGM:resume()
     end
     self.pausedBGM = false
     self:fade(time, wait)
   end
 end
-
+-- [COROUTINE] Paused current BGM.
+-- @param(time : number) Fade-out time.
+-- @param(wait : boolean) Wait until the end of the fading.
+-- @ret(Music) Current playing BGM (if any).
 function AudioManager:pauseBGM(time, wait)
-  self.pausedBGM = true
-  self:fade(time, wait)
+  if self.BGM then
+    self.pausedBGM = true
+    self:fade(time and -time, wait)
+    return self.BGM
+  end
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -195,28 +183,14 @@ end
 
 -- Updates fading and BGMs.
 function AudioManager:updateBGM()
-  if self.fading < 1 then
-    self.fading = min(1, self.fading + deltaTime() * self.fadingSpeed)
-    self:updateBGMVolume()
-    if self.fading >= 1 then
-      self:playNextBGM()
-    end
-  end
   if self.BGM then
     self.BGM:update()
+  else
+    return
   end
-  if self.nextBGM then
-    self.nextBGM:update()
-  end
-end
--- Replaces current BGM with the next BGM.
-function AudioManager:playNextBGM()
-  if self.BGM then
-    self.BGM:stop()
-  end
-  if self.nextBGM then
-    self.BGM = self.nextBGM
-    self.nextBGM = nil
+  if self.fadingSpeed > 0 and self.fading < 1 or self.fadingSpeed < 0 and self.fading > 0 then
+    self.fading = min(1, max(0, self.fading + deltaTime() * self.fadingSpeed))
+    self.BGM:updateVolume()
   end
 end
 
@@ -227,17 +201,18 @@ end
 -- @param(time : number) the duration of the fading
 -- @param(wait : boolean) true to only return when the fading finishes
 function AudioManager:fade(time, wait)
-  if time and time > 0 then
-    self.fadingSpeed = 1 / time * 60
-    self.fading = 0
+  if time then
+    self.fadingSpeed = 60 / time
+    self.fading = time > 0 and 0 or 1
     if wait then
       self:waitForBGMFading()
     end
   else
     self.fadingSpeed = 0
     self.fading = 1
-    self:updateBGMVolume()
-    self:playNextBGM()
+    if self.BGM then
+      self.BGM:updateVolume()
+    end
   end
 end
 -- [COROUTINE] Waits until the fading value is 1.
@@ -247,7 +222,7 @@ function AudioManager:waitForBGMFading()
     self.fadingFiber:interrupt()
   end
   self.fadingFiber = fiber
-  while self.fading < 1 do
+  while self.fading < 1 and self.fading > 0 do
     yield()
   end
   if fiber:running() then

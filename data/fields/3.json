@@ -6,10 +6,10 @@
 		"name": "Forest 3",
 		"persistent": true,
 		"defaultRegion": 0,
-		//"bgm": {
-		//  "name": "The Brother I Never Had.mp3",
-		//  "time": 30
-		//},
+		"bgm": {
+		  "name": "Aaron Krogh/Jungle.ogg",
+		  "time": 30
+		},
 		// Automatically generated transitions interactables.
 		"transitions": [
 			{

@@ -68,6 +68,9 @@ function GameOverGUI:show(...)
 end
 -- Animation that shows the text at the top.
 function GameOverGUI:showTopText()
+  if AudioManager.gameoverTheme then
+    AudioManager:playBGM(AudioManager.gameoverTheme)
+  end
   local a = 0
   self.topText:setVisible(true)
   self.topText:setRGBA(nil, nil, nil, 0)
@@ -90,6 +93,9 @@ function GameOverGUI:hide(...)
 end
 -- Animation that shows the text at the top.
 function GameOverGUI:hideTopText()
+  if AudioManager.gameoverTheme then
+    AudioManager:pauseBGM(60 / self.topTextSpeed)
+  end
   local a = 255
   while a > 0 do
     a = a - time() * 60 * self.topTextSpeed

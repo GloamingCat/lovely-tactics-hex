@@ -75,6 +75,9 @@ end
 
 -- Fades in cover and title.
 function TitleGUI:showCover()
+  if AudioManager.titleTheme then
+    AudioManager:playBGM(AudioManager.titleTheme, 60 / self.coverSpeed)
+  end
   local time = 0
   while time < 1 do
     time = math.min(1, time + love.timer.getDelta() * self.coverSpeed)
@@ -87,6 +90,9 @@ function TitleGUI:showCover()
 end
 -- Faces out cover and title.
 function TitleGUI:hideCover()
+  if Config.sounds.titleTheme then
+    AudioManager:pauseBGM(60 / self.coverSpeed)
+  end
   local time = 1
   while time > 0 do
     time = math.max(0, time - love.timer.getDelta() * self.coverSpeed)

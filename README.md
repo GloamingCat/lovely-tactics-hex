@@ -57,9 +57,10 @@ Thanks to the following people for general art resources used in the project:
 * GameAudio for sound effects: https://freesound.org/people/GameAudio/packs/13940/;
 * artisticdude for sound effects: https://opengameart.org/content/rpg-sound-pack;
 * ViRiX Dreamcore (David Mckee) for sound effects: https://opengameart.org/content/magic-sfx-sample;
-* Aaron Krogh for MP3 BGM: https://soundcloud.com/aaron-anderson-11;
+* Aaron Krogh for BGM: https://soundcloud.com/aaron-anderson-11;
+* David Vitas for BGM: http://www.davidvitas.com/portfolio/2016/5/12/rpg-music-pack;
 * Mr. Bubble for the battle animations: https://mrbubblewand.wordpress.com/;
-* Alex dos Ventos for the scenery art.
+* Alex dos Ventos for the scenery art: http://diabraar.tumblr.com/;
 
 Also, check the project that my mate Felipe Tavares is working on, a GUI to edit the game's database files: https://github.com/felipetavares/lovely-tactics-gui
 
