@@ -1,11 +1,12 @@
 
---[[===========================================================================
+--[[===============================================================================================
 
-The FieldMath is a module that provides basic math operations, like 
-tile-pixel coordinate convertion, neighbor shift, autotile rows, grid
-navigation/iteration, etc.
+FieldMath
+---------------------------------------------------------------------------------------------------
+A module that provides basic math operations, like tile-pixel coordinate convertion, neighbor 
+shift, autotile rows, grid navigation/iteration, etc.
 
-=============================================================================]]
+=================================================================================================]]
 
 -- Imports
 local Vector = require('core/math/Vector')
@@ -18,10 +19,11 @@ local tileS = Config.grid.tileS
 
 local FieldMath = {}
 
----------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
 -- Initialization
----------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
 
+-- Creates static fields.
 function FieldMath.init()
   FieldMath.tg = (tileH + tileS) / (tileW + tileB)
   FieldMath.fullNeighborShift = FieldMath.createFullNeighborShift()
@@ -45,6 +47,23 @@ function FieldMath.createFullNeighborShift()
   put(0, -1)
   put(1, -1)
   return s
+end
+
+---------------------------------------------------------------------------------------------------
+-- Neighbor
+---------------------------------------------------------------------------------------------------
+
+-- Verifies the tile coordinate differences are one of the neighbor shifts.
+-- @param(dx : number) Difference in x between the tiles.
+-- @param(dy : number) Difference in y between the tiles.
+function FieldMath.isNeighbor(dx, dy)
+  for i = 1, #FieldMath.neighborShift do
+    local n = FieldMath.neighborShift[i]
+    if n.x == dx and n.y == dy then
+      return true
+    end
+  end
+  return false
 end
 -- Gets the tile in front if the other in the given direction.
 -- @param(tile : ObjectTile) Origin tile.
@@ -70,9 +89,9 @@ function FieldMath.frontTile(tile, dx, dy)
   end
 end
 
------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
 -- Field center
------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
 
 -- Gets the world center of the given field.
 -- @param(field : Field)

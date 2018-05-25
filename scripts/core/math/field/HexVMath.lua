@@ -105,7 +105,7 @@ function HexVMath.minDepth(sizeX, sizeY, height)
 end
 
 -----------------------------------------------------------------------------------------------
--- Tile coordinate to pixel point
+-- Tile-Pixel
 -----------------------------------------------------------------------------------------------
 
 -- @param(i : number) Tile x coordinate.
@@ -118,11 +118,6 @@ function HexVMath.tile2Pixel(i, j, h)
   local y = -d - h * pph
   return x, y, d - h * dph
 end
-
------------------------------------------------------------------------------------------------
--- Pixel point to tile coordinate
------------------------------------------------------------------------------------------------
-
 -- @param(x : number) Pixel x.
 -- @param(y : number) Pixel y.
 -- @param(d : number) Pixel depth.
@@ -161,27 +156,21 @@ function HexVMath.autoTileRows(grid, i, j, sameType)
     if localSameType() then
         rows[2] = rows[2] + pow(2, 1 + k)
     end
-    
     n = (step1 + (k + 3) % 3 - 1) % #shift
     if localSameType() then
         rows[4] = rows[4] + pow(2, 1 + k)
     end
-  
     n = (k + step1 + step2) % #shift
     if localSameType() then
         rows[3] = rows[3] + pow(2, 1 + k)
     end
-    
     n = (step1 + step2 + step1 + (k + 3) % 3 - 1) % #shift
     if localSameType() then
         rows[1] = rows[1] + pow(2, 1 + k)
     end
   end
   if rows[1] == 0 and rows[2] == 0 and rows[3] == 0 and rows[4] == 0 then
-    rows[1] = 8
-    rows[2] = 8
-    rows[3] = 8
-    rows[4] = 8
+    rows[1], rows[2], rows[3], rows[4] = 8, 8, 8, 8
   end
   return rows
 end
@@ -242,21 +231,6 @@ function HexVMath.radiusIterator(radius, centerX, centerY, sizeX, sizeY)
     return i + centerX, j + centerY
   end
 end
--- Used for iterating the tiles in a given radius.
--- @param(radius : number) the radius of the area (the max distance in tiles from the center)
--- @ret(number) the minimum x among the tiles
--- @ret(number) the maximum x among the tiles
-function HexVMath.radiusLimitsX(radius)
-	return -radius, radius
-end
--- Used for iterating the tiles in a given radius.
--- @param(radius : number) the radius of the area (the max distance in tiles from the center)
--- @param(i : number) the current line in the iteration (for hexagonal only)
--- @ret(number) the minimum y among the tiles
--- @ret(number) the maximum y among the tiles
-function HexVMath.radiusLimitsY(radius, i)
-  return max(-radius, -radius - i), min(radius, radius - i)
-end
 
 -----------------------------------------------------------------------------------------------
 -- Next Coordinates
@@ -271,7 +245,7 @@ end
 -- @param(sizeY : number) the size of the field in axis Y
 -- @ret(number) the next tile's x
 -- @ret(number) the next tile's y
-function HexVMath.nextTile(x, y, axisX, axisY, sizeX, sizeY)
+function HexVMath.nextCoord(x, y, axisX, axisY, sizeX, sizeY)
   local dx, dy
   if axisX == 0 then
     dx, dy = -axisY, axisY

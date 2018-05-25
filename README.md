@@ -4,6 +4,8 @@ The Lovely Tactics Hex project is a framework for development of tactical role-p
 The main games used as inspiration for this project are Final Fantasy Tactics Advance (for GBA), Jeanne D'arc, and Trails in the Sky (both for PSP).
 The "Hex" in the name is because the battle grid is hexagonal. I plan, though, to adapt it to orthogonal and isometric grids someday.
 
+Project's repository: https://github.com/GloamingCat/Lovely-Tactics-Hex
+
 ## Motivation
 
 I started this project as just a TRPG that I wanted to make, then I realized that the code could be generalized enough to be turned into an engine.
@@ -36,14 +38,13 @@ This should run the game.
 
 ## How to Play
 
-* Use arrow keys or WASD to navigate around the field or GUI;
-* Press hold to walk faster;
-* Press Z, Enter or Space to confirm a GUI selection or interact with NPCs;
-* Press X, Backspace or Escape to cancel a GUI selection;
-* Press a cancel button in field to show the Field Menu (you can manage characters there, although not all options where implemented);
-* Interact with pink character to test dialogue;
-* Collide with green characters to start a battle;
-* Press F1 to save and F5 to load.
+* Use arrow keys or mouse to navigate around the field or GUI;
+* Press shift to walk faster;
+* Press Z or Enter to confirm a GUI selection or interact with NPCs;
+* Press X or Backspace to cancel a GUI selection;
+* Press a cancel button in field to show the Field Menu;
+* Interact with pink character to test dialogue and Shop Menu;
+* Collide with green characters to start a battle.
 
 ## Credits
 

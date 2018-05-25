@@ -3,7 +3,7 @@
 
 AudioManager
 ---------------------------------------------------------------------------------------------------
-
+Stores and manages all sound objects in the game. 
 
 =================================================================================================]]
 
@@ -54,7 +54,8 @@ function AudioManager:update()
   self:updateBGM()
   self:updateSFX()
 end
-
+-- Pauses/resumes all sounds.
+-- @param(paused : boolean) True to paused, false to resume.
 function AudioManager:setPaused(paused)
   self.paused = paused
   if self.BGM then
@@ -133,7 +134,7 @@ end
 -- Updates SFX list (remove all finished SFX).
 function AudioManager:updateSFX()
   if self.sfx[1] then
-    self.sfx:conditionalRemove(self.sfx[1].finished)
+    self.sfx:conditionalRemove(self.sfx[1].isFinished)
   end
 end
 
@@ -201,7 +202,7 @@ end
 -- @param(time : number) the duration of the fading
 -- @param(wait : boolean) true to only return when the fading finishes
 function AudioManager:fade(time, wait)
-  if time then
+  if time and time ~= 0 then
     self.fadingSpeed = 60 / time
     self.fading = time > 0 and 0 or 1
     if wait then

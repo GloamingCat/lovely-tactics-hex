@@ -70,6 +70,7 @@ function GameManager:update(dt)
   end
   if InputManager.keys['pause']:isTriggered() then
     self.paused = not self.paused
+    SaveManager:onPause(self.paused)
   end
   if not AudioManager.paused then
     AudioManager:update()

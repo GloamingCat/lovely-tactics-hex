@@ -3,7 +3,7 @@
 
 Music
 ---------------------------------------------------------------------------------------------------
-
+A type of sounds that loops and may have a non-looping intro.
 
 =================================================================================================]]
 
@@ -16,8 +16,13 @@ local Music = class(Sound)
 -- Initialization
 ---------------------------------------------------------------------------------------------------
 
+-- Constructor.
+-- @param(name : string) Name of the file from the "audio/sfx/" folder.
+-- @param(volume : number) Initial volume (from 0 to 100).
+-- @param(pitch : number) Initial pitch (from 0 to 100).
+-- @param(intro : Source) Intro source (optional).
+-- @param(loop : Source) Loop source (optional).
 function Music:init(name, volume, pitch, intro, loop)
-  print(intro, loop)
   self.name = name
   name = 'audio/bgm/' .. name
   if intro then
@@ -45,7 +50,7 @@ end
 
 -- Checks looping.
 function Music:update()
-  if self.source == self.intro and self:finished() then
+  if self.source == self.intro and self:isFinished() then
     self.intro:stop()
     self.source = self.loop
     self:updatePitch()
@@ -54,7 +59,7 @@ function Music:update()
   end
 end
 -- Override.
-function Music:duration(unit)
+function Music:getDuration(unit)
   return (self.intro and self.intro:getDuration(unit) or 0) + self.loop:getDuration(unit)
 end
 
@@ -76,11 +81,12 @@ end
 -- Volume & Pitch
 ---------------------------------------------------------------------------------------------------
 
+-- Overrides Sound:updateVolume.
 function Music:updateVolume()
   self.source:setVolume((self.volume / 100) * (AudioManager.volumeBGM / 100)
     * AudioManager.fading)
 end
-
+-- Overrides Sound:updatePitch.
 function Music:updatePitch()
   self.source:setPitch((self.pitch / 100) * (AudioManager.pitchBGM / 100))
 end

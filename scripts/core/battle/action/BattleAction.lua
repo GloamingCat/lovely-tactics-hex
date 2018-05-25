@@ -321,7 +321,7 @@ function BattleAction:nextTarget(input, axisX, axisY)
     end
     return self.characterTiles[self.index]
   end
-  local x, y = mathf.nextTile(input.target.x, input.target.y, 
+  local x, y = mathf.nextCoord(input.target.x, input.target.y, 
     axisX, axisY, self.field.sizeX, self.field.sizeY)
   local tile = mathf.frontTile(input.target, x - input.target.x, y - input.target.y)
   while tile.layer.height > 0 and not FieldManager.currentField:isGrounded(tile:coordinates()) do

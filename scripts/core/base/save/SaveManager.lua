@@ -159,5 +159,13 @@ function SaveManager:storeSave(file)
   self.loadTime = now()
   print('Saved game.')
 end
+-- Called when game pauses/resumes.
+-- @param(paused : boolean) Current game state.
+function SaveManager:onPause(paused)
+  if paused then
+    self.current.playTime = self:playTime()
+  end
+  self.loadTime = now()
+end
 
 return SaveManager

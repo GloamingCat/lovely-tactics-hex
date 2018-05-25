@@ -34,12 +34,12 @@ function FiberList:update()
   for i = 1, self.size do
     self[i]:update()
   end
-  self:conditionalRemove(self.finished)
+  self:conditionalRemove(self.isFinished)
 end
 -- Function that resumes a Fiber.
 -- @param(fiber : Fiber) Fiber to resume.
 -- @ret(boolean) True if Fiber ended, false otherwise.
-function FiberList.finished(fiber)
+function FiberList.isFinished(fiber)
   return fiber.coroutine == nil
 end
 

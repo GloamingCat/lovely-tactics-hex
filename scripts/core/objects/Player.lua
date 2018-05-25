@@ -35,7 +35,7 @@ local Player = class(Character)
 -- Overrides BaseCharacter:init.
 function Player:init(initTile, dir)
   self.blocks = 0
-  self.inputDelay = 4 / 60
+  self.inputDelay = 6 / 60
   local troopData = Database.troops[SaveManager.current.playerTroopID]
   local leader = troopData.current[1]
   local data = {
@@ -81,7 +81,7 @@ function Player:checkFieldInput()
   elseif InputManager.keys['mouse2']:isTriggered() then
     self:openGUI()
   else
-    local dx, dy, dir = self:inputAxis()
+    local dx, dy, move = self:inputAxis()
     local dash = InputManager.keys['dash']:isPressing()
     local auto = SaveManager.current.config.autoDash
     if auto and not dash or not auto and dash then
@@ -89,7 +89,7 @@ function Player:checkFieldInput()
     else
       self.speed = self.walkSpeed
     end
-    self:moveByKeyboard(dx, dy, dir)
+    self:moveByKeyboard(dx, dy, move)
   end
 end
 -- Checks if field input is enabled.
@@ -100,33 +100,33 @@ function Player:fieldInputEnabled()
 end
 -- @ret(number) x axis input
 -- @ret(number) y axis input
--- @ret(boolean) true if it was not pressed for long enough to move
+-- @ret(boolean) True if it was pressed for long enough to move
 function Player:inputAxis()
   local dx = InputManager:axisX(0, 0)
   local dy = InputManager:axisY(0, 0)
   if self.pressTime then
-    if timer.getTime() - self.pressTime < self.inputDelay then
-      if dx ~= 0 then
-        self.pressX = dx
-      end
-      if dy ~= 0 then
-        self.pressY = dy
-      end
+    if timer.getTime() - self.pressTime > self.inputDelay * self.walkSpeed / self.speed then
+      self.pressX = dx
+      self.pressY = dy
       if dx == 0 and dy == 0 then
         self.pressTime = nil
       end
       return self.pressX, self.pressY, true
-    elseif dx == 0 and dy == 0 then
-      self.pressTime = nil
     end
-    return dx, dy, false
+    if dx ~= 0 then
+      self.pressX = dx
+    end
+    if dy ~= 0 then
+      self.pressY = dy
+    end
+    return self.pressX, self.pressY, false
   else
     if dx ~= 0 or dy ~= 0 then
       self.pressTime = timer.getTime()
     end
     self.pressX = dx
     self.pressY = dy
-    return dx, dy, true
+    return dx, dy, false
   end
 end
 
@@ -174,13 +174,13 @@ end
 -- [COROUTINE] Moves player depending on input.
 -- @param(dx : number) input x
 -- @param(dy : number) input y
-function Player:moveByKeyboard(dx, dy, dir)
+function Player:moveByKeyboard(dx, dy, move)
   if dx ~= 0 or dy ~= 0 then
     self.path = nil
     local angle = coord2Angle(dx, dy)
-    local result = self:tryAngleMovement(angle)
+    local result = move and (self:tryAngleMovement(angle)
       or self:tryAngleMovement(angle - 45)
-      or self:tryAngleMovement(angle + 45)
+      or self:tryAngleMovement(angle + 45))
     if not result then
       self:setDirection(angle)
       self:playIdleAnimation()

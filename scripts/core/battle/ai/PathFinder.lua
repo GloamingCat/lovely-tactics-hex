@@ -39,11 +39,7 @@ function PathFinder.dijkstra(action, user, initial)
   user = user or TurnManager:currentCharacter()
   initial = initial or user:getTile()
   
-  local md = floor(action:maxDistance(user))
-  local minx, maxx = mathf.radiusLimitsX(md)
-  minx = max (initial.x + minx, 1);
-  maxx = min (initial.x + maxx, field.sizeX);
-  
+  local md = floor(action:maxDistance(user))  
   local matrix = Matrix3(field.sizeX, field.sizeY, field.maxh)
   matrix:set(Path(initial), initial:coordinates())
   
@@ -124,7 +120,6 @@ function PathFinder.findPath(action, user, target, initial, ignoreDistance)
   end
   return nil
 end
-
 -- Search for a path from the initial until run out of steps.
 -- Assumes that the destination will never be reached.
 -- @param(action : MoveAction) the move action that implements these methods:

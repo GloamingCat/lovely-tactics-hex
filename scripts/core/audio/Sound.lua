@@ -3,7 +3,7 @@
 
 Sound
 ---------------------------------------------------------------------------------------------------
-
+A class representing a sound.
 
 =================================================================================================]]
 
@@ -16,12 +16,19 @@ local Sound = class()
 -- Initialization
 ---------------------------------------------------------------------------------------------------
 
+-- Constructor.
+-- @param(name : string) Name of the file from the "audio/sfx/" folder.
+-- @param(volume : number) Initial volume (from 0 to 100).
+-- @param(pitch : number) Initial pitch (from 0 to 100).
 function Sound:init(name, volume, pitch)
   local source = newSource('audio/sfx/' .. name)
   assert(source, 'Could not load Sound ' .. name)
   self:initSource(source, volume, pitch)
 end
-
+-- Initializes source.
+-- @param(source : Source) The audio source.
+-- @param(volume : number) Initial volume (from 0 to 100).
+-- @param(pitch : number) Initial pitch (from 0 to 100).
 function Sound:initSource(source, volume, pitch)
   self.volume = volume or 100
   self.pitch = pitch or 100
@@ -37,12 +44,12 @@ end
 
 -- Tells if the sound already ended.
 -- @ret(boolean)
-function Sound:finished()
+function Sound:isFinished()
   return not (self.source:isPlaying() or self.paused)
 end
 -- @param(unit : string) "seconds" or "samples" (first by default)
 -- @ret(number) the duration in the given unit
-function Sound:duration()
+function Sound:getDuration()
   return self.source:getDuration()
 end
 
@@ -50,26 +57,28 @@ end
 -- Playing
 ---------------------------------------------------------------------------------------------------
 
+-- Plays sound.
 function Sound:play()
   self.paused = false
   self.source:play()
 end
-
+-- Stops sound.
 function Sound:stop()
   self.paused = true
   self.source:stop()
 end
-
+-- Resumes sound.
 function Sound:resume()
   self.paused = false
   self.source:resume()
 end
-
+-- Pauses sound.
 function Sound:pause()
   self.paused = true
   self.source:pause()
 end
-
+-- Pauses/resumes sound.
+-- @param(paused : boolean) True to pause, false to resume.
 function Sound:setPaused(paused)
   if paused or self.paused then
     self.source:pause()
@@ -92,12 +101,11 @@ function Sound:setPitch(p)
   self.pitch = p or self.pitch
   self:updatePitch()
 end
-
+-- Updates source's volume according to AudioManager's volume.
 function Sound:updateVolume()
   self.source:setVolume((self.volume / 100) * (AudioManager.volumeSFX / 100))
-  print ((self.volume / 100) * (AudioManager.volumeSFX / 100))
 end
-
+-- Updates source's pitch according to AudioManager's pitch.
 function Sound:updatePitch()
   self.source:setPitch((self.pitch / 100) * (AudioManager.pitchSFX / 100))
 end

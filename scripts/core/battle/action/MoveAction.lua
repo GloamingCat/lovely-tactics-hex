@@ -23,7 +23,7 @@ local MoveAction = class(BattleAction)
 
 -- Overrides BattleAction:init.
 function MoveAction:init(range, limit)
-  self.pathLimit = limit
+  self.pathLimit = limit or math.huge
   BattleAction.init(self, '', range)
 end
 
@@ -50,7 +50,8 @@ function MoveAction:execute(input)
   end
   return { executed = fullPath, path = path }
 end
-
+-- @ret(Path) Path to input target, if any.
+-- @ret(boolean) True if the whole path may be walked, false otherwise.
 function MoveAction:calculatePath(input)
   local path = input.path or PathFinder.findPath(self, input.user, input.target)
   local fullPath = true
@@ -121,7 +122,7 @@ end
 -- The max distance the character can walk.
 -- @ret(number) the distance in tiles (may not be integer)
 function MoveAction:maxDistance(user)
-  return self.limit or math.huge
+  return self.pathLimit
 end
 
 return MoveAction
