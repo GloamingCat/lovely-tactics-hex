@@ -36,6 +36,7 @@ local Player = class(Character)
 function Player:init(initTile, dir)
   self.blocks = 0
   self.inputDelay = 6 / 60
+  self.moveInput = ActionInput(MoveAction({ size = 0, minh = 0, maxh = 0 }, 2), self)
   local troopData = Database.troops[SaveManager.current.playerTroopID]
   local leader = troopData.current[1]
   local data = {
@@ -218,21 +219,24 @@ function Player:tryTileMovement(tile)
     self:turnToTile(dx, dy)
   end
   if collision == nil then
-    self:playMoveAnimation()
-    local autoAnim = self.autoAnim
-    self.autoAnim = false
-    self:walkToTile(dx, dy, dh, false)
-    self.autoAnim = autoAnim
-    self:collideTile(tile)
-    return 0
-  else
-    self:playIdleAnimation()
-    if collision == 3 then -- character
+    self.moveInput.target = tile
+    local path, fullPath = self.moveInput.action:calculatePath(self.moveInput)
+    if path and fullPath then
+      self:playMoveAnimation()
+      local autoAnim = self.autoAnim
+      self.autoAnim = false
+      self:walkToTile(dx, dy, dh, false)
+      self.autoAnim = autoAnim
       self:collideTile(tile)
-      return 1
-    else
-      return nil
+      return 0
     end
+  end
+  self:playIdleAnimation()
+  if collision == 3 then -- character
+    self:collideTile(tile)
+    return 1
+  else
+    return nil
   end
 end
 -- [COROUTINE] Walks the next tile of the path.
