@@ -62,15 +62,15 @@ end
 
 -- Gets the world bounds of the given field.
 -- @param(field : Field)
--- @ret(number) bounding rect x
--- @ret(number) bounding rect y
--- @ret(number) bounding rect width
--- @ret(number) bounding rect height
+-- @ret(number) Minimum pixel x.
+-- @ret(number) Minimum pixel y.
+-- @ret(number) Maximum pixel x.
+-- @ret(number) Maximum pixel y.
 function HexVMath.pixelBounds(field)
   local x, y = HexVMath.pixelCenter(field.sizeX, field.sizeY)
   local w = HexVMath.pixelWidth(field.sizeX, field.sizeY)
   local h = HexVMath.pixelHeight(field.sizeX, field.sizeY, #field.objectLayers + 1)
-  return x - w / 2, y - h / 2, w, h
+  return x - w / 2, y - h / 2, x + w / 2, y + h / 2
 end
 -- Gets the world width of the given field.
 -- @param(field : Field)

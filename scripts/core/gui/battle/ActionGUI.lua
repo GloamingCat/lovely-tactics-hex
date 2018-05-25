@@ -224,16 +224,24 @@ end
 function ActionGUI:slideX(d)
   local camera = FieldManager.renderer
   local speed = self.slideSpeed * SaveManager.current.config.fieldScroll * 2 / 100
-  camera:setXYZ(camera.position.x + d * speed * delta() * 60, nil)
-  InputManager.mouse:show()
+  local x = camera.position.x + d * speed * delta() * 60
+  local field = FieldManager.currentField 
+  if x >= field.minx and x <= field.maxx then
+    camera:setXYZ(x, nil)
+    InputManager.mouse:show()
+  end
 end
 -- Slides the screen vertically.
 -- @param(d : number) Direction (1 or -1).
 function ActionGUI:slideY(d)
   local camera = FieldManager.renderer
   local speed = self.slideSpeed * SaveManager.current.config.fieldScroll * 2 / 100
-  camera:setXYZ(nil, camera.position.y + d * speed)
-  InputManager.mouse:show()
+  local y = camera.position.y + d * speed * delta() * 60
+  local field = FieldManager.currentField 
+  if y >= field.miny and y <= field.maxy then
+    camera:setXYZ(nil, y)
+    InputManager.mouse:show()
+  end
 end
 
 ---------------------------------------------------------------------------------------------------
