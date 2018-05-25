@@ -71,17 +71,17 @@ end
 function ActionSkillWindow:onButtonConfirm(button)
   self:selectAction(button.skill)
 end
+-- Called when player cancels.
+function ActionSkillWindow:onButtonCancel(button)
+  self.GUI:hideDescriptionWindow()
+  self:changeWindow(self.GUI.turnWindow)
+end
 -- Tells if a skill can be used.
 -- @param(button : Button) the button to check
 -- @ret(boolean)
 function ActionSkillWindow:buttonEnabled(button)
   local user = TurnManager:currentCharacter()
   return button.skill:canBattleUse(user) and self:skillActionEnabled(button.skill)
-end
--- Called when player cancels.
-function ActionSkillWindow:onCancel()
-  self.GUI:hideDescriptionWindow()
-  self:changeWindow(self.GUI.turnWindow)
 end
 
 ---------------------------------------------------------------------------------------------------

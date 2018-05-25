@@ -126,8 +126,7 @@ end
 
 -- @param(sfx : table) table with file's name (from audio/sfx folder), volume and pitch
 function AudioManager:playSFX(sfx)
-  local sound = Sound(sfx.name, sfx.volume, sfx.pitch)
-  sound:setVolume(self.volumeSFX)
+  local sound = Sound(sfx.name, sfx.volume or 100, sfx.pitch or 100)
   self.sfx:add(sound)
   sound:play()
 end

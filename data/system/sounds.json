@@ -3,62 +3,62 @@
 	"buttonConfirm": {
 		"name": "GameAudio/button-confirm.wav",
 		"pitch": 100,
-		"volume": 100
+		"volume": 90
 	},
 	"buttonCancel": {
 		"name": "GameAudio/button-cancel.wav",
 		"pitch": 100,
-		"volume": 100
+		"volume": 90
 	},
 	"buttonError": {
 		"name": "GameAudio/button-error.wav",
 		"pitch": 120,
-		"volume": 70
+		"volume": 60
 	},
 	"buttonSelect": {
 		"name": "GameAudio/button-select.wav",
 		"pitch": 100,
-		"volume": 80
+		"volume": 50
 	},
 	"equip": {
 		"name": "artisticdude/equip.wav",
 		"pitch": 100,
-		"volume": 100
+		"volume": 90
 	},
 	"unequip": {
 		"name": "artisticdude/equip.wav",
 		"pitch": 100,
-		"volume": 100
+		"volume": 90
 	},
 	"buy": {
 		"name": "artisticdude/coin.wav",
 		"pitch": 100,
-		"volume": 100
+		"volume": 90
 	},
 	"sell": {
 		"name": "artisticdude/coin.wav",
 		"pitch": 100,
-		"volume": 100
+		"volume": 90
 	},
 	"menu": {
 		"name": "GameAudio/button-confirm.wav",
 		"pitch": 100,
-		"volume": 100
+		"volume": 90
 	},
 	"text": {
 		"name": "GameAudio/text2.wav",
-		"pitch": 60,
-		"volume": 80
+		"pitch": 55,
+		"volume": 60
 	},
   "exp": {
 		"name": "GameAudio/text2.wav",
-		"pitch": 60,
-		"volume": 80
+		"pitch": 55,
+		"volume": 60
   },
   "levelup": {
     "name": "GameAudio/levelup.wav",
     "pitch": 120,
-    "volume": 90
+    "volume": 100
   },
 
 	// Battle
@@ -92,21 +92,21 @@
   "titleTheme": {
 		"name": "David Vitas/Town Theme.ogg",
 		"pitch": 100,
-		"volume": 100
+		"volume": 90
   },
 	"battleTheme": {
 		"name": "David Vitas/Battle Theme.ogg",
 		"pitch": 100,
-		"volume": 100
+		"volume": 90
 	},
   "victoryTheme": {
 		"name": "David Vitas/Victory Fanfare.ogg",
 		"pitch": 100,
-		"volume": 100
+		"volume": 90
   },
 	"gameoverTheme": {
 		"name": "Aaron Krogh/Music Box.ogg",
-		"pitch": 100,
+		"pitch": 90,
 		"volume": 100
 	}
   

@@ -35,6 +35,10 @@ function ActionGUI:init(input)
   input.GUI = self
   self.slideMargin = 20
   self.slideSpeed = 3
+  self.confirmSound = Config.sounds.buttonConfirm
+  self.cancelSound = Config.sounds.buttonCancel
+  self.selectSound = Config.sounds.buttonSelect
+  self.errorSound = Config.sounds.buttonError
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -117,20 +121,26 @@ end
 function ActionGUI:keyboardInput()
   if InputManager.keys['confirm']:isTriggered() then
     if self.input.target.gui.selectable then
+      self:playConfirmSound()
       self.result = self.input.action:onConfirm(self.input)
+    else
+      self:playErrorSound()
     end
   elseif InputManager.keys['cancel']:isTriggered() then
+    self:playCancelSound()
     self.result = self.input.action:onCancel(self.input)
   elseif InputManager.keys['next']:isTriggered() then
     local target = self.input.action:nextLayer(self.input, 1)
     if target then
       FieldManager.renderer:moveToTile(target)
+      self:playSelectSound()
       self:selectTarget(target)
     end
   elseif InputManager.keys['prev']:isTriggered() then
     local target = self.input.action:nextLayer(self.input, -1)
     if target then
       FieldManager.renderer:moveToTile(target)
+      self:playSelectSound()
       self:selectTarget(target)
     end
   else
@@ -139,6 +149,7 @@ function ActionGUI:keyboardInput()
       local target = self.input.action:nextTarget(self.input, dx, dy)
       if target then
         FieldManager.renderer:moveToTile(target)
+        self:playSelectSound()
         self:selectTarget(target)
       end
     else
@@ -166,9 +177,13 @@ function ActionGUI:mouseInput()
       if target ~= self.input.target then
         self:selectTarget(target)
       end
+      self:playConfirmSound()
       self.result = self.input.action:onConfirm(self.input)
+    else
+      self:playErrorSound()
     end
   elseif InputManager.keys['mouse2']:isTriggered() then
+    self:playCancelSound()
     self.result = self.input.action:onCancel(self.input)
   else
     return false
@@ -253,6 +268,35 @@ function ActionGUI:endGridSelecting()
     self.cursor:hide()
   end
   self.gridSelecting = false
+end
+
+---------------------------------------------------------------------------------------------------
+-- Sound
+---------------------------------------------------------------------------------------------------
+
+-- Confirm a tile.
+function ActionGUI:playConfirmSound()
+  if self.confirmSound then
+    AudioManager:playSFX(self.confirmSound)
+  end
+end
+-- Cancel action.
+function ActionGUI:playCancelSound()
+  if self.cancelSound then
+    AudioManager:playSFX(self.cancelSound)
+  end
+end
+-- Select a tile.
+function ActionGUI:playSelectSound()
+  if self.selectSound then
+    AudioManager:playSFX(self.selectSound)
+  end
+end
+-- Confirm a non-selectable tile.
+function ActionGUI:playErrorSound()
+  if self.errorSound then
+    AudioManager:playSFX(self.errorSound)
+  end
 end
 
 return ActionGUI

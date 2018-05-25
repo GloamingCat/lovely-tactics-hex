@@ -95,6 +95,7 @@ function TurnWindow:waitConfirm(button)
 end
 -- Overrides GridWindow:onCancel.
 function TurnWindow:onCancel()
+  AudioManager:playSFX(Config.sounds.buttonCancel)
   self:selectAction(self.visualizeAction)
   self.result = nil
 end
