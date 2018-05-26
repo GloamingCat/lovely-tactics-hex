@@ -133,7 +133,7 @@ end
 -- Overrides BattleAction:onConfirm.
 -- Executes the movement action and the skill's effect.
 function SkillAction:execute(input)
-  local moveAction = BattleMoveAction(self.data.range, self.minh, self.maxh)
+  local moveAction = BattleMoveAction(self.data.range)
   local moveInput = ActionInput(moveAction, input.user, input.target)
   moveInput.skipAnimations = input.skipAnimations
   local result = moveInput:execute(moveInput)

@@ -46,7 +46,7 @@ end
 function BattleMoveAction:calculatePath(input)
   local path = input.path
   if not path then
-    path = self.range.size == 0 and TurnManager:pathMatrix():get(input.target.x, input.target.y)
+    path = self.range.far == 0 and TurnManager:pathMatrix():get(input.target.x, input.target.y)
     path = path or PathFinder.findPath(self, input.user, input.target)
   end
   local fullPath = true

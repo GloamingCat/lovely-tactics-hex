@@ -12,12 +12,12 @@
 				"row": 0
 			},
 			"area": {
-				"size": 1,
+				"far": 1,
 				"minh": 0,
 				"maxh": 0
 			},
 			"range": {
-				"size": 1,
+				"far": 1,
 				"minh": 2,
 				"maxh": 2
 			},
@@ -57,12 +57,12 @@
 				"row": 0
 			},
 			"area": {
-				"size": 1,
+				"far": 1,
 				"minh": 0,
 				"maxh": 0
 			},
 			"range": {
-				"size": 1,
+				"far": 1,
 				"minh": 2,
 				"maxh": 2
 			},

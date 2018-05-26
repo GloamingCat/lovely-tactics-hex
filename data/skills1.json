@@ -12,12 +12,12 @@
 				"row": 0
 			},
 			"area": {
-				"size": 1,
+				"far": 1,
 				"minh": 0,
 				"maxh": 0
 			},
 			"range": {
-				"size": 1,
+				"far": 1,
 				"minh": 1,
 				"maxh": 1
 			},
@@ -69,12 +69,12 @@
 				"row": 0
 			},
 			"area": {
-				"size": 1,
+				"far": 1,
 				"minh": 0,
 				"maxh": 0
 			},
 			"range": {
-				"size": 4,
+				"far": 4,
 				"minh": 4,
 				"maxh": 4
 			},
@@ -125,12 +125,13 @@
 				"row": 0
 			},
 			"area": {
-				"size": 2,
+				"far": 2,
 				"minh": 2,
 				"maxh": 2
 			},
 			"range": {
-				"size": 4,
+				"near": 2,
+				"far": 4,
 				"minh": 4,
 				"maxh": 4
 			},
@@ -190,12 +191,13 @@
 				"row": 0
 			},
 			"area": {
-				"size": 3,
+				"far": 3,
 				"minh": 3,
 				"maxh": 3
 			},
 			"range": {
-				"size": 4,
+				"near": 3,
+				"far": 4,
 				"minh": 4,
 				"maxh": 4
 			},

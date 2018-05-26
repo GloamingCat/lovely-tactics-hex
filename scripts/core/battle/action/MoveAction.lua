@@ -86,7 +86,8 @@ function MoveAction:isFinal(tile, final, user)
     return false
   end
   local cost = self:estimateCost(tile, final, user)
-  return cost <= self.range.size and self:isStandable(tile, user)
+  return cost <= self.range.far and cost >= (self.range.near or 0)
+    and self:isStandable(tile, user)
 end
 -- Checks passability between two tiles.
 -- @param(initial : ObjectTile) origin tile
@@ -114,9 +115,9 @@ end
 function MoveAction:estimateCost(initial, final, user)
   local baseCost = mathf.tileDistance(initial.x, initial.y, final.x, final.y)
   if final.characterList.size > 0 then
-    return baseCost 
+    return baseCost + 0.0001
   else
-    return baseCost - 0.0001
+    return baseCost
   end
 end
 -- The max distance the character can walk.

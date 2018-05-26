@@ -31,8 +31,8 @@ local BattleAction = class()
 -- @param(range : table) The range of the action to the target tile (in tiles).
 -- @param(area : table) The area of the action effect (in tiles).
 function BattleAction:init(colorName, range, area)
-  self.range = range or { size = 0, minh = 0, maxh = 0 }
-  self.area = area or { size = 1, minh = 0, maxh = 0 }
+  self.range = range or { far = 0, minh = 0, maxh = 0 }
+  self.area = area or { far = 1, minh = 0, maxh = 0 }
   self.colorName = colorName
   self.field = FieldManager.currentField
   self.showTargetWindow = true
@@ -181,10 +181,12 @@ function BattleAction:resetReachableTiles(input)
   end
   -- Paint border tiles
   for tile in borderTiles:iterator() do
-    for i, j in mathf.radiusIterator(self.range.size, tile.x, tile.y, 
+    for i, j in mathf.radiusIterator(self.range.far, tile.x, tile.y, 
         self.field.sizeX, self.field.sizeY) do
       local n = self.field:getObjectTile(i, j, tile.layer.height) 
-      n.gui.reachable = true
+      if mathf.tileDistance(n.x, n.y, tile.x, tile.y) >= (self.range.near or 0) then
+        n.gui.reachable = true
+      end
     end
   end
 end
@@ -269,9 +271,10 @@ function BattleAction:getAllAffectedTiles(input, tile)
   local sizeX, sizeY = self.field.sizeX, self.field.sizeY
   local tiles = {}
   local height = input.target.layer.height
-  for i, j in mathf.radiusIterator(self.area.size - 1, tile.x, tile.y, sizeX, sizeY) do
+  for i, j in mathf.radiusIterator(self.area.far - 1, tile.x, tile.y, sizeX, sizeY) do
     for h = height - self.area.minh, height + self.area.maxh do
-      if self.field:isGrounded(i, j, h) then
+      if mathf.tileDistance(i, j, tile.x, tile.y) >= (self.area.near or 0)
+          and self.field:isGrounded(i, j, h) then
         tiles[#tiles + 1] = self.field:getObjectTile(i, j, h)
       end
     end
@@ -285,7 +288,7 @@ function BattleAction:getAllAccessedTiles(input, tile)
   local sizeX, sizeY = self.field.sizeX, self.field.sizeY
   local tiles = {}
   local height = tile.layer.height
-  for i, j in mathf.radiusIterator(self.range.size, tile.x, tile.y, sizeX, sizeY) do
+  for i, j in mathf.radiusIterator(self.range.far, tile.x, tile.y, sizeX, sizeY) do
     for h = height - self.range.minh, height + self.range.maxh do
       local t = self.field:getObjectTile(i, j, h)
       if t and self:isSelectable(input, t) then
@@ -297,7 +300,7 @@ function BattleAction:getAllAccessedTiles(input, tile)
 end
 -- @ret(boolean) True if it's an area action, false otherwise.
 function BattleAction:isArea()
-  return self.area.size > 1 or self.area.size > 0 and (self.area.minh > 0 or self.area.maxh > 0)
+  return self.area.far > 1 or self.area.far > 0 and (self.area.minh > 0 or self.area.maxh > 0)
 end
 -- Gets the first selected target tile.
 -- @ret(ObjectTile) The first tile.
