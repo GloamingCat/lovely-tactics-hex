@@ -99,6 +99,7 @@
 				"individualID": -1,
 				"mirror": true
 			},
+			"centerTime": 10,
 			"damageAnim": true,
 			"hpEffect": {
 				"successRate": "(a.prem() * 2 - b.evdm()) / b.evdm() * 50",

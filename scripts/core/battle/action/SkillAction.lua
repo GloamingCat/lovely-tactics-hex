@@ -47,6 +47,7 @@ function SkillAction:init(skillID)
   self.targetTime = data.targetTime or 0
   self.finishTime = data.finishTime or 20
   self.castTime = data.castTime or 5
+  self.centerTime = data.centerTime or 20
   -- Cost formulas
   self.costs = {}
   for i = 1, #data.costs do
@@ -185,7 +186,7 @@ function SkillAction:battleUse(input)
   FieldManager.renderer:moveToTile(input.target)
   local minTime = input.user:castSkill(self.data, dir, input.target) + GameManager.frame
   input.user.battler:onSkillUse(input, input.user)
-  _G.Fiber:wait(20)
+  _G.Fiber:wait(self.centerTime)
   -- Animation for each of affected tiles.
   self:allTargetsAnimation(input, originTile)
   -- Return user to original position and animation.

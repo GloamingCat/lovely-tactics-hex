@@ -9,13 +9,16 @@ Doubles damage for critical hits.
 
 -- Imports
 local Battler = require('core/battle/battler/Battler')
-local Character = require('core/objects/Character')
 local PopupText = require('core/battle/PopupText')
 local SkillAction = require('core/battle/action/SkillAction')
 
 -- Parameters
 local attName = args.attName
 local ratio = tonumber(args.ratio) or 2
+local critSound = args.sound and {
+  name = args.sound,
+  volume = tonumber(args.volume),
+  pitch = tonumber(args.pitch) }
 
 ---------------------------------------------------------------------------------------------------
 -- Rate
@@ -62,4 +65,17 @@ function PopupText:addHeal(points)
     self:addLine(Vocab.critical, popupName, popupName) 
   end
   self:addLine(points.value, popupName, popupName .. crit)
+end
+
+---------------------------------------------------------------------------------------------------
+-- Sound
+---------------------------------------------------------------------------------------------------
+
+-- Plays sound before pop-up.
+local Battler_popupResults = Battler.popupResults
+function Battler:popupResults(pos, results, character)
+  if critSound and results.critical then
+    AudioManager:playSFX(critSound)
+  end
+  Battler_popupResults(self, pos, results, character)
 end
