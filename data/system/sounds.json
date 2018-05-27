@@ -40,6 +40,11 @@
 		"pitch": 100,
 		"volume": 90
 	},
+	"save": {
+		"name": "GameAudio/save.wav",
+		"pitch": 100,
+		"volume": 90
+	},
 	"menu": {
 		"name": "GameAudio/button-confirm.wav",
 		"pitch": 100,
