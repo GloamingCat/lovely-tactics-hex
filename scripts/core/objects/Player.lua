@@ -155,11 +155,11 @@ end
 function Player:tryPathMovement(tile)
   local range = { far = 0, minh = 0, maxh = 0 }
   local input = ActionInput(MoveAction(range, 12), self, tile)
-  local path = input.action:calculatePath(input)
-  if not path then
+  local path, fullPath = input.action:calculatePath(input)
+  if not (path and fullPath) then
     range.far, range.minh, range.maxh = 1, 1, 1
-    path = input.action:calculatePath(input)
-    if not path then
+    path, fullPath = input.action:calculatePath(input)
+    if not (path and fullPath) then
       return false
     end
     path = path:addStep(tile, 1)

@@ -152,7 +152,7 @@ function AudioManager:playBGM(bgm, time, wait)
   end
   self.BGM = Music(bgm.name, bgm.volume or 100, bgm.pitch or 100, bgm.intro, bgm.loop)
   self.BGM:play()
-  self:fade(time, wait)
+  self:fadein(time, wait)
 end
 -- @param(time : number) the duration of the fading transition
 -- @param(wait : boolean) yields until the fading animation concludes
@@ -162,7 +162,7 @@ function AudioManager:resumeBGM(time, wait)
       self.BGM:resume()
     end
     self.pausedBGM = false
-    self:fade(time, wait)
+    self:fadein(time, wait)
   end
 end
 -- [COROUTINE] Paused current BGM.
@@ -172,7 +172,7 @@ end
 function AudioManager:pauseBGM(time, wait)
   if self.BGM then
     self.pausedBGM = true
-    self:fade(time and -time, wait)
+    self:fadeout(time, wait)
     return self.BGM
   end
 end
@@ -200,16 +200,33 @@ end
 
 -- @param(time : number) the duration of the fading
 -- @param(wait : boolean) true to only return when the fading finishes
-function AudioManager:fade(time, wait)
-  if time and time ~= 0 then
-    self.fadingSpeed = 60 / time
-    self.fading = time > 0 and 0 or 1
+function AudioManager:fadeout(time, wait)
+  if time and time > 0 then
+    self.fading = 1
+    self.fadingSpeed = -60 / time
     if wait then
       self:waitForBGMFading()
     end
   else
+    self.fading = 0
     self.fadingSpeed = 0
+    if self.BGM then
+      self.BGM:updateVolume()
+    end
+  end
+end
+-- @param(time : number) the duration of the fading
+-- @param(wait : boolean) true to only return when the fading finishes
+function AudioManager:fadein(time, wait)
+  if time and time > 0 then
+    self.fading = 0
+    self.fadingSpeed = 60 / time
+    if wait then
+      self:waitForBGMFading()
+    end
+  else
     self.fading = 1
+    self.fadingSpeed = 0
     if self.BGM then
       self.BGM:updateVolume()
     end

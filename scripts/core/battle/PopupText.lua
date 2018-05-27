@@ -71,14 +71,16 @@ function PopupText:addHeal(points)
   local popupName = 'popup_heal' .. points.key
   self:addLine(points.value, popupName, popupName)
 end
-
+-- Add a line to show a status addition.
+-- @param(s : Status) The added status. 
 function PopupText:addStatus(s)
   local popupName = 'popup_status_add' .. s.data.id
   local color = Color[popupName] and popupName or 'popup_status_add'
   local font = Fonts[popupName] and popupName or 'popup_status_add'
   self:addLine('+' .. s.data.name, color, font)
 end
-
+-- Add lines to show status removal.
+-- @param(all : table) Array of Status objects.
 function PopupText:removeStatus(all)
   for i = 1, #all do
     local s = all[i]
@@ -106,11 +108,12 @@ function PopupText:popup(wait)
   else
     local p = {self.width, self.align}
     local sprite = Text(self.text, p, self.renderer)
-    sprite:setXYZ(self.x - (self.width or 0) / 2, self.y, self.z)
+    local y = self.y - sprite:getHeight()
+    sprite:setXYZ(self.x - (self.width or 0) / 2, y, self.z)
     local d = 0
     while d < distance do
       d = d + distance * speed * time()
-      sprite:setXYZ(nil, self.y - d)
+      sprite:setXYZ(nil, y - d)
       coroutine.yield()
     end
     _G.Fiber:wait(pause)

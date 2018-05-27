@@ -156,7 +156,7 @@ end
 -- @param(pos : Vector) the character's position
 -- @param(results : table) the array of effect results
 function Battler:popupResults(pos, results, character)
-  local popupText = PopupText(pos.x, pos.y - 20, pos.z - 60)
+  local popupText = PopupText(pos.x, pos.y - 10, pos.z - 60)
   for i = 1, #results.points do
     local points = results.points[i]
     if points.heal then

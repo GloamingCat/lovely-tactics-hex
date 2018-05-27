@@ -50,60 +50,50 @@
 		"pitch": 55,
 		"volume": 60
 	},
-  "exp": {
+	"exp": {
 		"name": "GameAudio/text2.wav",
 		"pitch": 55,
 		"volume": 60
-  },
-  "levelup": {
-    "name": "GameAudio/levelup.wav",
-    "pitch": 120,
-    "volume": 100
-  },
+	},
+	"levelup": {
+		"name": "GameAudio/levelup.wav",
+		"pitch": 120,
+		"volume": 100
+	},
 
 	// Battle
-	"allyDamage": {
-		"name": "battle-dmg.wav",
-		"pitch": 100,
-		"volume": 100
-	},
-	"enemyDamage": {
-		"name": "battle-dmg.wav",
-		"pitch": 100,
-		"volume": 100
-	},
 	"allyKO": {
-		"name": "battle-ko.wav",
+		"name": "GameAudio/ko.wav",
 		"pitch": 100,
 		"volume": 100
 	},
 	"enemyKO": {
-		"name": "battle-ko.wav",
+		"name": "GameAudio/ko.wav",
 		"pitch": 100,
 		"volume": 100
 	},
-	//"battleIntro": {
-	//	"name": "battle-intro.wav",
-	//	"pitch": 100,
-	//	"volume": 100
-	//},
+	"battleIntro": {
+		"name": "GameAudio/battle-intro.ogg",
+		"pitch": 100,
+		"volume": 100
+	},
   
-  // Themes
-  "titleTheme": {
+	// Themes
+	"titleTheme": {
 		"name": "David Vitas/Town Theme.ogg",
 		"pitch": 100,
 		"volume": 90
-  },
+	},
 	"battleTheme": {
 		"name": "David Vitas/Battle Theme.ogg",
 		"pitch": 100,
 		"volume": 90
 	},
-  "victoryTheme": {
+	"victoryTheme": {
 		"name": "David Vitas/Victory Fanfare.ogg",
 		"pitch": 100,
 		"volume": 90
-  },
+	},
 	"gameoverTheme": {
 		"name": "Aaron Krogh/Music Box.ogg",
 		"pitch": 90,

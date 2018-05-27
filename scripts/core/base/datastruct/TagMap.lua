@@ -54,7 +54,7 @@ end
 function TagMap:addAll(tags)
   for i = 1, #tags do
     local name = tags[i].name
-    local value = tags[i].value
+    local value = tags[i].value or ''
     local arr = self.tags[name]
     if not arr then
       arr = {}

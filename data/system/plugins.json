@@ -53,6 +53,16 @@
 		}
 	},
 	{
+		"path": "Critical",
+		"on": true,
+		"param": {
+			"attName": "crit",
+			"sound": "hit.ogg",
+			"volume": 100,
+			"pitch": 100
+		}
+	},
+	{
 		"path": "BatchMesh",
 		"on": false,
 		"param": {}

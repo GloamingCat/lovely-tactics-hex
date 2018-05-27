@@ -53,7 +53,11 @@
 				}
 			],
 			"status": [],
-			"tags": []
+			"tags": [
+				{
+					"name": "critical"
+				}
+			]
 		}
 	},
 	{
@@ -109,7 +113,11 @@
 				}
 			],
 			"status": [],
-			"tags": []
+			"tags": [
+				{
+					"name": "critical"
+				}
+			]
 		}
 	},
 	{

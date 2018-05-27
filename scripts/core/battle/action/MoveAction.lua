@@ -79,13 +79,14 @@ function MoveAction:isStandable(tile, user)
 end
 -- Tells if a tile is last of the movement.
 -- @param(tile : ObjectTile) Tile to check.
+-- @param(target : ObjectTile) Movement target.
 -- @ret(boolean) True if it's final, false otherwise.
-function MoveAction:isFinal(tile, final, user)
-  local dh = final.layer.height - tile.layer.height
+function MoveAction:isFinal(tile, target, user)
+  local dh = target.layer.height - tile.layer.height
   if dh > self.range.maxh or dh < -self.range.minh then
     return false
   end
-  local cost = self:estimateCost(tile, final, user)
+  local cost = mathf.tileDistance(tile.x, tile.y, target.x, target.y)
   return cost <= self.range.far and cost >= (self.range.near or 0)
     and self:isStandable(tile, user)
 end
@@ -115,9 +116,9 @@ end
 function MoveAction:estimateCost(initial, final, user)
   local baseCost = mathf.tileDistance(initial.x, initial.y, final.x, final.y)
   if final.characterList.size > 0 then
-    return baseCost + 0.0001
-  else
     return baseCost
+  else
+    return baseCost - 0.00001
   end
 end
 -- The max distance the character can walk.

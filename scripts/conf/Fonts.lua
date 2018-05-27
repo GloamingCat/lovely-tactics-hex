@@ -1,6 +1,7 @@
 
 local huge_font = { 'FogSans', 'otf', 20 }
 local big_font = { 'FogSans', 'otf', 15 }
+local critical_font = { 'FogSans', 'otf', 13 }
 local default_font = { 'FogSans', 'otf', 11 }
 local medium_font = { 'FogSans', 'otf', 9.5 }
 local small_font = { 'FogSans', 'otf', 8 }
@@ -19,14 +20,21 @@ return  {
   gui_medium = medium_font,
   gui_big = big_font,
   gui_huge = huge_font,
+  
   popup_dmghp = default_font,
   popup_dmgsp = default_font,
   popup_healhp = default_font,
   popup_healsp = default_font,
+  popup_dmghp_crit = critical_font,
+  popup_dmgsp_crit = critical_font,
+  popup_healhp_crit = critical_font,
+  popup_healsp_crit = critical_font,
+  
   popup_miss = default_font,
   popup_status_add = default_font,
   popup_status_remove = default_font,
   popup_levelup = default_font,
+  
   fps = fps_font,
   
   -- Settings

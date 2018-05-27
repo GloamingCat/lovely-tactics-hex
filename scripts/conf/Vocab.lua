@@ -97,8 +97,9 @@ return {
   exp = 'EXP',
   level = 'Level',
   
-  -- Miss pop-up
+  -- Pop-up
   miss = 'Miss',
+  critical = 'CRITICAL',
   
   -- Quicksave
   saved = 'Saved',

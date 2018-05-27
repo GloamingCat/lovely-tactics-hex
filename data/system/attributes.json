@@ -134,5 +134,13 @@
 		"script": "att.agi() * 0.5 + att.mag() * 0.5",
 		"visibility": 2,
 		"tags": []
+	},
+	{
+		"name": "Critical",
+		"shortName": "CRIT",
+		"key": "crit",
+		"script": "att.prep() / 50 + 5",
+		"visibility": -1,
+		"tags": []
 	}
 ]

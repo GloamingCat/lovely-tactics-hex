@@ -174,13 +174,13 @@ function util.startBattle(sheet, event, args)
   local fiber = FieldManager.fiberList:fork(function()
     local bgm = AudioManager:pauseBGM()
     ::retry::
+    if Config.sounds.battleIntro then
+      AudioManager:playSFX(Config.sounds.battleIntro)
+    end
     local shaderArgs = {name = 'BattleIntro'}
     if args.fade then
       local shader = ScreenManager.shader
       util.shaderin(sheet, event, shaderArgs)
-      if Config.sounds.battleIntro then
-        AudioManager:playSFX(Config.sounds.battleIntro)
-      end
       if AudioManager.battleTheme then
         AudioManager:playBGM(AudioManager.battleTheme)
       end

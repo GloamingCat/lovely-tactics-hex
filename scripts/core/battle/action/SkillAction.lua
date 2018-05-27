@@ -330,7 +330,7 @@ function SkillAction:singleTargetAnimation(input, targetChar, originTile)
   if #results.points == 0 and #results.status == 0 then
     -- Miss
     local pos = targetChar.position
-    local popupText = PopupText(pos.x, pos.y - 20, pos.z - 60)
+    local popupText = PopupText(pos.x, pos.y - 10, pos.z - 60)
     popupText:addLine(Vocab.miss, 'popup_miss', 'popup_miss')
     popupText:popup()
   else
