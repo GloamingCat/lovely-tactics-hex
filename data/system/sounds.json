@@ -68,12 +68,12 @@
 
 	// Battle
 	"allyKO": {
-		"name": "GameAudio/ko.wav",
+		"name": "artisticdude/cloth.wav",
 		"pitch": 100,
 		"volume": 100
 	},
 	"enemyKO": {
-		"name": "GameAudio/ko.wav",
+		"name": "artisticdude/cloth.wav",
 		"pitch": 100,
 		"volume": 100
 	},

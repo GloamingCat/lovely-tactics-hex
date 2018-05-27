@@ -217,6 +217,15 @@ function Character:damage(skill, origin, results)
   if self.battler:isAlive() then
     self:playAnimation(self.idleAnim)
   else
+    if self.party == TroopManager.playerParty then
+      if Config.sounds.allyKO then
+        AudioManager:playSFX(Config.sounds.allyKO)
+      end
+    else
+      if Config.sounds.enemyKO then
+        AudioManager:playSFX(Config.sounds.enemyKO)
+      end
+    end
     self:playAnimation(self.koAnim, true)
   end
 end
