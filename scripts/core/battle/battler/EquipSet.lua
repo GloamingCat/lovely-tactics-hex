@@ -281,10 +281,20 @@ end
 -- Gets an element's total bonus given by the equipment.
 -- @param(id : number) element's id
 -- @ret(number) the total bonus
-function EquipSet:elementBonus(id)
+function EquipSet:elementAtk(id)
   local e = 0
   for k, slot in pairs(self.bonus) do
-    e = e + (slot.elements[id] or 0)
+    e = e + (slot.elementAtk[id] or 0)
+  end
+  return e
+end
+-- Gets an element's total bonus given by the equipment.
+-- @param(id : number) element's id
+-- @ret(number) the total bonus
+function EquipSet:elementDef(id)
+  local e = 0
+  for k, slot in pairs(self.bonus) do
+    e = e + (slot.elementDef[id] or 0)
   end
   return e
 end
@@ -304,7 +314,7 @@ function EquipSet:updateSlotBonus(key)
   local slot = self.slots[key]
   local equip = slot.id >= 0 and Database.items[slot.id].equip
   bonus.attAdd, bonus.attMul = self:equipAttributes(equip)
-  bonus.elements = self:equipElements(equip)
+  bonus.elementAtk, bonus.elementDef = self:equipElements(equip)
 end
 -- Gets the table of equipment attribute bonus.
 -- @param(equip : table) item's equip data
@@ -323,16 +333,18 @@ function EquipSet:equipAttributes(equip)
 end
 -- Gets the table of equipment element bonus.
 -- @param(equip : table) item's equip data
--- @ret(table) bonus array
+-- @ret(table) Array for element attack.
+-- @ret(table) Array for element defense.
 function EquipSet:equipElements(equip)
-  local e = {}
+  local atk, def = {}, {}
   if equip and equip.elements then
     for i = 1, #equip.elements do
       local bonus = equip.elements[i]
-      e[bonus.id] = (bonus.value or 0) / 100
+      local el = bonus.atk and atk or def
+      el[bonus.id] = (bonus.value or 0) / 100
     end
   end
-  return e
+  return atk, def
 end
 
 ---------------------------------------------------------------------------------------------------

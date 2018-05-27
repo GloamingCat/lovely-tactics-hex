@@ -194,6 +194,10 @@ function util.startBattle(sheet, event, args)
       GameManager:restart()
     elseif bgm then
       AudioManager:playBGM(bgm)
+      if args.fade then
+        FieldManager.renderer:fadeout(0)
+        FieldManager.renderer:fadein(args.fade, true)
+      end
     end
   end)
   fiber:waitForEnd()

@@ -231,8 +231,13 @@ function Battler:isActive()
 end
 -- Gets an element multiplying factor.
 -- @param(id : number) the element's ID (position in the elements database)
-function Battler:element(id)
-  return self.elementBase[id] + self.statusList:elementBonus(id)
+function Battler:elementAtk(id)
+  return self.statusList:elementAtk(id) + self.equipSet:elementAtk(id)
+end
+-- Gets an element multiplying factor.
+-- @param(id : number) the element's ID (position in the elements database)
+function Battler:elementDef(id)
+  return self.elementBase[id] + self.statusList:elementDef(id) + self.equipSet:elementDef(id)
 end
 -- Gets the battler's AI, if any.
 -- @ret(BattlerAI)

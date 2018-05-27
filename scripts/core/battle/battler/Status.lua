@@ -35,7 +35,8 @@ function Status:init(list, data, state)
   -- Bonus
   self.attAdd = {}
   self.attMul = {}
-  self.elements = {}
+  self.elementAtk = {}
+  self.elementDef = {}
   -- Attribute bonus
   for i = 1, #data.attributes do
     local bonus = data.attributes[i]
@@ -45,7 +46,8 @@ function Status:init(list, data, state)
   -- Element bonus
   for i = 1, #data.elements do
     local bonus = data.elements[i]
-    self.elements[bonus.id] = (bonus.value or 0) / 100
+    local el = bonus.atk and self.elementAtk or self.elementDef
+    el[bonus.id] = (bonus.value or 0) / 100
   end
   -- AI
   local ai = data.scriptAI

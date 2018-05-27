@@ -76,7 +76,7 @@ function SkillAction:init(skillID)
       e[i] = 0
     end
   end
-  self.elementFactors = e
+  self.elements = e
   self.tags = TagMap(data.tags)
 end
 -- Creates an SkillAction given the skill's ID in the database, depending on the skill's script.
@@ -277,9 +277,9 @@ function SkillAction:calculateEffectResult(effect, user, target)
   end
   local result = max(effect.basicResult(self, user.att, target.att, rand), 0)
   local bonus = 0
-  local skillElements = self.elementFactors
   for i = 1, elementCount do
-    bonus = bonus + skillElements[i] * target:element(i)
+    local el = self.elements[i] + (self.data.userElement and user:elementAtk(i) or 0)
+    bonus = bonus + el * target:elementDef(i)
   end
   bonus = result * bonus
   return round(bonus + result)

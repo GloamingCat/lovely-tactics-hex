@@ -58,8 +58,8 @@
 		"param": {
 			"attName": "crit",
 			"sound": "CGEffex/hit.ogg",
-			"volume": 100,
-			"pitch": 100
+			"volume": "100",
+			"pitch": "100"
 		}
 	},
 	{

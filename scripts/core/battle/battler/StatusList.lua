@@ -194,10 +194,20 @@ end
 -- Gets the total element factors given by the current status effects.
 -- @param(id : number) the element's ID (position in the elements database)
 -- @ret(number) the element bonus
-function StatusList:elementBonus(id)
+function StatusList:elementAtk(id)
   local e = 0
   for i = 1, #self do
-    e = e + (self[i].elements[id] or 0)
+    e = e + (self[i].elementAtk[id] or 0)
+  end
+  return e
+end
+-- Gets the total element factors given by the current status effects.
+-- @param(id : number) the element's ID (position in the elements database)
+-- @ret(number) the element bonus
+function StatusList:elementDef(id)
+  local e = 0
+  for i = 1, #self do
+    e = e + (self[i].elementDef[id] or 0)
   end
   return e
 end

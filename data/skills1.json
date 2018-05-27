@@ -52,6 +52,7 @@
 					"value": 100
 				}
 			],
+			"userElement": true,
 			"status": [],
 			"tags": [
 				{
@@ -113,6 +114,7 @@
 					"value": 100
 				}
 			],
+			"userElement": true,
 			"status": [],
 			"tags": [
 				{
