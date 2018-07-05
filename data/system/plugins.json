@@ -68,6 +68,13 @@
 		"param": {}
 	},
 	{
+		"path": "Reflect",
+		"on": true,
+		"param": {
+			"animID": 18
+		}
+	},
+	{
 		"path": "BatchMesh",
 		"on": false,
 		"param": {}

@@ -316,7 +316,8 @@ function SkillAction:allTargetsEffect(input, originTile)
   for i = #allTargets, 1, -1 do
     for targetChar in allTargets[i].characterList:iterator() do
       if self:receivesEffect(targetChar) then
-        self:singleTargetEffect(input, targetChar, originTile)
+        local results = self:calculateEffectResults(input.user.battler, targetChar.battler)
+        self:singleTargetEffect(results, input, targetChar, originTile)
       end
     end
   end
@@ -325,8 +326,7 @@ end
 -- Executes individual animation for a single tile.
 -- @param(targetChar : Character) the character that will be affected
 -- @param(originTile : ObjectTile) the user's original tile
-function SkillAction:singleTargetEffect(input, targetChar, originTile)
-  local results = self:calculateEffectResults(input.user.battler, targetChar.battler)
+function SkillAction:singleTargetEffect(results, input, targetChar, originTile)
   if #results.points == 0 and #results.status == 0 then
     -- Miss
     local pos = targetChar.position
@@ -334,7 +334,7 @@ function SkillAction:singleTargetEffect(input, targetChar, originTile)
     popupText:addLine(Vocab.miss, 'popup_miss', 'popup_miss')
     popupText:popup()
   else
-    local wasAlive = targetChar.battler:isAlive()
+    local wasAlive = targetChar.battler.state.hp > 0
     targetChar.battler:popupResults(targetChar.position, results, targetChar)
     if self.data.battleAnim.individualID >= 0 then
       local dir = targetChar:tileToAngle(originTile.x, originTile.y)
@@ -348,13 +348,10 @@ function SkillAction:singleTargetEffect(input, targetChar, originTile)
         originTile = input.target
       end
       _G.Fiber:fork(function()
-        if targetChar == input.user then
-          input.user:finishSkill(originTile, self.data)
-        end
         targetChar:damage(self.data, originTile, results)
       end)
     end
-    if targetChar.battler:isAlive() then
+    if targetChar.battler.state.hp > 0 then
       targetChar:playAnimation(targetChar.idleAnim)
     end
   end

@@ -336,6 +336,49 @@
 						]
 					}
 				}
+			},
+			{
+				"name": "Shield",
+				"data": {
+					"id": 18,
+					"path": "Battle/shield.png",
+					"x": 0,
+					"y": 0,
+					"width": 480,
+					"height": 672,
+					"cols": 5,
+					"rows": 7,
+					"transform": {
+					  "offsetX": 48,
+					  "offsetY": 72,
+					  "offsetDepth": -11,
+					  "scaleX": 50,
+					  "scaleY": 50,
+					  "rotation": 0,
+					  "red": 255,
+					  "green": 255,
+					  "blue": 255,
+					  "alpha": 255,
+					  "hue": 0,
+					  "saturation": 100,
+					  "brightness": 100
+					},
+					"animation": {
+						"duration": 70,
+						"loop": 0,
+						"script": {
+							"path": "BattleEffect",
+							"param": ""
+						},
+						"audio": [
+							{
+								"name": "GameAudio/heal.wav",
+								"volume": 70,
+								"pitch": 110
+							}
+						]
+					}
+				}
 			}
 		]
 	}
