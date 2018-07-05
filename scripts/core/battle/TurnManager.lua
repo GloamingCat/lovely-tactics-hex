@@ -25,6 +25,7 @@ function TurnManager:init()
   self.turnCharacters = nil
   self.pathMatrixes = nil
   self.party = nil
+  self.finishTime = 20
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -68,6 +69,7 @@ function TurnManager:runTurn()
   else
     result = self:runPlayerTurn()
   end
+  _G.Fiber:wait(finishTime)
   if result.escaped then
     if self.party == TroopManager.playerParty then
       return -2, TroopManager.playerParty

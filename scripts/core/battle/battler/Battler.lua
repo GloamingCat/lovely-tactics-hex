@@ -219,7 +219,7 @@ end
 -- State
 ---------------------------------------------------------------------------------------------------
 
--- Checks if battler is still alive by its HP.
+-- Checks if battler is considered alive.
 -- @ret(boolean) true if HP greater then zero, false otherwise
 function Battler:isAlive()
   return self.state.hp > 0 and not self.statusList:isDead()

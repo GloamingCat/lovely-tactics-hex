@@ -9,6 +9,7 @@ Implements basic functions to be used in AI classes.
 
 -- Imports
 local AIRule = require('core/battle/ai/AIRule')
+local BattleCursor = require('core/battle/BattleCursor')
 
 local BattlerAI = class()
 
@@ -48,17 +49,33 @@ end
 -- By default, just skips turn, with no time loss.
 -- @ret(number) The action result table.
 function BattlerAI:runTurn()
+  local char = TurnManager:currentCharacter()
+  self:showCursor(char)
   TurnManager:characterTurnStart()
   local event = { AI = self,
-    origin = TurnManager:currentCharacter(),
+    self = char,
+    origin = char,
     user = self.battler }
-  event.self = event.origin
   local fiber = FieldManager.fiberList:forkFromScript(self.commands, event)
   fiber:waitForEnd()
   local result = self.result or AIRule(self.battler):execute()
   self.result = nil
   TurnManager:characterTurnEnd(result)
   return result
+end
+-- Shows the cursor over the current character.
+function BattlerAI:showCursor(char)
+  FieldManager.renderer:moveToObject(char, nil, true)
+  local cursor = BattleCursor()
+  cursor:setTile(char:getTile())
+  cursor:show()
+  local t = 0.5
+  while t > 0 do
+    t = t - love.timer.getDelta()
+    cursor:update()
+    coroutine.yield()
+  end
+  cursor:destroy()
 end
 
 return BattlerAI

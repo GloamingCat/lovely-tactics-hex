@@ -3,7 +3,7 @@
 
 RushRule
 ---------------------------------------------------------------------------------------------------
-Rule that just ends the turn. May be used when the other rules cannot be used.
+Rule to attack the closest character.
 
 =================================================================================================]]
 

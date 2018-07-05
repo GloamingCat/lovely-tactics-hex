@@ -45,7 +45,7 @@ function SkillAction:init(skillID)
   -- Animation time
   self.introTime = data.introTime or 22
   self.targetTime = data.targetTime or 0
-  self.finishTime = data.finishTime or 20
+  self.finishTime = data.finishTime or 0
   self.castTime = data.castTime or 5
   self.centerTime = data.centerTime or 20
   -- Cost formulas
@@ -187,15 +187,14 @@ function SkillAction:battleUse(input)
   local minTime = input.user:castSkill(self.data, dir, input.target) + GameManager.frame
   input.user.battler:onSkillUse(input, input.user)
   _G.Fiber:wait(self.centerTime)
-  -- Animation for each of affected tiles.
-  self:allTargetsAnimation(input, originTile)
   -- Return user to original position and animation.
-  _G.Fiber:wait(max(minTime - GameManager.frame, 0))
   if not input.user:moving() then
     input.user:finishSkill(originTile, self.data)
   end
+  -- Animation for each of affected tiles.
+  self:allTargetsEffect(input, originTile)
   -- Wait until everything finishes.
-  _G.Fiber:wait(self.finishTime)
+  _G.Fiber:wait(max(minTime - GameManager.frame, 0) + self.finishTime)
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -312,21 +311,21 @@ end
 
 -- Executes individual animation for all the affected tiles.
 -- @param(originTile : ObjectTile) the user's original tile
-function SkillAction:allTargetsAnimation(input, originTile)
+function SkillAction:allTargetsEffect(input, originTile)
   local allTargets = self:getAllAffectedTiles(input)
   for i = #allTargets, 1, -1 do
-    local tile = allTargets[i]
-    for targetChar in tile.characterList:iterator() do
+    for targetChar in allTargets[i].characterList:iterator() do
       if self:receivesEffect(targetChar) then
-        self:singleTargetAnimation(input, targetChar, originTile)
+        self:singleTargetEffect(input, targetChar, originTile)
       end
     end
   end
+  return allTargets
 end
 -- Executes individual animation for a single tile.
 -- @param(targetChar : Character) the character that will be affected
 -- @param(originTile : ObjectTile) the user's original tile
-function SkillAction:singleTargetAnimation(input, targetChar, originTile)
+function SkillAction:singleTargetEffect(input, targetChar, originTile)
   local results = self:calculateEffectResults(input.user.battler, targetChar.battler)
   if #results.points == 0 and #results.status == 0 then
     -- Miss
@@ -361,6 +360,7 @@ function SkillAction:singleTargetAnimation(input, targetChar, originTile)
   end
   targetChar.battler:onSkillEffect(input, results, targetChar)
   _G.Fiber:wait(self.targetTime)
+  return results
 end
 
 return SkillAction

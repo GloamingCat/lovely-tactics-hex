@@ -8,10 +8,9 @@ The rule for an AI that moves to the tile with less close enemies.
 =================================================================================================]]
 
 -- Imports
-local ActionInput = require('core/battle/action/ActionInput')
-local BattleTactics = require('core/battle/ai/BattleTactics')
-local BattleMoveAction = require('core/battle/action/BattleMoveAction')
 local AIRule = require('core/battle/ai/AIRule')
+local BattleMoveAction = require('core/battle/action/BattleMoveAction')
+local BattleTactics = require('core/battle/ai/BattleTactics')
 
 local HideRule = class(AIRule)
 
@@ -21,7 +20,7 @@ local HideRule = class(AIRule)
 
 -- Overrides AIRule:onSelect.
 function HideRule:onSelect(user)
-  self.input = ActionInput(BattleMoveAction(), user or TroopManager:currentCharacter())
+  self.input.action = BattleMoveAction()
   self.input.action:onSelect(self.input)
   -- Find tile to move
   local queue = BattleTactics.runAway(user, self.input)

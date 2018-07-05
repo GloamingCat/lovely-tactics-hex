@@ -242,6 +242,8 @@ function Character:onTurnStart(partyTurn)
   self.battler.statusList:callback('TurnStart', self, partyTurn)
   if partyTurn then
     self.steps = self.battler.maxSteps()
+  else
+    self.steps = 0
   end
 end
 -- Callback for when a turn ends.
