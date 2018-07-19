@@ -8,6 +8,7 @@ Used to skip battles during game test.
 
 =================================================================================================]]
 
+-- Arguments
 KeyMap.main['win'] = args.win
 KeyMap.main['lose'] = args.lose
 

@@ -14,7 +14,7 @@ Results: 1 => win, 0 => draw, -1 => lost
 
 -- Imports
 local Animation = require('core/graphics/Animation')
-local TileGraphics = require('core/field/TileGUI')
+local TileGUI = require('core/field/TileGUI')
 local IntroGUI = require('core/gui/battle/IntroGUI')
 local RewardGUI = require('core/gui/battle/RewardGUI')
 local GameOverGUI = require('core/gui/battle/GameOverGUI')
@@ -51,7 +51,7 @@ end
 -- Creates tiles' GUI components.
 function BattleManager:setUpTiles()
   for tile in FieldManager.currentField:gridIterator() do
-    tile.gui = TileGraphics(tile)
+    tile.gui = TileGUI(tile, true, true)
     tile.gui:updateDepth()
   end
 end
@@ -154,7 +154,7 @@ end
 function BattleManager:drawed()
   return self.result == 0
 end
-
+-- Checks if the player received a game over.
 function BattleManager:isGameOver()
   if self:drawed() then
     return self.params.gameOverCondition >= 2
@@ -197,11 +197,11 @@ function BattleManager:playAnimation(manager, animID, x, y, z, mirror, wait)
   end
   return animation
 end
-
+-- Play animation in field.
 function BattleManager:playBattleAnimation(animID, x, y, z, mirror, wait)
   return self:playAnimation(FieldManager, animID, x, y, z, mirror, wait)
 end
-
+-- Play animation in GUI.
 function BattleManager:playMenuAnimation(animID, wait)
   return self:playAnimation(GUIManager, animID, 0, 0, 200, false, wait)
 end

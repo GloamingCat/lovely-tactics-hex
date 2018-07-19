@@ -184,7 +184,6 @@ function util.startBattle(sheet, event, args)
       if AudioManager.battleTheme then
         AudioManager:playBGM(AudioManager.battleTheme)
       end
-      -- TODO: play battle intro SFX
       ScreenManager.shader = shader
     end
     local result = FieldManager:loadBattle(args.fieldID, args)

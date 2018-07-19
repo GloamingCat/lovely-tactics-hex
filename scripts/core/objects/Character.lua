@@ -30,11 +30,13 @@ local Character = class(CharacterBase)
 -- Animation
 ---------------------------------------------------------------------------------------------------
 
+-- Plays animation for when character is moving.
 function Character:playMoveAnimation()
   if self.autoAnim then
     self:playAnimation(self.speed < speedLimit and self.walkAnim or self.dashAnim)
   end
 end
+-- Plays animation for when character is idle.
 function Character:playIdleAnimation()
   if self.autoAnim then
     self:playAnimation(self.idleAnim)

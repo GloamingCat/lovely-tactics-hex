@@ -77,6 +77,7 @@ function SkillAction:init(skillID)
     end
   end
   self.elements = e
+  -- Tags
   self.tags = TagMap(data.tags)
 end
 -- Creates an SkillAction given the skill's ID in the database, depending on the skill's script.
@@ -134,7 +135,7 @@ end
 -- Overrides BattleAction:onConfirm.
 -- Executes the movement action and the skill's effect.
 function SkillAction:execute(input)
-  local moveAction = BattleMoveAction(self.data.range)
+  local moveAction = BattleMoveAction(self.range)
   local moveInput = ActionInput(moveAction, input.user, input.target)
   moveInput.skipAnimations = input.skipAnimations
   local result = moveInput:execute(moveInput)

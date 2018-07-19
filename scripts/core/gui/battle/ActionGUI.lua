@@ -27,9 +27,8 @@ local ActionGUI = class(GUI)
 ---------------------------------------------------------------------------------------------------
 
 -- Overrides GUI:init.
-local old_init = ActionGUI.init
 function ActionGUI:init(input)
-  old_init(self)
+  GUI.init(self)
   self.name = 'Action GUI'
   self.input = input
   input.GUI = self
@@ -99,7 +98,9 @@ end
 -- @param(target : ObjectTile) the new target tile
 function ActionGUI:selectTarget(target)
   target = target or self.input.target
-  self.cursor:setTile(target)
+  if self.cursor then
+    self.cursor:setTile(target)
+  end
   self.input.action:onDeselectTarget(self.input)
   self.input.target = target
   self.input.action:onSelectTarget(self.input)
