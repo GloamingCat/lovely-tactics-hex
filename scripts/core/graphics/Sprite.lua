@@ -171,6 +171,7 @@ end
 -- Bounding box
 ---------------------------------------------------------------------------------------------------
 
+-- Updates bound diagonal.
 function Sprite:recalculateBox()
   if self.quad then
     local w, h = self:quadBounds()
@@ -183,10 +184,17 @@ function Sprite:recalculateBox()
   self.needsRecalcBox = false
 end
 -- Gets the extreme values for the bounding box.
+-- @ret(number) Min x.
+-- @ret(number) Min y.
+-- @ret(number) Max x.
+-- @ret(number) Max y.
 function Sprite:totalBounds()
   local w, h = self:quadBounds()
   return Affine.getBoundingBox(self, w, h)
 end
+-- Gets the bounds of the texture quad.
+-- @ret(number) Quad's width.
+-- @ret(number) Quad's height.
 function Sprite:quadBounds()
   local _, _, w, h = self.quad:getViewport()
   return w, h

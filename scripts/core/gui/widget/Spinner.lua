@@ -17,6 +17,9 @@ local GridWidget = require('core/gui/widget/GridWidget')
 -- Alias
 local Image = love.graphics.newImage
 
+-- Constants
+local animID = Config.animations.arrowID
+
 local Spinner = class(GridWidget)
 
 ---------------------------------------------------------------------------------------------------
@@ -42,25 +45,19 @@ end
 -- Creates arrows and value test.
 function Spinner:initContent(initValue, w, h, x, y)
   x, y = x or 0, y or 0
-  -- Left arrow icon
-  local leftArrow = Image('images/GUI/Spinner/leftArrow.png')
-  local leftArrowSprite = Sprite(GUIManager.renderer, leftArrow)
-  leftArrowSprite:setQuad()
-  self.leftArrow = SimpleImage(leftArrowSprite, 
-    x , 
-    y + h - leftArrow:getHeight() / 2)
-  -- Right arrow icon
-  local rightArrow = Image('images/GUI/Spinner/rightArrow.png')
-  local rightArrowSprite = Sprite(GUIManager.renderer, rightArrow)
-  rightArrowSprite:setQuad()
-  self.rightArrow = SimpleImage(rightArrowSprite, 
-    x + w - rightArrow:getWidth(), 
-    y + h - rightArrow:getHeight() / 2)
+  -- Left arrow
+  local leftArrowSprite = ResourceManager:loadIcon({id = animID, col = 1, row = 1}, GUIManager.renderer)
+  local lw, lh = leftArrowSprite:quadBounds()
+  self.leftArrow = SimpleImage(leftArrowSprite, x, y + h - lh / 2)
+  -- Right arrow
+  local rightArrowSprite = ResourceManager:loadIcon({id = animID, col = 0, row = 0}, GUIManager.renderer)
+  local rw, rh = rightArrowSprite:quadBounds()
+  self.rightArrow = SimpleImage(rightArrowSprite, x + w - rw, y + h - rh / 2)
   -- Value text in the middle
   self.value = initValue
-  local textPos = Vector(x + leftArrow:getWidth(), y)
-  local textWidth = w - leftArrow:getWidth() - rightArrow:getWidth() 
-  self.valueText = SimpleText('' .. initValue, textPos, textWidth, 'center', Fonts.gui_button)
+  local textPos = Vector(x + lw, y)
+  local textWidth = w - lw - rw
+  self.valueText = SimpleText(tostring(initValue), textPos, textWidth, 'center', Fonts.gui_button)
   -- Add to content list
   self.content:add(self.leftArrow)
   self.content:add(self.rightArrow)
