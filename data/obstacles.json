@@ -12,7 +12,7 @@
 				{
 					"dx": 0,
 					"dy": 0,
-					"height": 8,
+					"height": 6,
 					"neighbors": [ false, false, false, false, false, false, false, false, false ]
 				}
 			]
@@ -31,7 +31,7 @@
 				{
 					"dx": 0,
 					"dy": 0,
-					"height": 8,
+					"height": 6,
 					"neighbors": [ false, false, false, false, false, false, false, false, false ]
 				}
 			]
@@ -50,7 +50,7 @@
 				{
 					"dx": 0,
 					"dy": 0,
-					"height": 8,
+					"height": 3,
 					"neighbors": [ false, false, false, false, false, false, false, false, false ]
 				}
 			]
@@ -120,6 +120,82 @@
 					"height": 2,
 					"rampHeight": 1,
 					"neighbors": [ true, false, true, true, true, false, true, true, true ]
+				}
+			]
+		}
+	},
+	{
+		"name": "Wall 0",
+		"data": {
+			"id": 8,
+			"image": {
+				"id": 66,
+				"col": 0,
+				"row": 0
+			},
+			"tiles": [
+				{
+					"dx": 0,
+					"dy": 0,
+					"height": 6,
+					"neighbors": [ false, false, false, false, false, false, false, false, false ]
+				}
+			]
+		}
+	},
+	{
+		"name": "Wall 1",
+		"data": {
+			"id": 9,
+			"image": {
+				"id": 67,
+				"col": 0,
+				"row": 0
+			},
+			"tiles": [
+				{
+					"dx": 0,
+					"dy": 0,
+					"height": 6,
+					"neighbors": [ false, false, false, false, false, false, false, false, false ]
+				}
+			]
+		}
+	},
+	{
+		"name": "Wall 2",
+		"data": {
+			"id": 10,
+			"image": {
+				"id": 68,
+				"col": 0,
+				"row": 0
+			},
+			"tiles": [
+				{
+					"dx": 0,
+					"dy": 0,
+					"height": 6,
+					"neighbors": [ false, false, false, false, false, false, false, false, false ]
+				}
+			]
+		}
+	},
+	{
+		"name": "Wall 3",
+		"data": {
+			"id": 11,
+			"image": {
+				"id": 69,
+				"col": 0,
+				"row": 0
+			},
+			"tiles": [
+				{
+					"dx": 0,
+					"dy": 0,
+					"height": 6,
+					"neighbors": [ false, false, false, false, false, false, false, false, false ]
 				}
 			]
 		}

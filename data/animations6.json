@@ -86,34 +86,34 @@
 					}
 				}
 			},
-      {
-        "name": "Rock 2",
-        "data": {
-          "id": 63,
-          "path": "Obstacle/Rock1.png",
-          "x": 0,
-          "y": 0,
-          "width": -1,
-          "height": -1,
-          "cols": 1,
-          "rows": 1,
-          "transform": {
-            "offsetX": 13,
-            "offsetY": 10,
-            "offsetDepth": 5,
-            "scaleX": 100,
-            "scaleY": 100,
-            "rotation": 0,
-            "red": 255,
-            "green": 255,
-            "blue": 255,
-            "alpha": 255,
-            "hue": 0,
-            "saturation": 100,
-            "brightness": 100
-          }
-        }
-      },
+			{
+				"name": "Rock 2",
+				"data": {
+					"id": 63,
+					"path": "Obstacle/Rock1.png",
+					"x": 0,
+					"y": 0,
+					"width": -1,
+					"height": -1,
+					"cols": 1,
+					"rows": 1,
+					"transform": {
+						"offsetX": 13,
+						"offsetY": 10,
+						"offsetDepth": 5,
+						"scaleX": 100,
+						"scaleY": 100,
+						"rotation": 0,
+						"red": 255,
+						"green": 255,
+						"blue": 255,
+						"alpha": 255,
+						"hue": 0,
+						"saturation": 100,
+						"brightness": 100
+					}
+				}
+			},
 			{
 				"name": "Grass 1",
 				"data": {
@@ -171,19 +171,47 @@
 				}
 			},
 			{
-				"name": "Wall 1",
+				"name": "Wall 0",
 				"data": {
 					"id": 66,
 					"path": "Obstacle/Wall0.png",
 					"x": 0,
 					"y": 0,
 					"width": 36,
-					"height": 96,
+					"height": 78,
 					"cols": 1,
 					"rows": 1,
 					"transform": {
 					  "offsetX": 18,
-					  "offsetY": 85,
+					  "offsetY": 67,
+					  "offsetDepth": 0,
+					  "scaleX": 100,
+					  "scaleY": 100,
+					  "rotation": 0,
+					  "red": 255,
+					  "green": 255,
+					  "blue": 255,
+					  "alpha": 255,
+					  "hue": 0,
+					  "saturation": 100,
+					  "brightness": 100
+					}
+				}
+			},
+			{
+				"name": "Wall 1",
+				"data": {
+					"id": 67,
+					"path": "Obstacle/Wall1.png",
+					"x": 0,
+					"y": 0,
+					"width": 36,
+					"height": 78,
+					"cols": 1,
+					"rows": 1,
+					"transform": {
+					  "offsetX": 18,
+					  "offsetY": 67,
 					  "offsetDepth": 0,
 					  "scaleX": 100,
 					  "scaleY": 100,
@@ -201,17 +229,17 @@
 			{
 				"name": "Wall 2",
 				"data": {
-					"id": 67,
-					"path": "Obstacle/Wall1.png",
+					"id": 68,
+					"path": "Obstacle/Wall2.png",
 					"x": 0,
 					"y": 0,
 					"width": 36,
-					"height": 96,
+					"height": 78,
 					"cols": 1,
 					"rows": 1,
 					"transform": {
 					  "offsetX": 18,
-					  "offsetY": 85,
+					  "offsetY": 67,
 					  "offsetDepth": 0,
 					  "scaleX": 100,
 					  "scaleY": 100,
@@ -229,45 +257,17 @@
 			{
 				"name": "Wall 3",
 				"data": {
-					"id": 68,
-					"path": "Obstacle/Wall3.png",
-					"x": 0,
-					"y": 0,
-					"width": 36,
-					"height": 96,
-					"cols": 1,
-					"rows": 1,
-					"transform": {
-					  "offsetX": 18,
-					  "offsetY": 85,
-					  "offsetDepth": 0,
-					  "scaleX": 100,
-					  "scaleY": 100,
-					  "rotation": 0,
-					  "red": 255,
-					  "green": 255,
-					  "blue": 255,
-					  "alpha": 255,
-					  "hue": 0,
-					  "saturation": 100,
-					  "brightness": 100
-					}
-				}
-			},
-			{
-				"name": "Wall 4",
-				"data": {
 					"id": 69,
 					"path": "Obstacle/Wall3.png",
 					"x": 0,
 					"y": 0,
 					"width": 36,
-					"height": 96,
+					"height": 78,
 					"cols": 1,
 					"rows": 1,
 					"transform": {
 					  "offsetX": 18,
-					  "offsetY": 85,
+					  "offsetY": 67,
 					  "offsetDepth": 0,
 					  "scaleX": 100,
 					  "scaleY": 100,

@@ -5,13 +5,6 @@
 			"id": 1,
 			"commands": [
 				{
-					"name": "turnCharTile",
-					"param": {
-						"key": "self",
-						"other": "player"
-					}
-				},
-				{
 					"name": "openDialogueWindow",
 					"param": {
 						"id": 1,
