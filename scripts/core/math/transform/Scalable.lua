@@ -47,7 +47,7 @@ end
 ---------------------------------------------------------------------------------------------------
 
 -- Applies speed and updates scale.
-function Scalable:updateScale()
+function Scalable:updateScaling()
   if self.scaleTime < 1 then
     self.scaleTime = self.scaleTime + self.scaleSpeed * time()
     if self.scaleTime > 1 and self.cropScale then
@@ -67,7 +67,7 @@ end
 -- @param(wait : boolean) flag to wait until the scaling finishes (optional)
 function Scalable:scaleTo(sx, sy, speed, wait)
   if speed then
-    self:gradativeScaleTo(sx, sy, speed, wait)
+    self:gradualScaleTo(sx, sy, speed, wait)
   else
     self:instantScaleTo(sx, sy)
   end
@@ -85,17 +85,17 @@ end
 -- @param(sy : number) initial axis-y scale
 -- @param(speed : number) the speed of the scaling (optional)
 -- @param(wait : boolean) flag to wait until the scaling finishes
-function Scalable:gradativeScaleTo(sx, sy, speed, wait)
+function Scalable:gradualScaleTo(sx, sy, speed, wait)
   self.scaleOrigX, self.scaleOrigY = self.scaleX, self.scaleY
   self.scaleDestX, self.scaleDestY = sx, sy
   self.scaleTime = 0
   self.scaleSpeed = speed
   if wait then
-    self:waitForScale()
+    self:waitForScaling()
   end
 end
 -- [COROUTINE] Waits until the scale time is 1.
-function Scalable:waitForScale()
+function Scalable:waitForScaling()
   local fiber = _G.Fiber
   if self.scaleFiber then
     self.scaleFiber:interrupt()

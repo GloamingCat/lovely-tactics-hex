@@ -39,7 +39,14 @@ KeyMap  = require('conf/KeyMap')
 -- Event
 ---------------------------------------------------------------------------------------------------
 
-util.event = require('core/base/util/EventUtil')
+util.event = require('core/base/event/GeneralEvents')
+local events = {'GUI', 'Character', 'Screen', 'Sound'}
+for i = 1, #events do
+  local Events = require('core/base/event/' .. events[i] .. 'Events')
+  for k, v in pairs(Events) do
+    util.event[k] = v
+  end
+end
 
 ---------------------------------------------------------------------------------------------------
 -- Plugins

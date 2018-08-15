@@ -15,11 +15,6 @@
       
 			// Graphics
 			"charAnim": "",
-			"color": {
-				"red": 255,
-				"green": 255,
-				"blue": 255
-			},
       
 			// Durability
 			"duration": -1,

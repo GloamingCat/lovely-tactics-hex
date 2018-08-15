@@ -108,7 +108,7 @@ end
 -- @param(wait : boolean) flag to wait until the colorizing finishes (optional)
 function Colorable:colorizeTo(r, g, b, a, speed, wait)
   if speed and speed > 0 then
-    self:gradativeColorizeTo(r, g, b, a, speed, wait)
+    self:gradualColorizeTo(r, g, b, a, speed, wait)
   else
     self:instantColorizeTo(r, g, b, a)
   end
@@ -123,14 +123,14 @@ function Colorable:instantColorizeTo(r, g, b, a)
   self:setRGBA(r, g, b, a)
   return nil
 end
--- [COROUTINE] Moves gradatively (through updateMovement) to the given point.
+-- [COROUTINE] Moves gradually (through updateMovement) to the given point.
 -- @param(r : number) red component
 -- @param(g : number) green component
 -- @param(b : number) blue component
 -- @param(a : number) alpha component
 -- @param(speed : number) the speed of the colorizing
 -- @param(wait : boolean) flag to wait until the colorizing finishes (optional)
-function Colorable:gradativeColorizeTo(r, g, b, a, speed, wait)
+function Colorable:gradualColorizeTo(r, g, b, a, speed, wait)
   self.origRed, self.origGreen, self.origBlue, self.origAlpha = self:getRGBA()
   self.destRed, self.destGreen, self.destBlue, self.destAlpha = r, g, b, a
   self.colorTime = 0

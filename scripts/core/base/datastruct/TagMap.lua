@@ -13,6 +13,8 @@ local TagMap = class()
 -- Initialization
 ---------------------------------------------------------------------------------------------------
 
+-- Constructor.
+-- @param(tags : table) Array with (name, value) tags.
 function TagMap:init(tags)
   self.tags = {}
   if tags then
@@ -24,6 +26,9 @@ end
 -- Access
 ---------------------------------------------------------------------------------------------------
 
+-- Gets the tag value from name.
+-- @param(name : string) Tag name.
+-- @ret(string) Tag value.
 function TagMap:get(name)
   local arr = self.tags[name]
   if arr then
@@ -32,7 +37,9 @@ function TagMap:get(name)
     return nil
   end
 end
-
+-- Gets all tag values from name.
+-- @param(name : string) Tag name.
+-- @ret(table) Array of tag values (strings).
 function TagMap:getAll(name)
   return self.tags[name]
 end
@@ -41,6 +48,9 @@ end
 -- Insertion
 ---------------------------------------------------------------------------------------------------
 
+-- Inserts a new tag pair.
+-- @param(name : string) Tag name.
+-- @param(value : string) Tag value.
 function TagMap:add(name, value)
   local arr = self.tags[name]
   if not arr then
@@ -50,7 +60,8 @@ function TagMap:add(name, value)
   arr[#arr + 1] = value
   self[name] = self[name] or value
 end
-
+-- Inserts a set of tag pairs.
+-- @param(tags : table) Array with (name, value) tags.
 function TagMap:addAll(tags)
   for i = 1, #tags do
     local name = tags[i].name

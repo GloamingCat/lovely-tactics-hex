@@ -21,7 +21,7 @@ local Movable = class()
 ---------------------------------------------------------------------------------------------------
 
 -- Initializes all data of the object's movement and velocity.
--- @param(pos : Vector) initial position
+-- @param(pos : Vector) Initial position (zero by default).
 function Movable:initMovement(pos)
   pos = pos or Vector(0, 0, 0)
   self.position = pos
@@ -38,16 +38,16 @@ function Movable:initMovement(pos)
   self.interruptableMove = true
 end
 -- Sets each coordinate of the position.
--- @param(x : number) the pixel x of the object
--- @param(y : number) the pixel y of the object
--- @param(z : number) the pixel depth of the object
+-- @param(x : number) The pixel x of the object.
+-- @param(y : number) The pixel y of the object.
+-- @param(z : number) The pixel depth of the object.
 function Movable:setXYZ(x, y, z)
   self.position.x = x or self.position.x
   self.position.y = y or self.position.y
   self.position.z = z or self.position.z
 end
 -- Sets the position of the object.
--- @param(pos : Vector) the pixel position of the object
+-- @param(pos : Vector) The pixel position of the object.
 function Movable:setPosition(p)
   self:setXYZ(p.x, p.y, p.z)
 end
@@ -71,38 +71,40 @@ function Movable:updateMovement()
     end
   end
 end
+-- Checks if the object is doing a gradual movement.
+-- @ret(boolean) True if moving, false otherwise.
 function Movable:moving()
   return self.moveTime < 1
 end
 -- [COROUTINE] Moves to (x, y, z).
--- @param(x : number) the pixel x
--- @param(y : number) the pixel y
--- @param(z : number) the pixel depth
--- @param(speed : number) the speed of the movement (optional)
--- @param(wait : boolean) flag to wait until the move finishes (optional)
+-- @param(x : number) The pixel x.
+-- @param(y : number) The pixel y.
+-- @param(z : number) The pixel depth.
+-- @param(speed : number) The speed of the movement (optional).
+-- @param(wait : boolean) Flag to wait until the move finishes (optional).
 function Movable:moveTo(x, y, z, speed, wait)
   if speed then
-    self:gradativeMoveTo(x, y, z, speed, wait)
+    self:gradualMoveTo(x, y, z, speed, wait)
   else
     self:instantMoveTo(x, y, z)
   end
 end
 -- Moves instantly a character to a point, if possible.
--- @param(x : number) the pixel x
--- @param(y : number) the pixel y
--- @param(z : number) the pixel depth
--- @ret(boolean) true if the movement must be interrupted, nil or false otherwise
+-- @param(x : number) The pixel x.
+-- @param(y : number) The pixel y.
+-- @param(z : number) The pixel depth.
+-- @ret(boolean) False or nil to interrupt the movement, and any other value to continue.
 function Movable:instantMoveTo(x, y, z)
   self:setXYZ(x, y, z)
-  return nil
+  return false
 end
 -- [COROUTINE] Moves gradativaly (through updateMovement) to the given point.
--- @param(x : number) the pixel x
--- @param(y : number) the pixel y
--- @param(z : number) the pixel depth
--- @param(speed : number) the speed of the movement
--- @param(wait : boolean) flag to wait until the move finishes (optional)
-function Movable:gradativeMoveTo(x, y, z, speed, wait)
+-- @param(x : number) The pixel x.
+-- @param(y : number) The pixel y.
+-- @param(z : number) The pixel depth.
+-- @param(speed : number) The speed of the movement (optional).
+-- @param(wait : boolean) Flag to wait until the move finishes (optional).
+function Movable:gradualMoveTo(x, y, z, speed, wait)
   self.moveOrigX, self.moveOrigY, self.moveOrigZ = self.position:coordinates()
   self.moveDestX, self.moveDestY, self.moveDestZ = x, y, z
   self.moveSpeed = speed

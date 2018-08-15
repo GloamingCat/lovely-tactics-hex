@@ -4,14 +4,13 @@
 Interactable
 ---------------------------------------------------------------------------------------------------
 Base methods for objects with start/collision/interaction scripts.
+It is created from a instance data table, which contains (x, y, h) coordinates, scripts, and 
+passable and persistent properties.
 
 =================================================================================================]]
 
 -- Imports
 local FiberList = require('core/base/fiber/FiberList')
-
--- Alias
-local copyTable = util.table.deepCopy
 
 local Interactable = class()
 
@@ -19,7 +18,8 @@ local Interactable = class()
 -- Initialization
 ---------------------------------------------------------------------------------------------------
 
--- Data with (x, y, h) coordinates, passable, persistent and scripts.
+-- @param(instData : table) Instance data from field file.
+-- @param(save : table) Persistent data from save file (optional).
 function Interactable:init(instData, save)
   self:initScripts(instData)
   self.key = instData.key
@@ -34,15 +34,15 @@ function Interactable:init(instData, save)
   self.tile.characterList:add(self)
   FieldManager.updateList:add(self)
 end
--- Creates listeners from instData.
--- @param(instData : table) The instData from field file.
+-- Creates listeners from instance data.
+-- @param(instData : table) Instance data from field file.
 function Interactable:initScripts(instData, save)
   self.fiberList = FiberList(save and save.fiberList)
   self.startScript = instData.startScript
   self.collideScript = instData.collideScript
   self.interactScript = instData.interactScript
   self.deleted = save and save.deleted
-  self.vars = save and copyTable(save.vars) or {}
+  self.vars = save and util.table.deepCopy(save.vars) or {}
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -72,7 +72,7 @@ end
 function Interactable:getPersistentData()
   local data = {}
   data.fiberList = self.fiberList:getState()
-  data.vars = copyTable(self.vars)
+  data.vars = util.table.deepCopy(self.vars)
   data.deleted = self.deleted
   return data
 end

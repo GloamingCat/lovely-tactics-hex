@@ -9,6 +9,7 @@ Functions that are loaded from the EventSheet.
 
 -- Imports
 local ChoiceWindow = require('core/gui/general/window/ChoiceWindow')
+local NumberWindow = require('core/gui/general/window/NumberWindow')
 local DialogueWindow = require('core/gui/general/window/DialogueWindow')
 local GUI = require('core/gui/GUI')
 local ShopGUI = require('core/gui/shop/ShopGUI')
@@ -44,7 +45,6 @@ end
 ---------------------------------------------------------------------------------------------------
 
 -- General parameters:
--- @param(args : table) Argument table.
 -- @param(args.id : number) ID of the dialogue window.
 
 -- Opens a new dialogue window and stores in the given ID.
@@ -75,7 +75,6 @@ function util.showDialogue(sheet, event, args)
   local window = sheet.gui.dialogues[args.id]
   sheet.gui:setActiveWindow(window)
   assert(window, 'You must open window ' .. args.id .. ' first.')
-  -- TODO: dialogue name
   window:showDialogue(args.message, args.portrait, args.name)
 end
 -- Closes and deletes a dialogue window.
@@ -91,6 +90,11 @@ function util.closeDialogueWindow(sheet, event, args)
   end
 end
 
+---------------------------------------------------------------------------------------------------
+-- Input
+---------------------------------------------------------------------------------------------------
+
+-- Open a choice window and waits for player choice before closing and deleting.
 function util.openChoiceWindow(sheet, event, args)
   openGUI(sheet)
   local window = ChoiceWindow(sheet.gui, args)
@@ -102,8 +106,20 @@ function util.openChoiceWindow(sheet, event, args)
   window:destroy()
   sheet.gui.choice = result
 end
-
-function util.openPasswordWindow(sheet, event, args)
+-- Open a password window and waits for player choice before closing and deleting.
+function util.openNumberWindow(sheet, event, args)
+  openGUI(sheet)
+  local window = NumberWindow(sheet.gui, args)
+  window:show()
+  sheet.gui:setActiveWindow(window)
+  local result = sheet.gui:waitForResult()
+  window:hide()
+  window:removeSelf()
+  window:destroy()
+  sheet.gui.number = result
+end
+-- Open a text window and waits for player choice before closing and deleting.
+function util.openStringWindow(sheet, event, args)
   -- TODO
 end
 

@@ -159,7 +159,7 @@ end
 -- Collision
 ---------------------------------------------------------------------------------------------------
 
--- Override.
+-- Overrides Object:getHeight.
 function CharacterBase:getHeight(dx, dy)
   dx, dy = dx or 0, dy or 0
   for i = 1, #self.collisionTiles do
@@ -176,8 +176,8 @@ end
 ---------------------------------------------------------------------------------------------------
 
 -- Overrides Movable:instantMoveTo.
--- @param(collisionCheck : boolean) if false, ignores collision
--- @ret(number) the type of the collision, nil if none
+-- @param(collisionCheck : boolean) If false, ignores collision.
+-- @ret(number) The type of the collision, nil if none.
 function CharacterBase:instantMoveTo(x, y, z, collisionCheck)
   local center = self:getTile()
   local dx, dy, dh = math.field.pixel2Tile(x, y, z)
@@ -214,7 +214,7 @@ end
 ---------------------------------------------------------------------------------------------------
 
 -- Gets all tiles this object is occuping.
--- @ret(table) the list of tiles
+-- @ret(table) The list of tiles.
 function CharacterBase:getAllTiles()
   local center = self:getTile()
   local x, y, h = center:coordinates()
@@ -231,7 +231,7 @@ function CharacterBase:getAllTiles()
   return tiles
 end
 -- Adds this object from to tiles it's occuping.
--- @param(tiles : table) the list of occuped tiles
+-- @param(tiles : table) The list of occuped tiles.
 function CharacterBase:addToTiles(tiles)
   tiles = tiles or self:getAllTiles()
   for i = #tiles, 1, -1 do
@@ -239,7 +239,7 @@ function CharacterBase:addToTiles(tiles)
   end
 end
 -- Removes this object from the tiles it's occuping.
--- @param(tiles : table) the list of occuped tiles
+-- @param(tiles : table) The list of occuped tiles.
 function CharacterBase:removeFromTiles(tiles)
   tiles = tiles or self:getAllTiles()
   for i = #tiles, 1, -1 do
@@ -253,7 +253,6 @@ end
 
 -- Overrides Interactable:getPersistenData.
 -- Included position, direction and animation.
--- @ret(table) Character's state to be saved.
 function CharacterBase:getPersistentData()
   local data = Interactable.getPersistentData(self)
   data.x = self.position.x
@@ -262,21 +261,6 @@ function CharacterBase:getPersistentData()
   data.direction = self.direction
   data.animName = self.animName
   return data
-end
--- Sets persistent data.
--- @param(data : table) data from save
-function CharacterBase:setPersistentData(data)
-  if data then
-    if data.lastx and data.lasty and data.lastz then
-      self:setPosition(data.lastx, data.lasty, data.lastz)
-    end
-    if data.lastDir then
-      self:setDirection(data.lastDir)
-    end
-    if data.lastAnim then
-      self:playAnimation(data.lastAnim)
-    end
-  end
 end
 
 return CharacterBase

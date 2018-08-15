@@ -57,10 +57,10 @@ function Object:setXYZ(x, y, z)
 end
 -- Overrides Movable:instantMoveTo.
 -- Updates the tile's object list.
-function Object:instantMoveTo(position)
+function Object:instantMoveTo(x, y, z)
   local tiles = self:getAllTiles()
   self:removeFromTiles(tiles)
-  self:setPosition(position)
+  self:setXYZ(x, y, z)
   tiles = self:getAllTiles()
   self:addToTiles(tiles)
 end
@@ -70,7 +70,7 @@ end
 ---------------------------------------------------------------------------------------------------
 
 -- Converts current pixel position to tile.
--- @ret(Tile) current tile
+-- @ret(Tile) Current tile.
 function Object:getTile()
   local x, y, h = pixel2Tile(self.position:coordinates())
   x = round(x)
@@ -82,20 +82,20 @@ function Object:getTile()
   assert(layer, 'x out of bounds: ' .. x)
   return layer[y]
 end
--- Sets object's position to the given tile.
--- @param(tile : ObjectTile) new tile 
+-- Sets object's current position to the given tile.
+-- @param(tile : ObjectTile) Destination tile.
 function Object:setTile(tile)
   local x, y, z = math.field.tile2Pixel(tile:coordinates())
   self:setXYZ(x, y, z)
 end
 -- Move to the given tile.
--- @param(tile : ObjectTile) new tile
+-- @param(tile : ObjectTile) Destination tile.
 function Object:moveToTile(tile, ...)
   local x, y, z = math.field.tile2Pixel(tile:coordinates())
   self:moveTo(x, y, z, ...)
 end
 -- Gets all tiles this object is occuping.
--- @ret(table) the list of tiles
+-- @ret(table) The list of tiles.
 function Object:getAllTiles()
   return { self:getTile() }
 end
@@ -118,22 +118,28 @@ end
 ---------------------------------------------------------------------------------------------------
 
 -- Checks if a tile point is colliding with something.
--- @param(tile : Tile) the origin tile
--- @param(tiledif : Vector) the displacement in tiles
--- @ret(number) the collision type
+-- @param(tile : Tile) The origin tile.
+-- @param(dx : number) The grid displacement in x axis.
+-- @param(dy : number) The grid displaciment in y axis.
+-- @param(dh : number) The grid height displacement.
+-- @ret(number) The collision type.
 function Object:collision(tile, dx, dy, dh)
   local orig = Vector(tile:coordinates())
   local dest = Vector(dx, dy, dh)
   dest:add(orig)
   return FieldManager.currentField:collision(self, orig, dest)
 end
--- Gets the collider's height in grid coordinates.
--- @param(x : number) the x of the tile of check the height
--- @param(y : number) the y of the tile of check the height
+-- Gets the collider's height in grid units.
+-- @param(x : number) The x of the tile of check the height.
+-- @param(y : number) The y of the tile of check the height.
+-- @ret(number) Height in grid units.
 function Object:getHeight(x, y)
   return 0
 end
--- Gets the hight in pixels.
+-- Gets the collider's height in pixels.
+-- @param(x : number) The x of the tile of check the height.
+-- @param(y : number) The y of the tile of check the height.
+-- @ret(number) Height in pixels.
 function Object:getPixelHeight(dx, dy)
   local h = self:getHeight(dx, dy)
   return h * pph

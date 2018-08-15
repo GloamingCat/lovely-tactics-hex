@@ -29,7 +29,7 @@ end
 -- Called each frame.
 function Transformable:update()
   self:updateMovement()
-  self:updateScale()
+  self:updateScaling()
   self:updateRotation()
   self:updateColor()
 end
