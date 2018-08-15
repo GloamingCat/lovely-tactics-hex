@@ -33,6 +33,7 @@ end
 -- Starts the game.
 function GameManager:start(arg)
   self.fpsFont = ResourceManager:loadFont(Fonts.fps)
+  self:setConfig(SaveManager.config)
   GUIManager.fiberList:fork(function()
     GUIManager:showGUIForResult(TitleGUI())
   end)

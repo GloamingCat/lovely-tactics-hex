@@ -84,7 +84,7 @@ function Player:checkFieldInput()
   else
     local dx, dy, move = self:inputAxis()
     local dash = InputManager.keys['dash']:isPressing()
-    local auto = SaveManager.current.config.autoDash
+    local auto = SaveManager.config.autoDash
     if auto and not dash or not auto and dash then
       self.speed = self.dashSpeed
     else

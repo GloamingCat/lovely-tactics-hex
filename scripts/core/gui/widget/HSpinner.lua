@@ -82,6 +82,7 @@ end
 function HSpinner.onClick(window, self, x, y)
   local pos = self:relativePosition()
   x, y = x - pos.x, y - pos.y
+  print ('bla')
   if x < self.x or y < self.y or x > self.x + self.width or y > self.y + self.height then
     return
   end

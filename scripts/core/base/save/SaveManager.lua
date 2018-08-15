@@ -33,6 +33,12 @@ function SaveManager:init()
     love.filesystem.createDirectory('saves/')
   end
   self.maxSaves = 3
+  -- Settings
+  if love.filesystem.exists('config.json') then
+    self.config = Serializer.load('config.json')
+  else
+    self:newConfig()
+  end
 end
 -- Creates a new save.
 -- ret(table) A brand new save table.
@@ -41,11 +47,6 @@ function SaveManager:createSave()
   save.playTime = 0
   -- Global vars
   save.vars = {}
-  -- Settings
-  save.config = { volumeBGM = 100, volumeSFX = 100, 
-    windowScroll = 50, fieldScroll = 50,
-    autoDash = false, useMouse = true,
-    resolution = 2 }
   -- Field data
   save.fields = {}
   -- Initial party
@@ -67,8 +68,20 @@ function SaveManager:newSave()
   self.current = save
   self.loadTime = now()
   Troop():storeSave()
-  GameManager:setConfig(save.config)
   FieldManager:loadTransition(save.playerTransition)
+end
+-- Creates default config file.
+function SaveManager:newConfig()
+  local conf = {}
+  conf.volumeBGM = 100
+  conf.volumeSFX = 100
+  conf.windowScroll = 50
+  conf.fieldScroll = 50
+  conf.autoDash = false
+  conf.useMouse = true
+  conf.resolution = 2
+  self.config = conf
+  self:storeConfig()
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -140,7 +153,6 @@ function SaveManager:loadSave(file)
   if love.filesystem.exists('saves/' .. file .. '.save') then
     self.current = Serializer.load('saves/' .. file .. '.save')
     self.loadTime = now()
-    GameManager:setConfig(self.current.config)
     FieldManager:loadTransition(self.current.playerTransition)
     print('Loaded game.')
   else
@@ -158,6 +170,11 @@ function SaveManager:storeSave(file)
   Serializer.store('saves.json', self.saves)
   self.loadTime = now()
   print('Saved game.')
+end
+-- Stores config file.
+function SaveManager:storeConfig()
+  Serializer.store('config.json', self.config)
+  print('saved config')
 end
 -- Called when game pauses/resumes.
 -- @param(paused : boolean) Current game state.

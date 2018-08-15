@@ -224,7 +224,7 @@ end
 -- @param(d : number) Direction (1 or -1).
 function ActionGUI:slideX(d)
   local camera = FieldManager.renderer
-  local speed = self.slideSpeed * SaveManager.current.config.fieldScroll * 2 / 100
+  local speed = self.slideSpeed * SaveManager.config.fieldScroll * 2 / 100
   local x = camera.position.x + d * speed * delta() * 60
   local field = FieldManager.currentField 
   if x >= field.minx and x <= field.maxx then
@@ -236,7 +236,7 @@ end
 -- @param(d : number) Direction (1 or -1).
 function ActionGUI:slideY(d)
   local camera = FieldManager.renderer
-  local speed = self.slideSpeed * SaveManager.current.config.fieldScroll * 2 / 100
+  local speed = self.slideSpeed * SaveManager.config.fieldScroll * 2 / 100
   local y = camera.position.y + d * speed * delta() * 60
   local field = FieldManager.currentField 
   if y >= field.miny and y <= field.maxy then

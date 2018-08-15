@@ -50,7 +50,7 @@ function TitleGUI:createTopText()
   self.topText = Text(Config.name, prop, GUIManager.renderer)
   local x = -ScreenManager.width / 2
   local y = -ScreenManager.height / 2 + self:windowMargin() * 2
-  self.topText:setXYZ(x, y)
+  self.topText:setXYZ(x, y, 9)
   self.topText:setRGBA(nil, nil, nil, 0)
 end
 -- Creates the main window with New / Load / etc.

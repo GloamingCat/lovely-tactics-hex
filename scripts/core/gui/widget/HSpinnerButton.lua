@@ -27,6 +27,7 @@ function HSpinnerButton:init(window, minValue, maxValue, initValue, x)
   Button.init(self, window)
   self.minValue = minValue or -math.huge
   self.maxValue = maxValue or math.huge
+  self.clickSound = nil
   x = x or 0.3
   local w = self.window:cellWidth()
   self:initContent(initValue or 0, w * x, self.window:cellHeight(), w * (1 - x))

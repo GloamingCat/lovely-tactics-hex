@@ -31,7 +31,7 @@ end
 -- Chooses new resolution.
 function ResolutionWindow:onButtonConfirm(button)
   local scale = button.index + 1
-  SaveManager.current.config.resolution = scale
+  SaveManager.config.resolution = scale
   if scale == 4 then
     ScreenManager:setFullscreen()
   else

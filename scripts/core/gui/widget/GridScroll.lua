@@ -55,7 +55,7 @@ end
 -- Updates scroll count.
 function GridScroll:update()
   if self.count then
-    local speed = self.speed * SaveManager.current.config.windowScroll * 2 / 100
+    local speed = self.speed * SaveManager.config.windowScroll * 2 / 100
     self.count = self.count + speed * delta()
     if self.count >= 1 then
       self.count = 0

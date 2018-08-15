@@ -10,6 +10,7 @@ The small windows with the commands for character management.
 -- Imports
 local Button = require('core/gui/widget/Button')
 local GridWindow = require('core/gui/GridWindow')
+local SettingsGUI = require('core/gui/settings/SettingsGUI')
 
 local TitleCommandWindow = class(GridWindow)
 
@@ -27,6 +28,7 @@ end
 function TitleCommandWindow:createWidgets()
   Button:fromKey(self, 'newGame')
   Button:fromKey(self, 'loadGame')
+  Button:fromKey(self, 'config')
   Button:fromKey(self, 'quit')
 end
 
@@ -56,6 +58,14 @@ function TitleCommandWindow:loadGameConfirm()
     self:show()
   end
 end
+-- Settings button.
+function TitleCommandWindow:configConfirm()
+  self.GUI.topText:setVisible(false)
+  self:hide()
+  GUIManager:showGUIForResult(SettingsGUI())
+  self.GUI.topText:setVisible(true)
+  self:show()
+end
 -- Quit button.
 function TitleCommandWindow:quitConfirm()
   self.GUI:hide()
@@ -84,7 +94,7 @@ function TitleCommandWindow:colCount()
 end
 -- Overrides GridWindow:rowCount.
 function TitleCommandWindow:rowCount()
-  return 3
+  return 4
 end
 -- Overrides GridWindow:cellWidth.
 function TitleCommandWindow:cellWidth()

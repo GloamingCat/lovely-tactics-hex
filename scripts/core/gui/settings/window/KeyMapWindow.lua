@@ -51,7 +51,7 @@ end
 -- Overrides Window:show.
 function KeyMapWindow:show(...)
   if not self.open then
-    self.map = copyTable(SaveManager.current.config.keyMap or KeyMap)
+    self.map = copyTable(SaveManager.config.keyMap or KeyMap)
     self:refreshKeys()
     self:hideContent()
     GridWindow.show(self, ...)
@@ -92,7 +92,7 @@ function KeyMapWindow:onButtonConfirm(button)
 end
 -- Applies changes.
 function KeyMapWindow:applyConfirm()
-  SaveManager.current.config.keyMap = copyTable(self.map)
+  SaveManager.config.keyMap = copyTable(self.map)
   InputManager:setKeyMap(self.map)
   self.result = 1
 end
