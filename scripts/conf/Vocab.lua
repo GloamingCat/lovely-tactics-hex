@@ -103,5 +103,9 @@ return {
   
   -- Quicksave
   saved = 'Saved',
-  loaded = 'Loaded'
+  loaded = 'Loaded',
+  
+  -- General
+  ok = 'OK'
+  
 }

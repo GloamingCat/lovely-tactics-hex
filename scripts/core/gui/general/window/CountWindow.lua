@@ -8,7 +8,7 @@ Window to choose a number given min/max limits.
 =================================================================================================]]
 
 -- Imports
-local Spinner = require('core/gui/widget/Spinner')
+local HSpinner = require('core/gui/widget/HSpinner')
 local GridWindow = require('core/gui/GridWindow')
 
 local CountWindow = class(GridWindow)
@@ -25,7 +25,7 @@ function CountWindow:init(...)
 end
 -- Implements GridWindow:createWidgets.
 function CountWindow:createWidgets()
-  local spinner = Spinner(self, 1, 1, 1)
+  local spinner = HSpinner(self, 1, 1, 1)
   self.spinner = spinner
 end
 -- @param(max : number) Sets the maximum number of the spinner.

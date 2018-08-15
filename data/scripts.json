@@ -28,7 +28,20 @@
 					"name": "showDialogue",
 					"param": {
 						"id": 1,
-						"message": "How you {i}doing{r}? ~"
+						"message": "What's your age?"
+					}
+				},
+				{
+					"name": "openNumberWindow",
+					"param": {
+						"length": 2
+					}
+				},
+				{
+					"name": "showDialogue",
+					"param": {
+						"id": 1,
+						"message": "Oh, me too. \nHow you {i}doing{r}? ~"
 					}
 				},
 				{

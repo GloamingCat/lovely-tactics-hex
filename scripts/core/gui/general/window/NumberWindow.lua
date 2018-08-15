@@ -1,9 +1,9 @@
 
 --[[===============================================================================================
 
-ChoiceWindow
+NumberWindow
 ---------------------------------------------------------------------------------------------------
-Shows a list of custom choices.
+Shows a list of numbers from 0 to 9 to be chosen.
 
 =================================================================================================]]
 
@@ -11,60 +11,78 @@ Shows a list of custom choices.
 local Button = require('core/gui/widget/Button')
 local GridWindow = require('core/gui/GridWindow')
 local List = require('core/base/datastruct/List')
+local VSpinner = require('core/gui/widget/VSpinner')
 
-local ChoiceWindow = class(GridWindow)
+local NumberWindow = class(GridWindow)
 
 ---------------------------------------------------------------------------------------------------
 -- Initialization
 ---------------------------------------------------------------------------------------------------
 
-function ChoiceWindow:init(GUI, args)
-  self.choices = List(args.choices)
+function NumberWindow:init(GUI, args)
+  self.noCursor = true
+  self.length = args.length
   self.width = args.width
   self.align = args.align
-  self.cancelChoice = args.cancel
+  self.cancelValue = args.cancel
   GridWindow.init(self, GUI, self.width, nil, args.pos)
 end
 
-function ChoiceWindow:createWidgets()
-  for i = 1, self.choices.size do
-    local choice = self.choices[i]
-    local button = Button(self)
-    button:createText(choice, 'gui_medium', self.align)
-    button.choice = i
+function NumberWindow:createWidgets()
+  for i = 1, self.length do
+    VSpinner(self, 0, 9, 0)
   end
+  Button:fromKey(self, 'ok').text.sprite.alignX = 'center'
 end
 
 ---------------------------------------------------------------------------------------------------
 -- Input Callbacks
 ---------------------------------------------------------------------------------------------------
 
-function ChoiceWindow:onButtonConfirm(button)
-  self.result = button.choice
+function NumberWindow:onButtonConfirm(button)
+  self:onSpinnerConfirm(self.spinner)
 end
 
-function ChoiceWindow:onButtonCancel(button)
-  self.result = self.cancelChoice
+function NumberWindow:getValue()
+  local value = 0
+  local e = 1
+  for i = self.length, 1, -1 do
+    value = value + e * self.matrix[i].value
+    e = e * 10
+  end
+  return value
+end
+
+function NumberWindow:onSpinnerConfirm(spinner)
+  self.result = self:getValue()
+end
+
+function NumberWindow:onSpinnerCancel(spinner)
+  self.result = self.cancelValue
 end
 
 ---------------------------------------------------------------------------------------------------
 -- Properties
 ---------------------------------------------------------------------------------------------------
 
-function ChoiceWindow:colCount()
+function NumberWindow:colCount()
+  return self.length + 1
+end
+
+function NumberWindow:rowCount()
   return 1
 end
 
-function ChoiceWindow:rowCount()
-  return #self.choices
+function NumberWindow:cellWidth()
+  return 16
 end
 
-function ChoiceWindow:cellWidth()
-  return (self.width or 100) - self:paddingX() * 2
+function NumberWindow:cellHeight()
+  return (self.height or 48) - self:paddingY() * 2
 end
 -- @ret(string) String representation (for debugging).
-function ChoiceWindow:__tostring()
-  return 'ChoiceWindow: ' .. tostring(self.choices)
+function NumberWindow:__tostring()
+  return 'NumberWindow: ' .. tostring(self.choices)
 end
 
-return ChoiceWindow
+return NumberWindow

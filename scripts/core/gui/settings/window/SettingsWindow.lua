@@ -10,7 +10,7 @@ Window to change basic system settings.
 -- Imports
 local Button = require('core/gui/widget/Button')
 local GridWindow = require('core/gui/GridWindow')
-local SpinnerButton = require('core/gui/widget/SpinnerButton')
+local HSpinnerButton = require('core/gui/widget/HSpinnerButton')
 local SwitchButton = require('core/gui/widget/SwitchButton')
 
 local SettingsWindow = class(GridWindow)
@@ -22,10 +22,10 @@ local SettingsWindow = class(GridWindow)
 -- Implements GridWindow:createWidgets.
 function SettingsWindow:createWidgets()
   local config = SaveManager.current.config
-  SpinnerButton:fromKey(self, 'volumeBGM', 0, 100, config.volumeBGM).bigIncrement = 10
-  SpinnerButton:fromKey(self, 'volumeSFX', 0, 100, config.volumeSFX).bigIncrement = 10
-  SpinnerButton:fromKey(self, 'windowScroll', 10, 100, config.windowScroll).bigIncrement = 10
-  SpinnerButton:fromKey(self, 'fieldScroll', 10, 100, config.fieldScroll).bigIncrement = 10
+  HSpinnerButton:fromKey(self, 'volumeBGM', 0, 100, config.volumeBGM).bigIncrement = 10
+  HSpinnerButton:fromKey(self, 'volumeSFX', 0, 100, config.volumeSFX).bigIncrement = 10
+  HSpinnerButton:fromKey(self, 'windowScroll', 10, 100, config.windowScroll).bigIncrement = 10
+  HSpinnerButton:fromKey(self, 'fieldScroll', 10, 100, config.fieldScroll).bigIncrement = 10
   SwitchButton:fromKey(self, 'autoDash', config.autoDash)
   SwitchButton:fromKey(self, 'useMouse', config.useMouse)
   SwitchButton:fromKey(self, 'wasd', config.wasd)

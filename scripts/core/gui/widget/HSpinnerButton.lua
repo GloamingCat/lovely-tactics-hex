@@ -1,16 +1,17 @@
 
 --[[===============================================================================================
 
-SpinnerButton
+HSpinnerButton
 ---------------------------------------------------------------------------------------------------
+A spinner with button properties (cancel and confirm actions).
 
 =================================================================================================]]
 
 -- Imports
 local Button = require('core/gui/widget/Button')
-local Spinner = require('core/gui/widget/Spinner')
+local HSpinner = require('core/gui/widget/HSpinner')
 
-local SpinnerButton = class(Spinner, Button)
+local HSpinnerButton = class(HSpinner, Button)
 
 ---------------------------------------------------------------------------------------------------
 -- Initialization
@@ -22,19 +23,19 @@ local SpinnerButton = class(Spinner, Button)
 -- @param(maxValue : number) Maximum value.
 -- @param(initValue : number) Initial value.
 -- @param(x : number) Position x of the spinner relative to the button width (from 0 to 1).
-function SpinnerButton:init(window, minValue, maxValue, initValue, x)
+function HSpinnerButton:init(window, minValue, maxValue, initValue, x)
   Button.init(self, window)
   self.minValue = minValue or -math.huge
   self.maxValue = maxValue or math.huge
   x = x or 0.3
   local w = self.window:cellWidth()
-  self:initContent(initValue or 0, w * x, self.window:cellHeight() / 2, w * (1 - x))
+  self:initContent(initValue or 0, w * x, self.window:cellHeight(), w * (1 - x))
 end
 -- Creates a button for the action represented by the given key.
 -- @param(window : GridWindow) The window that this button is component of.
 -- @param(key : string) Action's key.
--- @ret(SpinnerButton)
-function SpinnerButton:fromKey(window, key, maxValue, minValue, initValue)
+-- @ret(HSpinnerButton)
+function HSpinnerButton:fromKey(window, key, maxValue, minValue, initValue)
   local button = self(window, maxValue, minValue, initValue)
   local icon = Icons[key]
   if icon then
@@ -51,4 +52,4 @@ function SpinnerButton:fromKey(window, key, maxValue, minValue, initValue)
   return button
 end
 
-return SpinnerButton
+return HSpinnerButton

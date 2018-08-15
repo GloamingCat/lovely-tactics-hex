@@ -205,10 +205,10 @@ function Text:draw(renderer)
     local w = line.buffer:getWidth() * sx
     if self.maxWidth and w > self.maxWidth then
       lsx = self.maxWidth / line.buffer:getWidth()
-      x = -1
+      x = 0
     else
       lsx = sx
-      x = self:alignOffsetX(w) - 1
+      x = self:alignOffsetX(w)
     end
     local shader = lgraphics.getShader()
     lgraphics.setShader()
