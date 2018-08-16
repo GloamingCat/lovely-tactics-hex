@@ -75,6 +75,16 @@
 		}
 	},
 	{
+		"path": "StepSound",
+		"on": true,
+		"param": {
+			"frequency": 16,
+			"varPitch": 0.1,
+			"varVolume": 0.2,
+			"varFreq": 0.1
+		}
+	},
+	{
 		"path": "BatchMesh",
 		"on": false,
 		"param": {}

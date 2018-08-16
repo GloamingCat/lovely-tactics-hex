@@ -59,6 +59,7 @@ Thanks to the following people for general art resources used in the project:
 * CGEffex for sound effects: https://freesound.org/people/CGEffex/;
 * artisticdude for sound effects: https://opengameart.org/content/rpg-sound-pack;
 * ViRiX Dreamcore (David Mckee) for sound effects: https://opengameart.org/content/magic-sfx-sample;
+* Kenney for sound effects: www.kenney.nl;
 * Aaron Krogh for BGM: https://soundcloud.com/aaron-anderson-11;
 * David Vitas for BGM: http://www.davidvitas.com/portfolio/2016/5/12/rpg-music-pack;
 * Mr. Bubble for the battle animations: https://mrbubblewand.wordpress.com/;

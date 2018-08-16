@@ -26,7 +26,20 @@
 				"evdm": 0,
 				"car": 0
 			},
-			"tags": []
+			"tags": [ 
+				{
+					"name": "sound", 
+					"value": "Kenney/footstep05.ogg"
+				},
+				{
+					"name": "pitch", 
+					"value": "100"
+				},
+				{
+					"name": "volume", 
+					"value": "100"
+				}
+			]
 		}
 	},
 	{
@@ -56,7 +69,20 @@
 				"evdm": 0,
 				"car": 0
 			},
-			"tags": []
+			"tags": [ 
+				{
+					"name": "sound", 
+					"value": "Kenney/footstep05.ogg"
+				},
+				{
+					"name": "pitch", 
+					"value": "100"
+				},
+				{
+					"name": "volume", 
+					"value": "100"
+				}
+			]
 		}
 	},
 	{
@@ -87,9 +113,22 @@
 				"car": 0
 			},
 			"elements": [],
-			"tags": []
-	}
-  },
+			"tags": [ 
+				{
+					"name": "sound", 
+					"value": "Kenney/footstep05.ogg"
+				},
+				{
+					"name": "pitch", 
+					"value": "100"
+				},
+				{
+					"name": "volume", 
+					"value": "100"
+				}
+			]
+		}
+	},
 	{
 		"name": "Water",
 		"data": {
