@@ -1,4 +1,8 @@
-## Lovely Tactics Hex
+<p align="center">
+  <img src="http://i.imgur.com/IgJIz9V.png"><br>
+  <img height=300 src="http://i.imgur.com/XSVEcTt.pngg">
+</p>
+
 
 The Lovely Tactics Hex project is a framework for development of tactical role-playing games (TRPG), built using the LÖVE2D engine.
 The main games used as inspiration for this project are Final Fantasy Tactics Advance (for GBA), Jeanne D'arc, and Trails in the Sky (both for PSP).
@@ -6,13 +10,12 @@ The "Hex" in the name is because the battle grid is hexagonal. I plan, though, t
 
 Project's repository: https://github.com/GloamingCat/Lovely-Tactics-Hex
 
-## Motivation
-
-I started this project as just a TRPG that I wanted to make, then I realized that the code could be generalized enough to be turned into an engine.
-
-## Documentation and API
-
-Since this project is still under development, its design and features may change a lot, so I'll write a proper documentation when it gets more stable.
+<p align="center">
+<img width=400 height=220 src="https://78.media.tumblr.com/3988bb286dd8cc2420b70006cd9b7720/tumblr_p9ap7fTZ3l1x9yfk6o2_1280.png">
+<img width=400 height=220 src="https://78.media.tumblr.com/a30546d800b9fc4180f9ec6743d2ee18/tumblr_p773qyUzqO1x9yfk6o1_1280.png">
+<img width=400 height=220 src="https://78.media.tumblr.com/088231cb65b0c7ba49d3d5e5ff2ac964/tumblr_p9ap7fTZ3l1x9yfk6o1_1280.png">
+<img width=400 height=220 src="https://66.media.tumblr.com/4b876449b0abb676b13b56a9de107198/tumblr_p89m07DAAd1x9yfk6o1_1280.png">
+</p>
 
 ## Installation
 
@@ -45,6 +48,19 @@ This should run the game.
 * Press a cancel button in field to show the Field Menu;
 * Interact with pink character to test dialogue and Shop Menu;
 * Collide with green characters to start a battle.
+
+## Editor
+
+I am also working on a complementary project, which is an editor for the json files - database, settings and fields. It's still in a very early stage, but it can be already found here: https://github.com/GloamingCat/LTH-Editor.
+
+<p align="center">
+  <img height=220 src="https://66.media.tumblr.com/eaac8ab6d9f2f4be8dae3abbaaa44c65/tumblr_pkuy0poEfV1x9yfk6o1_1280.jpg">
+  <img height=220 src="https://66.media.tumblr.com/7ae1a235c4b3fe02e50e139bb4eab1c3/tumblr_pf5hy6Jwxw1x9yfk6o2_1280.jpg">
+</p>
+
+## Documentation and API
+
+Since this project is still under development, its design and features may change a lot, so I'll write a proper documentation when it gets more stable.
 
 ## Credits
 
