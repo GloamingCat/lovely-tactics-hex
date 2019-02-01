@@ -16,8 +16,8 @@ require('core/math/lib')
 ---------------------------------------------------------------------------------------------------
 
 util = {}
-util.array = require('core/base/util/ArrayUtil')
 util.table = require('core/base/util/TableUtil')
+util.array = require('core/base/util/ArrayUtil')
 
 ---------------------------------------------------------------------------------------------------
 -- Database

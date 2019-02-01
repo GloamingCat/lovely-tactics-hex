@@ -51,7 +51,7 @@ function SaveManager:createSave()
   save.fields = {}
   -- Initial party
   save.troops = {}
-  save.playerTroopID = Config.troop.initial
+  save.playerTroopID = Config.troop.initialTroopID
   -- Initial position
   local startPos = Config.player.startPos
   save.playerTransition = {
@@ -67,8 +67,7 @@ function SaveManager:newSave()
   local save = self:createSave()
   self.current = save
   self.loadTime = now()
-  Troop():storeSave()
-  FieldManager:loadTransition(save.playerTransition)
+  Troop():storeSave(true)
 end
 -- Creates default config file.
 function SaveManager:newConfig()

@@ -27,6 +27,7 @@ local function toArray(children, arr)
     local node = children[i]
     if node.data then
       arr[node.id] = node.data
+      node.data.id = node.id
     end
     toArray(node.children, arr)
   end

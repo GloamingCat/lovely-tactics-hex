@@ -197,12 +197,16 @@ local tileB = Config.grid.tileB
 local tileS = Config.grid.tileS
 if (tileW == tileB) and (tileH == tileS) then
   math.field = require('core/math/field/OrtMath')
+  math.field.baseDirection = 0
 elseif (tileB == 0) and (tileS == 0) then
   math.field = require('core/math/field/IsoMath')
+  math.field.baseDirection = 315
 elseif (tileB > 0) and (tileS == 0) then
   math.field = require('core/math/field/HexVMath')
+  math.field.baseDirection = 315
 elseif (tileB == 0) and (tileS > 0) then
   math.field = require('core/math/field/HexHMath')
+  math.field.baseDirection = 315
 else
   error('Tile size not supported!')
 end

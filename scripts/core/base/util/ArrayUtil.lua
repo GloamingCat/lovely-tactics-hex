@@ -7,6 +7,7 @@ Array Utilities
 
 =================================================================================================]]
 
+local deepCopy = util.table.deepCopy
 local util = {}
 
 ---------------------------------------------------------------------------------------------------
@@ -36,12 +37,27 @@ function util.new(size, value)
   end
   return a
 end
--- Creates a copy of the given table.
--- @param(table : table) the table with the (key, value) entries to be copied
--- @ret(table) the copy of the table
-function util.copy(array)
+-- Creates a shallow copy (only object references) of the given array.
+-- @param(array : table) The array with the object references to be copied.
+-- @ret(table) The shallow copy of the array.
+function util.shallowCopy(array)
   local copy = {}
   util.addAll(copy, array)
+  return copy
+end
+-- Creates a deep copy (also clones items) of the given array.
+-- @param(array : table) The array to be cloned.
+-- @ret(table) The deep copy of the array.
+function util.deepCopy(array)
+  local copy = {}
+  for i = 1, #array do
+    local typ = type(v)
+    if typ == 'table' then
+      copy[i] = deepCopy(array[i])
+    else
+      copy[i] = array[i]
+    end
+  end
   return copy
 end
 -- Combines an array of arrays into a single array.

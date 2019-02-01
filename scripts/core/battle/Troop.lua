@@ -17,9 +17,10 @@ local TroopAI = require('core/battle/ai/TroopAI')
 
 -- Alias
 local mod = math.mod
+local copyArray = util.array.deepCopy
 
 -- Constants
-local baseDirection = 315 -- characters' direction at rotation 0
+local baseDirection = math.field.baseDirection -- characters' direction at rotation 0
 local sizeX = Config.troop.width
 local sizeY = Config.troop.height
 
@@ -41,14 +42,18 @@ function Troop:init(data, party)
   self.save = save
   self.inventory = Inventory(save.items)
   self.gold = save.gold
+  -- Members
   self.battlers = {}
-  self.current = self:createBattlerList(save.current)
-  self.backup = self:createBattlerList(save.backup)
-  self.hidden = self:createBattlerList(save.hidden)
+  self:initBattlerLists(save.members)
+  if save.hidden then
+    self.hidden = List(save.hidden)
+  else
+    self.hidden = List()
+  end
   -- Grid
   self.grid = Matrix2(sizeX, sizeY)
-  for i = 1, #data.current do
-    local member = data.current[i]
+  for i = 1, #self.current do
+    local member = self.current[i]
     self.grid:set(member, member.x, member.y)
   end
   -- Rotation
@@ -59,15 +64,19 @@ function Troop:init(data, party)
   end
 end
 -- Creates battler for each member data in the given list.
--- @param(memberList : table) an array of member data
-function Troop:createBattlerList(memberList)
-  local list = List()
-  for i = 1, #memberList do
-    local battler = Battler(self, memberList[i])
-    list:add(battler)
-    self.battlers[memberList[i].key] = battler
+-- @param(members : table) an array of member data
+function Troop:initBattlerLists(members)
+  self.current = List()
+  self.backup = List()
+  for i = 1, #members do
+    local battler = Battler(self, members[i])
+    if members[i].backup then
+      self.backup:add(battler)
+    else
+      self.current:add(battler)
+    end
+    self.battlers[members[i].key] = battler
   end
-  return list
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -233,25 +242,31 @@ function Troop:createPersistentData(saveFormation)
   data.gold = self.gold
   data.items = self.inventory:getState()
   if saveFormation then
-    data.current = self:createDataList(self.current)
-    data.backup = self:createDataList(self.backup)
-    data.hidden = self:createDataList(self.hidden)
+    data.members = self:createMemberArray()
+    data.hidden = copyArray(self.hidden)
   else
-    data.current = self:createDataList(self.save.current)
-    data.backup = self:createDataList(self.save.backup)
-    data.hidden = self:createDataList(self.save.hidden)
+    data.members = copyArray(self.save.members)
+    if self.save.hidden then
+      data.hidden = copyArray(self.save.hidden)
+    end
   end
   return data
 end
 -- @param(arr : table) list of Battler
 -- @ret(table) array of save data tables
-function Troop:createDataList(arr)
-  local data = {}
-  for i = 1, #arr do
-    local battler = arr[i]
-    data[i] = self.battlers[battler.key]:createPersistentData()
+function Troop:createMemberArray()
+  local members = {}
+  for i = 1, #self.current do
+    local battler = self.current[i]
+    members[i] = self.battlers[battler.key]:createPersistentData()
   end
-  return data
+  local n = #members
+  for i = 1, #self.backup do
+    local battler = self.backup[i]
+    members[i + n] = self.backup[battler.key]:createPersistentData()
+    members[i + n].backup = true
+  end
+  return members
 end
 
 return Troop

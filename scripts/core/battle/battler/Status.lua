@@ -59,8 +59,8 @@ end
 -- @param(data : table) status' data from database file
 -- @param(...) default contructor parameters
 function Status:fromData(list, data, ...)
-  if data.script.path ~= '' then
-    local class = require('custom/' .. data.script.path)
+  if data.script ~= '' then
+    local class = require('custom/' .. data.script)
     return class(list, data, ...)
   else
     return self(list, data, ...)

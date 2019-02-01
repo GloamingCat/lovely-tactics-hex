@@ -84,8 +84,8 @@ end
 -- @param(skillID : number) the skill's ID in database
 function SkillAction:fromData(skillID, ...)
   local data = Database.skills[skillID]
-  if data.script.path ~= '' then
-    local class = require('custom/' .. data.script.path)
+  if data.script ~= '' then
+    local class = require('custom/' .. data.script)
     return class(skillID, ...)
   else
     return self(skillID, ...)
