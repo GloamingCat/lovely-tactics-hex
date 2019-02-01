@@ -40,9 +40,9 @@ end
 
 -- Creates all battle characters based on field's tile data.
 function TroopManager:createTroops()
-  local parties = FieldManager.currentField.battleData.parties
+  local parties = FieldManager.currentField.parties
   -- Player's party ID
-  local playerID = FieldManager.currentField.battleData.playerParty
+  local playerID = FieldManager.currentField.playerParty
   if playerID == -1 then
     playerID = rand(#parties)
   else

@@ -58,7 +58,7 @@ function FieldGUI:createLocalWindow()
   local x = self.goldWindow.position.x - w / 2 - self.goldWindow.width / 2 - self:windowMargin()
   local y = self.goldWindow.position.y
   self.localWindow = LocalWindow(self, w, h, Vector(x, y))
-  self.localWindow:setLocal(FieldManager.currentField.prefs.name)
+  self.localWindow:setLocal(FieldManager.currentField.name)
 end
 -- Creates the window that shows the troop's gold.
 function FieldGUI:createTimeWindow()

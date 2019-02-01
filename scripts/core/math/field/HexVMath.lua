@@ -94,7 +94,7 @@ end
 -- @param(height : number) Field's maximum height.
 -- @ret(number) The maximum depth of the field's renderer.
 function HexVMath.maxDepth(sizeX, sizeY, height)
-  return sizeX * tileH / 2 + pph * 2
+  return sizeX * tileH / 2 + pph * 2 + dph * (height + 1)
 end
 -- @param(sizeX : number) Field's maximum x.
 -- @param(sizeY : number) Field's maximum y.

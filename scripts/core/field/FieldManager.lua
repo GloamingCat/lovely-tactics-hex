@@ -15,7 +15,6 @@ local FieldLoader = require('core/field/FieldLoader')
 local List = require('core/base/datastruct/List')
 local Player = require('core/objects/Player')
 local Renderer = require('core/graphics/Renderer')
-local Serializer = require('core/base/save/Serializer')
 
 -- Alias
 local mathf = math.field
@@ -54,16 +53,16 @@ end
 -- Creates field from ID.
 -- @param(fieldID : number) the field's ID
 function FieldManager:loadField(fieldID)
-  local fieldData = Serializer.load('data/fields/' .. fieldID .. '.json')
   self.updateList = List()
   self.characterList = List()
   if self.renderer then
     self.renderer:deactivate()
   end
+  local field, fieldData = FieldLoader.loadField(fieldID)
+  self.currentField = field
   self.renderer = self:createCamera(fieldData)
-  self.currentField = FieldLoader.loadField(fieldData)
   FieldLoader.mergeLayers(self.currentField, fieldData.layers)
-  FieldLoader.loadCharacters(self.currentField, fieldData.characters)
+  --FieldLoader.loadCharacters(self.currentField, fieldData.characters)
   collectgarbage('collect')
   return fieldData
 end
@@ -73,13 +72,11 @@ end
 -- @param(layerCount : number) The total number of layers in the field.
 -- @ret(FieldCamera) Newly created camera.
 function FieldManager:createCamera(data)
-  local h = 0
-  for i = 1, #data.layers do
-    h = math.max(h, data.layers[i].height)
-  end
+  local h = data.prefs.maxHeight
+  local l = 4 * #data.layers.terrain + #data.layers.obstacle + #data.characters
   local mind = mathf.minDepth(data.sizeX, data.sizeY, h)
   local maxd = mathf.maxDepth(data.sizeX, data.sizeY, h)
-  local camera = FieldCamera(data.sizeX * data.sizeY * #data.layers * 4, mind, maxd, 1)
+  local camera = FieldCamera(data.sizeX * data.sizeY * l, mind, maxd, 1)
   camera:setXYZ(mathf.pixelCenter(data.sizeX, data.sizeY))
   return camera
 end
@@ -87,8 +84,7 @@ end
 -- @ret(Player) the newly created player
 function FieldManager:createPlayer(t)
   local tile = self.currentField:getObjectTile(t.x, t.y, t.h)
-  local player = Player(tile, t.direction)
-  return player
+  return Player(tile, t.direction)
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -102,10 +98,7 @@ function FieldManager:getPlayerTransition()
     return { fieldID = self.currentField.id }
   end
   local x, y, h = self.player:getTile():coordinates()
-  return {
-    x = x,
-    y = y,
-    h = h,
+  return { x = x, y = y, h = h,
     direction = self.player.direction,
     fieldID = self.currentField.id }
 end
@@ -145,7 +138,7 @@ function FieldManager:loadTransition(transition, fromSave)
   end
   local fieldID = transition.fieldID
   local fieldData = self:loadField(fieldID)
-  self.player = self:createPlayer(transition)
+  --[[self.player = self:createPlayer(transition)
   self.renderer.focusObject = self.player
   self.renderer:setPosition(self.player.position)
   -- Create/call start listeners
@@ -161,7 +154,7 @@ function FieldManager:loadTransition(transition, fromSave)
     end
   end
   self.player.fiberList:fork(self.player.fieldInputLoop, self.player)
-  FieldLoader.createTransitions(self.currentField, fieldData.prefs.transitions)
+  FieldLoader.createTransitions(self.currentField, fieldData.prefs.transitions)]]
   if fieldData.prefs.bgm then
     local bgm = fieldData.prefs.bgm
     if AudioManager.BGM == nil or AudioManager.BGM.name ~= bgm.name then

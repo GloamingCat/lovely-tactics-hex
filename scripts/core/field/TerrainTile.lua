@@ -106,9 +106,9 @@ function TerrainTile:updateGraphics()
   self.moveCost = self.data.moveCost / 100
   self.depth = self.order
   self.tags = self.data and TagMap(self.data.tags)
-  if self.data.image >= 0 then
+  if self.data.animID >= 0 then
     local rows = mathf.autoTileRows(self.layer, self.x, self.y, self.layer.sameType)
-    local imageData = Database.animations[self.data.image]
+    local imageData = Database.animations[self.data.animID]
     self.depth = self.depth + imageData.transform.offsetDepth
     self.quarters = self:createQuarters(imageData, rows)
     -- Create animation.
@@ -127,13 +127,14 @@ end
 -- @param(rows : table) the autotile row of each quarter
 -- @ret(table) array with each quarter graphics
 function TerrainTile:createQuarters(data, rows)
-  local texture = ResourceManager:loadTexture(data.path)
+  local texture = ResourceManager:loadTexture(data.quad.path)
   -- Create quarter renderers
   local quarters = {}
   for i = 1, 4 do
-    local w, h = data.width / data.cols, data.height / data.rows
+    local w, h = data.quad.width / data.cols, data.quad.height / data.rows
     local x, y = origins[i][1] * w, origins[i][2] * h
-    local quad = newQuad(x + data.x, y + data.y + rows[i] * h, w / 2, h / 2, texture:getWidth(), texture:getHeight())
+    local quad = newQuad(x + data.quad.x, y + data.quad.y + rows[i] * h, 
+      w / 2, h / 2, texture:getWidth(), texture:getHeight())
     quarters[i] = Sprite(FieldManager.renderer, texture, quad)
     quarters[i]:setPosition(self.center)
     quarters[i]:setOffset(w / 2 - x, h / 2 - y, self.depth)

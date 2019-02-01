@@ -25,10 +25,10 @@ local TerrainLayer = class()
 function TerrainLayer:init(data, sizeX, sizeY, order)
   self.grid = {}
   self.order = order
-  self.height = data.height
+  self.height = data.info.height
   self.sizeX = sizeX
   self.sizeY = sizeY
-  self.noAuto = data.noAuto
+  self.noAuto = data.info.noAuto
   -- Initializes all tiles
   for i = 1, sizeX do
     self.grid[i] = {}

@@ -103,7 +103,7 @@ end
 -- @param(field : Field) Field to store (current field by default).
 function SaveManager:storeFieldData(field)
   field = field or FieldManager.currentField
-  if field.prefs.persistent then
+  if field.persistent then
     local persistentData = self:getFieldData(field.id)
     for char in FieldManager.characterList:iterator() do
       if char.persistent then
@@ -144,7 +144,7 @@ function SaveManager:getHeader(save)
   return { members = members,
     playTime = save.playTime,
     gold = troop.gold,
-    location = FieldManager.currentField.prefs.name }
+    location = FieldManager.currentField.name }
 end
 -- Loads the specified save.
 -- @param(file : string) File name.

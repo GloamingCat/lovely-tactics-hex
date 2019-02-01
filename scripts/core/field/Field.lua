@@ -8,18 +8,14 @@ The class implements methods to check collisions.
 =================================================================================================]]
 
 -- Imports
-local TagMap = require('core/base/datastruct/TagMap')
-local TerrainLayer = require('core/field/TerrainLayer')
-local ObjectLayer = require('core/field/ObjectLayer')
 local FiberList = require('core/base/fiber/FiberList')
+local ObjectLayer = require('core/field/ObjectLayer')
 
 -- Alias
-local round = math.round
+local isCollinear = math.field.isCollinear
 local max = math.max
-local min = math.min
-local mathf = math.field
-local maxn = table.maxn
-local pixel2Tile = math.field.pixel2Tile
+local pixelCenter = math.field.pixelCenter
+local pixelBounds = math.field.pixelBounds
 
 local Field = class()
 
@@ -28,53 +24,26 @@ local Field = class()
 ---------------------------------------------------------------------------------------------------
 
 -- Constructor.
--- @param(data : table) the data from file
-function Field:init(data)
-  self.id = data.id
-  self.sizeX = data.sizeX
-  self.sizeY = data.sizeY
-  self.tags = TagMap(data.prefs.tags)
-  self.prefs = data.prefs
+-- @param(id : number) Field ID.
+-- @param(name : string) Field name.
+-- @param(sizeX : number) Field width.
+-- @param(sizeY : number) Field length.
+function Field:init(id, name, sizeX, sizeY, maxH)
+  self.id = id
+  self.name = name
+  self.sizeX = sizeX
+  self.sizeY = sizeY
+  self.fiberList = FiberList()
   self.vars = {}
-  local script = data.prefs.onStart
-  if script and script.path ~= '' then
-    self.startScript = script
-  end
   self.terrainLayers = {}
   self.objectLayers = {}
-  if data.prefs.defaultRegion >= 0 then
-    self.defaultRegion = data.prefs.defaultRegion
-  end
-  -- Battle info
-  self.battleData = data.battle
-  self.charData = data.characters
-  -- Min / max height
-  self.minh = 100 -- arbitrary limit
-  self.maxh = 0
-  for i, layerData in ipairs(data.layers) do
-    self.maxh = max(layerData.height, self.maxh)
-    self.minh = min(layerData.height, self.minh)
-  end
-  self:initLayers()
-  -- Border and center
-  self.centerX, self.centerY = math.field.pixelCenter(self.sizeX, self.sizeY)
-  self.minx, self.miny, self.maxx, self.maxy = math.field.pixelBounds(self)
-  self.fiberList = FiberList()
-end
--- Creates initial empty terrain and object layers.
-function Field:initLayers()
-  for i = self.minh, self.maxh do
+  for i = 0, maxH do
     self.terrainLayers[i] = {}
-    self.objectLayers[i] = ObjectLayer(self.sizeX, self.sizeY, i, self.defaultRegion)
+    self.objectLayers[i] = ObjectLayer(sizeX, sizeY, i)
   end
-end
--- Creates a new TerrainLayer. All layers are stored by height.
--- @param(layerData : table) the data from field's file
-function Field:addTerrainLayer(layerData, depthOffset)
-  local list = self.terrainLayers[layerData.height]
-  local order = #list
-  local layer = TerrainLayer(layerData, self.sizeX, self.sizeY, depthOffset - order + 1)
-  list[order + 1] = layer
+  self.minh, self.maxh = 0, maxH
+  self.centerX, self.centerY = pixelCenter(sizeX, sizeY)
+  self.minx, self.miny, self.maxx, self.maxy = pixelBounds(self)
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -177,7 +146,7 @@ end
 -- @ret(boolean) true if collinear, false otherwise
 function Field:isCollinear(tile1, tile2, tile3)
   return tile1.layer.height - tile2.layer.height == tile2.layer.height - tile3.layer.height and 
-    mathf.isCollinear(tile1.x, tile1.y, tile2.x, tile2.y, tile3.x, tile3.y)
+    isCollinear(tile1.x, tile1.y, tile2.x, tile2.y, tile3.x, tile3.y)
 end
 
 ---------------------------------------------------------------------------------------------------

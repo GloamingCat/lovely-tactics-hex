@@ -28,7 +28,7 @@ local ObjectLayer = class()
 -- @param(sizeX : number) the field's width
 -- @param(sizeY : number) the field's length
 -- @param(height : number) the layer's height
-function ObjectLayer:init(sizeX, sizeY, height, defaultRegion)
+function ObjectLayer:init(sizeX, sizeY, height)
   self.sizeX = sizeX
   self.sizeY = sizeY
   self.height = height
@@ -36,7 +36,7 @@ function ObjectLayer:init(sizeX, sizeY, height, defaultRegion)
   for i = 1, sizeX do
     self.grid[i] = {}
     for j = 1, sizeY do
-      self.grid[i][j] = ObjectTile(self, i, j, defaultRegion)
+      self.grid[i][j] = ObjectTile(self, i, j)
     end
   end
 end

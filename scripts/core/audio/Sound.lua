@@ -21,7 +21,7 @@ local Sound = class()
 -- @param(volume : number) Initial volume (from 0 to 100).
 -- @param(pitch : number) Initial pitch (from 0 to 100).
 function Sound:init(name, volume, pitch)
-  local source = newSource('audio/sfx/' .. name)
+  local source = newSource('audio/' .. name)
   assert(source, 'Could not load Sound ' .. name)
   self:initSource(source, volume, pitch)
 end

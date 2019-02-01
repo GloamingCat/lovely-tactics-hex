@@ -27,7 +27,7 @@ local ObjectTile = class()
 -- @param(layer : ObjectLayer) the layer that this tile is in
 -- @param(x : number) the tile's x coordinate
 -- @param(y : number) the tile's y coordinate
-function ObjectTile:init(layer, x, y, defaultRegion)
+function ObjectTile:init(layer, x, y)
   self.layer = layer
   self.x = x
   self.y = y
@@ -38,9 +38,6 @@ function ObjectTile:init(layer, x, y, defaultRegion)
   self.parties = {}
   self.neighborList = nil
   self.ramps = List()
-  if defaultRegion then
-    self.regionList:add(defaultRegion)
-  end
 end
 -- Stores the list of neighbor tiles.
 function ObjectTile:createNeighborList()

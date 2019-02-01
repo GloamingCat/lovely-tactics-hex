@@ -24,7 +24,7 @@ local Music = class(Sound)
 -- @param(loop : Source) Loop source (optional).
 function Music:init(name, volume, pitch, intro, loop)
   self.name = name
-  name = 'audio/bgm/' .. name
+  name = 'audio/' .. name
   if intro then
     self.intro = intro
   elseif not loop then

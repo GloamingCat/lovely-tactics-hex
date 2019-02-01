@@ -11,50 +11,84 @@ Loads and prepares field from file data.
 local Character = require('core/objects/Character')
 local Field = require('core/field/Field')
 local Interactable = require('core/objects/Interactable')
+local Serializer = require('core/base/save/Serializer')
+local TagMap = require('core/base/datastruct/TagMap')
+local TerrainLayer = require('core/field/TerrainLayer')
 
 local FieldLoader = {}
 
 ---------------------------------------------------------------------------------------------------
--- Parse
+-- File
 ---------------------------------------------------------------------------------------------------
 
--- @param(fieldData : table) the field's data from file
--- @ret(Field)
-function FieldLoader.loadField(fieldData)
-  local field = Field(fieldData)
-  local ids = FieldLoader.getIDs(field.id)
-  local layerData = fieldData.layers
-  for l = 1, #layerData do
-    local grid = {}
-    for i = 1, field.sizeX do
-      grid[i] = {}
-      for j = 1, field.sizeY do
-        local k = (l - 1) * field.sizeX * field.sizeY + (j - 1) * field.sizeX + i
-        grid[i][j] = ids[k]
+-- Loads the field of the given ID.
+-- @param(id : number) Field's ID.
+-- @ret(Field) New empty field.
+-- @ret(table) Field file data.
+function FieldLoader.loadField(id)
+  local data = Serializer.load('data/fields/' .. id .. '.json')
+  local field = Field(data.id, data.prefs.name, data.sizeX, data.sizeY, data.prefs.maxHeight)
+  field.persistent = data.prefs.persistent
+  field.tags = TagMap(data.prefs.tags)
+  -- Script
+  local script = data.prefs.loadScript
+  if script and script.name ~= '' then
+    field.loadScript = script
+  end
+  -- Battle info
+  field.playerParty = data.playerParty
+  field.parties = data.parties
+  -- Default region
+  local defaultRegion = data.prefs.defaultRegion
+  if defaultRegion and defaultRegion >= 0 then
+    for i = 0, data.pregs.maxHeight do
+      local layer = field.objectLayers[i]
+      for i = 1, data.sizeX do
+        for j = 1, data.sizeY do
+          layer.grid[i][j].regionList:add(defaultRegion)
+        end
       end
     end
-    layerData[l].grid = grid
   end
-  return field
+  return field, data
 end
--- @param(fieldID : number) the ID of the field
--- @ret(table) field's layers IDs in a single array
-function FieldLoader.getIDs(fieldID)
-  local inputstr = love.filesystem.read('data/fields/' .. fieldID .. '.map')
-  local t = string.split(inputstr, '%s')
-  for i = 1, #t do
-    t[i] = tonumber(t[i])
+
+---------------------------------------------------------------------------------------------------
+-- Layers
+---------------------------------------------------------------------------------------------------
+
+-- Merges layers' data.
+-- @param(field : Field) Current field.
+-- @param(layers : table) Terrain, obstacle and region layer sets.
+function FieldLoader.mergeLayers(field, layers)
+  local depthOffset = #layers.terrain
+  for i, layerData in ipairs(layers.terrain) do
+    local list = field.terrainLayers[layerData.info.height]
+    assert(list, "Terrain layers out of height limits: " .. layerData.info.height)
+    local order = #list
+    local layer = TerrainLayer(layerData, field.sizeX, field.sizeY, depthOffset - order + 1)
+    list[order + 1] = layer
   end
-  return t
+  for i, layerData in ipairs(layers.obstacle) do
+    field.objectLayers[layerData.info.height]:mergeObstacles(layerData)
+  end
+  for i, layerData in ipairs(layers.region) do
+    field.objectLayers[layerData.info.height]:mergeRegions(layerData)
+  end
+  for tile in field:gridIterator() do
+    tile:createNeighborList()
+  end
 end
 
 ---------------------------------------------------------------------------------------------------
 -- Character
 ---------------------------------------------------------------------------------------------------
 
+-- Creates field's characters.
+-- @param(field : Field) Current field.
+-- @param(characters : table) Array of character instances.
 function FieldLoader.loadCharacters(field, characters)
   local persistentData = SaveManager:getFieldData(field.id)
-  -- Create characters
   for i, char in ipairs(characters) do
     local save = persistentData.chars[char.key]
     if not (save and save.deleted) then
@@ -68,44 +102,12 @@ function FieldLoader.loadCharacters(field, characters)
 end
 
 ---------------------------------------------------------------------------------------------------
--- Layers
----------------------------------------------------------------------------------------------------
-
--- Merges layers' data.
--- @param(layers : table) an array of layer data
-function FieldLoader.mergeLayers(field, layers)
-  local terrains = 0
-  for i,layerData in ipairs(layers) do
-    if layerData.type == 0 then
-      terrains = terrains + 1
-    end
-  end
-  for i,layerData in ipairs(layers) do
-    local t = layerData.type
-    if t == 0 then
-      -- Terrain
-      field:addTerrainLayer(layerData, terrains)
-    elseif t == 1 then
-      -- Obstacle
-      field.objectLayers[layerData.height]:mergeObstacles(layerData)
-    elseif t == 2 then
-      -- Region
-      field.objectLayers[layerData.height]:mergeRegions(layerData)
-    elseif t == 3 then
-      -- Party
-      field.objectLayers[layerData.height]:setParties(layerData)
-    end
-  end
-  for tile in field:gridIterator() do
-    tile:createNeighborList()
-  end
-end
-
----------------------------------------------------------------------------------------------------
 -- Field Transitions
 ---------------------------------------------------------------------------------------------------
 
--- @param(transitions : table) array of field's transitions
+-- Creates interactables for field's transitions.
+-- @param(field : Field) Current field.
+-- @param(transitions : table) Array of field's transitions.
 function FieldLoader.createTransitions(field, transitions)
   local function instantiate(transition, minx, maxx, miny, maxy, h)
     local script = { 

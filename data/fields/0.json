@@ -7,7 +7,7 @@
     "maxHeight": 4,
     "loadScript": {
       "global": false,
-      "name": "Empty",
+      "name": "",
       "tags": []
     },
     "background": {
