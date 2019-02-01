@@ -21,7 +21,7 @@ local WindowCursor = class()
 function WindowCursor:init(window)
   self.window = window
   self.paused = false
-  local animData = Database.animations[Config.animations.cursorID]
+  local animData = Database.animations[Config.animations.cursor]
   self.anim = ResourceManager:loadAnimation(animData, GUIManager.renderer)
   self.anim.sprite:setTransformation(animData.transform)
   self.anim.sprite:setVisible(false)

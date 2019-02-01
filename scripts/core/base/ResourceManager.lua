@@ -52,10 +52,10 @@ end
 -- @param(row : number) initial row (optional, 0 by default)
 -- @ret(Quad)
 -- @ret(Image)
-function ResourceManager:loadQuad(data, texture, col, row)
+function ResourceManager:loadQuad(data, texture, cols, rows, col, row)
   texture = texture or self:loadTexture(data.path)
-  local w = (data.width > 0 and data.width or texture:getWidth()) / data.cols
-  local h = (data.height > 0 and data.height or texture:getHeight()) / data.rows
+  local w = (data.width > 0 and data.width or texture:getWidth()) / cols
+  local h = (data.height > 0 and data.height or texture:getHeight()) / rows
   col, row = col or 0, row or 0
   local quad = newQuad(data.x + col * w, data.y + row * h, w, h, texture:getWidth(), texture:getHeight())
   return quad, texture
@@ -77,24 +77,22 @@ function ResourceManager:loadAnimation(data, dest)
     data = Database.animations[data]
   end
   if not dest.renderer then
-    local quad, texture = self:loadQuad(data)
+    local quad, texture = self:loadQuad(data.quad, nil, data.cols, data.rows)
     dest = Sprite(dest, texture, quad)
     dest:setTransformation(data.transform)
   end
   local AnimClass = Animation
-  if not data.animation then
-    AnimClass = Static
-  elseif data.animation.script.path ~= '' then
-    AnimClass = require('custom/animation/' .. data.animation.script.path)
+  if data.script ~= '' then
+    AnimClass = require('custom/' .. data.script)
   end
   return AnimClass(dest, data)
 end
 -- Loads a sprite.
--- @param(data : table) animation's data
--- @param(renderer : Renderer) renderer of the icon (FieldManager's or GUIManager's)
--- @ret(Sprite)
+-- @param(data : table) Animation's data.
+-- @param(renderer : Renderer) Renderer of the icon (FieldManager's or GUIManager's)
+-- @ret(Sprite) New Sprite object.
 function ResourceManager:loadSprite(data, renderer, col, row)
-  local quad, texture = self:loadQuad(data, nil, col, row)
+  local quad, texture = self:loadQuad(data.quad, nil, data.cols, data.rows, col, row)
   local sprite = Sprite(renderer, texture, quad)
   sprite:setTransformation(data.transform)
   return sprite

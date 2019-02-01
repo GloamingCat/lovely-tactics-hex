@@ -1,0 +1,54 @@
+{
+  "lastField": 3,
+  "id": -1,
+  "children": [
+    {
+      "id": 0,
+      "data": {
+        "name": "Battle Field",
+        "lastLayers": [
+          0,
+          -1,
+          -1
+        ]
+      },
+      "children": []
+    },
+    {
+      "id": 1,
+      "data": {
+        "name": "Forest 1",
+        "lastLayers": [
+          2,
+          0,
+          -1
+        ]
+      },
+      "children": []
+    },
+    {
+      "id": 2,
+      "data": {
+        "name": "Forest 2",
+        "lastLayers": [
+          2,
+          0,
+          -1
+        ]
+      },
+      "children": []
+    },
+    {
+      "id": 3,
+      "data": {
+        "name": "Empty",
+        "lastLayers": [
+          0,
+          -1,
+          -1
+        ]
+      },
+      "children": []
+    }
+  ]
+}

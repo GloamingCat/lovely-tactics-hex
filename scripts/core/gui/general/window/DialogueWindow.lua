@@ -51,7 +51,7 @@ end
 function DialogueWindow:createContent(width, height)
   Window.createContent(self, width, height)
   self.textSpeed = 40
-  self.textSound = Config.sounds.text
+  self.textSound = Sounds.text
   self.soundFrequence = 4
   self.indent = 0
   self.align = 'left'

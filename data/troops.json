@@ -1,122 +1,132 @@
 [
-	{
-		"name": "Player Party",
-		"data": {
-			"id": 1,
-			"persistent": true, // True if the troop should be saved.
-			"gold": 100,
-			"items": [
-				{
-					"id": 10,
-					"count": 10,
-					"rate": 100
-				},
-				{
-					"id": 11,
-					"count": 5,
-					"rate": 100
-				},
-				{
-					"id": 12,
-					"count": 5,
-					"rate": 100
-				},
-				{
-					"id": 20,
-					"count": 2,
-					"rate": 100
-				},
-				{
-					"id": 21,
-					"count": 2,
-					"rate": 100
-				},
-				{
-					"id": 22,
-					"count": 2,
-					"rate": 100
-				}
-			],
-			"current": [
-				{
-					// Member's identifier. Mey be left empty if the member should not me saved.
-					"key": "HeroLancer",
-					// Member's character
-					"charID": 10,
-					// Member's battler (uses the character's default if invalid)
-					"battlerID": -1,
-					// Member's position in the grid
-					"x": 2,
-					"y": 3,
-					"equipment": []
-				},
-				{
-					"key": "HeroMage",
-					"battlerID": -1,
-					"charID": 11,
-					"x": 4,
-					"y": 2,
-					"equipment": []
-				}
-			],
-			// Members that are currently not the grid, but may be put in it during battle or in a menu.
-			"backup": [], 
-			// Members that are currently not accesible, but they are still saved.
-			"hidden": [],
-			"tags": []
-		}
-	},
-	{
-		"name": "Enemy Party",
-		"data": {
-			"id": 2,
-			"persistent": false,
-			"scriptAI": {
-				"path": "",
-				"param": ""
-			},
-			"gold": 0,
-			"items": [],
-			"current": [
-				{
-					"key": "1",
-					"battlerID": -1,
-					"charID": 20,
-					"x": 1,
-					"y": 3
-				},
-				{
-					"key": "2",
-					"battlerID": -1,
-					"charID": 20,
-					"x": 3,
-					"y": 3
-				},
-				{
-					"key": "3",
-					"battlerID": -1,
-					"charID": 20,
-					"x": 5,
-					"y": 3
-				},
-				{
-					"key": "4",
-					"battlerID": -1,
-					"charID": 21,
-					"x": 2,
-					"y": 1
-				},
-				{
-					"key": "5",
-					"battlerID": -1,
-					"charID": 21,
-					"x": 4,
-					"y": 1
-				}
-			],
-			"backup": [],
-			"hidden": [],
-			"tags": []
-		}
-	}
+  {
+    "data": {
+      "ai": {
+        "global": false,
+        "name": "",
+        "tags": []
+      },
+      "persistent": true,
+      "money": 100,
+      "items": [
+        {
+          "count": 10,
+          "id": 2,
+          "value": 100
+        },
+        {
+          "count": 5,
+          "id": 3,
+          "value": 100
+        },
+        {
+          "count": 5,
+          "id": 4,
+          "value": 100
+        },
+        {
+          "count": 2,
+          "id": 5,
+          "value": 100
+        },
+        {
+          "count": 2,
+          "id": 6,
+          "value": 100
+        },
+        {
+          "count": 2,
+          "id": 7,
+          "value": 100
+        }
+      ],
+      "members": [
+        {
+          "key": "HeroSwordman",
+          "charID": 1,
+          "battlerID": -1,
+          "x": 2,
+          "y": 3,
+          "equip": [],
+          "backup": false
+        },
+        {
+          "key": "HeroMage",
+          "charID": 2,
+          "battlerID": -1,
+          "x": 4,
+          "y": 2,
+          "equip": [],
+          "backup": false
+        }
+      ],
+      "name": "Player Party",
+      "tags": []
+    },
+    "id": 0,
+    "children": []
+  },
+  {
+    "data": {
+      "ai": {
+        "global": false,
+        "name": "",
+        "tags": []
+      },
+      "persistent": false,
+      "money": 0,
+      "items": [],
+      "members": [
+        {
+          "key": "1",
+          "charID": 4,
+          "battlerID": -1,
+          "x": 1,
+          "y": 3,
+          "equip": [],
+          "backup": false
+        },
+        {
+          "key": "2",
+          "charID": 4,
+          "battlerID": -1,
+          "x": 3,
+          "y": 3,
+          "equip": [],
+          "backup": false
+        },
+        {
+          "key": "3",
+          "charID": 4,
+          "battlerID": -1,
+          "x": 5,
+          "y": 3,
+          "equip": [],
+          "backup": false
+        },
+        {
+          "key": "4",
+          "charID": 5,
+          "battlerID": -1,
+          "x": 2,
+          "y": 1,
+          "equip": [],
+          "backup": false
+        },
+        {
+          "key": "5",
+          "charID": 5,
+          "battlerID": -1,
+          "x": 4,
+          "y": 1,
+          "equip": [],
+          "backup": false
+        }
+      ],
+      "name": "Enemy Party",
+      "tags": []
+    },
+    "id": 1,
+    "children": []
+  }
 ]

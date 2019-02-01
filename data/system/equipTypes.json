@@ -1,35 +1,30 @@
 [
-	{
-		"name": "Hand",
-		"key": "hand",
-		"count": 2,
-		// 0 => free
-		// 1 => at least one equipped
-		// 2 => all equipped
-		// 3 => cannot change
-		// 4 => invisible
-		"state": 0,
-		"tags": []
-	},
-	{
-		"name": "Body",
-		"key": "body",
-		"count": 1,
-		"state": 0,
-		"tags": []
-	},
-	{
-		"name": "Head",
-		"key": "head",
-		"count": 1,
-		"state": 0,
-		"tags": []
-	},
-	{
-		"name": "Accessory",
-		"key": "acc",
-		"count": 2,
-		"state": 0,
-		"tags": []
-	}
+  {
+    "key": "hand",
+    "count": 2,
+    "state": 0,
+    "name": "Hand",
+    "tags": []
+  },
+  {
+    "key": "body",
+    "count": 1,
+    "state": 0,
+    "name": "Body",
+    "tags": []
+  },
+  {
+    "key": "head",
+    "count": 1,
+    "state": 0,
+    "name": "Head",
+    "tags": []
+  },
+  {
+    "key": "acc",
+    "count": 2,
+    "state": 0,
+    "name": "Accessory",
+    "tags": []
+  }
 ]

@@ -1,3 +1,285 @@
 [
-
+  {
+    "data": {
+      "persistent": false,
+      "ai": {
+        "global": false,
+        "name": "",
+        "tags": []
+      },
+      "classID": 0,
+      "attackID": 0,
+      "level": 0,
+      "money": 0,
+      "exp": 0,
+      "attributes": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "skills": [],
+      "status": [],
+      "elements": [],
+      "items": [],
+      "equip": [],
+      "name": "Heroes",
+      "tags": []
+    },
+    "id": 0,
+    "children": [
+      {
+        "data": {
+          "persistent": true,
+          "ai": {
+            "global": false,
+            "name": "",
+            "tags": []
+          },
+          "classID": 0,
+          "attackID": 5,
+          "level": 3,
+          "money": 0,
+          "exp": 0,
+          "attributes": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "skills": [],
+          "status": [],
+          "elements": [],
+          "items": [],
+          "equip": [],
+          "name": "Hero Swordman",
+          "tags": []
+        },
+        "id": 1,
+        "children": []
+      },
+      {
+        "data": {
+          "persistent": true,
+          "ai": {
+            "global": false,
+            "name": "",
+            "tags": []
+          },
+          "classID": 0,
+          "attackID": 6,
+          "level": 3,
+          "money": 0,
+          "exp": 0,
+          "attributes": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "skills": [
+            7,
+            8
+          ],
+          "status": [],
+          "elements": [],
+          "items": [],
+          "equip": [],
+          "name": "Hero Mage",
+          "tags": []
+        },
+        "id": 2,
+        "children": []
+      }
+    ]
+  },
+  {
+    "data": {
+      "persistent": false,
+      "ai": {
+        "global": false,
+        "name": "",
+        "tags": []
+      },
+      "classID": 0,
+      "attackID": 0,
+      "level": 0,
+      "money": 0,
+      "exp": 0,
+      "attributes": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "skills": [],
+      "status": [],
+      "elements": [],
+      "items": [],
+      "equip": [],
+      "name": "Evil",
+      "tags": []
+    },
+    "id": 3,
+    "children": [
+      {
+        "data": {
+          "persistent": false,
+          "ai": {
+            "global": false,
+            "name": "ai/Rusher.lua",
+            "tags": []
+          },
+          "classID": 0,
+          "attackID": 5,
+          "level": 1,
+          "money": 3,
+          "exp": 10,
+          "attributes": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "skills": [],
+          "status": [],
+          "elements": [],
+          "items": [
+            {
+              "count": 1,
+              "id": 2,
+              "value": 100
+            },
+            {
+              "count": 1,
+              "id": 2,
+              "value": 50
+            }
+          ],
+          "equip": [],
+          "name": "Evil Swordman",
+          "tags": []
+        },
+        "id": 4,
+        "children": []
+      },
+      {
+        "data": {
+          "persistent": false,
+          "ai": {
+            "global": false,
+            "name": "ai/Rusher.lua",
+            "tags": []
+          },
+          "classID": 0,
+          "attackID": 6,
+          "level": 1,
+          "money": 5,
+          "exp": 10,
+          "attributes": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "skills": [
+            7,
+            8
+          ],
+          "status": [],
+          "elements": [],
+          "items": [],
+          "equip": [],
+          "name": "Evil Mage",
+          "tags": []
+        },
+        "id": 5,
+        "children": []
+      }
+    ]
+  }
 ]

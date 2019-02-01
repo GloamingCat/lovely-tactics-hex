@@ -1,92 +1,763 @@
 [
-	{
-		"name": "Use Item",
-		"data": {
-			"id": 1,
-			"type": 2,
-			"targetType": 1, // 0 => Any tile, 1 => any character, 2 => Living only, 3 => dead only
-			"description": "",
-			"icon": {
-				"id": -1,
-				"col": 0,
-				"row": 0
-			},
-			"area": {
-				"far": 1,
-				"minh": 0,
-				"maxh": 0
-			},
-			"range": {
-				"far": 1,
-				"minh": 2,
-				"maxh": 2
-			},
-			"script": {
-				"path": "",
-				"param": ""
-			},
-			"costs": [],
-			"restriction": 0,
-			"userAnim": {
-				"load": "",
-				"cast": "Item",
-				"stepOnCast": false
-			},
-			"battleAnim": {
-				"loadID": -1,
-				"castID": 17,
-				"individualID": -1,
-				"mirror": true
-			},
-			"damageAnim": true,
-			"elements": [],
-			"status": [],
-			"tags": []
-		}
-	},
-	{
-		"name": "Trade",
-		"data": {
-			"id": 2,
-			"type": 0,
-			"targetType": 1,
-			"description": "",
-			"icon": {
-				"id": -1,
-				"col": 0,
-				"row": 0
-			},
-			"area": {
-				"far": 1,
-				"minh": 0,
-				"maxh": 0
-			},
-			"range": {
-				"far": 1,
-				"minh": 2,
-				"maxh": 2
-			},
-			"script": {
-				"path": "",
-				"param": ""
-			},
-			"costs": [],
-			"restriction": 1,
-			"userAnim": {
-				"load": "",
-				"cast": "",
-				"stepOnCast": true
-			},
-			"battleAnim": {
-				"loadID": -1,
-				"castID": -1,
-				"individualID": -1,
-				"mirror": true
-			},
-			"damageAnim": true,
-			"elements": [],
-			"status": [],
-			"tags": []
-		}
-	}
+  {
+    "data": {
+      "description": "",
+      "icon": {
+        "id": -1,
+        "col": 0,
+        "row": 0
+      },
+      "script": "",
+      "type": 1,
+      "targetType": 0,
+      "restriction": 0,
+      "costs": [],
+      "userLoadAnim": "",
+      "userCastAnim": "",
+      "stepOnCast": true,
+      "loadAnimID": -1,
+      "castAnimID": -1,
+      "individualAnimID": -1,
+      "mirror": true,
+      "introTime": "",
+      "castTime": "",
+      "centerTime": "",
+      "targetTime": "",
+      "finishTime": "",
+      "damageAnim": true,
+      "effects": [],
+      "elements": [],
+      "status": [],
+      "userElements": true,
+      "effectRange": {
+        "minh": 0,
+        "maxh": 0,
+        "far": 1,
+        "near": 0
+      },
+      "castRange": {
+        "minh": 0,
+        "maxh": 0,
+        "far": 1,
+        "near": 0
+      },
+      "name": "Item",
+      "tags": []
+    },
+    "id": 0,
+    "children": [
+      {
+        "data": {
+          "description": "Skill called by healing items.",
+          "icon": {
+            "id": 32,
+            "col": 0,
+            "row": 1
+          },
+          "script": "",
+          "type": 2,
+          "targetType": 2,
+          "restriction": 0,
+          "costs": [],
+          "userLoadAnim": "",
+          "userCastAnim": "Item",
+          "stepOnCast": false,
+          "loadAnimID": -1,
+          "castAnimID": 16,
+          "individualAnimID": -1,
+          "mirror": true,
+          "introTime": "",
+          "castTime": "",
+          "centerTime": "",
+          "targetTime": "",
+          "finishTime": "",
+          "damageAnim": false,
+          "effects": [],
+          "elements": [],
+          "status": [],
+          "userElements": true,
+          "effectRange": {
+            "minh": 2,
+            "maxh": 2,
+            "far": 1,
+            "near": 0
+          },
+          "castRange": {
+            "minh": 0,
+            "maxh": 0,
+            "far": 1,
+            "near": 0
+          },
+          "name": "Healing Item",
+          "tags": []
+        },
+        "id": 1,
+        "children": []
+      },
+      {
+        "data": {
+          "description": "Skill called by reviving items.",
+          "icon": {
+            "id": 32,
+            "col": 1,
+            "row": 1
+          },
+          "script": "",
+          "type": 2,
+          "targetType": 3,
+          "restriction": 0,
+          "costs": [],
+          "userLoadAnim": "",
+          "userCastAnim": "Item",
+          "stepOnCast": false,
+          "loadAnimID": -1,
+          "castAnimID": 16,
+          "individualAnimID": -1,
+          "mirror": true,
+          "introTime": "",
+          "castTime": "",
+          "centerTime": "",
+          "targetTime": "",
+          "finishTime": "",
+          "damageAnim": false,
+          "effects": [],
+          "elements": [],
+          "status": [],
+          "userElements": true,
+          "effectRange": {
+            "minh": 2,
+            "maxh": 2,
+            "far": 1,
+            "near": 0
+          },
+          "castRange": {
+            "minh": 0,
+            "maxh": 0,
+            "far": 1,
+            "near": 0
+          },
+          "name": "Reviving Item",
+          "tags": []
+        },
+        "id": 2,
+        "children": []
+      },
+      {
+        "data": {
+          "description": "Skill called by offensive items.",
+          "icon": {
+            "id": 32,
+            "col": 3,
+            "row": 1
+          },
+          "script": "",
+          "type": 1,
+          "targetType": 2,
+          "restriction": 1,
+          "costs": [],
+          "userLoadAnim": "",
+          "userCastAnim": "Item",
+          "stepOnCast": false,
+          "loadAnimID": -1,
+          "castAnimID": 14,
+          "individualAnimID": -1,
+          "mirror": true,
+          "introTime": "",
+          "castTime": "",
+          "centerTime": "",
+          "targetTime": "",
+          "finishTime": "",
+          "damageAnim": false,
+          "effects": [],
+          "elements": [],
+          "status": [],
+          "userElements": true,
+          "effectRange": {
+            "minh": 2,
+            "maxh": 2,
+            "far": 1,
+            "near": 0
+          },
+          "castRange": {
+            "minh": 0,
+            "maxh": 0,
+            "far": 1,
+            "near": 0
+          },
+          "name": "Offensive Item",
+          "tags": []
+        },
+        "id": 3,
+        "children": []
+      }
+    ]
+  },
+  {
+    "data": {
+      "description": "",
+      "icon": {
+        "id": -1,
+        "col": 0,
+        "row": 0
+      },
+      "script": "",
+      "type": 1,
+      "targetType": 0,
+      "restriction": 0,
+      "costs": [],
+      "userLoadAnim": "",
+      "userCastAnim": "",
+      "stepOnCast": true,
+      "loadAnimID": -1,
+      "castAnimID": -1,
+      "individualAnimID": -1,
+      "mirror": true,
+      "introTime": "",
+      "castTime": "",
+      "centerTime": "",
+      "targetTime": "",
+      "finishTime": "",
+      "damageAnim": true,
+      "effects": [],
+      "elements": [],
+      "status": [],
+      "userElements": true,
+      "effectRange": {
+        "minh": 0,
+        "maxh": 0,
+        "far": 1,
+        "near": 0
+      },
+      "castRange": {
+        "minh": 0,
+        "maxh": 0,
+        "far": 1,
+        "near": 0
+      },
+      "name": "Attack",
+      "tags": []
+    },
+    "id": 4,
+    "children": [
+      {
+        "data": {
+          "description": "Simple melee physical attack.",
+          "icon": {
+            "id": 34,
+            "col": 1,
+            "row": 0
+          },
+          "script": "",
+          "type": 1,
+          "targetType": 2,
+          "restriction": 1,
+          "costs": [],
+          "userLoadAnim": "",
+          "userCastAnim": "Skill1",
+          "stepOnCast": true,
+          "loadAnimID": -1,
+          "castAnimID": -1,
+          "individualAnimID": -1,
+          "mirror": true,
+          "introTime": "",
+          "castTime": "20",
+          "centerTime": "",
+          "targetTime": "",
+          "finishTime": "",
+          "damageAnim": true,
+          "effects": [
+            {
+              "key": "hp",
+              "basicResult": "(a.atkp() * 2 - b.defp()) * rand(80, 120) / 100",
+              "successRate": "((a.prep() * 2 - b.evdp()) / b.evdp()) * 50",
+              "heal": false,
+              "absorb": false
+            }
+          ],
+          "elements": [],
+          "status": [],
+          "userElements": true,
+          "effectRange": {
+            "minh": 0,
+            "maxh": 0,
+            "far": 1,
+            "near": 0
+          },
+          "castRange": {
+            "minh": 1,
+            "maxh": 1,
+            "far": 1,
+            "near": 0
+          },
+          "name": "Blade Attack",
+          "tags": [
+            {
+              "key": "critical",
+              "value": ""
+            }
+          ]
+        },
+        "id": 5,
+        "children": []
+      },
+      {
+        "data": {
+          "description": "Simple ranged magical attack.",
+          "icon": {
+            "id": 34,
+            "col": 0,
+            "row": 0
+          },
+          "script": "",
+          "type": 1,
+          "targetType": 2,
+          "restriction": 1,
+          "costs": [],
+          "userLoadAnim": "",
+          "userCastAnim": "Skill1",
+          "stepOnCast": true,
+          "loadAnimID": -1,
+          "castAnimID": 10,
+          "individualAnimID": -1,
+          "mirror": true,
+          "introTime": "",
+          "castTime": "",
+          "centerTime": "10",
+          "targetTime": "",
+          "finishTime": "",
+          "damageAnim": true,
+          "effects": [
+            {
+              "key": "hp",
+              "basicResult": "(a.atkm() * 2 - b.defm()) * rand(80, 120) / 100",
+              "successRate": "(a.prem() * 2 - b.evdm()) / b.evdm() * 50",
+              "heal": false,
+              "absorb": false
+            }
+          ],
+          "elements": [],
+          "status": [],
+          "userElements": true,
+          "effectRange": {
+            "minh": 0,
+            "maxh": 0,
+            "far": 1,
+            "near": 0
+          },
+          "castRange": {
+            "minh": 4,
+            "maxh": 4,
+            "far": 4,
+            "near": 0
+          },
+          "name": "Magical Attack",
+          "tags": [
+            {
+              "key": "critical",
+              "value": ""
+            }
+          ]
+        },
+        "id": 6,
+        "children": []
+      },
+      {
+        "data": {
+          "description": "Attacks an area of 2 tiles of radius.",
+          "icon": {
+            "id": 34,
+            "col": 0,
+            "row": 0
+          },
+          "script": "",
+          "type": 1,
+          "targetType": 2,
+          "restriction": 1,
+          "costs": [
+            {
+              "key": "sp",
+              "value": "15"
+            }
+          ],
+          "userLoadAnim": "Load1",
+          "userCastAnim": "Skill2",
+          "stepOnCast": true,
+          "loadAnimID": 13,
+          "castAnimID": 11,
+          "individualAnimID": -1,
+          "mirror": true,
+          "introTime": "",
+          "castTime": "",
+          "centerTime": "",
+          "targetTime": "",
+          "finishTime": "",
+          "damageAnim": true,
+          "effects": [
+            {
+              "key": "hp",
+              "basicResult": "(a.atkm() * 2 - b.defm()) * rand(80, 120) / 100",
+              "successRate": "(a.prem() * 2 - b.evdm()) / b.evdm() * 50",
+              "heal": false,
+              "absorb": false
+            }
+          ],
+          "elements": [],
+          "status": [],
+          "userElements": true,
+          "effectRange": {
+            "minh": 3,
+            "maxh": 2,
+            "far": 2,
+            "near": 0
+          },
+          "castRange": {
+            "minh": 4,
+            "maxh": 4,
+            "far": 4,
+            "near": 2
+          },
+          "name": "Super Fireball",
+          "tags": []
+        },
+        "id": 7,
+        "children": []
+      },
+      {
+        "data": {
+          "description": "Attacks an area of 3 tiles of radius.",
+          "icon": {
+            "id": 34,
+            "col": 0,
+            "row": 0
+          },
+          "script": "",
+          "type": 1,
+          "targetType": 2,
+          "restriction": 1,
+          "costs": [
+            {
+              "key": "sp",
+              "value": "20"
+            }
+          ],
+          "userLoadAnim": "Load1",
+          "userCastAnim": "Skill2",
+          "stepOnCast": true,
+          "loadAnimID": 13,
+          "castAnimID": 12,
+          "individualAnimID": -1,
+          "mirror": true,
+          "introTime": "",
+          "castTime": "",
+          "centerTime": "",
+          "targetTime": "",
+          "finishTime": "",
+          "damageAnim": true,
+          "effects": [
+            {
+              "key": "hp",
+              "basicResult": "(a.atkm() * 2 - b.defm()) * rand(80, 120) / 100",
+              "successRate": "(a.prem() * 2 - b.evdm()) / b.evdm() * 50",
+              "heal": false,
+              "absorb": false
+            }
+          ],
+          "elements": [],
+          "status": [],
+          "userElements": true,
+          "effectRange": {
+            "minh": 4,
+            "maxh": 3,
+            "far": 3,
+            "near": 0
+          },
+          "castRange": {
+            "minh": 4,
+            "maxh": 4,
+            "far": 4,
+            "near": 3
+          },
+          "name": "Bizzard",
+          "tags": []
+        },
+        "id": 8,
+        "children": []
+      }
+    ]
+  },
+  {
+    "data": {
+      "description": "",
+      "icon": {
+        "id": -1,
+        "col": 0,
+        "row": 0
+      },
+      "script": "",
+      "type": 1,
+      "targetType": 0,
+      "restriction": 0,
+      "costs": [],
+      "userLoadAnim": "",
+      "userCastAnim": "",
+      "stepOnCast": true,
+      "loadAnimID": -1,
+      "castAnimID": -1,
+      "individualAnimID": -1,
+      "mirror": true,
+      "introTime": "",
+      "castTime": "",
+      "centerTime": "",
+      "targetTime": "",
+      "finishTime": "",
+      "damageAnim": true,
+      "effects": [],
+      "elements": [],
+      "status": [],
+      "userElements": true,
+      "effectRange": {
+        "minh": 0,
+        "maxh": 0,
+        "far": 1,
+        "near": 0
+      },
+      "castRange": {
+        "minh": 0,
+        "maxh": 0,
+        "far": 1,
+        "near": 0
+      },
+      "name": "Support",
+      "tags": []
+    },
+    "id": 9,
+    "children": [
+      {
+        "data": {
+          "description": "Cures a single ally character.",
+          "icon": {
+            "id": 34,
+            "col": 0,
+            "row": 0
+          },
+          "script": "",
+          "type": 2,
+          "targetType": 2,
+          "restriction": 0,
+          "costs": [
+            {
+              "key": "sp",
+              "value": "10"
+            }
+          ],
+          "userLoadAnim": "Load1",
+          "userCastAnim": "Skill2",
+          "stepOnCast": false,
+          "loadAnimID": -1,
+          "castAnimID": -1,
+          "individualAnimID": -1,
+          "mirror": true,
+          "introTime": "",
+          "castTime": "",
+          "centerTime": "",
+          "targetTime": "",
+          "finishTime": "",
+          "damageAnim": false,
+          "effects": [
+            {
+              "key": "hp",
+              "basicResult": "(a.atkm() * 2 - b.defm()) * rand(80, 120) / 100",
+              "successRate": "100",
+              "heal": true,
+              "absorb": false
+            }
+          ],
+          "elements": [],
+          "status": [],
+          "userElements": true,
+          "effectRange": {
+            "minh": 0,
+            "maxh": 0,
+            "far": 1,
+            "near": 0
+          },
+          "castRange": {
+            "minh": 3,
+            "maxh": 3,
+            "far": 3,
+            "near": 0
+          },
+          "name": "Heal",
+          "tags": []
+        },
+        "id": 10,
+        "children": []
+      }
+    ]
+  },
+  {
+    "data": {
+      "description": "",
+      "icon": {
+        "id": -1,
+        "col": 0,
+        "row": 0
+      },
+      "script": "",
+      "type": 1,
+      "targetType": 0,
+      "restriction": 0,
+      "costs": [],
+      "userLoadAnim": "",
+      "userCastAnim": "",
+      "stepOnCast": true,
+      "loadAnimID": -1,
+      "castAnimID": -1,
+      "individualAnimID": -1,
+      "mirror": true,
+      "introTime": "",
+      "castTime": "",
+      "centerTime": "",
+      "targetTime": "",
+      "finishTime": "",
+      "damageAnim": true,
+      "effects": [],
+      "elements": [],
+      "status": [],
+      "userElements": true,
+      "effectRange": {
+        "minh": 0,
+        "maxh": 0,
+        "far": 1,
+        "near": 0
+      },
+      "castRange": {
+        "minh": 0,
+        "maxh": 0,
+        "far": 1,
+        "near": 0
+      },
+      "name": "Debuff",
+      "tags": []
+    },
+    "id": 11,
+    "children": [
+      {
+        "data": {
+          "description": "Poisons an enemy.",
+          "icon": {
+            "id": 34,
+            "col": 2,
+            "row": 0
+          },
+          "script": "",
+          "type": 1,
+          "targetType": 2,
+          "restriction": 1,
+          "costs": [
+            {
+              "key": "sp",
+              "value": "10"
+            }
+          ],
+          "userLoadAnim": "",
+          "userCastAnim": "Skill2",
+          "stepOnCast": true,
+          "loadAnimID": -1,
+          "castAnimID": 14,
+          "individualAnimID": -1,
+          "mirror": true,
+          "introTime": "",
+          "castTime": "",
+          "centerTime": "",
+          "targetTime": "",
+          "finishTime": "",
+          "damageAnim": true,
+          "effects": [],
+          "elements": [],
+          "status": [
+            {
+              "id": 0,
+              "value": 100
+            }
+          ],
+          "userElements": true,
+          "effectRange": {
+            "minh": 0,
+            "maxh": 0,
+            "far": 1,
+            "near": 0
+          },
+          "castRange": {
+            "minh": 3,
+            "maxh": 3,
+            "far": 3,
+            "near": 0
+          },
+          "name": "Poison",
+          "tags": []
+        },
+        "id": 12,
+        "children": []
+      },
+      {
+        "data": {
+          "description": "Makes an enemy fall asleep.",
+          "icon": {
+            "id": 34,
+            "col": 3,
+            "row": 0
+          },
+          "script": "",
+          "type": 1,
+          "targetType": 2,
+          "restriction": 1,
+          "costs": [
+            {
+              "key": "sp",
+              "value": "10"
+            }
+          ],
+          "userLoadAnim": "",
+          "userCastAnim": "Skill2",
+          "stepOnCast": true,
+          "loadAnimID": -1,
+          "castAnimID": 15,
+          "individualAnimID": -1,
+          "mirror": true,
+          "introTime": "",
+          "castTime": "",
+          "centerTime": "",
+          "targetTime": "",
+          "finishTime": "",
+          "damageAnim": false,
+          "effects": [],
+          "elements": [],
+          "status": [
+            {
+              "id": 1,
+              "value": 100
+            }
+          ],
+          "userElements": true,
+          "effectRange": {
+            "minh": 0,
+            "maxh": 0,
+            "far": 1,
+            "near": 0
+          },
+          "castRange": {
+            "minh": 3,
+            "maxh": 3,
+            "far": 3,
+            "near": 0
+          },
+          "name": "Sleeping Polen",
+          "tags": []
+        },
+        "id": 13,
+        "children": []
+      }
+    ]
+  }
 ]

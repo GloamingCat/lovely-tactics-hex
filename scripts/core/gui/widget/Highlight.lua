@@ -34,7 +34,7 @@ end
 -- Window's skin.
 -- @ret(table) 
 function Highlight:getSkin()
-  return Database.animations[Config.animations.highlightID]
+  return Database.animations[Config.animations.highlight]
 end
 
 ---------------------------------------------------------------------------------------------------

@@ -1,119 +1,264 @@
 [
-	{
-		"name": "Poison",
-		"data": {
-			"id": 1,
-      
-			// GUI
-			"icon": {
-			  	"id": 42,
-			  	"col": 2,
-			  	"row": 0
-			},
-			"priority": 100,
-			"visible": true,
-      
-			// Graphics
-			"charAnim": "",
-      
-			// Durability
-			"duration": -1,
-			"cumulative": false,
-			"removeOnKO": true,
-			"removeOnDamage": false,
-			"battleOnly": false,
-      
-			// Effect
-			"script": {
-			  "path": "status/Poison.lua",
-			  "param": ""
-			},
-			"deactivate": false,
-			"ko": false,
-			"attributes": [],
-			"elements": [],
-			"cancel": [],
-      
-			"tags": []
-		}
-	},
-	{
-		"name": "Sleep",
-		"data": {
-			"id": 2,
-      
-			// GUI
-			"icon": {
-				"id": 42,
-				"col": 3,
-				"row": 0
-			},
-			"priority": 99,
-			"visible": true,
-			"script": {
-				"path": "",
-				"param": ""
-			},
-      
-			// Graphics
-			"charAnim": "sleep",
-      
-			// Durability
-			"duration": 2,
-			"cumulative": false,
-			"removeOnKO": true,
-			"removeOnDamage": true,
-			"battleOnly": true,
-      
-			// Effects
-			"deactivate": true,
-			"ko": false,
-			"attributes": [],
-			"elements": [],
-			"cancel": [],
-      
-			"tags": []
-		}
-	},
-	{
-		"name": "Protect",
-		"data": {
-			"id": 3,
-      
-			// GUI
-			"icon": {
-				"id": 42,
-				"col": 0,
-				"row": 0
-			},
-			"priority": 101,
-			"visible": true,
-			"script": {
-				"path": "",
-				"param": ""
-			},
-      
-			// Graphics
-			"charAnim": "",
-			//"transform": {
-			//	"brightness": 150
-			//},
-      
-			// Durability
-			"duration": -1,
-			"cumulative": false,
-			"removeOnKO": true,
-			"removeOnDamage": false,
-			"battleOnly": true,
-      
-			// Effects
-			"deactivate": false,
-			"ko": false,
-			"attributes": [],
-			"elements": [],
-			"cancel": [],
-      
-			"tags": []
-		}
-	}
+  {
+    "data": {
+      "script": "",
+      "icon": {
+        "id": -1,
+        "col": 0,
+        "row": 0
+      },
+      "priority": 100,
+      "visible": true,
+      "cumulative": false,
+      "deactivate": false,
+      "ko": false,
+      "behavior": {
+        "global": false,
+        "name": "",
+        "tags": []
+      },
+      "charAnim": "",
+      "transform": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "offsetDepth": 0,
+        "scaleX": 100,
+        "scaleY": 100,
+        "rotation": 0,
+        "red": 255,
+        "green": 255,
+        "blue": 255,
+        "alpha": 255,
+        "hue": 0,
+        "saturation": 100,
+        "brightness": 100
+      },
+      "override": false,
+      "duration": -1,
+      "removeOnKO": true,
+      "removeOnDamage": true,
+      "battleOnly": true,
+      "drainAtt": "",
+      "frequency": 0,
+      "drainValue": 0,
+      "percentage": true,
+      "attributes": [],
+      "elements": [],
+      "cancel": [],
+      "name": "Debuff",
+      "tags": []
+    },
+    "id": 3,
+    "children": [
+      {
+        "data": {
+          "script": "",
+          "icon": {
+            "id": 34,
+            "col": 2,
+            "row": 0
+          },
+          "priority": 100,
+          "visible": true,
+          "cumulative": false,
+          "deactivate": false,
+          "ko": false,
+          "behavior": {
+            "global": false,
+            "name": "",
+            "tags": []
+          },
+          "charAnim": "",
+          "transform": {
+            "offsetX": 0,
+            "offsetY": 0,
+            "offsetDepth": 0,
+            "scaleX": 100,
+            "scaleY": 100,
+            "rotation": 0,
+            "red": 255,
+            "green": 255,
+            "blue": 255,
+            "alpha": 255,
+            "hue": 0,
+            "saturation": 100,
+            "brightness": 100
+          },
+          "override": false,
+          "duration": -1,
+          "removeOnKO": true,
+          "removeOnDamage": false,
+          "battleOnly": false,
+          "drainAtt": "hp",
+          "frequency": 1,
+          "drainValue": 10,
+          "percentage": true,
+          "attributes": [],
+          "elements": [],
+          "cancel": [],
+          "name": "Poison",
+          "tags": []
+        },
+        "id": 0,
+        "children": []
+      },
+      {
+        "data": {
+          "script": "",
+          "icon": {
+            "id": 34,
+            "col": 3,
+            "row": 0
+          },
+          "priority": 99,
+          "visible": true,
+          "cumulative": false,
+          "deactivate": true,
+          "ko": false,
+          "behavior": {
+            "global": false,
+            "name": "",
+            "tags": []
+          },
+          "charAnim": "sleep",
+          "transform": {
+            "offsetX": 0,
+            "offsetY": 0,
+            "offsetDepth": 0,
+            "scaleX": 100,
+            "scaleY": 100,
+            "rotation": 0,
+            "red": 255,
+            "green": 255,
+            "blue": 255,
+            "alpha": 255,
+            "hue": 0,
+            "saturation": 100,
+            "brightness": 100
+          },
+          "override": false,
+          "duration": 2,
+          "removeOnKO": true,
+          "removeOnDamage": true,
+          "battleOnly": true,
+          "drainAtt": "",
+          "frequency": 0,
+          "drainValue": 0,
+          "percentage": true,
+          "attributes": [],
+          "elements": [],
+          "cancel": [],
+          "name": "Sleep",
+          "tags": []
+        },
+        "id": 1,
+        "children": []
+      }
+    ]
+  },
+  {
+    "data": {
+      "script": "",
+      "icon": {
+        "id": -1,
+        "col": 0,
+        "row": 0
+      },
+      "priority": 100,
+      "visible": true,
+      "cumulative": false,
+      "deactivate": false,
+      "ko": false,
+      "behavior": {
+        "global": false,
+        "name": "",
+        "tags": []
+      },
+      "charAnim": "",
+      "transform": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "offsetDepth": 0,
+        "scaleX": 100,
+        "scaleY": 100,
+        "rotation": 0,
+        "red": 255,
+        "green": 255,
+        "blue": 255,
+        "alpha": 255,
+        "hue": 0,
+        "saturation": 100,
+        "brightness": 100
+      },
+      "override": false,
+      "duration": -1,
+      "removeOnKO": true,
+      "removeOnDamage": true,
+      "battleOnly": true,
+      "drainAtt": "",
+      "frequency": 0,
+      "drainValue": 0,
+      "percentage": true,
+      "attributes": [],
+      "elements": [],
+      "cancel": [],
+      "name": "Buff",
+      "tags": []
+    },
+    "id": 4,
+    "children": [
+      {
+        "data": {
+          "script": "",
+          "icon": {
+            "id": 34,
+            "col": 0,
+            "row": 0
+          },
+          "priority": 101,
+          "visible": true,
+          "cumulative": false,
+          "deactivate": false,
+          "ko": false,
+          "behavior": {
+            "global": false,
+            "name": "",
+            "tags": []
+          },
+          "charAnim": "",
+          "transform": {
+            "offsetX": 0,
+            "offsetY": 0,
+            "offsetDepth": 0,
+            "scaleX": 100,
+            "scaleY": 100,
+            "rotation": 0,
+            "red": 230,
+            "green": 230,
+            "blue": 255,
+            "alpha": 255,
+            "hue": 0,
+            "saturation": 100,
+            "brightness": 120
+          },
+          "override": false,
+          "duration": -1,
+          "removeOnKO": true,
+          "removeOnDamage": false,
+          "battleOnly": true,
+          "drainAtt": "",
+          "frequency": 0,
+          "drainValue": 0,
+          "percentage": true,
+          "attributes": [],
+          "elements": [],
+          "cancel": [],
+          "name": "Protect",
+          "tags": []
+        },
+        "id": 2,
+        "children": []
+      }
+    ]
+  }
 ]

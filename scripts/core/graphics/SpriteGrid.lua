@@ -32,8 +32,9 @@ end
 -- @param(width : number) The width of the final image.
 -- @param(height : number) The height of the final image.
 function SpriteGrid:createGrid(renderer, width, height)
-  local w = self.skin.width / 3
-  local h = self.skin.height / 3
+  local skin = self.skin.quad
+  local w = skin.width / 3
+  local h = skin.height / 3
   local mw = width - 2 * w
   local mh = height - 2 * h
   self.skinData = {}
@@ -66,7 +67,7 @@ function SpriteGrid:createGrid(renderer, width, height)
       oy = -mh / 2
     end
     self.skinData[i] = {}
-    self.skinData[i].quad = Quad(self.skin.x + x, self.skin.y + y, w, h, self.skin.width, self.skin.height)
+    self.skinData[i].quad = Quad(skin.x + x, skin.y + y, w, h, skin.width, skin.height)
     self.skinData[i].sx = sx / w
     self.skinData[i].sy = sy / h
     self.skinData[i].x = ox / self.skinData[i].sx
@@ -78,7 +79,7 @@ function SpriteGrid:createGrid(renderer, width, height)
     end
   end
   self.slices = {}
-  local texture = ResourceManager:loadTexture(self.skin.path)
+  local texture = ResourceManager:loadTexture(skin.path)
   for i = 1, 9 do
     local sprite = Sprite(renderer, texture, self.skinData[i].quad)
     self.slices[i] = ResourceManager:loadAnimation(self.skin, sprite)

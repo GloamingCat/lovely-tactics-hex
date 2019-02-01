@@ -115,7 +115,7 @@ function GameManager:draw()
   drawCalls = 0
   ScreenManager:draw()
   love.graphics.setFont(self.fpsFont)
-  self:printStats()
+  --self:printStats()
   --self:printCoordinates()
   if self.paused then
     love.graphics.printf('PAUSED', 0, 0, ScreenManager:totalWidth(), 'right')

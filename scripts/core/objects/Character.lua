@@ -220,12 +220,12 @@ function Character:damage(skill, origin, results)
     self:playAnimation(self.idleAnim)
   else
     if self.party == TroopManager.playerParty then
-      if Config.sounds.allyKO then
-        AudioManager:playSFX(Config.sounds.allyKO)
+      if Sounds.allyKO then
+        AudioManager:playSFX(Sounds.allyKO)
       end
     else
-      if Config.sounds.enemyKO then
-        AudioManager:playSFX(Config.sounds.enemyKO)
+      if Sounds.enemyKO then
+        AudioManager:playSFX(Sounds.enemyKO)
       end
     end
     self:playAnimation(self.koAnim, true)

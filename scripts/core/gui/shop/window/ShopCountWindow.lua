@@ -28,7 +28,7 @@ function ShopCountWindow:createContent(...)
   self:createValues()
   self:createIcon()
   self:createStats()
-  self.spinner.confirmSound = Config.sounds.buy or self.spinner.confirmSound
+  self.spinner.confirmSound = Sounds.buy or self.spinner.confirmSound
   self.spinner.bigIncrement = 5
 end
 -- Overrides CountWindow:createWidgets. Adds "buy" button.

@@ -1,163 +1,94 @@
 [
-	{
-		"name": "Plain",
-		"data": {
-			"id": 0,
-			"image": 50,
-			"passable": true,
-			"moveCost": 100,
-			"attributes": {
-				"str": 0,
-				"mag": 0,
-				"dex": 0,
-				"res": 0,
-				"agi": 0,
-				"mov": 0,
-				"jmp": 0,
-				"mhp": 0,
-				"msp": 0,
-				"atkp": 0,
-				"atkm": 0,
-				"defp": 0,
-				"defm": 0,
-				"prep": 0,
-				"prem": 0,
-				"evdp": 0,
-				"evdm": 0,
-				"car": 0
-			},
-			"tags": [ 
-				{
-					"name": "sound", 
-					"value": "Kenney/footstep05.ogg"
-				},
-				{
-					"name": "pitch", 
-					"value": "100"
-				},
-				{
-					"name": "volume", 
-					"value": "100"
-				}
-			]
-		}
-	},
-	{
-		"name": "Bush",
-		"data": {
-			"id": 1,
-			"image": 51,
-			"passable": true,
-			"moveCost": 100,
-			"attributes": {
-				"str": 0,
-				"mag": 0,
-				"dex": 0,
-				"res": 0,
-				"agi": 0,
-				"mov": 0,
-				"jmp": 0,
-				"mhp": 0,
-				"msp": 0,
-				"atkp": 0,
-				"atkm": 0,
-				"defp": 0,
-				"defm": 0,
-				"prep": 0,
-				"prem": 0,
-				"evdp": 0,
-				"evdm": 0,
-				"car": 0
-			},
-			"tags": [ 
-				{
-					"name": "sound", 
-					"value": "Kenney/footstep05.ogg"
-				},
-				{
-					"name": "pitch", 
-					"value": "100"
-				},
-				{
-					"name": "volume", 
-					"value": "100"
-				}
-			]
-		}
-	},
-	{
-		"name": "Sand",
-		"data": {
-			"id": 2,
-			"image": 52,
-			"passable": true,
-			"moveCost": 100,
-			"attributes": {
-				"str": 0,
-				"mag": 0,
-				"dex": 0,
-				"res": 0,
-				"agi": 0,
-				"mov": 0,
-				"jmp": 0,
-				"mhp": 0,
-				"msp": 0,
-				"atkp": 0,
-				"atkm": 0,
-				"defp": 0,
-				"defm": 0,
-				"prep": 0,
-				"prem": 0,
-				"evdp": 0,
-				"evdm": 0,
-				"car": 0
-			},
-			"elements": [],
-			"tags": [ 
-				{
-					"name": "sound", 
-					"value": "Kenney/footstep05.ogg"
-				},
-				{
-					"name": "pitch", 
-					"value": "100"
-				},
-				{
-					"name": "volume", 
-					"value": "100"
-				}
-			]
-		}
-	},
-	{
-		"name": "Water",
-		"data": {
-			"id": 3,
-			"image": 53,
-			"passable": false,
-			"moveCost": 100,
-			"attributes": {
-				"str": 0,
-				"mag": 0,
-				"dex": 0,
-				"res": 0,
-				"agi": 0,
-				"mov": 0,
-				"jmp": 0,
-				"mhp": 0,
-				"msp": 0,
-				"atkp": 0,
-				"atkm": 0,
-				"defp": 0,
-				"defm": 0,
-				"prep": 0,
-				"prem": 0,
-				"evdp": 0,
-				"evdm": 0,
-				"car": 0
-			},
-			"elements": [],
-			"tags": []
-		}
-	}
+  {
+    "data": {
+      "passable": true,
+      "audio": {
+        "name": "",
+        "volume": 100,
+        "pitch": 100,
+        "time": 0
+      },
+      "animID": 37,
+      "moveCost": 100,
+      "statusID": -1,
+      "removeOnExit": false,
+      "resetTime": true,
+      "lifeTime": -1,
+      "attributes": [],
+      "elements": [],
+      "name": "Grass",
+      "tags": []
+    },
+    "id": 0,
+    "children": []
+  },
+  {
+    "data": {
+      "passable": true,
+      "audio": {
+        "name": "",
+        "volume": 100,
+        "pitch": 100,
+        "time": 0
+      },
+      "animID": 38,
+      "moveCost": 125,
+      "statusID": -1,
+      "removeOnExit": false,
+      "resetTime": true,
+      "lifeTime": -1,
+      "attributes": [],
+      "elements": [],
+      "name": "Bush",
+      "tags": []
+    },
+    "id": 1,
+    "children": []
+  },
+  {
+    "data": {
+      "passable": true,
+      "audio": {
+        "name": "",
+        "volume": 100,
+        "pitch": 100,
+        "time": 0
+      },
+      "animID": 39,
+      "moveCost": 100,
+      "statusID": -1,
+      "removeOnExit": false,
+      "resetTime": true,
+      "lifeTime": -1,
+      "attributes": [],
+      "elements": [],
+      "name": "Sand",
+      "tags": []
+    },
+    "id": 2,
+    "children": []
+  },
+  {
+    "data": {
+      "passable": false,
+      "audio": {
+        "name": "",
+        "volume": 100,
+        "pitch": 100,
+        "time": 0
+      },
+      "animID": 40,
+      "moveCost": 100,
+      "statusID": -1,
+      "removeOnExit": false,
+      "resetTime": true,
+      "lifeTime": -1,
+      "attributes": [],
+      "elements": [],
+      "name": "Water",
+      "tags": []
+    },
+    "id": 3,
+    "children": []
+  }
 ]

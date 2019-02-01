@@ -34,7 +34,7 @@ end
 -- Creates cover sprite.
 function TitleGUI:createCover()
   local id = Config.screen.coverID
-  if id then
+  if id and id >= 0 then
     self.cover = ResourceManager:loadSprite(Database.animations[id], GUIManager.renderer)
     self.cover:setXYZ(0, 0, 10)
     self.cover.texture:setFilter('linear', 'linear')
@@ -90,7 +90,7 @@ function TitleGUI:showCover()
 end
 -- Faces out cover and title.
 function TitleGUI:hideCover()
-  if Config.sounds.titleTheme then
+  if Sounds.titleTheme then
     AudioManager:pauseBGM(60 / self.coverSpeed)
   end
   local time = 1

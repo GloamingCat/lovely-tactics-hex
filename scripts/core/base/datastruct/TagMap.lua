@@ -64,7 +64,7 @@ end
 -- @param(tags : table) Array with (name, value) tags.
 function TagMap:addAll(tags)
   for i = 1, #tags do
-    local name = tags[i].name
+    local name = tags[i].key
     local value = tags[i].value or ''
     local arr = self.tags[name]
     if not arr then

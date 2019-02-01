@@ -67,7 +67,7 @@ function Balloon:nextIcon()
   self.statusIndex = math.mod1(self.statusIndex + 1, #self.status)
   local icon = self.status[self.statusIndex]
   local data = Database.animations[icon.id]
-  local quad, texture = ResourceManager:loadQuad(data, nil, icon.col, icon.row)
+  local quad, texture = ResourceManager:loadQuad(data.quad, nil, data.cols, data.rows, icon.col, icon.row)
   self.iconAnim.sprite:setTexture(texture)
   self.iconAnim.sprite:setQuad(quad)
   self.iconAnim.sprite:setCenterOffset()

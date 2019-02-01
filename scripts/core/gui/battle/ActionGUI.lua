@@ -34,10 +34,10 @@ function ActionGUI:init(input)
   input.GUI = self
   self.slideMargin = 20
   self.slideSpeed = 3
-  self.confirmSound = Config.sounds.buttonConfirm
-  self.cancelSound = Config.sounds.buttonCancel
-  self.selectSound = Config.sounds.buttonSelect
-  self.errorSound = Config.sounds.buttonError
+  self.confirmSound = Sounds.buttonConfirm
+  self.cancelSound = Sounds.buttonCancel
+  self.selectSound = Sounds.buttonSelect
+  self.errorSound = Sounds.buttonError
 end
 
 ---------------------------------------------------------------------------------------------------

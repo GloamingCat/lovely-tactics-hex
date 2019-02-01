@@ -14,8 +14,8 @@ local Button = require('core/gui/widget/Button')
 local InventoryWindow = require('core/gui/general/window/InventoryWindow')
 
 -- Constans
-local equipSound = Config.sounds.equip
-local unequipSound = Config.sounds.unequip
+local equipSound = Sounds.equip
+local unequipSound = Sounds.unequip
 
 local EquipItemWindow = class(InventoryWindow)
 

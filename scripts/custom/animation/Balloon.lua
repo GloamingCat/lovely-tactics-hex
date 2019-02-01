@@ -24,12 +24,37 @@ local Balloon = class(Animation)
 function Balloon:init(...)
   Animation.init(self, ...)
   self.waitTime = 30
-  self.balloonDuration = self.duration
+  self.balloonDuration = self.loopDuration
   self.duration = self.balloonDuration * 2
-  self.loop = 2
   self.state = 0
+  self.direction = 1
   self.iconAnim = nil
-  self.height = self.data.height / self.data.rows
+  self.height = self.data.quad.height / self.data.rows
+end
+
+---------------------------------------------------------------------------------------------------
+-- Direction
+---------------------------------------------------------------------------------------------------
+
+-- Sets to next frame.
+function Balloon:nextFrame()
+  local lastIndex = 1
+  if self.direction > 0 then
+    lastIndex = self.pattern and #self.pattern or self.colCount
+  end
+  if self.index ~= lastIndex then
+    self:nextCol()
+  else
+    self:onEnd()
+  end
+end
+-- Sets to the next column.
+function Balloon:nextCol()
+  self:setIndex(self.index + self.direction)
+end
+-- Sets to the next row.
+function Balloon:nextRow()
+  self:setRow(self.row + self.direction)
 end
 
 ---------------------------------------------------------------------------------------------------

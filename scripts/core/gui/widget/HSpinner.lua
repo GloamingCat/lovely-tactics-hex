@@ -18,7 +18,7 @@ local GridWidget = require('core/gui/widget/GridWidget')
 local Image = love.graphics.newImage
 
 -- Constants
-local animID = Config.animations.arrowID
+local animID = Config.animations.arrow
 
 local HSpinner = class(GridWidget)
 

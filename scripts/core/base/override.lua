@@ -23,6 +23,29 @@ function string.time(time)
 end
 
 ---------------------------------------------------------------------------------------------------
+-- String
+---------------------------------------------------------------------------------------------------
+
+-- Splits a string in substring by the given separator.
+-- @param(inputstr : string) String to be splitted.
+-- @param(sep : string) Separator.
+-- @ret(table) Array of substrings.
+function string.split(inputstr, sep)
+  local t, i = {}, 1
+  for str in inputstr:gmatch('([^' .. sep .. ']+)') do
+    t[i] = tonumber(str)
+    i = i + 1
+  end
+  return t
+end
+-- Removes spaces in the start and end of the string.
+-- @param(inputstr : string) String to be trimmed.
+-- @ret(string) New trimmed string.
+function string.trim(inputstr)
+  return inputstr:gsub("^%s+", ""):gsub("%s+$", "")
+end
+
+---------------------------------------------------------------------------------------------------
 -- Require
 ---------------------------------------------------------------------------------------------------
 

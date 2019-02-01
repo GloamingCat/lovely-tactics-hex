@@ -1,3 +1,259 @@
 [
-
+  {
+    "data": {
+      "description": "",
+      "icon": {
+        "id": -1,
+        "col": 0,
+        "row": 0
+      },
+      "price": 10,
+      "sellable": true,
+      "skillID": -1,
+      "consume": true,
+      "effects": [],
+      "statusAdd": [],
+      "elementAdd": [],
+      "slot": "",
+      "allSlots": false,
+      "blocked": [],
+      "status": [],
+      "elements": [],
+      "attributes": [],
+      "name": "Usable",
+      "tags": []
+    },
+    "id": 0,
+    "children": [
+      {
+        "data": {
+          "description": "Cures 200HP.",
+          "icon": {
+            "id": 32,
+            "col": 1,
+            "row": 1
+          },
+          "price": 15,
+          "sellable": true,
+          "skillID": 1,
+          "consume": true,
+          "effects": [
+            {
+              "key": "hp",
+              "basicResult": "200",
+              "successRate": "100",
+              "heal": true,
+              "absorb": false
+            }
+          ],
+          "statusAdd": [],
+          "elementAdd": [],
+          "slot": "",
+          "allSlots": false,
+          "blocked": [],
+          "status": [],
+          "elements": [],
+          "attributes": [],
+          "name": "Life Potion",
+          "tags": []
+        },
+        "id": 2,
+        "children": []
+      },
+      {
+        "data": {
+          "description": "Cures 100SP.",
+          "icon": {
+            "id": 32,
+            "col": 0,
+            "row": 1
+          },
+          "price": 15,
+          "sellable": true,
+          "skillID": 1,
+          "consume": true,
+          "effects": [
+            {
+              "key": "sp",
+              "basicResult": "100",
+              "successRate": "100",
+              "heal": false,
+              "absorb": false
+            }
+          ],
+          "statusAdd": [],
+          "elementAdd": [],
+          "slot": "",
+          "allSlots": false,
+          "blocked": [],
+          "status": [],
+          "elements": [],
+          "attributes": [],
+          "name": "Energy Potion",
+          "tags": []
+        },
+        "id": 3,
+        "children": []
+      },
+      {
+        "data": {
+          "description": "Cures 100SP.",
+          "icon": {
+            "id": 32,
+            "col": 3,
+            "row": 1
+          },
+          "price": 15,
+          "sellable": true,
+          "skillID": 1,
+          "consume": true,
+          "effects": [],
+          "statusAdd": [
+            {
+              "id": 0,
+              "value": 100
+            }
+          ],
+          "elementAdd": [],
+          "slot": "",
+          "allSlots": false,
+          "blocked": [],
+          "status": [],
+          "elements": [],
+          "attributes": [],
+          "name": "Antidote",
+          "tags": []
+        },
+        "id": 4,
+        "children": []
+      }
+    ]
+  },
+  {
+    "data": {
+      "description": "",
+      "icon": {
+        "id": -1,
+        "col": 0,
+        "row": 0
+      },
+      "price": 10,
+      "sellable": true,
+      "skillID": -1,
+      "consume": true,
+      "effects": [],
+      "statusAdd": [],
+      "elementAdd": [],
+      "slot": "",
+      "allSlots": false,
+      "blocked": [],
+      "status": [],
+      "elements": [],
+      "attributes": [],
+      "name": "Equip",
+      "tags": []
+    },
+    "id": 1,
+    "children": [
+      {
+        "data": {
+          "description": "Increases 5ATKP.",
+          "icon": {
+            "id": 33,
+            "col": 1,
+            "row": 0
+          },
+          "price": 150,
+          "sellable": true,
+          "skillID": -1,
+          "consume": false,
+          "effects": [],
+          "statusAdd": [],
+          "elementAdd": [],
+          "slot": "hand",
+          "allSlots": false,
+          "blocked": [],
+          "status": [],
+          "elements": [],
+          "attributes": [
+            {
+              "key": "atkp",
+              "add": 5,
+              "mul": 0
+            }
+          ],
+          "name": "Sword",
+          "tags": []
+        },
+        "id": 5,
+        "children": []
+      },
+      {
+        "data": {
+          "description": "Increases 10ATKP.",
+          "icon": {
+            "id": 33,
+            "col": 0,
+            "row": 0
+          },
+          "price": 150,
+          "sellable": true,
+          "skillID": -1,
+          "consume": false,
+          "effects": [],
+          "statusAdd": [],
+          "elementAdd": [],
+          "slot": "hand",
+          "allSlots": true,
+          "blocked": [],
+          "status": [],
+          "elements": [],
+          "attributes": [
+            {
+              "key": "atkp",
+              "add": 10,
+              "mul": 0
+            }
+          ],
+          "name": "Spear",
+          "tags": []
+        },
+        "id": 6,
+        "children": []
+      },
+      {
+        "data": {
+          "description": "Increases 5ADEFP.",
+          "icon": {
+            "id": 35,
+            "col": 0,
+            "row": 0
+          },
+          "price": 150,
+          "sellable": true,
+          "skillID": -1,
+          "consume": false,
+          "effects": [],
+          "statusAdd": [],
+          "elementAdd": [],
+          "slot": "hand",
+          "allSlots": true,
+          "blocked": [],
+          "status": [],
+          "elements": [],
+          "attributes": [
+            {
+              "key": "defp",
+              "add": 5,
+              "mul": 0
+            }
+          ],
+          "name": "Hat",
+          "tags": []
+        },
+        "id": 7,
+        "children": []
+      }
+    ]
+  }
 ]

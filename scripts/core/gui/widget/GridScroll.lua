@@ -15,7 +15,7 @@ local Image = love.graphics.newImage
 local delta = love.timer.getDelta
 
 -- Constants
-local animID = Config.animations.arrowID
+local animID = Config.animations.arrow
 
 local GridScroll = class()
 

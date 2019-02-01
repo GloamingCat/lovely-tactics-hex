@@ -21,8 +21,8 @@ local isFullScreen = love.window.getFullscreen
 local round = math.round
 
 -- Constants
-local defaultScaleX = Config.screen.widthScale
-local defaultScaleY = Config.screen.heightScale
+local defaultScaleX = Config.screen.widthScale / 100
+local defaultScaleY = Config.screen.heightScale / 100
 
 local ScreenManager = class()
 

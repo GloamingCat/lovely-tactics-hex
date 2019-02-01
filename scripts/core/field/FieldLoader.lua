@@ -41,11 +41,9 @@ end
 -- @ret(table) field's layers IDs in a single array
 function FieldLoader.getIDs(fieldID)
   local inputstr = love.filesystem.read('data/fields/' .. fieldID .. '.map')
-  local sep = '%s'
-  local t, i = {}, 1
-  for str in inputstr:gmatch('([^' .. sep .. ']+)') do
-    t[i] = tonumber(str)
-    i = i + 1
+  local t = string.split(inputstr, '%s')
+  for i = 1, #t do
+    t[i] = tonumber(t[i])
   end
   return t
 end

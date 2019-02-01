@@ -260,7 +260,7 @@ end
 -- Opens game's main GUI.
 function Player:openGUI()
   self:playIdleAnimation()
-  AudioManager:playSFX(Config.sounds.menu)
+  AudioManager:playSFX(Sounds.menu)
   GUIManager:showGUIForResult(FieldGUI())
 end
 

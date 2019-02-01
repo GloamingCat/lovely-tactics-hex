@@ -161,7 +161,7 @@ end
 -- Window's skin.
 -- @ret(table) 
 function Window:getSkin()
-  return Database.animations[Config.animations.windowSkinID]
+  return Database.animations[Config.animations.windowSkin]
 end
 -- Horizontal padding.
 function Window:paddingX()

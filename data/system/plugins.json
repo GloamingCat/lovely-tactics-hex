@@ -1,92 +1,143 @@
 [
-	{
-		"path": "GeneralUtil",
-		"on": true,
-		"param": {}
-	},
-	{
-		"path": "KillCheat",
-		"on": true,
-		"param": {
-			"win": "k",
-			"lose": "l"
-		}
-	},
-	{
-		"path": "IndividualTurn",
-		"on": true,
-		"param": {
-			"attName": "agi",
-			"turnLimit": "2000"
-		}
-	},
-	{
-		"path": "ControlZone",
-		"on": false,
-		"param": {}
-	},
-	{
-		"path": "StatusBalloon",
-		"on": true,
-		"param": {
-			"balloonID": "27"
-		}
-	},
-	{
-		"path": "BattleEndRevival",
-		"on": true,
-		"param": {}
-	},
-	{
-		"path": "FocusPause",
-		"on": true,
-		"param": {
-			"pauseAudio": "true"
-		}
-	},
-	{
-		"path": "QuickSave",
-		"on": true,
-		"param": {
-			"saveKey": "f1",
-			"loadKey": "f5"
-		}
-	},
-	{
-		"path": "Critical",
-		"on": true,
-		"param": {
-			"attName": "crit",
-			"sound": "CGEffex/hit.ogg",
-			"volume": "100",
-			"pitch": "100"
-		}
-	},
-	{
-		"path": "Counter",
-		"on": true,
-		"param": {}
-	},
-	{
-		"path": "Reflect",
-		"on": true,
-		"param": {
-			"animID": 18
-		}
-	},
-	{
-		"path": "StepSound",
-		"on": true,
-		"param": {
-			"frequency": 16,
-			"varPitch": 0.1,
-			"varVolume": 0.2,
-			"varFreq": 0.1
-		}
-	},
-	{
-		"path": "BatchMesh",
-		"on": false,
-		"param": {}
-	}
+  {
+    "on": true,
+    "name": "GeneralUtil",
+    "tags": []
+  },
+  {
+    "on": true,
+    "name": "KillCheat",
+    "tags": [
+      {
+        "key": "win",
+        "value": "k"
+      },
+      {
+        "key": "lose",
+        "value": "l"
+      }
+    ]
+  },
+  {
+    "on": true,
+    "name": "IndividualTurn",
+    "tags": [
+      {
+        "key": "attName",
+        "value": "agi"
+      },
+      {
+        "key": "turnLimit",
+        "value": "2000"
+      }
+    ]
+  },
+  {
+    "on": false,
+    "name": "ControlZone",
+    "tags": []
+  },
+  {
+    "on": true,
+    "name": "StatusBalloon",
+    "tags": [
+      {
+        "key": "balloonID",
+        "value": "27"
+      }
+    ]
+  },
+  {
+    "on": true,
+    "name": "BattleEndRevival",
+    "tags": []
+  },
+  {
+    "on": true,
+    "name": "FocusPause",
+    "tags": [
+      {
+        "key": "pauseAudio",
+        "value": "true"
+      }
+    ]
+  },
+  {
+    "on": true,
+    "name": "QuickSave",
+    "tags": [
+      {
+        "key": "savevalue",
+        "value": "f1"
+      },
+      {
+        "key": "loadvalue",
+        "value": "f5"
+      }
+    ]
+  },
+  {
+    "on": true,
+    "name": "Critical",
+    "tags": [
+      {
+        "key": "attName",
+        "value": "crit"
+      },
+      {
+        "key": "sound",
+        "value": "CGEffex/hit.ogg"
+      },
+      {
+        "key": "volume",
+        "value": "100"
+      },
+      {
+        "key": "pitch",
+        "value": "100"
+      }
+    ]
+  },
+  {
+    "on": true,
+    "name": "Counter",
+    "tags": []
+  },
+  {
+    "on": true,
+    "name": "Reflect",
+    "tags": [
+      {
+        "key": "animID",
+        "value": "18"
+      }
+    ]
+  },
+  {
+    "on": true,
+    "name": "StepSound",
+    "tags": [
+      {
+        "key": "frequency",
+        "value": "16"
+      },
+      {
+        "key": "varPitch",
+        "value": "0.1"
+      },
+      {
+        "key": "varVolume",
+        "value": "0.2"
+      },
+      {
+        "key": "varFreq",
+        "value": "0.1"
+      }
+    ]
+  },
+  {
+    "on": false,
+    "name": "BatchMesh",
+    "tags": []
+  }
 ]

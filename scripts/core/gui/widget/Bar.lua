@@ -56,11 +56,11 @@ function Bar:padding()
 end
 -- @ret(table) The frame spritesheet from Database.
 function Bar:getFrame()
-  return Database.animations[Config.animations.gaugeFrameID]
+  return Database.animations[Config.animations.gaugeFrame]
 end
 -- @ret(table) The bar spritesheet from Database.
 function Bar:getBar()
-  return Database.animations[Config.animations.gaugeBarID]
+  return Database.animations[Config.animations.gaugeBar]
 end
 
 ---------------------------------------------------------------------------------------------------

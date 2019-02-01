@@ -1,111 +1,226 @@
 {
-	"id": 3,
-	"sizeX": 10,
-	"sizeY": 15,
-	"prefs": {
-		"name": "Forest 3",
-		"persistent": true,
-		"defaultRegion": 0,
-		"bgm": {
-		  "name": "Aaron Krogh/Jungle.ogg",
-		  "time": 30
-		},
-		// Automatically generated transitions interactables.
-		"transitions": [
-			{
-				"side": "south",
-				"fieldID": 1,
-				"x": 12,
-				"y": 2,
-				"h": 1,
-				"min": 3,
-				"max": 7,
-				"direction": 315,
-				"fade": 60
-			},
-			{
-				"side": "north",
-				"fieldID": 5,
-				"x": 3,
-				"y": 8,
-				"h": 1,
-				"min": 6,
-				"max": 10,
-				"direction": 135,
-				"fade": 60
-			},
-			{
-				"side": "west",
-				"fieldID": 4,
-				"x": 10,
-				"y": 7,
-				"h": 1,
-				"min": 1,
-				"max": 5,
-				"direction": 225,
-				"fade": 60
-			}
-		],
-		"tags": []
-	},
-	"battle": {
-		"parties": [],
-		"playerParty": -1
-	},
-	"characters": [
-		{
-			"key": "Enemy",
-			"persistent": true,
-			"x": 6,
-			"y": 11,
-			"h": 1,
-			"party": -1,
-			"charID": 20,
-			"battlerID": -1,
-			"anim": "Idle",
-			"direction": 315,
-			"collideScript": {
-				"commands": [
-					{
-						"name": "eventScript",
-						"param": 2
-					}
-				],
-				"global": true
-			},
-			"tags": []
-		}
-	],
-	"layers": [
-		{
-			"name": "Sand",
-			"type": 0,
-			"height": 1,
-			"tags": []
-		},
-		{
-			"name": "Grass",
-			"type": 0,
-			"height": 1,
-			"tags": []
-		},
-		{
-			"name": "Bush",
-			"type": 0,
-			"height": 1,
-			"tags": []
-		},
-		{
-			"name": "Water",
-			"type": 0,
-			"height": 1,
-			"tags": []
-		},
-		{
-			"name": "Obstacles",
-			"type": 1,
-			"height": 1,
-			"tags": []
-		}
-	]
+  "id": 3,
+  "sizeX": 10,
+  "sizeY": 15,
+  "prefs": {
+    "defaultRegion": 0,
+    "maxHeight": 4,
+    "bgm": {
+      "name": "bgm/Aaron Krogh/Jungle.ogg",
+      "volume": 100,
+      "pitch": 100,
+      "time": 0
+    },
+    "loadScript": {
+      "global": false,
+      "name": "",
+      "tags": []
+    },
+    "background": {
+      "path": "",
+      "x": 0,
+      "y": 0,
+      "width": 0,
+      "height": 0
+    },
+    "parallax": {
+      "path": "",
+      "x": 0,
+      "y": 0,
+      "width": 0,
+      "height": 0
+    },
+    "transitions": [],
+    "name": "Empty",
+    "tags": []
+  },
+  "layers": {
+    "terrain": [
+      {
+        "info": {
+          "name": "Sand",
+          "height": 0,
+          "tags": []
+        },
+        "visible": true,
+        "grid": [
+          [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ]
+        ]
+      }
+    ],
+    "obstacle": [],
+    "region": []
+  },
+  "characters": [],
+  "parties": [],
+  "playerParty": -1
 }

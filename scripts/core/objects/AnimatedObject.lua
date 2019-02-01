@@ -38,8 +38,8 @@ end
 -- @param(animations : table) array of animations
 function AnimatedObject:initAnimationTable(animations)
   self.animationData = {}
-  for name, id in pairs(animations) do
-    self:addAnimation(name, id)
+  for i = 1, #animations do
+    self:addAnimation(animations[i].name, animations[i].id)
   end
 end
 -- Creates a new animation from the database.
@@ -48,7 +48,7 @@ end
 function AnimatedObject:addAnimation(name, id)
   local data = Database.animations[id]
   local animation = ResourceManager:loadAnimation(data, self.sprite)
-  local quad, texture = ResourceManager:loadQuad(data)
+  local quad, texture = ResourceManager:loadQuad(data.quad, nil, data.cols, data.rows)
   self.animationData[name] = {
     transform = data.transform,
     animation = animation,

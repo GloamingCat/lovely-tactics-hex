@@ -60,9 +60,9 @@ function RewardEXPWindow:createContent(...)
     y = y + 12
   end
   self.soundPeriod = 5
-  self.expSound = Config.sounds.exp
+  self.expSound = Sounds.exp
   self.expSpeed = 120
-  self.levelupSound = Config.sounds.levelup
+  self.levelupSound = Sounds.levelup
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -128,7 +128,7 @@ end
 
 -- Overrides Window:hide.
 function RewardEXPWindow:hide(...)
-  AudioManager:playSFX(Config.sounds.buttonConfirm)
+  AudioManager:playSFX(Sounds.buttonConfirm)
   Window.hide(self, ...)
 end
 -- @ret(string) String representation (for debugging).

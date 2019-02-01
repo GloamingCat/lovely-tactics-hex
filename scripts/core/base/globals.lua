@@ -23,7 +23,7 @@ util.table = require('core/base/util/TableUtil')
 -- Database
 ---------------------------------------------------------------------------------------------------
 
-Database = require('core/base/database')
+Database = require('core/base/Database')
 
 ---------------------------------------------------------------------------------------------------
 -- Configuration files
@@ -33,6 +33,7 @@ Vocab   = require('conf/Vocab')
 Color   = require('conf/Color')
 Fonts   = require('conf/Fonts')
 Icons   = require('conf/Icons')
+Sounds  = require('conf/Sounds')
 KeyMap  = require('conf/KeyMap')
 
 ---------------------------------------------------------------------------------------------------
@@ -55,8 +56,8 @@ end
 for i = 1, #Config.plugins do
   local plugin = Config.plugins[i]
   if plugin.on then
-    args = plugin.param
-    require('custom/plugins/' .. plugin.path)
+    args = plugin.tags
+    require('custom/plugins/' .. plugin.name)
   end
 end
 args = nil

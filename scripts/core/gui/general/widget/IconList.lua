@@ -35,7 +35,7 @@ function IconList:init(topLeft, width, height, frameWidth, frameHeight)
   self.frameHeight = frameHeight or 16
   self.iconWidth = self.frameWidth
   self.iconHeight = self.frameHeight
-  self.frameID = Config.animations.frameID
+  self.frameID = Config.animations.frame
   self.visible = true
 end
 -- Sets the content of this list.

@@ -1,78 +1,110 @@
 {
-	"name": "LTH Example",
-	"screen": {
-		"nativeWidth": 400,
-		"nativeHeight": 225,
-		"widthScale": 2,
-		"heightScale": 2,
-		"scaleType": 1,
-		"fpsLimit": 120,
-		"coverID": 211
-	},
-	"player": {
-		"walkSpeed": 104,
-		"dashSpeed": 208,
-		"startPos": {
-			"fieldID": 1,
-			"x": 9,
-			"y": 6,
-			"h": 1,
-			"direction": 135
-		}
-	},
-	"animations": {
-		"windowSkinID": 20,
-		"frameID": 21,
-		"cursorID": 22,
-		"highlightID": 23,
-		"battleCursorID": 24,
-		"tileCursorID": 25,
-		"tileID": 26,
-		"gaugeFrameID": 28,
-		"gaugeBarID": 29,
-		"arrowID": 210,
-		"sets": ["default", "battle", "sleep"]
-	},
-	"icons": {
-		"gold": {
-			"id": 44,
-			"col": 2,
-			"row": 1
-		},
-		"location": {
-			"id": 44,
-			"col": 3,
-			"row": 1
-		},
-		"time": {
-			"id": 44,
-			"col": 4,
-			"row": 1
-		}
-	},
-	"battle": {
-		"maxLevel": 100,
-		"overpassAllies": false,
-		"overpassDeads": true,
-		"itemSkillID": 1,
-		"attHP": "hp",
-		"attSP": "sp",
-		"attStep": "mov",
-		"attJump": "jmp"
-	},
-	"troop": {
-		"initial": 1,
-		"maxMembers": 6,
-		"width": 5,
-		"height": 3
-	},
-	"grid": {
-		"tileW": 36,
-		"tileH": 22,
-		"tileB": 16,
-		"tileS": 0,
-		"pixelsPerHeight": 8,
-		"depthPerHeight": 24,
-		"allNeighbors": false,
-	}
+  "name": "LTH Example",
+  "player": {
+    "walkSpeed": 104,
+    "dashSpeed": 208,
+    "startPos": {
+      "fieldID": 1,
+      "x": 9,
+      "y": 6,
+      "z": 0,
+      "direction": 135
+    }
+  },
+  "battle": {
+    "maxLevel": 100,
+    "attHP": "hp",
+    "attSP": "sp",
+    "attStep": "mov",
+    "attJump": "jmp",
+    "itemSkillID": 1
+  },
+  "troop": {
+    "initialTroopID": 0,
+    "maxMembers": 6,
+    "width": 5,
+    "height": 3
+  },
+  "grid": {
+    "tileW": 36,
+    "tileH": 22,
+    "tileB": 16,
+    "tileS": 0,
+    "pixelsPerHeight": 8,
+    "depthPerHeight": 24,
+    "allNeighbors": false,
+    "overpassAllies": false,
+    "overpassDeads": true
+  },
+  "screen": {
+    "nativeWidth": 400,
+    "nativeHeight": 225,
+    "widthScale": 200,
+    "heightScale": 200,
+    "scaleType": 1,
+    "fpsLimit": 120,
+    "coverID": 75
+  },
+  "animations": [
+    {
+      "name": "windowSkin",
+      "id": 18
+    },
+    {
+      "name": "frame",
+      "id": 19
+    },
+    {
+      "name": "cursor",
+      "id": 20
+    },
+    {
+      "name": "highlight",
+      "id": 21
+    },
+    {
+      "name": "battleCursor",
+      "id": 22
+    },
+    {
+      "name": "tileCursor",
+      "id": 24
+    },
+    {
+      "name": "tile",
+      "id": 23
+    },
+    {
+      "name": "gaugeFrame",
+      "id": 27
+    },
+    {
+      "name": "gaugeBar",
+      "id": 26
+    },
+    {
+      "name": "arrow",
+      "id": 28
+    }
+  ],
+  "icons": [
+    {
+      "name": "gold",
+      "id": 36,
+      "col": 2,
+      "row": 1
+    },
+    {
+      "name": "location",
+      "id": 36,
+      "col": 3,
+      "row": 1
+    },
+    {
+      "name": "time",
+      "id": 36,
+      "col": 4,
+      "row": 1
+    }
+  ]
 }

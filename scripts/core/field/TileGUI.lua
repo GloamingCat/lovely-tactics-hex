@@ -17,8 +17,8 @@ local min = math.min
 -- Constants
 local tileW = Config.grid.tileW
 local tileH = Config.grid.tileH
-local baseAnimID = Config.animations.tileID
-local highlightAnimID = Config.animations.tileCursorID
+local baseAnimID = Config.animations.tile
+local highlightAnimID = Config.animations.tileCursor
 
 local TileGUI = class()
 

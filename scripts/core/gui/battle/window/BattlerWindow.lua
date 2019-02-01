@@ -142,7 +142,7 @@ end
 ---------------------------------------------------------------------------------------------------
 
 function BattlerWindow:onCancel()
-  AudioManager:playSFX(Config.sounds.buttonCancel)
+  AudioManager:playSFX(Sounds.buttonCancel)
   self.result = 0
 end
 

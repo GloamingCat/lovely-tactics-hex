@@ -39,10 +39,10 @@ function AudioManager:init()
   self.pitchSFX = 100
   self.paused = false
   -- Default sounds
-  self.titleTheme = Config.sounds.titleTheme
-  self.battleTheme = Config.sounds.battleTheme
-  self.victoryTheme = Config.sounds.victoryTheme
-  self.gameoverTheme = Config.sounds.gameoverTheme
+  self.titleTheme = Sounds.titleTheme
+  self.battleTheme = Sounds.battleTheme
+  self.victoryTheme = Sounds.victoryTheme
+  self.gameoverTheme = Sounds.gameoverTheme
 end
 
 ---------------------------------------------------------------------------------------------------

@@ -10,7 +10,6 @@ is a spritesheet.
 
 -- Imports
 local Sprite = require('core/graphics/Sprite')
-local TagMap = require('core/base/datastruct/TagMap')
 
 -- Alias
 local mod = math.mod
@@ -32,31 +31,39 @@ function Animation:init(sprite, data)
   self.col = 0
   self.row = 0
   self.index = 1
+  self.loop = false
   -- Frame count (adapted to the frame rate)
   self.time = 0
   self.speed = 1
-  self.direction = 1
-  self.paused = sprite == nil
-  if data and data.animation then
+  self.loop = false
+  if data then
     -- The size of each quad
-    self.quadWidth = data.width / data.cols
-    self.quadHeight = data.height / data.rows
+    self.quadWidth = data.quad.width / data.cols
+    self.quadHeight = data.quad.height / data.rows
     -- Number of rows and colunms of the spritesheet
     self.colCount = data.cols
     self.rowCount = data.rows
-    -- Loop type
-    self.loop = data.animation.loop
     -- Pattern
-    self.pattern = data.animation.pattern
+    self.introPattern = Database:loadPattern(data.introPattern, self.colCount)
+    self.loopPattern = Database:loadPattern(data.loopPattern, self.colCount)
     -- Duration
-    self:setTiming(data.animation.duration, data.animation.timing)
+    local introCount = self.introPattern and #self.introPattern or self.colCount
+    local loopCount = self.loopPattern and #self.loopPattern or self.colCount
+    self.introDuration = Database:loadDuration(data.introDuration, introCount)
+    self.loopDuration = Database:loadDuration(data.loopDuration, loopCount)
+    if self.introDuration then
+      self:setFrames(self.introDuration, self.introPattern)
+    elseif self.loopDuration then
+      self:setFrames(self.loopDuration, self.loopPattern)
+      self.loop = true
+    end
     -- Audio
-    self.audio = data.animation.audio
+    self.audio = data.audio
     -- Tags
     if data.tags and #data.tags > 0 then
-      self.tags = TagMap(data.tags)
+      self.tags = Database:loadTags(data.tags)
     end
-    self.param = data.animation.script.param
+    self.paused = sprite == nil
   else
     if sprite and sprite.texture then
       self.quadWidth = sprite.texture:getWidth()
@@ -64,7 +71,9 @@ function Animation:init(sprite, data)
     end
     self.colCount = 1
     self.rowCount = 1
-    self.loop = 0
+    self.duration = 0
+    self.timing = nil
+    self.paused = true
   end
 end
 -- Creates a clone of this animation.
@@ -78,38 +87,29 @@ function Animation:clone(sprite)
   anim.paused = self.paused
   anim.time = self.time
   anim.speed = self.speed
-  anim.direction = self.direction
-  anim.audioIndex = self.audioIndex
-  anim.audioTime = self.audioTime
+  anim.loop = self.loop
+  anim.timing = self.timing
+  anim.pattern = self.pattern
   return anim
 end
 -- Sets the time for each frame. 
 -- If timing is nil and duration is 0, animation is set as static.
 -- @param(duration : number) total duration of the animation
 -- @param(timing : table) array of frame times, one element per frame
-function Animation:setTiming(duration, timing)
-  self.frameTime = nil
-  local indexCount = (self.pattern and #self.pattern or self.colCount)
-  if duration and duration > 0 then
-    self.frameTime = {}
-    local frameDuration = duration / indexCount
-    for i = 1, indexCount do
-      self.frameTime[i] = frameDuration
-    end
-  end
-  if timing then
-    self.frameTime = self.frameTime or {}
-    for i = 1, indexCount do
-      self.frameTime[i] = timing[i] or self.frameTime[i]
-    end
-  end
-  if self.frameTime then
+function Animation:setFrames(timing, pattern)
+  if not timing or #timing == 0 then
+    self.timing = nil
     self.duration = 0
+  else
+    self.timing = timing
+    self.duration = 0
+    local indexCount = pattern and #pattern or self.colCount
     for i = 1, indexCount do
-      assert(self.frameTime[i], 'Frame time not defined: ' .. i)
-      self.duration = self.duration + self.frameTime[i]
+      assert(timing[i], 'Frame time not defined: ' .. i)
+      self.duration = self.duration + timing[i]
     end
   end
+  self.pattern = pattern
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -118,22 +118,19 @@ end
 
 -- Increments the frame count and automatically changes que sprite.
 function Animation:update()
-  if self.paused or not self.duration or not self.frameTime then
+  if self.paused or not self.duration or not self.timing then
     return
   end
   self.time = self.time + deltaTime() * 60 * self.speed
-  if self.time >= self.frameTime[self.index] then
-    self.time = self.time - self.frameTime[self.index]
+  if self.time >= self.timing[self.index] then
+    self.time = self.time - self.timing[self.index]
     self:nextFrame()
   end
 end
 -- Sets to next frame.
 function Animation:nextFrame()
-  local lastIndex = 1
-  if self.direction > 0 then
-    lastIndex = self.pattern and #self.pattern or self.colCount
-  end
-  if self.index ~= lastIndex then
+  local lastIndex = self.pattern and #self.pattern or self.colCount
+  if self.index < lastIndex then
     self:nextCol()
   else
     self:onEnd()
@@ -141,22 +138,24 @@ function Animation:nextFrame()
 end
 -- What happens when the animations finishes.
 function Animation:onEnd()
-  if self.loop == 0 then
+  if self.loop then
+    self:nextCol()
+  elseif self.loopDuration then
+    self.loop = true
+    self:setFrames(self.loopDuration, self.loopPattern)
+    self.index = 0
+    self:nextCol()
+  else
     self.paused = true
-  elseif self.loop == 1 then
-    self:nextCol()
-  elseif self.loop == 2 then
-    self.direction = -self.direction
-    self:nextCol()
   end
 end
 -- Sets to the next column.
 function Animation:nextCol()
-  self:setIndex(self.index + self.direction)
+  self:setIndex(self.index + 1)
 end
 -- Sets to the next row.
 function Animation:nextRow()
-  self:setRow(self.row + self.direction)
+  self:setRow(self.row + 1)
 end
 -- Sets the frame counter.
 -- @param(i : number) number of the frame, from 0 to #pattern
@@ -172,8 +171,13 @@ function Animation:setIndex(i)
 end
 -- Plays the audio in the current index, if any.
 function Animation:playAudio()
-  if self.audio and self.audio[self.index] then
-    AudioManager:playSFX(self.audio[self.index])
+  if self.audio then
+    for i = 1, #self.audio do
+      local audio = self.audio[i]
+      if audio.time == self.index then
+        AudioManager:playSFX(audio)
+      end
+    end
   end
 end
 -- Changes the column of the current quad
@@ -207,7 +211,13 @@ end
 
 function Animation:reset()
   self.time = 0
-  self.audioIndex = 1
+  self.loop = false
+  if self.introDuration then
+    self:setFrames(self.introDuration, self.introPattern)
+  elseif self.loopDuration then
+    self:setFrames(self.loopDuration, self.loopPattern)
+    self.loop = true
+  end
   --self:setRow(0)
   self:setIndex(1)
 end
