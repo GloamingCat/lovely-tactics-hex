@@ -41,7 +41,7 @@ function CharacterBase:init(instData, save)
   if save then
     pos.x, pos.y, pos.z = save.x, save.y, save.z
   else
-    pos.x, pos.y, pos.z = tile2Pixel(instData.x + 1, instData.y + 1, instData.h)
+    pos.x, pos.y, pos.z = tile2Pixel(instData.x, instData.y, instData.h)
   end
   -- Object:init
   DirectedObject.init(self, data, pos)

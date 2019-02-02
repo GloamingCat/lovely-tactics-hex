@@ -83,7 +83,7 @@ end
 -- Creates a character representing player.
 -- @ret(Player) the newly created player
 function FieldManager:createPlayer(t)
-  local tile = self.currentField:getObjectTile(t.x, t.y, t.h)
+  local tile = self.currentField:getObjectTile(t.x + 1, t.y + 1, t.h)
   return Player(tile, t.direction)
 end
 
@@ -136,13 +136,12 @@ function FieldManager:loadTransition(transition, fromSave)
   if self.currentField then
     SaveManager:storeFieldData(self.currentField)
   end
-  local fieldID = transition.fieldID
-  local fieldData = self:loadField(fieldID)
-  --[[self.player = self:createPlayer(transition)
+  local fieldData = self:loadField(transition.fieldID)
+  self.player = self:createPlayer(transition)
   self.renderer.focusObject = self.player
   self.renderer:setPosition(self.player.position)
   -- Create/call start listeners
-  local script = self.currentField.startScript
+  --[[local script = self.currentField.startScript
   if script then
     self.currentField.fiberList:forkFromScript(script.commands, {fromSave = fromSave})
   end
@@ -152,9 +151,9 @@ function FieldManager:loadTransition(transition, fromSave)
       local event = {character = char, fromSave = fromSave}
       char:onStart(event)
     end
-  end
+  end]]
   self.player.fiberList:fork(self.player.fieldInputLoop, self.player)
-  FieldLoader.createTransitions(self.currentField, fieldData.prefs.transitions)]]
+  --FieldLoader.createTransitions(self.currentField, fieldData.prefs.transitions)
   if fieldData.prefs.bgm then
     local bgm = fieldData.prefs.bgm
     if AudioManager.BGM == nil or AudioManager.BGM.name ~= bgm.name then

@@ -36,21 +36,21 @@
           "fieldID": 2,
           "x": 10,
           "y": 6,
-          "z": 0,
+          "h": 0,
           "direction": 135
         },
         "start": {
           "fieldID": 1,
           "x": 1,
           "y": 0,
-          "z": 0,
+          "h": 0,
           "direction": 270
         },
         "end": {
           "fieldID": 1,
           "x": 3,
           "y": 0,
-          "z": 0,
+          "h": 0,
           "direction": 270
         },
         "fade": 30
@@ -60,21 +60,21 @@
           "fieldID": 1,
           "x": 6,
           "y": 9,
-          "z": 0,
+          "h": 0,
           "direction": -1
         },
         "start": {
           "fieldID": 1,
           "x": 10,
           "y": 0,
-          "z": 0,
+          "h": 0,
           "direction": 270
         },
         "end": {
           "fieldID": 1,
           "x": 12,
           "y": 0,
-          "z": 0,
+          "h": 0,
           "direction": 270
         },
         "fade": 30

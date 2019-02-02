@@ -1,12 +1,12 @@
 [
   {
     "on": true,
-    "name": "GeneralUtil",
+    "name": "plugins/GeneralUtil",
     "tags": []
   },
   {
     "on": true,
-    "name": "KillCheat",
+    "name": "plugins/KillCheat",
     "tags": [
       {
         "key": "win",
@@ -20,7 +20,7 @@
   },
   {
     "on": true,
-    "name": "IndividualTurn",
+    "name": "plugins/IndividualTurn",
     "tags": [
       {
         "key": "attName",
@@ -34,12 +34,12 @@
   },
   {
     "on": false,
-    "name": "ControlZone",
+    "name": "plugins/ControlZone",
     "tags": []
   },
   {
     "on": true,
-    "name": "StatusBalloon",
+    "name": "plugins/StatusBalloon",
     "tags": [
       {
         "key": "balloonID",
@@ -49,12 +49,12 @@
   },
   {
     "on": true,
-    "name": "BattleEndRevival",
+    "name": "plugins/BattleEndRevival",
     "tags": []
   },
   {
     "on": true,
-    "name": "FocusPause",
+    "name": "plugins/FocusPause",
     "tags": [
       {
         "key": "pauseAudio",
@@ -64,21 +64,21 @@
   },
   {
     "on": true,
-    "name": "QuickSave",
+    "name": "plugins/QuickSave",
     "tags": [
       {
-        "key": "savevalue",
+        "key": "saveKey",
         "value": "f1"
       },
       {
-        "key": "loadvalue",
+        "key": "loadKey",
         "value": "f5"
       }
     ]
   },
   {
     "on": true,
-    "name": "Critical",
+    "name": "plugins/Critical",
     "tags": [
       {
         "key": "attName",
@@ -100,12 +100,12 @@
   },
   {
     "on": true,
-    "name": "Counter",
+    "name": "plugins/Counter",
     "tags": []
   },
   {
     "on": true,
-    "name": "Reflect",
+    "name": "plugins/Reflect",
     "tags": [
       {
         "key": "animID",
@@ -115,7 +115,7 @@
   },
   {
     "on": true,
-    "name": "StepSound",
+    "name": "plugins/StepSound",
     "tags": [
       {
         "key": "frequency",
@@ -137,7 +137,7 @@
   },
   {
     "on": false,
-    "name": "BatchMesh",
+    "name": "plugins/BatchMesh",
     "tags": []
   }
 ]

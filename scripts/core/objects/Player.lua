@@ -38,14 +38,14 @@ function Player:init(initTile, dir)
   self.inputDelay = 6 / 60
   self.moveInput = ActionInput(MoveAction({ far = 0, minh = 0, maxh = 0 }, 2), self)
   local troopData = Database.troops[SaveManager.current.playerTroopID]
-  local leader = troopData.current[1]
+  local leader = troopData.members[1]
   local data = {
     id = -1,
     key = 'player',
     battlerID = leader.battlerID,
     charID = leader.charID,
-    anim = 'Idle',
-    direction = dir or 270 }
+    animation = 'Idle',
+    row = (dir or 270) / 45 }
   data.x, data.y, data.h = initTile:coordinates()
   Character.init(self, data)
 end

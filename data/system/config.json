@@ -5,9 +5,9 @@
     "dashSpeed": 208,
     "startPos": {
       "fieldID": 1,
-      "x": 9,
+      "x": 6,
       "y": 6,
-      "z": 0,
+      "h": 0,
       "direction": 135
     }
   },

@@ -53,11 +53,12 @@ end
 -- Plugins
 ---------------------------------------------------------------------------------------------------
 
+local TagMap = require('core/base/datastruct/TagMap')
 for i = 1, #Config.plugins do
   local plugin = Config.plugins[i]
   if plugin.on then
-    args = plugin.tags
-    require('custom/plugins/' .. plugin.name)
+    args = TagMap(plugin.tags)
+    require('custom/' .. plugin.name)
   end
 end
 args = nil
