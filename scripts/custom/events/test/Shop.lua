@@ -1,15 +1,15 @@
 --[[===============================================================================================
 
-Battle Test
+Shop Test
 ---------------------------------------------------------------------------------------------------
 
 =================================================================================================]]
 
-event:startBattle { fieldID = 0, fade = 5, intro = true, gameOverCondition = 1, escapeEnabled = true}
-
-util.general.printBattleResult()
-
-if BattleManager:playerWon() then
-	event:deleteChar { key = "Enemy", permanent = true }
-end
-
+script:openShop { sell = true, items = {
+{ id = 2},
+{ id = 3 },
+{ id = 4 },
+{ id = 5 },
+{ id = 6 },
+{ id = 7 }
+}}

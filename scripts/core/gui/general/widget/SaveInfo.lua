@@ -46,7 +46,7 @@ function SaveInfo:init(file, w, h, topLeft)
     local txtTime = SimpleText(string.time(save.playTime), topRight, w, 'right', small)
     -- Gold
     local middleLeft = Vector(topLeft.x, topLeft.y + 13, topLeft.z)
-    local txtGold = SimpleText(save.gold .. ' ' .. Vocab.g, middleLeft, w , 'right', small)
+    local txtGold = SimpleText(save.money .. ' ' .. Vocab.g, middleLeft, w , 'right', small)
     -- Chars
     local icons = {}
     for i = 1, maxMembers do

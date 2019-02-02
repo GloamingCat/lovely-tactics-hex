@@ -286,11 +286,7 @@ function Player:interactTile(tile)
   for i = #tile.characterList, 1, -1 do
     local char = tile.characterList[i]
     if char ~= self and char.interactScript ~= nil then
-      local event = {
-        tile = tile,
-        origin = self,
-        dest = char }
-      char:onInteract(event)
+      char:onInteract(tile)
       return true
     end
   end
@@ -315,11 +311,7 @@ function Player:collideTile(tile)
   end
   for char in tile.characterList:iterator() do
     if char.collideScript then
-      local event = {
-        tile = tile,
-        origin = self,
-        dest = char }
-      char:onCollide(event)
+      char:onCollide(tile, char, self)
       if not char.passable then
         return true
       end

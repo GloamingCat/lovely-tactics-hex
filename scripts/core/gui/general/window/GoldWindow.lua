@@ -3,7 +3,7 @@
 
 GoldWindow
 ---------------------------------------------------------------------------------------------------
-Small window that shows the troop's gold.
+Small window that shows the troop's money.
 
 =================================================================================================]]
 
@@ -14,7 +14,7 @@ local Vector = require('core/math/Vector')
 local Window = require('core/gui/Window')
 
 -- Constants
-local icon = Config.icons.gold
+local icon = Config.icons.money
 
 local GoldWindow = class(Window)
 
@@ -35,10 +35,10 @@ function GoldWindow:createContent(width, height)
   self.content:add(text)
   self.value = text
 end
--- Sets the gold value shown.
--- @param(gold : number) The current number of gold.
-function GoldWindow:setGold(gold)
-  self.value:setText(gold .. '')
+-- Sets the money value shown.
+-- @param(money : number) The current number of money.
+function GoldWindow:setGold(money)
+  self.value:setText(money .. '')
   self.value:redraw()
 end
 

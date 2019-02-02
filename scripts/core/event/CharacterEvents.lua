@@ -14,24 +14,13 @@ local MoveAction = require('core/battle/action/MoveAction')
 local util = {}
 
 ---------------------------------------------------------------------------------------------------
--- Auxiliary
----------------------------------------------------------------------------------------------------
-
--- Searches for the character with the given key.
-local function findCharacter(event, key)
-  local char = event[key] or FieldManager:search(key)
-  assert(char, 'Character not found:', key or 'nil key')
-  return char
-end
-
----------------------------------------------------------------------------------------------------
 -- General
 ---------------------------------------------------------------------------------------------------
 
 -- Removes a character from the field.
 -- @param(args.permanent : boolean) If false, character shows up again when field if reloaded.
-function util.deleteChar(sheet, event, args)
-  local char = findCharacter(event, args.key)
+function util.deleteChar(sheet, args)
+  local char = sheet:findCharacter(args.key)
   if args.permanent then
     char.deleted = true
   end
@@ -51,15 +40,15 @@ end
 -- @param(args.x : number) Tile x difference.
 -- @param(args.y : number) Tile y difference.
 -- @param(args.h : number) Tile height difference (0 by default).
-function util.moveCharTile(sheet, event, args)
-  local char = findCharacter(event, args.key)
+function util.moveCharTile(sheet, args)
+  local char = sheet:findCharacter(args.key)
   char:walkTiles(args.x, args.y, args.h)
 end
 -- Moves in the given direction.
 -- @param(args.angle : number) The direction in degrees.
 -- @param(args.distance : number) The distance to move (in tiles).
-function util.moveCharDir(sheet, event, args)
-  local char = findCharacter(event, args.key)
+function util.moveCharDir(sheet, args)
+  local char = sheet:findCharacter(args.key)
   local nextTile = char:frontTile(args.angle)
   if nextTile then
     local ox, oy, oh = char:getTile():coordinates()
@@ -77,8 +66,8 @@ end
 -- @param(args.y : number) Tile destination y.
 -- @param(args.h : number) Tile destination height.
 -- @param(args.limit : number) The maxium length of the path to be calculated.
-function util.moveCharPath(sheet, event, args)
-  local char = findCharacter(event, args.key)
+function util.moveCharPath(sheet, args)
+  local char = sheet:findCharacter(args.key)
   local tile = FieldManager.currentField:getObjectTile(args.x, args.y, args.h)
   assert(tile, 'Tile not reachable: ', args.x, args.y, args.h)
   local action = MoveAction()
@@ -96,10 +85,10 @@ end
 -- @param(args.other : string) Key of a character in the destination tile (optional).
 -- @param(args.x : number) Tile destination x.
 -- @param(args.y : number) Tile destination y.
-function util.turnCharTile(sheet, event, args)
-  local char = findCharacter(event, args.key)
+function util.turnCharTile(sheet, args)
+  local char = sheet:findCharacter(args.key)
   if args.other then
-    local other = findCharacter(event, args.other)
+    local other = sheet:findCharacter(args.other)
     local tile = other:getTile()
     char:turnToTile(tile.x, tile.y)
   else
@@ -108,8 +97,8 @@ function util.turnCharTile(sheet, event, args)
 end
 -- Turn character to the given direction.
 -- @param(args.angle : number) The direction angle in degrees.
-function util.turnCharDir(sheet, event, args)
-  local char = findCharacter(event, args.key)
+function util.turnCharDir(sheet, args)
+  local char = sheet:findCharacter(sheet, args.key)
   char:setDirection(args.angle)
 end
 

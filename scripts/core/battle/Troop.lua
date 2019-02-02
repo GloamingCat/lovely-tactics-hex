@@ -41,7 +41,7 @@ function Troop:init(data, party)
   local save = SaveManager.current.troops[data.id .. ''] or data
   self.save = save
   self.inventory = Inventory(save.items)
-  self.gold = save.gold
+  self.money = save.money
   -- Members
   self.battlers = {}
   self:initBattlerLists(save.members)
@@ -192,11 +192,11 @@ end
 ---------------------------------------------------------------------------------------------------
 
 -- Creates a table of reward from the current state of the battle field.
--- @ret(table) table with exp, items and gold
+-- @ret(table) table with exp, items and money
 function Troop:getBattleRewards()
   local r = { exp = {},
     items = Inventory(),
-    gold = 0 }
+    money = 0 }
   -- List of living party members
   local characters = self:currentCharacters(true)
   -- Rewards per troop
@@ -204,8 +204,8 @@ function Troop:getBattleRewards()
     if troop ~= self then
       -- Troop items
       r.items:addAllItems(troop.inventory)
-      -- Troop gold
-      r.gold = r.gold + troop.gold
+      -- Troop money
+      r.money = r.money + troop.money
       -- Rewards per enemy
       for enemy in troop:currentCharacters():iterator() do
         -- Enemy EXP
@@ -214,8 +214,8 @@ function Troop:getBattleRewards()
         end
         -- Enemy items
         r.items:addAllItems(enemy.battler.inventory)
-        -- Enemy gold
-        r.gold = r.gold + enemy.battler.data.gold
+        -- Enemy money
+        r.money = r.money + enemy.battler.data.money
       end
     end
   end
@@ -239,7 +239,7 @@ function Troop:createPersistentData(saveFormation)
     return nil
   end
   local data = {}
-  data.gold = self.gold
+  data.money = self.money
   data.items = self.inventory:getState()
   if saveFormation then
     data.members = self:createMemberArray()

@@ -52,11 +52,10 @@ function BattlerAI:runTurn()
   local char = TurnManager:currentCharacter()
   self:showCursor(char)
   TurnManager:characterTurnStart()
-  local event = { AI = self,
-    self = char,
-    origin = char,
-    user = self.battler }
-  local fiber = FieldManager.fiberList:forkFromScript(self.commands, event)
+  local fiber = FieldManager.fiberList:forkFromScript(self.commands)
+  fiber.user = self.battler
+  fiber.AI = self
+  fiber.char = char
   fiber:waitForEnd()
   local result = self.result or AIRule(self.battler):execute()
   self.result = nil

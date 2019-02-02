@@ -21,7 +21,7 @@ local util = {}
 -- @param(args.wait : boolean) True to wait until the fading finishes.
 
 -- Fades out the screen.
-function util.fadeout(sheet, event, args)
+function util.fadeout(sheet, args)
   FieldManager.renderer:fadeout(255 / args.time)
   if args.wait then
     _G.Fiber:waitUntil(function()
@@ -30,7 +30,7 @@ function util.fadeout(sheet, event, args)
   end
 end
 -- Fades in the screen.
-function util.fadein(sheet, event, args)
+function util.fadein(sheet, args)
   FieldManager.renderer:fadein(255 / args.time)
   if args.wait then
     _G.Fiber:waitUntil(function()
@@ -40,7 +40,7 @@ function util.fadein(sheet, event, args)
 end
 -- Shows the effect of a shader.
 -- @param(args.name : string)
-function util.shaderin(sheet, event, args)
+function util.shaderin(sheet, args)
   ScreenManager.shader = ResourceManager:loadShader(args.name)
   ScreenManager.shader:send('time', 0)
   local time = deltaTime()
@@ -53,7 +53,7 @@ function util.shaderin(sheet, event, args)
 end
 -- Hides the effect of a shader.
 -- @param(args.name : string)
-function util.shaderout(sheet, event, args)
+function util.shaderout(sheet, args)
   ScreenManager.shader:send('time', 1)
   local time = deltaTime()
   while time > 0 do

@@ -65,7 +65,7 @@ end
 -- @ret(boolean) True if at least one item of this type can be bought.
 function ShopItemWindow:buttonEnabled(button)
   if self.buy then
-    return self.GUI.troop.gold >= button.price
+    return self.GUI.troop.money >= button.price
   else
     return button.item.sellable
   end

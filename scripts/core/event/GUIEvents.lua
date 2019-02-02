@@ -36,7 +36,7 @@ end
 -- Opens the ShopGUI.
 -- @param(args.items : table) Array of items.
 -- @param(args.sell : boolean) Sell enabling.
-function util.openShop(sheet, event, args)
+function util.openShop(sheet, args)
   GUIManager:showGUIForResult(ShopGUI(args.items, args.sell))
 end
 
@@ -52,7 +52,7 @@ end
 -- @param(args.height : number) Height of the window (optional).
 -- @param(args.x : number) Pixel x of the window (optional).
 -- @param(args.y : number) Pixel y of the window (optional).
-function util.openDialogueWindow(sheet, event, args)
+function util.openDialogueWindow(sheet, args)
   openGUI(sheet)
   local dialogues = sheet.gui.dialogues
   local window = dialogues[args.id]
@@ -70,15 +70,21 @@ end
 -- Shows a dialogue in the given window.
 -- @param(args.portrait : table) Character face.
 -- @param(args.message : string) Dialogue text.
-function util.showDialogue(sheet, event, args)
+function util.showDialogue(sheet, args)
   assert(sheet.gui, 'You must open a GUI first.')
   local window = sheet.gui.dialogues[args.id]
   sheet.gui:setActiveWindow(window)
   assert(window, 'You must open window ' .. args.id .. ' first.')
-  window:showDialogue(args.message, args.portrait, args.name)
+  local portrait, name = nil, args.name
+  if args.character then
+    local char = sheet:findCharacter(args.character)
+    portrait = { char = char, name = args.portrait }
+    name = char.name
+  end
+  window:showDialogue(args.message, portrait, name)
 end
 -- Closes and deletes a dialogue window.
-function util.closeDialogueWindow(sheet, event, args)
+function util.closeDialogueWindow(sheet, args)
   if sheet.gui and sheet.gui.dialogues then
     local window = sheet.gui.dialogues[args.id]
     if window then
@@ -95,7 +101,7 @@ end
 ---------------------------------------------------------------------------------------------------
 
 -- Open a choice window and waits for player choice before closing and deleting.
-function util.openChoiceWindow(sheet, event, args)
+function util.openChoiceWindow(sheet, args)
   openGUI(sheet)
   local window = ChoiceWindow(sheet.gui, args)
   window:show()
@@ -107,7 +113,7 @@ function util.openChoiceWindow(sheet, event, args)
   sheet.gui.choice = result
 end
 -- Open a password window and waits for player choice before closing and deleting.
-function util.openNumberWindow(sheet, event, args)
+function util.openNumberWindow(sheet, args)
   openGUI(sheet)
   local window = NumberWindow(sheet.gui, args)
   window:show()
@@ -119,7 +125,7 @@ function util.openNumberWindow(sheet, event, args)
   sheet.gui.number = result
 end
 -- Open a text window and waits for player choice before closing and deleting.
-function util.openStringWindow(sheet, event, args)
+function util.openStringWindow(sheet, args)
   -- TODO
 end
 

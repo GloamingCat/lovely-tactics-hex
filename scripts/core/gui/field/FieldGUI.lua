@@ -44,15 +44,15 @@ function FieldGUI:createMainWindow()
   self.mainWindow = w
   self:setActiveWindow(self.mainWindow)
 end
--- Creates the window that shows the troop's gold.
+-- Creates the window that shows the troop's money.
 function FieldGUI:createGoldWindow()
   local w, h = self.mainWindow.width, 32
   local x = ScreenManager.width / 2 - self:windowMargin() - w / 2
   local y = ScreenManager.height / 2 - self:windowMargin() - h / 2
   self.goldWindow = GoldWindow(self, w, h, Vector(x, y))
-  self.goldWindow:setGold(self.troop.gold)
+  self.goldWindow:setGold(self.troop.money)
 end
--- Creates the window that shows the troop's gold.
+-- Creates the window that shows the troop's money.
 function FieldGUI:createLocalWindow()
   local w, h = ScreenManager.width - self.mainWindow.width - self:windowMargin() * 4 - self.goldWindow.width, 32
   local x = self.goldWindow.position.x - w / 2 - self.goldWindow.width / 2 - self:windowMargin()
@@ -60,7 +60,7 @@ function FieldGUI:createLocalWindow()
   self.localWindow = LocalWindow(self, w, h, Vector(x, y))
   self.localWindow:setLocal(FieldManager.currentField.name)
 end
--- Creates the window that shows the troop's gold.
+-- Creates the window that shows the troop's money.
 function FieldGUI:createTimeWindow()
   local w, h = self.goldWindow.width, self.goldWindow.height
   local x = self.mainWindow.position.x

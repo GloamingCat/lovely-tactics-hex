@@ -13,7 +13,7 @@ local InventoryWindow = require('core/gui/general/window/InventoryWindow')
 local Vector = require('core/math/Vector')
 
 -- Constants
-local goldIcon = Config.icons.gold
+local goldIcon = Config.icons.money
 
 local RewardItemWindow = class(InventoryWindow)
 
@@ -29,7 +29,7 @@ local RewardItemWindow = class(InventoryWindow)
 function RewardItemWindow:init(GUI, w, h, pos)
   self.noCursor = true
   self.noHighlight = true
-  self.gold = GUI.rewards.gold
+  self.money = GUI.rewards.money
   InventoryWindow.init(self, GUI, nil, GUI.rewards.items, nil, w, h, pos)
 end
 -- Overrides ListWindow:createWidgets.
@@ -38,9 +38,9 @@ function RewardItemWindow:createWidgets()
   local icon = goldIcon.id >= 0 and 
     ResourceManager:loadIconAnimation(goldIcon, GUIManager.renderer)
   local button = Button(self)
-  button:createText(Vocab.gold, 'gui_medium')
+  button:createText(Vocab.money, 'gui_medium')
   button:createIcon(icon)
-  button:createInfoText(self.gold, 'gui_medium')
+  button:createInfoText(self.money, 'gui_medium')
   InventoryWindow.createWidgets(self)
 end
 -- Tells if an item can be used.

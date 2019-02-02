@@ -50,14 +50,14 @@ function ShopGUI:createCommandWindow()
   window:setXYZ(x, y)
   self.commandWindow = window
 end
--- Creates the window showing the troop's current gold.
+-- Creates the window showing the troop's current money.
 function ShopGUI:createGoldWindow()
   local width = ScreenManager.width - self.commandWindow.width - self:windowMargin() * 3
   local height = self.commandWindow.height
   local x = ScreenManager.width / 2 - self:windowMargin() - width / 2
   local y = self.commandWindow.position.y
   self.goldWindow = GoldWindow(self, width, height, Vector(x, y))
-  self.goldWindow:setGold(self.troop.gold)
+  self.goldWindow:setGold(self.troop.money)
 end
 -- Creates the window with the list of items to buy.
 function ShopGUI:createItemWindow()

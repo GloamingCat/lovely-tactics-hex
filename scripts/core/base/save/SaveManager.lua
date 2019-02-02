@@ -143,7 +143,7 @@ function SaveManager:getHeader(save)
   end
   return { members = members,
     playTime = save.playTime,
-    gold = troop.gold,
+    money = troop.money,
     location = FieldManager.currentField.name }
 end
 -- Loads the specified save.

@@ -39,7 +39,7 @@ function RewardGUI:createWindows()
   self:createItemWindow(x, y, w, h)
   self:setActiveWindow(self.expWindow)
   -- Gold / items
-  self.troop.gold = self.troop.gold + self.rewards.gold
+  self.troop.money = self.troop.money + self.rewards.money
   self.troop.inventory:addAllItems(self.rewards.items)
 end
 -- Creates the text at the top of the screen to show that the player won.

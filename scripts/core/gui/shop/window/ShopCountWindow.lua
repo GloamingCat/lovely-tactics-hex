@@ -36,7 +36,7 @@ function ShopCountWindow:createWidgets(...)
   CountWindow.createWidgets(self, ...)
   Button:fromKey(self, "buy")
 end
--- Creates the texts of each gold value.
+-- Creates the texts of each money value.
 function ShopCountWindow:createValues()
   local p = self.spinner:relativePosition()
   local x, y = p.x, p.y + self:cellHeight()
@@ -80,11 +80,11 @@ end
 -- @param(item : table) The item's data from database.
 -- @param(price : number) The price for each unit.
 function ShopCountWindow:setItem(item, price)
-  local gold = self.GUI.troop.gold
+  local money = self.GUI.troop.money
   self.item = item
   self.price = price
   if self.buy then
-    self:setMax(math.floor(gold / price))
+    self:setMax(math.floor(money / price))
   else
     self:setMax(self.GUI.troop.inventory:getCount(item.id))
   end
@@ -95,14 +95,14 @@ function ShopCountWindow:setItem(item, price)
   else
     self.icon:setSprite(nil)
   end
-  self:setPrice(gold, price)
+  self:setPrice(money, price)
   self:updateStats(item.id)
 end
 -- Updates the item price.
--- @param(gold : number) Troop's current gold.
+-- @param(money : number) Troop's current money.
 -- @param(price : number) The price for each unit.
-function ShopCountWindow:setPrice(gold, price)
-  self.current:setText(gold .. '')
+function ShopCountWindow:setPrice(money, price)
+  self.current:setText(money .. '')
   self.current:redraw()
   if self.buy then
     self.decrease:setText('-' .. price)
@@ -110,7 +110,7 @@ function ShopCountWindow:setPrice(gold, price)
     self.decrease:setText('+' .. -price)
   end
   self.decrease:redraw()
-  self.total:setText((gold - price) .. '')
+  self.total:setText((money - price) .. '')
   self.total:redraw()
 end
 -- Updates "owned" and "equipped" values.
@@ -143,13 +143,13 @@ end
 -- Confirms the buy action.
 function ShopCountWindow:onSpinnerConfirm(spinner)
   local troop = self.GUI.troop
-  troop.gold = troop.gold - spinner.value * self.price
+  troop.money = troop.money - spinner.value * self.price
   if self.buy then
     troop.inventory:addItem(self.item.id, spinner.value)
   else
     troop.inventory:removeItem(self.item.id, spinner.value)
   end
-  self.GUI.goldWindow:setGold(troop.gold)
+  self.GUI.goldWindow:setGold(troop.money)
   self:returnWindow()
 end
 -- Cancels the buy action.
@@ -158,7 +158,7 @@ function ShopCountWindow:onSpinnerCancel(spinner)
 end
 -- Increments / decrements the quantity of items to buy.
 function ShopCountWindow:onSpinnerChange(spinner)
-  self:setPrice(self.GUI.troop.gold, spinner.value * self.price)
+  self:setPrice(self.GUI.troop.money, spinner.value * self.price)
 end
 -- Hides this window and returns to the window with the item list.
 function ShopCountWindow:returnWindow()

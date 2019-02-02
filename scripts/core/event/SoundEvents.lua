@@ -21,19 +21,19 @@ local util = {}
 -- @param(args.wait : boolean) Wait for the BGM fading transition or until SFX finishes.
 
 -- Changes the current BGM.
-function util.playBGM(sheet, event, args)
+function util.playBGM(sheet, args)
   AudioManager:playBGM(args, args.time, args.wait)
 end
 -- Pauses current BGM.
-function util.pauseBGM(sheet, event, args)
+function util.pauseBGM(sheet, args)
   AudioManager:pauseBGM(args, args.time, args.wait)
 end
 -- Resumes current BGM.
-function util.resumeBGM(sheet, event, args)
+function util.resumeBGM(sheet, args)
   AudioManager:resumeBGM(args, args.time, args.wait)
 end
 -- Play a sound effect.
-function util.playSFX(sheet, event, args)
+function util.playSFX(sheet, args)
   AudioManager:playSFX(args)
 end
 

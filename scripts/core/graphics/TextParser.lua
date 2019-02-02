@@ -171,15 +171,15 @@ function TextParser.wrapText(lines, currentLine, fragment, font, width)
   local x = currentLine.width
   local breakPoint = nil
   local nextBreakPoint = fragment:find(' ', 1, true) or #fragment + 1
-  while nextBreakPoint do
+  while nextBreakPoint ~= breakPoint do
     local nextx = x + font:getWidth(fragment:sub(1, nextBreakPoint - 1))
     if nextx > width then
       break
     end
     breakPoint = nextBreakPoint
-    nextBreakPoint = fragment:find(' ', nextBreakPoint + 1, true)
+    nextBreakPoint = fragment:find(' ', nextBreakPoint + 1, true) or #fragment + 1
   end
-  if breakPoint and nextBreakPoint then
+  if breakPoint and breakPoint ~= nextBreakPoint then
     TextParser.insertFragment(lines, currentLine, fragment:sub(1, breakPoint - 1), font)
     currentLine = { width = 0, height = 0, length = 0 }
     insert(lines, currentLine)

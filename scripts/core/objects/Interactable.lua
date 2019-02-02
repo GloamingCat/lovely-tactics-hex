@@ -12,6 +12,9 @@ passable and persistent properties.
 -- Imports
 local FiberList = require('core/base/fiber/FiberList')
 
+-- Alias
+local copyTable = util.table.shallowCopy
+
 local Interactable = class()
 
 ---------------------------------------------------------------------------------------------------
@@ -37,10 +40,16 @@ end
 -- Creates listeners from instance data.
 -- @param(instData : table) Instance data from field file.
 function Interactable:initScripts(instData, save)
-  self.fiberList = FiberList(save and save.fiberList)
-  self.startScript = instData.startScript
-  self.collideScript = instData.collideScript
-  self.interactScript = instData.interactScript
+  self.fiberList = FiberList(save and save.fiberList, self)
+  if instData.loadScript and instData.loadScript.name ~= '' then
+    self.loadScript = instData.loadScript
+  end
+  if instData.collideScript and instData.collideScript.name ~= '' then
+    self.collideScript = instData.collideScript
+  end
+  if instData.interactScript and instData.interactScript.name ~= '' then
+    self.interactScript = instData.interactScript
+  end
   self.deleted = save and save.deleted
   self.vars = save and util.table.deepCopy(save.vars) or {}
 end
@@ -83,29 +92,27 @@ end
 
 -- Called when a character interacts with this object.
 -- @param(event : table) Table with tile and origin (usually player) and dest (this) objects.
-function Interactable:onInteract(event)
-  event.block = true
-  event.self = self
+function Interactable:onInteract(tile)
   local fiberList = self.interactScript.global and FieldManager.fiberList or self.fiberList
-  local fiber = fiberList:forkFromScript(self.interactScript.commands, event)
+  local fiber = fiberList:forkFromScript(self.interactScript)
+  fiber.block = true
   fiber:waitForEnd()
 end
 -- Called when a character collides with this object.
 -- @param(event : table) Table with tile and origin and dest (this) objects.
-function Interactable:onCollide(event)
-  event.block = true
-  event.self = self
+function Interactable:onCollide(tile, collided, collider)
   local fiberList = self.collideScript.global and FieldManager.fiberList or self.fiberList
-  local fiber = fiberList:forkFromScript(self.collideScript.commands, event)
+  local fiber = fiberList:forkFromScript(self.collideScript)
+  fiber.block = true
   fiber:waitForEnd()
 end
 -- Called when this interactable is created.
 -- @param(event : table) Table with origin (this).
-function Interactable:onStart(event)
-  event.block = true
-  event.self = self
-  local fiberList = self.startScript.global and FieldManager.fiberList or self.fiberList
-  fiberList:forkFromScript(self.startScript.commands, event)
+function Interactable:onStart()
+  local fiberList = self.loadScript.global and FieldManager.fiberList or self.fiberList
+  local fiber = fiberList:forkFromScript(self.loadScript)
+  fiber.block = true
+  fiber:waitForEnd()
 end
 
 return Interactable

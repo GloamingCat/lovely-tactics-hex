@@ -91,7 +91,9 @@ function loadstring(str, ...)
   if func then
     return func
   else
-    func = old_loadstring(str, ...)
+    local err
+    func, err = old_loadstring(str, ...)
+    assert(func, err)
     FunctionCache[str] = func
     return func
   end

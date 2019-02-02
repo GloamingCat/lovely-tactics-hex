@@ -141,12 +141,12 @@ function FieldManager:loadTransition(transition, fromSave)
   self.renderer.focusObject = self.player
   self.renderer:setPosition(self.player.position)
   -- Create/call start listeners
-  --[[local script = self.currentField.startScript
+  --[[local script = self.currentField.loadScript
   if script then
     self.currentField.fiberList:forkFromScript(script.commands, {fromSave = fromSave})
   end
   for char in self.characterList:iterator() do
-    local script = char.startScript
+    local script = char.loadScript
     if script ~= nil then
       local event = {character = char, fromSave = fromSave}
       char:onStart(event)
@@ -171,8 +171,8 @@ function FieldManager:loadBattle(fieldID, params)
   self:loadField(fieldID)
   self.player = nil
   BattleManager:setUp(params)
-  if self.currentField.startScript then
-    local script = self.currentField.startScript
+  if self.currentField.loadScript then
+    local script = self.currentField.loadScript
     local fiber = self.fiberList:forkFromScript(script.commands, {})
     fiber:execAll()
   end

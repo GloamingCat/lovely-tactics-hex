@@ -64,7 +64,7 @@ function Text:setText(text)
     return
   end
   local fragments = TextParser.parse(text)
-  local lines = TextParser.createLines(fragments, self.defaultFont, self.wrap and self.maxWidth)
+  local lines = TextParser.createLines(fragments, self.defaultFont, self.wrap and (self.maxWidth / self.scaleX))
   self.parsedLines = lines
   self:redrawBuffers()
 end

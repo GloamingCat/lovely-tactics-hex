@@ -8,9 +8,9 @@ A List of Fibers. Must be updated every frame.
 =================================================================================================]]
 
 -- Imports
-local List = require('core/base/datastruct/List')
-local Fiber = require('core/base/fiber/Fiber')
 local EventSheet = require('core/base/fiber/EventSheet')
+local Fiber = require('core/base/fiber/Fiber')
+local List = require('core/base/datastruct/List')
 
 local FiberList = class(List)
 
@@ -20,12 +20,13 @@ local FiberList = class(List)
 
 -- Constructor.
 -- @param(state : table) Persistent state if loaded from save (optional).
-function FiberList:init(state)
+function FiberList:init(state, char)
   List.init(self)
+  self.char = char
   self.eventSheets = List()
   if state then
     for i = 1, #state do
-      EventSheet(self, nil, state[i])
+      local sheet = EventSheet(self, nil, state[i])
     end
   end
 end
@@ -56,8 +57,8 @@ function FiberList:fork(func, ...)
 end
 -- Creates new Fiber from a script table.
 -- @ret(EventSheet) The newly created Fiber.
-function FiberList:forkFromScript(script, event)
-  return EventSheet(self, script, event)
+function FiberList:forkFromScript(script, ...)
+  return EventSheet(self, script, ...)
 end
 
 ---------------------------------------------------------------------------------------------------

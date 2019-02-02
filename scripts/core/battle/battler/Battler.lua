@@ -20,7 +20,7 @@ local StatusList = require('core/battle/battler/StatusList')
 local TagMap = require('core/base/datastruct/TagMap')
 
 -- Alias
-local copyArray = util.array.copy
+local copyArray = util.array.shallowCopy
 local copyTable = util.table.deepCopy
 local newArray = util.array.new
 local min = math.min

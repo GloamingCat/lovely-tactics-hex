@@ -102,6 +102,7 @@ insertKeys(Config.equipTypes)
 local PatternCache = {}
 local TimingCache = {}
 local TagMapCache = {}
+local emptyMap = TagMap()
 
 -- Gets the array of indexes for a given string.
 -- @param(pattern : string) Numbers separated by spaces.
@@ -161,6 +162,9 @@ end
 -- @param(tags : table) Array of {key, value} entries.
 -- @ret(TagMap) The map with the given entries.
 function Database:loadTags(tags)
+  if tags == nil then
+    return emptyMap
+  end
   local map = TagMapCache[tags]
   if not map then
     map = TagMap(tags)

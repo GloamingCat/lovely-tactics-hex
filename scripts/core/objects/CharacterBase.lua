@@ -46,6 +46,7 @@ function CharacterBase:init(instData, save)
   -- Object:init
   DirectedObject.init(self, data, pos)
   -- Battle info
+  self.id = data.id
   self.key = instData.key or ''
   self.party = instData.party or -1
   self.battlerID = instData.battlerID or -1
@@ -58,7 +59,7 @@ function CharacterBase:init(instData, save)
   -- Initialize properties
   self.persistent = instData.persistent
   self:initProperties(data.name, data.tiles, data.collider, save)
-  self:initGraphics(instData, data.animations, data.transform, data.shadowID, save)
+  self:initGraphics(instData, data.animations, data.portraits, data.transform, data.shadowID, save)
   self:initScripts(instData, save)
   -- Initial position
   self:setPosition(pos)
@@ -84,13 +85,17 @@ function CharacterBase:initProperties(name, tiles, colliderHeight, save)
   self.paused = false
 end
 -- Overrides to create the animation sets.
-function CharacterBase:initGraphics(instData, animations, transform, shadowID, save)
+function CharacterBase:initGraphics(instData, animations, portraits, transform, shadowID, save)
   if shadowID and shadowID >= 0 then
     local shadowData = Database.animations[shadowID]
     self.shadow = ResourceManager:loadSprite(shadowData, FieldManager.renderer)
   end
   DirectedObject.initGraphics(self, instData.direction, 
     animations, instData.animation, transform, true)
+  self.portraits = {}
+  for i = 1, #portraits do
+    self.portraits[portraits[i].name] = portraits[i]
+  end
 end
 
 ---------------------------------------------------------------------------------------------------

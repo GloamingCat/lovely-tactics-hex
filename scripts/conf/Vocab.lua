@@ -62,7 +62,7 @@ return {
   
   -- Battle win
   win = 'You won!',
-  gold = 'Gold',
+  money = 'Gold',
   g = 'G',
   experience = 'Experience',
   

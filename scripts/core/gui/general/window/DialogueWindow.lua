@@ -44,24 +44,28 @@ function DialogueWindow:init(GUI, w, h, x, y)
   h = h or ScreenManager.height / 4
   x = x or (w - ScreenManager.width) / 2 + GUI:windowMargin()
   y = y or (ScreenManager.height - h) / 2 - GUI:windowMargin()
+  self.indent = 0
+  self:initProperties()
   Window.init(self, GUI, w, h, Vector(x, y))
 end
 -- Overrides Window:createContent.
 -- Creates a simple text for dialogue.
 function DialogueWindow:createContent(width, height)
   Window.createContent(self, width, height)
-  self.textSpeed = 40
-  self.textSound = Sounds.text
-  self.soundFrequence = 4
-  self.indent = 0
-  self.align = 'left'
-  self.fixedIndent = 75
   local pos = Vector(-width / 2 + self:paddingX(), -height / 2 + self:paddingY())
   self.dialogue = SimpleText('', pos, width - self:paddingX() * 2, self.align, Fonts.gui_dialogue)
   self.dialogue.sprite.wrap = true
   self.content:add(self.dialogue)
   self.nameWindow = DescriptionWindow(self.GUI, 80, 24)
   self.nameWindow:setVisible(false)
+end
+-- Sets window's properties.
+function DialogueWindow:initProperties()
+  self.textSpeed = 40
+  self.textSound = Sounds.text
+  self.soundFrequence = 4
+  self.align = 'left'
+  self.fixedIndent = 75
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -133,18 +137,20 @@ function DialogueWindow:setPortrait(icon)
   self.indent = 0
   local char = nil
   if icon and not icon.id then
-    char = Database.characters[icon.charID]
+    char = icon.char
     icon = char.portraits[icon.name]
   end
   if icon and icon.id >= 0 then
     local portrait = ResourceManager:loadIcon(icon, GUIManager.renderer)
     if char then
-      portrait:applyTransformation(char.transform)
+      portrait:applyTransformation(char.data.transform)
     end
+    local ox, oy = portrait.offsetX, portrait.offsetY
     portrait:setOffset(0, 0)
     local x, y, w, h = portrait:totalBounds()
     x = -self.width / 2 + x + w / 2
     y = self.height / 2 - h / 2
+    portrait:setOffset(ox, oy)
     self.portrait = SimpleImage(portrait, x - w / 2, y - h / 2, 1)
     self.portrait:updatePosition(self.position)
     self.content:add(self.portrait)
@@ -157,7 +163,7 @@ function DialogueWindow:setName(text)
   if text and text ~= '' then
     self.nameWindow:setText(text)
     self.nameWindow:packText()
-    local nameX = - self.width / 2 + self.position.x + self.fixedIndent + 10
+    local nameX = - self.width / 2 + self.position.x + (self.fixedIndent or self.indent) + 10
     local nameY = - self.height / 2 + self.position.y + self:paddingY() / 2
     self.nameWindow:setVisible(true)
     self.nameWindow:setXYZ(nameX + self.nameWindow.width / 2,
