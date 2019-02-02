@@ -89,8 +89,8 @@ function CharacterBase:initGraphics(instData, animations, transform, shadowID, s
     local shadowData = Database.animations[shadowID]
     self.shadow = ResourceManager:loadSprite(shadowData, FieldManager.renderer)
   end
-  local dir = instData.row * 45
-  DirectedObject.initGraphics(self, dir, animations, instData.animation, transform, true)
+  DirectedObject.initGraphics(self, instData.direction, 
+    animations, instData.animation, transform, true)
 end
 
 ---------------------------------------------------------------------------------------------------

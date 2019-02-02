@@ -83,7 +83,7 @@ end
 -- Creates a character representing player.
 -- @ret(Player) the newly created player
 function FieldManager:createPlayer(t)
-  local tile = self.currentField:getObjectTile(t.x + 1, t.y + 1, t.h)
+  local tile = self.currentField:getObjectTile(t.x, t.y, t.h)
   return Player(tile, t.direction)
 end
 

@@ -15,9 +15,6 @@ local Serializer = require('core/base/save/Serializer')
 local TagMap = require('core/base/datastruct/TagMap')
 local TerrainLayer = require('core/field/TerrainLayer')
 
--- Alias
-local copyTable = util.table.shallowCopy
-
 local FieldLoader = {}
 
 ---------------------------------------------------------------------------------------------------
@@ -95,9 +92,6 @@ function FieldLoader.loadCharacters(field, characters)
   for i, char in ipairs(characters) do
     local save = persistentData.chars[char.key]
     if not (save and save.deleted) then
-      char = copyTable(char)
-      char.x = char.x + 1
-      char.y = char.y + 1
       if save and save.charID or char.charID then
         Character(char, save)
       else

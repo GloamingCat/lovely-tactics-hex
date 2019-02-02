@@ -34,22 +34,22 @@
       {
         "destination": {
           "fieldID": 2,
-          "x": 10,
-          "y": 6,
+          "x": 11,
+          "y": 7,
           "h": 0,
           "direction": 135
         },
         "start": {
           "fieldID": 1,
-          "x": 1,
-          "y": 0,
+          "x": 2,
+          "y": 1,
           "h": 0,
           "direction": 270
         },
         "end": {
           "fieldID": 1,
-          "x": 3,
-          "y": 0,
+          "x": 4,
+          "y": 1,
           "h": 0,
           "direction": 270
         },
@@ -774,14 +774,14 @@
     {
       "key": "HeroMage",
       "persistent": false,
-      "x": 7,
-      "y": 3,
+      "x": 8,
+      "y": 4,
       "h": 0,
       "party": -1,
       "charID": 2,
       "battlerID": -1,
       "animation": "Idle",
-      "row": 7,
+      "direction": 315,
       "loadScript": {
         "global": false,
         "name": "",

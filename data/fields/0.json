@@ -3,8 +3,14 @@
   "sizeX": 15,
   "sizeY": 15,
   "prefs": {
-    "defaultRegion": 0,
+    "defaultRegion": -1,
     "maxHeight": 4,
+    "bgm": {
+      "name": "",
+      "volume": 100,
+      "pitch": 100,
+      "time": 0
+    },
     "loadScript": {
       "global": false,
       "name": "",
@@ -304,8 +310,8 @@
     {
       "name": "Right Party",
       "memberGen": 1,
-      "x": 11,
-      "y": 5,
+      "x": 12,
+      "y": 6,
       "h": 0,
       "direction": 3,
       "troops": [
@@ -315,8 +321,8 @@
     {
       "name": "Left Party",
       "memberGen": 1,
-      "x": 1,
-      "y": 5,
+      "x": 2,
+      "y": 6,
       "h": 0,
       "direction": 1,
       "troops": [

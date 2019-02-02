@@ -34,23 +34,23 @@
       {
         "destination": {
           "fieldID": 1,
-          "x": 2,
-          "y": 1,
-          "z": 0,
+          "x": 3,
+          "y": 2,
+          "h": 0,
           "direction": 315
         },
         "start": {
           "fieldID": 2,
-          "x": 9,
-          "y": 7,
-          "z": 0,
+          "x": 10,
+          "y": 8,
+          "h": 0,
           "direction": 270
         },
         "end": {
           "fieldID": 2,
-          "x": 11,
-          "y": 7,
-          "z": 0,
+          "x": 12,
+          "y": 8,
+          "h": 0,
           "direction": 270
         },
         "fade": 30
@@ -871,13 +871,13 @@
       "key": "Enemy",
       "persistent": true,
       "x": 8,
-      "y": 4,
+      "y": 5,
       "h": 0,
       "party": -1,
       "charID": 4,
       "battlerID": -1,
       "animation": "Idle",
-      "row": 1,
+      "direction": 45,
       "loadScript": {
         "global": false,
         "name": "",
