@@ -62,7 +62,7 @@ function FieldManager:loadField(fieldID)
   self.currentField = field
   self.renderer = self:createCamera(fieldData)
   FieldLoader.mergeLayers(self.currentField, fieldData.layers)
-  --FieldLoader.loadCharacters(self.currentField, fieldData.characters)
+  FieldLoader.loadCharacters(self.currentField, fieldData.characters)
   collectgarbage('collect')
   return fieldData
 end

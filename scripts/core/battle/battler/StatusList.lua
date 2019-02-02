@@ -162,8 +162,8 @@ end
 -- @param(character : Character)
 function StatusList:updateGraphics(character)
   character.statusTransform = nil
-  character:setAnimations('default')
-  character:setAnimations('battle')
+  character:setAnimations('Default')
+  character:setAnimations('Battle')
   for i = 1, #self do
     local data = self[i].data
     character.statusTransform = character.statusTransform or data.transform

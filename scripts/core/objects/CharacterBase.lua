@@ -41,9 +41,9 @@ function CharacterBase:init(instData, save)
   if save then
     pos.x, pos.y, pos.z = save.x, save.y, save.z
   else
-    pos.x, pos.y, pos.z = tile2Pixel(instData.x, instData.y, instData.h)
+    pos.x, pos.y, pos.z = tile2Pixel(instData.x + 1, instData.y + 1, instData.h)
   end
-  -- Old init
+  -- Object:init
   DirectedObject.init(self, data, pos)
   -- Battle info
   self.key = instData.key or ''
@@ -58,7 +58,7 @@ function CharacterBase:init(instData, save)
   -- Initialize properties
   self.persistent = instData.persistent
   self:initProperties(data.name, data.tiles, data.collider, save)
-  self:initGraphics(data.animations, instData.direction, instData.anim, data.transform, data.shadowID, save)
+  self:initGraphics(instData, data.animations, data.transform, data.shadowID, save)
   self:initScripts(instData, save)
   -- Initial position
   self:setPosition(pos)
@@ -84,37 +84,13 @@ function CharacterBase:initProperties(name, tiles, colliderHeight, save)
   self.paused = false
 end
 -- Overrides to create the animation sets.
-function CharacterBase:initGraphics(animations, dir, initAnim, transform, shadowID, save)
+function CharacterBase:initGraphics(instData, animations, transform, shadowID, save)
   if shadowID and shadowID >= 0 then
     local shadowData = Database.animations[shadowID]
     self.shadow = ResourceManager:loadSprite(shadowData, FieldManager.renderer)
   end
-  DirectedObject.initGraphics(self, animations.default, dir, initAnim, transform)
-  self.animationSets = {}
-  local default = self.animationData
-  for i = 1, #Config.animations.sets do
-    local k = Config.animations.sets[i]
-    if animations[k] then
-      self:initAnimationTable(animations[k])
-      self.animationSets[k] = self.animationData
-    else
-      self.animationSets[k] = {}
-    end
-  end
-  self.animationData = default
-end
-
----------------------------------------------------------------------------------------------------
--- Animation Sets
----------------------------------------------------------------------------------------------------
-
--- Changes the animations in the current set.
--- @param(name : string) the name of the set
-function CharacterBase:setAnimations(name)
-  assert(self.animationSets[name], 'Animation set does not exist: ' .. name)
-  for k, v in pairs(self.animationSets[name]) do
-    self.animationData[k] = v
-  end
+  local dir = instData.row * 45
+  DirectedObject.initGraphics(self, dir, animations, instData.animation, transform, true)
 end
 
 ---------------------------------------------------------------------------------------------------

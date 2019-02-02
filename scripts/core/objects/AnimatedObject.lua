@@ -23,13 +23,18 @@ local AnimatedObject = class(Object)
 ---------------------------------------------------------------------------------------------------
 
 -- Creates sprite and animation list.
--- @param(animations : table) an array of animation data
--- @param(animID : number) the start animation's ID
-function AnimatedObject:initGraphics(animations, initAnim, transform)
+-- @param(animations : table) An array of animation data.
+-- @param(animID : number) The start animation's ID.
+-- @param(sets : boolean) True if animations are separated in sets.
+function AnimatedObject:initGraphics(animations, initAnim, transform, sets)
   self.animName = nil
   self.transform = transform
   self.sprite = Sprite(FieldManager.renderer)
-  self:initAnimationTable(animations)
+  if sets then
+    self:initAnimationSets(animations)
+  else
+    self:initAnimationTable(animations)
+  end
   if initAnim then
     self:playAnimation(initAnim)
   end
@@ -41,6 +46,30 @@ function AnimatedObject:initAnimationTable(animations)
   for i = 1, #animations do
     self:addAnimation(animations[i].name, animations[i].id)
   end
+end
+-- Creates the animation table from the animation list.
+-- @param(animations : table) array of animations
+function AnimatedObject:initAnimationSets(animations)
+  self.animationSets = {}
+  self.animationSets['Default'] = {}
+  self.animationSets['Battle'] = {}
+  for i = 1, #animations do
+    local parts = animations[i].name:trim():split(':')
+    local setName, animName
+    if #parts < 2 then
+      setName, animName = 'Default', parts[1]
+    else
+      setName, animName = parts[1], parts[2]
+    end
+    self.animationData = self.animationSets[setName]
+    if not self.animationData then
+      self.animationData = {}
+      self.animationSets[setName] = self.animationData
+    end
+    self:addAnimation(animName, animations[i].id)
+  end
+  self.animationData = {}
+  self:setAnimations('Default')
 end
 -- Creates a new animation from the database.
 -- @param(name : string) the name of the animation for the character
@@ -104,6 +133,19 @@ function AnimatedObject:update()
   Object.update(self)
   if self.animation then
     self.animation:update()
+  end
+end
+
+---------------------------------------------------------------------------------------------------
+-- Animation Sets
+---------------------------------------------------------------------------------------------------
+
+-- Changes the animations in the current set.
+-- @param(name : string) the name of the set
+function AnimatedObject:setAnimations(name)
+  assert(self.animationSets[name], 'Animation set does not exist: ' .. name)
+  for k, v in pairs(self.animationSets[name]) do
+    self.animationData[k] = v
   end
 end
 

@@ -39,8 +39,6 @@ function Pointer:init(...)
   self.currentX = self.minx
   self.currentY = self.miny
   self.sprite:setOffset(round(self.minx), round(self.miny))
-  
-  print (dx, dy)
 end
 
 ---------------------------------------------------------------------------------------------------

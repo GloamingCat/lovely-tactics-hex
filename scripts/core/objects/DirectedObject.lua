@@ -26,9 +26,9 @@ local DirectedObject = class(AnimatedObject)
 
 -- Overrides AnimatedObject:initGraphics.
 -- @param(direction : number) the initial direction
-function DirectedObject:initGraphics(animations, direction, anim, transform)
+function DirectedObject:initGraphics(direction, ...)
   self.direction = direction
-  AnimatedObject.initGraphics(self, animations, anim, transform)
+  AnimatedObject.initGraphics(self, ...)
   self:setDirection(direction)
 end
 

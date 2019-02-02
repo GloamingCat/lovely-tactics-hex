@@ -33,7 +33,7 @@ end
 function string.split(inputstr, sep)
   local t, i = {}, 1
   for str in inputstr:gmatch('([^' .. sep .. ']+)') do
-    t[i] = tonumber(str)
+    t[i] = str
     i = i + 1
   end
   return t
