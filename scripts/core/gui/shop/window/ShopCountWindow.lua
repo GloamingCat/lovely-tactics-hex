@@ -91,6 +91,9 @@ function ShopCountWindow:setItem(item, price)
   if item.icon and item.icon.id >= 0 then
     local sprite = ResourceManager:loadIcon(item.icon, GUIManager.renderer)
     self.icon:setSprite(sprite)
+    if not self.open then
+      self.icon:hide()
+    end
     self.icon:updatePosition(self.position)
   else
     self.icon:setSprite(nil)
@@ -140,6 +143,11 @@ function ShopCountWindow:onButtonConfirm(button)
   end
   self:onSpinnerConfirm(self.spinner)
 end
+-- Cancels the buy action.
+function ShopCountWindow:onButtonCancel(button)
+  self.currentRow = 1
+  self:returnWindow()
+end
 -- Confirms the buy action.
 function ShopCountWindow:onSpinnerConfirm(spinner)
   local troop = self.GUI.troop
@@ -175,10 +183,12 @@ end
 -- Use this window to buy items.
 function ShopCountWindow:setBuyMode()
   self.buy = true
+  self.matrix[2]:setText(Vocab.buy)
 end
 -- Use this window to sell items.
 function ShopCountWindow:setSellMode()
   self.buy = false
+  self.matrix[2]:setText(Vocab.sell)
 end
 
 ---------------------------------------------------------------------------------------------------

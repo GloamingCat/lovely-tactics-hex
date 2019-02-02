@@ -40,9 +40,8 @@ function ListWindow:refreshButtons(list)
     self.matrix[i]:refreshState()
   end
   if not self:currentWidget() then
-    local last = self.matrix[#self.matrix]
-    self.currentCol = last.col
-    self.currentRow = last.row
+    self.currentCol = 1
+    self.currentRow = 1
   end
   local current = self:currentWidget()
   if current then
