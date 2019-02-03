@@ -32,22 +32,24 @@ function Status:init(list, data, state)
     self.duration = math.huge
   end
   self.tags = TagMap(self.data.tags)
-  -- Bonus
+  -- Attribute bonus
   self.attAdd = {}
   self.attMul = {}
-  self.elementAtk = {}
-  self.elementDef = {}
-  -- Attribute bonus
   for i = 1, #data.attributes do
     local bonus = data.attributes[i]
     self.attAdd[bonus.key] = (bonus.add or 0) / 100
     self.attMul[bonus.key] = (bonus.mul or 0) / 100
   end
   -- Element bonus
-  for i = 1, #data.elements do
-    local bonus = data.elements[i]
-    local el = bonus.atk and self.elementAtk or self.elementDef
-    el[bonus.id] = (bonus.value or 0) / 100
+  self.elementAtk = {}
+  self.elementDef = {}
+  for i = 1, #data.elementAtk do
+    local bonus = data.elementAtk[i]
+    self.elementAtk[bonus.id] = (bonus.value or 0) / 100
+  end
+  for i = 1, #data.elementDef do
+    local bonus = data.elementDef[i]
+    self.elementDef[bonus.id] = (bonus.value or 0) / 100
   end
   -- AI
   local ai = data.scriptAI

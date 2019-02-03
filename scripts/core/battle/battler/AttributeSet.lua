@@ -26,7 +26,7 @@ function AttributeSet:init(battler, save)
   self.classBase = {}
   self.battlerBase = {}
   self.formula = {}
-  local attBase = save and save.att or battler.data.attributes
+  local attBase = save and save.att or self:toMap(battler.data.attributes)
   local build = battler.class.build
   for i = 1, #attConfig do
     local key = attConfig[i].key
@@ -44,7 +44,17 @@ function AttributeSet:init(battler, save)
       return base
     end
   end
-  self.bonus = true
+  self.bonus = false
+end
+-- Converts array of attributes to a map.
+-- @param(att : table) Array of attributes, in the order defined by system configurations.
+-- @ret(table) A map of attribute values by their keys.
+function AttributeSet:toMap(att)
+  local t = {}
+  for i = 1, #attConfig do
+    t[attConfig[i].key] = att[i]
+  end
+  return t
 end
 
 ---------------------------------------------------------------------------------------------------

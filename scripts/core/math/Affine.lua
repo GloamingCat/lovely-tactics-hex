@@ -60,4 +60,33 @@ function Affine.getBoundingBox(t, w, h)
   return minx, miny, maxx - minx, maxy - miny
 end
 
+---------------------------------------------------------------------------------------------------
+-- Transform
+---------------------------------------------------------------------------------------------------
+
+-- Combines two transform tables (order does not matter).
+-- @param(t1 : table) First transform table.
+-- @param(t1 : table) Second transform table.
+-- @ret(table) New transform table.
+function Affine.combineTransforms(t1, t2)
+  local t = {
+    -- Space
+    offsetX = t1.offsetX + t2.offsetX,
+    offsetY = t1.offsetY + t2.offsetY,
+    offsetDepth = t1.offsetDepth + t2.offsetDepth,
+    scaleX = t1.scaleX * t2.scaleX / 100,
+    scaleY = t1.scaleY * t2.scaleY / 100,
+    rotation = t1.rotation + t2.rotation,
+    -- Color
+    red = t1.red * t2.red / 255,
+    green = t1.green * t2.green / 255,
+    blue = t1.blue * t2.blue / 255,
+    alpha = t1.alpha * t2.alpha / 255,
+    hue = t1.hue + t2.hue,
+    saturation = t1.saturation * t2.saturation / 100,
+    brightness = t1.brightness * t2.brightness / 100
+  }
+  return t
+end
+
 return Affine

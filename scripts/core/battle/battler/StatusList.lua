@@ -8,8 +8,9 @@ A special kind of list that provides functions to manage battler's list of statu
 =================================================================================================]]
 
 -- Imports
-local Status = require('core/battle/battler/Status')
+local Affine = require('core/math/Affine')
 local List = require('core/base/datastruct/List')
+local Status = require('core/battle/battler/Status')
 
 -- Alias
 local copyTable = util.copyTable
@@ -158,15 +159,23 @@ end
 -- Graphics
 ---------------------------------------------------------------------------------------------------
 
--- Updates the character's graphics according to the current status.
+-- Updates the character's graphics (transform and animation) according to the current status.
 -- @param(character : Character)
 function StatusList:updateGraphics(character)
-  character.statusTransform = nil
+  local transform = nil
+  for i = 1, #self do
+    local data = self[i].data
+    if data.override or not transform then
+      transform = data.transform
+    else
+      transform = Affine.combineTransforms(character.statusTransform, transform)
+    end
+  end
+  character.statusTransform = transform
   character:setAnimations('Default')
   character:setAnimations('Battle')
   for i = 1, #self do
     local data = self[i].data
-    character.statusTransform = character.statusTransform or data.transform
     if data.charAnim ~= '' then
       character:setAnimations(data.charAnim)
     end
@@ -230,7 +239,7 @@ function StatusList:isDead()
   end
   return false
 end
-
+-- Gets predominant status behavior.
 function StatusList:getAI()
   for i = #self, 1, -1 do
     if self[i].AI then
@@ -268,7 +277,7 @@ function StatusList:getState()
   for i = 1, #self do
     local s = self[i]
     if not s.equip then
-      status[i] = s:getState()
+      status[#status + 1] = s:getState()
     end
   end
   return status

@@ -9,6 +9,7 @@ Represents the equipment set of a battler.
 
 -- Alias
 local deepCopyTable = util.table.deepCopy
+local findByKey = util.array.findByKey
 
 -- Constants
 local attConfig = Config.attributes
@@ -33,16 +34,16 @@ function EquipSet:init(battler, save)
     self.slots = deepCopyTable(equips.slots)
     self.types = deepCopyTable(equips.types)
   else
-    local equips = battler.data.equipment
+    local equips = battler.data.equip
     for i = 1, #equipTypes do
       local slot = equipTypes[i]
       for k = 1, slot.count do
         local key = slot.key .. k
-        local slotData = equips and equips[key] and deepCopyTable(equips[key]) or { id = -1 }
-        self.slots[key] = slotData
-        if battler and slotData.id >= 0 then
-          local data = Database.items[slotData.id]
-          self:addStatus(data.equip)
+        local slotData = equips and findByKey(equips, key) 
+        self.slots[key] = slotData and deepCopyTable(slotData) or { id = -1 }
+        local id = self.slots[key].id
+        if battler and id >= 0 then
+          self:addStatus(Database.items[id])
         end
       end
       self.types[slot.key] = { state = slot.state, count = slot.count }
@@ -71,7 +72,7 @@ end
 -- @param(character : Character) Battler's character, in case it's during battle (optional).
 function EquipSet:setEquip(key, item, inventory, character)
   if item then
-    assert(item.equip, 'Item is not an equipment: ' .. item.id)
+    assert(item.slot ~= '', 'Item is not an equipment: ' .. item.id)
   end
   if item then
     self:equip(key, item, inventory, character)
@@ -89,32 +90,31 @@ end
 -- @param(character : Character) Battler's character, in case it's during battle (optional).
 function EquipSet:equip(key, item, inventory, character)
   local slot = self.slots[key]
-  local equip = item.equip
   -- If slot is blocked
   if slot.block and self.slots[slot.block] then
     self:unequip(slot.block, inventory, character)
   end
   -- Unequip slots from the same slot type
-  if equip.allSlots then
-    key = equip.type .. '1'
+  if item.allSlots then
+    key = item.slot .. '1'
     slot = self.slots[key]
-    self:unequip(equip.type, inventory, character)
+    self:unequip(item.slot, inventory, character)
   else
     self:unequip(key, inventory, character)
   end
-  for i = 1, #equip.block do
-    self:unequip(equip.block[i], inventory, character)
+  for i = 1, #item.blocked do
+    self:unequip(item.blocked[i], inventory, character)
   end
   -- Block slots
-  for i = 1, #equip.block do
-    self:setBlock(equip.block[i], key)
+  for i = 1, #item.blocked do
+    self:setBlock(item.blocked[i], key)
   end
-  if equip.allSlots then
-    self:setBlock(equip.type, equip.type)
+  if item.allSlots then
+    self:setBlock(item.slot, item.slot)
   end
   slot = self.slots[key]
   if self.battler then
-    self:addStatus(item.equip, character)
+    self:addStatus(item, character)
   end
   if inventory then
     inventory:removeItem(item.id)
@@ -136,27 +136,26 @@ function EquipSet:unequip(key, inventory, character)
     local previousEquip = slot.id
     if previousEquip >= 0 then
       local data = Database.items[previousEquip]
-      local equip = data.equip
       if self.battler then
-        self:removeStatus(equip, character)
+        self:removeStatus(data, character)
       end
       if inventory then
         inventory:addItem(previousEquip)
       end
       slot.id = -1
       -- Unblock slots
-      for i = 1, #equip.block do
-        self:setBlock(equip.block[i], nil)
+      for i = 1, #data.blocked do
+        self:setBlock(data.blocked[i], nil)
       end
       -- Unblock slots from the same slot type
-      if equip.allSlots then
-        self:setBlock(equip.type, nil)
+      if data.allSlots then
+        self:setBlock(data.slot, nil)
       end
       self:updateSlotBonus(key)
     end
   end
 end
--- Sets the block of all slots from the given type to hte given value.
+-- Sets the block of all slots from the given type to the given value.
 -- @param(key : string) The type of slot (includes a number if it's a specific slot).
 -- @param(block : string) The name of the slot that it blocking, or nil to unblock.
 function EquipSet:setBlock(key, block)
@@ -172,7 +171,7 @@ end
 -- @param(key : string) The key of the slot.
 -- @ret(boolean) If the item may be equiped.
 function EquipSet:canEquip(key, item)
-  local slotType = self.types[item.equip.type]
+  local slotType = self.types[item.slot]
   if slotType.state >= 3 then
     return false
   end
@@ -180,13 +179,13 @@ function EquipSet:canEquip(key, item)
   if item == currentItem then
     return true
   end
-  local blocks = item.equip.block
+  local blocks = item.blocked
   for i = 1, #blocks do
     if not self:canUnequip(blocks[i]) then
       return false
     end
   end
-  if item.equip.allSlots then
+  if item.allSlots then
     if slotType.count > 1 and slotType.state == 2 then
       return false
     end
@@ -213,12 +212,12 @@ function EquipSet:canUnequip(key)
   end
   local currentItem = self:getEquip(key)
   if currentItem then
-    local slot = self.types[currentItem.equip.type]
+    local slot = self.types[currentItem.slot]
     if slot.state >= 2 then -- Cannot unequip
       return false
     elseif slot.state == 1 then
       for i = 1, slot.count do
-        local key2 = currentItem.equip.type .. i
+        local key2 = currentItem.slot .. i
         if key2 ~= key and self:getEquip(key2) then
           return true
         end
@@ -239,26 +238,32 @@ function EquipSet:addBattleStatus(character)
   for key, slot in pairs(self.slots) do
     if slot.id >= 0 then
       local item = Database.items[slot.id]
-      self:addStatus(item.equip, character, true)
+      self:addStatus(item, character, true)
     end
   end
 end
 -- Adds the equip's status.
--- @param(data : table) item's equip data
--- @param(character : Character) battler's character, in case it's during battle (optional)
--- @param(battle : boolean) true to add battle status, false to add persistent status
+-- @param(data : table) Item's data.
+-- @param(character : Character) Battler's character, in case it's during battle (optional).
+-- @param(battle : boolean) True to add battle status, false to add persistent status (optional).
 function EquipSet:addStatus(data, character, battle)
-  local statusList = battle and data.battleStatus or data.status
-  for i = 1, #statusList do
-    self.battler.statusList:addStatus(statusList[i], nil, character)
+  battle = battle or false
+  for i = 1, #data.equipStatus do
+    local s = data.equipStatus[i]
+    if s.battle == battle then
+      self.battler.statusList:addStatus(s.id, nil, character)
+    end
   end
 end
 -- Removes the equip's persistent status.
 -- @param(data : table) item's equip data
 -- @param(character : Character) battler's character, in case it's during battle (optional)
 function EquipSet:removeStatus(data, character)
-  for i = 1, #data.status do
-    self.battler.statusList:removeStatus(data.status[i], character)
+  for i = 1, #data.equipStatus do
+    local s = data.equipStatus[i]
+    if not s.battle then
+      self.battler.statusList:removeStatus(s.id, character)
+    end
   end
 end
 
@@ -312,19 +317,19 @@ function EquipSet:updateSlotBonus(key)
     self.bonus[key] = bonus
   end
   local slot = self.slots[key]
-  local equip = slot.id >= 0 and Database.items[slot.id].equip
-  bonus.attAdd, bonus.attMul = self:equipAttributes(equip)
-  bonus.elementAtk, bonus.elementDef = self:equipElements(equip)
+  local data = slot.id >= 0 and Database.items[slot.id]
+  bonus.attAdd, bonus.attMul = self:equipAttributes(data)
+  bonus.elementAtk, bonus.elementDef = self:equipElements(data)
 end
 -- Gets the table of equipment attribute bonus.
 -- @param(equip : table) item's equip data
 -- @ret(table) additive bonus table
 -- @ret(table) multiplicative bonus table
-function EquipSet:equipAttributes(equip)
+function EquipSet:equipAttributes(data)
   local add, mul = {}, {}
-  if equip and equip.attributes then
-    for i = 1, #equip.attributes do
-      local bonus = equip.attributes[i]
+  if data then
+    for i = 1, #data.equipAttributes do
+      local bonus = data.equipAttributes[i]
       add[bonus.key] = (bonus.add or 0)
       mul[bonus.key] = (bonus.mul or 0) / 100
     end
@@ -337,11 +342,14 @@ end
 -- @ret(table) Array for element defense.
 function EquipSet:equipElements(equip)
   local atk, def = {}, {}
-  if equip and equip.elements then
-    for i = 1, #equip.elements do
-      local bonus = equip.elements[i]
-      local el = bonus.atk and atk or def
-      el[bonus.id] = (bonus.value or 0) / 100
+  if equip then
+    for i = 1, #equip.elementAtk do
+      local bonus = equip.elementAtk[i]
+      atk[bonus.id] = (bonus.value or 0) / 100
+    end
+    for i = 1, #equip.elementDef do
+      local bonus = equip.elementDef[i]
+      def[bonus.id] = (bonus.value or 0) / 100
     end
   end
   return atk, def

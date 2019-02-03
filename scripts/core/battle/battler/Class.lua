@@ -10,6 +10,9 @@ Represents a battler's class.
 -- Imports
 local List = require('core/base/datastruct/List')
 
+-- Constants
+local attConfig = Config.attributes
+
 local Class = class()
 
 ---------------------------------------------------------------------------------------------------
@@ -33,8 +36,8 @@ function Class:init(battler, save)
   self.data = classData
   self.expCurve = loadformula(classData.expCurve, 'lvl')
   self.build = {}
-  for key, formula in pairs(classData.build) do
-    self.build[key] = loadformula(formula, 'lvl')
+  for i = 1, #attConfig do
+    self.build[attConfig[i].key] = loadformula(classData.build[i], 'lvl')
   end
   self.skills = List(classData.skills)
   self.skills:sort(function(a, b) return a.level < b.level end)
