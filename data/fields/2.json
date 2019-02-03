@@ -39,14 +39,14 @@
           "h": 0,
           "direction": 315
         },
-        "start": {
+        "tl": {
           "fieldID": 2,
           "x": 10,
           "y": 8,
           "h": 0,
           "direction": 270
         },
-        "end": {
+        "br": {
           "fieldID": 2,
           "x": 12,
           "y": 8,

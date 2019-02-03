@@ -39,43 +39,43 @@
           "h": 0,
           "direction": 135
         },
-        "start": {
+        "tl": {
           "fieldID": 1,
           "x": 2,
           "y": 1,
           "h": 0,
-          "direction": 270
+          "direction": -1
         },
-        "end": {
+        "br": {
           "fieldID": 1,
           "x": 4,
           "y": 1,
           "h": 0,
-          "direction": 270
+          "direction": -1
         },
         "fade": 30
       },
       {
         "destination": {
+          "fieldID": 3,
+          "x": 5,
+          "y": 14,
+          "h": 0,
+          "direction": 135
+        },
+        "tl": {
           "fieldID": 1,
-          "x": 6,
-          "y": 9,
+          "x": 11,
+          "y": 1,
           "h": 0,
           "direction": -1
         },
-        "start": {
+        "br": {
           "fieldID": 1,
-          "x": 10,
-          "y": 0,
+          "x": 13,
+          "y": 1,
           "h": 0,
-          "direction": 270
-        },
-        "end": {
-          "fieldID": 1,
-          "x": 12,
-          "y": 0,
-          "h": 0,
-          "direction": 270
+          "direction": -1
         },
         "fade": 30
       }

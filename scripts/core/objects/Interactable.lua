@@ -96,6 +96,7 @@ function Interactable:onInteract(tile)
   local fiberList = self.interactScript.global and FieldManager.fiberList or self.fiberList
   local fiber = fiberList:forkFromScript(self.interactScript)
   fiber.block = true
+  fiber.tile = self.tile
   fiber:waitForEnd()
 end
 -- Called when a character collides with this object.
@@ -104,6 +105,7 @@ function Interactable:onCollide(tile, collided, collider)
   local fiberList = self.collideScript.global and FieldManager.fiberList or self.fiberList
   local fiber = fiberList:forkFromScript(self.collideScript)
   fiber.block = true
+  fiber.tile = self.tile
   fiber:waitForEnd()
 end
 -- Called when this interactable is created.
@@ -112,6 +114,7 @@ function Interactable:onStart()
   local fiberList = self.loadScript.global and FieldManager.fiberList or self.fiberList
   local fiber = fiberList:forkFromScript(self.loadScript)
   fiber.block = true
+  fiber.tile = self.tile
   fiber:waitForEnd()
 end
 

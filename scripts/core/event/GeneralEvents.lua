@@ -29,14 +29,13 @@ local Event = {}
 function Event:moveToField(args)
   local fade = args.fade and {time = args.fade, wait = true}
   if args.fade then
-    if self.root.char then
-      local tile = self.root.char:getTile()
+    if self.tile then
       self.root:fork(function()
         -- Character
         if self.player.autoTurn then
-          self.player:turnToTile(tile.x, tile.y)
+          self.player:turnToTile(self.tile.x, self.tile.y)
         end
-        self.player:walkToTile(tile:coordinates())
+        self.player:walkToTile(self.tile:coordinates())
       end)
     end
     self:fadeout(fade)

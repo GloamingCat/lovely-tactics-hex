@@ -141,7 +141,7 @@ function FieldManager:loadTransition(transition, fromSave)
   self.renderer.focusObject = self.player
   self.renderer:setPosition(self.player.position)
   -- Create/call start listeners
-  --[[local script = self.currentField.loadScript
+  local script = self.currentField.loadScript
   if script then
     self.currentField.fiberList:forkFromScript(script.commands, {fromSave = fromSave})
   end
@@ -151,9 +151,9 @@ function FieldManager:loadTransition(transition, fromSave)
       local event = {character = char, fromSave = fromSave}
       char:onStart(event)
     end
-  end]]
+  end
   self.player.fiberList:fork(self.player.fieldInputLoop, self.player)
-  --FieldLoader.createTransitions(self.currentField, fieldData.prefs.transitions)
+  FieldLoader.createTransitions(self.currentField, fieldData.prefs.transitions)
   if fieldData.prefs.bgm then
     local bgm = fieldData.prefs.bgm
     if AudioManager.BGM == nil or AudioManager.BGM.name ~= bgm.name then

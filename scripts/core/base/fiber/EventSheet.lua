@@ -33,7 +33,7 @@ function EventSheet:init(root, data)
     root.eventSheets:add(self)
   end
   local code = data.code or readFile('scripts/custom/' .. data.name)
-  assert(code, "Could not load event sheet file: " .. data.name)
+  assert(code, "Could not load event sheet file: " .. (data.name or 'nil'))
   if ScriptCache[code] then
     self.commands = ScriptCache[code]
   else
