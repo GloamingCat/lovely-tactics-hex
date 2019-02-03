@@ -15,8 +15,9 @@ local SimpleText = require('core/gui/widget/SimpleText')
 local SimpleImage = require('core/gui/widget/SimpleImage')
 
 -- Alias
-local round = math.round
 local max = math.max
+local round = math.round
+local findByName = util.array.findByName
 
 -- Constants
 local attConfig = Config.attributes
@@ -120,18 +121,19 @@ end
 -- If they have a full body image, it is used. Otherwise, it uses the idle animation.
 -- @param(member : Battler) The battler shown in the window.
 function BattlerWindow:setPortrait(member)
-  local char = Database.characters[member.charID]
-  if char.portraits.bigIcon then
-    local sprite = ResourceManager:loadIcon(char.portraits.bigIcon, GUIManager.renderer)
-    sprite:applyTransformation(char.transform)
+  local charData = Database.characters[member.charID]
+  local icon = findByName(charData.portraits, "bigIcon")
+  if icon then
+    local sprite = ResourceManager:loadIcon(icon, GUIManager.renderer)
+    sprite:applyTransformation(charData.transform)
     self.portrait:setSprite(sprite)
   else
-    local anim = char.animations.default.Idle
+    local anim = findByName(charData.animations, "Idle")
     local data = Database.animations[anim]
     self.portraitAnim = ResourceManager:loadAnimation(anim, GUIManager.renderer)
     self.portraitAnim:setRow(6)
     self.portraitAnim.sprite:setXYZ(0, 0, 0)
-    self.portraitAnim.sprite:applyTransformation(char.transform)
+    self.portraitAnim.sprite:applyTransformation(charData.transform)
     self.portrait:setSprite(self.portraitAnim.sprite)
   end
   self.portrait:updatePosition(self.position)

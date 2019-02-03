@@ -3,7 +3,7 @@
 
 Array Utilities
 ---------------------------------------------------------------------------------------------------
-
+General utilities for arrays.
 
 =================================================================================================]]
 
@@ -77,6 +77,33 @@ end
 function util.addAll(array, elements)
   for i = 1, #elements do
     array[#array + 1] = elements[i]
+  end
+end
+
+---------------------------------------------------------------------------------------------------
+-- Search
+---------------------------------------------------------------------------------------------------
+
+-- Searches for an element with the given key.
+-- @param(arr : table) Array of table elements.
+-- @param(key : string) Key of the element.
+-- @ret(table) Elements of the array with the given key (nil if not found).
+function util.findByKey(arr, key)
+  for i = 1, #arr do
+    if arr[i].key == key then
+      return arr[i]
+    end
+  end
+end
+-- Searches for an element with the given key.
+-- @param(arr : table) Array of table elements.
+-- @param(name : string) Name of the element.
+-- @ret(table) Elements of the array with the given name (nil if not found).
+function util.findByName(arr, name)
+  for i = 1, #arr do
+    if arr[i].name == name then
+      return arr[i]
+    end
   end
 end
 

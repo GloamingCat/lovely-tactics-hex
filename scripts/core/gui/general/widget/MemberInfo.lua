@@ -14,6 +14,9 @@ local SimpleImage = require('core/gui/widget/SimpleImage')
 local SimpleText = require('core/gui/widget/SimpleText')
 local Vector = require('core/math/Vector')
 
+-- Alias
+local findByName = util.array.findByName
+
 local MemberInfo = class()
 
 ---------------------------------------------------------------------------------------------------
@@ -29,11 +32,11 @@ function MemberInfo:init(battler, w, h, topLeft)
   topLeft = topLeft and topLeft:clone() or Vector(0, 0, 0)
   local margin = 4
   -- Icon
-  local char = Database.characters[battler.charID]
-  local icon = char.portraits and char.portraits.smallIcon
+  local charData = Database.characters[battler.charID]
+  local icon = findByName(charData.portraits, "smallIcon")
   if icon then
     local sprite = ResourceManager:loadIcon(icon, GUIManager.renderer)
-    sprite:applyTransformation(char.transform)
+    sprite:applyTransformation(charData.transform)
     self.icon = SimpleImage(sprite, topLeft.x, topLeft.y, topLeft.z, nil, h)   
     local ix, iy, iw, ih = sprite:totalBounds()
     topLeft.x = topLeft.x + iw + margin
