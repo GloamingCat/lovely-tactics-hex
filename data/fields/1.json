@@ -4,7 +4,7 @@
   "sizeY": 7,
   "prefs": {
     "defaultRegion": -1,
-    "maxHeight": 0,
+    "maxHeight": 1,
     "bgm": {
       "name": "bgm/Aaron Krogh/Jungle.ogg",
       "volume": 100,
@@ -36,21 +36,21 @@
           "fieldID": 2,
           "x": 11,
           "y": 7,
-          "h": 0,
+          "h": 1,
           "direction": 135
         },
         "tl": {
           "fieldID": 1,
           "x": 2,
           "y": 1,
-          "h": 0,
+          "h": 1,
           "direction": -1
         },
         "br": {
           "fieldID": 1,
           "x": 4,
           "y": 1,
-          "h": 0,
+          "h": 1,
           "direction": -1
         },
         "fade": 30
@@ -60,21 +60,21 @@
           "fieldID": 3,
           "x": 5,
           "y": 14,
-          "h": 0,
+          "h": 1,
           "direction": 135
         },
         "tl": {
           "fieldID": 1,
           "x": 11,
           "y": 1,
-          "h": 0,
+          "h": 1,
           "direction": -1
         },
         "br": {
           "fieldID": 1,
           "x": 13,
           "y": 1,
-          "h": 0,
+          "h": 1,
           "direction": -1
         },
         "fade": 30
@@ -88,7 +88,7 @@
       {
         "info": {
           "name": "Sand",
-          "height": 0,
+          "height": 1,
           "tags": []
         },
         "visible": true,
@@ -224,7 +224,7 @@
       {
         "info": {
           "name": "Grass",
-          "height": 0,
+          "height": 1,
           "tags": []
         },
         "visible": true,
@@ -360,7 +360,7 @@
       {
         "info": {
           "name": "Bush",
-          "height": 0,
+          "height": 1,
           "tags": []
         },
         "visible": true,
@@ -496,7 +496,7 @@
       {
         "info": {
           "name": "Water",
-          "height": 0,
+          "height": 1,
           "tags": []
         },
         "visible": true,
@@ -634,7 +634,7 @@
       {
         "info": {
           "name": "Trees",
-          "height": 0,
+          "height": 1,
           "tags": []
         },
         "visible": true,
@@ -776,7 +776,7 @@
       "persistent": false,
       "x": 8,
       "y": 4,
-      "h": 0,
+      "h": 1,
       "party": -1,
       "charID": 2,
       "battlerID": -1,

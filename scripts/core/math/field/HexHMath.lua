@@ -120,7 +120,7 @@ end
 ---------------------------------------------------------------------------
 
 function HexHMax.tile2Pixel(i, j, h)
-  i, j = i - 1, j - 1
+  i, j, h = i - 1, j - 1, h - 1
   local d = -(j - i) * (tileH + tileS) / 2
   local x = (i + j) * (tileW + tileB) / 2
   local y = -d - h * pixelsPerHeight
@@ -140,7 +140,7 @@ function HexHMax.pixel2Tile(x, y, d)
   local i = (sij - dji) / 2
   local j = (sij + dji) / 2
   
-  return Vector(i + 1, j + 1, h)
+  return Vector(i + 1, j + 1, h + 1)
 end
 
 ---------------------------------------------------------------------------

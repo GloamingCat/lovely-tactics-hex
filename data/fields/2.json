@@ -4,7 +4,7 @@
   "sizeY": 8,
   "prefs": {
     "defaultRegion": -1,
-    "maxHeight": 0,
+    "maxHeight": 1,
     "bgm": {
       "name": "bgm/Aaron Krogh/Jungle.ogg",
       "volume": 100,
@@ -36,21 +36,21 @@
           "fieldID": 1,
           "x": 3,
           "y": 2,
-          "h": 0,
+          "h": 1,
           "direction": 315
         },
         "tl": {
           "fieldID": 2,
           "x": 10,
           "y": 8,
-          "h": 0,
+          "h": 1,
           "direction": 270
         },
         "br": {
           "fieldID": 2,
           "x": 12,
           "y": 8,
-          "h": 0,
+          "h": 1,
           "direction": 270
         },
         "fade": 30
@@ -64,7 +64,7 @@
       {
         "info": {
           "name": "Sand",
-          "height": 0,
+          "height": 1,
           "tags": []
         },
         "visible": true,
@@ -224,7 +224,7 @@
       {
         "info": {
           "name": "Grass",
-          "height": 0,
+          "height": 1,
           "tags": []
         },
         "visible": true,
@@ -384,7 +384,7 @@
       {
         "info": {
           "name": "Bush",
-          "height": 0,
+          "height": 1,
           "tags": []
         },
         "visible": true,
@@ -544,7 +544,7 @@
       {
         "info": {
           "name": "Water",
-          "height": 0,
+          "height": 1,
           "tags": []
         },
         "visible": true,
@@ -706,7 +706,7 @@
       {
         "info": {
           "name": "New Layer",
-          "height": 0,
+          "height": 1,
           "tags": []
         },
         "visible": true,
@@ -872,7 +872,7 @@
       "persistent": true,
       "x": 8,
       "y": 5,
-      "h": 0,
+      "h": 1,
       "party": -1,
       "charID": 4,
       "battlerID": -1,

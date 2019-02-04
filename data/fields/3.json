@@ -4,7 +4,7 @@
   "sizeY": 15,
   "prefs": {
     "defaultRegion": 0,
-    "maxHeight": 4,
+    "maxHeight": 1,
     "bgm": {
       "name": "bgm/Aaron Krogh/Jungle.ogg",
       "volume": 100,
@@ -39,7 +39,7 @@
       {
         "info": {
           "name": "Sand",
-          "height": 0,
+          "height": 1,
           "tags": []
         },
         "visible": true,

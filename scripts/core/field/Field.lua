@@ -37,11 +37,11 @@ function Field:init(id, name, sizeX, sizeY, maxH)
   self.vars = {}
   self.terrainLayers = {}
   self.objectLayers = {}
-  for i = 0, maxH do
+  for i = 1, maxH do
     self.terrainLayers[i] = {}
     self.objectLayers[i] = ObjectLayer(sizeX, sizeY, i)
   end
-  self.minh, self.maxh = 0, maxH
+  self.minh, self.maxh = 1, maxH
   self.centerX, self.centerY = pixelCenter(sizeX, sizeY)
   self.minx, self.miny, self.maxx, self.maxy = pixelBounds(self)
 end

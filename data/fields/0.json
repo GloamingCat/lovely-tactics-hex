@@ -39,7 +39,7 @@
       {
         "info": {
           "name": "New Layer",
-          "height": 0,
+          "height": 1,
           "tags": []
         },
         "visible": true,
@@ -312,7 +312,7 @@
       "memberGen": 1,
       "x": 12,
       "y": 6,
-      "h": 0,
+      "h": 1,
       "rotation": 3,
       "troops": [
         1
@@ -323,7 +323,7 @@
       "memberGen": 1,
       "x": 2,
       "y": 6,
-      "h": 0,
+      "h": 1,
       "rotation": 1,
       "troops": [
         1
