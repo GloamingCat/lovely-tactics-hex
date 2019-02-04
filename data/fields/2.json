@@ -885,7 +885,7 @@
       },
       "collideScript": {
         "global": true,
-        "name": "events/Battle Test.lua",
+        "name": "events/test/Battle.lua",
         "tags": []
       },
       "interactScript": {

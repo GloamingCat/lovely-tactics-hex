@@ -76,15 +76,19 @@
     },
     {
       "name": "gaugeFrame",
-      "id": 27
+      "id": 26
     },
     {
       "name": "gaugeBar",
-      "id": 26
+      "id": 27
     },
     {
       "name": "arrow",
       "id": 28
+    },
+    {
+      "name": "balloon",
+      "id": 25
     }
   ],
   "icons": [

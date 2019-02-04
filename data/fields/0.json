@@ -313,7 +313,7 @@
       "x": 12,
       "y": 6,
       "h": 0,
-      "direction": 3,
+      "rotation": 3,
       "troops": [
         1
       ]
@@ -324,7 +324,7 @@
       "x": 2,
       "y": 6,
       "h": 0,
-      "direction": 1,
+      "rotation": 1,
       "troops": [
         1
       ]

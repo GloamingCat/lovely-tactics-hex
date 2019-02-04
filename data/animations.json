@@ -2390,7 +2390,7 @@
               "introPattern": "",
               "introDuration": "",
               "loopPattern": "0 1 2 1",
-              "loopDuration": "",
+              "loopDuration": "20 7 20 7",
               "audio": [],
               "name": "Idle",
               "tags": []
@@ -2428,7 +2428,7 @@
               "introPattern": "",
               "introDuration": "",
               "loopPattern": "0 1 2 1",
-              "loopDuration": "20 7 20 7",
+              "loopDuration": "21",
               "audio": [],
               "name": "Dash",
               "tags": []
@@ -2702,7 +2702,7 @@
               "introPattern": "",
               "introDuration": "",
               "loopPattern": "0 1 2 1",
-              "loopDuration": "",
+              "loopDuration": "20 7 20 7",
               "audio": [],
               "name": "Idle",
               "tags": []
@@ -2740,7 +2740,7 @@
               "introPattern": "",
               "introDuration": "",
               "loopPattern": "0 1 2 1",
-              "loopDuration": "20 7 20 7",
+              "loopDuration": "21",
               "audio": [],
               "name": "Dash",
               "tags": []

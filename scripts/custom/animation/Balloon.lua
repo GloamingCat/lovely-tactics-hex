@@ -24,7 +24,7 @@ local Balloon = class(Animation)
 function Balloon:init(...)
   Animation.init(self, ...)
   self.waitTime = 30
-  self.balloonDuration = self.loopDuration
+  self.balloonDuration = self.duration
   self.duration = self.balloonDuration * 2
   self.state = 0
   self.direction = 1

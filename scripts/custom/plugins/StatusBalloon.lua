@@ -21,7 +21,7 @@ local TroopManager = require('core/battle/TroopManager')
 local Image = love.graphics.newImage
 
 -- Parameters
-local balloonID = tonumber(args.balloonID)
+local balloonID = Config.animations.balloon
 
 ---------------------------------------------------------------------------------------------------
 -- Initialization

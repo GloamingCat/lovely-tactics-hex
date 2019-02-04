@@ -100,7 +100,7 @@
             "name": "",
             "tags": []
           },
-          "classID": 0,
+          "classID": 1,
           "attackID": 6,
           "level": 3,
           "money": 0,
@@ -247,7 +247,7 @@
             "name": "ai/Rusher.lua",
             "tags": []
           },
-          "classID": 0,
+          "classID": 1,
           "attackID": 6,
           "level": 1,
           "money": 5,
