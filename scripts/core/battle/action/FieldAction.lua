@@ -23,8 +23,8 @@ local FieldAction = class()
 -- @param(range : table) The range of the action to the target tile (in tiles).
 -- @param(area : table) The area of the action effect (in tiles).
 function FieldAction:init(range, area)
-  self.range = range or { far = 0, minh = 0, maxh = 0 }
-  self.area = area or { far = 1, minh = 0, maxh = 0 }
+  self.range = range or { far = 0, near = 0, minh = 0, maxh = 0 }
+  self.area = area or { far = 1, near = 0, minh = 0, maxh = 0 }
   self.field = FieldManager.currentField
 end
 

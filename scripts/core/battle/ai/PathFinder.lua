@@ -59,10 +59,9 @@ function PathFinder.dijkstra(action, user, initial)
       end
     end
   until queue:isEmpty()
-  local grid = initial.layer.grid
-  for tile in field:gridIterator() do
-    if not action:isStandable(tile, user) then
-      matrix:set(nil, tile:coordinates())
+  for path in matrix:iterator() do
+    if not action:isStandable(path.lastStep, user) then
+      matrix:set(nil, path.lastStep:coordinates())
     end
   end
   --matrix:set(nil, initial.x, initial.y)

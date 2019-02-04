@@ -63,6 +63,17 @@ function Matrix3:iterator()
     return self[i]
   end
 end
+-- Checks if matrix is empty.
+-- @ret(boolean)
+function Matrix3:isEmpty()
+  local size = self.width * self.height * self.depth
+  for i = 1, size do
+    if self[i] ~= nil then
+      return false
+    end
+  end
+  return true
+end
 -- @ret(string) The string representation (for debugging).
 function Matrix3:__tostring()
   local s = '{ '

@@ -36,7 +36,7 @@ local Player = class(Character)
 function Player:init(initTile, dir)
   self.blocks = 0
   self.inputDelay = 6 / 60
-  self.moveInput = ActionInput(MoveAction({ far = 0, minh = 0, maxh = 0 }, 2), self)
+  self.moveInput = ActionInput(MoveAction({ far = 0, near = 0, minh = 0, maxh = 0 }, 2), self)
   local troopData = Database.troops[SaveManager.current.playerTroopID]
   local leader = troopData.members[1]
   local data = {
@@ -153,7 +153,7 @@ end
 -- [COROUTINE] Tries to walk a path to the given tile.
 -- @param(tile : ObjectTile) Destination tile.
 function Player:tryPathMovement(tile)
-  local range = { far = 0, minh = 0, maxh = 0 }
+  local range = { far = 0, near = 0, minh = 0, maxh = 0 }
   local input = ActionInput(MoveAction(range, 12), self, tile)
   local path, fullPath = input.action:calculatePath(input)
   if not (path and fullPath) then

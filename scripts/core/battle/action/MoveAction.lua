@@ -87,7 +87,7 @@ function MoveAction:isFinal(tile, target, user)
     return false
   end
   local cost = mathf.tileDistance(tile.x, tile.y, target.x, target.y)
-  return cost <= self.range.far and cost >= (self.range.near or 0)
+  return cost <= self.range.far and cost >= self.range.near
     and self:isStandable(tile, user)
 end
 -- Checks passability between two tiles.

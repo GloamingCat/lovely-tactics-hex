@@ -39,7 +39,7 @@ local SkillAction = class(BattleAction)
 function SkillAction:init(skillID)
   local data = Database.skills[skillID]
   self.data = data
-  BattleAction.init(self, nil, data.range, data.area)
+  BattleAction.init(self, nil, data.castRange, data.effectRange)
   self:setType(data.type)
   self:setTargetType(data.targetType)
   -- Animation time
