@@ -34,8 +34,8 @@ function SkillAction:singleTargetEffect(results, input, targetChar, originTile)
           BattleManager:playBattleAnimation(animID, x, y, z, false, true)
         end
         FieldManager.renderer:moveToTile(input.user:getTile())
-        if self.data.battleAnim.castID >= 0 and self.data.battleAnim.individualID < 0 then
-          minTime = BattleManager:playBattleAnimation(self.data.battleAnim.castID,
+        if self.data.castAnimID >= 0 and self.data.individuaAnimlID < 0 then
+          minTime = BattleManager:playBattleAnimation(self.data.castAnimID,
             input.user.position:coordinates()).duration + GameManager.frame
           _G.Fiber:wait(self.centerTime)
         end

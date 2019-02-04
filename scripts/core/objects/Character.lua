@@ -142,17 +142,17 @@ end
 function Character:loadSkill(skill, dir)
   local minTime = 0
   -- Load animation (user)
-  if skill.userAnim.load ~= '' then
-    local anim = self:playAnimation(skill.userAnim.load)
+  if skill.userLoadAnim ~= '' then
+    local anim = self:playAnimation(skill.userLoadAnim)
     anim:setIndex(1)
     anim.time = 0
     minTime = anim.duration
   end
   -- Load animation (effect on tile)
-  if skill.battleAnim.loadID >= 0 then
+  if skill.loadAnimID >= 0 then
     local mirror = skill.mirror and dir > 90 and dir <= 270
     local pos = self.position
-    local anim = BattleManager:playBattleAnimation(skill.battleAnim.loadID, 
+    local anim = BattleManager:playBattleAnimation(skill.loadAnimID, 
       pos.x, pos.y, pos.z - 1, mirror)
     minTime = max(minTime, anim.duration)
   end
@@ -165,21 +165,21 @@ end
 -- @ret(number) the duration of the animation
 function Character:castSkill(skill, dir, tile)
   -- Forward step
-  if skill.userAnim.stepOnCast then
+  if skill.stepOnCast then
     self:walkInAngle(castStep, dir)
   end
   -- Cast animation (user)
   local minTime = 0
-  if skill.userAnim.cast ~= '' then
-    local anim = self:playAnimation(skill.userAnim.cast)
+  if skill.userCastAnim ~= '' then
+    local anim = self:playAnimation(skill.userCastAnim)
     anim:reset()
     minTime = anim.duration
   end
   -- Cast animation (effect on tile)
-  if skill.battleAnim.castID >= 0 then
+  if skill.castAnimID >= 0 then
     local mirror = skill.mirror and dir > 90 and dir <= 270
     local x, y, z = tile2Pixel(tile:coordinates())
-    local anim = BattleManager:playBattleAnimation(skill.battleAnim.castID,
+    local anim = BattleManager:playBattleAnimation(skill.castAnimID,
       x, y, z - 1, mirror)
     minTime = max(minTime, anim.duration)
   end
@@ -189,7 +189,7 @@ end
 -- @param(origin : ObjectTile) the original tile of the character
 -- @param(skill : table) skill data from database
 function Character:finishSkill(origin, skill)
-  if skill.userAnim.stepOnCast then
+  if skill.stepOnCast then
     local x, y, z = tile2Pixel(origin:coordinates())
     if self.position:almostEquals(x, y, z) then
       return

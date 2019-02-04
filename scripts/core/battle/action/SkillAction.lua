@@ -228,8 +228,8 @@ function SkillAction:menuUse(input)
     return { executed = false }
   end
   input.user:damageCosts(self.costs)
-  if self.data.battleAnim.castID >= 0 then
-    BattleManager:playMenuAnimation(self.data.battleAnim.castID, false)
+  if self.data.castAnimID >= 0 then
+    BattleManager:playMenuAnimation(self.data.castAnimID, false)
   end
   input.user:onSkillUse(input, TroopManager:getBattlerCharacter(input.user))
   return BattleAction.execute(self, input)
@@ -337,11 +337,11 @@ function SkillAction:singleTargetEffect(results, input, targetChar, originTile)
   else
     local wasAlive = targetChar.battler.state.hp > 0
     targetChar.battler:popupResults(targetChar.position, results, targetChar)
-    if self.data.battleAnim.individualID >= 0 then
+    if self.data.individualAnimID >= 0 then
       local dir = targetChar:tileToAngle(originTile.x, originTile.y)
       local mirror = dir > 90 and dir <= 270
       local pos = targetChar.position
-      BattleManager:playBattleAnimation(self.data.battleAnim.individualID,
+      BattleManager:playBattleAnimation(self.data.individualAnimID,
         pos.x, pos.y, pos.z - 10, mirror)
     end
     if results.damage and self.data.damageAnim and wasAlive then

@@ -184,7 +184,7 @@
           "loopDuration": "",
           "audio": [
             {
-              "name": "",
+              "name": "sfx/artisticdude/blade.wav",
               "volume": 100,
               "pitch": 100,
               "time": 0
@@ -229,7 +229,7 @@
           "loopDuration": "",
           "audio": [
             {
-              "name": "",
+              "name": "sfx/David Mckee/Fire.wav",
               "volume": 100,
               "pitch": 100,
               "time": 0
@@ -274,7 +274,7 @@
           "loopDuration": "",
           "audio": [
             {
-              "name": "",
+              "name": "sfx/David Mckee/Fire.wav",
               "volume": 100,
               "pitch": 100,
               "time": 0
@@ -319,7 +319,7 @@
           "loopDuration": "",
           "audio": [
             {
-              "name": "",
+              "name": "sfx/David Mckee/Fire.wav",
               "volume": 100,
               "pitch": 100,
               "time": 0
@@ -364,7 +364,7 @@
           "loopDuration": "",
           "audio": [
             {
-              "name": "",
+              "name": "sfx/David Mckee/Load.wav",
               "volume": 80,
               "pitch": 100,
               "time": 0
@@ -407,14 +407,7 @@
           "introDuration": "30",
           "loopPattern": "",
           "loopDuration": "",
-          "audio": [
-            {
-              "name": "",
-              "volume": 80,
-              "pitch": 100,
-              "time": 0
-            }
-          ],
+          "audio": [],
           "name": "Poison",
           "tags": []
         },
@@ -452,14 +445,7 @@
           "introDuration": "60",
           "loopPattern": "",
           "loopDuration": "",
-          "audio": [
-            {
-              "name": "",
-              "volume": 80,
-              "pitch": 100,
-              "time": 0
-            }
-          ],
+          "audio": [],
           "name": "Polen",
           "tags": []
         },
@@ -499,7 +485,7 @@
           "loopDuration": "",
           "audio": [
             {
-              "name": "",
+              "name": "sfx/GameAudio/heal.wav",
               "volume": 70,
               "pitch": 110,
               "time": 0
@@ -544,7 +530,7 @@
           "loopDuration": "",
           "audio": [
             {
-              "name": "",
+              "name": "sfx/GameAudio/heal.wav",
               "volume": 70,
               "pitch": 110,
               "time": 0
@@ -2507,10 +2493,10 @@
               "loopDuration": "",
               "audio": [
                 {
-                  "name": "",
+                  "name": "sfx/artisticdude/blade.wav",
                   "volume": 100,
                   "pitch": 100,
-                  "time": 0
+                  "time": 1
                 }
               ],
               "name": "Sword",

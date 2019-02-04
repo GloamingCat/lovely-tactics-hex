@@ -23,7 +23,8 @@ local Animation = class()
 -- Initialization
 ---------------------------------------------------------------------------------------------------
 
--- @param(sprite : Sprite) the sprite that this animation if associated to
+-- Constructor.
+-- @param(sprite : Sprite) The sprite that this animation if associated to.
 function Animation:init(sprite, data)
   self.sprite = sprite
   self.data = data
@@ -31,8 +32,6 @@ function Animation:init(sprite, data)
   self.col = 0
   self.row = 0
   self.index = 1
-  self.loop = false
-  -- Frame count (adapted to the frame rate)
   self.time = 0
   self.speed = 1
   self.loop = false
@@ -44,21 +43,12 @@ function Animation:init(sprite, data)
     self.colCount = data.cols
     self.rowCount = data.rows
     -- Pattern
-    self.introPattern = Database:loadPattern(data.introPattern, self.colCount)
-    self.loopPattern = Database:loadPattern(data.loopPattern, self.colCount)
-    -- Duration
-    local introCount = self.introPattern and #self.introPattern or self.colCount
-    local loopCount = self.loopPattern and #self.loopPattern or self.colCount
-    self.introDuration = Database:loadDuration(data.introDuration, introCount)
-    self.loopDuration = Database:loadDuration(data.loopDuration, loopCount)
-    if self.introDuration then
-      self:setFrames(self.introDuration, self.introPattern)
-    elseif self.loopDuration then
-      self:setFrames(self.loopDuration, self.loopPattern)
-      self.loop = true
-    end
+    self:initPattern(data)
     -- Audio
-    self.audio = data.audio
+    if data.audio and #data.audio > 0 then
+      self.audio = data.audio
+      self:playAudio()
+    end
     -- Tags
     if data.tags and #data.tags > 0 then
       self.tags = Database:loadTags(data.tags)
@@ -77,8 +67,8 @@ function Animation:init(sprite, data)
   end
 end
 -- Creates a clone of this animation.
--- @param(sprite : Sprite) the sprite of the animation, if cloned too (optional)
--- @ret(Animation)
+-- @param(sprite : Sprite) The sprite of the animation, if cloned too (optional).
+-- @ret(Animation) Clone of the given animation.
 function Animation:clone(sprite)
   local anim = Animation(sprite or self.sprite, self.data)
   anim.col = self.col
@@ -90,12 +80,30 @@ function Animation:clone(sprite)
   anim.loop = self.loop
   anim.timing = self.timing
   anim.pattern = self.pattern
+  anim.duration = self.duration
   return anim
 end
+-- Initializes frame pattern and timing.
+-- @param(data : table) Animation data.
+function Animation:initPattern(data)
+  -- Pattern
+  self.introPattern = Database:loadPattern(data.introPattern, self.colCount)
+  self.loopPattern = Database:loadPattern(data.loopPattern, self.colCount)
+  -- Duration
+  local introCount = self.introPattern and #self.introPattern or self.colCount
+  local loopCount = self.loopPattern and #self.loopPattern or self.colCount
+  self.introDuration = Database:loadDuration(data.introDuration, introCount)
+  self.loopDuration = Database:loadDuration(data.loopDuration, loopCount)
+  if self.introDuration then
+    self:setFrames(self.introDuration, self.introPattern)
+  elseif self.loopDuration then
+    self:setFrames(self.loopDuration, self.loopPattern)
+    self.loop = true
+  end
+end
 -- Sets the time for each frame. 
--- If timing is nil and duration is 0, animation is set as static.
--- @param(duration : number) total duration of the animation
--- @param(timing : table) array of frame times, one element per frame
+-- @param(timing : table) Array of frame times, one element per frame.
+-- @param(pattern : table) Array of frame columns, one element por frame.
 function Animation:setFrames(timing, pattern)
   if not timing or #timing == 0 then
     self.timing = nil
@@ -132,6 +140,7 @@ function Animation:nextFrame()
   local lastIndex = self.pattern and #self.pattern or self.colCount
   if self.index < lastIndex then
     self:nextCol()
+    self:playAudio()
   else
     self:onEnd()
   end
@@ -158,7 +167,7 @@ function Animation:nextRow()
   self:setRow(self.row + 1)
 end
 -- Sets the frame counter.
--- @param(i : number) number of the frame, from 0 to #pattern
+-- @param(i : number) Number of the frame, from 1 to #pattern.
 function Animation:setIndex(i)
   if self.pattern then
     self.index = mod1(i, #self.pattern)
@@ -167,21 +176,20 @@ function Animation:setIndex(i)
     self.index = mod1(i, self.colCount)
     self:setCol(self.index - 1)
   end
-  self:playAudio()
 end
 -- Plays the audio in the current index, if any.
 function Animation:playAudio()
   if self.audio then
     for i = 1, #self.audio do
       local audio = self.audio[i]
-      if audio.time == self.index then
+      if audio.time == self.index - 1 then
         AudioManager:playSFX(audio)
       end
     end
   end
 end
 -- Changes the column of the current quad
--- @param(col : number) the column number, starting from 0
+-- @param(col : number) The column number, starting from 0.
 function Animation:setCol(col)
   col = mod(col, self.colCount)
   if self.col ~= col then
@@ -193,7 +201,7 @@ function Animation:setCol(col)
   end
 end
 -- Changes the row of the current quad
--- @param(row : number) the row number, starting from 0
+-- @param(row : number) The row number, starting from 0.
 function Animation:setRow(row)
   row = mod(row, self.rowCount)
   if self.row ~= row then
@@ -209,6 +217,7 @@ end
 -- General
 ---------------------------------------------------------------------------------------------------
 
+-- Sets animation to its starting point.
 function Animation:reset()
   self.time = 0
   self.loop = false
