@@ -138,8 +138,10 @@ function SaveManager:getHeader(save)
   save = save or self.current
   local troop = save.troops[self.current.playerTroopID .. '']
   local members = {}
-  for i = 1, #troop.current do
-    members[i] = troop.current[i].charID
+  for i = 1, #troop.members do
+    if not troop.members[i].backup then
+      members[#members + 1] = troop.members[i].charID
+    end
   end
   return { members = members,
     playTime = save.playTime,

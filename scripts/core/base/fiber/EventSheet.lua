@@ -25,7 +25,7 @@ local EventSheet = class(Fiber)
 
 -- @param(root : FiberList)
 -- @param(state : table) state data from save (ignored if the event is new)
-function EventSheet:init(root, data)
+function EventSheet:init(root, data, char)
   self.name = data.name
   self.vars = data.vars or 0
   self.code = data.code
@@ -43,8 +43,8 @@ function EventSheet:init(root, data)
   self.args = Database:loadTags(data.tags)
   self.player = FieldManager.player
   self.field = FieldManager.currentField
-  if data.char then
-    self.char = FieldManager:findCharacter(data.char)
+  if char or data.char then
+    self.char = char or data.char and FieldManager:search(data.char)
   end
   Fiber.init(self, root, nil)
 end
@@ -55,6 +55,7 @@ function EventSheet:getState()
     name = self.name,
     code = self.code,
     vars = self.vars,
+    char = self.char and self.char.key,
     tags = self.args:toList() }
 end
 
@@ -97,7 +98,7 @@ end
 -- Searches for the character with the given key.
 function EventSheet:findCharacter(key)
   if key == 'self' then
-    return self.root.char
+    return self.char
   end
   local char = FieldManager:search(key)
   assert(char, 'Character not found:', key or 'nil key')

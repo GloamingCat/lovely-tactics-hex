@@ -94,7 +94,7 @@ end
 -- @param(event : table) Table with tile and origin (usually player) and dest (this) objects.
 function Interactable:onInteract(tile)
   local fiberList = self.interactScript.global and FieldManager.fiberList or self.fiberList
-  local fiber = fiberList:forkFromScript(self.interactScript)
+  local fiber = fiberList:forkFromScript(self.interactScript, self)
   fiber.block = true
   fiber.tile = self.tile
   fiber:waitForEnd()
@@ -103,7 +103,7 @@ end
 -- @param(event : table) Table with tile and origin and dest (this) objects.
 function Interactable:onCollide(tile, collided, collider)
   local fiberList = self.collideScript.global and FieldManager.fiberList or self.fiberList
-  local fiber = fiberList:forkFromScript(self.collideScript)
+  local fiber = fiberList:forkFromScript(self.collideScript, self)
   fiber.block = true
   fiber.tile = self.tile
   fiber:waitForEnd()
@@ -112,7 +112,7 @@ end
 -- @param(event : table) Table with origin (this).
 function Interactable:onStart()
   local fiberList = self.loadScript.global and FieldManager.fiberList or self.fiberList
-  local fiber = fiberList:forkFromScript(self.loadScript)
+  local fiber = fiberList:forkFromScript(self.loadScript, self)
   fiber.block = true
   fiber.tile = self.tile
   fiber:waitForEnd()

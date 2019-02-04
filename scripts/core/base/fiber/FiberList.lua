@@ -20,9 +20,8 @@ local FiberList = class(List)
 
 -- Constructor.
 -- @param(state : table) Persistent state if loaded from save (optional).
-function FiberList:init(state, char)
+function FiberList:init(state)
   List.init(self)
-  self.char = char
   self.eventSheets = List()
   if state then
     for i = 1, #state do

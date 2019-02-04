@@ -13,6 +13,9 @@ local SimpleImage = require('core/gui/widget/SimpleImage')
 local SimpleText = require('core/gui/widget/SimpleText')
 local Vector = require('core/math/Vector')
 
+-- Alias
+local findByName = util.array.findByName
+
 -- Constants
 local maxMembers = Config.troop.maxMembers
 
@@ -51,12 +54,12 @@ function SaveInfo:init(file, w, h, topLeft)
     local icons = {}
     for i = 1, maxMembers do
       if save.members[i] then
-        local char = Database.characters[save.members[i]]
+        local charData = Database.characters[save.members[i]]
         local icon = {
-          id = char.animations.default.Idle,
+          id = findByName(charData.animations, "Idle").id,
           col = 0, row = 7 }
         local sprite = ResourceManager:loadIcon(icon, GUIManager.renderer)
-        sprite:applyTransformation(char.transform)
+        sprite:applyTransformation(charData.transform)
         sprite:setCenterOffset()
         icons[i] = sprite
       else
