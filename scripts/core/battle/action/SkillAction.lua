@@ -57,15 +57,13 @@ function SkillAction:init(skillID)
   end
   -- Effect formulas
   self.effects = {}
-  if data.hpEffect then
-    self:addEffect('hp', data.hpEffect)
-  end
-  if data.spEffect then
-    self:addEffect('sp', data.spEffect)
+  for i = 1, #data.effects do
+    self:addEffect(data.effects[i])
   end
   -- Status to add
   self.status = {}
-  self:addStatus(data.status)
+  self:addStatus(data.statusAdd, true)
+  self:addStatus(data.statusRemove, false)
   -- Store elements
   local e = {}
   for i = 1, #data.elements do
@@ -103,8 +101,8 @@ end
 -- Inserts a new effect in this skill.
 -- @param(key : string) The name of the effect's destination (hp or sp).
 -- @param(effect : table) Effect's properties (basicResult, successRate, heal and absorb).
-function SkillAction:addEffect(key, effect)
-  self.effects[#self.effects + 1] = { key = key,
+function SkillAction:addEffect(effect)
+  self.effects[#self.effects + 1] = { key = effect.key,
     basicResult = loadformula(effect.basicResult, 'action, a, b, rand'),
     successRate = loadformula(effect.successRate, 'action, a, b, rand'),
     heal = effect.heal,
@@ -112,13 +110,11 @@ function SkillAction:addEffect(key, effect)
 end
 -- Inserts a new status in this skill.
 -- @param(status : table) Array with each status (id, rate, add).
-function SkillAction:addStatus(status)
+function SkillAction:addStatus(status, add)
   local last = #self.status
   for i = 1, #status do
-    self.status[last + i] = {
-      rate = loadformula(status[i].rate, 'action, a, b, rand'),
-      add = status[i].add,
-      id = status[i].id }
+    self.status[last + i] = { id = status[i].id, add = add,
+      rate = loadformula(status[i].rate, 'action, a, b, rand') }
   end
 end
 

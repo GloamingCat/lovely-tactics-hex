@@ -12,6 +12,8 @@
       "targetType": 0,
       "restriction": 0,
       "costs": [],
+      "elements": [],
+      "userElements": true,
       "userLoadAnim": "",
       "userCastAnim": "",
       "stepOnCast": true,
@@ -26,9 +28,8 @@
       "finishTime": "",
       "damageAnim": true,
       "effects": [],
-      "elements": [],
-      "status": [],
-      "userElements": true,
+      "statusAdd": [],
+      "statusRemove": [],
       "effectRange": {
         "minh": 0,
         "maxh": 0,
@@ -59,6 +60,8 @@
           "targetType": 2,
           "restriction": 0,
           "costs": [],
+          "elements": [],
+          "userElements": true,
           "userLoadAnim": "",
           "userCastAnim": "Item",
           "stepOnCast": false,
@@ -73,9 +76,8 @@
           "finishTime": "",
           "damageAnim": false,
           "effects": [],
-          "elements": [],
-          "status": [],
-          "userElements": true,
+          "statusAdd": [],
+          "statusRemove": [],
           "effectRange": {
             "minh": 2,
             "maxh": 2,
@@ -107,6 +109,8 @@
           "targetType": 3,
           "restriction": 0,
           "costs": [],
+          "elements": [],
+          "userElements": true,
           "userLoadAnim": "",
           "userCastAnim": "Item",
           "stepOnCast": false,
@@ -121,9 +125,8 @@
           "finishTime": "",
           "damageAnim": false,
           "effects": [],
-          "elements": [],
-          "status": [],
-          "userElements": true,
+          "statusAdd": [],
+          "statusRemove": [],
           "effectRange": {
             "minh": 2,
             "maxh": 2,
@@ -155,6 +158,8 @@
           "targetType": 2,
           "restriction": 1,
           "costs": [],
+          "elements": [],
+          "userElements": true,
           "userLoadAnim": "",
           "userCastAnim": "Item",
           "stepOnCast": false,
@@ -169,9 +174,8 @@
           "finishTime": "",
           "damageAnim": false,
           "effects": [],
-          "elements": [],
-          "status": [],
-          "userElements": true,
+          "statusAdd": [],
+          "statusRemove": [],
           "effectRange": {
             "minh": 2,
             "maxh": 2,
@@ -205,6 +209,8 @@
       "targetType": 0,
       "restriction": 0,
       "costs": [],
+      "elements": [],
+      "userElements": true,
       "userLoadAnim": "",
       "userCastAnim": "",
       "stepOnCast": true,
@@ -219,9 +225,8 @@
       "finishTime": "",
       "damageAnim": true,
       "effects": [],
-      "elements": [],
-      "status": [],
-      "userElements": true,
+      "statusAdd": [],
+      "statusRemove": [],
       "effectRange": {
         "minh": 0,
         "maxh": 0,
@@ -252,6 +257,8 @@
           "targetType": 2,
           "restriction": 1,
           "costs": [],
+          "elements": [],
+          "userElements": true,
           "userLoadAnim": "",
           "userCastAnim": "Skill1",
           "stepOnCast": true,
@@ -274,9 +281,8 @@
               "absorb": false
             }
           ],
-          "elements": [],
-          "status": [],
-          "userElements": true,
+          "statusAdd": [],
+          "statusRemove": [],
           "effectRange": {
             "minh": 0,
             "maxh": 0,
@@ -313,6 +319,8 @@
           "targetType": 2,
           "restriction": 1,
           "costs": [],
+          "elements": [],
+          "userElements": true,
           "userLoadAnim": "",
           "userCastAnim": "Skill1",
           "stepOnCast": true,
@@ -335,9 +343,8 @@
               "absorb": false
             }
           ],
-          "elements": [],
-          "status": [],
-          "userElements": true,
+          "statusAdd": [],
+          "statusRemove": [],
           "effectRange": {
             "minh": 0,
             "maxh": 0,
@@ -379,6 +386,8 @@
               "value": "15"
             }
           ],
+          "elements": [],
+          "userElements": true,
           "userLoadAnim": "Load1",
           "userCastAnim": "Skill2",
           "stepOnCast": true,
@@ -401,9 +410,8 @@
               "absorb": false
             }
           ],
-          "elements": [],
-          "status": [],
-          "userElements": true,
+          "statusAdd": [],
+          "statusRemove": [],
           "effectRange": {
             "minh": 3,
             "maxh": 2,
@@ -440,6 +448,8 @@
               "value": "20"
             }
           ],
+          "elements": [],
+          "userElements": true,
           "userLoadAnim": "Load1",
           "userCastAnim": "Skill2",
           "stepOnCast": true,
@@ -462,9 +472,8 @@
               "absorb": false
             }
           ],
-          "elements": [],
-          "status": [],
-          "userElements": true,
+          "statusAdd": [],
+          "statusRemove": [],
           "effectRange": {
             "minh": 4,
             "maxh": 3,
@@ -498,6 +507,8 @@
       "targetType": 0,
       "restriction": 0,
       "costs": [],
+      "elements": [],
+      "userElements": true,
       "userLoadAnim": "",
       "userCastAnim": "",
       "stepOnCast": true,
@@ -512,9 +523,8 @@
       "finishTime": "",
       "damageAnim": true,
       "effects": [],
-      "elements": [],
-      "status": [],
-      "userElements": true,
+      "statusAdd": [],
+      "statusRemove": [],
       "effectRange": {
         "minh": 0,
         "maxh": 0,
@@ -550,6 +560,8 @@
               "value": "10"
             }
           ],
+          "elements": [],
+          "userElements": true,
           "userLoadAnim": "Load1",
           "userCastAnim": "Skill2",
           "stepOnCast": false,
@@ -572,9 +584,8 @@
               "absorb": false
             }
           ],
-          "elements": [],
-          "status": [],
-          "userElements": true,
+          "statusAdd": [],
+          "statusRemove": [],
           "effectRange": {
             "minh": 0,
             "maxh": 0,
@@ -608,6 +619,8 @@
       "targetType": 0,
       "restriction": 0,
       "costs": [],
+      "elements": [],
+      "userElements": true,
       "userLoadAnim": "",
       "userCastAnim": "",
       "stepOnCast": true,
@@ -622,9 +635,8 @@
       "finishTime": "",
       "damageAnim": true,
       "effects": [],
-      "elements": [],
-      "status": [],
-      "userElements": true,
+      "statusAdd": [],
+      "statusRemove": [],
       "effectRange": {
         "minh": 0,
         "maxh": 0,
@@ -660,6 +672,8 @@
               "value": "10"
             }
           ],
+          "elements": [],
+          "userElements": true,
           "userLoadAnim": "",
           "userCastAnim": "Skill2",
           "stepOnCast": true,
@@ -674,14 +688,13 @@
           "finishTime": "",
           "damageAnim": true,
           "effects": [],
-          "elements": [],
-          "status": [
+          "statusAdd": [
             {
               "id": 0,
               "value": 100
             }
           ],
-          "userElements": true,
+          "statusRemove": [],
           "effectRange": {
             "minh": 0,
             "maxh": 0,
@@ -718,6 +731,8 @@
               "value": "10"
             }
           ],
+          "elements": [],
+          "userElements": true,
           "userLoadAnim": "",
           "userCastAnim": "Skill2",
           "stepOnCast": true,
@@ -732,14 +747,13 @@
           "finishTime": "",
           "damageAnim": false,
           "effects": [],
-          "elements": [],
-          "status": [
+          "statusAdd": [
             {
               "id": 1,
               "value": 100
             }
           ],
-          "userElements": true,
+          "statusRemove": [],
           "effectRange": {
             "minh": 0,
             "maxh": 0,

@@ -18,13 +18,14 @@ local ItemAction = class(SkillAction)
 function ItemAction:init(skillID, item)
   self.item = item
   SkillAction.init(self, skillID)
-  if item.use.hpEffect then
-    self:addEffect('hp', item.use.hpEffect)
+  -- Effects
+  for i = 1, #item.effects do
+    self:addEffect(item.effects[i])
   end
-  if item.use.spEffect then
-    self:addEffect('sp', item.use.spEffect)
-  end
-  self:addStatus(item.use.status)
+  -- Status
+  self:addStatus(item.statusAdd, true)
+  self:addStatus(item.statusRemove, false)
+  -- Type
   if item.use.skillType >= 0 then
     self:setType(item.use.skillType)
   end
