@@ -25,13 +25,6 @@ function ItemAction:init(skillID, item)
   -- Status
   self:addStatus(item.statusAdd, true)
   self:addStatus(item.statusRemove, false)
-  -- Type
-  if item.use.skillType >= 0 then
-    self:setType(item.use.skillType)
-  end
-  if item.use.targetType >= 0 then
-    self:setTargetType(item.use.targetType)
-  end
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -45,7 +38,7 @@ end
 -- @param(input : ActionInput)
 -- @ret(table) results
 function ItemAction:battleUse(input)
-  if self.item.use.consume then
+  if self.item.consume then
     input.user.battler.troop.inventory:removeItem(self.item.id)
   end
   return SkillAction.battleUse(self, input)
@@ -53,7 +46,7 @@ end
 -- @param(input : ActionInput)
 -- @ret(table) results
 function ItemAction:menuUse(input)
-  if self.item.use.consume then
+  if self.item.consume then
     input.user.troop.inventory:removeItem(self.item.id)
   end
   return SkillAction.menuUse(self, input)

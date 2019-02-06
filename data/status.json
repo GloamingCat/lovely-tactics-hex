@@ -246,7 +246,7 @@
           "duration": -1,
           "removeOnKO": true,
           "removeOnDamage": false,
-          "battleOnly": true,
+          "battleOnly": false,
           "deactivate": false,
           "ko": false,
           "behavior": {

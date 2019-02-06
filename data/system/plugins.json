@@ -86,7 +86,7 @@
       },
       {
         "key": "sound",
-        "value": "CGEffex/hit.ogg"
+        "value": "sfx/CGEffex/hit.ogg"
       },
       {
         "key": "volume",

@@ -14,9 +14,6 @@ local InventoryWindow = require('core/gui/general/window/InventoryWindow')
 local ItemAction = require('core/battle/action/ItemAction')
 local Vector = require('core/math/Vector')
 
--- Constants
-local defaultSkillID = Config.battle.itemSkillID
-
 local ActionItemWindow = class(ActionWindow, InventoryWindow)
 
 ---------------------------------------------------------------------------------------------------
@@ -27,9 +24,7 @@ local ActionItemWindow = class(ActionWindow, InventoryWindow)
 -- @param(id : number) the item ID
 function ActionItemWindow:createListButton(itemSlot)
   local button = InventoryWindow.createListButton(self, itemSlot)
-  local id = button.item.use.skillID
-  id = id >= 0 and id or defaultSkillID
-  button.skill = ItemAction:fromData(id, button.item)
+  button.skill = ItemAction:fromData(button.item.skillID, button.item)
 end
 
 ---------------------------------------------------------------------------------------------------

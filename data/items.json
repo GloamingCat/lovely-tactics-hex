@@ -11,6 +11,7 @@
       "sellable": true,
       "skillID": -1,
       "consume": true,
+      "needsUser": false,
       "effects": [],
       "statusAdd": [],
       "statusRemove": [],
@@ -39,6 +40,7 @@
           "sellable": true,
           "skillID": 1,
           "consume": true,
+          "needsUser": false,
           "effects": [
             {
               "key": "hp",
@@ -76,6 +78,7 @@
           "sellable": true,
           "skillID": 1,
           "consume": true,
+          "needsUser": false,
           "effects": [
             {
               "key": "sp",
@@ -103,7 +106,7 @@
       },
       {
         "data": {
-          "description": "Cures 100SP.",
+          "description": "Cures Poison.",
           "icon": {
             "id": 32,
             "col": 3,
@@ -113,14 +116,15 @@
           "sellable": true,
           "skillID": 1,
           "consume": true,
+          "needsUser": false,
           "effects": [],
-          "statusAdd": [
+          "statusAdd": [],
+          "statusRemove": [
             {
               "id": 0,
-              "value": 100
+              "rate": "100"
             }
           ],
-          "statusRemove": [],
           "attributes": [],
           "slot": "",
           "allSlots": false,
@@ -149,6 +153,7 @@
       "sellable": true,
       "skillID": -1,
       "consume": true,
+      "needsUser": false,
       "effects": [],
       "statusAdd": [],
       "statusRemove": [],
@@ -177,6 +182,7 @@
           "sellable": true,
           "skillID": -1,
           "consume": false,
+          "needsUser": false,
           "effects": [],
           "statusAdd": [],
           "statusRemove": [],
@@ -186,11 +192,11 @@
           "blocked": [],
           "equipStatus": [
             {
-              "id": 2,
+              "id": 0,
               "battle": false
             },
             {
-              "id": 0,
+              "id": 2,
               "battle": true
             }
           ],
@@ -221,6 +227,7 @@
           "sellable": true,
           "skillID": -1,
           "consume": false,
+          "needsUser": false,
           "effects": [],
           "statusAdd": [],
           "statusRemove": [],
@@ -256,6 +263,7 @@
           "sellable": true,
           "skillID": -1,
           "consume": false,
+          "needsUser": false,
           "effects": [],
           "statusAdd": [],
           "statusRemove": [],

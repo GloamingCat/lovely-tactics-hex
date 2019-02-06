@@ -79,14 +79,14 @@
           "statusAdd": [],
           "statusRemove": [],
           "effectRange": {
-            "minh": 2,
-            "maxh": 2,
+            "minh": 0,
+            "maxh": 0,
             "far": 1,
             "near": 0
           },
           "castRange": {
-            "minh": 0,
-            "maxh": 0,
+            "minh": 2,
+            "maxh": 2,
             "far": 1,
             "near": 0
           },
@@ -128,14 +128,14 @@
           "statusAdd": [],
           "statusRemove": [],
           "effectRange": {
-            "minh": 2,
-            "maxh": 2,
+            "minh": 0,
+            "maxh": 0,
             "far": 1,
             "near": 0
           },
           "castRange": {
-            "minh": 0,
-            "maxh": 0,
+            "minh": 2,
+            "maxh": 2,
             "far": 1,
             "near": 0
           },
@@ -177,14 +177,14 @@
           "statusAdd": [],
           "statusRemove": [],
           "effectRange": {
-            "minh": 2,
-            "maxh": 2,
+            "minh": 0,
+            "maxh": 0,
             "far": 1,
             "near": 0
           },
           "castRange": {
-            "minh": 0,
-            "maxh": 0,
+            "minh": 2,
+            "maxh": 2,
             "far": 1,
             "near": 0
           },
@@ -691,7 +691,7 @@
           "statusAdd": [
             {
               "id": 0,
-              "value": 100
+              "rate": "100"
             }
           ],
           "statusRemove": [],
@@ -750,7 +750,7 @@
           "statusAdd": [
             {
               "id": 1,
-              "value": 100
+              "rate": "100"
             }
           ],
           "statusRemove": [],

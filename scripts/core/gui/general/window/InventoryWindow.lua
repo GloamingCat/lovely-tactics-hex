@@ -15,9 +15,6 @@ local ListWindow = require('core/gui/ListWindow')
 local MenuTargetGUI = require('core/gui/general/MenuTargetGUI')
 local Vector = require('core/math/Vector')
 
--- Constants
-local defaultSkillID = Config.battle.itemSkillID
-
 local InventoryWindow = class(ListWindow)
 
 ---------------------------------------------------------------------------------------------------
@@ -58,10 +55,8 @@ function InventoryWindow:createListButton(itemSlot)
   button:createInfoText(itemSlot.count, 'gui_medium')
   button.item = item
   button.description = item.description
-  if item.use then
-    local id = item.use.skillID
-    id = id and id >= 0 and id or defaultSkillID
-    button.skill = ItemAction:fromData(id, button.item)
+  if item.skillID >= 0 then
+    button.skill = ItemAction:fromData(item.skillID, button.item)
   end
   return button
 end
@@ -117,7 +112,7 @@ end
 -- Use item in a all members.
 -- @param(input : ActionInput)
 function InventoryWindow:areaTargetItem(input)
-  input.targets = self.GUI.member.troop.current
+  input.targets = self.member.troop.current
   self.input.action:menuUse(self.input)
   self:refreshItems()
   self.GUI.memberGUI:refreshMember()
