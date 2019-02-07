@@ -252,13 +252,6 @@ function Renderer:drawList(list)
     end
   end
 end
-function Renderer:drawSprite(sprite)
-    r, g, b, a = lgraphics.getColor()
-    lgraphics.setColor(self.color.red, self.color.green, self.color.blue, self.color.alpha)
-    lgraphics.draw(line.buffer, line.quad, self.position.x + x, self.position.y + y, 
-      self.rotation, lsx, sy, self.offsetX, self.offsetY)
-    lgraphics.setColor(r, g, b, a)
-end
 -- Draws current and clears.
 function Renderer:clearBatch()
   if self.batch and self.toDraw.size > 0 then

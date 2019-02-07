@@ -227,7 +227,6 @@ function Animation:reset()
     self:setFrames(self.loopDuration, self.loopPattern)
     self.loop = true
   end
-  --self:setRow(0)
   self:setIndex(1)
 end
 -- Destroy this animation.

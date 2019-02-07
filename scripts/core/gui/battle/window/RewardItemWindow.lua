@@ -13,7 +13,7 @@ local InventoryWindow = require('core/gui/general/window/InventoryWindow')
 local Vector = require('core/math/Vector')
 
 -- Constants
-local goldIcon = Config.icons.gold
+local goldIcon = Config.icons.money
 
 local RewardItemWindow = class(InventoryWindow)
 

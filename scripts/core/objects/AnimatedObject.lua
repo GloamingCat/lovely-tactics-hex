@@ -123,6 +123,7 @@ function AnimatedObject:replayAnimation(name, wait, row)
     anim:setRow(row)
   end
   anim.paused = false
+  self.sprite.renderer.needsRedraw = true
   if wait and anim.duration then
     _G.Fiber:wait(anim.duration)
   end
