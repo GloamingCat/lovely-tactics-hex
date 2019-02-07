@@ -78,9 +78,35 @@ function TroopManager:createTroop(troopID, partyInfo, party)
     for j = 1, sizeY do
       local slot = troop.grid:get(i, j)
       if slot then
-        local tile = field:getObjectTile(i + partyInfo.x - 1, j + partyInfo.y - 1, partyInfo.h)
+        local tile = field:getObjectTile(i - 1 + partyInfo.x, j - 1 + partyInfo.y, partyInfo.h)
         if tile and not tile:collides(0, 0) then
           self:createCharacter(tile, dir, slot, party)
+        end
+        tile.party = party
+      end
+    end
+  end
+  -- Party tiles
+  local minx, miny, maxx, maxy
+  if partyInfo.rotation == 0 then
+    minx, maxx = math.floor(field.sizeX / 3) - 1, math.ceil(field.sizeX * 2 / 3) + 1
+    miny, maxy = 0, math.floor(field.sizeY / 3)
+  elseif partyInfo.rotation == 1 then
+    minx, maxx = 0, math.floor(field.sizeX / 3)
+    miny, maxy = math.floor(field.sizeY / 3) - 1, math.ceil(field.sizeY * 2 / 3) + 1
+  elseif partyInfo.rotation == 2 then
+    minx, maxx = math.floor(field.sizeX / 3) - 1, math.ceil(field.sizeX * 2 / 3) + 1
+    miny, maxy = math.floor(field.sizeY * 2 / 3), field.sizeY
+  else
+    minx, maxx = math.floor(field.sizeX * 2 / 3), field.sizeX
+    miny, maxy = math.floor(field.sizeY / 3) - 1, math.ceil(field.sizeY * 2 / 3) + 1
+  end
+  for x = minx + 1, maxx do
+    for y = miny + 1, maxy do
+      for h = -1, 1 do
+        local tile = field:getObjectTile(x, y, partyInfo.h + h)
+        if tile then
+          tile.party = party
         end
       end
     end
