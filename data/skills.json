@@ -51,9 +51,9 @@
         "data": {
           "description": "Skill called by healing items.",
           "icon": {
-            "id": 32,
+            "id": 36,
             "col": 0,
-            "row": 1
+            "row": 0
           },
           "script": "",
           "type": 2,
@@ -100,9 +100,9 @@
         "data": {
           "description": "Skill called by reviving items.",
           "icon": {
-            "id": 32,
-            "col": 1,
-            "row": 1
+            "id": 36,
+            "col": 0,
+            "row": 0
           },
           "script": "",
           "type": 2,
@@ -149,9 +149,9 @@
         "data": {
           "description": "Skill called by offensive items.",
           "icon": {
-            "id": 32,
-            "col": 3,
-            "row": 1
+            "id": 36,
+            "col": 0,
+            "row": 0
           },
           "script": "",
           "type": 1,
@@ -267,8 +267,8 @@
           "individualAnimID": -1,
           "mirror": true,
           "introTime": "",
-          "castTime": "20",
-          "centerTime": "",
+          "castTime": "35",
+          "centerTime": "20",
           "targetTime": "",
           "finishTime": "",
           "damageAnim": true,
@@ -330,7 +330,7 @@
           "mirror": true,
           "introTime": "",
           "castTime": "",
-          "centerTime": "10",
+          "centerTime": "",
           "targetTime": "",
           "finishTime": "",
           "damageAnim": true,
@@ -387,7 +387,7 @@
             }
           ],
           "elements": [],
-          "userElements": true,
+          "userElements": false,
           "userLoadAnim": "Load1",
           "userCastAnim": "Skill2",
           "stepOnCast": true,
@@ -449,7 +449,7 @@
             }
           ],
           "elements": [],
-          "userElements": true,
+          "userElements": false,
           "userLoadAnim": "Load1",
           "userCastAnim": "Skill2",
           "stepOnCast": true,
@@ -561,12 +561,12 @@
             }
           ],
           "elements": [],
-          "userElements": true,
+          "userElements": false,
           "userLoadAnim": "Load1",
           "userCastAnim": "Skill2",
           "stepOnCast": false,
           "loadAnimID": -1,
-          "castAnimID": -1,
+          "castAnimID": 16,
           "individualAnimID": -1,
           "mirror": true,
           "introTime": "",
@@ -602,6 +602,65 @@
           "tags": []
         },
         "id": 10,
+        "children": []
+      },
+      {
+        "data": {
+          "description": "Casts Reflect on a single ally.",
+          "icon": {
+            "id": 34,
+            "col": 0,
+            "row": 0
+          },
+          "script": "",
+          "type": 2,
+          "targetType": 2,
+          "restriction": 1,
+          "costs": [
+            {
+              "key": "sp",
+              "value": "10"
+            }
+          ],
+          "elements": [],
+          "userElements": false,
+          "userLoadAnim": "Load1",
+          "userCastAnim": "Skill2",
+          "stepOnCast": false,
+          "loadAnimID": -1,
+          "castAnimID": 17,
+          "individualAnimID": -1,
+          "mirror": true,
+          "introTime": "",
+          "castTime": "",
+          "centerTime": "",
+          "targetTime": "",
+          "finishTime": "",
+          "damageAnim": false,
+          "effects": [],
+          "statusAdd": [
+            {
+              "id": 2,
+              "rate": "100"
+            }
+          ],
+          "statusRemove": [],
+          "effectRange": {
+            "minh": 0,
+            "maxh": 0,
+            "far": 1,
+            "near": 0
+          },
+          "castRange": {
+            "minh": 0,
+            "maxh": 0,
+            "far": 1,
+            "near": 0
+          },
+          "name": "Reflect",
+          "tags": []
+        },
+        "id": 14,
         "children": []
       }
     ]
@@ -673,7 +732,7 @@
             }
           ],
           "elements": [],
-          "userElements": true,
+          "userElements": false,
           "userLoadAnim": "",
           "userCastAnim": "Skill2",
           "stepOnCast": true,
@@ -732,7 +791,7 @@
             }
           ],
           "elements": [],
-          "userElements": true,
+          "userElements": false,
           "userLoadAnim": "",
           "userCastAnim": "Skill2",
           "stepOnCast": true,

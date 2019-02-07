@@ -60,7 +60,7 @@
           "elementAtk": [],
           "elementDef": [],
           "equipAttributes": [],
-          "name": "Life Potion",
+          "name": "Health Potion",
           "tags": []
         },
         "id": 2,
@@ -138,6 +138,44 @@
         },
         "id": 4,
         "children": []
+      },
+      {
+        "data": {
+          "description": "Awakes a knocked-out ally.",
+          "icon": {
+            "id": 32,
+            "col": 2,
+            "row": 1
+          },
+          "price": 30,
+          "sellable": true,
+          "skillID": 2,
+          "consume": true,
+          "needsUser": false,
+          "effects": [
+            {
+              "key": "hp",
+              "basicResult": "b.hp() / 10",
+              "successRate": "100",
+              "heal": false,
+              "absorb": false
+            }
+          ],
+          "statusAdd": [],
+          "statusRemove": [],
+          "attributes": [],
+          "slot": "",
+          "allSlots": false,
+          "blocked": [],
+          "equipStatus": [],
+          "elementAtk": [],
+          "elementDef": [],
+          "equipAttributes": [],
+          "name": "Reviving Potion",
+          "tags": []
+        },
+        "id": 8,
+        "children": []
       }
     ]
   },
@@ -190,16 +228,7 @@
           "slot": "hand",
           "allSlots": false,
           "blocked": [],
-          "equipStatus": [
-            {
-              "id": 0,
-              "battle": false
-            },
-            {
-              "id": 2,
-              "battle": true
-            }
-          ],
+          "equipStatus": [],
           "elementAtk": [],
           "elementDef": [],
           "equipAttributes": [
@@ -223,7 +252,7 @@
             "col": 0,
             "row": 0
           },
-          "price": 150,
+          "price": 300,
           "sellable": true,
           "skillID": -1,
           "consume": false,
@@ -253,13 +282,13 @@
       },
       {
         "data": {
-          "description": "Increases 5ADEFP.",
+          "description": "Increases 5DEFP.\r\nProtects from all debuffs.",
           "icon": {
             "id": 35,
             "col": 0,
             "row": 0
           },
-          "price": 150,
+          "price": 300,
           "sellable": true,
           "skillID": -1,
           "consume": false,
@@ -271,7 +300,12 @@
           "slot": "hand",
           "allSlots": true,
           "blocked": [],
-          "equipStatus": [],
+          "equipStatus": [
+            {
+              "id": 7,
+              "battle": false
+            }
+          ],
           "elementAtk": [],
           "elementDef": [],
           "equipAttributes": [

@@ -42,11 +42,15 @@ function SkillAction:init(skillID)
   BattleAction.init(self, nil, data.castRange, data.effectRange)
   self:setType(data.type)
   self:setTargetType(data.targetType)
-  -- Animation time
-  self.introTime = tonumber(data.introTime) or 22
-  self.castTime = tonumber(data.castTime) or 5
-  self.centerTime = tonumber(data.centerTime) or 20
+  -- Time before initial animation starts.
+  self.introTime = tonumber(data.introTime) or 20
+  -- Time after cast animation starts and before user steps back to tile.
+  self.castTime = tonumber(data.castTime) or 10
+  -- Time after cast animation starts and before starting individual target animations.
+  self.centerTime = tonumber(data.centerTime) or 10
+  -- Time between start of each individual target animation.
   self.targetTime = tonumber(data.targetTime) or 0
+  -- Time after all animations finished.
   self.finishTime = tonumber(data.finishTime) or 0
   -- Cost formulas
   self.costs = {}
@@ -179,16 +183,19 @@ function SkillAction:battleUse(input)
   local dir = input.user:turnToTile(input.target.x, input.target.y)
   dir = math.angle2Row(dir) * 45
   _G.Fiber:wait(input.user:loadSkill(self.data, dir))
-  -- Cast animation
+  -- Cast animation.
   FieldManager.renderer:moveToTile(input.target)
   local minTime = input.user:castSkill(self.data, dir, input.target) + GameManager.frame
   input.user.battler:onSkillUse(input, input.user)
-  _G.Fiber:wait(self.centerTime)
   -- Return user to original position and animation.
-  if not input.user:moving() then
-    input.user:finishSkill(originTile, self.data)
-  end
-  -- Animation for each of affected tiles.
+  _G.Fiber:fork(function()
+    _G.Fiber:wait(self.castTime)
+    if not input.user:moving() then
+      input.user:finishSkill(originTile, self.data)
+    end
+  end)
+  -- Target animations
+  _G.Fiber:wait(self.centerTime)
   self:allTargetsEffect(input, originTile)
   -- Wait until everything finishes.
   _G.Fiber:wait(max(minTime - GameManager.frame, 0) + self.finishTime)
