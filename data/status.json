@@ -33,11 +33,6 @@
       "battleOnly": true,
       "deactivate": false,
       "ko": false,
-      "behavior": {
-        "global": false,
-        "name": "",
-        "tags": []
-      },
       "drainAtt": "",
       "frequency": 0,
       "drainValue": 0,
@@ -86,11 +81,6 @@
           "battleOnly": false,
           "deactivate": false,
           "ko": false,
-          "behavior": {
-            "global": false,
-            "name": "",
-            "tags": []
-          },
           "drainAtt": "hp",
           "frequency": 1,
           "drainValue": 10,
@@ -140,11 +130,6 @@
           "battleOnly": true,
           "deactivate": true,
           "ko": false,
-          "behavior": {
-            "global": false,
-            "name": "",
-            "tags": []
-          },
           "drainAtt": "",
           "frequency": 0,
           "drainValue": 0,
@@ -196,11 +181,6 @@
       "battleOnly": true,
       "deactivate": false,
       "ko": false,
-      "behavior": {
-        "global": false,
-        "name": "",
-        "tags": []
-      },
       "drainAtt": "",
       "frequency": 0,
       "drainValue": 0,
@@ -249,11 +229,6 @@
           "battleOnly": false,
           "deactivate": false,
           "ko": false,
-          "behavior": {
-            "global": false,
-            "name": "",
-            "tags": []
-          },
           "drainAtt": "",
           "frequency": 0,
           "drainValue": 0,
@@ -308,11 +283,6 @@
           "battleOnly": false,
           "deactivate": false,
           "ko": false,
-          "behavior": {
-            "global": false,
-            "name": "",
-            "tags": []
-          },
           "drainAtt": "",
           "frequency": 0,
           "drainValue": 0,
@@ -370,11 +340,6 @@
           "battleOnly": true,
           "deactivate": false,
           "ko": false,
-          "behavior": {
-            "global": false,
-            "name": "",
-            "tags": []
-          },
           "drainAtt": "",
           "frequency": 0,
           "drainValue": 0,
@@ -430,11 +395,6 @@
           "battleOnly": true,
           "deactivate": false,
           "ko": false,
-          "behavior": {
-            "global": false,
-            "name": "",
-            "tags": []
-          },
           "drainAtt": "",
           "frequency": 0,
           "drainValue": 0,

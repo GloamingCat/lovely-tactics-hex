@@ -21,8 +21,9 @@ local AIRule = class()
 ---------------------------------------------------------------------------------------------------
 
 -- @param(action : BattleAction) the BattleAction executed in the rule
-function AIRule:init(battler, tags)
+function AIRule:init(battler, condition, tags)
   self.battler = battler
+  self.condition = condition
   self.tags = TagMap(tags)
 end
 -- Creates an AIRule from the given rule data.
@@ -30,10 +31,10 @@ end
 -- @return(AIRule)
 function AIRule:fromData(data, battler)
   local class = self
-  if data.path and data.path ~= '' then
-    class = require('custom/ai/rule/' .. data.path)
+  if data.name and data.name ~= '' then
+    class = require('custom/' .. data.name)
   end
-  return class(battler, data.tags)
+  return class(battler, data.condition, data.tags)
 end
 
 ---------------------------------------------------------------------------------------------------

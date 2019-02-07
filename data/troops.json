@@ -1,11 +1,7 @@
 [
   {
     "data": {
-      "ai": {
-        "global": false,
-        "name": "",
-        "tags": []
-      },
+      "ai": "",
       "persistent": true,
       "money": 100,
       "items": [
@@ -68,11 +64,7 @@
   },
   {
     "data": {
-      "ai": {
-        "global": false,
-        "name": "",
-        "tags": []
-      },
+      "ai": "troop/DefaultAI.lua",
       "persistent": false,
       "money": 0,
       "items": [],

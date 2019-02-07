@@ -52,8 +52,8 @@ function Battler:init(troop, save)
   local data = Database.battlers[id]
   self:initProperties(data, save)
   self:initState(data, save)
-  if data.scriptAI then
-    self.AI = BattlerAI:fromData(data.scriptAI, self)
+  if data.ai and #data.ai > 0 then
+    self.AI = BattlerAI(self, data.ai)
   end
 end
 -- Initializes general battler information.

@@ -83,23 +83,4 @@ function Event:startBattle(args)
   fiber:waitForEnd()
 end
 
----------------------------------------------------------------------------------------------------
--- Battle
----------------------------------------------------------------------------------------------------
-
--- Executes a battle rule during AI processing.
--- @param(args.path : string) Path to the rule from "custom/ai/rule/" folder.
--- @param(args.condition : string) Boolean expression that must be true to execute the rule.
--- @param(args.tags : table) Array of tags of the rule.
-function Event:battleRule(args)
-  local rule = AIRule:fromData(args, self.user)
-  rule:onSelect(self.char)
-  local condition = args.condition ~= '' and args.condition
-  if not condition or self:decodeExpression(condition) then
-    if rule:canExecute() then
-      self.AI.result = rule:execute()
-    end
-  end
-end
-
 return Event

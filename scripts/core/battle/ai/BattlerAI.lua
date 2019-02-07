@@ -18,49 +18,15 @@ local BattlerAI = class()
 ---------------------------------------------------------------------------------------------------
 
 -- Constructor.
--- @param(commands : table) Array of event sheet commands.
 -- @param(battler : Battler) The battler with this AI.
 -- @param(param : string) Any custom arguments.
-function BattlerAI:init(battler, commands, param)
+function BattlerAI:init(battler, rules)
   self.battler = battler
-  self.commands = commands
-  self.param = param
-end
--- Creates an AI script from the given rule data.
--- @param(data : table) Rule data with path, param and condition fields.
--- @return(BattlerAI)
-function BattlerAI:fromData(data, battler)
-  local class = self
-  if data.path and data.path ~= '' then
-    class = require('custom/ai/battler/' .. data.path)
-  end
-  return class(battler, data.commands, data.param)
+  self.rules = rules
 end
 -- @ret(string) String identifier.
 function BattlerAI:__tostring()
   return 'AI: ' .. self.battler.key
-end
-
----------------------------------------------------------------------------------------------------
--- Execution
----------------------------------------------------------------------------------------------------
-
--- Executes next action of the current character, when it's the character's turn.
--- By default, just skips turn, with no time loss.
--- @ret(number) The action result table.
-function BattlerAI:runTurn()
-  local char = TurnManager:currentCharacter()
-  self:showCursor(char)
-  TurnManager:characterTurnStart()
-  local fiber = FieldManager.fiberList:forkFromScript(self.commands)
-  fiber.user = self.battler
-  fiber.AI = self
-  fiber.char = char
-  fiber:waitForEnd()
-  local result = self.result or AIRule(self.battler):execute()
-  self.result = nil
-  TurnManager:characterTurnEnd(result)
-  return result
 end
 -- Shows the cursor over the current character.
 function BattlerAI:showCursor(char)
@@ -75,6 +41,42 @@ function BattlerAI:showCursor(char)
     coroutine.yield()
   end
   cursor:destroy()
+end
+
+---------------------------------------------------------------------------------------------------
+-- Execution
+---------------------------------------------------------------------------------------------------
+
+-- Executes next action of the current character, when it's the character's turn.
+-- By default, just skips turn, with no time loss.
+-- @ret(number) The action result table.
+function BattlerAI:runTurn()
+  local char = TurnManager:currentCharacter()
+  self:showCursor(char)
+  TurnManager:characterTurnStart()
+  local result = self:applyRules(char)
+  TurnManager:characterTurnEnd(result)
+  return result
+end
+-- Executes the rules in order until one of them produces a result.
+-- @param(char : Character) The battle character executing the rules.
+function BattlerAI:applyRules(char)
+  for i = 1, #self.rules do
+    local rule = AIRule:fromData(self.rules[i], self.battler)
+    rule:onSelect(char)
+    local condition = rule.condition ~= '' and rule.condition
+    if (not condition or self:decodeCondition(condition, char)) and rule:canExecute() then
+      return rule:execute()
+    end
+  end
+  return AIRule(self.battler):execute()
+end
+-- Evaluates a given expression.
+-- @param(condition : string) Boolean expression.
+-- @param(char : Character) The character executing this script.
+-- @ret(boolean) The value of the expression.
+function BattlerAI:decodeCondition(condition, char)
+  return loadformula(condition, 'AI, user')(self, char)
 end
 
 return BattlerAI

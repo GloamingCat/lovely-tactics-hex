@@ -63,13 +63,13 @@ function TurnManager:runTurn()
   end
   self:startTurn()
   local result = nil
-  local AI = TroopManager.troops[self.party].AI
-  if AI then
-    result = AI:runTurn()
+  local troop = TroopManager.troops[self.party]
+  if troop.AI then
+    result = troop.AI(troop)
   else
     result = self:runPlayerTurn()
   end
-  _G.Fiber:wait(finishTime)
+  _G.Fiber:wait(self.finishTime)
   if result.escaped then
     if self.party == TroopManager.playerParty then
       return -2, TroopManager.playerParty

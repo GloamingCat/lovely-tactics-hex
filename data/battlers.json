@@ -2,11 +2,7 @@
   {
     "data": {
       "persistent": false,
-      "ai": {
-        "global": false,
-        "name": "",
-        "tags": []
-      },
+      "ai": [],
       "classID": 0,
       "attackID": 0,
       "level": 0,
@@ -45,11 +41,7 @@
       {
         "data": {
           "persistent": true,
-          "ai": {
-            "global": false,
-            "name": "",
-            "tags": []
-          },
+          "ai": [],
           "classID": 0,
           "attackID": 5,
           "level": 3,
@@ -95,11 +87,7 @@
       {
         "data": {
           "persistent": true,
-          "ai": {
-            "global": false,
-            "name": "",
-            "tags": []
-          },
+          "ai": [],
           "classID": 1,
           "attackID": 6,
           "level": 3,
@@ -144,11 +132,7 @@
   {
     "data": {
       "persistent": false,
-      "ai": {
-        "global": false,
-        "name": "",
-        "tags": []
-      },
+      "ai": [],
       "classID": 0,
       "attackID": 0,
       "level": 0,
@@ -187,11 +171,13 @@
       {
         "data": {
           "persistent": false,
-          "ai": {
-            "global": false,
-            "name": "ai/Rusher.lua",
-            "tags": []
-          },
+          "ai": [
+            {
+              "condition": "",
+              "name": "rule/Rush.lua",
+              "tags": []
+            }
+          ],
           "classID": 0,
           "attackID": 5,
           "level": 1,
@@ -242,11 +228,13 @@
       {
         "data": {
           "persistent": false,
-          "ai": {
-            "global": false,
-            "name": "ai/Rusher.lua",
-            "tags": []
-          },
+          "ai": [
+            {
+              "condition": "",
+              "name": "rule/Rush.lua",
+              "tags": []
+            }
+          ],
           "classID": 1,
           "attackID": 6,
           "level": 1,

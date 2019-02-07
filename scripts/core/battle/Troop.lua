@@ -13,7 +13,6 @@ local Inventory = require('core/battle/Inventory')
 local List = require('core/base/datastruct/List')
 local Matrix2 = require('core/math/Matrix2')
 local TagMap = require('core/base/datastruct/TagMap')
-local TroopAI = require('core/battle/ai/TroopAI')
 
 -- Alias
 local mod = math.mod
@@ -59,8 +58,8 @@ function Troop:init(data, party)
   -- Rotation
   self.rotation = 0
   -- AI
-  if data.scriptAI then
-    self.AI = TroopAI:fromData(data.scriptAI, self)
+  if data.ai ~= '' then
+    self.AI = require('custom/' .. data.ai)
   end
 end
 -- Creates battler for each member data in the given list.
