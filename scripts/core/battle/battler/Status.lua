@@ -9,6 +9,7 @@ The effects of them on battle and field depend on each individual implementation
 =================================================================================================]]
 
 -- Imports
+local BattlerAI = require('core/battle/ai/BattlerAI')
 local TagMap = require('core/base/datastruct/TagMap')
 
 local Status = class()
@@ -52,9 +53,8 @@ function Status:init(list, data, state)
     self.elementDef[bonus.id] = (bonus.value or 0) / 100
   end
   -- AI
-  local ai = data.scriptAI
-  if ai and ai.path ~= '' then
-    self.AI = require('custom/ai/battler/' .. ai.path)(self, ai.param)
+  if data.ai and #data.ai > 0 then
+    self.AI = BattlerAI(self, data.ai)
   end
 end
 -- Creates the status from its ID in the database, loading the correct script.

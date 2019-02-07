@@ -96,7 +96,7 @@ end
 -- @param(button : Button) the button to check
 -- @ret(boolean)
 function EquipItemWindow:buttonEnabled(button)
-  return button.item
+  return button.enabled
 end
 
 ----------------------------------------------------------------------------------------------------

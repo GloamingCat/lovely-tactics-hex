@@ -284,11 +284,12 @@ end
 
 -- Creates a table that stores the battler's current state to be saved.
 -- @ret(table)
-function Battler:createPersistentData()
+function Battler:createPersistentData(backup, x, y)
   return {
     key = self.key,
-    x = self.x,
-    y = self.y,
+    x = x or self.x,
+    y = y or self.y,
+    backup = backup,
     name = self.name,
     charID = self.charID,
     battlerID = self.data.id,

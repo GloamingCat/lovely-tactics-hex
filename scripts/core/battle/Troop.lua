@@ -191,7 +191,7 @@ end
 ---------------------------------------------------------------------------------------------------
 
 -- Creates a table of reward from the current state of the battle field.
--- @ret(table) table with exp, items and money
+-- @ret(table) Table with exp per battler, items and money.
 function Troop:getBattleRewards()
   local r = { exp = {},
     items = Inventory(),
@@ -241,31 +241,30 @@ function Troop:createPersistentData(saveFormation)
   data.money = self.money
   data.items = self.inventory:getState()
   if saveFormation then
-    data.members = self:createMemberArray()
+    local members = {}
+    for i = 1, #self.current do
+      local member = self.current[i]
+      members[i] = self.battlers[member.key]:createPersistentData()
+    end
+    local n = #members
+    for i = 1, #self.backup do
+      local member = self.backup[i]
+      members[i + n] = self.battlers[member.key]:createPersistentData(true)
+    end
+    data.members = members
     data.hidden = copyArray(self.hidden)
   else
-    data.members = copyArray(self.save.members)
+    local members = {}
+    for i = 1, #self.save.members do
+      local member = self.save.members[i]
+      members[i] = self.battlers[member.key]:createPersistentData(member.backup, member.x, member.y)
+    end
+    data.members = members
     if self.save.hidden then
       data.hidden = copyArray(self.save.hidden)
     end
   end
   return data
-end
--- @param(arr : table) list of Battler
--- @ret(table) array of save data tables
-function Troop:createMemberArray()
-  local members = {}
-  for i = 1, #self.current do
-    local battler = self.current[i]
-    members[i] = self.battlers[battler.key]:createPersistentData()
-  end
-  local n = #members
-  for i = 1, #self.backup do
-    local battler = self.backup[i]
-    members[i + n] = self.backup[battler.key]:createPersistentData()
-    members[i + n].backup = true
-  end
-  return members
 end
 
 return Troop

@@ -378,7 +378,7 @@
           },
           "script": "",
           "type": 1,
-          "targetType": 2,
+          "targetType": 0,
           "restriction": 1,
           "costs": [
             {
@@ -440,7 +440,7 @@
           },
           "script": "",
           "type": 1,
-          "targetType": 2,
+          "targetType": 0,
           "restriction": 1,
           "costs": [
             {

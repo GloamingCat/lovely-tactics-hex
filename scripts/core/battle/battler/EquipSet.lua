@@ -62,7 +62,7 @@ end
 -- @param(key : string) Slot's key.
 -- @ret(number) The ID of the equip item (-1 if none).
 function EquipSet:getEquip(key)
-  assert(self.slots[key], 'Slot ' .. key .. ' does not exist.')
+  assert(self.slots[key], 'Slot does not exist: ' .. (key or 'nil'))
   return Database.items[self.slots[key].id]
 end
 -- Sets the equip item in the given slot.
@@ -73,8 +73,6 @@ end
 function EquipSet:setEquip(key, item, inventory, character)
   if item then
     assert(item.slot ~= '', 'Item is not an equipment: ' .. item.id)
-  end
-  if item then
     self:equip(key, item, inventory, character)
   else
     self:unequip(key, inventory, character)
@@ -101,6 +99,15 @@ function EquipSet:equip(key, item, inventory, character)
     self:unequip(item.slot, inventory, character)
   else
     self:unequip(key, inventory, character)
+  end
+  if self.types[item.slot] then
+    for i = 1, self.types[item.slot].count do
+      local key2 = item.slot .. i
+      local equip = key2 ~= key and self:getEquip(key2)
+      if equip and equip.allSlots then
+        self:unequip(key2, inventory, character)
+      end
+    end
   end
   for i = 1, #item.blocked do
     self:unequip(item.blocked[i], inventory, character)
@@ -172,6 +179,7 @@ end
 -- @ret(boolean) If the item may be equiped.
 function EquipSet:canEquip(key, item)
   local slotType = self.types[item.slot]
+  assert(slotType, 'Slot does not exist: ' .. (item.slot or 'nil'))
   if slotType.state >= 3 then
     return false
   end
@@ -179,15 +187,24 @@ function EquipSet:canEquip(key, item)
   if item == currentItem then
     return true
   end
-  local blocks = item.blocked
-  for i = 1, #blocks do
-    if not self:canUnequip(blocks[i]) then
+  for i = 1, #item.blocked do
+    if not self:canUnequip(item.blocked[i]) then
       return false
     end
   end
   if item.allSlots then
     if slotType.count > 1 and slotType.state == 2 then
       return false
+    end
+  end
+  if self.types[item.slot] then
+    for i = 1, self.types[item.slot].count do
+      local key2 = item.slot .. i
+      local equip = key2 ~= key and self:getEquip(key2)
+      local block = self.slots[key2].block
+      if equip and equip.allSlots and block and block ~= item.slot then
+        return false
+      end
     end
   end
   local block = self.slots[key].block
@@ -213,7 +230,7 @@ function EquipSet:canUnequip(key)
   local currentItem = self:getEquip(key)
   if currentItem then
     local slot = self.types[currentItem.slot]
-    if slot.state >= 2 then -- Cannot unequip
+    if slot.state >= 2 then
       return false
     elseif slot.state == 1 then
       for i = 1, slot.count do

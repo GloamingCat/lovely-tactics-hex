@@ -164,7 +164,7 @@ function Inventory:getEquipItems(key)
   local items = {}
   for itemSlot in self:iterator() do
     local item = Database.items[itemSlot.id]
-    if key == nil or item.equip and key:find(item.equip.type) then
+    if item.slot ~= '' and (key == nil or key:find(item.slot)) then
       items[#items + 1] = itemSlot
     end
   end

@@ -297,8 +297,8 @@
           "statusAdd": [],
           "statusRemove": [],
           "attributes": [],
-          "slot": "hand",
-          "allSlots": true,
+          "slot": "head",
+          "allSlots": false,
           "blocked": [],
           "equipStatus": [
             {
