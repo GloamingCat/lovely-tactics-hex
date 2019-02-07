@@ -13,6 +13,7 @@
     },
     "loadScript": {
       "global": false,
+      "block": true,
       "name": "",
       "tags": []
     },
@@ -40,6 +41,7 @@
         "info": {
           "name": "New Layer",
           "height": 1,
+          "noAuto": false,
           "tags": []
         },
         "visible": true,
@@ -268,6 +270,7 @@
         "info": {
           "name": "New Layer",
           "height": 1,
+          "noAuto": false,
           "tags": []
         },
         "visible": true,

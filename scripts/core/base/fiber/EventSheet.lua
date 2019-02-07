@@ -10,13 +10,6 @@ A fiber that processes a list of sequential commands.
 -- Imports
 local Fiber = require('core/base/fiber/Fiber')
 
--- Alias
-local insert = table.insert
-local readFile = love.filesystem.read
-
--- Cache
-local ScriptCache = {}
-
 local EventSheet = class(Fiber)
 
 ---------------------------------------------------------------------------------------------------
@@ -25,52 +18,26 @@ local EventSheet = class(Fiber)
 
 -- @param(root : FiberList)
 -- @param(state : table) state data from save (ignored if the event is new)
-function EventSheet:init(root, data, char)
-  self.name = data.name
-  self.vars = data.vars or 0
-  self.code = data.code
-  if root then
-    root.eventSheets:add(self)
-  end
-  local code = data.code or readFile('scripts/custom/' .. data.name)
-  assert(code, "Could not load event sheet file: " .. (data.name or 'nil'))
-  if ScriptCache[code] then
-    self.commands = ScriptCache[code]
+function EventSheet:init(root, script, char)
+  if script.func then
+    self.commands = script.func
   else
-    self.commands = self:preprocess(code)
-    ScriptCache[code] = self.commands
+    local func = require('custom/' .. script.name)
+    assert(func, "Could not load event sheet file: " .. (script.name or 'nil'))
+    self.commands = func
   end
-  self.args = Database:loadTags(data.tags)
+  self.block = script.block
+  self.args = Database:loadTags(script.tags)
   self.player = FieldManager.player
   self.field = FieldManager.currentField
-  if char or data.char then
-    self.char = char or data.char and FieldManager:search(data.char)
-  end
+  self.char = char
   Fiber.init(self, root, nil)
-end
--- Persistent state to save.
--- @ret(table) Table with command list, current command index and local variables.
-function EventSheet:getState()
-  return {
-    name = self.name,
-    code = self.code,
-    vars = self.vars,
-    char = self.char and self.char.key,
-    tags = self.args:toList() }
 end
 
 ---------------------------------------------------------------------------------------------------
 -- Execution
 ---------------------------------------------------------------------------------------------------
 
--- Creates a function from the given commands.
--- @param(commands : string) Script commands.
--- @ret(function) Execution function.
-function EventSheet:preprocess(commands)
-  local header = "return function(script)\n"
-  local script = header .. commands .. " end"
-  return loadstring(script)()
-end
 -- Runs the script commands.
 function EventSheet:execute()
   local player = FieldManager.player

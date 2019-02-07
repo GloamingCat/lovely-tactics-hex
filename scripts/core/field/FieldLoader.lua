@@ -110,17 +110,18 @@ end
 -- @param(transitions : table) Array of field's transitions.
 function FieldLoader.createTransitions(field, transitions)
   for _, t in ipairs(transitions) do
-    local args = {
-      { key = "fade", value = t.fade },
-      { key = "fieldID", value = t.destination.fieldID },
-      { key = "x", value = t.destination.x },
-      { key = "y", value = t.destination.y },
-      { key = "h", value = t.destination.h },
-      { key = "direction", value = t.destination.direction }
-    }
+    local args = { fieldID = t.destination.fieldID,
+      x = t.destination.x,
+      y = t.destination.y,
+      h = t.destination.h,
+      direction = t.destination.direction,
+      fade = t.fade }
+    local func = function(script)
+      script:moveToField(args)
+    end
     for x = t.tl.x, t.br.x do
       for y = t.tl.y, t.br.y do
-        local script = { code = "script:moveToField (script.args)", tags = args }
+        local script = { func = func, block = true, global = true }
         local instData = { key = 'Transition',
           x = x, y = y, h = t.tl.h,
           collideScript = script }

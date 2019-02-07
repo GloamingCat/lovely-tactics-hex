@@ -142,8 +142,8 @@ function FieldManager:loadTransition(transition, fromSave)
   self.renderer:setPosition(self.player.position)
   -- Create/call start listeners
   local script = self.currentField.loadScript
-  if script then
-    self.currentField.fiberList:forkFromScript(script.commands, {fromSave = fromSave})
+  if script and script.name ~= '' then
+    self.fiberList:forkFromScript(script.commands)
   end
   for char in self.characterList:iterator() do
     local script = char.loadScript

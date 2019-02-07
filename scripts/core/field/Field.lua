@@ -33,7 +33,6 @@ function Field:init(id, name, sizeX, sizeY, maxH)
   self.name = name
   self.sizeX = sizeX
   self.sizeY = sizeY
-  self.fiberList = FiberList()
   self.vars = {}
   self.terrainLayers = {}
   self.objectLayers = {}
@@ -52,7 +51,6 @@ end
 
 -- Updates all ObjectTiles and TerrainTiles in field's layers.
 function Field:update()
-  self.fiberList:update()
   for l = self.minh, self.maxh do
     local layer = self.objectLayers[l]
     for i = 1, self.sizeX do

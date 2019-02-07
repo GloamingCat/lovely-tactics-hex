@@ -5,10 +5,14 @@ Battle Test
 
 =================================================================================================]]
 
-script:startBattle { fieldID = 0, fade = 5, intro = true, gameOverCondition = 1, escapeEnabled = true}
+return function(script)
 
-util.general.printBattleResult()
+  script:startBattle { fieldID = 0, fade = 5, intro = true, gameOverCondition = 1, escapeEnabled = true}
 
-if BattleManager:playerWon() then
-	script:deleteChar { key = "self", permanent = true }
+  util.general.printBattleResult()
+
+  if BattleManager:playerWon() then
+    script:deleteChar { key = "self", permanent = true }
+  end
+  
 end

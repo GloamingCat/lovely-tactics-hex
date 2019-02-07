@@ -13,7 +13,7 @@ passable and persistent properties.
 local FiberList = require('core/base/fiber/FiberList')
 
 -- Alias
-local copyTable = util.table.shallowCopy
+local copyTable = util.table.deepCopy
 
 local Interactable = class()
 
@@ -40,7 +40,7 @@ end
 -- Creates listeners from instance data.
 -- @param(instData : table) Instance data from field file.
 function Interactable:initScripts(instData, save)
-  self.fiberList = FiberList(save and save.fiberList, self)
+  self.fiberList = FiberList(self)
   if instData.loadScript and instData.loadScript.name ~= '' then
     self.loadScript = instData.loadScript
   end
@@ -80,8 +80,7 @@ end
 -- @ret(table) Interactable's state to be saved.
 function Interactable:getPersistentData()
   local data = {}
-  data.fiberList = self.fiberList:getState()
-  data.vars = util.table.deepCopy(self.vars)
+  data.vars = copyTable(self.vars)
   data.deleted = self.deleted
   return data
 end
@@ -95,7 +94,6 @@ end
 function Interactable:onInteract(tile)
   local fiberList = self.interactScript.global and FieldManager.fiberList or self.fiberList
   local fiber = fiberList:forkFromScript(self.interactScript, self)
-  fiber.block = true
   fiber.tile = self.tile
   fiber:waitForEnd()
 end
@@ -104,7 +102,6 @@ end
 function Interactable:onCollide(tile, collided, collider)
   local fiberList = self.collideScript.global and FieldManager.fiberList or self.fiberList
   local fiber = fiberList:forkFromScript(self.collideScript, self)
-  fiber.block = true
   fiber.tile = self.tile
   fiber:waitForEnd()
 end
@@ -113,7 +110,6 @@ end
 function Interactable:onStart()
   local fiberList = self.loadScript.global and FieldManager.fiberList or self.fiberList
   local fiber = fiberList:forkFromScript(self.loadScript, self)
-  fiber.block = true
   fiber.tile = self.tile
   fiber:waitForEnd()
 end

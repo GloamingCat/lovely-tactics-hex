@@ -19,15 +19,10 @@ local FiberList = class(List)
 ---------------------------------------------------------------------------------------------------
 
 -- Constructor.
--- @param(state : table) Persistent state if loaded from save (optional).
-function FiberList:init(state)
+-- @param(char : Interactable) The character that created this list (optional).
+function FiberList:init(char)
   List.init(self)
-  self.eventSheets = List()
-  if state then
-    for i = 1, #state do
-      local sheet = EventSheet(self, nil, state[i])
-    end
-  end
+  self.char = char
 end
 -- Updates all Fibers.
 function FiberList:update()
@@ -58,20 +53,6 @@ end
 -- @ret(EventSheet) The newly created Fiber.
 function FiberList:forkFromScript(script, ...)
   return EventSheet(self, script, ...)
-end
-
----------------------------------------------------------------------------------------------------
--- State
----------------------------------------------------------------------------------------------------
-
--- Fiber's state. It considers only its event sheets.
--- @ret(table) Array with the states of each event sheet.
-function FiberList:getState()
-  local state = {}
-  for i = 1, #self.eventSheets do
-    state[i] = self.eventSheets[i]:getState()
-  end
-  return state
 end
 
 return FiberList

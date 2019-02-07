@@ -5,11 +5,15 @@ Shop Test
 
 =================================================================================================]]
 
-script:openShop { sell = true, items = {
-{ id = 2},
-{ id = 3 },
-{ id = 4 },
-{ id = 5 },
-{ id = 6 },
-{ id = 7 }
-}}
+return function(script)
+
+  script:openShop { sell = true, items = {
+    { id = 2 },
+    { id = 3 },
+    { id = 4 },
+    { id = 5 },
+    { id = 6 },
+    { id = 7 }
+  }}
+
+end

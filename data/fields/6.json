@@ -13,6 +13,7 @@
     },
     "loadScript": {
       "global": false,
+      "block": true,
       "name": "",
       "tags": []
     },
@@ -89,6 +90,7 @@
         "info": {
           "name": "Sand",
           "height": 1,
+          "noAuto": false,
           "tags": []
         },
         "visible": true,
@@ -229,6 +231,7 @@
         "info": {
           "name": "Grass",
           "height": 1,
+          "noAuto": false,
           "tags": []
         },
         "visible": true,
@@ -369,6 +372,7 @@
         "info": {
           "name": "Bush",
           "height": 1,
+          "noAuto": false,
           "tags": []
         },
         "visible": true,
@@ -509,6 +513,7 @@
         "info": {
           "name": "Water",
           "height": 1,
+          "noAuto": false,
           "tags": []
         },
         "visible": true,
@@ -651,6 +656,7 @@
         "info": {
           "name": "Height 1",
           "height": 1,
+          "noAuto": false,
           "tags": []
         },
         "visible": true,

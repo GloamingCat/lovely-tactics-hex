@@ -277,8 +277,8 @@ function Player:interact()
   return interacted
 end
 -- Tries to interact with any character in the given tile.
--- @param(tile : ObjectTile) 
--- @ret(boolean) true if the character interacted with someone, false otherwise
+-- @param(tile : ObjectTile) The tile where the interactable is.
+-- @ret(boolean) True if the character interacted with someone, false otherwise.
 function Player:interactTile(tile)
   if not tile then
     return false

@@ -13,6 +13,7 @@
     },
     "loadScript": {
       "global": false,
+      "block": true,
       "name": "",
       "tags": []
     },
@@ -898,16 +899,19 @@
       "direction": 315,
       "loadScript": {
         "global": false,
+        "block": true,
         "name": "",
         "tags": []
       },
       "collideScript": {
         "global": true,
+        "block": true,
         "name": "events/test/Battle.lua",
         "tags": []
       },
       "interactScript": {
         "global": false,
+        "block": true,
         "name": "",
         "tags": []
       }
