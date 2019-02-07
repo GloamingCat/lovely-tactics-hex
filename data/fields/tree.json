@@ -1,14 +1,14 @@
 {
-  "lastField": 3,
+  "lastField": 2,
   "id": -1,
   "children": [
     {
       "id": 0,
       "data": {
-        "name": "Battle Field",
+        "name": "Forest Battle Field",
         "lastLayers": [
-          0,
-          -1,
+          4,
+          1,
           -1
         ]
       },
@@ -24,27 +24,76 @@
           -1
         ]
       },
-      "children": []
+      "children": [
+        {
+          "id": 2,
+          "data": {
+            "name": "Forest 2",
+            "lastLayers": [
+              1,
+              0,
+              -1
+            ]
+          },
+          "children": []
+        },
+        {
+          "id": 3,
+          "data": {
+            "name": "Forest 3",
+            "lastLayers": [
+              1,
+              0,
+              -1
+            ]
+          },
+          "children": []
+        },
+        {
+          "id": 4,
+          "data": {
+            "name": "Forest 4",
+            "lastLayers": [
+              1,
+              0,
+              -1
+            ]
+          },
+          "children": []
+        },
+        {
+          "id": 5,
+          "data": {
+            "name": "Forest 5",
+            "lastLayers": [
+              2,
+              0,
+              -1
+            ]
+          },
+          "children": []
+        },
+        {
+          "id": 6,
+          "data": {
+            "name": "Forest 6",
+            "lastLayers": [
+              1,
+              0,
+              -1
+            ]
+          },
+          "children": []
+        }
+      ]
     },
     {
-      "id": 2,
+      "id": 7,
       "data": {
-        "name": "Forest 2",
-        "lastLayers": [
-          2,
-          0,
-          -1
-        ]
-      },
-      "children": []
-    },
-    {
-      "id": 3,
-      "data": {
-        "name": "Empty",
+        "name": "City 1",
         "lastLayers": [
           0,
-          -1,
+          0,
           -1
         ]
       },

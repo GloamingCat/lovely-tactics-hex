@@ -61,6 +61,7 @@
                 false,
                 false
               ],
+              "ramp": false,
               "dx": 0,
               "dy": 0,
               "height": 6
@@ -106,6 +107,7 @@
                 false,
                 false
               ],
+              "ramp": false,
               "dx": 0,
               "dy": 0,
               "height": 6
@@ -151,6 +153,7 @@
                 false,
                 false
               ],
+              "ramp": false,
               "dx": 0,
               "dy": 0,
               "height": 3
@@ -172,7 +175,7 @@
           "transform": {
             "offsetX": 0,
             "offsetY": 0,
-            "offsetDepth": 0,
+            "offsetDepth": 4,
             "scaleX": 100,
             "scaleY": 100,
             "rotation": 0,
@@ -201,7 +204,7 @@
           "transform": {
             "offsetX": 0,
             "offsetY": 0,
-            "offsetDepth": 0,
+            "offsetDepth": 4,
             "scaleX": 100,
             "scaleY": 100,
             "rotation": 0,
@@ -230,7 +233,7 @@
           "transform": {
             "offsetX": 0,
             "offsetY": 0,
-            "offsetDepth": 0,
+            "offsetDepth": 4,
             "scaleX": 100,
             "scaleY": 100,
             "rotation": 0,
@@ -283,9 +286,10 @@
                 true,
                 true
               ],
+              "ramp": true,
               "dx": 0,
               "dy": 0,
-              "height": 2
+              "height": 1
             }
           ],
           "name": "Block",
@@ -358,6 +362,7 @@
                 false,
                 false
               ],
+              "ramp": false,
               "dx": 0,
               "dy": 0,
               "height": 6
@@ -403,6 +408,7 @@
                 false,
                 false
               ],
+              "ramp": false,
               "dx": 0,
               "dy": 0,
               "height": 6
@@ -448,6 +454,7 @@
                 false,
                 false
               ],
+              "ramp": false,
               "dx": 0,
               "dy": 0,
               "height": 6
@@ -493,6 +500,7 @@
                 false,
                 false
               ],
+              "ramp": false,
               "dx": 0,
               "dy": 0,
               "height": 6

@@ -35,7 +35,7 @@ function Obstacle:init(data, tileData, initTile, group)
   self.group = group
   self.sprite = group.sprite
   self.collisionHeight = tileData.height
-  self.rampHeight = tileData.rampHeight ~= 0 and tileData.rampHeight
+  self.ramp = tileData.ramp
   initTile.obstacleList:add(self)
   self:initNeighbors(tileData.neighbors)
   self:addToTiles()
@@ -109,7 +109,7 @@ end
 -- Gets an array of tiles to each the obstacle's ramp transits.
 -- @ret(table) Array of tiles if the obstacle is a ramp, nil if it's not.
 function Obstacle:getRampNeighbors(tile)
-  if not self.rampHeight then
+  if not self.ramp then
     return nil
   end
   tile = tile or self:getTile()
@@ -126,7 +126,7 @@ function Obstacle:getRampNeighbors(tile)
       end
     end
   end
-  return neighbors, field:getObjectTile(tile.x, tile.y, self.rampHeight + height)
+  return neighbors, field:getObjectTile(tile.x, tile.y, self.collisionHeight + height)
 end
 
 ---------------------------------------------------------------------------------------------------

@@ -66,7 +66,7 @@ end
 -- Move condition. Enabled if there are any tiles for the character to move to.
 function ActionWindow:moveEnabled()
   local user = TurnManager:currentCharacter()
-  if user.steps <= 0 then
+  if user.steps < 1 then
     return false
   end
   for path in TurnManager:pathMatrix():iterator() do
