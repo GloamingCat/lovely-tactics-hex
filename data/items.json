@@ -84,7 +84,7 @@
               "key": "sp",
               "basicResult": "100",
               "successRate": "100",
-              "heal": false,
+              "heal": true,
               "absorb": false
             }
           ],
@@ -157,7 +157,7 @@
               "key": "hp",
               "basicResult": "b.hp() / 10",
               "successRate": "100",
-              "heal": false,
+              "heal": true,
               "absorb": false
             }
           ],

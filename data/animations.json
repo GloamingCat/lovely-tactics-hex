@@ -1581,6 +1581,44 @@
         },
         "id": 40,
         "children": []
+      },
+      {
+        "data": {
+          "script": "",
+          "quad": {
+            "path": "Terrain/HexV.png",
+            "x": 216,
+            "y": 0,
+            "width": 36,
+            "height": 198
+          },
+          "rows": 9,
+          "cols": 1,
+          "transform": {
+            "offsetX": 18,
+            "offsetY": 11,
+            "offsetDepth": 12,
+            "scaleX": 100,
+            "scaleY": 100,
+            "rotation": 0,
+            "red": 255,
+            "green": 255,
+            "blue": 255,
+            "alpha": 255,
+            "hue": 0,
+            "saturation": 100,
+            "brightness": 100
+          },
+          "introPattern": "",
+          "introDuration": "",
+          "loopPattern": "",
+          "loopDuration": "",
+          "audio": [],
+          "name": "Rock",
+          "tags": []
+        },
+        "id": 76,
+        "children": []
       }
     ]
   },
@@ -1967,14 +2005,14 @@
             "data": {
               "script": "",
               "quad": {
-                "path": "Obstacle/Wall0.png",
+                "path": "Obstacle/Wall.png",
                 "x": 0,
                 "y": 0,
-                "width": 36,
+                "width": 360,
                 "height": 78
               },
               "rows": 1,
-              "cols": 1,
+              "cols": 10,
               "transform": {
                 "offsetX": 18,
                 "offsetY": 67,
@@ -1995,7 +2033,7 @@
               "loopPattern": "",
               "loopDuration": "",
               "audio": [],
-              "name": "Wall 1",
+              "name": "Wall",
               "tags": []
             },
             "id": 47,
@@ -2005,17 +2043,17 @@
             "data": {
               "script": "",
               "quad": {
-                "path": "Obstacle/Wall1.png",
+                "path": "Obstacle/House.png",
                 "x": 0,
                 "y": 0,
-                "width": 36,
-                "height": 78
+                "width": 336,
+                "height": 144
               },
-              "rows": 1,
-              "cols": 1,
+              "rows": 2,
+              "cols": 7,
               "transform": {
-                "offsetX": 18,
-                "offsetY": 67,
+                "offsetX": 24,
+                "offsetY": 61,
                 "offsetDepth": 0,
                 "scaleX": 100,
                 "scaleY": 100,
@@ -2033,86 +2071,10 @@
               "loopPattern": "",
               "loopDuration": "",
               "audio": [],
-              "name": "Wall 2",
+              "name": "House",
               "tags": []
             },
             "id": 48,
-            "children": []
-          },
-          {
-            "data": {
-              "script": "",
-              "quad": {
-                "path": "Obstacle/Wall2.png",
-                "x": 0,
-                "y": 0,
-                "width": 36,
-                "height": 78
-              },
-              "rows": 1,
-              "cols": 1,
-              "transform": {
-                "offsetX": 18,
-                "offsetY": 67,
-                "offsetDepth": 0,
-                "scaleX": 100,
-                "scaleY": 100,
-                "rotation": 0,
-                "red": 255,
-                "green": 255,
-                "blue": 255,
-                "alpha": 255,
-                "hue": 0,
-                "saturation": 100,
-                "brightness": 100
-              },
-              "introPattern": "",
-              "introDuration": "",
-              "loopPattern": "",
-              "loopDuration": "",
-              "audio": [],
-              "name": "Wall 3",
-              "tags": []
-            },
-            "id": 49,
-            "children": []
-          },
-          {
-            "data": {
-              "script": "",
-              "quad": {
-                "path": "Obstacle/Wall3.png",
-                "x": 0,
-                "y": 0,
-                "width": 36,
-                "height": 78
-              },
-              "rows": 1,
-              "cols": 1,
-              "transform": {
-                "offsetX": 18,
-                "offsetY": 67,
-                "offsetDepth": 0,
-                "scaleX": 100,
-                "scaleY": 100,
-                "rotation": 0,
-                "red": 255,
-                "green": 255,
-                "blue": 255,
-                "alpha": 255,
-                "hue": 0,
-                "saturation": 100,
-                "brightness": 100
-              },
-              "introPattern": "",
-              "introDuration": "",
-              "loopPattern": "",
-              "loopDuration": "",
-              "audio": [],
-              "name": "Wall 4",
-              "tags": []
-            },
-            "id": 50,
             "children": []
           }
         ]

@@ -90,5 +90,28 @@
     },
     "id": 3,
     "children": []
+  },
+  {
+    "data": {
+      "passable": true,
+      "audio": {
+        "name": "",
+        "volume": 100,
+        "pitch": 100,
+        "time": 0
+      },
+      "animID": 76,
+      "moveCost": 100,
+      "statusID": -1,
+      "removeOnExit": false,
+      "resetTime": true,
+      "lifeTime": -1,
+      "attributes": [],
+      "elements": [],
+      "name": "Rock",
+      "tags": []
+    },
+    "id": 4,
+    "children": []
   }
 ]

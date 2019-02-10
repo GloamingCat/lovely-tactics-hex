@@ -13,6 +13,7 @@
     },
     "loadScript": {
       "global": false,
+      "block": true,
       "name": "",
       "tags": []
     },

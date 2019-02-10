@@ -1,5 +1,5 @@
 {
-  "lastField": 2,
+  "lastField": 7,
   "id": -1,
   "children": [
     {
@@ -19,7 +19,7 @@
       "data": {
         "name": "Forest 1",
         "lastLayers": [
-          2,
+          3,
           0,
           -1
         ]
@@ -92,12 +92,25 @@
       "data": {
         "name": "City 1",
         "lastLayers": [
-          0,
-          0,
+          2,
+          1,
           -1
         ]
       },
-      "children": []
+      "children": [
+        {
+          "id": 8,
+          "data": {
+            "name": "City 2",
+            "lastLayers": [
+              1,
+              1,
+              -1
+            ]
+          },
+          "children": []
+        }
+      ]
     }
   ]
 }
