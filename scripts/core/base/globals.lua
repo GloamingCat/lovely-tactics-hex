@@ -8,8 +8,6 @@ This module creates all global variables.
 =================================================================================================]]
 
 require('core/base/class')
-require('core/base/override')
-require('core/math/lib')
 
 ---------------------------------------------------------------------------------------------------
 -- Util
@@ -18,6 +16,8 @@ require('core/math/lib')
 util = {}
 util.table = require('core/base/util/TableUtil')
 util.array = require('core/base/util/ArrayUtil')
+require('core/math/lib')
+require('core/base/override')
 
 ---------------------------------------------------------------------------------------------------
 -- Database
@@ -35,6 +35,27 @@ Fonts   = require('conf/Fonts')
 Icons   = require('conf/Icons')
 Sounds  = require('conf/Sounds')
 KeyMap  = require('conf/KeyMap')
+
+---------------------------------------------------------------------------------------------------
+-- Field Math
+---------------------------------------------------------------------------------------------------
+
+local tileW = Config.grid.tileW
+local tileH = Config.grid.tileH
+local tileB = Config.grid.tileB
+local tileS = Config.grid.tileS
+if (tileW == tileB) and (tileH == tileS) then
+  math.field = require('core/math/field/OrtMath')
+elseif (tileB == 0) and (tileS == 0) then
+  math.field = require('core/math/field/IsoMath')
+elseif (tileB > 0) and (tileS == 0) then
+  math.field = require('core/math/field/HexVMath')
+elseif (tileB == 0) and (tileS > 0) then
+  math.field = require('core/math/field/HexHMath')
+else
+  error('Tile format not supported!')
+end
+math.field.init()
 
 ---------------------------------------------------------------------------------------------------
 -- Plugins

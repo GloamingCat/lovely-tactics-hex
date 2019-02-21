@@ -3,7 +3,7 @@
 
 HexVMath
 ---------------------------------------------------------------------------------------------------
-Implements a FieldMath specially to vertical hexagonal fields.
+Implements FieldMath methods to hexagonal fields in which the tiles are connected vertically.
 
 =================================================================================================]]
 
@@ -54,6 +54,16 @@ function HexVMath.createVertexShift()
   put(-tileW / 2, 0)
   put(tileB / 2, -tileH / 2)
   return v
+end
+
+-----------------------------------------------------------------------------------------------
+-- Direction
+-----------------------------------------------------------------------------------------------
+
+-- Gets the character's direction at party rotation 0.
+-- @ret(number) The character's direction.
+function HexVMath.baseDirection()
+  return 315
 end
 
 -----------------------------------------------------------------------------------------------
@@ -202,7 +212,8 @@ function HexVMath.isCollinear(x1, y1, x2, y2, x3, y3)
   return x1 == x2 and x2 == x3 or y1 == y2 and y2 == y3 or
     x1 + y1 == x2 + y2 and x2 + y2 == x3 + y3
 end
--- Iterates through the set of tiles inside the given radius (a max distance in tiles)
+-- Iterates through the set of tiles inside the given radius.
+-- The radius is the maximum distance to the center tile, so the center is always included.
 -- @param(radius : number) the max distance
 -- @param(centerx : number) the starting tile's x
 -- @param(centery : number) the starting tile's y

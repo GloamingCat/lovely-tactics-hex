@@ -19,7 +19,7 @@ local mod = math.mod
 local copyArray = util.array.deepCopy
 
 -- Constants
-local baseDirection = math.field.baseDirection -- characters' direction at rotation 0
+local baseDirection = math.field.baseDirection() -- characters' direction at rotation 0
 local sizeX = Config.troop.width
 local sizeY = Config.troop.height
 

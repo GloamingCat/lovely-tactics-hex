@@ -3,7 +3,7 @@
 
 Field
 ---------------------------------------------------------------------------------------------------
-The class implements methods to check collisions.
+A class that stores the layers of tiles in the field and provides general grid information.
 
 =================================================================================================]]
 

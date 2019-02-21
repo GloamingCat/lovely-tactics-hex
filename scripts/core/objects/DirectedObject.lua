@@ -11,7 +11,7 @@ An object with a direction.
 local AnimatedObject = require('core/objects/AnimatedObject')
 
 -- Alias
-local angle2Row = math.angle2Row
+local angle2Row = math.field.angle2Row
 local coord2Angle = math.coord2Angle
 local frontTile = math.field.frontTile
 local nextCoordDir = math.field.nextCoordDir

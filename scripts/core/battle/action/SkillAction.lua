@@ -39,7 +39,7 @@ local SkillAction = class(BattleAction)
 function SkillAction:init(skillID)
   local data = Database.skills[skillID]
   self.data = data
-  BattleAction.init(self, nil, data.castRange, data.effectRange)
+  BattleAction.init(self, nil, data.castMask, data.effectMask)
   self:setType(data.type)
   self:setTargetType(data.targetType)
   -- Time before initial animation starts.
@@ -181,7 +181,7 @@ function SkillAction:battleUse(input)
   -- User's initial animation.
   local originTile = input.user:getTile()
   local dir = input.user:turnToTile(input.target.x, input.target.y)
-  dir = math.angle2Row(dir) * 45
+  dir = math.field.angle2Row(dir) * 45
   _G.Fiber:wait(input.user:loadSkill(self.data, dir))
   -- Cast animation.
   FieldManager.renderer:moveToTile(input.target)

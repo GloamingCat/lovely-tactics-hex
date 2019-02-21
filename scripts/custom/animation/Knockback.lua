@@ -13,7 +13,7 @@ local Animation = require('core/graphics/Animation')
 -- Alias
 local round = math.round
 local abs = math.abs
-local row2Angle = math.row2Angle
+local row2Angle = math.field.row2Angle
 local angle2Coord = math.angle2Coord
 local time = love.timer.getDelta
 

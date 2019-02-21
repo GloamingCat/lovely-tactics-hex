@@ -17,7 +17,6 @@ local Troop = require('core/battle/Troop')
 -- Alias
 local rand = love.math.random
 local mathf = math.field
-local angle2row = math.angle2Row
 
 -- Constants
 local charSpeed = (Config.player.dashSpeed + Config.player.walkSpeed) / 2

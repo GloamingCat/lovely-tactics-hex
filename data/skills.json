@@ -30,17 +30,29 @@
       "effects": [],
       "statusAdd": [],
       "statusRemove": [],
-      "effectRange": {
-        "minh": 0,
-        "maxh": 0,
-        "far": 1,
-        "near": 0
+      "effectMask": {
+        "centerX": 1,
+        "centerY": 1,
+        "centerH": 1,
+        "grid": [
+          [
+            [
+              true
+            ]
+          ]
+        ]
       },
-      "castRange": {
-        "minh": 0,
-        "maxh": 0,
-        "far": 1,
-        "near": 0
+      "castMask": {
+        "centerX": 1,
+        "centerY": 1,
+        "centerH": 1,
+        "grid": [
+          [
+            [
+              true
+            ]
+          ]
+        ]
       },
       "name": "Item",
       "tags": []
@@ -78,20 +90,41 @@
           "effects": [],
           "statusAdd": [],
           "statusRemove": [],
-          "effectRange": {
-            "minh": 0,
-            "maxh": 0,
-            "far": 1,
-            "near": 0
+          "effectMask": {
+            "centerX": 1,
+            "centerY": 1,
+            "centerH": 1,
+            "grid": [
+              [
+                [
+                  true
+                ]
+              ]
+            ]
           },
-          "castRange": {
-            "minh": 2,
-            "maxh": 2,
-            "far": 1,
-            "near": 0
+          "castMask": {
+            "centerX": 1,
+            "centerY": 1,
+            "centerH": 1,
+            "grid": [
+              [
+                [
+                  true
+                ]
+              ]
+            ]
           },
           "name": "Healing Item",
-          "tags": []
+          "tags": [
+            {
+              "key": "cast_maxh",
+              "value": "2"
+            },
+            {
+              "key": "cast_minh",
+              "value": "-2"
+            }
+          ]
         },
         "id": 1,
         "children": []
@@ -127,20 +160,41 @@
           "effects": [],
           "statusAdd": [],
           "statusRemove": [],
-          "effectRange": {
-            "minh": 0,
-            "maxh": 0,
-            "far": 1,
-            "near": 0
+          "effectMask": {
+            "centerX": 1,
+            "centerY": 1,
+            "centerH": 1,
+            "grid": [
+              [
+                [
+                  true
+                ]
+              ]
+            ]
           },
-          "castRange": {
-            "minh": 2,
-            "maxh": 2,
-            "far": 1,
-            "near": 0
+          "castMask": {
+            "centerX": 1,
+            "centerY": 1,
+            "centerH": 1,
+            "grid": [
+              [
+                [
+                  true
+                ]
+              ]
+            ]
           },
           "name": "Reviving Item",
-          "tags": []
+          "tags": [
+            {
+              "key": "cast_maxh",
+              "value": "2"
+            },
+            {
+              "key": "cast_minh",
+              "value": "-2"
+            }
+          ]
         },
         "id": 2,
         "children": []
@@ -176,20 +230,41 @@
           "effects": [],
           "statusAdd": [],
           "statusRemove": [],
-          "effectRange": {
-            "minh": 0,
-            "maxh": 0,
-            "far": 1,
-            "near": 0
+          "effectMask": {
+            "centerX": 1,
+            "centerY": 1,
+            "centerH": 1,
+            "grid": [
+              [
+                [
+                  true
+                ]
+              ]
+            ]
           },
-          "castRange": {
-            "minh": 2,
-            "maxh": 2,
-            "far": 1,
-            "near": 0
+          "castMask": {
+            "centerX": 1,
+            "centerY": 1,
+            "centerH": 1,
+            "grid": [
+              [
+                [
+                  true
+                ]
+              ]
+            ]
           },
           "name": "Offensive Item",
-          "tags": []
+          "tags": [
+            {
+              "key": "cast_maxh",
+              "value": "2"
+            },
+            {
+              "key": "cast_minh",
+              "value": "-2"
+            }
+          ]
         },
         "id": 3,
         "children": []
@@ -227,17 +302,29 @@
       "effects": [],
       "statusAdd": [],
       "statusRemove": [],
-      "effectRange": {
-        "minh": 0,
-        "maxh": 0,
-        "far": 1,
-        "near": 0
+      "effectMask": {
+        "centerX": 1,
+        "centerY": 1,
+        "centerH": 1,
+        "grid": [
+          [
+            [
+              true
+            ]
+          ]
+        ]
       },
-      "castRange": {
-        "minh": 0,
-        "maxh": 0,
-        "far": 1,
-        "near": 0
+      "castMask": {
+        "centerX": 1,
+        "centerY": 1,
+        "centerH": 1,
+        "grid": [
+          [
+            [
+              true
+            ]
+          ]
+        ]
       },
       "name": "Attack",
       "tags": []
@@ -283,23 +370,43 @@
           ],
           "statusAdd": [],
           "statusRemove": [],
-          "effectRange": {
-            "minh": 0,
-            "maxh": 0,
-            "far": 1,
-            "near": 0
+          "effectMask": {
+            "centerX": 1,
+            "centerY": 1,
+            "centerH": 1,
+            "grid": [
+              [
+                [
+                  true
+                ]
+              ]
+            ]
           },
-          "castRange": {
-            "minh": 1,
-            "maxh": 1,
-            "far": 1,
-            "near": 0
+          "castMask": {
+            "centerX": 1,
+            "centerY": 1,
+            "centerH": 1,
+            "grid": [
+              [
+                [
+                  true
+                ]
+              ]
+            ]
           },
           "name": "Blade Attack",
           "tags": [
             {
               "key": "critical",
               "value": ""
+            },
+            {
+              "key": "cast_maxh",
+              "value": "1"
+            },
+            {
+              "key": "cast_minh",
+              "value": "-1"
             }
           ]
         },
@@ -329,7 +436,7 @@
           "individualAnimID": -1,
           "mirror": true,
           "introTime": "",
-          "castTime": "",
+          "castTime": "45",
           "centerTime": "",
           "targetTime": "",
           "finishTime": "",
@@ -345,23 +452,47 @@
           ],
           "statusAdd": [],
           "statusRemove": [],
-          "effectRange": {
-            "minh": 0,
-            "maxh": 0,
-            "far": 1,
-            "near": 0
+          "effectMask": {
+            "centerX": 1,
+            "centerY": 1,
+            "centerH": 1,
+            "grid": [
+              [
+                [
+                  true
+                ]
+              ]
+            ]
           },
-          "castRange": {
-            "minh": 4,
-            "maxh": 4,
-            "far": 4,
-            "near": 0
+          "castMask": {
+            "centerX": 1,
+            "centerY": 1,
+            "centerH": 1,
+            "grid": [
+              [
+                [
+                  true
+                ]
+              ]
+            ]
           },
           "name": "Magical Attack",
           "tags": [
             {
               "key": "critical",
               "value": ""
+            },
+            {
+              "key": "cast_far",
+              "value": "4"
+            },
+            {
+              "key": "cast_maxh",
+              "value": "4"
+            },
+            {
+              "key": "cast_minh",
+              "value": "-4"
             }
           ]
         },
@@ -396,7 +527,7 @@
           "individualAnimID": -1,
           "mirror": true,
           "introTime": "",
-          "castTime": "",
+          "castTime": "45",
           "centerTime": "",
           "targetTime": "",
           "finishTime": "",
@@ -412,20 +543,61 @@
           ],
           "statusAdd": [],
           "statusRemove": [],
-          "effectRange": {
-            "minh": 3,
-            "maxh": 2,
-            "far": 2,
-            "near": 0
+          "effectMask": {
+            "centerX": 1,
+            "centerY": 1,
+            "centerH": 1,
+            "grid": [
+              [
+                [
+                  true
+                ]
+              ]
+            ]
           },
-          "castRange": {
-            "minh": 4,
-            "maxh": 4,
-            "far": 4,
-            "near": 2
+          "castMask": {
+            "centerX": 1,
+            "centerY": 1,
+            "centerH": 1,
+            "grid": [
+              [
+                [
+                  true
+                ]
+              ]
+            ]
           },
           "name": "Super Fireball",
-          "tags": []
+          "tags": [
+            {
+              "key": "cast_far",
+              "value": "4"
+            },
+            {
+              "key": "cast_near",
+              "value": "2"
+            },
+            {
+              "key": "cast_maxh",
+              "value": "4"
+            },
+            {
+              "key": "cast_minh",
+              "value": "-4"
+            },
+            {
+              "key": "effect_far",
+              "value": "1"
+            },
+            {
+              "key": "effect_maxh",
+              "value": "1"
+            },
+            {
+              "key": "effect_minh",
+              "value": "-1"
+            }
+          ]
         },
         "id": 7,
         "children": []
@@ -458,7 +630,7 @@
           "individualAnimID": -1,
           "mirror": true,
           "introTime": "",
-          "castTime": "",
+          "castTime": "45",
           "centerTime": "",
           "targetTime": "",
           "finishTime": "",
@@ -474,20 +646,61 @@
           ],
           "statusAdd": [],
           "statusRemove": [],
-          "effectRange": {
-            "minh": 4,
-            "maxh": 3,
-            "far": 3,
-            "near": 0
+          "effectMask": {
+            "centerX": 1,
+            "centerY": 1,
+            "centerH": 1,
+            "grid": [
+              [
+                [
+                  true
+                ]
+              ]
+            ]
           },
-          "castRange": {
-            "minh": 4,
-            "maxh": 4,
-            "far": 4,
-            "near": 3
+          "castMask": {
+            "centerX": 1,
+            "centerY": 1,
+            "centerH": 1,
+            "grid": [
+              [
+                [
+                  true
+                ]
+              ]
+            ]
           },
           "name": "Bizzard",
-          "tags": []
+          "tags": [
+            {
+              "key": "cast_far",
+              "value": "4"
+            },
+            {
+              "key": "cast_near",
+              "value": "3"
+            },
+            {
+              "key": "cast_maxh",
+              "value": "4"
+            },
+            {
+              "key": "cast_minh",
+              "value": "-4"
+            },
+            {
+              "key": "effect_far",
+              "value": "2"
+            },
+            {
+              "key": "effect_maxh",
+              "value": "2"
+            },
+            {
+              "key": "effect_minh",
+              "value": "-2"
+            }
+          ]
         },
         "id": 8,
         "children": []
@@ -525,17 +738,29 @@
       "effects": [],
       "statusAdd": [],
       "statusRemove": [],
-      "effectRange": {
-        "minh": 0,
-        "maxh": 0,
-        "far": 1,
-        "near": 0
+      "effectMask": {
+        "centerX": 1,
+        "centerY": 1,
+        "centerH": 1,
+        "grid": [
+          [
+            [
+              true
+            ]
+          ]
+        ]
       },
-      "castRange": {
-        "minh": 0,
-        "maxh": 0,
-        "far": 1,
-        "near": 0
+      "castMask": {
+        "centerX": 1,
+        "centerY": 1,
+        "centerH": 1,
+        "grid": [
+          [
+            [
+              true
+            ]
+          ]
+        ]
       },
       "name": "Support",
       "tags": []
@@ -586,20 +811,45 @@
           ],
           "statusAdd": [],
           "statusRemove": [],
-          "effectRange": {
-            "minh": 0,
-            "maxh": 0,
-            "far": 1,
-            "near": 0
+          "effectMask": {
+            "centerX": 1,
+            "centerY": 1,
+            "centerH": 1,
+            "grid": [
+              [
+                [
+                  true
+                ]
+              ]
+            ]
           },
-          "castRange": {
-            "minh": 3,
-            "maxh": 3,
-            "far": 3,
-            "near": 0
+          "castMask": {
+            "centerX": 1,
+            "centerY": 1,
+            "centerH": 1,
+            "grid": [
+              [
+                [
+                  true
+                ]
+              ]
+            ]
           },
           "name": "Heal",
-          "tags": []
+          "tags": [
+            {
+              "key": "cast_far",
+              "value": "3"
+            },
+            {
+              "key": "cast_maxh",
+              "value": "3"
+            },
+            {
+              "key": "cast_minh",
+              "value": "-3"
+            }
+          ]
         },
         "id": 10,
         "children": []
@@ -645,20 +895,45 @@
             }
           ],
           "statusRemove": [],
-          "effectRange": {
-            "minh": 0,
-            "maxh": 0,
-            "far": 1,
-            "near": 0
+          "effectMask": {
+            "centerX": 1,
+            "centerY": 1,
+            "centerH": 1,
+            "grid": [
+              [
+                [
+                  true
+                ]
+              ]
+            ]
           },
-          "castRange": {
-            "minh": 0,
-            "maxh": 0,
-            "far": 1,
-            "near": 0
+          "castMask": {
+            "centerX": 1,
+            "centerY": 1,
+            "centerH": 1,
+            "grid": [
+              [
+                [
+                  true
+                ]
+              ]
+            ]
           },
           "name": "Reflect",
-          "tags": []
+          "tags": [
+            {
+              "key": "cast_far",
+              "value": "3"
+            },
+            {
+              "key": "cast_maxh",
+              "value": "3"
+            },
+            {
+              "key": "cast_minh",
+              "value": "-3"
+            }
+          ]
         },
         "id": 14,
         "children": []
@@ -696,17 +971,29 @@
       "effects": [],
       "statusAdd": [],
       "statusRemove": [],
-      "effectRange": {
-        "minh": 0,
-        "maxh": 0,
-        "far": 1,
-        "near": 0
+      "effectMask": {
+        "centerX": 1,
+        "centerY": 1,
+        "centerH": 1,
+        "grid": [
+          [
+            [
+              true
+            ]
+          ]
+        ]
       },
-      "castRange": {
-        "minh": 0,
-        "maxh": 0,
-        "far": 1,
-        "near": 0
+      "castMask": {
+        "centerX": 1,
+        "centerY": 1,
+        "centerH": 1,
+        "grid": [
+          [
+            [
+              true
+            ]
+          ]
+        ]
       },
       "name": "Debuff",
       "tags": []
@@ -754,20 +1041,45 @@
             }
           ],
           "statusRemove": [],
-          "effectRange": {
-            "minh": 0,
-            "maxh": 0,
-            "far": 1,
-            "near": 0
+          "effectMask": {
+            "centerX": 1,
+            "centerY": 1,
+            "centerH": 1,
+            "grid": [
+              [
+                [
+                  true
+                ]
+              ]
+            ]
           },
-          "castRange": {
-            "minh": 3,
-            "maxh": 3,
-            "far": 3,
-            "near": 0
+          "castMask": {
+            "centerX": 1,
+            "centerY": 1,
+            "centerH": 1,
+            "grid": [
+              [
+                [
+                  true
+                ]
+              ]
+            ]
           },
           "name": "Poison",
-          "tags": []
+          "tags": [
+            {
+              "key": "cast_far",
+              "value": "3"
+            },
+            {
+              "key": "cast_maxh",
+              "value": "3"
+            },
+            {
+              "key": "cast_minh",
+              "value": "-3"
+            }
+          ]
         },
         "id": 12,
         "children": []
@@ -813,20 +1125,45 @@
             }
           ],
           "statusRemove": [],
-          "effectRange": {
-            "minh": 0,
-            "maxh": 0,
-            "far": 1,
-            "near": 0
+          "effectMask": {
+            "centerX": 1,
+            "centerY": 1,
+            "centerH": 1,
+            "grid": [
+              [
+                [
+                  true
+                ]
+              ]
+            ]
           },
-          "castRange": {
-            "minh": 3,
-            "maxh": 3,
-            "far": 3,
-            "near": 0
+          "castMask": {
+            "centerX": 1,
+            "centerY": 1,
+            "centerH": 1,
+            "grid": [
+              [
+                [
+                  true
+                ]
+              ]
+            ]
           },
           "name": "Sleeping Polen",
-          "tags": []
+          "tags": [
+            {
+              "key": "cast_far",
+              "value": "3"
+            },
+            {
+              "key": "cast_maxh",
+              "value": "3"
+            },
+            {
+              "key": "cast_minh",
+              "value": "-3"
+            }
+          ]
         },
         "id": 13,
         "children": []

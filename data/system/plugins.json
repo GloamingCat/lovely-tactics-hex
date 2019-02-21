@@ -78,6 +78,11 @@
   },
   {
     "on": true,
+    "name": "plugins/RingArea",
+    "tags": []
+  },
+  {
+    "on": true,
     "name": "plugins/Critical",
     "tags": [
       {

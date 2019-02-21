@@ -6,7 +6,7 @@ FieldAction
 An abstract action where the player selects a tile in the field grid.
 The method <execute> defines what happens when player confirms the selected tile.
 The method <isSelectable> checks if a tile is valid to be chosen or not.
-When called outsite of battle, it must set up tiles' graphics first.
+When called outsite of battle, the tiles' graphics must be set up before using.
 
 =================================================================================================]]
 
@@ -20,11 +20,13 @@ local FieldAction = class()
 ---------------------------------------------------------------------------------------------------
 
 -- Constructor.
--- @param(range : table) The range of the action to the target tile (in tiles).
--- @param(area : table) The area of the action effect (in tiles).
+-- @param(range : table) The layers of tiles relative to the user's tile, containing the possible
+--  targets for this action.
+-- @param(area : table) The layers of tiles relative to the target tile containing the tiles that
+--  are affected by this action.
 function FieldAction:init(range, area)
-  self.range = range or { far = 0, near = 0, minh = 0, maxh = 0 }
-  self.area = area or { far = 1, near = 0, minh = 0, maxh = 0 }
+  self.range = range or mathf.centerMask
+  self.area = area or mathf.centerMask
   self.field = FieldManager.currentField
 end
 
@@ -131,20 +133,25 @@ function FieldAction:getAllAffectedTiles(input, tile)
   tile = tile or input.target
   local sizeX, sizeY = self.field.sizeX, self.field.sizeY
   local tiles = {}
-  local height = input.target.layer.height
-  for i, j in mathf.radiusIterator(self.area.far - 1, tile.x, tile.y, sizeX, sizeY) do
-    for h = height - self.area.minh, height + self.area.maxh do
-      if mathf.tileDistance(i, j, tile.x, tile.y) >= (self.area.near or 0)
-          and self.field:isGrounded(i, j, h) then
-        tiles[#tiles + 1] = self.field:getObjectTile(i, j, h)
-      end
+  for x, y, h in mathf.maskIterator(self.area, tile:coordinates()) do
+    local n = self.field:getObjectTile(x, y, h)
+    if n and self.field:isGrounded(x, y, h) then
+      tiles[#tiles + 1] = n
     end
   end
   return tiles
 end
+-- Checks if the effect area mask contains any tiles besides the center tile.
 -- @ret(boolean) True if it's an area action, false otherwise.
 function FieldAction:isArea()
-  return self.area.far > 1 or self.area.far > 0 and (self.area.minh > 0 or self.area.maxh > 0)
+  local grid = self.area.grid
+  return #grid > 1 or #grid > 0 and #grid[1] > 1 or #grid[1][1] > 1
+end
+-- Checks if the range mask contains any tiles besides the center tile and its neighbors.
+-- @ret(boolean) True if it's a ranged action, false otherwise.
+function FieldAction:isRanged()
+  local grid = self.range.grid
+  return #grid > 3 or #grid > 0 and #grid[1] > 3 or #grid[1][1] > 3
 end
 -- Gets the next target given the player's input.
 -- @param(axisX : number) The input in axis x.

@@ -153,6 +153,44 @@
     "children": [
       {
         "data": {
+          "script": "",
+          "quad": {
+            "path": "",
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0
+          },
+          "rows": 1,
+          "cols": 3,
+          "transform": {
+            "offsetX": 0,
+            "offsetY": 0,
+            "offsetDepth": 0,
+            "scaleX": 100,
+            "scaleY": 100,
+            "rotation": 0,
+            "red": 255,
+            "green": 255,
+            "blue": 255,
+            "alpha": 255,
+            "hue": 0,
+            "saturation": 100,
+            "brightness": 100
+          },
+          "introPattern": "",
+          "introDuration": "",
+          "loopPattern": "0 1 2 1",
+          "loopDuration": "20",
+          "audio": [],
+          "name": "Magic Projectile",
+          "tags": []
+        },
+        "id": 49,
+        "children": []
+      },
+      {
+        "data": {
           "script": "animation/BattleEffect",
           "quad": {
             "path": "Battle/sword slash.png",
@@ -2008,11 +2046,11 @@
                 "path": "Obstacle/Wall.png",
                 "x": 0,
                 "y": 0,
-                "width": 360,
+                "width": 144,
                 "height": 78
               },
               "rows": 1,
-              "cols": 10,
+              "cols": 4,
               "transform": {
                 "offsetX": 18,
                 "offsetY": 67,

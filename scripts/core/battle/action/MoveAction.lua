@@ -82,13 +82,19 @@ end
 -- @param(target : ObjectTile) Movement target.
 -- @ret(boolean) True if it's final, false otherwise.
 function MoveAction:isFinal(tile, target, user)
-  local dh = target.layer.height - tile.layer.height
-  if dh > self.range.maxh or dh < -self.range.minh then
+  local dh = target.layer.height - tile.layer.height + self.range.centerH
+  if not self.range.grid[dh] then
     return false
   end
-  local cost = mathf.tileDistance(tile.x, tile.y, target.x, target.y)
-  return cost <= self.range.far and cost >= self.range.near
-    and self:isStandable(tile, user)
+  local dx = target.x - tile.x + self.range.centerX
+  if not self.range.grid[dh][dx] then
+    return false
+  end
+  local dy = target.y - tile.y + self.range.centerY
+  if not self.range.grid[dh][dx][dy] then
+    return false
+  end
+  return self:isStandable(tile, user)
 end
 -- Checks passability between two tiles.
 -- @param(initial : ObjectTile) origin tile

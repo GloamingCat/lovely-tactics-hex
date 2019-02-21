@@ -18,7 +18,7 @@ local Interactable = require('core/objects/Interactable')
 -- Alias
 local max = math.max
 local mathf = math.field
-local angle2Row = math.angle2Row
+local angle2Row = math.field.angle2Row
 local Quad = love.graphics.newQuad
 local round = math.round
 local time = love.timer.getDelta
