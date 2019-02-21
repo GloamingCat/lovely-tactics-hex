@@ -8,7 +8,7 @@ Stores and manages all sound objects in the game.
 =================================================================================================]]
 
 -- Imports
-local List = require('core/base/datastruct/List')
+local List = require('core/datastruct/List')
 local Music = require('core/audio/Music')
 local Sound = require('core/audio/Sound')
 

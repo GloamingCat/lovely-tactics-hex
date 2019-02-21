@@ -8,7 +8,7 @@ A class that stores the layers of tiles in the field and provides general grid i
 =================================================================================================]]
 
 -- Imports
-local FiberList = require('core/base/fiber/FiberList')
+local FiberList = require('core/fiber/FiberList')
 local ObjectLayer = require('core/field/ObjectLayer')
 
 -- Alias

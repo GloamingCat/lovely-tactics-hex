@@ -8,7 +8,7 @@ A module that deals with string-object convertion using JSON.
 =================================================================================================]]
 
 -- Imports
-local JSON = require('core/base/save/JsonParser')
+local JSON = require('core/save/JsonParser')
 
 -- Alias
 local readFile = love.filesystem.read

@@ -11,8 +11,8 @@ Loads and prepares field from file data.
 local Character = require('core/objects/Character')
 local Field = require('core/field/Field')
 local Interactable = require('core/objects/Interactable')
-local Serializer = require('core/base/save/Serializer')
-local TagMap = require('core/base/datastruct/TagMap')
+local Serializer = require('core/save/Serializer')
+local TagMap = require('core/datastruct/TagMap')
 local TerrainLayer = require('core/field/TerrainLayer')
 
 local FieldLoader = {}

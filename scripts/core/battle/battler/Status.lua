@@ -10,7 +10,7 @@ The effects of them on battle and field depend on each individual implementation
 
 -- Imports
 local BattlerAI = require('core/battle/ai/BattlerAI')
-local TagMap = require('core/base/datastruct/TagMap')
+local TagMap = require('core/datastruct/TagMap')
 
 local Status = class()
 

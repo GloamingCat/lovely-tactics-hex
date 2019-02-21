@@ -9,7 +9,7 @@ Stores them in order and draws them using a batch.
 =================================================================================================]]
 
 -- Imports
-local List = require('core/base/datastruct/List')
+local List = require('core/datastruct/List')
 local Transformable = require('core/math/transform/Transformable')
 
 -- Alias

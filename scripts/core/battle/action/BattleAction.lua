@@ -14,7 +14,7 @@ etc.
 
 -- Imports
 local FieldAction = require('core/battle/action/FieldAction')
-local List = require('core/base/datastruct/List')
+local List = require('core/datastruct/List')
 
 -- Alias
 local mod1 = math.mod1

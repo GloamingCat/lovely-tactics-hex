@@ -10,11 +10,11 @@ The BattleAction that is executed when players chooses a skill to use.
 -- Imports
 local ActionInput = require('core/battle/action/ActionInput')
 local BattleAction = require('core/battle/action/BattleAction')
-local List = require('core/base/datastruct/List')
+local List = require('core/datastruct/List')
 local BattleMoveAction = require('core/battle/action/BattleMoveAction')
 local PathFinder = require('core/battle/ai/PathFinder')
 local PopupText = require('core/battle/PopupText')
-local TagMap = require('core/base/datastruct/TagMap')
+local TagMap = require('core/datastruct/TagMap')
 
 -- Alias
 local max = math.max

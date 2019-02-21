@@ -9,7 +9,7 @@ A module with some search algorithms to solve optimization problems in the battl
 
 -- Imports
 local BattleMoveAction = require('core/battle/action/BattleMoveAction')
-local PriorityQueue = require('core/base/datastruct/PriorityQueue')
+local PriorityQueue = require('core/datastruct/PriorityQueue')
 local PathFinder = require('core/battle/ai/PathFinder')
 
 -- Alias

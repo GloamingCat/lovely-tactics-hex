@@ -8,7 +8,7 @@ A fiber that processes a list of sequential commands.
 =================================================================================================]]
 
 -- Imports
-local Fiber = require('core/base/fiber/Fiber')
+local Fiber = require('core/fiber/Fiber')
 
 local EventSheet = class(Fiber)
 

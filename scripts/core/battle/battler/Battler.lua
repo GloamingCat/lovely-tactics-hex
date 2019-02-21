@@ -17,7 +17,7 @@ local PopupText = require('core/battle/PopupText')
 local SkillAction = require('core/battle/action/SkillAction')
 local SkillList = require('core/battle/battler/SkillList')
 local StatusList = require('core/battle/battler/StatusList')
-local TagMap = require('core/base/datastruct/TagMap')
+local TagMap = require('core/datastruct/TagMap')
 
 -- Alias
 local copyArray = util.array.shallowCopy

@@ -8,10 +8,10 @@ This class manages all GUI objects.
 =================================================================================================]]
 
 -- Imports
-local List = require('core/base/datastruct/List')
-local Stack = require('core/base/datastruct/Stack')
+local List = require('core/datastruct/List')
+local Stack = require('core/datastruct/Stack')
 local Renderer = require('core/graphics/Renderer')
-local FiberList = require('core/base/fiber/FiberList')
+local FiberList = require('core/fiber/FiberList')
 
 local GUIManager = class()
 

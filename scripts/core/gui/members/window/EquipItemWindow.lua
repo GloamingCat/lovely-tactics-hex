@@ -8,7 +8,7 @@ A window that shows the possible items to equip.
 =================================================================================================]]
 
 -- Imports
-local List = require('core/base/datastruct/List')
+local List = require('core/datastruct/List')
 local Vector = require('core/math/Vector')
 local Button = require('core/gui/widget/Button')
 local InventoryWindow = require('core/gui/general/window/InventoryWindow')

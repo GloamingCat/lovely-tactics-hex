@@ -9,7 +9,7 @@ A special kind of list that provides functions to manage battler's list of skill
 
 -- Imports
 local SkillAction = require('core/battle/action/SkillAction')
-local List = require('core/base/datastruct/List')
+local List = require('core/datastruct/List')
 
 -- Alias
 local copyTable = util.copyTable

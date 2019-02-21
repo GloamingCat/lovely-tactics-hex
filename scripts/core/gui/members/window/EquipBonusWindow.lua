@@ -9,7 +9,7 @@ A window that shows the attribute and element bonus of the equip item.
 
 -- Imports
 local EquipSet = require('core/battle/battler/EquipSet')
-local List = require('core/base/datastruct/List')
+local List = require('core/datastruct/List')
 local SimpleText = require('core/gui/widget/SimpleText')
 local Vector = require('core/math/Vector')
 local Window = require('core/gui/Window')

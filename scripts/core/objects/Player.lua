@@ -11,7 +11,7 @@ It only exists for exploration fields.
 -- Imports
 local ActionInput = require('core/battle/action/ActionInput')
 local Character = require('core/objects/Character')
-local Fiber = require('core/base/fiber/Fiber')
+local Fiber = require('core/fiber/Fiber')
 local FieldGUI = require('core/gui/field/FieldGUI')
 local MoveAction = require('core/battle/action/MoveAction')
 local Vector = require('core/math/Vector')

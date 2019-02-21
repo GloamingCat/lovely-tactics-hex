@@ -8,8 +8,8 @@ Loads data from the data folder and stores in the Database or Config global tabl
 =================================================================================================]]
 
 -- Imports
-local Serializer = require('core/base/save/Serializer')
-local TagMap = require('core/base/datastruct/TagMap')
+local Serializer = require('core/save/Serializer')
+local TagMap = require('core/datastruct/TagMap')
 
 local Database = {}
 

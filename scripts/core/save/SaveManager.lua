@@ -8,7 +8,7 @@ Responsible for storing and loading game saves.
 =================================================================================================]]
 
 -- Imports
-local Serializer = require('core/base/save/Serializer')
+local Serializer = require('core/save/Serializer')
 local Troop = require('core/battle/Troop')
 
 -- Alias

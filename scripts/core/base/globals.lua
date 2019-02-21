@@ -8,6 +8,8 @@ This module creates all global variables.
 =================================================================================================]]
 
 require('core/base/class')
+require('core/math/lib')
+require('core/base/override')
 
 ---------------------------------------------------------------------------------------------------
 -- Util
@@ -16,8 +18,6 @@ require('core/base/class')
 util = {}
 util.table = require('core/base/util/TableUtil')
 util.array = require('core/base/util/ArrayUtil')
-require('core/math/lib')
-require('core/base/override')
 
 ---------------------------------------------------------------------------------------------------
 -- Database
@@ -61,7 +61,7 @@ math.field.init()
 -- Plugins
 ---------------------------------------------------------------------------------------------------
 
-local TagMap = require('core/base/datastruct/TagMap')
+local TagMap = require('core/datastruct/TagMap')
 for i = 1, #Config.plugins do
   local plugin = Config.plugins[i]
   if plugin.on then
@@ -79,7 +79,7 @@ GameManager     = require('core/base/GameManager')()
 ResourceManager = require('core/base/ResourceManager')()
 AudioManager    = require('core/audio/AudioManager')()
 InputManager    = require('core/input/InputManager')()
-SaveManager     = require('core/base/save/SaveManager')()
+SaveManager     = require('core/save/SaveManager')()
 ScreenManager   = require('core/graphics/ScreenManager')()
 FieldManager    = require('core/field/FieldManager')()
 GUIManager      = require('core/gui/GUIManager')()

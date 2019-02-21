@@ -10,9 +10,9 @@ game's data.
 
 -- Imports
 local FieldCamera = require('core/field/FieldCamera')
-local FiberList = require('core/base/fiber/FiberList')
+local FiberList = require('core/fiber/FiberList')
 local FieldLoader = require('core/field/FieldLoader')
-local List = require('core/base/datastruct/List')
+local List = require('core/datastruct/List')
 local Player = require('core/objects/Player')
 local Renderer = require('core/graphics/Renderer')
 

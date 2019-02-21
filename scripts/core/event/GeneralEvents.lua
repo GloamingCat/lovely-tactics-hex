@@ -9,7 +9,7 @@ Functions that are loaded from the EventSheet.
 
 -- Imports
 local AIRule = require('core/battle/ai/AIRule')
-local TagMap = require('core/base/datastruct/TagMap')
+local TagMap = require('core/datastruct/TagMap')
 
 local Event = {}
 

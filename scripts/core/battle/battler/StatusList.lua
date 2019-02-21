@@ -9,7 +9,7 @@ A special kind of list that provides functions to manage battler's list of statu
 
 -- Imports
 local Affine = require('core/math/Affine')
-local List = require('core/base/datastruct/List')
+local List = require('core/datastruct/List')
 local Status = require('core/battle/battler/Status')
 
 -- Alias

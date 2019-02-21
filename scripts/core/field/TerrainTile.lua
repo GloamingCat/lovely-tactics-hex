@@ -11,7 +11,7 @@ with possible animation, that stores the id of the associated terrain.
 -- Imports
 local Animation = require('core/graphics/Animation')
 local Sprite = require('core/graphics/Sprite')
-local TagMap = require('core/base/datastruct/TagMap')
+local TagMap = require('core/datastruct/TagMap')
 local Vector = require('core/math/Vector')
 
 -- Alias

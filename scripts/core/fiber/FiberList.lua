@@ -8,9 +8,9 @@ A List of Fibers. Must be updated every frame.
 =================================================================================================]]
 
 -- Imports
-local EventSheet = require('core/base/fiber/EventSheet')
-local Fiber = require('core/base/fiber/Fiber')
-local List = require('core/base/datastruct/List')
+local EventSheet = require('core/fiber/EventSheet')
+local Fiber = require('core/fiber/Fiber')
+local List = require('core/datastruct/List')
 
 local FiberList = class(List)
 

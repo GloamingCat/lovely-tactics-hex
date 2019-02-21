@@ -8,8 +8,8 @@ A generic path of nodes (steps).
 =============================================================================]]
 
 -- Imports
-local List = require('core/base/datastruct/List')
-local Stack = require('core/base/datastruct/Stack')
+local List = require('core/datastruct/List')
+local Stack = require('core/datastruct/Stack')
 
 local Path = class()
 

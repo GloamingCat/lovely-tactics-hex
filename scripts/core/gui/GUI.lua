@@ -8,7 +8,7 @@ Manages a set of GUI elements (generally, a set of windows).
 =================================================================================================]]
 
 -- Imports
-local List = require('core/base/datastruct/List')
+local List = require('core/datastruct/List')
 
 -- Alias
 local yield = coroutine.yield

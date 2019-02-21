@@ -10,7 +10,7 @@ Shows a list of custom choices.
 -- Imports
 local Button = require('core/gui/widget/Button')
 local GridWindow = require('core/gui/GridWindow')
-local List = require('core/base/datastruct/List')
+local List = require('core/datastruct/List')
 
 local ChoiceWindow = class(GridWindow)
 

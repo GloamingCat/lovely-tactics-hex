@@ -10,7 +10,7 @@ passable and persistent properties.
 =================================================================================================]]
 
 -- Imports
-local FiberList = require('core/base/fiber/FiberList')
+local FiberList = require('core/fiber/FiberList')
 
 -- Alias
 local copyTable = util.table.deepCopy
