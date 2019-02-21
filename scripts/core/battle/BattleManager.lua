@@ -187,13 +187,13 @@ function BattleManager:playAnimation(manager, animID, x, y, z, mirror, wait)
     animation.sprite:setScale(-animation.sprite.scaleX, animation.sprite.scaleY)
   end
   manager.updateList:add(animation)
-  manager.fiberList:fork(function()
+  local fiber = manager.fiberList:fork(function()
     _G.Fiber:wait(animation.duration)
     manager.updateList:removeElement(animation)
     animation:destroy()
   end)
   if wait then
-    _G.Fiber:wait(animation.duration)
+    fiber:waitForEnd()
   end
   return animation
 end

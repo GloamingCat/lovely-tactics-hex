@@ -10,6 +10,7 @@ The [COUROUTINE] functions must ONLY be called from a fiber.
 
 -- Imports
 local CharacterBase = require('core/objects/CharacterBase')
+local Projectile = require('core/battle/Projectile')
 
 -- Alias
 local max = math.max
@@ -159,11 +160,11 @@ function Character:loadSkill(skill, dir)
   return minTime
 end
 -- [COROUTINE] Plays cast animation.
--- @param(skill : Skill)
--- @param(dir : number) the direction of the cast
--- @param(tile : ObjectTile) target of the skill
--- @ret(number) the duration of the animation
-function Character:castSkill(skill, dir, tile)
+-- @param(skill : table) Skill's data.
+-- @param(dir : number) The direction of the cast.
+-- @param(tile : ObjectTile) Target of the skill.
+-- @ret(number) The duration of the animation
+function Character:castSkill(skill, dir, target)
   -- Forward step
   if skill.stepOnCast then
     self:walkInAngle(castStep, dir)
@@ -175,10 +176,17 @@ function Character:castSkill(skill, dir, tile)
     anim:reset()
     minTime = anim.duration
   end
+  -- Projectile
+  if skill.projectileID >= 0 then
+    _G.Fiber:wait(minTime)
+    local projectile = Projectile(skill, self)
+    projectile:throw(target, skill.speed or 10, true)
+    minTime = 0
+  end
   -- Cast animation (effect on tile)
   if skill.castAnimID >= 0 then
     local mirror = skill.mirror and dir > 90 and dir <= 270
-    local x, y, z = tile2Pixel(tile:coordinates())
+    local x, y, z = tile2Pixel(target:coordinates())
     local anim = BattleManager:playBattleAnimation(skill.castAnimID,
       x, y, z - 1, mirror)
     minTime = max(minTime, anim.duration)

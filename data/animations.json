@@ -155,11 +155,11 @@
         "data": {
           "script": "",
           "quad": {
-            "path": "",
+            "path": "Battle/magic ball.png",
             "x": 0,
             "y": 0,
-            "width": 0,
-            "height": 0
+            "width": 48,
+            "height": 16
           },
           "rows": 1,
           "cols": 3,
@@ -181,7 +181,7 @@
           "introPattern": "",
           "introDuration": "",
           "loopPattern": "0 1 2 1",
-          "loopDuration": "20",
+          "loopDuration": "16",
           "audio": [],
           "name": "Magic Projectile",
           "tags": []

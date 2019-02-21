@@ -174,7 +174,7 @@ end
 -- The effect applied when the user is prepared to use the skill.
 -- It executes animations and applies damage/heal to the targets.
 function SkillAction:battleUse(input)
-  -- Apply costs
+  -- Apply costs.
   input.user.battler:damageCosts(self.costs)
   -- Intro time.
   _G.Fiber:wait(self.introTime)
@@ -194,7 +194,7 @@ function SkillAction:battleUse(input)
       input.user:finishSkill(originTile, self.data)
     end
   end)
-  -- Target animations
+  -- Target animations.
   _G.Fiber:wait(self.centerTime)
   self:allTargetsEffect(input, originTile)
   -- Wait until everything finishes.
