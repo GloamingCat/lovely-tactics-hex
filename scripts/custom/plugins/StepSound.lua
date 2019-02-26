@@ -3,7 +3,17 @@
 
 StepSound
 ---------------------------------------------------------------------------------------------------
-Plays a SFX when player is walking.
+Plays a SFX when player is walking. The sound played is defined by the terrain, in the tag list.
+
+-- Terrain parameters:
+The <sound> tag defines the path of the sound from the "audio/" folder.
+The <pitch> and <volume> tags define the base pitch and volume of the sound respectively.
+
+-- Plugin parameters:
+The sounds are played in a frequence of 1 each <freq> frames.
+The <freq> value may be modified randomly by adding a value between <varFreq> and -<varFreq>.
+The pitch and volume of the sound may be modified the same way with <varPitch> and <varVolume>
+respectively.
 
 =================================================================================================]]
 
@@ -14,7 +24,7 @@ local TerrainTile = require('core/field/TerrainTile')
 -- Alias
 local rand = love.math.random
 
--- Args
+-- Parameters
 local freq = tonumber(args.frequency)
 local varPitch = tonumber(args.varPitch) or 0
 local varVolume = tonumber(args.varVolume) or 0
@@ -31,8 +41,8 @@ function TerrainTile:setTerrain(id)
   TerrainTile_setTerrain(self, id)
   if self.tags.sound then
     self.sound = { name = self.tags.sound,
-      pitch = self.tags.pitch or 100,
-      volume = self.tags.volume or 100 }
+      pitch = tonumber(self.tags.pitch) or 100,
+      volume = tonumber(self.tags.volume) or 100 }
   else
     self.sound = nil
   end

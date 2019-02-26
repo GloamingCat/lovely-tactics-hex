@@ -3,7 +3,7 @@
 
 ResourceManager
 ---------------------------------------------------------------------------------------------------
-
+Stores images, fonts and shaders to be reused.
 
 =================================================================================================]]
 
@@ -121,7 +121,7 @@ function ResourceManager:clearImageCache()
     ImageCache[k] = nil
   end
 end
-
+-- Reloads all images in the cache.
 function ResourceManager:refreshImages() 
   for k, v in pairs(ImageCache) do
     local data = newImageData(k)

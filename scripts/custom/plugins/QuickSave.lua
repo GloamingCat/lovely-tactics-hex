@@ -5,16 +5,20 @@ QuickSave
 ---------------------------------------------------------------------------------------------------
 Adds keys the save/load any time.
 
-=================================================================================================]]
+-- Plugin parameters
+When player presses the button key <save>, the game is saved in the quick save slot.
+When player presses the button key <load>, the game in the quick save slot is loaded.
 
--- Arguments
-KeyMap.main['save'] = args.saveKey
-KeyMap.main['load'] = args.loadKey
+=================================================================================================]]
 
 -- Imports
 local Player = require('core/objects/Player')
 local PopupText = require('core/battle/PopupText')
 local LoadWindow = require('core/gui/save/window/LoadWindow')
+
+-- Parameters
+KeyMap.main['save'] = args.save
+KeyMap.main['load'] = args.load
 
 ---------------------------------------------------------------------------------------------------
 -- Player

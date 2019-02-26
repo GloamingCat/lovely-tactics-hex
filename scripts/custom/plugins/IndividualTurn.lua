@@ -4,6 +4,16 @@
 IndividualTurn
 ---------------------------------------------------------------------------------------------------
 System of turns per characters instead of per party.
+A turn count is associated to each character. At the start of each turn, this count is incremented
+by the character's speed. This is done in a loop until some character reaches the turn count limit.
+
+-- Plugin parameters:
+The speed is calculated by a battler attribute, given by its name <attName>.
+The turn limit is defined by <turnLimit>.
+
+-- Skill parameters:
+The default turn cost of a skill is 100% of the character's turn count by default, but this number
+may be customized by the <timeCost> tag.
 
 =================================================================================================]]
 

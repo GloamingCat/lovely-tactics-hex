@@ -5,6 +5,9 @@ StatusBalloon
 ---------------------------------------------------------------------------------------------------
 The balloon animation to show a battler's status.
 
+-- Plugin parameters
+The balloon animation's ID is defined by <balloonID>.
+
 =================================================================================================]]
 
 -- Imports
@@ -21,13 +24,13 @@ local TroopManager = require('core/battle/TroopManager')
 local Image = love.graphics.newImage
 
 -- Parameters
-local balloonID = Config.animations.balloon
+local balloonID = tonumber(args.balloonID)
 
 ---------------------------------------------------------------------------------------------------
 -- Initialization
 ---------------------------------------------------------------------------------------------------
 
--- Constructor. Initializes state and icon animation.
+-- Override. Initializes state and icon animation.
 local Balloon_init = Balloon.init
 function Balloon:init(...)
   Balloon_init(self, ...)
@@ -45,16 +48,14 @@ function Balloon:initIcon()
   anim.duration = 30
   self:setIcon(anim)
 end
--- Overrides Balloon:update.
--- Considers state 4, when the character has no status.
+-- Override. Considers state 4, when the character has no status.
 local Balloon_update = Balloon.update
 function Balloon:update()
   if self.state ~= 4 then
     Balloon_update(self)
   end
 end
--- Overrides Balloon:onEnd.
--- Checks for status and changes the icon.
+-- Override. Checks for status and changes the icon.
 local Balloon_onEnd = Balloon.onEnd
 function Balloon:onEnd()
   Balloon_onEnd(self)
@@ -62,7 +63,7 @@ function Balloon:onEnd()
     self:nextIcon()
   end
 end
-
+-- Sets the icon to the next icon in the list.
 function Balloon:nextIcon()
   self.statusIndex = math.mod1(self.statusIndex + 1, #self.status)
   local icon = self.status[self.statusIndex]
@@ -75,7 +76,8 @@ function Balloon:nextIcon()
   self.iconAnim.quadWidth = w
   self.iconAnim.quadHeight = h
 end
-
+-- Sets the list of status icons. If empty, the balloon is hidden.
+-- @param(icons : table) Array of icon data.
 function Balloon:setIcons(icons)
   self.status = icons
   if #icons > 0 then
@@ -97,7 +99,7 @@ end
 -- StatusList
 ---------------------------------------------------------------------------------------------------
 
--- Refreshes icon list.
+-- Override. Refreshes icon list.
 local StatusList_updateGraphics = StatusList.updateGraphics
 function StatusList:updateGraphics(character)
   StatusList_updateGraphics(self, character)
@@ -111,7 +113,7 @@ end
 -- CharacterBase
 ---------------------------------------------------------------------------------------------------
 
--- Override.
+-- Override. Updates balloon position when character moves.
 local CharacterBase_setXYZ = CharacterBase.setXYZ
 function CharacterBase:setXYZ(x, y, z)
   CharacterBase_setXYZ(self, x, y, z)
@@ -119,7 +121,7 @@ function CharacterBase:setXYZ(x, y, z)
     self.balloon:updatePosition(self)
   end
 end
--- Override.
+-- Override. Updates balloon animation.
 local CharacterBase_update = CharacterBase.update
 function CharacterBase:update()
   CharacterBase_update(self)
@@ -127,7 +129,7 @@ function CharacterBase:update()
     self.balloon:update()
   end
 end
--- Override.
+-- Override. Destroys balloon with characters is destroyed.
 local CharacterBase_destroy = CharacterBase.destroy
 function CharacterBase:destroy()
   CharacterBase_destroy(self)
@@ -158,8 +160,7 @@ end
 -- BattleCursor
 ---------------------------------------------------------------------------------------------------
 
--- Sets the position to the given tile.
--- @param(tile : ObjectTile) the target tile
+-- Override. Adds balloon height if there are characters with a balloon.
 local BattleCursor_setTile = BattleCursor.setTile
 function BattleCursor:setTile(tile)
   BattleCursor_setTile(self, tile)
@@ -170,8 +171,7 @@ function BattleCursor:setTile(tile)
     end
   end
 end
--- Sets the position to the given character.
--- @param(char : Character) the target character
+-- Override. Adds balloon height if character has a balloon.
 local BattleCursor_setCharacter = BattleCursor.setCharacter
 function BattleCursor:setCharacter(char)
   BattleCursor_setCharacter(self, char)
@@ -180,7 +180,7 @@ function BattleCursor:setCharacter(char)
   end
 end
 -- Translates cursor to above the balloon.
--- @param(balloon : Balloon)
+-- @param(balloon : Balloon) Character's balloon.
 function BattleCursor:addBalloonHeight(balloon)
   local sprite = self.anim.sprite
   local _, by = balloon.sprite:totalBounds()

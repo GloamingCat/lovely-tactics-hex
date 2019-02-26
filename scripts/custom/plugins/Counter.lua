@@ -5,6 +5,10 @@ Counter
 ---------------------------------------------------------------------------------------------------
 Makes a character attack back if hit.
 
+-- Battler parameters:
+The skill used when character counter-attacks is defined by <counter> tag. If not set, than this
+battler does not counter-attack.
+
 =================================================================================================]]
 
 -- Imports

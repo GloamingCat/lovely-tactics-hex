@@ -5,15 +5,26 @@ Reflect
 ---------------------------------------------------------------------------------------------------
 Makes a skill reflect to the user.
 
-=================================================================================================]]
+-- Plugin parameters:
+When a character reflects a skill, the animation given by <animID> is played in the character's
+tile. No skill is played if the parameter is not set.
 
--- Arguments
-local animID = tonumber(args.animID)
+-- Skill parameters:
+Only the skills with <reflectable> tags may be reflected.
+
+-- Status parameters:
+Status with <reflect> tag makes the characters reflect the next skill. The status is removed if a
+skill is reflected.
+
+=================================================================================================]]
 
 -- Imports
 local ActionInput = require('core/battle/action/ActionInput')
 local Battler = require('core/battle/battler/Battler')
 local SkillAction = require('core/battle/action/SkillAction')
+
+-- Arguments
+local animID = tonumber(args.animID)
 
 ---------------------------------------------------------------------------------------------------
 -- Skill Action

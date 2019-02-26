@@ -17,7 +17,12 @@
       "attributes": [],
       "elements": [],
       "name": "Grass",
-      "tags": []
+      "tags": [
+		{
+			"key": "sound",
+			"value": "sfx/Kenney/footstep05.ogg"
+		}
+	  ]
     },
     "id": 0,
     "children": []
@@ -40,7 +45,12 @@
       "attributes": [],
       "elements": [],
       "name": "Bush",
-      "tags": []
+      "tags": [
+		{
+			"key": "sound",
+			"value": "sfx/Kenney/footstep05.ogg"
+		}
+	  ]
     },
     "id": 1,
     "children": []
@@ -63,7 +73,12 @@
       "attributes": [],
       "elements": [],
       "name": "Sand",
-      "tags": []
+      "tags": [
+		{
+			"key": "sound",
+			"value": "sfx/Kenney/footstep05.ogg"
+		}
+	  ]
     },
     "id": 2,
     "children": []
@@ -109,7 +124,12 @@
       "attributes": [],
       "elements": [],
       "name": "Rock",
-      "tags": []
+      "tags": [
+		{
+			"key": "sound",
+			"value": "sfx/Kenney/footstep05.ogg"
+		}
+	  ]
     },
     "id": 4,
     "children": []

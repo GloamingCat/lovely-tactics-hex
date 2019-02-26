@@ -5,6 +5,9 @@ FocusPause
 ---------------------------------------------------------------------------------------------------
 Pauses game when window loses focus.
 
+-- Plugin parameters:
+If the audio should be paused too, then set <pauseAudio> to true.
+
 =================================================================================================]]
 
 -- Parameters

@@ -43,7 +43,7 @@
     "tags": [
       {
         "key": "balloonID",
-        "value": "27"
+        "value": "25"
       }
     ]
   },
@@ -67,11 +67,11 @@
     "name": "plugins/QuickSave",
     "tags": [
       {
-        "key": "saveKey",
+        "key": "save",
         "value": "f1"
       },
       {
-        "key": "loadKey",
+        "key": "load",
         "value": "f5"
       }
     ]
