@@ -113,7 +113,7 @@ function StatusList:addStatus(id, state, character)
     status.lifeTime = 0
   else
     local i = self:findPosition(data.priority)
-    status = Status:fromData(self, data, state)
+    status = Status(self, data, state)
     self:add(status, i)
     if status.onAdd then
       status:onAdd(self.battler, character)

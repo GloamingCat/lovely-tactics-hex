@@ -282,10 +282,10 @@
             "brightness": 120
           },
           "override": false,
-          "duration": -1,
+          "duration": 8,
           "removeOnKO": true,
           "removeOnDamage": false,
-          "battleOnly": false,
+          "battleOnly": true,
           "deactivate": false,
           "ko": false,
           "behavior": [],
@@ -302,12 +302,7 @@
           ],
           "cancel": [],
           "name": "Protect",
-          "tags": [
-            {
-              "key": "reflect",
-              "value": ""
-            }
-          ]
+          "tags": []
         },
         "id": 7,
         "children": []

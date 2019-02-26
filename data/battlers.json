@@ -286,7 +286,7 @@
           ],
           "classID": 0,
           "attackID": 15,
-          "level": 2,
+          "level": 1,
           "money": 3,
           "exp": 10,
           "attributes": [
@@ -314,10 +314,194 @@
           "elements": [],
           "items": [],
           "equip": [],
-          "name": "Jelly",
+          "name": "Green Jelly",
           "tags": []
         },
         "id": 6,
+        "children": []
+      },
+      {
+        "data": {
+          "persistent": false,
+          "ai": [
+            {
+              "condition": "",
+              "name": "rule/Rush.lua",
+              "tags": []
+            }
+          ],
+          "classID": 0,
+          "attackID": 15,
+          "level": 2,
+          "money": 5,
+          "exp": 15,
+          "attributes": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "skills": [],
+          "status": [],
+          "elements": [],
+          "items": [],
+          "equip": [],
+          "name": "Blue Jelly",
+          "tags": []
+        },
+        "id": 7,
+        "children": []
+      },
+      {
+        "data": {
+          "persistent": false,
+          "ai": [
+            {
+              "condition": "",
+              "name": "rule/Rush.lua",
+              "tags": []
+            }
+          ],
+          "classID": 0,
+          "attackID": 15,
+          "level": 3,
+          "money": 8,
+          "exp": 20,
+          "attributes": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "skills": [],
+          "status": [],
+          "elements": [],
+          "items": [],
+          "equip": [],
+          "name": "Red Jelly",
+          "tags": []
+        },
+        "id": 8,
+        "children": []
+      },
+      {
+        "data": {
+          "persistent": false,
+          "ai": [
+            {
+              "condition": "",
+              "name": "rule/Rush.lua",
+              "tags": []
+            }
+          ],
+          "classID": 0,
+          "attackID": 15,
+          "level": 4,
+          "money": 10,
+          "exp": 25,
+          "attributes": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "skills": [],
+          "status": [],
+          "elements": [],
+          "items": [],
+          "equip": [],
+          "name": "Yellow Jelly",
+          "tags": []
+        },
+        "id": 9,
+        "children": []
+      },
+      {
+        "data": {
+          "persistent": false,
+          "ai": [
+            {
+              "condition": "",
+              "name": "rule/Rush.lua",
+              "tags": []
+            }
+          ],
+          "classID": 0,
+          "attackID": 15,
+          "level": 5,
+          "money": 12,
+          "exp": 30,
+          "attributes": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "skills": [],
+          "status": [],
+          "elements": [],
+          "items": [],
+          "equip": [],
+          "name": "Purple Jelly",
+          "tags": []
+        },
+        "id": 10,
         "children": []
       }
     ]

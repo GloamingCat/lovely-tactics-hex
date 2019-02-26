@@ -430,11 +430,51 @@
         },
         "id": 5,
         "children": []
+      }
+    ]
+  },
+  {
+    "data": {
+      "battlerID": -1,
+      "shadowID": -1,
+      "tiles": [
+        {
+          "dx": 0,
+          "dy": 0,
+          "height": 0
+        }
+      ],
+      "transform": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "offsetDepth": 0,
+        "scaleX": 100,
+        "scaleY": 100,
+        "rotation": 0,
+        "red": 255,
+        "green": 255,
+        "blue": 255,
+        "alpha": 255,
+        "hue": 0,
+        "saturation": 100,
+        "brightness": 100
       },
+      "portraits": [],
+      "animations": [
+        {
+          "name": "New",
+          "id": 0
+        }
+      ],
+      "name": "Jelly",
+      "tags": []
+    },
+    "id": 11,
+    "children": [
       {
         "data": {
           "battlerID": 6,
-          "shadowID": -1,
+          "shadowID": 1,
           "tiles": [
             {
               "dx": 0,
@@ -453,7 +493,7 @@
             "green": 255,
             "blue": 255,
             "alpha": 255,
-            "hue": 0,
+            "hue": 180,
             "saturation": 100,
             "brightness": 100
           },
@@ -488,10 +528,262 @@
               "id": 82
             }
           ],
-          "name": "Pink Jelly",
+          "name": "Green Jelly",
           "tags": []
         },
         "id": 6,
+        "children": []
+      },
+      {
+        "data": {
+          "battlerID": 7,
+          "shadowID": 1,
+          "tiles": [
+            {
+              "dx": 0,
+              "dy": 0,
+              "height": 1
+            }
+          ],
+          "transform": {
+            "offsetX": 0,
+            "offsetY": 0,
+            "offsetDepth": 0,
+            "scaleX": 100,
+            "scaleY": 100,
+            "rotation": 0,
+            "red": 255,
+            "green": 255,
+            "blue": 255,
+            "alpha": 255,
+            "hue": 270,
+            "saturation": 100,
+            "brightness": 100
+          },
+          "portraits": [],
+          "animations": [
+            {
+              "name": "Idle",
+              "id": 77
+            },
+            {
+              "name": "Walk",
+              "id": 78
+            },
+            {
+              "name": "Dash",
+              "id": 79
+            },
+            {
+              "name": "Battle:Idle",
+              "id": 77
+            },
+            {
+              "name": "Battle:Dash",
+              "id": 79
+            },
+            {
+              "name": "Battle:Damage",
+              "id": 81
+            },
+            {
+              "name": "Battle:KO",
+              "id": 82
+            }
+          ],
+          "name": "Blue Jelly",
+          "tags": []
+        },
+        "id": 8,
+        "children": []
+      },
+      {
+        "data": {
+          "battlerID": 8,
+          "shadowID": 1,
+          "tiles": [
+            {
+              "dx": 0,
+              "dy": 0,
+              "height": 1
+            }
+          ],
+          "transform": {
+            "offsetX": 0,
+            "offsetY": 0,
+            "offsetDepth": 0,
+            "scaleX": 100,
+            "scaleY": 100,
+            "rotation": 0,
+            "red": 255,
+            "green": 255,
+            "blue": 255,
+            "alpha": 255,
+            "hue": 45,
+            "saturation": 100,
+            "brightness": 100
+          },
+          "portraits": [],
+          "animations": [
+            {
+              "name": "Idle",
+              "id": 77
+            },
+            {
+              "name": "Walk",
+              "id": 78
+            },
+            {
+              "name": "Dash",
+              "id": 79
+            },
+            {
+              "name": "Battle:Idle",
+              "id": 77
+            },
+            {
+              "name": "Battle:Dash",
+              "id": 79
+            },
+            {
+              "name": "Battle:Damage",
+              "id": 81
+            },
+            {
+              "name": "Battle:KO",
+              "id": 82
+            }
+          ],
+          "name": "Red Jelly",
+          "tags": []
+        },
+        "id": 7,
+        "children": []
+      },
+      {
+        "data": {
+          "battlerID": 9,
+          "shadowID": 1,
+          "tiles": [
+            {
+              "dx": 0,
+              "dy": 0,
+              "height": 1
+            }
+          ],
+          "transform": {
+            "offsetX": 0,
+            "offsetY": 0,
+            "offsetDepth": 0,
+            "scaleX": 100,
+            "scaleY": 100,
+            "rotation": 0,
+            "red": 255,
+            "green": 255,
+            "blue": 255,
+            "alpha": 255,
+            "hue": 100,
+            "saturation": 100,
+            "brightness": 100
+          },
+          "portraits": [],
+          "animations": [
+            {
+              "name": "Idle",
+              "id": 77
+            },
+            {
+              "name": "Walk",
+              "id": 78
+            },
+            {
+              "name": "Dash",
+              "id": 79
+            },
+            {
+              "name": "Battle:Idle",
+              "id": 77
+            },
+            {
+              "name": "Battle:Dash",
+              "id": 79
+            },
+            {
+              "name": "Battle:Damage",
+              "id": 81
+            },
+            {
+              "name": "Battle:KO",
+              "id": 82
+            }
+          ],
+          "name": "Yellow Jelly",
+          "tags": []
+        },
+        "id": 9,
+        "children": []
+      },
+      {
+        "data": {
+          "battlerID": 9,
+          "shadowID": 1,
+          "tiles": [
+            {
+              "dx": 0,
+              "dy": 0,
+              "height": 1
+            }
+          ],
+          "transform": {
+            "offsetX": 0,
+            "offsetY": 0,
+            "offsetDepth": 0,
+            "scaleX": 100,
+            "scaleY": 100,
+            "rotation": 0,
+            "red": 255,
+            "green": 255,
+            "blue": 255,
+            "alpha": 255,
+            "hue": 330,
+            "saturation": 100,
+            "brightness": 100
+          },
+          "portraits": [],
+          "animations": [
+            {
+              "name": "Idle",
+              "id": 77
+            },
+            {
+              "name": "Walk",
+              "id": 78
+            },
+            {
+              "name": "Dash",
+              "id": 79
+            },
+            {
+              "name": "Battle:Idle",
+              "id": 77
+            },
+            {
+              "name": "Battle:Dash",
+              "id": 79
+            },
+            {
+              "name": "Battle:Damage",
+              "id": 81
+            },
+            {
+              "name": "Battle:KO",
+              "id": 82
+            }
+          ],
+          "name": "Purple Jelly",
+          "tags": []
+        },
+        "id": 10,
         "children": []
       }
     ]

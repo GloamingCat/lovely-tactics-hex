@@ -57,17 +57,6 @@ function Status:init(list, data, state)
     self.AI = BattlerAI(self, data.ai)
   end
 end
--- Creates the status from its ID in the database, loading the correct script.
--- @param(data : table) status' data from database file
--- @param(...) default contructor parameters
-function Status:fromData(list, data, ...)
-  if data.script ~= '' then
-    local class = require('custom/' .. data.script)
-    return class(list, data, ...)
-  else
-    return self(list, data, ...)
-  end
-end
 
 ---------------------------------------------------------------------------------------------------
 -- General
