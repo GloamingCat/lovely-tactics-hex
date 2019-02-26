@@ -70,7 +70,7 @@ function ActionWindow:moveEnabled()
     return false
   end
   for path in TurnManager:pathMatrix():iterator() do
-    if path and path.totalCost <= user.steps then
+    if path and path.totalCost <= user.steps + 0.001 then
       return true
     end
   end

@@ -22,9 +22,6 @@ local WaitAction = require('core/battle/action/WaitAction')
 -- Alias
 local mathf = math.field
 
--- Constants
-local maxMembers = Config.troop.maxMembers
-
 local TurnWindow = class(ActionWindow)
 
 ---------------------------------------------------------------------------------------------------
@@ -144,7 +141,8 @@ function TurnWindow:escapeEnabled()
 end
 -- Call Ally condition. Enabled if there any any backup members.
 function TurnWindow:callAllyEnabled()
-  return TroopManager:getMemberCount() < maxMembers and not self.backupBattlers:isEmpty()
+  return TroopManager:getMemberCount() < Config.troop.maxMembers and 
+    not self.backupBattlers:isEmpty()
 end
 
 ---------------------------------------------------------------------------------------------------
