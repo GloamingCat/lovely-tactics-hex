@@ -42,7 +42,7 @@
           "charID": 1,
           "battlerID": -1,
           "x": 2,
-          "y": 3,
+          "y": 1,
           "equip": [],
           "backup": false
         },
@@ -74,7 +74,7 @@
           "charID": 4,
           "battlerID": -1,
           "x": 1,
-          "y": 3,
+          "y": 1,
           "equip": [],
           "backup": false
         },
@@ -83,7 +83,7 @@
           "charID": 4,
           "battlerID": -1,
           "x": 3,
-          "y": 3,
+          "y": 1,
           "equip": [],
           "backup": false
         },
@@ -92,7 +92,7 @@
           "charID": 4,
           "battlerID": -1,
           "x": 5,
-          "y": 3,
+          "y": 1,
           "equip": [],
           "backup": false
         },
@@ -101,7 +101,7 @@
           "charID": 5,
           "battlerID": -1,
           "x": 2,
-          "y": 1,
+          "y": 3,
           "equip": [],
           "backup": false
         },
@@ -110,7 +110,7 @@
           "charID": 5,
           "battlerID": -1,
           "x": 4,
-          "y": 1,
+          "y": 3,
           "equip": [],
           "backup": false
         }
@@ -119,6 +119,79 @@
       "tags": []
     },
     "id": 1,
+    "children": []
+  },
+  {
+    "data": {
+      "ai": "troop/DefaultAI.lua",
+      "persistent": false,
+      "money": 0,
+      "items": [],
+      "members": [
+        {
+          "key": "1",
+          "charID": 6,
+          "battlerID": -1,
+          "x": 2,
+          "y": 2,
+          "equip": [],
+          "backup": false
+        },
+        {
+          "key": "2",
+          "charID": 6,
+          "battlerID": -1,
+          "x": 4,
+          "y": 2,
+          "equip": [],
+          "backup": false
+        }
+      ],
+      "name": "Jelly Party 1",
+      "tags": []
+    },
+    "id": 2,
+    "children": []
+  },
+  {
+    "data": {
+      "ai": "troop/DefaultAI.lua",
+      "persistent": false,
+      "money": 0,
+      "items": [],
+      "members": [
+        {
+          "key": "1",
+          "charID": 6,
+          "battlerID": -1,
+          "x": 3,
+          "y": 3,
+          "equip": [],
+          "backup": false
+        },
+        {
+          "key": "2",
+          "charID": 6,
+          "battlerID": -1,
+          "x": 4,
+          "y": 2,
+          "equip": [],
+          "backup": false
+        },
+        {
+          "key": "3",
+          "charID": 6,
+          "battlerID": -1,
+          "x": 2,
+          "y": 1,
+          "equip": [],
+          "backup": false
+        }
+      ],
+      "name": "Jelly Party 2",
+      "tags": []
+    },
+    "id": 3,
     "children": []
   }
 ]

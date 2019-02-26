@@ -579,6 +579,51 @@
         },
         "id": 17,
         "children": []
+      },
+      {
+        "data": {
+          "script": "animation/BattleEffect",
+          "quad": {
+            "path": "Battle/explosion.png",
+            "x": 0,
+            "y": 0,
+            "width": 144,
+            "height": 48
+          },
+          "rows": 1,
+          "cols": 3,
+          "transform": {
+            "offsetX": 24,
+            "offsetY": 36,
+            "offsetDepth": -11,
+            "scaleX": 100,
+            "scaleY": 100,
+            "rotation": 0,
+            "red": 255,
+            "green": 255,
+            "blue": 255,
+            "alpha": 255,
+            "hue": 0,
+            "saturation": 100,
+            "brightness": 100
+          },
+          "introPattern": "",
+          "introDuration": "15",
+          "loopPattern": "",
+          "loopDuration": "",
+          "audio": [
+            {
+              "name": "sfx/artisticdude/slime8.wav",
+              "volume": 100,
+              "pitch": 100,
+              "time": 0
+            }
+          ],
+          "name": "Impact",
+          "tags": []
+        },
+        "id": 80,
+        "children": []
       }
     ]
   },
@@ -1824,7 +1869,7 @@
               "cols": 1,
               "transform": {
                 "offsetX": 25,
-                "offsetY": 40,
+                "offsetY": 35,
                 "offsetDepth": 0,
                 "scaleX": 100,
                 "scaleY": 100,
@@ -2960,6 +3005,235 @@
               "tags": []
             },
             "id": 71,
+            "children": []
+          }
+        ]
+      },
+      {
+        "data": {
+          "script": "",
+          "quad": {
+            "path": "",
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0
+          },
+          "rows": 1,
+          "cols": 1,
+          "transform": {
+            "offsetX": 0,
+            "offsetY": 0,
+            "offsetDepth": 0,
+            "scaleX": 100,
+            "scaleY": 100,
+            "rotation": 0,
+            "red": 255,
+            "green": 255,
+            "blue": 255,
+            "alpha": 255,
+            "hue": 0,
+            "saturation": 100,
+            "brightness": 100
+          },
+          "introPattern": "",
+          "introDuration": "",
+          "loopPattern": "",
+          "loopDuration": "",
+          "audio": [],
+          "name": "Jelly",
+          "tags": []
+        },
+        "id": 50,
+        "children": [
+          {
+            "data": {
+              "script": "",
+              "quad": {
+                "path": "Character/Jelly/Default.png",
+                "x": 0,
+                "y": 0,
+                "width": 96,
+                "height": 256
+              },
+              "rows": 8,
+              "cols": 3,
+              "transform": {
+                "offsetX": 16,
+                "offsetY": 24,
+                "offsetDepth": 0,
+                "scaleX": 100,
+                "scaleY": 100,
+                "rotation": 0,
+                "red": 255,
+                "green": 255,
+                "blue": 255,
+                "alpha": 255,
+                "hue": 0,
+                "saturation": 100,
+                "brightness": 100
+              },
+              "introPattern": "",
+              "introDuration": "",
+              "loopPattern": "0 1 2 1",
+              "loopDuration": "20",
+              "audio": [],
+              "name": "Idle",
+              "tags": []
+            },
+            "id": 77,
+            "children": []
+          },
+          {
+            "data": {
+              "script": "",
+              "quad": {
+                "path": "Character/Jelly/Jump.png",
+                "x": 0,
+                "y": 0,
+                "width": 128,
+                "height": 256
+              },
+              "rows": 8,
+              "cols": 4,
+              "transform": {
+                "offsetX": 16,
+                "offsetY": 24,
+                "offsetDepth": 0,
+                "scaleX": 100,
+                "scaleY": 100,
+                "rotation": 0,
+                "red": 255,
+                "green": 255,
+                "blue": 255,
+                "alpha": 255,
+                "hue": 0,
+                "saturation": 100,
+                "brightness": 100
+              },
+              "introPattern": "",
+              "introDuration": "",
+              "loopPattern": "0 1 2 3 2 1",
+              "loopDuration": "24",
+              "audio": [],
+              "name": "Walk",
+              "tags": []
+            },
+            "id": 78,
+            "children": []
+          },
+          {
+            "data": {
+              "script": "",
+              "quad": {
+                "path": "Character/Jelly/Jump.png",
+                "x": 0,
+                "y": 0,
+                "width": 128,
+                "height": 256
+              },
+              "rows": 8,
+              "cols": 4,
+              "transform": {
+                "offsetX": 16,
+                "offsetY": 24,
+                "offsetDepth": 0,
+                "scaleX": 100,
+                "scaleY": 100,
+                "rotation": 0,
+                "red": 255,
+                "green": 255,
+                "blue": 255,
+                "alpha": 255,
+                "hue": 0,
+                "saturation": 100,
+                "brightness": 100
+              },
+              "introPattern": "",
+              "introDuration": "",
+              "loopPattern": "0 1 2 3 2 1",
+              "loopDuration": "18",
+              "audio": [],
+              "name": "Dash",
+              "tags": []
+            },
+            "id": 79,
+            "children": []
+          },
+          {
+            "data": {
+              "script": "animation/Knockback.lua",
+              "quad": {
+                "path": "Character/Jelly/Default.png",
+                "x": 32,
+                "y": 0,
+                "width": 32,
+                "height": 256
+              },
+              "rows": 8,
+              "cols": 1,
+              "transform": {
+                "offsetX": 16,
+                "offsetY": 24,
+                "offsetDepth": 0,
+                "scaleX": 100,
+                "scaleY": 100,
+                "rotation": 0,
+                "red": 255,
+                "green": 255,
+                "blue": 255,
+                "alpha": 255,
+                "hue": 0,
+                "saturation": 100,
+                "brightness": 100
+              },
+              "introPattern": "",
+              "introDuration": "12",
+              "loopPattern": "",
+              "loopDuration": "",
+              "audio": [],
+              "name": "Damage",
+              "tags": []
+            },
+            "id": 81,
+            "children": []
+          },
+          {
+            "data": {
+              "script": "",
+              "quad": {
+                "path": "Character/Jelly/Default.png",
+                "x": 32,
+                "y": 0,
+                "width": 32,
+                "height": 256
+              },
+              "rows": 8,
+              "cols": 1,
+              "transform": {
+                "offsetX": 16,
+                "offsetY": 24,
+                "offsetDepth": 0,
+                "scaleX": 100,
+                "scaleY": 100,
+                "rotation": 0,
+                "red": 255,
+                "green": 255,
+                "blue": 255,
+                "alpha": 255,
+                "hue": 0,
+                "saturation": 75,
+                "brightness": 75
+              },
+              "introPattern": "",
+              "introDuration": "",
+              "loopPattern": "",
+              "loopDuration": "",
+              "audio": [],
+              "name": "KO",
+              "tags": []
+            },
+            "id": 82,
             "children": []
           }
         ]

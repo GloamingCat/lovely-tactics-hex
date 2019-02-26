@@ -731,6 +731,91 @@
         },
         "id": 8,
         "children": []
+      },
+      {
+        "data": {
+          "description": "",
+          "icon": {
+            "id": -1,
+            "col": 0,
+            "row": 0
+          },
+          "script": "",
+          "type": 1,
+          "targetType": 2,
+          "restriction": 1,
+          "costs": [],
+          "elements": [],
+          "userElements": true,
+          "projectileID": -1,
+          "rotate": false,
+          "applyTransform": false,
+          "userLoadAnim": "",
+          "userCastAnim": "",
+          "stepOnCast": true,
+          "loadAnimID": -1,
+          "castAnimID": 80,
+          "individualAnimID": -1,
+          "mirror": true,
+          "introTime": "",
+          "castTime": "",
+          "centerTime": "",
+          "targetTime": "",
+          "finishTime": "",
+          "damageAnim": true,
+          "effects": [
+            {
+              "key": "hp",
+              "basicResult": "(a.atkp() * 2 - b.defp()) * rand(80, 120) / 100",
+              "successRate": "((a.prep() * 2 - b.evdp()) / b.evdp()) * 50",
+              "heal": false,
+              "absorb": false
+            }
+          ],
+          "statusAdd": [],
+          "statusRemove": [],
+          "effectMask": {
+            "centerX": 1,
+            "centerY": 1,
+            "centerH": 1,
+            "grid": [
+              [
+                [
+                  true
+                ]
+              ]
+            ]
+          },
+          "castMask": {
+            "centerX": 1,
+            "centerY": 1,
+            "centerH": 1,
+            "grid": [
+              [
+                [
+                  true
+                ]
+              ]
+            ]
+          },
+          "name": "Monster Attack",
+          "tags": [
+            {
+              "key": "critical",
+              "value": ""
+            },
+            {
+              "key": "cast_maxh",
+              "value": "1"
+            },
+            {
+              "key": "cast_minh",
+              "value": "-1"
+            }
+          ]
+        },
+        "id": 15,
+        "children": []
       }
     ]
   },

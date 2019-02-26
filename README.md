@@ -78,7 +78,7 @@ Thanks to the following people for general art resources used in the project:
 * Kenney for sound effects: www.kenney.nl;
 * Aaron Krogh for BGM: https://soundcloud.com/aaron-anderson-11;
 * David Vitas for BGM: http://www.davidvitas.com/portfolio/2016/5/12/rpg-music-pack;
-* Mr. Bubble for the battle animations: https://mrbubblewand.wordpress.com/;
+* Mr. Bubble for the battle animations: https://mrbubblewand.wordpress.com/download/;
 * Alex dos Ventos for the scenery art: http://diabraar.tumblr.com/;
 
 Also, check the project that my mate Felipe Tavares is working on, a GUI to edit the game's database files: https://github.com/felipetavares/lovely-tactics-gui

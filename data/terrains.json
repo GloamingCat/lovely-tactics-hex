@@ -18,11 +18,11 @@
       "elements": [],
       "name": "Grass",
       "tags": [
-		{
-			"key": "sound",
-			"value": "sfx/Kenney/footstep05.ogg"
-		}
-	  ]
+        {
+          "key": "sound",
+          "value": "sfx/Kenney/footstep05.ogg"
+        }
+      ]
     },
     "id": 0,
     "children": []
@@ -46,11 +46,11 @@
       "elements": [],
       "name": "Bush",
       "tags": [
-		{
-			"key": "sound",
-			"value": "sfx/Kenney/footstep05.ogg"
-		}
-	  ]
+        {
+          "key": "sound",
+          "value": "sfx/Kenney/footstep05.ogg"
+        }
+      ]
     },
     "id": 1,
     "children": []
@@ -74,11 +74,11 @@
       "elements": [],
       "name": "Sand",
       "tags": [
-		{
-			"key": "sound",
-			"value": "sfx/Kenney/footstep05.ogg"
-		}
-	  ]
+        {
+          "key": "sound",
+          "value": "sfx/Kenney/footstep05.ogg"
+        }
+      ]
     },
     "id": 2,
     "children": []
@@ -125,11 +125,11 @@
       "elements": [],
       "name": "Rock",
       "tags": [
-		{
-			"key": "sound",
-			"value": "sfx/Kenney/footstep05.ogg"
-		}
-	  ]
+        {
+          "key": "sound",
+          "value": "sfx/Kenney/footstep05.ogg"
+        }
+      ]
     },
     "id": 4,
     "children": []

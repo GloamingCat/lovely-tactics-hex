@@ -273,6 +273,52 @@
         },
         "id": 5,
         "children": []
+      },
+      {
+        "data": {
+          "persistent": false,
+          "ai": [
+            {
+              "condition": "",
+              "name": "rule/Rush.lua",
+              "tags": []
+            }
+          ],
+          "classID": 0,
+          "attackID": 15,
+          "level": 2,
+          "money": 3,
+          "exp": 10,
+          "attributes": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "skills": [],
+          "status": [],
+          "elements": [],
+          "items": [],
+          "equip": [],
+          "name": "Jelly",
+          "tags": []
+        },
+        "id": 6,
+        "children": []
       }
     ]
   }

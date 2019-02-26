@@ -19,7 +19,6 @@ return function(script)
   script:openChoiceWindow { width = 80, choices = {
     "Shop.",
     "Talk.",
-    "Enter city.",
     "Nothing."
   }}
 
@@ -31,11 +30,6 @@ return function(script)
   elseif script.gui.choice == 2 then
     -- Dialogue Test
     script.root:forkFromScript { name = "events/test/Dialogue.lua" }
-  elseif script.gui.choice == 3 then
-    -- Teleport Test
-    script.root:fork(function()
-      script:moveToField { fade = 60, fieldID = 7, x = 6, y = 8, h = 1, direction = 270 }
-    end)
   end
 
 end
