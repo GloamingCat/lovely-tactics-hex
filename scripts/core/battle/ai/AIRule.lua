@@ -25,6 +25,7 @@ function AIRule:init(battler, condition, tags)
   self.battler = battler
   self.condition = condition
   self.tags = TagMap(tags)
+  self.input = nil
 end
 -- Creates an AIRule from the given rule data.
 -- @param(data : table) Rule data with path, param and condition fields.
@@ -57,12 +58,20 @@ end
 -- Checks if a rule can be executed.
 -- @ret(boolean) 
 function AIRule:canExecute()
-  return true
+  if self.input then
+    return self.input:canExecute()
+  else
+    return true
+  end
 end
 -- Executes the rule.
 -- @ret(table) The action result table.
 function AIRule:execute()
-  return BattleAction:execute()
+  if self.input then
+    return self.input:execute()
+  else
+    return BattleAction:execute()
+  end
 end
 
 return AIRule

@@ -280,7 +280,7 @@
           "ai": [
             {
               "condition": "",
-              "name": "rule/Rush.lua",
+              "name": "rule/Escape.lua",
               "tags": []
             }
           ],

@@ -32,26 +32,4 @@ function SkillRule:onSelect(user)
   self.skill:onSelect(self.input)
 end
 
----------------------------------------------------------------------------------------------------
--- Execution
----------------------------------------------------------------------------------------------------
-
--- Checks if a rule can be executed.
--- @ret(boolean)
-function SkillRule:canExecute()
-  if not AIRule.canExecute(self) then
-    return false
-  end
-  if self.skill and self.input then
-    return self.skill:canExecute(self.input)
-  else
-    return false
-  end
-end
--- Executes the rule.
--- @ret(number) action time cost
-function SkillRule:execute()
-  return self.input:execute()
-end
-
 return SkillRule

@@ -106,7 +106,7 @@ function BattleManager:battleEnd()
   local result = 1
   if self:playerWon() then
     GUIManager:showGUIForResult(RewardGUI())
-  else
+  elseif self:isGameOver() then
     result = GUIManager:showGUIForResult(GameOverGUI())
   end
   if self.params.fade then

@@ -9,7 +9,7 @@ The rule for an AI that moves to the safest tile that still has a reachable targ
 
 -- Imports
 local BattleTactics = require('core/battle/ai/BattleTactics')
-local SkillRule = require('core/battle/ai/SkillRule')
+local SkillRule = require('custom/rule/SkillRule')
 
 local DefendRule = class(SkillRule)
 

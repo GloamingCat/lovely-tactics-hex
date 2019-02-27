@@ -45,7 +45,7 @@ function FieldAction:onActionGUI(input)
 end
 -- Called when player chooses a target for the action. 
 -- By default, just ends grid seleting and calls execute.
--- @ret(table) the battle result
+-- @ret(table) Battle results.
 function FieldAction:onConfirm(input)
   if input.GUI then
     input.GUI:endGridSelecting()
@@ -75,7 +75,7 @@ function FieldAction:canExecute(input)
 end
 -- Executes the action animations and applies effects.
 function FieldAction:execute(input)
-  return { executed = true, tiles = self:getAllAffectedTiles(input) }
+  return { executed = true }
 end
 
 ---------------------------------------------------------------------------------------------------

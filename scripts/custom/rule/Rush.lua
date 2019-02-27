@@ -9,7 +9,7 @@ Rule to attack the closest character.
 
 -- Imports
 local BattleTactics = require('core/battle/ai/BattleTactics')
-local SkillRule = require('core/battle/ai/SkillRule')
+local SkillRule = require('custom/rule/SkillRule')
 
 local RushRule = class(SkillRule)
 

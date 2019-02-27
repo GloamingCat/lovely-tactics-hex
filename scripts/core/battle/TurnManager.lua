@@ -4,6 +4,13 @@
 TurnManager
 ---------------------------------------------------------------------------------------------------
 Provides methods for battle's turn management.
+At the end of each turn, a "battle result" table must be returned by either the GUI (player) or
+the AI (enemies). 
+This table must include the following entries:
+* <endCharacterTurn> tells the turn window to close and pass turn to the next character.
+* <executed> is true if the chosen action was enterily executed (usually true, unless it was a move
+action to an unreachable tile).
+* <escaped> is true if all members of the current party have escaped.
 
 =================================================================================================]]
 
@@ -21,6 +28,7 @@ local TurnManager = class()
 -- Initialization
 ---------------------------------------------------------------------------------------------------
 
+-- Constructor.
 function TurnManager:init()
   self.turnCharacters = nil
   self.pathMatrixes = nil
@@ -56,10 +64,18 @@ end
 ---------------------------------------------------------------------------------------------------
 
 -- [COROUTINE] Executes turn and returns when the turn finishes.
+-- @ret(number) Result code (nil if battle is still running).
+-- @ret(number) The party that won or escaped (nil if battle is still running).
 function TurnManager:runTurn()
   local winner = TroopManager:winnerParty()
   if winner then
-    return self:getResult(winner), winner
+    if winner == TroopManager.playerParty then
+      return 1, winner
+    elseif winner == 0 then
+      return 0, 0
+    else
+      return -1, winner
+    end
   end
   self:startTurn()
   local result = true
@@ -83,14 +99,16 @@ function TurnManager:runTurn()
     if self.party == TroopManager.playerParty then
       return -2, TroopManager.playerParty
     else
-      -- TODO enemy escaped
-      -- removed troop from party table
+      local winner = TroopManager:winnerParty()
+      if winner then
+        return -2, self.party
+      end
     end
   end
   self:endTurn(result)
 end
 -- [COROUTINE] Runs the player's turn.
--- @ret(table) the result action of the turn
+-- @ret(table) The action result table of the turn.
 function TurnManager:runPlayerTurn()
   while true do
     if #self.turnCharacters == 0 then
@@ -106,18 +124,6 @@ function TurnManager:runPlayerTurn()
         return result
       end
     end
-  end
-end
--- Gets the code of the battle result based on the winner party.
--- @param(winner : number) the ID of the winner party
--- @ret(number) 1 is victory, 0 is draw, -1 is lost
-function TurnManager:getResult(winner)
-  if winner == TroopManager.playerParty then
-    return 1 -- Victory.
-  elseif winner == 0 then
-    return 0 -- Draw.
-  else
-    return -1 -- Lost.
   end
 end
 

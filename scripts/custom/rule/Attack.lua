@@ -9,7 +9,7 @@ The rule for an AI that attacks the character with the highest chance of KO.
 
 -- Imports
 local BattleTactics = require('core/battle/ai/BattleTactics')
-local SkillRule = require('core/battle/ai/SkillRule')
+local SkillRule = require('custom/rule/SkillRule')
 
 -- Alias
 local expectation = math.randomExpectation
