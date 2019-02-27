@@ -62,7 +62,16 @@ function TurnManager:runTurn()
     return self:getResult(winner), winner
   end
   self:startTurn()
-  local result = nil
+  local result = true
+  for i = 1, #self.turnCharacters do
+    if self.turnCharacters[i].battler:isActive() then
+      result = nil
+      break
+    end
+  end
+  if result then
+    return nil
+  end
   local troop = TroopManager.troops[self.party]
   if troop.AI then
     result = troop.AI(troop)
@@ -84,13 +93,16 @@ end
 -- @ret(table) the result action of the turn
 function TurnManager:runPlayerTurn()
   while true do
+    if #self.turnCharacters == 0 then
+      return { escaped = false }
+    end
     self:characterTurnStart()
     local result = GUIManager:showGUIForResult(BattleGUI())
     if result.characterIndex then
       self.characterIndex = result.characterIndex
     else
       self:characterTurnEnd(result)
-      if result.endTurn or #self.turnCharacters == 0 then
+      if result.endTurn then
         return result
       end
     end
@@ -114,8 +126,6 @@ end
 ---------------------------------------------------------------------------------------------------
 
 -- Prepares for turn.
--- @param(char : Character) the new character of the turn
--- @param(iterations : number) the time since the last turn
 function TurnManager:startTurn()
   repeat
     self:nextParty()
@@ -135,8 +145,6 @@ function TurnManager:startTurn()
 end
 -- Closes turn.
 -- @param(char : Character) the character of the turn
--- @param(actionCost : number) the time spend by the character of the turn
--- @param(iterations : number) the time since the last turn
 function TurnManager:endTurn(char)
   for char in TroopManager.characterList:iterator() do
     char:onTurnEnd(self.initialTurnCharacters[char] ~= nil)

@@ -34,7 +34,7 @@
             {
               "dx": 0,
               "dy": 0,
-              "height": 5
+              "height": 3
             }
           ],
           "transform": {
@@ -126,7 +126,7 @@
             {
               "dx": 0,
               "dy": 0,
-              "height": 5
+              "height": 3
             }
           ],
           "transform": {
@@ -251,7 +251,7 @@
             {
               "dx": 0,
               "dy": 0,
-              "height": 5
+              "height": 3
             }
           ],
           "transform": {
@@ -343,7 +343,7 @@
             {
               "dx": 0,
               "dy": 0,
-              "height": 5
+              "height": 3
             }
           ],
           "transform": {
@@ -725,7 +725,7 @@
       },
       {
         "data": {
-          "battlerID": 9,
+          "battlerID": 10,
           "shadowID": 1,
           "tiles": [
             {

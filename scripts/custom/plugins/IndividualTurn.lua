@@ -15,6 +15,9 @@ The turn limit is defined by <turnLimit>.
 The default turn cost of a skill is 100% of the character's turn count by default, but this number
 may be customized by the <timeCost> tag.
 
+-- Status parameters:
+The drain occurs each <drainTurns> turn iterations. It is set to 1 (every turn) by default.
+
 =================================================================================================]]
 
 -- Imports
@@ -25,6 +28,7 @@ local Character = require('core/objects/Character')
 local PriorityQueue = require('core/datastruct/PriorityQueue')
 local SimpleText = require('core/gui/widget/SimpleText')
 local SkillAction = require('core/battle/action/SkillAction')
+local Status = require('core/battle/battler/Status')
 local StatusList = require('core/battle/battler/StatusList')
 local TargetWindow = require('core/gui/battle/window/TargetWindow')
 local TurnManager = require('core/battle/TurnManager')
@@ -140,18 +144,41 @@ end
 -- StatusList
 ---------------------------------------------------------------------------------------------------
 
--- Override.
+-- Override. Adds iterations to lifeTime instead of just incrementing it by 1.
 function StatusList:onTurnStart(...)
   local i = 1
   while i <= self.size do
     local status = self[i]
-    status.state.lifeTime = status.state.lifeTime + _G.TurnManager.iterations
+    status.lifeTime = status.lifeTime + _G.TurnManager.iterations
     status:onTurnStart(...)
-    if status.state.lifeTime > status.duration * turnLimit then
+    if status.lifeTime > status.duration * turnLimit then
       self:removeStatus(status)
     else
       i = i + 1
     end
+  end
+end
+
+---------------------------------------------------------------------------------------------------
+-- Status
+---------------------------------------------------------------------------------------------------
+
+-- Override. Initializes drain count.
+local Status_init = Status.init
+function Status:init(...)
+  Status_init(self, ...)
+  if self.data.drainAtt ~= '' then
+    self.drainCount = 0
+    self.frequency = tonumber(self.tags.drainTurns) or 1
+  end
+end
+-- Override. Checks if drain count reached frequency.
+local Status_drain = Status.drain
+function Status:drain(character)
+  self.drainCount = self.drainCount + _G.TurnManager.iterations
+  if self.drainCount > self.frequency then
+    self.drainCount = self.drainCount - self.frequency
+    Status_drain(self, character)
   end
 end
 

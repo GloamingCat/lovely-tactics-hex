@@ -249,7 +249,25 @@ function StatusList:getAI()
 end
 
 ---------------------------------------------------------------------------------------------------
--- Callbacks
+-- Turn Callback
+---------------------------------------------------------------------------------------------------
+
+function StatusList:onTurnStart(...)
+  local i = 1
+  while i <= self.size do
+    local status = self[i]
+    status.lifeTime = status.lifeTime + 1
+    status:onTurnStart(...)
+    if status.lifeTime > status.duration then
+      self:removeStatus(status)
+    else
+      i = i + 1
+    end
+  end
+end
+
+---------------------------------------------------------------------------------------------------
+-- Other Callbacks
 ---------------------------------------------------------------------------------------------------
 
 -- Calls a certain function in all status in the list.

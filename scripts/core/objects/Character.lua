@@ -44,6 +44,19 @@ function Character:playIdleAnimation()
   end
 end
 
+function Character:playKOAnimation()
+  if self.party == TroopManager.playerParty then
+    if Sounds.allyKO then
+      AudioManager:playSFX(Sounds.allyKO)
+    end
+  else
+    if Sounds.enemyKO then
+      AudioManager:playSFX(Sounds.enemyKO)
+    end
+  end
+  self:playAnimation(self.koAnim, true)
+end
+
 ---------------------------------------------------------------------------------------------------
 -- General Movement
 ---------------------------------------------------------------------------------------------------
@@ -227,16 +240,7 @@ function Character:damage(skill, origin, results)
   if self.battler:isAlive() then
     self:playAnimation(self.idleAnim)
   else
-    if self.party == TroopManager.playerParty then
-      if Sounds.allyKO then
-        AudioManager:playSFX(Sounds.allyKO)
-      end
-    else
-      if Sounds.enemyKO then
-        AudioManager:playSFX(Sounds.enemyKO)
-      end
-    end
-    self:playAnimation(self.koAnim, true)
+    self:playKOAnimation()
   end
 end
 
@@ -249,7 +253,7 @@ function Character:onTurnStart(partyTurn)
   if self.AI and self.AI.onTurnStart then
     self.AI:onTurnStart(partyTurn)
   end
-  self.battler.statusList:callback('TurnStart', self, partyTurn)
+  self.battler.statusList:onTurnStart(self, partyTurn)
   if partyTurn then
     self.steps = self.battler.maxSteps()
   else

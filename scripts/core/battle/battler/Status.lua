@@ -10,6 +10,7 @@ The effects of them on battle and field depend on each individual implementation
 
 -- Imports
 local BattlerAI = require('core/battle/ai/BattlerAI')
+local PopupText = require('core/battle/PopupText')
 local TagMap = require('core/datastruct/TagMap')
 
 local Status = class()
@@ -73,6 +74,32 @@ function Status:getState()
 end
 
 ---------------------------------------------------------------------------------------------------
+-- Drain / Regen
+---------------------------------------------------------------------------------------------------
+
+-- Applies drain effect.
+-- @param(char : Character) The battle character with this status.
+function Status:drain(char)
+  local pos = char.position
+  local popupText = PopupText(pos.x, pos.y - 20, pos.z - 60)
+  local value = self.data.drainValue
+  if self.data.percentage then
+    value = math.floor(char.battler['m' .. self.data.drainAtt]() * value / 100)
+  end
+  if value < 0 then -- Heal
+    popupText:addHeal {key = self.data.drainAtt, value = value}
+    char.battler:heal(self.data.drainAtt, value)
+  else
+    popupText:addDamage {key = self.data.drainAtt, value = value}
+    char.battler:damage(self.data.drainAtt, value)
+  end
+  popupText:popup()
+  if not char.battler:isAlive() then
+    char:playKOAnimation()
+  end
+end
+
+---------------------------------------------------------------------------------------------------
 -- Battle callbacks
 ---------------------------------------------------------------------------------------------------
 
@@ -91,9 +118,8 @@ end
 -- @param(character : Character)
 -- @param(partyTurn : boolean)
 function Status:onTurnStart(character, partyTurn)
-  self.lifeTime = self.lifeTime + 1
-  if self.lifeTime > self.duration then
-    self.statusList:removeStatus(self, character)
+  if partyTurn and self.data.drainAtt ~= '' then
+    self:drain(character)
   end
 end
 
