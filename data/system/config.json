@@ -12,7 +12,7 @@
     }
   },
   "battle": {
-    "maxLevel": 100,
+    "maxLevel": 4,
     "attHP": "hp",
     "attSP": "sp",
     "attStep": "mov",

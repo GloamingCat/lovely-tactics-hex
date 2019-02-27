@@ -81,7 +81,7 @@ function RewardEXPWindow:addEXP()
       if exp2.value > 0 then
         done = false
         local gain = math.min(math.floor(self.expSpeed * deltaTime()), exp2.value)
-        local nextLevel = exp1.battler.class:levelup(gain)
+        local nextLevel = exp1.battler.class:levelsup(gain)
         exp1.battler.class:addExperience(gain)
         -- Level-up
         if nextLevel then

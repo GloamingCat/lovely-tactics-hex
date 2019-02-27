@@ -48,9 +48,12 @@ end
 -- Level-up
 ---------------------------------------------------------------------------------------------------
 
--- Incriments experience and learns skill if leveled up.
+-- Increments experience and learns skill if leveled up.
 -- @param(exp : number) The quantity of EXP to be added.
 function Class:addExperience(exp)
+  if self.level == Config.battle.maxLevel then
+    return
+  end
   self.exp = self.exp + exp
   while self.exp >= self.expCurve(self.level + 1) do
     self.level = self.level + 1
@@ -60,12 +63,19 @@ function Class:addExperience(exp)
         self.battler.skillList:learn(skill)
       end
     end
+    if self.level == Config.battle.maxLevel then
+      self.exp = self.expCurve(self.level)
+      return
+    end
   end
 end
 -- Checks if the class levels up with the given EXP.
 -- @param(exp : number) The quantity of EXP to be added.
 -- @ret(number) The new level, or nil if did not level up.
-function Class:levelup(exp)
+function Class:levelsup(exp)
+  if self.level == Config.battle.maxLevel then
+    return nil
+  end
   local level = self.level
   exp = exp + self.exp
   while exp >= self.expCurve(level + 1) do
