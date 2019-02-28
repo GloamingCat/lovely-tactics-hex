@@ -54,10 +54,7 @@ function FieldAction:onConfirm(input)
 end
 -- Called when player chooses a target for the action. 
 -- By default, just ends grid selecting.
--- @ret(table) the battle result:
---  nil to stay on ActionGUI;
---  table with nil timeCost empty to return to BattleGUI;
---  table with non-nil tomeCost to end turn
+-- @ret(table) The turn result.
 function FieldAction:onCancel(input)
   if input.GUI then
     input.GUI:endGridSelecting()
@@ -147,9 +144,15 @@ function FieldAction:isArea()
   local grid = self.area.grid
   return #grid > 1 or #grid > 0 and #grid[1] > 1 or #grid[1][1] > 1
 end
--- Checks if the range mask contains any tiles besides the center tile and its neighbors.
+-- Checks if the range mask contains any tiles besides the center tile.
 -- @ret(boolean) True if it's a ranged action, false otherwise.
 function FieldAction:isRanged()
+  local grid = self.range.grid
+  return #grid > 1 or #grid > 0 and #grid[1] > 1 or #grid[1][1] > 1
+end
+-- Checks if the range mask contains any tiles besides the center tile and its neighbors.
+-- @ret(boolean) True if it's a long-ranged action, false otherwise.
+function FieldAction:isLongRanged()
   local grid = self.range.grid
   return #grid > 3 or #grid > 0 and #grid[1] > 3 or #grid[1][1] > 3
 end

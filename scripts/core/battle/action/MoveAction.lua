@@ -97,9 +97,9 @@ function MoveAction:isFinal(tile, target, user)
   return self:isStandable(tile, user)
 end
 -- Checks passability between two tiles.
--- @param(initial : ObjectTile) origin tile
--- @param(final : ObjectTile) destination tile
--- @ret(boolean) true if it's passable, false otherwise
+-- @param(initial : ObjectTile) Origin tile.
+-- @param(final : ObjectTile) Destination tile.
+-- @ret(boolean) True if it's passable, false otherwise.
 function MoveAction:isPassableBetween(initial, final, user)
   local x, y, h = initial:coordinates()
   local c = self.field:collisionXYZ(user, x, y, h, final:coordinates())
@@ -109,16 +109,16 @@ function MoveAction:isPassableBetween(initial, final, user)
   return true
 end
 -- Gets the move cost between the two tiles.
--- @param(initial : ObjectTile) the initial tile
--- @param(final : ObjectTile) the destination tile
--- @ret(number) the move cost
+-- @param(initial : ObjectTile) The initial tile.
+-- @param(final : ObjectTile) The destination tile.
+-- @ret(number) The move cost.
 function MoveAction:getDistanceBetween(initial, final, user)
-  return (initial:getMoveCost() + final:getMoveCost()) / 2
+  return 1
 end
--- Calculas a minimum cost between two tiles.
--- @param(initial : ObjectTile) the initial tile
--- @param(final : ObjectTile) the destination tile
--- @ret(number) the estimated move cost
+-- Calculates a minimum cost between two tiles.
+-- @param(initial : ObjectTile) The initial tile.
+-- @param(final : ObjectTile) The destination tile.
+-- @ret(number) The estimated move cost.
 function MoveAction:estimateCost(initial, final, user)
   local baseCost = mathf.tileDistance(initial.x, initial.y, final.x, final.y)
   if final.characterList.size > 0 then

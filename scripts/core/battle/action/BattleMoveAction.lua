@@ -62,8 +62,7 @@ end
 ---------------------------------------------------------------------------------------------------
 
 -- Tells if a tile can be chosen as target. 
--- By default, no tile is selectable.
--- @ret(boolean) true if can be chosen, false otherwise
+-- @ret(boolean) True if can be chosen, false otherwise.
 function BattleMoveAction:isSelectable(input, tile)
   return tile.gui.movable
 end
@@ -73,9 +72,9 @@ end
 ---------------------------------------------------------------------------------------------------
 
 -- Checks passability between two tiles.
--- @param(initial : ObjectTile) origin tile
--- @param(final : ObjectTile) destination tile
--- @ret(boolean) true if it's passable, false otherwise
+-- @param(initial : ObjectTile) Origin tile.
+-- @param(final : ObjectTile) Destination tile.
+-- @ret(boolean) True if it's passable, false otherwise.
 function BattleMoveAction:isPassableBetween(initial, final, user)
   local x, y, h = initial:coordinates()
   local c = self.field:collisionXYZ(user, x, y, h, final:coordinates())
@@ -87,8 +86,15 @@ function BattleMoveAction:isPassableBetween(initial, final, user)
   local dh = final.layer.height - h
   return mindh <= dh and dh <= maxdh
 end
+-- Gets the move cost between the two tiles.
+-- @param(initial : ObjectTile) The initial tile.
+-- @param(final : ObjectTile) The destination tile.
+-- @ret(number) The move cost.
+function BattleMoveAction:getDistanceBetween(initial, final, user)
+  return (initial:getMoveCost() + final:getMoveCost()) / 2
+end
 -- The max distance the character can walk.
--- @ret(number) the distance in tiles (may not be integer)
+-- @ret(number) The distance in tiles (may not be integer).
 function BattleMoveAction:maxDistance(user)
   return user.steps or self.pathLimit
 end

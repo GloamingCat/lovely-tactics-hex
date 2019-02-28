@@ -36,8 +36,8 @@ function BattleAction:init(colorName, range, area)
   self.showTargetWindow = true
   self.showStepWindow = false
 end
--- Sets color according to action's type.
--- @param(t : number)
+-- Sets color according to action's type (general, attack or support).
+-- @param(t : number) Type code, from 0 to 2.
 function BattleAction:setType(t)
   self.offensive, self.support = false, false
   if t == 0 then
@@ -50,8 +50,8 @@ function BattleAction:setType(t)
     self.support = true
   end
 end
--- Target types (any tile, any character, living characters or dead characters).
--- @param(t : number)
+-- Sets target type (any tile, any character, living characters or dead characters).
+-- @param(t : number) Type code, from 0 to 3.
 function BattleAction:setTargetType(t)
   self.allTiles = t == 0
   self.living = t == 1 or t == 2
@@ -101,10 +101,7 @@ end
 ---------------------------------------------------------------------------------------------------
 
 -- Overrides FieldAction:execute. By default, just ends turn.
--- @ret(table) the battle result:
---  nil to stay on ActionGUI;
---  table with nil timeCost empty to return to BattleGUI;
---  table with non-nil tomeCost to end turn
+-- @ret(table) The turn result.
 function BattleAction:execute(input)
   return { executed = true, endCharacterTurn = true }
 end
@@ -127,8 +124,8 @@ function BattleAction:resetMovableTiles(input)
   end
 end
 -- Paints and resets properties for the target tiles.
--- By default, paints all movable tile with movable color, and non-movable but 
--- reachable (within skill's range) tiles with the skill's type color.
+-- By default, paints all movable tile with movable color, and non-movable but reachable (within
+--  skill's range) tiles with the skill's type color.
 function BattleAction:resetReachableTiles(input)
   local matrix = TurnManager:pathMatrix()
   local charTile = TurnManager:currentCharacter():getTile()
@@ -196,7 +193,7 @@ function BattleAction:firstTarget(input)
     return input.user:getTile()
   end
 end
--- Overrides FieldAction:nextTarget;
+-- Overrides FieldAction:nextTarget.
 function BattleAction:nextTarget(input, axisX, axisY)
   if self.characterTiles then
     if axisX > 0 or axisY > 0 then
