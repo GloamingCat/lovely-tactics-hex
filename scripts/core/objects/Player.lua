@@ -3,30 +3,22 @@
 
 Player
 ---------------------------------------------------------------------------------------------------
-This is a special character that can me controlled by the player with keyboard.
-It only exists for exploration fields.
+This is a special character that can me controlled by the player with keyboard or mouse.
+It only exists in exploration fields, not in battle fields.
 
 =================================================================================================]]
 
 -- Imports
-local ActionInput = require('core/battle/action/ActionInput')
 local Character = require('core/objects/Character')
 local Fiber = require('core/fiber/Fiber')
 local FieldGUI = require('core/gui/field/FieldGUI')
-local MoveAction = require('core/battle/action/MoveAction')
 local Vector = require('core/math/Vector')
 
 -- Alias
 local timer = love.timer
 local coord2Angle = math.coord2Angle
-local mathf = math.field
-local tile2Pixel = math.field.tile2pixel
 local yield = coroutine.yield
-
--- Constants
 local conf = Config.player
-local tg = math.field.tg
-local pathLength = 12
 
 local Player = class(Character)
 
@@ -34,11 +26,10 @@ local Player = class(Character)
 -- Initialization
 ---------------------------------------------------------------------------------------------------
 
--- Overrides BaseCharacter:init.
+-- Overrides CharacterBase:init.
 function Player:init(initTile, dir)
   self.blocks = 0
   self.inputDelay = 6 / 60
-  self.moveInput = ActionInput(MoveAction(mathf.centerMask, 2), self)
   local troopData = Database.troops[SaveManager.current.playerTroopID]
   local leader = troopData.members[1]
   local data = {
@@ -51,7 +42,7 @@ function Player:init(initTile, dir)
   data.x, data.y, data.h = initTile:coordinates()
   Character.init(self, data)
 end
--- Player's extra and base character properties.
+-- Overrides CharacterBase:initProperties.
 function Player:initProperties(name, collisionTiles, colliderHeight)
   Character.initProperties(self, 'Player', collisionTiles, colliderHeight)
   self.inputOn = true
@@ -96,14 +87,16 @@ function Player:checkFieldInput()
   end
 end
 -- Checks if field input is enabled.
--- @ret(boolean) true if enabled, false otherwise
+-- @ret(boolean) True if enabled, false otherwise.
 function Player:fieldInputEnabled()
   local gui = GUIManager:isWaitingInput() or BattleManager.onBattle
   return not gui and self.inputOn and self.moveTime >= 1 and self.blocks == 0
 end
--- @ret(number) x axis input
--- @ret(number) y axis input
--- @ret(boolean) True if it was pressed for long enough to move
+-- Gets the keyboard move/turn input. 
+-- @ret(number) The x-axis input.
+-- @ret(number) The y-axis input.
+-- @ret(boolean) True if it was pressed for long enough to move. 
+--  If false, the character just turns to the input direction, but does not move.
 function Player:inputAxis()
   local dx = InputManager:axisX(0, 0)
   local dy = InputManager:axisY(0, 0)
@@ -145,28 +138,16 @@ function Player:moveByMouse()
     if field:exceedsBorder(x, y) then
       self:playIdleAnimation()
     elseif field:isGrounded(x, y, l) then
-      if not self:tryPathMovement(field:getObjectTile(x, y, l)) then
+      local tile = field:getObjectTile(x, y, l)
+      local interacted = (tile == self:getTile() or tile == self:frontTile()) 
+        and self:interactTile(tile)
+      local moved = not interacted and self:tryPathMovement(tile, conf.pathLength or 12)
+      if not moved then
         self:playIdleAnimation()
       end
       break
     end
   end
-end
--- [COROUTINE] Tries to walk a path to the given tile.
--- @param(tile : ObjectTile) Destination tile.
-function Player:tryPathMovement(tile)
-  local input = ActionInput(MoveAction(mathf.centerMask, pathLength), self, tile)
-  local path, fullPath = input.action:calculatePath(input)
-  if not (path and fullPath) then
-    input.action.range = mathf.neighborMask
-    path, fullPath = input.action:calculatePath(input)
-    if not (path and fullPath) then
-      return false
-    end
-    path = path:addStep(tile, 1)
-  end
-  self.path = path:toStack()
-  return self:consumePath()
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -174,8 +155,10 @@ end
 ---------------------------------------------------------------------------------------------------
 
 -- [COROUTINE] Moves player depending on input.
--- @param(dx : number) input x
--- @param(dy : number) input y
+-- @param(dx : number) The x-axis input.
+-- @param(dy : number) The x-axis input.
+-- @param(move : boolean) False if character is just turning to the given direction, true if it
+--  must move.
 function Player:moveByKeyboard(dx, dy, move)
   if dx ~= 0 or dy ~= 0 then
     self.path = nil
@@ -192,66 +175,6 @@ function Player:moveByKeyboard(dx, dy, move)
   else
     self:playIdleAnimation()
   end
-end
--- [COROUTINE] Tries to move in a given angle.
--- @param(angle : number) the angle in degrees to move
--- @ret(boolean) Returns false if the next angle must be tried, true to stop trying.
-function Player:tryAngleMovement(angle)  
-  local nextTile = self:frontTile(angle)
-  if nextTile == nil then
-    return false
-  end
-  return self:tryTileMovement(nextTile)
-end
-
----------------------------------------------------------------------------------------------------
--- Movement
----------------------------------------------------------------------------------------------------
-
--- [COROUTINE] Tries to move to the given tile.
--- @param(tile : ObjectTile) The destination tile.
--- @ret(number) Returns nil if the next angle must be tried, a number to stop trying.
-function Player:tryTileMovement(tile)
-  local ox, oy, oh = self:getTile():coordinates()
-  local dx, dy, dh = tile:coordinates()
-  local collision = FieldManager.currentField:collisionXYZ(self,
-    ox, oy, oh, dx, dy, dh)
-  if self.autoTurn then
-    self:turnToTile(dx, dy)
-  end
-  if collision == nil then
-    self.moveInput.target = tile
-    local path, fullPath = self.moveInput.action:calculatePath(self.moveInput)
-    if path and fullPath then
-      self:playMoveAnimation()
-      local autoAnim = self.autoAnim
-      self.autoAnim = false
-      self:walkToTile(dx, dy, dh, false)
-      self.autoAnim = autoAnim
-      self:collideTile(tile)
-      return 0
-    end
-  end
-  self:playIdleAnimation()
-  if collision == 3 then -- character
-    self:collideTile(tile)
-    return 1
-  else
-    return nil
-  end
-end
--- [COROUTINE] Walks the next tile of the path.
-function Player:consumePath()
-  if not self.path:isEmpty() then
-    local tile = self.path:pop()
-    if self:tryTileMovement(tile) == 0 then
-      return true
-    else
-      self:interactTile(tile)
-    end
-  end
-  self.path = nil
-  return false
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -270,6 +193,7 @@ end
 ---------------------------------------------------------------------------------------------------
 
 -- [COROUTINE] Interacts with whoever is the player looking at (if any).
+-- @ret(boolean) True if the character interacted with someone, false otherwise.
 function Player:interact()
   self:playIdleAnimation()
   local angle = self:getRoundedDirection()
@@ -293,32 +217,11 @@ function Player:interactTile(tile)
   end
   return false
 end
--- Tries to interact with any character in the tile looked by the given direction
+-- Tries to interact with any character in the tile looked by the given direction.
+-- @ret(boolean) True if the character interacted with someone, false otherwise.
 function Player:interactAngle(angle)
   local nextTile = self:frontTile(angle)
   return self:interactTile(nextTile)
-end
-
----------------------------------------------------------------------------------------------------
--- Tile collision
----------------------------------------------------------------------------------------------------
-
--- Looks for collisions with characters in the given tile.
--- @param(tile : ObjectTile) The tile that the player is in or is trying to go.
--- @ret(boolean) True if there was any blocking collision, false otherwise.
-function Player:collideTile(tile)
-  if not tile then
-    return false
-  end
-  for char in tile.characterList:iterator() do
-    if char.collideScript then
-      char:onCollide(tile, char, self)
-      if not char.passable then
-        return true
-      end
-    end
-  end
-  return false
 end
 
 return Player

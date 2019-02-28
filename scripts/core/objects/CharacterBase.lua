@@ -5,33 +5,26 @@ CharacterBase
 ---------------------------------------------------------------------------------------------------
 A Character is a dynamic object stored in the tile. It may be passable or not, and have an image 
 or not. Player may also interact with this.
-
 A CharacterBase provides very basic functions that are necessary for every character.
 
 =================================================================================================]]
 
 -- Imports
-local Vector = require('core/math/Vector')
-local DirectedObject = require('core/objects/DirectedObject')
 local Interactable = require('core/objects/Interactable')
+local Vector = require('core/math/Vector')
+local WalkingObject = require('core/objects/WalkingObject')
 
 -- Alias
-local max = math.max
-local mathf = math.field
-local angle2Row = math.field.angle2Row
-local Quad = love.graphics.newQuad
-local round = math.round
-local time = love.timer.getDelta
 local tile2Pixel = math.field.tile2Pixel
 
-local CharacterBase = class(DirectedObject, Interactable)
+local CharacterBase = class(WalkingObject, Interactable)
 
 ---------------------------------------------------------------------------------------------------
 -- Inititialization
 ---------------------------------------------------------------------------------------------------
 
 -- Constructor.
--- @param(instData : table) the character's data from field file
+-- @param(instData : table) The character's instance data from field file.
 function CharacterBase:init(instData, save)
   assert(not (save and save.deleted), 'Deleted character.')
   -- Character data
@@ -44,7 +37,7 @@ function CharacterBase:init(instData, save)
     pos.x, pos.y, pos.z = tile2Pixel(instData.x, instData.y, instData.h)
   end
   -- Object:init
-  DirectedObject.init(self, data, pos)
+  WalkingObject.init(self, data, pos)
   -- Battle info
   self.id = data.id
   self.key = instData.key or ''
@@ -66,31 +59,24 @@ function CharacterBase:init(instData, save)
   self:addToTiles()
 end
 -- Sets generic properties.
--- @param(name : string) the name of the character
--- @param(tiles : table) a list of collision tiles
--- @param(colliderHeight : number) collider's height in height units
+-- @param(name : string) The name of the character.
+-- @param(tiles : table) A list of collision tiles.
+-- @param(colliderHeight : number) Collider's height in height units.
 function CharacterBase:initProperties(name, tiles, colliderHeight, save)
   self.name = name
   self.collisionTiles = tiles
-  self.passable = false
-  self.speed = 60
-  self.autoAnim = true
-  self.autoTurn = true
-  self.walkAnim = 'Walk'
-  self.idleAnim = 'Idle'
-  self.dashAnim = 'Dash'
   self.damageAnim = 'Damage'
   self.koAnim = 'KO'
-  self.cropMovement = false
-  self.paused = false
+  WalkingObject.initProperties(self)
 end
--- Overrides to create the animation sets.
+-- Creates the animation sets.s
 function CharacterBase:initGraphics(instData, animations, portraits, transform, shadowID, save)
   if shadowID and shadowID >= 0 then
     local shadowData = Database.animations[shadowID]
     self.shadow = ResourceManager:loadSprite(shadowData, FieldManager.renderer)
   end
-  DirectedObject.initGraphics(self, instData.direction, 
+  -- DirectedObject:initGraphics
+  WalkingObject.initGraphics(self, instData.direction, 
     animations, instData.animation, transform, true)
   self.portraits = {}
   for i = 1, #portraits do
@@ -108,7 +94,7 @@ function CharacterBase:update()
   if self.paused then
     return
   end
-  DirectedObject.update(self)
+  WalkingObject.update(self)
   Interactable.update(self)
 end
 -- Removes from draw and update list.
@@ -118,14 +104,13 @@ function CharacterBase:destroy()
   end
   FieldManager.characterList:removeElement(self)
   FieldManager.characterList[self.key] = false
-  DirectedObject.destroy(self)
+  WalkingObject.destroy(self)
   Interactable.destroy(self)
 end
+-- Overrides Object:setXYZ.
 function CharacterBase:setXYZ(x, y, z)
-  x = x or self.position.x
-  y = y or self.position.y
   z = z or self.position.z
-  DirectedObject.setXYZ(self, x, y, z)
+  WalkingObject.setXYZ(self, x, y, z)
   if self.shadow then
     self.shadow:setXYZ(x, y, z + 1)
   end
@@ -151,43 +136,22 @@ function CharacterBase:getHeight(dx, dy)
   end
   return 0
 end
-
----------------------------------------------------------------------------------------------------
--- Movement
----------------------------------------------------------------------------------------------------
-
--- Overrides Movable:instantMoveTo.
--- @param(collisionCheck : boolean) If false, ignores collision.
--- @ret(number) The type of the collision, nil if none.
-function CharacterBase:instantMoveTo(x, y, z, collisionCheck)
-  local center = self:getTile()
-  local dx, dy, dh = math.field.pixel2Tile(x, y, z)
-  dx = round(dx) - center.x
-  dy = round(dy) - center.y
-  dh = round(dh) - center.layer.height
-  if dx ~= 0 or dy ~= 0 or dh ~= 0 then
-    local tiles = self:getAllTiles()
-    -- Collision
-    if collisionCheck == nil then
-      collisionCheck = self.collisionCheck
-    end
-    if collisionCheck and not self.passable then
-      for i = #tiles, 1, -1 do
-        local collision = self:collision(tiles[i], dx, dy, dh)
-        if collision ~= nil then
-          return collision
-        end
+-- Looks for collisions with characters in the given tile.
+-- @param(tile : ObjectTile) The tile that the player is in or is trying to go.
+-- @ret(boolean) True if there was any blocking collision, false otherwise.
+function CharacterBase:collideTile(tile)
+  if not tile then
+    return false
+  end
+  for char in tile.characterList:iterator() do
+    if char.collideScript then
+      char:onCollide(tile, char, self)
+      if not char.passable then
+        return true
       end
     end
-    -- Updates tile position
-    self:removeFromTiles(tiles)
-    self:setXYZ(x, y, z)
-    tiles = self:getAllTiles()
-    self:addToTiles(tiles)
-  else
-    self:setXYZ(x, y, z)
   end
-  return nil
+  return false
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -212,7 +176,7 @@ function CharacterBase:getAllTiles()
   return tiles
 end
 -- Adds this object from to tiles it's occuping.
--- @param(tiles : table) The list of occuped tiles.
+-- @param(tiles : table) The list of occuped tiles (optional).
 function CharacterBase:addToTiles(tiles)
   tiles = tiles or self:getAllTiles()
   for i = #tiles, 1, -1 do
@@ -220,7 +184,7 @@ function CharacterBase:addToTiles(tiles)
   end
 end
 -- Removes this object from the tiles it's occuping.
--- @param(tiles : table) The list of occuped tiles.
+-- @param(tiles : table) The list of occuped tiles (optional).
 function CharacterBase:removeFromTiles(tiles)
   tiles = tiles or self:getAllTiles()
   for i = #tiles, 1, -1 do

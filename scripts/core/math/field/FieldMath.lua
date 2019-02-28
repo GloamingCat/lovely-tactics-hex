@@ -40,7 +40,7 @@ function FieldMath.init()
     (dir[7] + dir[8]) / 2, (dir[8] + 360) / 2}
   -- Masks
   FieldMath.neighborMask = { grid = FieldMath.radiusMask(1, -1, 1),
-    centerH = 1, centerX = 1, centerY = 1 }
+    centerH = 2, centerX = 2, centerY = 2 }
   FieldMath.centerMask = { grid = {{{true}}},
     centerH = 1, centerX = 1, centerY = 1 }
   FieldMath.emptyMask = { grid = {{{false}}},

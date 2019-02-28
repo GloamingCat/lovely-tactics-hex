@@ -190,13 +190,6 @@ function Battler:applyResults(results, character)
       self:damage(points.key, points.value)
     end
   end
-  if character then
-    if self:isAlive() then
-      character:playAnimation(character.idleAnim)
-    else
-      character:playAnimation(character.koAnim, true)
-    end
-  end
   for i = 1, #results.status do
     local r = results.status[i]
     if r.add then

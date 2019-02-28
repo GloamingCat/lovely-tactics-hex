@@ -9,21 +9,16 @@ The [COUROUTINE] functions must ONLY be called from a fiber.
 =================================================================================================]]
 
 -- Imports
+local ActionInput = require('core/battle/action/ActionInput')
 local CharacterBase = require('core/objects/CharacterBase')
+local MoveAction = require('core/battle/action/MoveAction')
 local Projectile = require('core/battle/Projectile')
 
 -- Alias
+local mathf = math.field
 local max = math.max
-local round = math.round
 local time = love.timer.getDelta
-local angle2Coord = math.angle2Coord
 local tile2Pixel = math.field.tile2Pixel
-local pixel2Tile = math.field.pixel2Tile
-local len = math.len2D
-
--- Constants
-local speedLimit = (Config.player.dashSpeed + Config.player.walkSpeed) / 2
-local castStep = 6
 
 local Character = class(CharacterBase)
 
@@ -31,19 +26,8 @@ local Character = class(CharacterBase)
 -- Animation
 ---------------------------------------------------------------------------------------------------
 
--- Plays animation for when character is moving.
-function Character:playMoveAnimation()
-  if self.autoAnim then
-    self:playAnimation(self.speed < speedLimit and self.walkAnim or self.dashAnim)
-  end
-end
--- Plays animation for when character is idle.
-function Character:playIdleAnimation()
-  if self.autoAnim then
-    self:playAnimation(self.idleAnim)
-  end
-end
-
+-- Plays animation for when character is knocked out.
+-- @ret(Animation) The animation that started playing.
 function Character:playKOAnimation()
   if self.party == TroopManager.playerParty then
     if Sounds.allyKO then
@@ -54,95 +38,84 @@ function Character:playKOAnimation()
       AudioManager:playSFX(Sounds.enemyKO)
     end
   end
-  self:playAnimation(self.koAnim, true)
+  return self:playAnimation(self.koAnim)
 end
 
 ---------------------------------------------------------------------------------------------------
--- General Movement
+-- Movement
 ---------------------------------------------------------------------------------------------------
 
--- [COROUTINE] Walks to the given pixel point (x, y, d).
--- @param(x : number) coordinate x of the point
--- @param(y : number) coordinate y of the point
--- @param(z : number) the depth of the point
--- @param(collisionCheck : boolean) if it should check collisions
--- @ret(boolean) true if the movement was completed, false otherwise
-function Character:walkToPoint(x, y, z, collisionCheck)
-  z = z or self.position.z
-  x, y, z = round(x), round(y), round(z)
-  self:playMoveAnimation()
-  local distance = len(self.position.x - x, self.position.y - y, self.position.z - z)
-  self.collisionCheck = collisionCheck
-  self:moveTo(x, y, z, self.speed / distance, true)
-  self:playIdleAnimation()
-  return self.position:almostEquals(x, y, z, 0.2)
+-- [COROUTINE] Tries to move in a given angle.
+-- @param(angle : number) The angle in degrees to move.
+-- @ret(boolean) Returns false if the next angle must be tried, true to stop trying.
+function Character:tryAngleMovement(angle)  
+  local nextTile = self:frontTile(angle)
+  if nextTile == nil then
+    return false
+  end
+  return self:tryTileMovement(nextTile)
 end
--- Walks a given distance in each axis.
--- @param(dx : number) the distance in axis x (in pixels)
--- @param(dy : number) the distance in axis y (in pixels)
--- @param(dz : number) the distance in depth (in pixels)
--- @param(collisionCheck : boolean) if it should check collisions
--- @ret(boolean) true if the movement was completed, false otherwise
-function Character:walkDistance(dx, dy, dz, collisionCheck)
-  local pos = self.position
-  return self:walkToPoint(pos.x + dx, pos.y + dy, pos.z + dz, collisionCheck)
-end
--- Walks the given distance in the given direction.
--- @param(d : number) the distance to be walked
--- @param(angle : number) the direction angle
--- @param(dz : number) the distance in depth
--- @param(collisionCheck : boolean) if it should check collisions
--- @ret(boolean) true if the movement was completed, false otherwise
-function Character:walkInAngle(d, angle, dz, collisionCheck)
-  local dx, dy = angle2Coord(angle or self:getRoundedDirection())
-  dz = dz or -dy
-  return self:walkDistance(dx * d, dy * d, dz * d, collisionCheck)
-end
--- [COROUTINE] Walks to the center of the tile (x, y).
--- @param(x : number) coordinate x of the tile
--- @param(y : number) coordinate y of the tile
--- @param(h : number) the height of the tile
--- @param(collisionCheck : boolean) if it should check collisions
--- @ret(boolean) true if the movement was completed, false otherwise
-function Character:walkToTile(x, y, h, collisionCheck)
-  x, y, h = tile2Pixel(x, y, h or self:getTile().layer.height)
-  return self:walkToPoint(x, y, h, collisionCheck)
-end
--- [COROUTINE] Walks a distance in tiles defined by (dx, dy)
--- @param(dx : number) the x-axis distance
--- @param(dy : number) the y-axis distance
--- @param(h : number) the height of the tile
--- @param(collisionCheck : boolean) if it should check collisions
--- @ret(boolean) true if the movement was completed, false otherwise
-function Character:walkTiles(dx, dy, dh, collisionCheck)
-  local pos = self.position
-  local x, y, h = pixel2Tile(pos.x, pos.y, pos.z)
-  return self:walkToTile(x + dx, y + dy, h + (dh or 0), collisionCheck)
-end
-
----------------------------------------------------------------------------------------------------
--- Path
----------------------------------------------------------------------------------------------------
-
--- Walks along the given path.
--- @param(path : Path) a path of tiles
--- @param(collisionCheck : boolean) if it shoudl check collisions
--- @ret(boolean) true if the movement was completed, false otherwise
-function Character:walkPath(path, collisionCheck, autoTurn)
-  local field = FieldManager.currentField
-  local stack = path:toStack()
-  while not stack:isEmpty() do
-    local nextTile = stack:pop()
-    local x, y, h = nextTile:coordinates()
-    if autoTurn then
-      self:turnToTile(x, y)
-    end
-    local moved = self:walkToTile(x, y, h, collisionCheck)
-    if not moved and collisionCheck then
-      return
+-- [COROUTINE] Tries to move to the given tile.
+-- @param(tile : ObjectTile) The destination tile.
+-- @ret(number) Returns nil if the next angle must be tried, a number to stop trying.
+function Character:tryTileMovement(tile)
+  local ox, oy, oh = self:getTile():coordinates()
+  local dx, dy, dh = tile:coordinates()
+  local collision = FieldManager.currentField:collisionXYZ(self,
+    ox, oy, oh, dx, dy, dh)
+  if self.autoTurn then
+    self:turnToTile(dx, dy)
+  end
+  if collision == nil then
+    local input = ActionInput(MoveAction(mathf.centerMask, 2), self, tile)
+    local path, fullPath = input.action:calculatePath(input)
+    if path and fullPath then
+      self:playMoveAnimation()
+      local autoAnim = self.autoAnim
+      self.autoAnim = false
+      self:walkToTile(dx, dy, dh, false)
+      self.autoAnim = autoAnim
+      self:collideTile(tile)
+      return 0
     end
   end
-  self:moveToTile(path.lastStep)
+  self:playIdleAnimation()
+  if collision == 3 then -- character
+    self:collideTile(tile)
+    return 1
+  else
+    return nil
+  end
+end
+-- [COROUTINE] Tries to walk a path to the given tile.
+-- @param(tile : ObjectTile) Destination tile.
+-- @param(pathLength : number) Maximum length of path.
+-- @ret(boolean) True if the character walked the full path.
+function Character:tryPathMovement(tile, pathLength)
+  local input = ActionInput(MoveAction(mathf.neighborMask, pathLength), self, tile)
+  local path, fullPath = input.action:calculatePath(input)
+  if not (path and fullPath) then
+    return false
+  end
+  path = path:addStep(tile, 1)
+  self.path = path:toStack()
+  return self:consumePath()
+end
+-- [COROUTINE] Walks the next tile of the path.
+-- @ret(boolean) True if character walked to the next tile, false if collided.
+-- @ret(ObjectTile) The last tile in the path (nil if path was empty).
+function Character:consumePath()
+  local tile = nil
+  if not self.path:isEmpty() then
+    tile = self.path:pop()
+    if self:tryTileMovement(tile) == 0 then
+      return true, tile
+    else
+      self:collideTile(tile)
+    end
+  end
+  self.path = nil
+  return false, tile
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -150,9 +123,9 @@ end
 ---------------------------------------------------------------------------------------------------
 
 -- [COROUTINE] Executes the intro animations (load and cast) for skill use.
--- @param(target : ObjectTile) the target of the skill
--- @param(skill : table) skill data from database
--- @ret(number) the duration of the animation
+-- @param(target : ObjectTile) The target tile of the skill.
+-- @param(skill : table) Skill data from database.
+-- @ret(number) The duration of the animation.
 function Character:loadSkill(skill, dir)
   local minTime = 0
   -- Load animation (user)
@@ -176,11 +149,11 @@ end
 -- @param(skill : table) Skill's data.
 -- @param(dir : number) The direction of the cast.
 -- @param(tile : ObjectTile) Target of the skill.
--- @ret(number) The duration of the animation
+-- @ret(number) The duration of the animation.
 function Character:castSkill(skill, dir, target)
   -- Forward step
   if skill.stepOnCast then
-    self:walkInAngle(castStep, dir)
+    self:walkInAngle(self.castStep or 6, dir)
   end
   -- Cast animation (user)
   local minTime = 0
@@ -207,8 +180,8 @@ function Character:castSkill(skill, dir, target)
   return minTime
 end
 -- [COROUTINE] Returns to original tile and stays idle.
--- @param(origin : ObjectTile) the original tile of the character
--- @param(skill : table) skill data from database
+-- @param(origin : ObjectTile) The original tile of the character.
+-- @param(skill : table) Skill data from database.
 function Character:finishSkill(origin, skill)
   if skill.stepOnCast then
     local x, y, z = tile2Pixel(origin:coordinates())
@@ -227,8 +200,9 @@ end
 ---------------------------------------------------------------------------------------------------
 
 -- [COROUTINE] Plays damage animation and shows the result in a pop-up.
--- @param(skill : Skill) the skill used
--- @param(origin : ObjectTile) the tile of the skill user
+-- @param(skill : Skill) The skill used.
+-- @param(origin : ObjectTile) The tile of the skill user.
+-- @param(results : table) Results of the skill.
 function Character:damage(skill, origin, results)
   local currentTile = self:getTile()
   if currentTile ~= origin then
@@ -281,7 +255,7 @@ end
 ---------------------------------------------------------------------------------------------------
 
 -- Callback for when the character moves.
--- @param(path : Path) the path that the battler just walked
+-- @param(path : Path) The path that the battler just walked.
 function Character:onMove(path)
   self.steps = self.steps - path.totalCost
   self.battler.statusList:callback('Move', self, path)

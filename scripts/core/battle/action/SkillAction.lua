@@ -200,6 +200,18 @@ function SkillAction:battleUse(input)
   -- Wait until everything finishes.
   _G.Fiber:wait(max(minTime - GameManager.frame, 0) + self.finishTime)
 end
+-- Applies the effects of the skill to the given battler.
+-- @param(results : table) Skill result table.
+-- @param(char : Character) Battler's character.
+function SkillAction:applyResults(input, results, char)
+  char.battler:applyResults(results, char)
+  if char.battler:isAlive() then
+    char:playAnimation(char.idleAnim)
+  else
+    char:playAnimation(char.koAnim)
+  end
+  char.battler:onSkillEffect(input, results, char)
+end
 
 ---------------------------------------------------------------------------------------------------
 -- Menu Use
@@ -218,14 +230,12 @@ function SkillAction:menuUse(input)
   if input.target then
     local results = self:calculateEffectResults(input.user, input.target)
     local char = TroopManager:getBattlerCharacter(input.target)
-    input.target:applyResults(results, char)
-    input.target:onSkillEffect(input, results, char)
+    self:applyResults(input, results, char)
   elseif input.targets then
     for i = 1, #input.targets do
       local results = self:calculateEffectResults(input.user, input.targets[i])
       local char = TroopManager:getBattlerCharacter(input.targets[i])
-      input.targets[i]:applyResults(results, char)
-      input.targets[i]:onSkillEffect(input, results, char)
+      self:applyResults(input, results, char)
     end
   else
     return { executed = false }
