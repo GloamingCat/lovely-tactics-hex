@@ -53,10 +53,6 @@ function EventSheet:execute()
     player.blocks = player.blocks - 1
   end
 end
--- Interrupts the current executing sheet.
-function EventSheet:interrupt(args)
-  _G.Fiber:interrupt()
-end
 
 ---------------------------------------------------------------------------------------------------
 -- Commands

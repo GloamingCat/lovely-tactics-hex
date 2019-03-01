@@ -92,26 +92,42 @@ end
 -- Called when a character interacts with this object.
 -- @param(event : table) Table with tile and origin (usually player) and dest (this) objects.
 function Interactable:onInteract(tile)
+  self.interacting = true
+  FieldManager.player.interacting = true
   local fiberList = self.interactScript.global and FieldManager.fiberList or self.fiberList
   local fiber = fiberList:forkFromScript(self.interactScript, self)
   fiber.tile = self.tile
-  fiber:waitForEnd()
+  if self.interactScript.wait then
+    fiber:waitForEnd()
+  end
+  self.interacting = false
+  FieldManager.player.interacting = false
 end
 -- Called when a character collides with this object.
 -- @param(event : table) Table with tile and origin and dest (this) objects.
 function Interactable:onCollide(tile, collided, collider)
+  self.colliding = true
   local fiberList = self.collideScript.global and FieldManager.fiberList or self.fiberList
   local fiber = fiberList:forkFromScript(self.collideScript, self)
   fiber.tile = self.tile
-  fiber:waitForEnd()
+  fiber.collided = collided
+  fiber.collider = collider
+  if self.collideScript.wait then
+    fiber:waitForEnd()
+  end
+  self.colliding = false
 end
 -- Called when this interactable is created.
 -- @param(event : table) Table with origin (this).
 function Interactable:onStart()
+  self.starting = true
   local fiberList = self.loadScript.global and FieldManager.fiberList or self.fiberList
   local fiber = fiberList:forkFromScript(self.loadScript, self)
   fiber.tile = self.tile
-  fiber:waitForEnd()
+  if self.loadScript.wait then
+    fiber:waitForEnd()
+  end
+  self.starting = false
 end
 
 return Interactable

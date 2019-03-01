@@ -143,13 +143,11 @@ function FieldManager:loadTransition(transition, fromSave)
   -- Create/call start listeners
   local script = self.currentField.loadScript
   if script and script.name ~= '' then
-    self.fiberList:forkFromScript(script.commands)
+    self.fiberList:forkFromScript(script)
   end
   for char in self.characterList:iterator() do
-    local script = char.loadScript
-    if script ~= nil then
-      local event = {character = char, fromSave = fromSave}
-      char:onStart(event)
+    if char.loadScript ~= nil then
+      char:onStart()
     end
   end
   self.player.fiberList:fork(self.player.fieldInputLoop, self.player)

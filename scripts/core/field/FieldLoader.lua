@@ -117,7 +117,9 @@ function FieldLoader.createTransitions(field, transitions)
       direction = t.destination.direction,
       fade = t.fade }
     local func = function(script)
-      script:moveToField(args)
+      if script.collider == script.player then
+        script:moveToField(args)
+      end
     end
     for x = t.tl.x, t.br.x do
       for y = t.tl.y, t.br.y do

@@ -144,8 +144,13 @@ function CharacterBase:collideTile(tile)
     return false
   end
   for char in tile.characterList:iterator() do
-    if char.collideScript then
-      char:onCollide(tile, char, self)
+    if char ~= self then
+      if self.collideScript then
+        self:onCollide(tile, char, self)
+      end
+      if char.collideScript then
+        char:onCollide(tile, char, self)
+      end
       if not char.passable then
         return true
       end

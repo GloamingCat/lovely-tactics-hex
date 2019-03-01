@@ -47,7 +47,8 @@ end
 
 -- [COROUTINE] Tries to move in a given angle.
 -- @param(angle : number) The angle in degrees to move.
--- @ret(boolean) Returns false if the next angle must be tried, true to stop trying.
+-- @ret(boolean) Returns false if the next angle must be tried, a number to stop trying.
+--  If 0, then the path was free. If 1, there was a character in this tile.
 function Character:tryAngleMovement(angle)  
   local nextTile = self:frontTile(angle)
   if nextTile == nil then
@@ -58,15 +59,17 @@ end
 -- [COROUTINE] Tries to move to the given tile.
 -- @param(tile : ObjectTile) The destination tile.
 -- @ret(number) Returns nil if the next angle must be tried, a number to stop trying.
+--  If 0, then the path was free. If 1, there was a character in this tile.
 function Character:tryTileMovement(tile)
   local ox, oy, oh = self:getTile():coordinates()
   local dx, dy, dh = tile:coordinates()
-  local collision = FieldManager.currentField:collisionXYZ(self,
-    ox, oy, oh, dx, dy, dh)
   if self.autoTurn then
     self:turnToTile(dx, dy)
   end
+  local collision = FieldManager.currentField:collisionXYZ(self,
+    ox, oy, oh, dx, dy, dh)
   if collision == nil then
+    -- Free path
     local input = ActionInput(MoveAction(mathf.centerMask, 2), self, tile)
     local path, fullPath = input.action:calculatePath(input)
     if path and fullPath then
@@ -80,12 +83,12 @@ function Character:tryTileMovement(tile)
     end
   end
   self:playIdleAnimation()
-  if collision == 3 then -- character
+  if collision == 3 then 
+    -- Character collision
     self:collideTile(tile)
     return 1
-  else
-    return nil
   end
+  return nil
 end
 -- [COROUTINE] Tries to walk a path to the given tile.
 -- @param(tile : ObjectTile) Destination tile.
@@ -110,8 +113,6 @@ function Character:consumePath()
     tile = self.path:pop()
     if self:tryTileMovement(tile) == 0 then
       return true, tile
-    else
-      self:collideTile(tile)
     end
   end
   self.path = nil

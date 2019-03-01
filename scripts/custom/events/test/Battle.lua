@@ -2,12 +2,18 @@
 
 Battle Test
 ---------------------------------------------------------------------------------------------------
+Starts a battle when this collides with player.
 
 =================================================================================================]]
 
 return function(script)
 
-  script:startBattle { fieldID = 0, fade = 5, intro = true, gameOverCondition = 1, escapeEnabled = true}
+  if script.collider ~= script.player and script.collided ~= script.player then
+    return
+  end
+  
+  script:startBattle { fieldID = 0, fade = 5, intro = true, 
+    gameOverCondition = 1, escapeEnabled = true}
 
   util.general.printBattleResult()
 
