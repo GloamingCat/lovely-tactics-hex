@@ -9,6 +9,12 @@ Starts a battle when this collides with player.
 return function(script)
 
   if script.collider ~= script.player and script.collided ~= script.player then
+    -- Collided with something else
+    return
+  end
+  
+  if script.player.blocks > 1 then
+    -- Player is busy
     return
   end
   

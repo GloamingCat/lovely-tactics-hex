@@ -1396,7 +1396,40 @@
         "global": false,
         "block": false,
         "wait": false,
-        "name": "events/Wanderer.lua",
+        "name": "events/behavior/Stalker.lua",
+        "tags": []
+      },
+      "collideScript": {
+        "global": true,
+        "block": true,
+        "wait": true,
+        "name": "events/test/Battle.lua",
+        "tags": []
+      },
+      "interactScript": {
+        "global": false,
+        "block": true,
+        "wait": true,
+        "name": "",
+        "tags": []
+      }
+    },
+    {
+      "key": "Enemy2",
+      "persistent": true,
+      "x": 11,
+      "y": 4,
+      "h": 2,
+      "party": -1,
+      "charID": 6,
+      "battlerID": -1,
+      "animation": "Idle",
+      "direction": 45,
+      "loadScript": {
+        "global": false,
+        "block": false,
+        "wait": false,
+        "name": "events/behavior/Stalker.lua",
         "tags": []
       },
       "collideScript": {

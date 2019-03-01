@@ -5,9 +5,8 @@ Wanderer
 NPC that walks around while it is not blocking the player.
 
 -- Arguments:
-<pause>
-<pauseVar>
-<speed>
+<pause> Pause in frames between each step.
+<pauseVar> Variation of the pause in frames.
 
 =================================================================================================]]
 
@@ -20,12 +19,12 @@ return function(script)
   
   while true do
     script.char:playIdleAnimation()
-    if script.player.interacting or script.player.colliding or script.char.colliding then
+    if script.char.colliding then
       coroutine.yield()
     else
       script:wait(pause + rand(-pauseVar, pauseVar))
-      local angle = (rand(8) - 1) * 45
-      script.char:tryAngleMovement(angle)
+      local dir = 
+      script.char:tryTileMovement(angle)
     end
   end
   

@@ -850,7 +850,7 @@
         "global": false,
         "block": false,
         "wait": false,
-        "name": "events/Wanderer.lua",
+        "name": "events/behavior/Stalker.lua",
         "tags": []
       },
       "collideScript": {
