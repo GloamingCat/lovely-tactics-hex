@@ -37,7 +37,7 @@ function Object:init(data, pos)
     self.tags = TagMap(data.tags)
   end
 end
--- Destructor.
+-- Dispose sprite and remove from tiles' object lists.
 function Object:destroy()
   if self.sprite then
     self.sprite:destroy()
@@ -55,27 +55,26 @@ function Object:setXYZ(x, y, z)
   Transformable.setXYZ(self, x, y, z)
   self.sprite:setXYZ(x, y, z)
 end
--- Overrides Movable:instantMoveTo.
--- Updates the tile's object list.
-function Object:instantMoveTo(x, y, z)
-  local tiles = self:getAllTiles()
-  self:removeFromTiles(tiles)
-  self:setXYZ(x, y, z)
-  tiles = self:getAllTiles()
-  self:addToTiles(tiles)
-end
 
 ---------------------------------------------------------------------------------------------------
 -- Tile
 ---------------------------------------------------------------------------------------------------
 
--- Converts current pixel position to tile.
--- @ret(Tile) Current tile.
-function Object:getTile()
-  local x, y, h = pixel2Tile(self.position:coordinates())
-  x = round(x)
-  y = round(y)
+-- Gets the aproximate tile coordinates of this object.
+-- @ret(number) Tile x.
+-- @ret(number) Tile y.
+-- @ret(number) Tile height.
+function Object:tileCoordinates()
+  local i, j, h = pixel2Tile(self.position:coordinates())
+  i = round(i)
+  j = round(j)
   h = round(h)
+  return i, j, h
+end
+-- Converts current pixel position to tile.
+-- @ret(ObjectTile) Current tile.
+function Object:getTile()
+  local x, y, h = self:tileCoordinates()
   local layer = FieldManager.currentField.objectLayers[h]
   assert(layer, 'height out of bounds: ' .. h)
   layer = layer.grid[x]
@@ -85,22 +84,26 @@ end
 -- Sets object's current position to the given tile.
 -- @param(tile : ObjectTile) Destination tile.
 function Object:setTile(tile)
-  local x, y, z = math.field.tile2Pixel(tile:coordinates())
+  local x, y, z = tile2Pixel(tile:coordinates())
   self:setXYZ(x, y, z)
 end
 -- Move to the given tile.
 -- @param(tile : ObjectTile) Destination tile.
 function Object:moveToTile(tile, ...)
-  local x, y, z = math.field.tile2Pixel(tile:coordinates())
+  local x, y, z = tile2Pixel(tile:coordinates())
   self:moveTo(x, y, z, ...)
 end
 -- Gets all tiles this object is occuping.
 -- @ret(table) The list of tiles.
-function Object:getAllTiles()
-  return { self:getTile() }
+function Object:getAllTiles(i, j, h)
+  if i and j and h then
+    return { FieldManager.currentField:getObjectTile(i, j, h) }
+  else
+    return { self:getTile() }
+  end
 end
 -- Adds this object to the tiles it's occuping.
-function Object:addToTiles()
+function Object:addToTiles(tiles)
   -- Abstract.
 end
 -- Removes this object from the tiles it's occuping.
@@ -109,7 +112,7 @@ function Object:removeFromTiles()
 end
 -- Sets this object to the center of its current tile.
 function Object:adjustToTile()
-  local x, y, z = tile2Pixel(self:getTile():coordinates())
+  local x, y, z = tile2Pixel(self:tileCoordinates())
   self:setXYZ(x, y, z)
 end
 

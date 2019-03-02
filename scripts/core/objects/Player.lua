@@ -89,8 +89,13 @@ end
 -- Checks if field input is enabled.
 -- @ret(boolean) True if enabled, false otherwise.
 function Player:fieldInputEnabled()
-  local gui = GUIManager:isWaitingInput() or BattleManager.onBattle
-  return not gui and self.inputOn and self.moveTime >= 1 and self.blocks == 0
+  return self.inputOn and self.blocks == 0 and not self:isBusy()
+end
+-- Checks if player is waiting for an action to finish, like a movement animation, 
+--  GUI input or battle.
+-- @ret(boolean) True if some action is running.
+function Player:isBusy()
+  return self.moveTime < 1 or GUIManager:isWaitingInput() or BattleManager.onBattle
 end
 -- Gets the keyboard move/turn input. 
 -- @ret(number) The x-axis input.
@@ -210,8 +215,7 @@ function Player:interactTile(tile)
   end
   for i = #tile.characterList, 1, -1 do
     local char = tile.characterList[i]
-    if char ~= self and char.interactScript ~= nil then
-      char:onInteract(tile)
+    if char ~= self and char:onInteract(tile) then
       return true
     end
   end

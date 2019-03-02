@@ -46,7 +46,9 @@ end
 function MoveAction:execute(input)
   local path, fullPath = self:calculatePath(input)
   if path then
-    input.user:walkPath(path, false, true, self.player)
+    input.user:removeFromTiles()
+    input.user:walkPath(path, true)
+    input.user:addToTiles()
   end
   return { executed = fullPath, path = path }
 end

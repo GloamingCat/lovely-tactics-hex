@@ -55,10 +55,10 @@ end
 -- Gets sound of the terrain the player is standing over.
 -- @ret(table) SFX table or nil.
 function Player:getStepSound()
-  local t = self:getTile()
-  local layers = FieldManager.currentField.terrainLayers[t.layer.height]
-  for i = #layers, 1, -1 do
-    local tile = layers[i].grid[t.x][t.y]
+  local i, j, h = self:tileCoordinates()
+  local layers = FieldManager.currentField.terrainLayers[h]
+  for l = #layers, 1, -1 do
+    local tile = layers[l].grid[i][j]
     if tile.data then
       return tile.sound
     end

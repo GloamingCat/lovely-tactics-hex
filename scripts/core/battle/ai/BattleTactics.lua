@@ -198,8 +198,8 @@ function BattleTactics.minEnemyDistance(party, tile)
   local d = math.huge
   for char in TroopManager.characterList:iterator() do
     if char.battler and char.party ~= party then
-      local t = char:getTile()
-      d = min(d, getDistance(tile.x, tile.y, t.x, t.y))
+      local x, y = char:tileCoordinates()
+      d = min(d, getDistance(tile.x, tile.y, x, y))
     end
   end
   return d
@@ -214,8 +214,8 @@ function BattleTactics.allyDistance(party, tile)
   local d = 0
   for char in TroopManager.characterList:iterator() do
     if char.battler and char.party == party then
-      local t = char:getTile()
-      d = d + getDistance(tile.x, tile.y, t.x, t.y)
+      local x, y = char:tileCoordinates()
+      d = d + getDistance(tile.x, tile.y, x, y)
     end
   end
   return d
@@ -230,8 +230,8 @@ function BattleTactics.enemyDistance(party, tile)
   local d = 0
   for char in TroopManager.characterList:iterator() do
     if char.battler and char.party ~= party then
-      local t = char:getTile()
-      d = d + getDistance(tile.x, tile.y, t.x, t.y)
+      local x, y = char:tileCoordinates()
+      d = d + getDistance(tile.x, tile.y, x, y)
     end
   end
   return d

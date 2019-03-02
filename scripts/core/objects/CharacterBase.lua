@@ -65,11 +65,12 @@ end
 function CharacterBase:initProperties(name, tiles, colliderHeight, save)
   self.name = name
   self.collisionTiles = tiles
+  self.passable = false
   self.damageAnim = 'Damage'
   self.koAnim = 'KO'
   WalkingObject.initProperties(self)
 end
--- Creates the animation sets.s
+-- Creates the animation sets.
 function CharacterBase:initGraphics(instData, animations, portraits, transform, shadowID, save)
   if shadowID and shadowID >= 0 then
     local shadowData = Database.animations[shadowID]
@@ -145,12 +146,8 @@ function CharacterBase:collideTile(tile)
   end
   for char in tile.characterList:iterator() do
     if char ~= self then
-      if self.collideScript then
-        self:onCollide(tile, char, self)
-      end
-      if char.collideScript then
-        char:onCollide(tile, char, self)
-      end
+      self:onCollide(tile, char, self)
+      char:onCollide(tile, char, self)
       if not char.passable then
         return true
       end
@@ -165,14 +162,15 @@ end
 
 -- Gets all tiles this object is occuping.
 -- @ret(table) The list of tiles.
-function CharacterBase:getAllTiles()
-  local center = self:getTile()
-  local x, y, h = center:coordinates()
+function CharacterBase:getAllTiles(i, j, h)
+  if not (i and j and h) then
+    i, j, h = self:tileCoordinates()
+  end
   local tiles = { }
   local last = 0
-  for i = #self.collisionTiles, 1, -1 do
-    local n = self.collisionTiles[i]
-    local tile = FieldManager.currentField:getObjectTile(x + n.dx, y + n.dy, h)
+  for t = #self.collisionTiles, 1, -1 do
+    local n = self.collisionTiles[t]
+    local tile = FieldManager.currentField:getObjectTile(i + n.dx, j + n.dy, h)
     if tile ~= nil then
       last = last + 1
       tiles[last] = tile

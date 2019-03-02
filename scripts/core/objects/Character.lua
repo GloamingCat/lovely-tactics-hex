@@ -61,7 +61,7 @@ end
 -- @ret(number) Returns nil if the next angle must be tried, a number to stop trying.
 --  If 0, then the path was free. If 1, there was a character in this tile.
 function Character:tryTileMovement(tile)
-  local ox, oy, oh = self:getTile():coordinates()
+  local ox, oy, oh = self:tileCoordinates()
   local dx, dy, dh = tile:coordinates()
   if self.autoTurn then
     self:turnToTile(dx, dy)
@@ -76,7 +76,9 @@ function Character:tryTileMovement(tile)
       self:playMoveAnimation()
       local autoAnim = self.autoAnim
       self.autoAnim = false
-      self:walkToTile(dx, dy, dh, false)
+      self:removeFromTiles()
+      self:addToTiles(self:getAllTiles(dx, dy, dh))
+      self:walkToTile(dx, dy, dh)
       self.autoAnim = autoAnim
       self:collideTile(tile)
       return 0

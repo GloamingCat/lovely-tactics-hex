@@ -123,8 +123,8 @@ end
 -- @param(y : number) The tile y.
 -- @ret(number) The angle to the given tile.
 function DirectedObject:tileToAngle(x, y)
-  local tile = self:getTile()
-  local ox, oy, oz = tile2Pixel(tile.x, tile.y, 0)
+  local tx, ty = self:tileCoordinates()
+  local ox, oy, oz = tile2Pixel(tx, ty, 0)
   local dx, dy, dz = tile2Pixel(x, y, 0)
   return self:vectorToAngle(dx - ox, oz - dz)
 end

@@ -4,8 +4,8 @@
 WalkingObject
 ---------------------------------------------------------------------------------------------------
 A directed, animated object with walk methods.
-These method are responsible for checking the collision in the destination tiles. However, it does
-not call any collision scripts, it just interrupts the movement.
+It is not responsible for checking collisions or updating tile object lists. These must be handled
+outside of these methods.
 
 =================================================================================================]]
 
@@ -33,7 +33,6 @@ function WalkingObject:initProperties()
   self.speed = 60
   self.autoAnim = true
   self.autoTurn = true
-  self.passable = false
   self.walkAnim = 'Walk'
   self.idleAnim = 'Idle'
   self.dashAnim = 'Dash'
@@ -61,44 +60,6 @@ function WalkingObject:playIdleAnimation()
 end
 
 ---------------------------------------------------------------------------------------------------
--- Update Movement
----------------------------------------------------------------------------------------------------
-
--- Overrides Movable:instantMoveTo.
--- @param(collisionCheck : boolean) If false, ignores collision.
--- @ret(number) The type of the collision, nil if no collision occurred.
-function WalkingObject:instantMoveTo(x, y, z, collisionCheck)
-  local center = self:getTile()
-  local dx, dy, dh = math.field.pixel2Tile(x, y, z)
-  dx = round(dx) - center.x
-  dy = round(dy) - center.y
-  dh = round(dh) - center.layer.height
-  if dx ~= 0 or dy ~= 0 or dh ~= 0 then
-    local tiles = self:getAllTiles()
-    -- Collision
-    if collisionCheck == nil then
-      collisionCheck = self.collisionCheck
-    end
-    if collisionCheck and not self.passable then
-      for i = #tiles, 1, -1 do
-        local collision = self:collision(tiles[i], dx, dy, dh)
-        if collision ~= nil then
-          return collision
-        end
-      end
-    end
-    -- Updates tile position
-    self:removeFromTiles(tiles)
-    self:setXYZ(x, y, z)
-    tiles = self:getAllTiles()
-    self:addToTiles(tiles)
-  else
-    self:setXYZ(x, y, z)
-  end
-  return nil
-end
-
----------------------------------------------------------------------------------------------------
 -- Walk in Pixels
 ---------------------------------------------------------------------------------------------------
 
@@ -106,14 +67,12 @@ end
 -- @param(x : number) Coordinate x of the point.
 -- @param(y : number) Coordinate y of the point.
 -- @param(z : number) The depth of the point.
--- @param(collisionCheck : boolean) True if it should check collisions.
 -- @ret(boolean) True if the movement was completed, false otherwise.
-function WalkingObject:walkToPoint(x, y, z, collisionCheck)
+function WalkingObject:walkToPoint(x, y, z)
   z = z or self.position.z
   x, y, z = round(x), round(y), round(z)
   self:playMoveAnimation()
   local distance = len(self.position.x - x, self.position.y - y, self.position.z - z)
-  self.collisionCheck = collisionCheck
   self:moveTo(x, y, z, self.speed / distance, true)
   self:playIdleAnimation()
   return self.position:almostEquals(x, y, z, 0.2)
@@ -122,22 +81,20 @@ end
 -- @param(dx : number) The distance in axis x (in pixels).
 -- @param(dy : number) The distance in axis y (in pixels).
 -- @param(dz : number) The distance in depth (in pixels).
--- @param(collisionCheck : boolean) True if it should check collisions.
 -- @ret(boolean) True if the movement was completed, false otherwise.
-function WalkingObject:walkDistance(dx, dy, dz, collisionCheck)
+function WalkingObject:walkDistance(dx, dy, dz)
   local pos = self.position
-  return self:walkToPoint(pos.x + dx, pos.y + dy, pos.z + dz, collisionCheck)
+  return self:walkToPoint(pos.x + dx, pos.y + dy, pos.z + dz)
 end
 -- [COROUTINE] Walks the given distance in the given direction.
 -- @param(d : number) The distance to be walked.
 -- @param(angle : number) The direction angle.
 -- @param(dz : number) The distance in depth.
--- @param(collisionCheck : boolean) True if it should check collisions.
 -- @ret(boolean) True if the movement was completed, false otherwise.
-function WalkingObject:walkInAngle(d, angle, dz, collisionCheck)
+function WalkingObject:walkInAngle(d, angle, dz)
   local dx, dy = angle2Coord(angle or self:getRoundedDirection())
   dz = dz or -dy
-  return self:walkDistance(dx * d, dy * d, dz * d, collisionCheck)
+  return self:walkDistance(dx * d, dy * d, dz * d)
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -148,28 +105,25 @@ end
 -- @param(x : number) Coordinate x of the tile.
 -- @param(y : number) Coordinate y of the tile.
 -- @param(h : number) The height of the tile.
--- @param(collisionCheck : boolean) True if it should check collisions.
 -- @ret(boolean) True if the movement was completed, false otherwise.
-function WalkingObject:walkToTile(x, y, h, collisionCheck)
+function WalkingObject:walkToTile(x, y, h)
   x, y, h = tile2Pixel(x, y, h or self:getTile().layer.height)
-  return self:walkToPoint(x, y, h, collisionCheck)
+  return self:walkToPoint(x, y, h)
 end
 -- [COROUTINE] Walks a distance in tiles defined by (dx, dy, dh).
 -- @param(dx : number) The x-axis distance.
 -- @param(dy : number) The y-axis distance.
 -- @param(dh : number) The height difference.
--- @param(collisionCheck : boolean) True if it should check collisions.
 -- @ret(boolean) True if the movement was completed, false otherwise.
-function WalkingObject:walkTiles(dx, dy, dh, collisionCheck)
+function WalkingObject:walkTiles(dx, dy, dh)
   local pos = self.position
   local x, y, h = pixel2Tile(pos.x, pos.y, pos.z)
-  return self:walkToTile(x + dx, y + dy, h + (dh or 0), collisionCheck)
+  return self:walkToTile(x + dx, y + dy, h + (dh or 0))
 end
 -- [COROUTINE] Walks along the given path.
 -- @param(path : Path) A path of tiles.
--- @param(collisionCheck : boolean) True if it should check collisions.
 -- @ret(boolean) True if the movement was completed, false otherwise.
-function WalkingObject:walkPath(path, collisionCheck, autoTurn)
+function WalkingObject:walkPath(path, autoTurn)
   local field = FieldManager.currentField
   local stack = path:toStack()
   while not stack:isEmpty() do
@@ -178,10 +132,7 @@ function WalkingObject:walkPath(path, collisionCheck, autoTurn)
     if autoTurn then
       self:turnToTile(x, y)
     end
-    local moved = self:walkToTile(x, y, h, collisionCheck)
-    if not moved and collisionCheck then
-      return
-    end
+    self:walkToTile(x, y, h)
   end
   self:moveToTile(path.lastStep)
 end

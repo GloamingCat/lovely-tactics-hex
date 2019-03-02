@@ -51,7 +51,7 @@ end
 ---------------------------------------------------------------------------------------------------
 
 -- Creates field from ID.
--- @param(fieldID : number) the field's ID
+-- @param(fieldID : number) The field's ID.
 function FieldManager:loadField(fieldID)
   self.updateList = List()
   self.characterList = List()
@@ -81,7 +81,7 @@ function FieldManager:createCamera(data)
   return camera
 end
 -- Creates a character representing player.
--- @ret(Player) the newly created player
+-- @ret(Player) The newly created player.
 function FieldManager:createPlayer(t)
   local tile = self.currentField:getObjectTile(t.x, t.y, t.h)
   return Player(tile, t.direction)
@@ -92,18 +92,18 @@ end
 ---------------------------------------------------------------------------------------------------
 
 -- Creates a new Transition table based on player's current position.
--- @ret(table) the transition data
+-- @ret(table) The transition data.
 function FieldManager:getPlayerTransition()
   if self.player == nil then
     return { fieldID = self.currentField.id }
   end
-  local x, y, h = self.player:getTile():coordinates()
+  local x, y, h = self.player:tileCoordinates()
   return { x = x, y = y, h = h,
     direction = self.player.direction,
     fieldID = self.currentField.id }
 end
 -- Gets manager's state (returns to a previous field).
--- @ret(table) the table with the state's contents
+-- @ret(table) The table with the state's contents.
 function FieldManager:getState()
   return {
     field = self.currentField,
@@ -113,7 +113,7 @@ function FieldManager:getState()
     characterList = self.characterList }
 end
 -- Sets manager's state (returns to a previous field).
--- @param(state : table) the table with the state's contents
+-- @param(state : table) The table with the state's contents.
 function FieldManager:setState(state)
   self.currentField = state.field
   self.player = state.player
@@ -131,7 +131,9 @@ end
 -- The information about the field must be stored in the transition data.
 -- The loaded field will the treated as an exploration field.
 -- Don't use this function if you just want to move the player to another tile in the same field.
--- @param(transition : table) the transition data
+-- @param(transition : table) The transition data.
+-- @param(fromSave : boolean) True if the transition is load from save, as the last player's 
+--  position.
 function FieldManager:loadTransition(transition, fromSave)
   if self.currentField then
     SaveManager:storeFieldData(self.currentField)
@@ -146,9 +148,7 @@ function FieldManager:loadTransition(transition, fromSave)
     self.fiberList:forkFromScript(script)
   end
   for char in self.characterList:iterator() do
-    if char.loadScript ~= nil then
-      char:onStart()
-    end
+    char:onLoad()
   end
   self.player.fiberList:fork(self.player.fieldInputLoop, self.player)
   FieldLoader.createTransitions(self.currentField, fieldData.prefs.transitions)
@@ -162,8 +162,8 @@ end
 -- [COROUTINE] Loads a battle field and waits for the battle to finish.
 -- It MUST be called from a fiber in FieldManager's fiber list, or else the fiber will be 
 -- lost in the field transition. At the end of the battle, it reloads the previous field.
--- @param(fieldID : number) the field's id
--- @ret(number) the number of the party that won the battle
+-- @param(fieldID : number) The field's id.
+-- @ret(number) The number of the party that won the battle.
 function FieldManager:loadBattle(fieldID, params)
   local previousState = self:getState()
   self:loadField(fieldID)
@@ -187,8 +187,8 @@ end
 ---------------------------------------------------------------------------------------------------
 
 -- Search for a character with the given key
--- @param(key : string) the key of the character
--- @ret(Character) the first character found with the given key (nil if none was found)
+-- @param(key : string) The key of the character.
+-- @ret(Character) The first character found with the given key (nil if none was found).
 function FieldManager:search(key)
   for char in self.characterList:iterator() do
     if char.key == key then
@@ -197,8 +197,8 @@ function FieldManager:search(key)
   end
 end
 -- Searchs for characters with the given key
--- @param(key : string) the key of the character(s)
--- @ret(List) list of all characters with the given key
+-- @param(key : string) The key of the character(s).
+-- @ret(List) List of all characters with the given key.
 function FieldManager:searchAll(key)
   local list = List()
   for char in self.characterList:iterator() do

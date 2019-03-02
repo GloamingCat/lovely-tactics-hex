@@ -42,7 +42,9 @@ end
 -- @param(args.h : number) Tile height difference (0 by default).
 function util.moveCharTile(sheet, args)
   local char = sheet:findCharacter(args.key)
+  char:removeFromTiles()
   char:walkTiles(args.x, args.y, args.h)
+  char:addToTiles()
 end
 -- Moves in the given direction.
 -- @param(args.angle : number) The direction in degrees.
@@ -51,14 +53,16 @@ function util.moveCharDir(sheet, args)
   local char = sheet:findCharacter(args.key)
   local nextTile = char:frontTile(args.angle)
   if nextTile then
-    local ox, oy, oh = char:getTile():coordinates()
+    local ox, oy, oh = char:tileCoordinates()
     local dx, dy, dh = nextTile:coordinates()
     dx, dy, dh = dx - ox, dy - oy, dh - oh
     dx, dy, dh = dx * args.distance, dy * args.distance, dh * args.distance
     if char.autoTurn then
       char:turnToTile(ox + dx, oy + dy)
     end
-    char:walkToTile(ox + dx, oy + dy, oh + dh, false)
+    char:removeFromTiles()
+    char:walkToTile(ox + dx, oy + dy, oh + dh)
+    char:addToTiles()
   end
 end
 -- Moves a path to the given tile.
@@ -89,8 +93,8 @@ function util.turnCharTile(sheet, args)
   local char = sheet:findCharacter(args.key)
   if args.other then
     local other = sheet:findCharacter(args.other)
-    local tile = other:getTile()
-    char:turnToTile(tile.x, tile.y)
+    local x, y = other:tileCoordinates()
+    char:turnToTile(x, y)
   else
     char:turnToTile(args.x, args.y)
   end

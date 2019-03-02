@@ -24,10 +24,10 @@ local Obstacle = class(Object)
 -- Initialization
 ---------------------------------------------------------------------------------------------------
 
--- @param(data : table) the obstacle's data from tileset file
--- @param(tileData : table) the data about ramp and collision
--- @param(initTile : ObjectTile) the object this tile is in
--- @param(group : table) the group this obstacle is part of
+-- @param(data : table) The obstacle's data from tileset file.
+-- @param(tileData : table) The data about ramp and collision.
+-- @param(initTile : ObjectTile) The object this tile is in.
+-- @param(group : table) The group this obstacle is part of.
 function Obstacle:init(data, tileData, initTile, group)
   local x, y, z = tile2Pixel(initTile:coordinates())
   Object.init(self, data, Vector(x, y, z))
@@ -41,7 +41,7 @@ function Obstacle:init(data, tileData, initTile, group)
   self:addToTiles()
 end
 -- Creates neighborhood.
--- @param(neighbors : table) the table of booleans indicating passability
+-- @param(neighbors : table) The table of booleans indicating passability.
 function Obstacle:initNeighbors(neighbors)
   self.neighbors = {}
   local function addNeighbor(x, y, i)
@@ -63,7 +63,7 @@ end
 -- Checks if the object is passable from the given direction.
 -- @param(dx : number) the direction in axis x
 -- @param(dy : number) the direction in axis y
--- @param(obj : Object) the object which is trying to pass through this obstacle (optional)
+-- @param(obj : Object) The object which is trying to pass through this obstacle (optional).
 function Obstacle:isPassable(dx, dy, obj)
   if self == obj then
     return true
@@ -83,26 +83,26 @@ end
 ---------------------------------------------------------------------------------------------------
 
 -- Overrides Object:addToTiles.
-function Obstacle:addToTiles()
-  local tile = self:getTile()
+function Obstacle:addToTiles(tiles)
+  local tile = tiles and tiles[1] or self:getTile()
   tile.obstacleList:add(self)
   local rampNeighbors, topTile = self:getRampNeighbors(tile)
   if rampNeighbors then
-    for i = 1, #rampNeighbors do
-      topTile.ramps:add(rampNeighbors[i])
-      rampNeighbors[i].ramps:add(topTile)
+    for r = 1, #rampNeighbors do
+      topTile.ramps:add(rampNeighbors[r])
+      rampNeighbors[r].ramps:add(topTile)
     end
   end
 end
 -- Overrides Object:removeFromTiles.
-function Obstacle:removeFromTiles()
-  local tile = self:getTile()
+function Obstacle:removeFromTiles(tiles)
+  local tile = tiles and tiles[1] or self:getTile()
   tile.obstacleList:removeElement(self)
   local rampNeighbors, topTile = self:getRampNeighbors(tile)
   if rampNeighbors then
-    for i = 1, #rampNeighbors do
-      topTile.ramps:removeElement(rampNeighbors[i])
-      rampNeighbors[i].ramps:removeElement(topTile)
+    for r = 1, #rampNeighbors do
+      topTile.ramps:removeElement(rampNeighbors[r])
+      rampNeighbors[r].ramps:removeElement(topTile)
     end
   end
 end
