@@ -1,105 +1,79 @@
 [
   {
     "data": {
-      "passable": true,
-      "audio": {
-        "name": "",
-        "volume": 100,
-        "pitch": 100,
-        "time": 0
-      },
       "animID": 37,
+      "sounds": [
+        {
+          "name": "sfx/Kenney/footstep05.ogg",
+          "volume": 100,
+          "pitch": 100,
+          "time": 0
+        }
+      ],
+      "passable": true,
       "moveCost": 100,
       "statusID": -1,
       "removeOnExit": false,
-      "resetTime": true,
-      "lifeTime": -1,
-      "attributes": [],
-      "elements": [],
+      "allMembers": false,
       "name": "Grass",
-      "tags": [
-        {
-          "key": "sound",
-          "value": "sfx/Kenney/footstep05.ogg"
-        }
-      ]
+      "tags": []
     },
     "id": 0,
     "children": []
   },
   {
     "data": {
-      "passable": true,
-      "audio": {
-        "name": "",
-        "volume": 100,
-        "pitch": 100,
-        "time": 0
-      },
       "animID": 38,
+      "sounds": [
+        {
+          "name": "sfx/Kenney/footstep05.ogg",
+          "volume": 100,
+          "pitch": 100,
+          "time": 0
+        }
+      ],
+      "passable": true,
       "moveCost": 125,
       "statusID": -1,
       "removeOnExit": false,
-      "resetTime": true,
-      "lifeTime": -1,
-      "attributes": [],
-      "elements": [],
+      "allMembers": false,
       "name": "Bush",
-      "tags": [
-        {
-          "key": "sound",
-          "value": "sfx/Kenney/footstep05.ogg"
-        }
-      ]
+      "tags": []
     },
     "id": 1,
     "children": []
   },
   {
     "data": {
-      "passable": true,
-      "audio": {
-        "name": "",
-        "volume": 100,
-        "pitch": 100,
-        "time": 0
-      },
       "animID": 39,
+      "sounds": [
+        {
+          "name": "sfx/Kenney/footstep05.ogg",
+          "volume": 100,
+          "pitch": 100,
+          "time": 0
+        }
+      ],
+      "passable": true,
       "moveCost": 100,
       "statusID": -1,
       "removeOnExit": false,
-      "resetTime": true,
-      "lifeTime": -1,
-      "attributes": [],
-      "elements": [],
+      "allMembers": false,
       "name": "Sand",
-      "tags": [
-        {
-          "key": "sound",
-          "value": "sfx/Kenney/footstep05.ogg"
-        }
-      ]
+      "tags": []
     },
     "id": 2,
     "children": []
   },
   {
     "data": {
-      "passable": false,
-      "audio": {
-        "name": "",
-        "volume": 100,
-        "pitch": 100,
-        "time": 0
-      },
       "animID": 40,
+      "sounds": [],
+      "passable": false,
       "moveCost": 100,
       "statusID": -1,
       "removeOnExit": false,
-      "resetTime": true,
-      "lifeTime": -1,
-      "attributes": [],
-      "elements": [],
+      "allMembers": false,
       "name": "Water",
       "tags": []
     },
@@ -108,28 +82,22 @@
   },
   {
     "data": {
-      "passable": true,
-      "audio": {
-        "name": "",
-        "volume": 100,
-        "pitch": 100,
-        "time": 0
-      },
       "animID": 76,
+      "sounds": [
+        {
+          "name": "sfx/Kenney/footstep05.ogg",
+          "volume": 100,
+          "pitch": 100,
+          "time": 0
+        }
+      ],
+      "passable": true,
       "moveCost": 100,
       "statusID": -1,
       "removeOnExit": false,
-      "resetTime": true,
-      "lifeTime": -1,
-      "attributes": [],
-      "elements": [],
+      "allMembers": false,
       "name": "Rock",
-      "tags": [
-        {
-          "key": "sound",
-          "value": "sfx/Kenney/footstep05.ogg"
-        }
-      ]
+      "tags": []
     },
     "id": 4,
     "children": []

@@ -15,10 +15,11 @@ local FieldGUI = require('core/gui/field/FieldGUI')
 local Vector = require('core/math/Vector')
 
 -- Alias
-local timer = love.timer
-local coord2Angle = math.coord2Angle
-local yield = coroutine.yield
 local conf = Config.player
+local coord2Angle = math.coord2Angle
+local rand = love.math.random
+local timer = love.timer
+local yield = coroutine.yield
 
 local Player = class(Character)
 
@@ -30,6 +31,11 @@ local Player = class(Character)
 function Player:init(initTile, dir)
   self.blocks = 0
   self.inputDelay = 6 / 60
+  self.stepCount = 0
+  self.freq = 16
+  self.varFreq = 0.1
+  self.varPitch = 0.1
+  self.varVolume = 0.2
   local troopData = Database.troops[SaveManager.current.playerTroopID]
   local leader = troopData.members[1]
   local data = {
@@ -179,6 +185,31 @@ function Player:moveByKeyboard(dx, dy, move)
     self:consumePath()
   else
     self:playIdleAnimation()
+  end
+end
+
+---------------------------------------------------------------------------------------------------
+-- Terrain
+---------------------------------------------------------------------------------------------------
+
+-- Overrides CharacterBase:update.
+-- Plays terrain step sound.
+function Player:update()
+  Character.update(self)
+  if self:moving() then
+    self.stepCount = self.stepCount + self.speed / conf.walkSpeed * 60 * timer.getDelta()
+    if self.stepCount > self.freq then
+      local sounds = FieldManager.currentField:getTerrainSounds(self:tileCoordinates())
+      if sounds and #sounds > 0 then
+        local sound = sounds[rand(#sounds)]
+        local pitch = sound.pitch * (rand() * self.varPitch * 2 - self.varPitch + 1)
+        local volume = sound.volume * (rand() * self.varVolume * 2 - self.varVolume + 1)
+        if sound then
+          AudioManager:playSFX({name = sound.name, pitch = pitch, volume = volume})
+        end
+      end
+      self.stepCount = self.stepCount - self.freq * (rand() * self.varFreq * 2 - self.varFreq + 1)
+    end
   end
 end
 

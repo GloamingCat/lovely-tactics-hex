@@ -119,28 +119,6 @@
     ]
   },
   {
-    "on": true,
-    "name": "plugins/StepSound",
-    "tags": [
-      {
-        "key": "frequency",
-        "value": "16"
-      },
-      {
-        "key": "varPitch",
-        "value": "0.1"
-      },
-      {
-        "key": "varVolume",
-        "value": "0.2"
-      },
-      {
-        "key": "varFreq",
-        "value": "0.1"
-      }
-    ]
-  },
-  {
     "on": false,
     "name": "plugins/BatchMesh",
     "tags": []

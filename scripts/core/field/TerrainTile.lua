@@ -33,11 +33,12 @@ local TerrainTile = class()
 -- General
 ---------------------------------------------------------------------------------------------------
 
--- @param(layer : Layer) the layer that the tile is in
--- @param(x : number) the x coordinate of the tile
--- @param(y : number) the x coordinate of the tile
--- @param(order : number) the rendering order for the layer
--- @param(initialID : number) the initial terrain ID from data file
+-- Constructor.
+-- @param(layer : Layer) The layer that the tile is in.
+-- @param(x : number) The x coordinate of the tile.
+-- @param(y : number) The x coordinate of the tile.
+-- @param(order : number) The rendering order for the layer.
+-- @param(initialID : number) The initial terrain ID from data file.
 function TerrainTile:init(layer, x, y, order, initialID)
   self.layer = layer
   self.x = x
@@ -48,9 +49,10 @@ function TerrainTile:init(layer, x, y, order, initialID)
   self.depth = self.order
   self.center = Vector(math.field.tile2Pixel(self.x, self.y, self.layer.height))
 end
--- @ret(number) tile's grid x
--- @ret(number) tile's grid y
--- @ret(number) tile's height
+-- Gets its grid coordinates.
+-- @ret(number) Tile's grid x.
+-- @ret(number) Tile's grid y.
+-- @ret(number) Tile's height.
 function TerrainTile:coordinates()
   return self.x, self.y, self.layer.height
 end
@@ -63,7 +65,7 @@ function TerrainTile:update()
   end
 end
 -- Converts to string.
--- @ret(string) the string representation
+-- @ret(string) The string representation.
 function TerrainTile:__tostring()
   return 'TerrainTile (' .. self.x .. ', ' ..  self.y .. ', ' .. self.layer.height .. ', ' .. self.layer.order .. ')' 
 end
@@ -73,7 +75,7 @@ end
 ---------------------------------------------------------------------------------------------------
 
 -- Sets the terrain type.
--- @param(id : number) the ID of the terrain
+-- @param(id : number) The ID of the terrain.
 function TerrainTile:setTerrain(id)
   -- Check if it needs any change.
   if (self.data and id == self.data.id) then
@@ -122,13 +124,13 @@ function TerrainTile:updateGraphics()
     end
   end
 end
--- Creates the animations for the terrain type
--- @param(quadData : table) the terrain's quad table
--- @param(rows : table) the autotile row of each quarter
--- @ret(table) array with each quarter graphics
+-- Creates the animations for the terrain type.
+-- @param(quadData : table) The terrain's quad table.
+-- @param(rows : table) The autotile row of each quarter.
+-- @ret(table) Array with each quarter graphics.
 function TerrainTile:createQuarters(data, rows)
   local texture = ResourceManager:loadTexture(data.quad.path)
-  -- Create quarter renderers
+  -- Create quarter renderers.
   local quarters = {}
   for i = 1, 4 do
     local w, h = data.quad.width / data.cols, data.quad.height / data.rows

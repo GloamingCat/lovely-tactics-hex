@@ -75,10 +75,10 @@ end
 ---------------------------------------------------------------------------------------------------
 
 -- Return the Object Tile given the coordinates.
--- @param(x : number) the x coordinate
--- @param(y : number) the y coordinate
--- @param(z : number) the layer's height
--- @ret(ObjectTile) the tile in the coordinates (nil of out of bounds)
+-- @param(x : number) The x coordinate.
+-- @param(y : number) The y coordinate.
+-- @param(z : number) The layer's height.
+-- @ret(ObjectTile) The tile in the coordinates (nil of out of bounds).
 function Field:getObjectTile(x, y, z)
   if self.objectLayers[z] == nil then
     return nil
@@ -89,7 +89,7 @@ function Field:getObjectTile(x, y, z)
   return self.objectLayers[z].grid[x][y]
 end
 -- Returns a iterator that navigates through all object tiles.
--- @ret(function) the grid iterator
+-- @ret(function) The grid iterator.
 function Field:gridIterator()
   local maxl = self.maxh
   local i, j, l = 1, 0, self.minh
@@ -127,10 +127,10 @@ end
 ---------------------------------------------------------------------------------------------------
 
 -- Gets the move cost in the given coordinates.
--- @param(x : number) the x in tiles
--- @param(y : number) the y in tiles
--- @param(height : number) the layer height
--- @ret(number) the max of the move costs
+-- @param(x : number) The x in tiles.
+-- @param(y : number) The y in tiles.
+-- @param(height : number) The layer height.
+-- @ret(number) The max of the move costs.
 function Field:getMoveCost(x, y, height)
   local cost = 0
   local layers = self.terrainLayers[height]
@@ -139,9 +139,40 @@ function Field:getMoveCost(x, y, height)
   end
   return cost
 end
+-- Gets the list of all terrain tiles with status effects in the given coordinates.
+-- @param(x : number) The x in tiles.
+-- @param(y : number) The y in tiles.
+-- @param(height : number) The layer height.
+-- @ret(table) Array of terrain tiles.
+function Field:getTerrainStatus(x, y, height)
+  local s = {}
+  local layers = self.terrainLayers[height]
+  for _, layer in ipairs(layers) do
+    local t = layer.grid[x][y]
+    if t.statusID >= 0 then
+      s[#s] = t
+    end
+  end
+  return s
+end
+-- Gets the list of sounds of the top terrain with the given coordinates.
+-- @param(x : number) The x in tiles.
+-- @param(y : number) The y in tiles.
+-- @param(height : number) The layer height.
+-- @ret(table) Array of sounds.
+function Field:getTerrainSounds(x, y, height)
+  local layers = self.terrainLayers[height]
+  for l = #layers, 1, -1 do
+    local tile = layers[l].grid[x][y]
+    if tile.data then
+      return tile.data.sounds
+    end
+  end
+  return nil
+end
 -- Checks if three given tiles are collinear.
--- @param(tile1 ... tile3 : ObjectTile) the tiles to check
--- @ret(boolean) true if collinear, false otherwise
+-- @param(tile1 ... tile3 : ObjectTile) The tiles to check.
+-- @ret(boolean) True if collinear, false otherwise.
 function Field:isCollinear(tile1, tile2, tile3)
   return tile1.layer.height - tile2.layer.height == tile2.layer.height - tile3.layer.height and 
     isCollinear(tile1.x, tile1.y, tile2.x, tile2.y, tile3.x, tile3.y)
@@ -152,14 +183,14 @@ end
 ---------------------------------------------------------------------------------------------------
 
 -- Checks if an object collides with something in the given point.
--- @param(object : Object) the object to check
--- @param(origx : number) the origin x in tiles
--- @param(origy : number) the origin y in tiles
--- @param(origh : number) the origin height in tiles
--- @param(destx : number) the destination x in tiles
--- @param(desty : number) the destination y in tiles
--- @param(desth : number) the destination height in tiles
--- @ret(number) the collision type. 
+-- @param(object : Object) The object to check.
+-- @param(origx : number) The origin x in tiles.
+-- @param(origy : number) The origin y in tiles.
+-- @param(origh : number) The origin height in tiles.
+-- @param(destx : number) The destination x in tiles.
+-- @param(desty : number) The destination y in tiles.
+-- @param(desth : number) The destination height in tiles.
+-- @ret(number) The collision type: 
 --  nil => none, 0 => border, 1 => terrain, 2 => obstacle, 3 => character
 function Field:collisionXYZ(obj, origx, origy, origh, destx, desty, desth)
   if self:exceedsBorder(destx, desty) then
@@ -182,10 +213,10 @@ function Field:collisionXYZ(obj, origx, origy, origh, destx, desty, desth)
   end
 end
 -- Checks if an object collides with something in the given point.
--- @param(object : Object) the object to check
--- @param(origCoord : Vector) the origin coordinates in tiles
--- @param(destCoord : Vector) the destination coordinates in tiles
--- @ret(number) the collision type. 
+-- @param(object : Object) The object to check.
+-- @param(origCoord : Vector) The origin coordinates in tiles.
+-- @param(destCoord : Vector) The destination coordinates in tiles.
+-- @ret(number) The collision type:
 --  nil => none, 0 => border, 1 => terrain, 2 => obstacle, 3 => character
 function Field:collision(object, origCoord, destCoord)
   local ox, oy, oz = origCoord:coordinates()
@@ -197,17 +228,17 @@ end
 ---------------------------------------------------------------------------------------------------
 
 -- Check a position exceeds border limits.
--- @param(x : number) tile x
--- @param(y : number) tile y
--- @ret(boolean) true if exceeds, false otherwise
+-- @param(x : number) The tile x.
+-- @param(y : number) The tile y.
+-- @ret(boolean) True if exceeds, false otherwise.
 function Field:exceedsBorder(x, y)
   return x < 1 or y < 1 or x > self.sizeX or y > self.sizeY
 end
 -- Check if collides with terrains in the given coordinates.
--- @param(x : number) the coordinate x of the tile
--- @param(y : number) the coordinate y of the tile
--- @param(h : number) the height of the tile
--- @ret(boolean) true if collides, false otherwise
+-- @param(x : number) The coordinate x of the tile.
+-- @param(y : number) The coordinate y of the tile.
+-- @param(h : number) The height of the tile.
+-- @ret(boolean) True if collides, false otherwise.
 function Field:collidesTerrain(x, y, h)
   local layerList = self.terrainLayers[h]
   if layerList == nil then
@@ -229,12 +260,12 @@ function Field:collidesTerrain(x, y, h)
   return noGround and #(self:getObjectTile(x, y, h).ramps) == 0
 end
 -- Check if collides with obstacles.
--- @param(object : Object) the object to check collision
--- @param(origx : number) the object's origin x in tiles
--- @param(origy : number) the object's origin y in tiles
--- @param(origh : number) the object's origin height in tiles
--- @param(tile : ObjectTile) the destination tile
--- @ret(boolean) true if collides, false otherwise
+-- @param(object : Object) The object to check collision.
+-- @param(origx : number) The object's origin x in tiles.
+-- @param(origy : number) The object's origin y in tiles.
+-- @param(origh : number) The object's origin height in tiles.
+-- @param(tile : ObjectTile) The destination tile.
+-- @ret(boolean) True if collides, false otherwise.
 function Field:collidesObstacle(object, origx, origy, origh, tile)
   return tile:collidesObstacle(origx, origy, object)
 end
@@ -242,7 +273,7 @@ end
 -- @param(x : number) Tile x coordinate.
 -- @param(y : number) Tile y coordinate.
 -- @param(h : number) Layer's height.
--- @ret(boolean)
+-- @ret(boolean) True if there is a ground to step over, false otherwise.
 function Field:isGrounded(x, y, h)
   local layerList = self.terrainLayers[h]
   if layerList ~= nil then
