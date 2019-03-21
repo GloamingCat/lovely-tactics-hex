@@ -23,8 +23,8 @@ local StatusList = class(List)
 ---------------------------------------------------------------------------------------------------
 
 -- Constructor.
--- @param(battler : Battler) the battler whose this list belongs to
--- @param(initialStatus : table) the array with the battler's initiat status (optional)
+-- @param(battler : Battler) The battler whose this list belongs to.
+-- @param(initialStatus : table) The array with the battler's initiat status (optional).
 function StatusList:init(battler, save)
   List.init(self)
   self.battler = battler
@@ -48,11 +48,13 @@ end
 -- General
 ---------------------------------------------------------------------------------------------------
 
+-- Converting to string.
+-- @ret(string) A string representation.
 function StatusList:__tostring()
   return 'Status' .. getmetatable(List).__tostring(self)
 end
 -- Gets the status with the given ID (the first created).
--- @param(id : number) the status' ID in the database
+-- @param(id : number) The status' ID in the database.
 -- @ret(Status)
 function StatusList:findStatus(id)
   for status in self:iterator() do
@@ -62,7 +64,7 @@ function StatusList:findStatus(id)
   end
   return nil
 end
--- Finds a position in the list for a status with the given priority
+-- Finds a position in the list for a status with the given priority.
 -- @param(priority : number)
 -- @ret(number)
 function StatusList:findPosition(priority)
@@ -103,11 +105,12 @@ end
 ---------------------------------------------------------------------------------------------------
 
 -- Add a new status.
--- @param(id : number) the status' ID
--- @param(state : table) the status persistent data
--- @ret(Status) newly added status (or old one, if non-cumulative)
+-- @param(id : number) The status' ID.
+-- @param(state : table) The status persistent data.
+-- @ret(Status) Newly added status (or old one, if non-cumulative).
 function StatusList:addStatus(id, state, character)
   local data = Database.status[id]
+  assert(data, "Status does not exist: " .. (id or "nil"))
   local status = self:findStatus(id)
   if status and not data.cumulative then
     status.lifeTime = 0
@@ -125,8 +128,8 @@ function StatusList:addStatus(id, state, character)
   return status
 end
 -- Removes a status from the list.
--- @param(status : Status | number) the status to be removed or its ID
--- @ret(Status) the removed status
+-- @param(status : Status | number) The status to be removed or its ID.
+-- @ret(Status) The removed status.
 function StatusList:removeStatus(status, character)
   if type(status) == 'number' then
     status = self:findStatus(status)
@@ -143,7 +146,7 @@ function StatusList:removeStatus(status, character)
   end
 end
 -- Removes all status instances of the given ID.
--- @param(id : number) status' ID on database
+-- @param(id : number) Status' ID on database.
 function StatusList:removeAllStatus(id, character)
   local all = {}
   local status = self:findStatus(id)
@@ -188,9 +191,9 @@ end
 ---------------------------------------------------------------------------------------------------
 
 -- Gets the total attribute bonus given by the current status effects.
--- @param(name : string) the attribute's key
--- @ret(number) the additive bonus
--- @ret(number) multiplicative bonus
+-- @param(name : string) The attribute's key.
+-- @ret(number) Additive bonus.
+-- @ret(number) Multiplicative bonus.
 function StatusList:attBonus(name)
   local mul = 0
   local add = 0
@@ -201,8 +204,8 @@ function StatusList:attBonus(name)
   return add, mul
 end
 -- Gets the total element factors given by the current status effects.
--- @param(id : number) the element's ID (position in the elements database)
--- @ret(number) the element bonus
+-- @param(id : number) The element's ID (position in the elements database).
+-- @ret(number) Element bonus.
 function StatusList:elementAtk(id)
   local e = 0
   for i = 1, #self do
@@ -211,8 +214,8 @@ function StatusList:elementAtk(id)
   return e
 end
 -- Gets the total element factors given by the current status effects.
--- @param(id : number) the element's ID (position in the elements database)
--- @ret(number) the element bonus
+-- @param(id : number) The element's ID (position in the elements database)
+-- @ret(number) Element bonus.
 function StatusList:elementDef(id)
   local e = 0
   for i = 1, #self do
@@ -240,6 +243,7 @@ function StatusList:isDead()
   return false
 end
 -- Gets predominant status behavior.
+-- @ret(BattlerAI)
 function StatusList:getAI()
   for i = #self, 1, -1 do
     if self[i].AI then
@@ -252,6 +256,7 @@ end
 -- Turn Callback
 ---------------------------------------------------------------------------------------------------
 
+-- Called when the turn of the character starts.
 function StatusList:onTurnStart(...)
   local i = 1
   while i <= self.size do
@@ -271,8 +276,8 @@ end
 ---------------------------------------------------------------------------------------------------
 
 -- Calls a certain function in all status in the list.
--- @param(name : string) the name of the event
--- @param(...) other parameters to the callback
+-- @param(name : string) The name of the event.
+-- @param(...) Other parameters to the callback.
 function StatusList:callback(name, ...)
   local i = 1
   name = 'on' .. name
@@ -289,7 +294,7 @@ end
 ---------------------------------------------------------------------------------------------------
 
 -- Gets all the status states.
--- @ret(table) an array with the state tables
+-- @ret(table) An array with the state tables.
 function StatusList:getState()
   local status = {}
   for i = 1, #self do

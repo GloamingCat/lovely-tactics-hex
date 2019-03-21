@@ -149,8 +149,8 @@ function Field:getTerrainStatus(x, y, height)
   local layers = self.terrainLayers[height]
   for _, layer in ipairs(layers) do
     local t = layer.grid[x][y]
-    if t.statusID >= 0 then
-      s[#s] = t
+    if t.data and t.data.statusID >= 0 then
+      s[#s + 1] = t.data
     end
   end
   return s

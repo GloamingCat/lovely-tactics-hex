@@ -46,8 +46,19 @@ end
 function MoveAction:execute(input)
   local path, fullPath = self:calculatePath(input)
   if path then
-    input.user:removeFromTiles()
-    input.user:walkPath(path, true)
+    local tiles = input.user:getAllTiles()
+    input.user:removeFromTiles(tiles)
+    local stack = path:toStack()
+    while not stack:isEmpty() do
+      local nextTile = stack:pop()
+      local x, y, h = nextTile:coordinates()
+      input.user:turnToTile(x, y)
+      input.user:onTerrainExit(tiles)
+      input.user:walkToTile(x, y, h)
+      tiles = input.user:getAllTiles()
+      input.user:onTerrainEnter(tiles)
+    end
+    input.user:moveToTile(path.lastStep)
     input.user:addToTiles()
   end
   return { executed = fullPath, path = path }

@@ -76,9 +76,12 @@ function Character:tryTileMovement(tile)
       self:playMoveAnimation()
       local autoAnim = self.autoAnim
       self.autoAnim = false
-      self:removeFromTiles()
+      local previousTiles = self:getAllTiles()
+      self:onTerrainExit(previousTiles)
+      self:removeFromTiles(previousTiles)
       self:addToTiles(self:getAllTiles(dx, dy, dh))
       self:walkToTile(dx, dy, dh)
+      self:onTerrainEnter(self:getAllTiles())
       self.autoAnim = autoAnim
       self:collideTile(tile)
       return 0
@@ -102,13 +105,15 @@ function Character:tryPathMovement(tile, pathLength)
   if not (path and fullPath) then
     return false
   end
-  path = path:addStep(tile, 1)
-  self.path = path:toStack()
+  self.path = path:addStep(tile, 1):toStack()
   return self:consumePath()
 end
 -- [COROUTINE] Walks the next tile of the path.
 -- @ret(boolean) True if character walked to the next tile, false if collided.
--- @ret(ObjectTile) The last tile in the path (nil if path was empty).
+-- @ret(ObjectTile) The next tile in the path:
+--  If passable, it's the current tile;
+--  If not, it's the front tile;
+--  If path was empty, then nil.
 function Character:consumePath()
   local tile = nil
   if not self.path:isEmpty() then
@@ -262,6 +267,32 @@ end
 function Character:onMove(path)
   self.steps = self.steps - path.totalCost
   self.battler.statusList:callback('Move', self, path)
+end
+-- Callback for when the character enters the given tiles.
+-- @param(tiles : table) Array of terrain tiles.
+function Character:onTerrainEnter(tiles)
+  if self.battler then
+    for t = 1, #tiles do
+      local data = FieldManager.currentField:getTerrainStatus(tiles[t]:coordinates())
+      for s = 1, #data do
+        self.battler.statusList:addStatus(data[s].statusID, nil, self)
+      end
+    end
+  end
+end
+-- Callback for when the character exits the given tiles.
+-- @param(tiles : table) Array of terrain tiles.
+function Character:onTerrainExit(tiles)
+  if self.battler then
+    for i = 1, #tiles do
+      local data = FieldManager.currentField:getTerrainStatus(tiles[i]:coordinates())
+      for s = 1, #data do
+        if data[s].removeOnExit then
+          self.battler.statusList:addStatus(data[s].statusID, self)
+        end
+      end
+    end
+  end
 end
 
 return Character
