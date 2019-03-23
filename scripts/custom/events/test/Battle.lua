@@ -22,9 +22,17 @@ return function(script)
   script:startBattle { fieldID = 0, fade = 5, intro = true, 
     gameOverCondition = 1, escapeEnabled = true }
   
-  util.general.printBattleResult()
   if BattleManager:playerWon() then
+    print 'You won!'
     script:deleteChar { key = "self", permanent = true }
+  elseif BattleManager:enemyWon() then
+    print 'You lost...'
+  elseif BattleManager:drawed() then
+    print 'Draw.'
+  elseif BattleManager:playerEscaped() then
+    print 'You escaped!'
+  elseif BattleManager:enemyEscaped() then
+    print 'The enemy escaped...'
   end
-  
+
 end

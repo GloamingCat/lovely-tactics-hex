@@ -22,8 +22,9 @@ local TagMap = require('core/datastruct/TagMap')
 -- Alias
 local copyArray = util.array.shallowCopy
 local copyTable = util.table.deepCopy
-local newArray = util.array.new
+local max = math.max
 local min = math.min
+local newArray = util.array.new
 
 -- Constants
 local elementCount = #Config.elements
@@ -261,6 +262,9 @@ function Battler:onBattleEnd(char)
     self.AI:BattleEnd(self, char)
   end
   self.statusList:callback('BattleEnd', char)
+  if Config.battle.battleEndRevive then
+    self.state.hp = max(1, self.state.hp)
+  end
 end
 
 ---------------------------------------------------------------------------------------------------

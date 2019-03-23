@@ -1,55 +1,7 @@
 [
   {
-    "on": true,
-    "name": "plugins/GeneralUtil",
-    "tags": []
-  },
-  {
-    "on": true,
-    "name": "plugins/KillCheat",
-    "tags": [
-      {
-        "key": "win",
-        "value": "k"
-      },
-      {
-        "key": "lose",
-        "value": "l"
-      }
-    ]
-  },
-  {
-    "on": true,
-    "name": "plugins/IndividualTurn",
-    "tags": [
-      {
-        "key": "attName",
-        "value": "agi"
-      },
-      {
-        "key": "turnLimit",
-        "value": "2000"
-      }
-    ]
-  },
-  {
     "on": false,
-    "name": "plugins/ControlZone",
-    "tags": []
-  },
-  {
-    "on": true,
-    "name": "plugins/StatusBalloon",
-    "tags": [
-      {
-        "key": "balloonID",
-        "value": "25"
-      }
-    ]
-  },
-  {
-    "on": true,
-    "name": "plugins/BattleEndRevival",
+    "name": "plugins/BatchMesh",
     "tags": []
   },
   {
@@ -78,12 +30,55 @@
   },
   {
     "on": true,
-    "name": "plugins/RingArea",
+    "name": "plugins/battle/KillCheat",
+    "tags": [
+      {
+        "key": "win",
+        "value": "k"
+      },
+      {
+        "key": "lose",
+        "value": "l"
+      }
+    ]
+  },
+  {
+    "on": true,
+    "name": "plugins/battle/IndividualTurn",
+    "tags": [
+      {
+        "key": "attName",
+        "value": "agi"
+      },
+      {
+        "key": "turnLimit",
+        "value": "2000"
+      }
+    ]
+  },
+  {
+    "on": false,
+    "name": "plugins/battle/ControlZone",
     "tags": []
   },
   {
     "on": true,
-    "name": "plugins/Critical",
+    "name": "plugins/battle/StatusBalloon",
+    "tags": [
+      {
+        "key": "balloonID",
+        "value": "25"
+      }
+    ]
+  },
+  {
+    "on": true,
+    "name": "plugins/battle/RingArea",
+    "tags": []
+  },
+  {
+    "on": true,
+    "name": "plugins/battle/Critical",
     "tags": [
       {
         "key": "attName",
@@ -105,22 +100,17 @@
   },
   {
     "on": true,
-    "name": "plugins/Counter",
+    "name": "plugins/battle/Counter",
     "tags": []
   },
   {
     "on": true,
-    "name": "plugins/Reflect",
+    "name": "plugins/battle/Reflect",
     "tags": [
       {
         "key": "animID",
         "value": "18"
       }
     ]
-  },
-  {
-    "on": false,
-    "name": "plugins/BatchMesh",
-    "tags": []
   }
 ]
