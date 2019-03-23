@@ -52,6 +52,11 @@ return {
 	-- Battle
 	allyKO = ko,
 	enemyKO = ko,
+  escape = {
+		name = "sfx/Kenney/footstep01x4.ogg",
+		pitch = 100,
+		volume = 100
+  },
 	battleIntro = {
 		name = "sfx/GameAudio/battle-intro.ogg",
 		pitch = 100,

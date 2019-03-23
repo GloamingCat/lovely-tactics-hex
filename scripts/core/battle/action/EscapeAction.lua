@@ -45,6 +45,9 @@ end
 function EscapeAction:execute(input)
   local char = input.user
   local party = char.party
+  if Sounds.escape then
+    AudioManager:playSFX(Sounds.escape)
+  end
   while char.sprite.color.alpha > 0 do
     local a = char.sprite.color.alpha
     char.sprite:setRGBA(nil, nil, nil, max(a - self.animSpeed, 0))
