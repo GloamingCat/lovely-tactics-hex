@@ -116,7 +116,7 @@ function StatusList:addStatus(id, state, character)
     status.lifeTime = 0
   else
     local i = self:findPosition(data.priority)
-    status = Status(self, data, state)
+    status = Status:fromData(data, self, state)
     self:add(status, i)
     if status.onAdd then
       status:onAdd(self.battler, character)
@@ -203,7 +203,7 @@ function StatusList:attBonus(name)
   end
   return add, mul
 end
--- Gets the total element factors given by the current status effects.
+-- Gets the total attack elements given by the current status effects.
 -- @param(id : number) The element's ID (position in the elements database).
 -- @ret(number) Element bonus.
 function StatusList:elementAtk(id)
@@ -213,13 +213,23 @@ function StatusList:elementAtk(id)
   end
   return e
 end
--- Gets the total element factors given by the current status effects.
--- @param(id : number) The element's ID (position in the elements database)
+-- Gets the total element immunity given by the current status effects.
+-- @param(id : number) The element's ID (position in the elements database).
 -- @ret(number) Element bonus.
 function StatusList:elementDef(id)
   local e = 0
   for i = 1, #self do
     e = e + (self[i].elementDef[id] or 0)
+  end
+  return e
+end
+-- Gets the total element damage bonus given by the current status effects.
+-- @param(id : number) The element's ID (position in the elements database).
+-- @ret(number) Element bonus.
+function StatusList:elementBuff(id)
+  local e = 0
+  for i = 1, #self do
+    e = e + (self[i].elementBuff[id] or 0)
   end
   return e
 end

@@ -222,15 +222,20 @@ end
 function Battler:isActive()
   return self:isAlive() and not self.statusList:isDeactive()
 end
--- Gets an element multiplying factor.
+-- Gets the attack element.
 -- @param(id : number) the element's ID (position in the elements database)
 function Battler:elementAtk(id)
   return self.statusList:elementAtk(id) + self.equipSet:elementAtk(id)
 end
--- Gets an element multiplying factor.
+-- Gets the element immunity.
 -- @param(id : number) the element's ID (position in the elements database)
 function Battler:elementDef(id)
   return self.elementBase[id] + self.statusList:elementDef(id) + self.equipSet:elementDef(id)
+end
+-- Gets the element damage bonus.
+-- @param(id : number) the element's ID (position in the elements database)
+function Battler:elementBuff(id)
+  return self.statusList:elementDef(id) + self.equipSet:elementDef(id)
 end
 -- Gets the battler's AI, if any.
 -- @ret(BattlerAI)

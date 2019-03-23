@@ -359,7 +359,12 @@
           "targetType": 2,
           "restriction": 1,
           "costs": [],
-          "elements": [],
+          "elements": [
+            {
+              "id": 0,
+              "value": 100
+            }
+          ],
           "userElements": true,
           "projectileID": -1,
           "rotate": false,
@@ -444,7 +449,12 @@
           "targetType": 2,
           "restriction": 1,
           "costs": [],
-          "elements": [],
+          "elements": [
+            {
+              "id": 1,
+              "value": 100
+            }
+          ],
           "userElements": true,
           "projectileID": 49,
           "rotate": false,
@@ -538,7 +548,12 @@
               "value": "15"
             }
           ],
-          "elements": [],
+          "elements": [
+            {
+              "id": 1,
+              "value": 100
+            }
+          ],
           "userElements": false,
           "projectileID": -1,
           "rotate": false,
@@ -644,7 +659,12 @@
               "value": "20"
             }
           ],
-          "elements": [],
+          "elements": [
+            {
+              "id": 1,
+              "value": 100
+            }
+          ],
           "userElements": false,
           "projectileID": -1,
           "rotate": false,
@@ -815,7 +835,12 @@
               "value": "10"
             }
           ],
-          "elements": [],
+          "elements": [
+            {
+              "id": 1,
+              "value": 100
+            }
+          ],
           "userElements": false,
           "projectileID": -1,
           "rotate": false,
@@ -1304,7 +1329,12 @@
           "targetType": 2,
           "restriction": 1,
           "costs": [],
-          "elements": [],
+          "elements": [
+            {
+              "id": 0,
+              "value": 100
+            }
+          ],
           "userElements": true,
           "projectileID": -1,
           "rotate": false,
@@ -1389,7 +1419,12 @@
           "targetType": 2,
           "restriction": 1,
           "costs": [],
-          "elements": [],
+          "elements": [
+            {
+              "id": 0,
+              "value": 100
+            }
+          ],
           "userElements": true,
           "projectileID": -1,
           "rotate": false,

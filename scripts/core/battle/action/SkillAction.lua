@@ -71,7 +71,7 @@ function SkillAction:init(skillID)
   -- Store elements
   local e = {}
   for i = 1, #data.elements do
-    e[data.elements[i].id + 1] = data.elements[i].value
+    e[data.elements[i].id + 1] = data.elements[i].value / 100 - 1
   end
   for i = 1, elementCount do
     if not e[i] then
@@ -282,6 +282,10 @@ function SkillAction:calculateEffectResults(user, target)
 end
 -- Calculates the final damage / heal for the target from an specific effect.
 -- It considers all element bonuses provided by the skill data.
+-- @param(effect : table) Effect's info (successRate and basicResult).
+-- @param(user : Battler) User of the skill.
+-- @param(target : Battler) Receiver of the effect. 
+-- @ret(number) Total value of the damage. Nil if miss.
 function SkillAction:calculateEffectResult(effect, user, target)
   local rand = self.rand or random
   local rate = effect.successRate(self, user.att, target.att, rand)
@@ -289,19 +293,19 @@ function SkillAction:calculateEffectResult(effect, user, target)
     return nil
   end
   local result = max(effect.basicResult(self, user.att, target.att, rand), 0)
-  local bonus = 0
   for i = 1, elementCount do
-    local el = self.elements[i] + (self.data.userElement and user:elementAtk(i) or 0)
-    bonus = bonus + el * target:elementDef(i)
+    local userFactor = self.data.userElement and user:elementAtk(i) or 0
+    local skillFactor = self.elements[i] + userFactor + 1
+    local buffFactor = user:elementBuff(i) + 1
+    local targetFactor = target:elementDef(i) + 1
+    result = result * buffFactor * skillFactor * targetFactor
   end
-  bonus = result * bonus
-  return round(bonus + result)
+  return round(result)
 end
--- @param(status : table) array with skill's status info
--- @param(user : Character)
--- @param(target : Character)
--- @param(rand : function)
--- @ret(table) array with status results
+-- @param(status : table) Array with skill's status info.
+-- @param(user : Battler) User of the skill.
+-- @param(target : Battler) Receiver of the status effects.
+-- @ret(table) Array with status results.
 function SkillAction:calculateStatusResult(user, target)
   local rand = self.rand or random
   local result = {}

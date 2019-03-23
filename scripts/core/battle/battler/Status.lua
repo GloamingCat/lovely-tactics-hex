@@ -20,10 +20,10 @@ local Status = class()
 ---------------------------------------------------------------------------------------------------
 
 -- Constructor.
--- @param(list : StatusList) the list that included this status
--- @param(data : table) status' data from database file
--- @param(state : table) the persistent state of the status
-function Status:init(list, data, state)
+-- @param(data : table) Status' data from database file.
+-- @param(list : StatusList) The list that included this status.
+-- @param(state : table) The persistent state of the status.
+function Status:init(data, list, state)
   -- General
   self.data = data
   self.statusList = list
@@ -45,29 +45,43 @@ function Status:init(list, data, state)
   -- Element bonus
   self.elementAtk = {}
   self.elementDef = {}
-  for i = 1, #data.elementAtk do
-    local bonus = data.elementAtk[i]
-    self.elementAtk[bonus.id] = (bonus.value or 0) / 100
-  end
-  for i = 1, #data.elementDef do
-    local bonus = data.elementDef[i]
-    self.elementDef[bonus.id] = (bonus.value or 0) / 100
+  self.elementBuff = {}
+  for i = 1, #data.elements do
+    local b = data.elements[i]
+    if b.type == 0 then
+      self.elementDef[b.id] = b.value / 100
+    elseif b.type == 1 then
+      self.elementAtk[b.id] = b.value / 100
+    else
+      self.elementBuff[b.id] = b.value / 100
+    end
   end
   -- AI
   if data.ai and #data.ai > 0 then
     self.AI = BattlerAI(self, data.ai)
   end
 end
+-- Loads Status class from data.
+-- @ret(Status) New status.
+function Status:fromData(data, ...)
+  local class = self
+  if data.script and data.script ~= '' then
+    class = require('custom/' .. data.script)
+  end
+  return class(data, ...)
+end
 
 ---------------------------------------------------------------------------------------------------
 -- General
 ---------------------------------------------------------------------------------------------------
 
--- String representation.
+-- Converting to string.
+-- @ret(string) A string representation.
 function Status:__tostring()
   return 'Status: ' .. self.data.id .. ' (' .. self.data.name .. ')'
 end
--- @ret(table) status' persistent data. Must include its ID.
+-- Gets status persistent data. Must include its ID.
+-- @ret(table) State data.
 function Status:getState()
   return { id = self.data.id,
     lifeTime = self.lifeTime }
@@ -115,8 +129,8 @@ end
 ---------------------------------------------------------------------------------------------------
 
 -- Removes status in case its lifetime is over.
--- @param(character : Character)
--- @param(partyTurn : boolean)
+-- @param(character : Character) Character with this status.
+-- @param(partyTurn : boolean) True if it's the first turn of the whole party.
 function Status:onTurnStart(character, partyTurn)
   if partyTurn and self.data.drainAtt ~= '' then
     self:drain(character)
@@ -128,8 +142,8 @@ end
 ---------------------------------------------------------------------------------------------------
 
 -- Removes status in case it's removable by damage or KO.
--- @param(input : ActionInput)
--- @param(results : table)
+-- @param(input : ActionInput) The action input that was executed.
+-- @param(results : table) The results of the skill effect.
 function Status:onSkillEffect(input, results, char)
   local battler = self.statusList.battler
   if results.damage and self.data.removeOnDamage or 
