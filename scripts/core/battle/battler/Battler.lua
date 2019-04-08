@@ -84,7 +84,7 @@ function Battler:initState(data, save)
   if not self.elementBase then
     local e = newArray(elementCount, 0)
     for i = 1, #data.elements do
-      e[data.elements[i].id] = (data.elements[i].value - 100) / 100
+      e[data.elements[i].id] = (data.elements[i].value - 100) / 100 - 1
     end
     self.elementBase = e
   end
@@ -223,20 +223,20 @@ end
 function Battler:isActive()
   return self:isAlive() and not self.statusList:isDeactive()
 end
--- Gets the attack element.
--- @param(id : number) the element's ID (position in the elements database)
+-- Gets the attack element. This is an additive factor (0 is neutral).
+-- @param(id : number) The element's ID (position in the elements database).
 function Battler:elementAtk(id)
   return self.statusList:elementAtk(id) + self.equipSet:elementAtk(id)
 end
--- Gets the element immunity.
--- @param(id : number) the element's ID (position in the elements database)
+-- Gets the element immunity. This is an additive factor (0 is neutral).
+-- @param(id : number) The element's ID (position in the elements database).
 function Battler:elementDef(id)
   return self.elementBase[id] + self.statusList:elementDef(id) + self.equipSet:elementDef(id)
 end
--- Gets the element damage bonus.
--- @param(id : number) the element's ID (position in the elements database)
+-- Gets the element damage bonus. This is an additive factor (0 is neutral).
+-- @param(id : number) The element's ID (position in the elements database).
 function Battler:elementBuff(id)
-  return self.statusList:elementDef(id) + self.equipSet:elementDef(id)
+  return self.statusList:elementBuff(id) + self.equipSet:elementBuff(id)
 end
 -- Gets the battler's AI, if any.
 -- @ret(BattlerAI)

@@ -307,7 +307,7 @@ end
 -- @ret(number) The total bonus.
 function EquipSet:elementAtk(id)
   local e = 0
-  for k, slot in pairs(self.bonus) do
+  for _, slot in pairs(self.bonus) do
     e = e + (slot.elementAtk[id] or 0)
   end
   return e
@@ -317,7 +317,7 @@ end
 -- @ret(number) The total bonus.
 function EquipSet:elementDef(id)
   local e = 0
-  for k, slot in pairs(self.bonus) do
+  for _, slot in pairs(self.bonus) do
     e = e + (slot.elementDef[id] or 0)
   end
   return e
@@ -327,7 +327,7 @@ end
 -- @ret(number) The total bonus.
 function EquipSet:elementBuff(id)
   local e = 0
-  for k, slot in pairs(self.bonus) do
+  for _, slot in pairs(self.bonus) do
     e = e + (slot.elementBuff[id] or 0)
   end
   return e
@@ -371,16 +371,16 @@ end
 -- @ret(table) Array for element immunity.
 -- @ret(table) Array for element damage.
 function EquipSet:equipElements(equip)
-  local atk, def, buff = {}, {}
+  local atk, def, buff = {}, {}, {}
   if equip then
     for i = 1, #equip.elements do
-      local b = equip.elementAtk[i]
+      local b = equip.elements[i]
       if b.type == 0 then
-        def[b.id] = b.value / 100
+        def[b.id] = b.value / 100 - 1
       elseif b.type == 1 then
-        atk[b.id] = b.value / 100
+        atk[b.id] = b.value / 100 - 1
       else
-        buff[b.id] = b.value / 100
+        buff[b.id] = b.value / 100 - 1
       end
     end
   end

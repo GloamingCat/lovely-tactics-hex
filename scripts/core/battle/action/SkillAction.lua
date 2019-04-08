@@ -24,6 +24,7 @@ local time = love.timer.getDelta
 local now = love.timer.getTime
 local random = math.random
 local round = math.round
+local newArray = util.array.new
 
 -- Constants
 local elementCount = #Config.elements
@@ -69,14 +70,9 @@ function SkillAction:init(skillID)
   self:addStatus(data.statusAdd, true)
   self:addStatus(data.statusRemove, false)
   -- Store elements
-  local e = {}
+  local e = newArray(elementCount, 0)
   for i = 1, #data.elements do
-    e[data.elements[i].id + 1] = data.elements[i].value / 100 - 1
-  end
-  for i = 1, elementCount do
-    if not e[i] then
-      e[i] = 0
-    end
+    e[data.elements[i].id + 1] = data.elements[i].value / 100
   end
   self.elements = e
   -- Tags
@@ -293,14 +289,23 @@ function SkillAction:calculateEffectResult(effect, user, target)
     return nil
   end
   local result = max(effect.basicResult(self, user.att, target.att, rand), 0)
+  local immunity = 1
+  local bonus = 1
   for i = 1, elementCount do
+    -- 0 if user is neutral on element i.
     local userFactor = self.data.userElement and user:elementAtk(i) or 0
-    local skillFactor = self.elements[i] + userFactor + 1
-    local buffFactor = user:elementBuff(i) + 1
-    local targetFactor = target:elementDef(i) + 1
-    result = result * buffFactor * skillFactor * targetFactor
+    -- 0 if skill does not have element i.
+    local skillFactor = max(0, self.elements[i] + userFactor)
+    -- 0 if target is neutral on element i, negative if immune and positive if weak.
+    local targetFactor = target:elementDef(i)
+    -- 0 if no bonus if applied.
+    local buffFactor = user:elementBuff(i)
+    -- If target is neutral or skill does not have this element, result does not change.
+    immunity = immunity * (targetFactor * skillFactor + 1)
+    -- If user has no buff or skill does not have this element, result does not change.
+    bonus = bonus + buffFactor * skillFactor
   end
-  return round(result)
+  return round(result * immunity * bonus)
 end
 -- @param(status : table) Array with skill's status info.
 -- @param(user : Battler) User of the skill.

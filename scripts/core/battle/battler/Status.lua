@@ -49,11 +49,11 @@ function Status:init(data, list, state)
   for i = 1, #data.elements do
     local b = data.elements[i]
     if b.type == 0 then
-      self.elementDef[b.id] = b.value / 100
+      self.elementDef[b.id] = b.value / 100 - 1
     elseif b.type == 1 then
-      self.elementAtk[b.id] = b.value / 100
+      self.elementAtk[b.id] = b.value / 100 - 1
     else
-      self.elementBuff[b.id] = b.value / 100
+      self.elementBuff[b.id] = b.value / 100 - 1
     end
   end
   -- AI
