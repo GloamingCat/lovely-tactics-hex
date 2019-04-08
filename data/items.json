@@ -207,10 +207,10 @@
           "description": "Increases 5ATKP.",
           "icon": {
             "id": 33,
-            "col": 1,
+            "col": 2,
             "row": 0
           },
-          "price": 150,
+          "price": 100,
           "sellable": true,
           "skillID": -1,
           "consume": false,
@@ -231,7 +231,7 @@
               "mul": 0
             }
           ],
-          "name": "Sword",
+          "name": "Gloves",
           "tags": []
         },
         "id": 5,
@@ -239,13 +239,13 @@
       },
       {
         "data": {
-          "description": "Increases 10ATKP.",
+          "description": "Increases 10DEFP.",
           "icon": {
             "id": 33,
             "col": 0,
             "row": 0
           },
-          "price": 300,
+          "price": 100,
           "sellable": true,
           "skillID": -1,
           "consume": false,
@@ -254,33 +254,33 @@
           "statusAdd": [],
           "statusRemove": [],
           "attributes": [],
-          "slot": "hand",
+          "slot": "body",
           "allSlots": true,
           "blocked": [],
           "equipStatus": [],
           "elements": [],
           "equipAttributes": [
             {
-              "key": "atkp",
+              "key": "defp",
               "add": 10,
               "mul": 0
             }
           ],
-          "name": "Spear",
+          "name": "Dress",
           "tags": []
         },
-        "id": 6,
+        "id": 10,
         "children": []
       },
       {
         "data": {
-          "description": "Increases 5DEFP.\r\nProtects from all debuffs.",
+          "description": "Increases 5DEFP.",
           "icon": {
-            "id": 35,
-            "col": 0,
+            "id": 33,
+            "col": 1,
             "row": 0
           },
-          "price": 300,
+          "price": 100,
           "sellable": true,
           "skillID": -1,
           "consume": false,
@@ -290,6 +290,76 @@
           "statusRemove": [],
           "attributes": [],
           "slot": "head",
+          "allSlots": true,
+          "blocked": [],
+          "equipStatus": [],
+          "elements": [],
+          "equipAttributes": [
+            {
+              "key": "defp",
+              "add": 5,
+              "mul": 0
+            }
+          ],
+          "name": "Hat",
+          "tags": []
+        },
+        "id": 6,
+        "children": []
+      },
+      {
+        "data": {
+          "description": "Increases 5DEFP.",
+          "icon": {
+            "id": 33,
+            "col": 3,
+            "row": 0
+          },
+          "price": 100,
+          "sellable": true,
+          "skillID": -1,
+          "consume": false,
+          "needsUser": false,
+          "effects": [],
+          "statusAdd": [],
+          "statusRemove": [],
+          "attributes": [],
+          "slot": "foot",
+          "allSlots": true,
+          "blocked": [],
+          "equipStatus": [],
+          "elements": [],
+          "equipAttributes": [
+            {
+              "key": "defp",
+              "add": 5,
+              "mul": 0
+            }
+          ],
+          "name": "Shoes",
+          "tags": []
+        },
+        "id": 9,
+        "children": []
+      },
+      {
+        "data": {
+          "description": "Protects from all debuffs.",
+          "icon": {
+            "id": 33,
+            "col": 4,
+            "row": 0
+          },
+          "price": 300,
+          "sellable": true,
+          "skillID": -1,
+          "consume": false,
+          "needsUser": false,
+          "effects": [],
+          "statusAdd": [],
+          "statusRemove": [],
+          "attributes": [],
+          "slot": "acc",
           "allSlots": false,
           "blocked": [],
           "equipStatus": [
@@ -306,7 +376,7 @@
               "mul": 0
             }
           ],
-          "name": "Hat",
+          "name": "Ribbon",
           "tags": []
         },
         "id": 7,

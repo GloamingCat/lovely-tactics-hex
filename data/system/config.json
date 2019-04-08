@@ -17,7 +17,8 @@
     "attSP": "sp",
     "attStep": "mov",
     "attJump": "jmp",
-    "itemSkillID": 1
+    "itemSkillID": 1,
+    "battleEndRevive": true
   },
   "troop": {
     "initialTroopID": 0,

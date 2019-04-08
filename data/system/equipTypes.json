@@ -1,8 +1,8 @@
 [
   {
     "key": "hand",
-    "count": 2,
-    "state": 1,
+    "count": 1,
+    "state": 0,
     "name": "Hand",
     "tags": []
   },
@@ -18,6 +18,13 @@
     "count": 1,
     "state": 0,
     "name": "Head",
+    "tags": []
+  },
+  {
+    "key": "foot",
+    "count": 1,
+    "state": 0,
+    "name": "Foot",
     "tags": []
   },
   {

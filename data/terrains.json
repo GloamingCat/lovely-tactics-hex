@@ -82,6 +82,21 @@
   },
   {
     "data": {
+      "animID": 83,
+      "sounds": [],
+      "passable": true,
+      "moveCost": 150,
+      "statusID": -1,
+      "removeOnExit": false,
+      "allMembers": false,
+      "name": "Puddle",
+      "tags": []
+    },
+    "id": 6,
+    "children": []
+  },
+  {
+    "data": {
       "animID": 76,
       "sounds": [
         {
@@ -100,6 +115,28 @@
       "tags": []
     },
     "id": 4,
+    "children": []
+  },
+  {
+    "data": {
+      "animID": 84,
+      "sounds": [
+        {
+          "name": "sfx/Kenney/footstep05.ogg",
+          "volume": 100,
+          "pitch": 100,
+          "time": 0
+        }
+      ],
+      "passable": true,
+      "moveCost": 125,
+      "statusID": 0,
+      "removeOnExit": false,
+      "allMembers": false,
+      "name": "Poison Bush",
+      "tags": []
+    },
+    "id": 5,
     "children": []
   }
 ]

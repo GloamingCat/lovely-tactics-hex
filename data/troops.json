@@ -38,19 +38,10 @@
       ],
       "members": [
         {
-          "key": "HeroSwordman",
+          "key": "TumTum",
           "charID": 1,
           "battlerID": -1,
-          "x": 2,
-          "y": 1,
-          "equip": [],
-          "backup": false
-        },
-        {
-          "key": "HeroMage",
-          "charID": 2,
-          "battlerID": -1,
-          "x": 4,
+          "x": 3,
           "y": 2,
           "equip": [],
           "backup": false
@@ -60,65 +51,6 @@
       "tags": []
     },
     "id": 0,
-    "children": []
-  },
-  {
-    "data": {
-      "ai": "troop/DefaultAI.lua",
-      "persistent": false,
-      "money": 0,
-      "items": [],
-      "members": [
-        {
-          "key": "1",
-          "charID": 4,
-          "battlerID": -1,
-          "x": 1,
-          "y": 1,
-          "equip": [],
-          "backup": false
-        },
-        {
-          "key": "2",
-          "charID": 4,
-          "battlerID": -1,
-          "x": 3,
-          "y": 1,
-          "equip": [],
-          "backup": false
-        },
-        {
-          "key": "3",
-          "charID": 4,
-          "battlerID": -1,
-          "x": 5,
-          "y": 1,
-          "equip": [],
-          "backup": false
-        },
-        {
-          "key": "4",
-          "charID": 5,
-          "battlerID": -1,
-          "x": 2,
-          "y": 3,
-          "equip": [],
-          "backup": false
-        },
-        {
-          "key": "5",
-          "charID": 5,
-          "battlerID": -1,
-          "x": 4,
-          "y": 3,
-          "equip": [],
-          "backup": false
-        }
-      ],
-      "name": "Enemy Party",
-      "tags": []
-    },
-    "id": 1,
     "children": []
   },
   {

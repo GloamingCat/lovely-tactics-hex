@@ -78,6 +78,44 @@
         "data": {
           "script": "",
           "quad": {
+            "path": "Character/shadow.png",
+            "x": 0,
+            "y": 0,
+            "width": 20,
+            "height": 12
+          },
+          "rows": 1,
+          "cols": 1,
+          "transform": {
+            "offsetX": 10,
+            "offsetY": 12,
+            "offsetDepth": 0,
+            "scaleX": 200,
+            "scaleY": 200,
+            "rotation": 0,
+            "red": 255,
+            "green": 255,
+            "blue": 255,
+            "alpha": 255,
+            "hue": 0,
+            "saturation": 100,
+            "brightness": 100
+          },
+          "introPattern": "",
+          "introDuration": "",
+          "loopPattern": "",
+          "loopDuration": "",
+          "audio": [],
+          "name": "Shadow Big",
+          "tags": []
+        },
+        "id": 106,
+        "children": []
+      },
+      {
+        "data": {
+          "script": "",
+          "quad": {
             "path": "cover.jpg",
             "x": 0,
             "y": 0,
@@ -1205,7 +1243,46 @@
           "tags": []
         },
         "id": 30,
-        "children": []
+        "children": [
+          {
+            "data": {
+              "script": "",
+              "quad": {
+                "path": "Portrait/Tum-Tum.png",
+                "x": 60,
+                "y": 70,
+                "width": 140,
+                "height": 140
+              },
+              "rows": 1,
+              "cols": 1,
+              "transform": {
+                "offsetX": 0,
+                "offsetY": 0,
+                "offsetDepth": 0,
+                "scaleX": 25,
+                "scaleY": 25,
+                "rotation": 0,
+                "red": 255,
+                "green": 255,
+                "blue": 255,
+                "alpha": 255,
+                "hue": 0,
+                "saturation": 100,
+                "brightness": 100
+              },
+              "introPattern": "",
+              "introDuration": "",
+              "loopPattern": "",
+              "loopDuration": "",
+              "audio": [],
+              "name": "Witch 1",
+              "tags": []
+            },
+            "id": 64,
+            "children": []
+          }
+        ]
       },
       {
         "data": {
@@ -1243,7 +1320,46 @@
           "tags": []
         },
         "id": 31,
-        "children": []
+        "children": [
+          {
+            "data": {
+              "script": "",
+              "quad": {
+                "path": "Portrait/Tum-Tum.png",
+                "x": 0,
+                "y": 0,
+                "width": 250,
+                "height": 250
+              },
+              "rows": 1,
+              "cols": 1,
+              "transform": {
+                "offsetX": 100,
+                "offsetY": 125,
+                "offsetDepth": 0,
+                "scaleX": 50,
+                "scaleY": 50,
+                "rotation": 0,
+                "red": 255,
+                "green": 255,
+                "blue": 255,
+                "alpha": 255,
+                "hue": 0,
+                "saturation": 100,
+                "brightness": 100
+              },
+              "introPattern": "",
+              "introDuration": "",
+              "loopPattern": "",
+              "loopDuration": "",
+              "audio": [],
+              "name": "Witch 1",
+              "tags": []
+            },
+            "id": 65,
+            "children": []
+          }
+        ]
       }
     ]
   },
@@ -1326,14 +1442,14 @@
         "data": {
           "script": "",
           "quad": {
-            "path": "Icon/Weapons.png",
+            "path": "Icon/Equips.png",
             "x": 0,
             "y": 0,
-            "width": 80,
+            "width": 100,
             "height": 20
           },
           "rows": 1,
-          "cols": 4,
+          "cols": 5,
           "transform": {
             "offsetX": 10,
             "offsetY": 10,
@@ -1354,7 +1470,7 @@
           "loopPattern": "",
           "loopDuration": "",
           "audio": [],
-          "name": "Weapon",
+          "name": "Equip",
           "tags": []
         },
         "id": 33,
@@ -1396,44 +1512,6 @@
           "tags": []
         },
         "id": 34,
-        "children": []
-      },
-      {
-        "data": {
-          "script": "",
-          "quad": {
-            "path": "Icon/Hats.png",
-            "x": 0,
-            "y": 0,
-            "width": 80,
-            "height": 20
-          },
-          "rows": 1,
-          "cols": 4,
-          "transform": {
-            "offsetX": 10,
-            "offsetY": 10,
-            "offsetDepth": 0,
-            "scaleX": 100,
-            "scaleY": 100,
-            "rotation": 0,
-            "red": 255,
-            "green": 255,
-            "blue": 255,
-            "alpha": 255,
-            "hue": 0,
-            "saturation": 100,
-            "brightness": 100
-          },
-          "introPattern": "",
-          "introDuration": "",
-          "loopPattern": "",
-          "loopDuration": "",
-          "audio": [],
-          "name": "Hat",
-          "tags": []
-        },
-        "id": 35,
         "children": []
       },
       {
@@ -1702,6 +1780,120 @@
         },
         "id": 76,
         "children": []
+      },
+      {
+        "data": {
+          "script": "",
+          "quad": {
+            "path": "Terrain/HexV.png",
+            "x": 252,
+            "y": 0,
+            "width": 36,
+            "height": 198
+          },
+          "rows": 9,
+          "cols": 1,
+          "transform": {
+            "offsetX": 18,
+            "offsetY": 11,
+            "offsetDepth": 12,
+            "scaleX": 100,
+            "scaleY": 100,
+            "rotation": 0,
+            "red": 255,
+            "green": 255,
+            "blue": 255,
+            "alpha": 255,
+            "hue": 0,
+            "saturation": 100,
+            "brightness": 100
+          },
+          "introPattern": "",
+          "introDuration": "",
+          "loopPattern": "",
+          "loopDuration": "",
+          "audio": [],
+          "name": "Road",
+          "tags": []
+        },
+        "id": 35,
+        "children": []
+      },
+      {
+        "data": {
+          "script": "",
+          "quad": {
+            "path": "Terrain/HexV.png",
+            "x": 288,
+            "y": 0,
+            "width": 108,
+            "height": 198
+          },
+          "rows": 9,
+          "cols": 3,
+          "transform": {
+            "offsetX": 18,
+            "offsetY": 11,
+            "offsetDepth": 12,
+            "scaleX": 100,
+            "scaleY": 100,
+            "rotation": 0,
+            "red": 255,
+            "green": 255,
+            "blue": 255,
+            "alpha": 255,
+            "hue": 0,
+            "saturation": 100,
+            "brightness": 100
+          },
+          "introPattern": "",
+          "introDuration": "",
+          "loopPattern": "",
+          "loopDuration": "60",
+          "audio": [],
+          "name": "Puddle",
+          "tags": []
+        },
+        "id": 83,
+        "children": []
+      },
+      {
+        "data": {
+          "script": "",
+          "quad": {
+            "path": "Terrain/HexV.png",
+            "x": 396,
+            "y": 0,
+            "width": 36,
+            "height": 198
+          },
+          "rows": 9,
+          "cols": 1,
+          "transform": {
+            "offsetX": 18,
+            "offsetY": 11,
+            "offsetDepth": 12,
+            "scaleX": 100,
+            "scaleY": 100,
+            "rotation": 0,
+            "red": 255,
+            "green": 255,
+            "blue": 255,
+            "alpha": 255,
+            "hue": 0,
+            "saturation": 100,
+            "brightness": 100
+          },
+          "introPattern": "",
+          "introDuration": "",
+          "loopPattern": "",
+          "loopDuration": "",
+          "audio": [],
+          "name": "Poison Bush",
+          "tags": []
+        },
+        "id": 84,
+        "children": []
       }
     ]
   },
@@ -1783,9 +1975,9 @@
             "data": {
               "script": "",
               "quad": {
-                "path": "Obstacle/Tree0.png",
-                "x": 10,
-                "y": 16,
+                "path": "Obstacle/Tree.png",
+                "x": 4,
+                "y": 7,
                 "width": 75,
                 "height": 89
               },
@@ -1821,17 +2013,17 @@
             "data": {
               "script": "",
               "quad": {
-                "path": "Obstacle/Tree1.png",
-                "x": 0,
-                "y": 0,
-                "width": 91,
-                "height": 117
+                "path": "Obstacle/Tree.png",
+                "x": 84,
+                "y": 2,
+                "width": 76,
+                "height": 94
               },
               "rows": 1,
               "cols": 1,
               "transform": {
-                "offsetX": 48,
-                "offsetY": 108,
+                "offsetX": 40,
+                "offsetY": 86,
                 "offsetDepth": 0,
                 "scaleX": 100,
                 "scaleY": 100,
@@ -1860,16 +2052,16 @@
               "script": "",
               "quad": {
                 "path": "Obstacle/Rock0.png",
-                "x": 0,
+                "x": 47,
                 "y": 0,
-                "width": 48,
-                "height": 48
+                "width": 36,
+                "height": 34
               },
               "rows": 1,
               "cols": 1,
               "transform": {
-                "offsetX": 25,
-                "offsetY": 35,
+                "offsetX": 18,
+                "offsetY": 23,
                 "offsetDepth": 0,
                 "scaleX": 100,
                 "scaleY": 100,
@@ -1897,11 +2089,11 @@
             "data": {
               "script": "",
               "quad": {
-                "path": "Obstacle/Rock1.png",
-                "x": 0,
-                "y": 0,
+                "path": "Obstacle/Rock0.png",
+                "x": 47,
+                "y": 33,
                 "width": 26,
-                "height": 19
+                "height": 15
               },
               "rows": 1,
               "cols": 1,
@@ -2130,7 +2322,7 @@
                 "x": 0,
                 "y": 0,
                 "width": 336,
-                "height": 144
+                "height": 288
               },
               "rows": 2,
               "cols": 7,
@@ -2205,11 +2397,11 @@
         "data": {
           "script": "",
           "quad": {
-            "path": "",
-            "x": 0,
-            "y": 0,
-            "width": 0,
-            "height": 0
+            "path": "Character/Template/Default.png",
+            "x": 24,
+            "y": 192,
+            "width": 24,
+            "height": 32
           },
           "rows": 1,
           "cols": 1,
@@ -2270,10 +2462,48 @@
               "loopPattern": "",
               "loopDuration": "",
               "audio": [],
-              "name": "Idle",
+              "name": "Idle (World)",
               "tags": []
             },
             "id": 53,
+            "children": []
+          },
+          {
+            "data": {
+              "script": "",
+              "quad": {
+                "path": "Character/Template/Default.png",
+                "x": 0,
+                "y": 0,
+                "width": 72,
+                "height": 256
+              },
+              "rows": 8,
+              "cols": 3,
+              "transform": {
+                "offsetX": 12,
+                "offsetY": 30,
+                "offsetDepth": 0,
+                "scaleX": 100,
+                "scaleY": 100,
+                "rotation": 0,
+                "red": 255,
+                "green": 255,
+                "blue": 255,
+                "alpha": 255,
+                "hue": 0,
+                "saturation": 100,
+                "brightness": 100
+              },
+              "introPattern": "",
+              "introDuration": "",
+              "loopPattern": "0 1 2 1",
+              "loopDuration": "20 7 20 7",
+              "audio": [],
+              "name": "Idle",
+              "tags": []
+            },
+            "id": 57,
             "children": []
           },
           {
@@ -2351,137 +2581,22 @@
             },
             "id": 55,
             "children": []
-          }
-        ]
-      },
-      {
-        "data": {
-          "script": "",
-          "quad": {
-            "path": "",
-            "x": 0,
-            "y": 0,
-            "width": 0,
-            "height": 0
-          },
-          "rows": 1,
-          "cols": 1,
-          "transform": {
-            "offsetX": 0,
-            "offsetY": 0,
-            "offsetDepth": 0,
-            "scaleX": 100,
-            "scaleY": 100,
-            "rotation": 0,
-            "red": 255,
-            "green": 255,
-            "blue": 255,
-            "alpha": 255,
-            "hue": 0,
-            "saturation": 100,
-            "brightness": 100
-          },
-          "introPattern": "",
-          "introDuration": "",
-          "loopPattern": "",
-          "loopDuration": "",
-          "audio": [],
-          "name": "Swordman",
-          "tags": []
-        },
-        "id": 56,
-        "children": [
-          {
-            "data": {
-              "script": "",
-              "quad": {
-                "path": "Character/Template/Default.png",
-                "x": 0,
-                "y": 0,
-                "width": 72,
-                "height": 256
-              },
-              "rows": 8,
-              "cols": 3,
-              "transform": {
-                "offsetX": 12,
-                "offsetY": 30,
-                "offsetDepth": 0,
-                "scaleX": 100,
-                "scaleY": 100,
-                "rotation": 0,
-                "red": 255,
-                "green": 255,
-                "blue": 255,
-                "alpha": 255,
-                "hue": 0,
-                "saturation": 100,
-                "brightness": 100
-              },
-              "introPattern": "",
-              "introDuration": "",
-              "loopPattern": "0 1 2 1",
-              "loopDuration": "20 7 20 7",
-              "audio": [],
-              "name": "Idle",
-              "tags": []
-            },
-            "id": 57,
-            "children": []
           },
           {
             "data": {
               "script": "",
               "quad": {
-                "path": "Character/Template/Default.png",
+                "path": "Character/Template/Sword.png",
                 "x": 0,
                 "y": 0,
-                "width": 72,
-                "height": 256
-              },
-              "rows": 8,
-              "cols": 3,
-              "transform": {
-                "offsetX": 12,
-                "offsetY": 30,
-                "offsetDepth": 0,
-                "scaleX": 100,
-                "scaleY": 100,
-                "rotation": 0,
-                "red": 255,
-                "green": 255,
-                "blue": 255,
-                "alpha": 255,
-                "hue": 0,
-                "saturation": 100,
-                "brightness": 100
-              },
-              "introPattern": "",
-              "introDuration": "",
-              "loopPattern": "0 1 2 1",
-              "loopDuration": "21",
-              "audio": [],
-              "name": "Dash",
-              "tags": []
-            },
-            "id": 58,
-            "children": []
-          },
-          {
-            "data": {
-              "script": "",
-              "quad": {
-                "path": "Character/Template/Load.png",
-                "x": 0,
-                "y": 0,
-                "width": 24,
-                "height": 256
+                "width": 48,
+                "height": 384
               },
               "rows": 8,
               "cols": 1,
               "transform": {
-                "offsetX": 12,
-                "offsetY": 30,
+                "offsetX": 24,
+                "offsetY": 38,
                 "offsetDepth": 0,
                 "scaleX": 100,
                 "scaleY": 100,
@@ -2498,11 +2613,18 @@
               "introDuration": "",
               "loopPattern": "",
               "loopDuration": "10",
-              "audio": [],
-              "name": "Load",
+              "audio": [
+                {
+                  "name": "sfx/artisticdude/blade.wav",
+                  "volume": 100,
+                  "pitch": 100,
+                  "time": 1
+                }
+              ],
+              "name": "Sword Load",
               "tags": []
             },
-            "id": 59,
+            "id": 56,
             "children": []
           },
           {
@@ -2544,10 +2666,86 @@
                   "time": 1
                 }
               ],
-              "name": "Sword",
+              "name": "Sword Skill",
               "tags": []
             },
             "id": 60,
+            "children": []
+          },
+          {
+            "data": {
+              "script": "",
+              "quad": {
+                "path": "Character/Template/Load.png",
+                "x": 0,
+                "y": 0,
+                "width": 24,
+                "height": 256
+              },
+              "rows": 8,
+              "cols": 1,
+              "transform": {
+                "offsetX": 12,
+                "offsetY": 30,
+                "offsetDepth": 0,
+                "scaleX": 100,
+                "scaleY": 100,
+                "rotation": 0,
+                "red": 255,
+                "green": 255,
+                "blue": 255,
+                "alpha": 255,
+                "hue": 0,
+                "saturation": 100,
+                "brightness": 100
+              },
+              "introPattern": "",
+              "introDuration": "",
+              "loopPattern": "",
+              "loopDuration": "10",
+              "audio": [],
+              "name": "Magic Load",
+              "tags": []
+            },
+            "id": 58,
+            "children": []
+          },
+          {
+            "data": {
+              "script": "",
+              "quad": {
+                "path": "Character/Template/Cast.png",
+                "x": 0,
+                "y": 0,
+                "width": 24,
+                "height": 256
+              },
+              "rows": 8,
+              "cols": 1,
+              "transform": {
+                "offsetX": 12,
+                "offsetY": 30,
+                "offsetDepth": 0,
+                "scaleX": 100,
+                "scaleY": 100,
+                "rotation": 0,
+                "red": 255,
+                "green": 255,
+                "blue": 255,
+                "alpha": 255,
+                "hue": 0,
+                "saturation": 100,
+                "brightness": 100
+              },
+              "introPattern": "",
+              "introDuration": "8",
+              "loopPattern": "",
+              "loopDuration": "",
+              "audio": [],
+              "name": "Magic Skill",
+              "tags": []
+            },
+            "id": 59,
             "children": []
           },
           {
@@ -2670,11 +2868,11 @@
         "data": {
           "script": "",
           "quad": {
-            "path": "",
-            "x": 0,
-            "y": 0,
-            "width": 0,
-            "height": 0
+            "path": "Character/Witch1/Default.png",
+            "x": 24,
+            "y": 192,
+            "width": 24,
+            "height": 32
           },
           "rows": 1,
           "cols": 1,
@@ -2698,16 +2896,54 @@
           "loopPattern": "",
           "loopDuration": "",
           "audio": [],
-          "name": "Mage",
+          "name": "Witch1",
           "tags": []
         },
-        "id": 64,
+        "id": 85,
         "children": [
           {
             "data": {
               "script": "",
               "quad": {
-                "path": "Character/Template/Default.png",
+                "path": "Character/Witch1/Idle.png",
+                "x": 0,
+                "y": 0,
+                "width": 48,
+                "height": 256
+              },
+              "rows": 8,
+              "cols": 2,
+              "transform": {
+                "offsetX": 12,
+                "offsetY": 30,
+                "offsetDepth": 0,
+                "scaleX": 100,
+                "scaleY": 100,
+                "rotation": 0,
+                "red": 255,
+                "green": 255,
+                "blue": 255,
+                "alpha": 255,
+                "hue": 0,
+                "saturation": 100,
+                "brightness": 100
+              },
+              "introPattern": "",
+              "introDuration": "",
+              "loopPattern": "",
+              "loopDuration": "60",
+              "audio": [],
+              "name": "Idle (World)",
+              "tags": []
+            },
+            "id": 86,
+            "children": []
+          },
+          {
+            "data": {
+              "script": "",
+              "quad": {
+                "path": "Character/Witch1/Default.png",
                 "x": 0,
                 "y": 0,
                 "width": 72,
@@ -2738,14 +2974,52 @@
               "name": "Idle",
               "tags": []
             },
-            "id": 65,
+            "id": 87,
             "children": []
           },
           {
             "data": {
               "script": "",
               "quad": {
-                "path": "Character/Template/Default.png",
+                "path": "Character/Witch1/Default.png",
+                "x": 0,
+                "y": 0,
+                "width": 72,
+                "height": 256
+              },
+              "rows": 8,
+              "cols": 3,
+              "transform": {
+                "offsetX": 12,
+                "offsetY": 30,
+                "offsetDepth": 0,
+                "scaleX": 100,
+                "scaleY": 100,
+                "rotation": 0,
+                "red": 255,
+                "green": 255,
+                "blue": 255,
+                "alpha": 255,
+                "hue": 0,
+                "saturation": 100,
+                "brightness": 100
+              },
+              "introPattern": "",
+              "introDuration": "",
+              "loopPattern": "0 1 2 1",
+              "loopDuration": "28",
+              "audio": [],
+              "name": "Walk",
+              "tags": []
+            },
+            "id": 88,
+            "children": []
+          },
+          {
+            "data": {
+              "script": "",
+              "quad": {
+                "path": "Character/Witch1/Default.png",
                 "x": 0,
                 "y": 0,
                 "width": 72,
@@ -2776,14 +3050,14 @@
               "name": "Dash",
               "tags": []
             },
-            "id": 66,
+            "id": 89,
             "children": []
           },
           {
             "data": {
               "script": "",
               "quad": {
-                "path": "Character/Template/Load.png",
+                "path": "Character/Witch1/Load.png",
                 "x": 0,
                 "y": 0,
                 "width": 24,
@@ -2814,14 +3088,14 @@
               "name": "Load",
               "tags": []
             },
-            "id": 67,
+            "id": 90,
             "children": []
           },
           {
             "data": {
               "script": "",
               "quad": {
-                "path": "Character/Template/Cast.png",
+                "path": "Character/Witch1/Cast.png",
                 "x": 0,
                 "y": 0,
                 "width": 24,
@@ -2849,55 +3123,17 @@
               "loopPattern": "",
               "loopDuration": "",
               "audio": [],
-              "name": "Skill 1",
+              "name": "Cast",
               "tags": []
             },
-            "id": 68,
-            "children": []
-          },
-          {
-            "data": {
-              "script": "",
-              "quad": {
-                "path": "Character/Template/Cast.png",
-                "x": 0,
-                "y": 0,
-                "width": 24,
-                "height": 256
-              },
-              "rows": 8,
-              "cols": 1,
-              "transform": {
-                "offsetX": 12,
-                "offsetY": 30,
-                "offsetDepth": 0,
-                "scaleX": 100,
-                "scaleY": 100,
-                "rotation": 0,
-                "red": 255,
-                "green": 255,
-                "blue": 255,
-                "alpha": 255,
-                "hue": 0,
-                "saturation": 100,
-                "brightness": 100
-              },
-              "introPattern": "",
-              "introDuration": "8",
-              "loopPattern": "",
-              "loopDuration": "",
-              "audio": [],
-              "name": "Skill 2",
-              "tags": []
-            },
-            "id": 72,
+            "id": 91,
             "children": []
           },
           {
             "data": {
               "script": "animation/Knockback",
               "quad": {
-                "path": "Character/Template/Damage.png",
+                "path": "Character/Witch1/Damage.png",
                 "x": 0,
                 "y": 0,
                 "width": 24,
@@ -2928,14 +3164,14 @@
               "name": "Damage",
               "tags": []
             },
-            "id": 69,
+            "id": 66,
             "children": []
           },
           {
             "data": {
               "script": "",
               "quad": {
-                "path": "Character/Template/KO.png",
+                "path": "Character/Witch1/KO.png",
                 "x": 0,
                 "y": 0,
                 "width": 32,
@@ -2966,14 +3202,14 @@
               "name": "KO",
               "tags": []
             },
-            "id": 70,
+            "id": 94,
             "children": []
           },
           {
             "data": {
               "script": "",
               "quad": {
-                "path": "Character/Template/KO.png",
+                "path": "Character/Witch1/KO.png",
                 "x": 0,
                 "y": 0,
                 "width": 32,
@@ -3004,7 +3240,7 @@
               "name": "Sleep",
               "tags": []
             },
-            "id": 71,
+            "id": 95,
             "children": []
           }
         ]
@@ -3013,11 +3249,697 @@
         "data": {
           "script": "",
           "quad": {
-            "path": "",
-            "x": 0,
-            "y": 0,
-            "width": 0,
-            "height": 0
+            "path": "Character/Witch2/Default.png",
+            "x": 24,
+            "y": 192,
+            "width": 24,
+            "height": 32
+          },
+          "rows": 1,
+          "cols": 1,
+          "transform": {
+            "offsetX": 0,
+            "offsetY": 0,
+            "offsetDepth": 0,
+            "scaleX": 100,
+            "scaleY": 100,
+            "rotation": 0,
+            "red": 255,
+            "green": 255,
+            "blue": 255,
+            "alpha": 255,
+            "hue": 0,
+            "saturation": 100,
+            "brightness": 100
+          },
+          "introPattern": "",
+          "introDuration": "",
+          "loopPattern": "",
+          "loopDuration": "",
+          "audio": [],
+          "name": "Witch2",
+          "tags": []
+        },
+        "id": 67,
+        "children": [
+          {
+            "data": {
+              "script": "",
+              "quad": {
+                "path": "Character/Witch2/Default.png",
+                "x": 0,
+                "y": 0,
+                "width": 72,
+                "height": 256
+              },
+              "rows": 8,
+              "cols": 3,
+              "transform": {
+                "offsetX": 12,
+                "offsetY": 30,
+                "offsetDepth": 0,
+                "scaleX": 100,
+                "scaleY": 100,
+                "rotation": 0,
+                "red": 255,
+                "green": 255,
+                "blue": 255,
+                "alpha": 255,
+                "hue": 0,
+                "saturation": 100,
+                "brightness": 100
+              },
+              "introPattern": "",
+              "introDuration": "",
+              "loopPattern": "0 1 2 1",
+              "loopDuration": "20 7 20 7",
+              "audio": [],
+              "name": "Idle",
+              "tags": []
+            },
+            "id": 69,
+            "children": []
+          },
+          {
+            "data": {
+              "script": "",
+              "quad": {
+                "path": "Character/Witch2/Default.png",
+                "x": 0,
+                "y": 0,
+                "width": 72,
+                "height": 256
+              },
+              "rows": 8,
+              "cols": 3,
+              "transform": {
+                "offsetX": 12,
+                "offsetY": 30,
+                "offsetDepth": 0,
+                "scaleX": 100,
+                "scaleY": 100,
+                "rotation": 0,
+                "red": 255,
+                "green": 255,
+                "blue": 255,
+                "alpha": 255,
+                "hue": 0,
+                "saturation": 100,
+                "brightness": 100
+              },
+              "introPattern": "",
+              "introDuration": "",
+              "loopPattern": "0 1 2 1",
+              "loopDuration": "28",
+              "audio": [],
+              "name": "Walk",
+              "tags": []
+            },
+            "id": 70,
+            "children": []
+          },
+          {
+            "data": {
+              "script": "",
+              "quad": {
+                "path": "Character/Witch2/Default.png",
+                "x": 0,
+                "y": 0,
+                "width": 72,
+                "height": 256
+              },
+              "rows": 8,
+              "cols": 3,
+              "transform": {
+                "offsetX": 12,
+                "offsetY": 30,
+                "offsetDepth": 0,
+                "scaleX": 100,
+                "scaleY": 100,
+                "rotation": 0,
+                "red": 255,
+                "green": 255,
+                "blue": 255,
+                "alpha": 255,
+                "hue": 0,
+                "saturation": 100,
+                "brightness": 100
+              },
+              "introPattern": "",
+              "introDuration": "",
+              "loopPattern": "0 1 2 1",
+              "loopDuration": "21",
+              "audio": [],
+              "name": "Dash",
+              "tags": []
+            },
+            "id": 71,
+            "children": []
+          },
+          {
+            "data": {
+              "script": "",
+              "quad": {
+                "path": "Character/Witch2/Load.png",
+                "x": 0,
+                "y": 0,
+                "width": 24,
+                "height": 256
+              },
+              "rows": 8,
+              "cols": 1,
+              "transform": {
+                "offsetX": 12,
+                "offsetY": 30,
+                "offsetDepth": 0,
+                "scaleX": 100,
+                "scaleY": 100,
+                "rotation": 0,
+                "red": 255,
+                "green": 255,
+                "blue": 255,
+                "alpha": 255,
+                "hue": 0,
+                "saturation": 100,
+                "brightness": 100
+              },
+              "introPattern": "",
+              "introDuration": "",
+              "loopPattern": "",
+              "loopDuration": "10",
+              "audio": [],
+              "name": "Load",
+              "tags": []
+            },
+            "id": 72,
+            "children": []
+          },
+          {
+            "data": {
+              "script": "",
+              "quad": {
+                "path": "Character/Witch2/Cast.png",
+                "x": 0,
+                "y": 0,
+                "width": 24,
+                "height": 256
+              },
+              "rows": 8,
+              "cols": 1,
+              "transform": {
+                "offsetX": 12,
+                "offsetY": 30,
+                "offsetDepth": 0,
+                "scaleX": 100,
+                "scaleY": 100,
+                "rotation": 0,
+                "red": 255,
+                "green": 255,
+                "blue": 255,
+                "alpha": 255,
+                "hue": 0,
+                "saturation": 100,
+                "brightness": 100
+              },
+              "introPattern": "",
+              "introDuration": "8",
+              "loopPattern": "",
+              "loopDuration": "",
+              "audio": [],
+              "name": "Cast",
+              "tags": []
+            },
+            "id": 92,
+            "children": []
+          },
+          {
+            "data": {
+              "script": "animation/Knockback",
+              "quad": {
+                "path": "Character/Witch2/Damage.png",
+                "x": 0,
+                "y": 0,
+                "width": 24,
+                "height": 256
+              },
+              "rows": 8,
+              "cols": 1,
+              "transform": {
+                "offsetX": 12,
+                "offsetY": 30,
+                "offsetDepth": 0,
+                "scaleX": 100,
+                "scaleY": 100,
+                "rotation": 0,
+                "red": 255,
+                "green": 255,
+                "blue": 255,
+                "alpha": 255,
+                "hue": 0,
+                "saturation": 100,
+                "brightness": 100
+              },
+              "introPattern": "",
+              "introDuration": "12",
+              "loopPattern": "",
+              "loopDuration": "",
+              "audio": [],
+              "name": "Damage",
+              "tags": []
+            },
+            "id": 93,
+            "children": []
+          },
+          {
+            "data": {
+              "script": "",
+              "quad": {
+                "path": "Character/Witch2/KO.png",
+                "x": 0,
+                "y": 0,
+                "width": 32,
+                "height": 256
+              },
+              "rows": 8,
+              "cols": 1,
+              "transform": {
+                "offsetX": 16,
+                "offsetY": 22,
+                "offsetDepth": 0,
+                "scaleX": 100,
+                "scaleY": 100,
+                "rotation": 0,
+                "red": 255,
+                "green": 255,
+                "blue": 255,
+                "alpha": 255,
+                "hue": 0,
+                "saturation": 75,
+                "brightness": 75
+              },
+              "introPattern": "",
+              "introDuration": "",
+              "loopPattern": "",
+              "loopDuration": "",
+              "audio": [],
+              "name": "KO",
+              "tags": []
+            },
+            "id": 96,
+            "children": []
+          },
+          {
+            "data": {
+              "script": "",
+              "quad": {
+                "path": "Character/Witch2/KO.png",
+                "x": 0,
+                "y": 0,
+                "width": 32,
+                "height": 256
+              },
+              "rows": 8,
+              "cols": 1,
+              "transform": {
+                "offsetX": 16,
+                "offsetY": 22,
+                "offsetDepth": 0,
+                "scaleX": 100,
+                "scaleY": 100,
+                "rotation": 0,
+                "red": 255,
+                "green": 255,
+                "blue": 255,
+                "alpha": 255,
+                "hue": 0,
+                "saturation": 100,
+                "brightness": 100
+              },
+              "introPattern": "",
+              "introDuration": "",
+              "loopPattern": "",
+              "loopDuration": "",
+              "audio": [],
+              "name": "Sleep",
+              "tags": []
+            },
+            "id": 97,
+            "children": []
+          }
+        ]
+      },
+      {
+        "data": {
+          "script": "",
+          "quad": {
+            "path": "Character/Witch3/Default.png",
+            "x": 24,
+            "y": 192,
+            "width": 24,
+            "height": 32
+          },
+          "rows": 1,
+          "cols": 1,
+          "transform": {
+            "offsetX": 0,
+            "offsetY": 0,
+            "offsetDepth": 0,
+            "scaleX": 100,
+            "scaleY": 100,
+            "rotation": 0,
+            "red": 255,
+            "green": 255,
+            "blue": 255,
+            "alpha": 255,
+            "hue": 0,
+            "saturation": 100,
+            "brightness": 100
+          },
+          "introPattern": "",
+          "introDuration": "",
+          "loopPattern": "",
+          "loopDuration": "",
+          "audio": [],
+          "name": "Witch3",
+          "tags": []
+        },
+        "id": 68,
+        "children": [
+          {
+            "data": {
+              "script": "",
+              "quad": {
+                "path": "Character/Witch3/Default.png",
+                "x": 0,
+                "y": 0,
+                "width": 72,
+                "height": 256
+              },
+              "rows": 8,
+              "cols": 3,
+              "transform": {
+                "offsetX": 12,
+                "offsetY": 30,
+                "offsetDepth": 0,
+                "scaleX": 100,
+                "scaleY": 100,
+                "rotation": 0,
+                "red": 255,
+                "green": 255,
+                "blue": 255,
+                "alpha": 255,
+                "hue": 0,
+                "saturation": 100,
+                "brightness": 100
+              },
+              "introPattern": "",
+              "introDuration": "",
+              "loopPattern": "0 1 2 1",
+              "loopDuration": "20 7 20 7",
+              "audio": [],
+              "name": "Idle",
+              "tags": []
+            },
+            "id": 98,
+            "children": []
+          },
+          {
+            "data": {
+              "script": "",
+              "quad": {
+                "path": "Character/Witch3/Default.png",
+                "x": 0,
+                "y": 0,
+                "width": 72,
+                "height": 256
+              },
+              "rows": 8,
+              "cols": 3,
+              "transform": {
+                "offsetX": 12,
+                "offsetY": 30,
+                "offsetDepth": 0,
+                "scaleX": 100,
+                "scaleY": 100,
+                "rotation": 0,
+                "red": 255,
+                "green": 255,
+                "blue": 255,
+                "alpha": 255,
+                "hue": 0,
+                "saturation": 100,
+                "brightness": 100
+              },
+              "introPattern": "",
+              "introDuration": "",
+              "loopPattern": "0 1 2 1",
+              "loopDuration": "28",
+              "audio": [],
+              "name": "Walk",
+              "tags": []
+            },
+            "id": 99,
+            "children": []
+          },
+          {
+            "data": {
+              "script": "",
+              "quad": {
+                "path": "Character/Witch3/Default.png",
+                "x": 0,
+                "y": 0,
+                "width": 72,
+                "height": 256
+              },
+              "rows": 8,
+              "cols": 3,
+              "transform": {
+                "offsetX": 12,
+                "offsetY": 30,
+                "offsetDepth": 0,
+                "scaleX": 100,
+                "scaleY": 100,
+                "rotation": 0,
+                "red": 255,
+                "green": 255,
+                "blue": 255,
+                "alpha": 255,
+                "hue": 0,
+                "saturation": 100,
+                "brightness": 100
+              },
+              "introPattern": "",
+              "introDuration": "",
+              "loopPattern": "0 1 2 1",
+              "loopDuration": "21",
+              "audio": [],
+              "name": "Dash",
+              "tags": []
+            },
+            "id": 100,
+            "children": []
+          },
+          {
+            "data": {
+              "script": "",
+              "quad": {
+                "path": "Character/Witch3/Load.png",
+                "x": 0,
+                "y": 0,
+                "width": 24,
+                "height": 256
+              },
+              "rows": 8,
+              "cols": 1,
+              "transform": {
+                "offsetX": 12,
+                "offsetY": 30,
+                "offsetDepth": 0,
+                "scaleX": 100,
+                "scaleY": 100,
+                "rotation": 0,
+                "red": 255,
+                "green": 255,
+                "blue": 255,
+                "alpha": 255,
+                "hue": 0,
+                "saturation": 100,
+                "brightness": 100
+              },
+              "introPattern": "",
+              "introDuration": "",
+              "loopPattern": "",
+              "loopDuration": "10",
+              "audio": [],
+              "name": "Load",
+              "tags": []
+            },
+            "id": 101,
+            "children": []
+          },
+          {
+            "data": {
+              "script": "",
+              "quad": {
+                "path": "Character/Witch3/Cast.png",
+                "x": 0,
+                "y": 0,
+                "width": 24,
+                "height": 256
+              },
+              "rows": 8,
+              "cols": 1,
+              "transform": {
+                "offsetX": 12,
+                "offsetY": 30,
+                "offsetDepth": 0,
+                "scaleX": 100,
+                "scaleY": 100,
+                "rotation": 0,
+                "red": 255,
+                "green": 255,
+                "blue": 255,
+                "alpha": 255,
+                "hue": 0,
+                "saturation": 100,
+                "brightness": 100
+              },
+              "introPattern": "",
+              "introDuration": "8",
+              "loopPattern": "",
+              "loopDuration": "",
+              "audio": [],
+              "name": "Cast",
+              "tags": []
+            },
+            "id": 102,
+            "children": []
+          },
+          {
+            "data": {
+              "script": "animation/Knockback",
+              "quad": {
+                "path": "Character/Witch3/Damage.png",
+                "x": 0,
+                "y": 0,
+                "width": 24,
+                "height": 256
+              },
+              "rows": 8,
+              "cols": 1,
+              "transform": {
+                "offsetX": 12,
+                "offsetY": 30,
+                "offsetDepth": 0,
+                "scaleX": 100,
+                "scaleY": 100,
+                "rotation": 0,
+                "red": 255,
+                "green": 255,
+                "blue": 255,
+                "alpha": 255,
+                "hue": 0,
+                "saturation": 100,
+                "brightness": 100
+              },
+              "introPattern": "",
+              "introDuration": "12",
+              "loopPattern": "",
+              "loopDuration": "",
+              "audio": [],
+              "name": "Damage",
+              "tags": []
+            },
+            "id": 103,
+            "children": []
+          },
+          {
+            "data": {
+              "script": "",
+              "quad": {
+                "path": "Character/Witch3/KO.png",
+                "x": 0,
+                "y": 0,
+                "width": 32,
+                "height": 256
+              },
+              "rows": 8,
+              "cols": 1,
+              "transform": {
+                "offsetX": 16,
+                "offsetY": 22,
+                "offsetDepth": 0,
+                "scaleX": 100,
+                "scaleY": 100,
+                "rotation": 0,
+                "red": 255,
+                "green": 255,
+                "blue": 255,
+                "alpha": 255,
+                "hue": 0,
+                "saturation": 75,
+                "brightness": 75
+              },
+              "introPattern": "",
+              "introDuration": "",
+              "loopPattern": "",
+              "loopDuration": "",
+              "audio": [],
+              "name": "KO",
+              "tags": []
+            },
+            "id": 104,
+            "children": []
+          },
+          {
+            "data": {
+              "script": "",
+              "quad": {
+                "path": "Character/Witch3/KO.png",
+                "x": 0,
+                "y": 0,
+                "width": 32,
+                "height": 256
+              },
+              "rows": 8,
+              "cols": 1,
+              "transform": {
+                "offsetX": 16,
+                "offsetY": 22,
+                "offsetDepth": 0,
+                "scaleX": 100,
+                "scaleY": 100,
+                "rotation": 0,
+                "red": 255,
+                "green": 255,
+                "blue": 255,
+                "alpha": 255,
+                "hue": 0,
+                "saturation": 100,
+                "brightness": 100
+              },
+              "introPattern": "",
+              "introDuration": "",
+              "loopPattern": "",
+              "loopDuration": "",
+              "audio": [],
+              "name": "Sleep",
+              "tags": []
+            },
+            "id": 105,
+            "children": []
+          }
+        ]
+      },
+      {
+        "data": {
+          "script": "",
+          "quad": {
+            "path": "Character/Jelly/Default.png",
+            "x": 32,
+            "y": 192,
+            "width": 32,
+            "height": 32
           },
           "rows": 1,
           "cols": 1,
