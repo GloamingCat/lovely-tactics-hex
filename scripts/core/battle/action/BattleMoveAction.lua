@@ -23,10 +23,10 @@ local BattleMoveAction = class(MoveAction)
 
 -- Overrides BattleAction:init.
 function BattleMoveAction:init(...)
+  MoveAction.init(self, ...)
+  self.allTiles = true
   self.showTargetWindow = false
   self.showStepWindow = true
-  self.allTiles = true
-  MoveAction.init(self, ...)
 end
 
 ---------------------------------------------------------------------------------------------------

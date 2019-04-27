@@ -21,80 +21,6 @@ local min = math.min
 local BattleTactics = {}
 
 ---------------------------------------------------------------------------------------------------
--- Skill Target
----------------------------------------------------------------------------------------------------
-
--- Generates a priority queue with characters ordered by the lowest distances.
--- @param(input : ActionInput) input containing the user and the skill
--- @ret(PriorityQueue) the queue of the characters' tiles and their paths from the user's tile
-function BattleTactics.closestCharacters(input)
-  local range = input.action.range
-  local moveAction = BattleMoveAction(range)
-  local tempQueue = PriorityQueue()
-  local initialTile = input.user:getTile()
-  local pathMatrix = TurnManager:pathMatrix()
-  for char in TroopManager.characterList:iterator() do
-    local tile = char:getTile()
-    if tile.gui.selectable then
-      local path = pathMatrix:get(tile.x, tile.y) or
-        PathFinder.findPath(moveAction, input.user, tile, initialTile, true)
-      if path then
-        tempQueue:enqueue(tile, path.totalCost)
-      else
-        path = PathFinder.findPathToUnreachable(moveAction, input.user, tile, initialTile, true)
-        if path then 
-          tempQueue:enqueue(tile, path.totalCost + 100)
-        end
-      end
-    end
-  end
-  return tempQueue
-end
-
--- Searchs for the reachable targets that causes the greatest damage.
--- @param(input : ActionInput) input containing the user and the skill
--- @ret(PriorityQueue) queue of tiles and their total damages
-function BattleTactics.areaTargets(input)
-  local map = {}
-  for char in TroopManager.characterList:iterator() do
-    local tile = char:getTile()
-    if tile.gui.reachable and tile.gui.selectable and not map[tile] then
-      local damage = BattleTactics.getTotalEffectResult(input, tile)
-      if damage > 0 then
-        map[tile] = damage
-      end
-    end
-  end
-  local queue = PriorityQueue()
-  for tile, dmg in pairs(map) do
-    queue:enqueue(tile, dmg)
-  end
-  return queue
-end
-
--- Calculates the total damage of a skill in the given tile.
--- @param(input : ActionInput)
--- @param(target : ObjectTile)
--- @ret(number)
-function BattleTactics.getTotalEffectResult(input, target)
-  input.target = target
-  local tiles = input.action:getAllAffectedTiles(input)
-  local sum = 0
-  for i = 1, #tiles do
-    local tile = tiles[i]
-    for targetChar in tile.characterList:iterator() do
-      if input.action:receivesEffect(targetChar) then
-        local results = input.action:calculateEffectResults(input, targetChar, expectation)
-        for j = 1, #results do
-          sum = sum + results[j][2]
-        end
-      end
-    end
-  end
-  return sum
-end
-
----------------------------------------------------------------------------------------------------
 -- General Tile Optimization
 ---------------------------------------------------------------------------------------------------
 
@@ -204,7 +130,6 @@ function BattleTactics.minEnemyDistance(party, tile)
   end
   return d
 end
-
 -- Sum of the distances from the allies.
 -- @param(party : number) character's party
 -- @param(tile : ObjectTile) the tile to check
@@ -220,7 +145,6 @@ function BattleTactics.allyDistance(party, tile)
   end
   return d
 end
-
 -- Sum of the distances from the enemies.
 -- @param(party : number) character's party
 -- @param(tile : ObjectTile) the tile to check
@@ -236,7 +160,6 @@ function BattleTactics.enemyDistance(party, tile)
   end
   return d
 end
-
 -- Sum of the distance from enemies (positive) and allies (negative).
 -- @param(party : number) character's party
 -- @param(tile : ObjectTile) the tile to check

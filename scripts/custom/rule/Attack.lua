@@ -8,8 +8,8 @@ The rule for an AI that attacks the character with the highest chance of KO.
 =================================================================================================]]
 
 -- Imports
-local BattleTactics = require('core/battle/ai/BattleTactics')
 local SkillRule = require('custom/rule/SkillRule')
+local TargetFinder = require('core/battle/ai/TargetFinder')
 
 -- Alias
 local expectation = math.randomExpectation
@@ -45,7 +45,7 @@ function AttackRule:onSelect(user)
   if bestTile then
     self.input.taget = bestTile
   else
-    local queue = BattleTactics.closestCharacters(self.input)
+    local queue = TargetFinder.closestCharacters(self.input)
     if queue:isEmpty() then
       self.input = nil
     else

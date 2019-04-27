@@ -143,7 +143,9 @@ function SkillAction:execute(input)
     return { executed = false, endCharacterTurn = true }
   end
 end
+-- Checks if the given character can use the skill, considering skill's costs.
 -- @param(user : Battler)
+-- @ret(boolean) True if this skill may be selected to be used.
 function SkillAction:canUse(user)
   local att = user.att
   local state = user.state
@@ -163,7 +165,7 @@ end
 
 -- Checks if the skill can be used in the battle field.
 -- @param(user : Character)
--- @ret(boolean)
+-- @ret(boolean) True if this skill may be selected to be used in battle field.
 function SkillAction:canBattleUse(user)
   return self:canUse(user.battler)
 end
@@ -213,9 +215,9 @@ end
 -- Menu Use
 ---------------------------------------------------------------------------------------------------
 
--- Checks if the given character can use the skill, considering skill's costs.
+-- Checks if the skill can be used out of battle.
 -- @param(user : Battler)
--- @ret(boolean)
+-- @ret(boolean) True if this skill may be selected to use out of battle.
 function SkillAction:canMenuUse(user)
   return self:canUse(user) and self.support
 end

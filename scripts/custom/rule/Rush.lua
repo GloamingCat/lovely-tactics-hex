@@ -8,8 +8,8 @@ Rule to attack the closest character.
 =================================================================================================]]
 
 -- Imports
-local BattleTactics = require('core/battle/ai/BattleTactics')
 local SkillRule = require('custom/rule/SkillRule')
+local TargetFinder = require('core/battle/ai/TargetFinder')
 
 local RushRule = class(SkillRule)
 
@@ -20,7 +20,7 @@ local RushRule = class(SkillRule)
 -- Overrides SkillRule:onSelect.
 function RushRule:onSelect(user)
   SkillRule.onSelect(self, user)
-  local queue = BattleTactics.closestCharacters(self.input)
+  local queue = TargetFinder.closestCharacters(self.input)
   if queue:isEmpty() then
     self.input = nil
     return

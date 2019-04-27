@@ -13,6 +13,7 @@ etc.
 =================================================================================================]]
 
 -- Imports
+local TargetFinder = require('core/battle/ai/TargetFinder')
 local FieldAction = require('core/battle/action/FieldAction')
 local List = require('core/datastruct/List')
 
@@ -70,7 +71,7 @@ function BattleAction:onSelect(input)
   FieldAction.onSelect(self, input)
   if input.GUI and not self.allTiles then
     self.index = 1
-    local queue = require('core/battle/ai/BattleTactics').closestCharacters(input)
+    local queue = TargetFinder.closestCharacters(input)
     self.characterTiles = queue:toList()
   end
 end
