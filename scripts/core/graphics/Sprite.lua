@@ -183,6 +183,20 @@ function Sprite:recalculateBox()
   end
   self.needsRecalcBox = false
 end
+-- Gets the bounds of the texture quad.
+-- @ret(number) Quad's width.
+-- @ret(number) Quad's height.
+function Sprite:quadBounds()
+  local _, _, w, h = self.quad:getViewport()
+  return w, h
+end
+-- Gets the quad bounds considering the scale.
+-- @ret(number) Quad's scaled width.
+-- @ret(number) Quad's scaled height.
+function Sprite:scaledBounds()
+  local w, h = self:quadBounds()
+  return w * self.scaleX, h * self.scaleY
+end
 -- Gets the extreme values for the bounding box.
 -- @ret(number) Min x.
 -- @ret(number) Min y.
@@ -191,13 +205,6 @@ end
 function Sprite:totalBounds()
   local w, h = self:quadBounds()
   return Affine.getBoundingBox(self, w, h)
-end
--- Gets the bounds of the texture quad.
--- @ret(number) Quad's width.
--- @ret(number) Quad's height.
-function Sprite:quadBounds()
-  local _, _, w, h = self.quad:getViewport()
-  return w, h
 end
 
 ---------------------------------------------------------------------------------------------------

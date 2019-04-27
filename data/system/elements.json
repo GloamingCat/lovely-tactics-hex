@@ -1,34 +1,64 @@
 [
   {
     "name": "Physical",
+	"icon": {
+		"id": -1
+	},
     "tags": []
   },
   {
     "name": "Magical",
+	"icon": {
+		"id": -1
+	},
     "tags": []
   },
   {
     "name": "Human",
+	"icon": {
+		"id": -1
+	},
     "tags": []
   },
   {
     "name": "Beast",
+	"icon": {
+		"id": -1
+	},
     "tags": []
   },
   {
     "name": "Demon",
+	"icon": {
+		"id": -1
+	},
     "tags": []
   },
   {
     "name": "Fire",
+	"icon": {
+		"id": 34,
+		"col": 0,
+		"row": 1
+	},
     "tags": []
   },
   {
     "name": "Ice",
+	"icon": {
+		"id": 34,
+		"col": 1,
+		"row": 1
+	},
     "tags": []
   },
   {
     "name": "Thunder",
+	"icon": {
+		"id": 34,
+		"col": 1,
+		"row": 2
+	},
     "tags": []
   }
 ]

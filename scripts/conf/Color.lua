@@ -57,6 +57,9 @@ return {
   barHP = {red = 50, green = 255, blue = 100, alpha = 255},
   barSP = {red = 50, green = 100, blue = 255, alpha = 255},
   barEXP = {red = 255, green = 255, blue = 100, alpha = 255},
-  barTC = {red = 255, green = 200, blue = 100, alpha = 255}
+  barTC = {red = 255, green = 200, blue = 100, alpha = 255},
+  element_weak = green,
+  element_strong = red,
+  element_neutral = white
   
 }
