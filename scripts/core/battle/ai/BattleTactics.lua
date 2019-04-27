@@ -8,14 +8,11 @@ A module with some search algorithms to solve optimization problems in the battl
 =================================================================================================]]
 
 -- Imports
-local BattleMoveAction = require('core/battle/action/BattleMoveAction')
 local PriorityQueue = require('core/datastruct/PriorityQueue')
 local PathFinder = require('core/battle/ai/PathFinder')
 
 -- Alias
 local tileDistance = math.field.tileDistance
-local expectation = math.randomExpectation
-local radiusIterator = math.field.radiusIterator
 local min = math.min
 
 local BattleTactics = {}

@@ -11,6 +11,9 @@ A module with some search algorithms to find the best target for a given skill.
 local PriorityQueue = require('core/datastruct/PriorityQueue')
 local PathFinder = require('core/battle/ai/PathFinder')
 
+-- Alias
+local expectation = math.randomExpectation
+
 local TargetFinder = {}
 
 ---------------------------------------------------------------------------------------------------
