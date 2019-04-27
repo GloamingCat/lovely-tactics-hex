@@ -46,27 +46,29 @@ function ResourceManager:loadTexture(path)
   end
   return newImage(path)
 end
--- @param(data : table) table with spritesheet's x, y, width, height, cols, rows and path to image
+-- Creates a Quad for given animation data.
+-- @param(data : table) Table with spritesheet's x, y, width, height, cols, rows and image path.
 -- @param(texture : Image) (optional, may be loaded from data's image path)
--- @param(col : number) initial column (optional, 0 by default)
--- @param(row : number) initial row (optional, 0 by default)
--- @ret(Quad)
--- @ret(Image)
+-- @param(col : number) Initial column (optional, 0 by default).
+-- @param(row : number) Initial row (optional, 0 by default).
+-- @ret(Quad) Newly created Quad.
+-- @ret(Image) Texture associated to this Quad.
 function ResourceManager:loadQuad(data, texture, cols, rows, col, row)
   texture = texture or self:loadTexture(data.path)
   local w = (data.width > 0 and data.width or texture:getWidth()) / cols
   local h = (data.height > 0 and data.height or texture:getHeight()) / rows
   col, row = col or 0, row or 0
-  local quad = newQuad(data.x + col * w, data.y + row * h, w, h, texture:getWidth(), texture:getHeight())
+  local quad = newQuad(data.x + col * w, data.y + row * h, w, h, 
+    texture:getWidth(), texture:getHeight())
   return quad, texture
 end
--- Creates an animation from an animation data.
--- @param(data : table | string | number) animation's data or its ID or its image path
--- @param(dest : Renderer or Sprite)
--- @ret(Animation)
+-- Creates an animation from an animation data table.
+-- @param(data : table | string | number) animation's data or its ID or its image path.
+-- @param(dest : Renderer | Sprite) Where animation will be shown.
+-- @ret(Animation) Animation object created from given data.
 function ResourceManager:loadAnimation(data, dest)
   if type(data) == 'string' then
-    if not dest.renderer then
+    if not dest.renderer then -- If dest is a Renderer
       local texture = self:loadTexture(data)
       local w, h = texture:getWidth(), texture:getHeight()
       local quad = newQuad(0, 0, w, h, w, h)
@@ -76,7 +78,7 @@ function ResourceManager:loadAnimation(data, dest)
   elseif type(data) == 'number' then
     data = Database.animations[data]
   end
-  if not dest.renderer then
+  if not dest.renderer then -- If dest is a Renderer
     local quad, texture = self:loadQuad(data.quad, nil, data.cols, data.rows)
     dest = Sprite(dest, texture, quad)
     dest:setTransformation(data.transform)
@@ -89,7 +91,7 @@ function ResourceManager:loadAnimation(data, dest)
 end
 -- Loads a sprite.
 -- @param(data : table) Animation's data.
--- @param(renderer : Renderer) Renderer of the icon (FieldManager's or GUIManager's)
+-- @param(renderer : Renderer) Renderer of the icon (FieldManager's or GUIManager's).
 -- @ret(Sprite) New Sprite object.
 function ResourceManager:loadSprite(data, renderer, col, row)
   local quad, texture = self:loadQuad(data.quad, nil, data.cols, data.rows, col, row)
@@ -98,18 +100,17 @@ function ResourceManager:loadSprite(data, renderer, col, row)
   return sprite
 end
 -- Loads a sprite for an icon.
--- @param(icon : table) icon's data (animation ID, col and row)
--- @param(renderer : Renderer) renderer of the icon (FieldManager's or GUIManager's)
--- @ret(Sprite)
+-- @param(icon : table) Icon's data (animation ID, col and row).
+-- @param(renderer : Renderer) Renderer of the icon (FieldManager's or GUIManager's).
+-- @ret(Sprite) New Sprite Object.
 function ResourceManager:loadIcon(icon, renderer)
   local data = Database.animations[icon.id]
   return self:loadSprite(data, renderer, icon.col, icon.row)
 end
 -- Loads an icon as a single-sprite animation.
--- Loads a sprite for an icon.
--- @param(icon : table) icon's data (animation ID, col and row)
--- @param(renderer : Renderer) renderer of the icon (FieldManager's or GUIManager's)
--- @ret(Animation)
+-- @param(icon : table) Icon's data (animation ID, col and row).
+-- @param(renderer : Renderer) Renderer of the icon (FieldManager's or GUIManager's).
+-- @ret(Animation) Newly created Animation for the given icon.
 function ResourceManager:loadIconAnimation(icon, renderer)
   local sprite = self:loadIcon(icon, renderer)
   return Static(sprite)
@@ -169,7 +170,7 @@ end
 
 -- Loads a GLSL shader.
 -- @param(name : string) Name of the shader file, from "shaders" folder.
--- @ret(Shader) 
+-- @ret(Shader) Shader loaded from the file.
 function ResourceManager:loadShader(name)
   local shader = ShaderCache[name]
   if not shader then
@@ -178,7 +179,7 @@ function ResourceManager:loadShader(name)
   end
   return shader
 end
--- Clears Sahder cache table.
+-- Clears Shader cache table.
 -- Only use this if there is no other reference to the shaders.
 function ResourceManager:clearShaderCache()
   for k in pairs(ShaderCache) do

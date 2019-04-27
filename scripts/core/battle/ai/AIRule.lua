@@ -29,7 +29,7 @@ function AIRule:init(battler, condition, tags)
 end
 -- Creates an AIRule from the given rule data.
 -- @param(data : table) Rule data with path, param and condition fields.
--- @return(AIRule)
+-- @ret(AIRule)
 function AIRule:fromData(data, battler)
   local class = self
   if data.name and data.name ~= '' then

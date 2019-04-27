@@ -56,7 +56,7 @@ function EscapeAction:execute(input)
   local troop = TurnManager:currentTroop()
   troop:removeMember(char)
   if TroopManager:getMemberCount(party) == 0 then
-    return { executed = true, endCharacterTurn = true, escaped = true }
+    return { executed = true, endTurn = true, escaped = true }
   else
     return { executed = true, endCharacterTurn = true, escaped = false }
   end

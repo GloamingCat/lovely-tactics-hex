@@ -124,7 +124,6 @@ end
 -- @param(path : Path) A path of tiles.
 -- @ret(boolean) True if the movement was completed, false otherwise.
 function WalkingObject:walkPath(path, autoTurn)
-  local field = FieldManager.currentField
   local stack = path:toStack()
   while not stack:isEmpty() do
     local nextTile = stack:pop()

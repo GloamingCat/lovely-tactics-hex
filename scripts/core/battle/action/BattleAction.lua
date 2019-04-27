@@ -28,10 +28,13 @@ local BattleAction = class(FieldAction)
 
 -- Constructor.
 -- @param(colorName : string) The color of the selectable tiles.
--- @param(range : table) The range of the action to the target tile (in tiles).
--- @param(area : table) The area of the action effect (in tiles).
+-- @param(range : table) The layers of tiles relative to the user's tile, containing the possible
+--  targets for this action.
+-- @param(area : table) The layers of tiles relative to the target tile containing the tiles that
+--  are affected by this action.
 function BattleAction:init(colorName, range, area)
   FieldAction.init(self, range, area)
+  self.range = range or mathf.centerMask
   self.colorName = colorName
   self.showTargetWindow = true
   self.showStepWindow = false
@@ -184,8 +187,19 @@ function BattleAction:isCharacterSelectable(input, char)
   return (alive == self.living or (not alive) == self.dead) and 
     (ally == self.support or (not ally) == self.offensive)
 end
--- Gets the first selected target tile.
--- @ret(ObjectTile) The first tile.
+-- Checks if the range mask contains any tiles besides the center tile.
+-- @ret(boolean) True if it's a ranged action, false otherwise.
+function BattleAction:isRanged()
+  local grid = self.range.grid
+  return #grid > 1 or #grid > 0 and #grid[1] > 1 or #grid[1][1] > 1
+end
+-- Checks if the range mask contains any tiles besides the center tile and its neighbors.
+-- @ret(boolean) True if it's a long-ranged action, false otherwise.
+function BattleAction:isLongRanged()
+  local grid = self.range.grid
+  return #grid > 3 or #grid > 0 and #grid[1] > 3 or #grid[1][1] > 3
+end
+-- Overrides FieldAction:firstTarget.
 function BattleAction:firstTarget(input)
   if self.characterTiles then
     return self.characterTiles[1]

@@ -20,12 +20,9 @@ local FieldAction = class()
 ---------------------------------------------------------------------------------------------------
 
 -- Constructor.
--- @param(range : table) The layers of tiles relative to the user's tile, containing the possible
---  targets for this action.
 -- @param(area : table) The layers of tiles relative to the target tile containing the tiles that
 --  are affected by this action.
-function FieldAction:init(range, area)
-  self.range = range or mathf.centerMask
+function FieldAction:init(area)
   self.area = area or mathf.centerMask
   self.field = FieldManager.currentField
 end
@@ -144,17 +141,10 @@ function FieldAction:isArea()
   local grid = self.area.grid
   return #grid > 1 or #grid > 0 and #grid[1] > 1 or #grid[1][1] > 1
 end
--- Checks if the range mask contains any tiles besides the center tile.
--- @ret(boolean) True if it's a ranged action, false otherwise.
-function FieldAction:isRanged()
-  local grid = self.range.grid
-  return #grid > 1 or #grid > 0 and #grid[1] > 1 or #grid[1][1] > 1
-end
--- Checks if the range mask contains any tiles besides the center tile and its neighbors.
--- @ret(boolean) True if it's a long-ranged action, false otherwise.
-function FieldAction:isLongRanged()
-  local grid = self.range.grid
-  return #grid > 3 or #grid > 0 and #grid[1] > 3 or #grid[1][1] > 3
+-- Gets the first selected target tile.
+-- @ret(ObjectTile) The first tile.
+function FieldAction:firstTarget(input)
+  return FieldManager.player and FieldManager.player:getTile()
 end
 -- Gets the next target given the player's input.
 -- @param(axisX : number) The input in axis x.

@@ -16,8 +16,10 @@ local EventSheet = class(Fiber)
 -- Initialization
 ---------------------------------------------------------------------------------------------------
 
--- @param(root : FiberList)
--- @param(state : table) state data from save (ignored if the event is new)
+-- Constructor.
+-- @param(root : FiberList) The FiberList that originated this fiber.
+-- @param(script : table) Table with name (or func) and tags. 
+-- @param(char : Character) Character associated with this fiber (optional).
 function EventSheet:init(root, script, char)
   if script.func then
     self.commands = script.func
@@ -59,6 +61,8 @@ end
 ---------------------------------------------------------------------------------------------------
 
 -- Searches for the character with the given key.
+-- @param(key : string) Character's key.
+-- @ret(Character) Character with given key.
 function EventSheet:findCharacter(key)
   if key == 'self' then
     return self.char

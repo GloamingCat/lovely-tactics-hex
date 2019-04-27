@@ -60,6 +60,7 @@ end
 -- Target
 ---------------------------------------------------------------------------------------------------
 
+-- Overrides BattleAction:firstTarget.
 function FormationAction:firstTarget(input)
   local member = TurnManager:currentTroop().current[1]
   local char = FieldManager:search(member.key)
