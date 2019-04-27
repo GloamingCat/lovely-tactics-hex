@@ -128,9 +128,9 @@ function BattlerWindow:setPortrait(member)
     sprite:applyTransformation(charData.transform)
     self.portrait:setSprite(sprite)
   else
-    local anim = findByName(charData.animations, "Idle")
-    local data = Database.animations[anim]
-    self.portraitAnim = ResourceManager:loadAnimation(anim, GUIManager.renderer)
+    local anim = findByName(charData.animations, "Idle") or 
+      findByName(charData.animations, "Battle:Idle")
+    self.portraitAnim = ResourceManager:loadAnimation(anim.id, GUIManager.renderer)
     self.portraitAnim:setRow(6)
     self.portraitAnim.sprite:setXYZ(0, 0, 0)
     self.portraitAnim.sprite:applyTransformation(charData.transform)

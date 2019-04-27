@@ -41,7 +41,7 @@ end
 -- Runs the script commands.
 function EventSheet:execute()
   local player = FieldManager.player
-  if self.block then
+  if player and self.block then
     player.blocks = player.blocks + 1
   end
   self:commands()
@@ -49,7 +49,7 @@ function EventSheet:execute()
     GUIManager:returnGUI()
     self.gui = nil
   end
-  if self.block then
+  if player and self.block then
     player.blocks = player.blocks - 1
   end
 end
