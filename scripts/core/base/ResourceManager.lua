@@ -55,6 +55,7 @@ end
 -- @ret(Image) Texture associated to this Quad.
 function ResourceManager:loadQuad(data, texture, cols, rows, col, row)
   texture = texture or self:loadTexture(data.path)
+  cols, rows = cols or 1, rows or 1
   local w = (data.width > 0 and data.width or texture:getWidth()) / cols
   local h = (data.height > 0 and data.height or texture:getHeight()) / rows
   col, row = col or 0, row or 0
@@ -90,10 +91,18 @@ function ResourceManager:loadAnimation(data, dest)
   return AnimClass(dest, data)
 end
 -- Loads a sprite.
--- @param(data : table) Animation's data.
+-- @param(data : table | number | string) Animation's data or id, or path to texture.
 -- @param(renderer : Renderer) Renderer of the icon (FieldManager's or GUIManager's).
 -- @ret(Sprite) New Sprite object.
 function ResourceManager:loadSprite(data, renderer, col, row)
+  if type(data) == 'number' then
+    data = Database.animations[data]
+  elseif type(data) == 'string' then
+    local texture = self:loadTexture(data)
+    local w, h = texture:getWidth(), texture:getHeight()
+    local quad = newQuad(0, 0, w, h, w, h)
+    return Sprite(renderer, texture, quad)
+  end
   local quad, texture = self:loadQuad(data.quad, nil, data.cols, data.rows, col, row)
   local sprite = Sprite(renderer, texture, quad)
   sprite:setTransformation(data.transform)

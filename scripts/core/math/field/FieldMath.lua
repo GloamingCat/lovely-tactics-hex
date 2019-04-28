@@ -110,9 +110,9 @@ end
 ---------------------------------------------------------------------------------------------------
 
 -- Gets the world center of the given field.
--- @param(field : Field)
--- @ret(number) center x
--- @ret(number) center y
+-- @param(field : Field) Current field.
+-- @ret(number) Center x.
+-- @ret(number) Center y.
 function FieldMath.pixelCenter(sizeX, sizeY)
   local x1, y1 = FieldMath.tile2Pixel(1, 1, 0)
   local x2, y2 = FieldMath.tile2Pixel(sizeX, sizeY, 0)
@@ -125,14 +125,14 @@ end
 
 local mod = math.mod
 -- Converts row [0, 7] to float angle.
--- @param(row : number) the rown from 0 to 7
--- @ret(number) the angle in radians
+-- @param(row : number) The rown from 0 to 7.
+-- @ret(number) The angle in radians.
 function FieldMath.row2Angle(row)
   return FieldMath.dir[row + 1]
 end
 -- Converts float angle to row [0, 7].
--- @param(angle : number) the angle in radians
--- @ret(number) the row from 0 to 7
+-- @param(angle : number) The angle in radians.
+-- @ret(number) The row from 0 to 7.
 function FieldMath.angle2Row(angle)
   angle = mod(angle, 360)
   for i = 1, 8 do

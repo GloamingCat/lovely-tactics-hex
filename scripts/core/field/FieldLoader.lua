@@ -27,7 +27,8 @@ local FieldLoader = {}
 -- @ret(table) Field file data.
 function FieldLoader.loadField(id)
   local data = Serializer.load('data/fields/' .. id .. '.json')
-  local field = Field(data.id, data.prefs.name, data.sizeX, data.sizeY, data.prefs.maxHeight)
+  local maxH = data.prefs.maxHeight
+  local field = Field(data.id, data.prefs.name, data.sizeX, data.sizeY, maxH)
   field.persistent = data.prefs.persistent
   field.tags = TagMap(data.prefs.tags)
   -- Script
@@ -41,7 +42,7 @@ function FieldLoader.loadField(id)
   -- Default region
   local defaultRegion = data.prefs.defaultRegion
   if defaultRegion and defaultRegion >= 0 then
-    for i = 0, data.pregs.maxHeight do
+    for i = 0, maxH do
       local layer = field.objectLayers[i]
       for i = 1, data.sizeX do
         for j = 1, data.sizeY do

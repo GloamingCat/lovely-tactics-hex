@@ -12,24 +12,55 @@ local Renderer = require('core/graphics/Renderer')
 
 -- Alias
 local tile2Pixel = math.field.tile2Pixel
+local pixelCenter = math.field.pixelCenter
 local sqrt = math.sqrt
 
--- Constants
-local cameraSpeed = 75
-local fadeSpeed = 100 / 60
-
 local FieldCamera = class(Renderer)
+
+---------------------------------------------------------------------------------------------------
+-- Initialization
+---------------------------------------------------------------------------------------------------
+
+-- Constructor.
+function FieldCamera:init(...)
+  self.images = {}
+  Renderer.init(self, ...)
+  self.fadeSpeed = 100 / 60
+  self.cameraSpeed = 75
+  self.cropMovement = true
+end
+-- Initializes field's foreground and background images.
+-- @param(field : Field) Current field.
+-- @param(images : table) Array of field's images.
+function FieldCamera:addImages(images)
+  local x, y = pixelCenter(FieldManager.currentField.sizeX, FieldManager.currentField.sizeY)
+  for _, data in ipairs(images) do
+    local sprite = ResourceManager:loadSprite(data.id, self)
+    sprite:setVisible(data.visible)
+    if data.foreground then
+      sprite:setXYZ(x, y, self.minDepth)
+    else
+      sprite:setXYZ(x, y, self.maxDepth)
+    end
+    sprite.glued = data.glued
+    self.images[data.key] = sprite
+  end
+end
 
 ---------------------------------------------------------------------------------------------------
 -- General
 ---------------------------------------------------------------------------------------------------
 
--- Constructor.
-function FieldCamera:init(...)
-  Renderer.init(self, ...)
-  self.cropMovement = true
+-- Overrides Movable:setXYZ.
+function FieldCamera:setXYZ(x, y, ...)
+  Renderer.setXYZ(self, x, y, ...)
+  for _, img in pairs(self.images) do
+    if img.glued then
+      img:setXYZ(x, y)
+    end
+  end
 end
--- Overides Movable:updateMovement.
+-- Overrides Movable:updateMovement.
 function FieldCamera:updateMovement()
   if self.focusObject then
     self:setXYZ(self.focusObject.position.x, self.focusObject.position.y)
@@ -68,7 +99,7 @@ function FieldCamera:moveToPoint(x, y, speed, wait)
   local dx = self.position.x - x
   local dy = self.position.y - y
   local distance = sqrt(dx * dx + dy * dy)
-  speed = ((speed or cameraSpeed) + distance * 3)
+  speed = ((speed or self.cameraSpeed) + distance * 3)
   self:moveTo(x, y, 0, speed / distance, wait)
 end
 
@@ -77,16 +108,16 @@ end
 ---------------------------------------------------------------------------------------------------
 
 -- Fades the screen out (changes color multiplier to black). 
--- @param(speed : number) the speed of the fading (optional, uses default speed)
+-- @param(speed : number) The speed of the fading (optional, uses default speed).
 -- @param(wait : boolean) flag to wait until the fading finishes (optional, false by default)
 function FieldCamera:fadeout(speed, wait)
-  self:colorizeTo(0, 0, 0, 0, speed or fadeSpeed, wait)
+  self:colorizeTo(0, 0, 0, 0, speed or self.fadeSpeed, wait)
 end
 -- Fades the screen in (changes color multiplier to white). 
 -- @param(speed : number) the speed of the fading (optional, uses default speed)
 -- @param(wait : boolean) flag to wait until the fading finishes (optional, false by default)
 function FieldCamera:fadein(speed, wait)
-  self:colorizeTo(255, 255, 255, 255, speed or fadeSpeed, wait)
+  self:colorizeTo(255, 255, 255, 255, speed or self.fadeSpeed, wait)
 end
 
 return FieldCamera

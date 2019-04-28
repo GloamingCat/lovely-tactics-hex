@@ -61,8 +61,9 @@ function FieldManager:loadField(fieldID)
   local field, fieldData = FieldLoader.loadField(fieldID)
   self.currentField = field
   self.renderer = self:createCamera(fieldData)
-  FieldLoader.mergeLayers(self.currentField, fieldData.layers)
-  FieldLoader.loadCharacters(self.currentField, fieldData.characters)
+  FieldLoader.mergeLayers(field, fieldData.layers)
+  FieldLoader.loadCharacters(field, fieldData.characters)
+  self.renderer:addImages(fieldData.prefs.images)
   collectgarbage('collect')
   return fieldData
 end
@@ -83,7 +84,7 @@ end
 -- Creates a character representing player.
 -- @ret(Player) The newly created player.
 function FieldManager:createPlayer(t)
-  local tile = self.currentField:getObjectTile(t.x, t.y, t.h)
+  local tile = self.currentField:getObjectTile(t.x or 1, t.y or 1, t.h or 1)
   return Player(tile, t.direction)
 end
 

@@ -17,20 +17,7 @@
       "name": "",
       "tags": []
     },
-    "background": {
-      "path": "",
-      "x": 0,
-      "y": 0,
-      "width": 0,
-      "height": 0
-    },
-    "parallax": {
-      "path": "",
-      "x": 0,
-      "y": 0,
-      "width": 0,
-      "height": 0
-    },
+	"images": [],
     "transitions": [],
     "name": "Forest Battle Field",
     "tags": []

@@ -17,24 +17,30 @@ local util = {}
 ---------------------------------------------------------------------------------------------------
 
 -- General parameters:
--- @param(args.time : number) The duration of the fading in frames.
+-- @param(args.time : number) The duration of the fading in frames. Instantaneous if 0.
 -- @param(args.wait : boolean) True to wait until the fading finishes.
 
 -- Fades out the screen.
+-- @param(args.renderer : Renderer) Camera to fade out. Field by default.
 function util.fadeout(sheet, args)
-  FieldManager.renderer:fadeout(255 / args.time)
+  local renderer = args.renderer or FieldManager.renderer
+  local speed = args.time and (255 / args.time) or 0
+  renderer:fadeout(speed)
   if args.wait then
     _G.Fiber:waitUntil(function()
-      return not FieldManager.renderer:colorizing()
+      return not renderer:colorizing()
     end)
   end
 end
 -- Fades in the screen.
+-- @param(args.renderer : Renderer) Camera to fade in. Field by default.
 function util.fadein(sheet, args)
-  FieldManager.renderer:fadein(255 / args.time)
+  local renderer = args.renderer or FieldManager.renderer
+  local speed = args.time and (255 / args.time) or 0
+  renderer:fadein(speed)
   if args.wait then
     _G.Fiber:waitUntil(function()
-      return not FieldManager.renderer:colorizing()
+      return not renderer:colorizing()
     end)
   end
 end

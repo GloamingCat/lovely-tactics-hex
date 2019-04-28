@@ -28,6 +28,7 @@ local Field = class()
 -- @param(name : string) Field name.
 -- @param(sizeX : number) Field width.
 -- @param(sizeY : number) Field length.
+-- @param(maxH : number) Field's maximum tile height.
 function Field:init(id, name, sizeX, sizeY, maxH)
   self.id = id
   self.name = name

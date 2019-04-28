@@ -290,7 +290,9 @@ function Renderer:sortList(list)
     end
   until l >= r
 end
-
+-- Checks if sprite may be added to the current batch.
+-- @param(sprite : Sprite)
+-- @ret(boolean)
 function Renderer:batchPossible(sprite)
   if sprite.texture ~= self.batchTexture then
     return false
