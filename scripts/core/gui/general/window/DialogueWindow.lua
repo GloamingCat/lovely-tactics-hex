@@ -20,7 +20,6 @@ Message codes:
 -- Imports
 local DescriptionWindow = require('core/gui/general/window/DescriptionWindow')
 local SimpleText = require('core/gui/widget/SimpleText')
-local SimpleImage = require('core/gui/widget/SimpleImage')
 local Vector = require('core/math/Vector')
 local Window = require('core/gui/Window')
 
@@ -44,7 +43,6 @@ function DialogueWindow:init(GUI, w, h, x, y)
   h = h or ScreenManager.height / 4
   x = x or (w - ScreenManager.width) / 2 + GUI:windowMargin()
   y = y or (ScreenManager.height - h) / 2 - GUI:windowMargin()
-  self.indent = 0
   self:initProperties()
   Window.init(self, GUI, w, h, Vector(x, y))
 end
@@ -65,7 +63,26 @@ function DialogueWindow:initProperties()
   self.textSound = Sounds.text
   self.soundFrequence = 4
   self.align = 'left'
-  self.fixedIndent = 75
+end
+
+---------------------------------------------------------------------------------------------------
+-- General
+---------------------------------------------------------------------------------------------------
+
+-- Called when player presses a mouse button.
+function DialogueWindow:onClick(button, x, y)
+  self:onConfirm()
+end
+-- Overrides Window:hide.
+function DialogueWindow:hide(...)
+  self.nameWindow:setVisible(false)
+  Window.hide(self, ...)
+end
+-- Overrides Window:destroy.
+function DialogueWindow:destroy(...)
+  self.nameWindow:destroy()
+  self.nameWindow:removeSelf()
+  Window.destroy(self, ...)
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -79,15 +96,15 @@ function DialogueWindow:buttonPressed()
 end
 -- [COROUTINE] Shows a message and waits until player presses the confirm button.
 -- @param(text : string) The message.
--- @param(portrait : table) The speaker's portrait icon (optional).
-function DialogueWindow:showDialogue(text, portrait, name)
+-- @param(speaker : table) The speaker's name and position of name box (optional).
+function DialogueWindow:showDialogue(text, align, speaker)
+  if speaker then
+    local x = speaker.x and speaker.x * self.width / 2
+    local y = speaker.y and speaker.y * self.height / 2
+    self:setName(speaker.name, x, y)
+  end
+  self.dialogue:setAlign(align)
   self.dialogue:show()
-  if portrait then
-    self:setPortrait(portrait)
-  end
-  if name then
-    self:setName(name)
-  end
   self:rollText(text)
   self.GUI:waitForResult()
   self.result = nil
@@ -96,10 +113,7 @@ end
 -- Shows text character by character.
 -- @param(text : string) The message.
 function DialogueWindow:rollText(text)
-  self.dialogue:setMaxWidth(self.width - self:paddingX() * 2 - (self.fixedIndent or self.indent))
-  self.dialogue:setAlign(self.align)
   self.dialogue.sprite:setText(text)
-  self.dialogue:updatePosition(self.position + Vector(self.fixedIndent or self.indent, 0))
   local time, soundTime = 0, self.soundFrequence
   while true do
     if self.textSound and soundTime >= self.soundFrequence then
@@ -116,6 +130,10 @@ function DialogueWindow:rollText(text)
       break
     end
     self.dialogue.sprite.cutPoint = math.ceil(time)
+    while not pcall(self.dialogue.sprite.redrawBuffers, self.dialogue.sprite) do
+      time = time + 1
+      self.dialogue.sprite.cutPoint = math.ceil(time)
+    end
     self.dialogue.sprite:redrawBuffers()
     yield()
   end
@@ -127,59 +145,19 @@ end
 -- Speaker
 ---------------------------------------------------------------------------------------------------
 
--- Shows the portrait of the speaker.
--- @param(icon : table) Table with id, col and row values.
-function DialogueWindow:setPortrait(icon)
-  if self.portrait then
-    self.portrait:destroy()
-    self.content:removeElement(self.portrait)
-  end
-  self.indent = 0
-  local char = nil
-  if icon and not icon.id then
-    char = icon.char
-    icon = char.portraits[icon.name]
-  end
-  if icon and icon.id >= 0 then
-    local portrait = ResourceManager:loadIcon(icon, GUIManager.renderer)
-    if char then
-      portrait:applyTransformation(char.data.transform)
-    end
-    local ox, oy = portrait.offsetX, portrait.offsetY
-    portrait:setOffset(0, 0)
-    local x, y, w, h = portrait:totalBounds()
-    x = -self.width / 2 + x + w / 2
-    y = self.height / 2 - h / 2
-    portrait:setOffset(ox, oy)
-    self.portrait = SimpleImage(portrait, x - w / 2, y - h / 2, 1)
-    self.portrait:updatePosition(self.position)
-    self.content:add(self.portrait)
-    self.indent = w
-  end
-end
 -- Shows the name of the speaker.
 -- @param(text : string) Nil or empty to hide window, any other string to show.
-function DialogueWindow:setName(text)
+function DialogueWindow:setName(text, x, y)
   if text and text ~= '' then
     self.nameWindow:setText(text)
     self.nameWindow:packText()
-    local nameX = - self.width / 2 + self.position.x + (self.fixedIndent or self.indent) + 10
-    local nameY = - self.height / 2 + self.position.y + self:paddingY() / 2
+    local nameX = x and (self.position.x + x) or self.nameWindow.position.x
+    local nameY = y and (self.position.y + y) or self.nameWindow.position.y
     self.nameWindow:setVisible(true)
-    self.nameWindow:setXYZ(nameX + self.nameWindow.width / 2,
-      nameY - self.nameWindow.height / 2, -5)
+    self.nameWindow:setXYZ(nameX, nameY, -5)
   else
     self.nameWindow:setVisible(false)
   end
-end
--- Overrides Window:hideContent to hide name window.
-function DialogueWindow:hideContent(...)
-  self.nameWindow:setVisible(false)
-  Window.hideContent(self, ...)
-end
--- Called when player presses a mouse button.
-function DialogueWindow:onClick(button, x, y)
-  self:onConfirm()
 end
 
 return DialogueWindow

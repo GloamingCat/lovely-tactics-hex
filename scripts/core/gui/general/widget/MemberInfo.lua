@@ -33,7 +33,7 @@ function MemberInfo:init(battler, w, h, topLeft)
   local margin = 4
   -- Icon
   local charData = Database.characters[battler.charID]
-  local icon = findByName(charData.portraits, "smallIcon")
+  local icon = findByName(charData.portraits, "SmallIcon")
   if icon then
     local sprite = ResourceManager:loadIcon(icon, GUIManager.renderer)
     sprite:applyTransformation(charData.transform)

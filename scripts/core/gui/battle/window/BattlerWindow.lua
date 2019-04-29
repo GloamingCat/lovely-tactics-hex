@@ -173,7 +173,7 @@ end
 -- @param(member : Battler) The battler shown in the window.
 function BattlerWindow:setPortrait(member)
   local charData = Database.characters[member.charID]
-  local icon = findByName(charData.portraits, "bigIcon")
+  local icon = findByName(charData.portraits, "BigIcon")
   if icon then
     local sprite = ResourceManager:loadIcon(icon, GUIManager.renderer)
     sprite:applyTransformation(charData.transform)

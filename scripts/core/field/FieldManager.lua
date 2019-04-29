@@ -153,7 +153,7 @@ function FieldManager:loadTransition(transition, fromSave)
   end
   self.player.fiberList:fork(self.player.fieldInputLoop, self.player)
   FieldLoader.createTransitions(self.currentField, fieldData.prefs.transitions)
-  if fieldData.prefs.bgm then
+  if fieldData.prefs.bgm and fieldData.prefs.bgm.name ~= '' then
     local bgm = fieldData.prefs.bgm
     if AudioManager.BGM == nil or AudioManager.BGM.name ~= bgm.name then
       AudioManager:playBGM(bgm, bgm.time or 0)

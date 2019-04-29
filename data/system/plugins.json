@@ -30,7 +30,17 @@
   },
   {
     "on": true,
-    "name": "plugins/battle/KillCheat",
+    "name": "plugins/DialoguePortrait.lua",
+    "tags": [
+      {
+        "key": "indent",
+        "value": "75"
+      }
+    ]
+  },
+  {
+    "on": true,
+    "name": "plugins/battle/KillCheat.lua",
     "tags": [
       {
         "key": "win",

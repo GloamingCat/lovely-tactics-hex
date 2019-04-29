@@ -68,20 +68,18 @@ function util.openDialogueWindow(sheet, args)
   sheet.gui:setActiveWindow(window)
 end
 -- Shows a dialogue in the given window.
--- @param(args.portrait : table) Character face.
 -- @param(args.message : string) Dialogue text.
+-- @param(args.name : string) Speaker name (optional).
+-- @param(args.nameX : string) Speaker name X, from -1 to 1 (optional).
+-- @param(args.nameY : string) Speaker name Y, from -1 to 1 (optional).
 function util.showDialogue(sheet, args)
   assert(sheet.gui, 'You must open a GUI first.')
   local window = sheet.gui.dialogues[args.id]
-  sheet.gui:setActiveWindow(window)
   assert(window, 'You must open window ' .. args.id .. ' first.')
-  local portrait, name = nil, args.name
-  if args.character then
-    local char = sheet:findCharacter(args.character)
-    portrait = { char = char, name = args.portrait }
-    name = char.name
-  end
-  window:showDialogue(args.message, portrait, name)
+  sheet.gui:setActiveWindow(window)
+  local speaker = args.name ~= '' and { name = args.name, 
+    x = args.nameX, y = args.nameY }
+  window:showDialogue(args.message, args.align, speaker)
 end
 -- Closes and deletes a dialogue window.
 function util.closeDialogueWindow(sheet, args)

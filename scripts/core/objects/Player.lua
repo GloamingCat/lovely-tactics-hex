@@ -50,7 +50,7 @@ function Player:init(initTile, dir)
 end
 -- Overrides CharacterBase:initProperties.
 function Player:initProperties(name, collisionTiles, colliderHeight)
-  Character.initProperties(self, 'Player', collisionTiles, colliderHeight)
+  Character.initProperties(self, name, collisionTiles, colliderHeight)
   self.inputOn = true
   self.dashSpeed = conf.dashSpeed
   self.walkSpeed = conf.walkSpeed

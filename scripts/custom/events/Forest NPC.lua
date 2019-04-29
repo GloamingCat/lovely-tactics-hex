@@ -1,3 +1,4 @@
+
 --[[===============================================================================================
 
 Forest NPC
@@ -12,7 +13,7 @@ return function(script)
 
   script:openDialogueWindow { id = 1, width = 255, height = 60 }
 
-  script:showDialogue { id = 1, character = "HeroMage", portrait = "bigIcon", message = 
+  script:showDialogue { id = 1, character = "HeroMage", portrait = "BigIcon", message = 
     "What do you want to do?"
   }
 

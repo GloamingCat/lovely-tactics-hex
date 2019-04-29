@@ -1,12 +1,12 @@
 
-local huge_font = { 'FogSans', 'otf', 20 }
-local big_font = { 'FogSans', 'otf', 15 }
-local critical_font = { 'FogSans', 'otf', 13 }
-local default_font = { 'FogSans', 'otf', 11 }
-local medium_font = { 'FogSans', 'otf', 9.5 }
-local small_font = { 'FogSans', 'otf', 8 }
-local tiny_font = { 'FogSans', 'otf', 6.5 }
-local fps_font = { 'FogSans', 'otf', 3 }
+local huge_font = { 'Roboto', 'ttf', 20 }
+local big_font = { 'Roboto', 'ttf', 15 }
+local critical_font = { 'Roboto', 'ttf', 13 }
+local default_font = { 'Roboto', 'ttf', 11 }
+local medium_font = { 'Roboto', 'ttf', 9.5 }
+local small_font = { 'Roboto', 'ttf', 8 }
+local tiny_font = { 'Roboto', 'ttf', 6.5 }
+local fps_font = { 'Roboto', 'ttf', 3 }
 
 return  {
 
