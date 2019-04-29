@@ -19,8 +19,13 @@ local util = {}
 
 -- Removes a character from the field.
 -- @param(args.permanent : boolean) If false, character shows up again when field if reloaded.
+-- @param(args.fade : number) Duration of fading animation.
 function util.deleteChar(sheet, args)
   local char = sheet:findCharacter(args.key)
+  if args.fade and args.fade > 0 then
+    local speed = 255 / args.fade
+    char:colorizeTo(nil, nil, nil, 0, speed, args.wait)
+  end
   if args.permanent then
     char.deleted = true
   end

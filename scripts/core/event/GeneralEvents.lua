@@ -28,7 +28,7 @@ local Event = {}
 -- @param(args.direction : number) Player's destination direction (in degrees).
 function Event:moveToField(args)
   local fade = args.fade and {time = args.fade, wait = true}
-  if args.fade then
+  if fade then
     if self.tile then
       self.root:fork(function()
         -- Character
@@ -41,7 +41,7 @@ function Event:moveToField(args)
     self:fadeout(fade)
   end
   FieldManager:loadTransition(args)
-  if args.fade then
+  if fade then
     FieldManager.renderer:fadeout(0)
     self:fadein(fade)
   end

@@ -14,10 +14,11 @@
     "loadScript": {
       "global": false,
       "block": true,
+      "wait": true,
       "name": "",
       "tags": []
     },
-	"images": [],
+    "images": [],
     "transitions": [
       {
         "destination": {

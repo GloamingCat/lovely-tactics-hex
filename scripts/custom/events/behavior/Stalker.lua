@@ -19,7 +19,7 @@ return function(script)
   
   while true do
     script.char:playIdleAnimation()
-    if script.player.interacting or script.player.colliding or script.char.colliding then
+    if script.player:isBusy() or script.player.blocks > 1 then
       coroutine.yield()
     else
       script:wait(pause + rand(-pauseVar, pauseVar))

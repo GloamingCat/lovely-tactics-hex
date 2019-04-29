@@ -11,10 +11,6 @@ The BattleAction that is executed when players chooses the "Escape" button.
 local BattleAction = require('core/battle/action/BattleAction')
 local ConfirmGUI = require('core/gui/general/ConfirmGUI')
 
--- Alias
-local yield = coroutine.yield
-local max = math.max
-
 local EscapeAction = class(BattleAction)
 
 ---------------------------------------------------------------------------------------------------
@@ -48,11 +44,7 @@ function EscapeAction:execute(input)
   if Sounds.escape then
     AudioManager:playSFX(Sounds.escape)
   end
-  while char.sprite.color.alpha > 0 do
-    local a = char.sprite.color.alpha
-    char.sprite:setRGBA(nil, nil, nil, max(a - self.animSpeed, 0))
-    yield()
-  end
+  char:colorizeTo(nil, nil, nil, 0, self.animSpeed, true)
   local troop = TurnManager:currentTroop()
   troop:removeMember(char)
   if TroopManager:getMemberCount(party) == 0 then

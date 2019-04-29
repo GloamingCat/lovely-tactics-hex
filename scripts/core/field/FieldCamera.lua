@@ -35,7 +35,7 @@ end
 function FieldCamera:addImages(images)
   local x, y = pixelCenter(FieldManager.currentField.sizeX, FieldManager.currentField.sizeY)
   for _, data in ipairs(images) do
-    local sprite = ResourceManager:loadSprite(data.id, self)
+    local sprite = ResourceManager:loadIcon(data, self)
     sprite:setVisible(data.visible)
     if data.foreground then
       sprite:setXYZ(x, y, self.minDepth)
@@ -43,7 +43,7 @@ function FieldCamera:addImages(images)
       sprite:setXYZ(x, y, self.maxDepth)
     end
     sprite.glued = data.glued
-    self.images[data.key] = sprite
+    self.images[data.name] = sprite
   end
 end
 
