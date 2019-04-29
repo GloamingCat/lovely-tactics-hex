@@ -3,7 +3,7 @@
     "data": {
       "description": "",
       "icon": {
-        "id": -1,
+        "id": 36,
         "col": 0,
         "row": 0
       },
@@ -287,8 +287,8 @@
     "data": {
       "description": "",
       "icon": {
-        "id": -1,
-        "col": 0,
+        "id": 34,
+        "col": 1,
         "row": 0
       },
       "script": "",
@@ -385,8 +385,8 @@
           "effects": [
             {
               "key": "hp",
-              "basicResult": "(a.atkp() * 2 - b.defp()) * rand(80, 120) / 100",
-              "successRate": "((a.prep() * 2 - b.evdp()) / b.evdp()) * 50",
+              "basicResult": "action:defaultPhysicalDamage(a, b)",
+              "successRate": "action:defaultSuccessRate(a, b)",
               "heal": false,
               "absorb": false
             }
@@ -475,8 +475,8 @@
           "effects": [
             {
               "key": "hp",
-              "basicResult": "(a.atkm() * 2 - b.defm()) * rand(80, 120) / 100",
-              "successRate": "(a.prem() * 2 - b.evdm()) / b.evdm() * 50",
+              "basicResult": "action:defaultMagicalDamage(a, b)",
+              "successRate": "action:defaultSuccessRate(a, b)",
               "heal": false,
               "absorb": false
             }
@@ -574,8 +574,8 @@
           "effects": [
             {
               "key": "hp",
-              "basicResult": "(a.atkm() * 2 - b.defm()) * rand(80, 120) / 100",
-              "successRate": "(a.prem() * 2 - b.evdm()) / b.evdm() * 50",
+              "basicResult": "action:defaultMagicalDamage(a, b)",
+              "successRate": "action:defaultSuccessRate(a, b)",
               "heal": false,
               "absorb": false
             }
@@ -606,7 +606,7 @@
               ]
             ]
           },
-          "name": "Super Fireball",
+          "name": "Magical Explosion",
           "tags": [
             {
               "key": "cast_far",
@@ -685,8 +685,8 @@
           "effects": [
             {
               "key": "hp",
-              "basicResult": "(a.atkm() * 2 - b.defm()) * rand(80, 120) / 100",
-              "successRate": "(a.prem() * 2 - b.evdm()) / b.evdm() * 50",
+              "basicResult": "action:defaultMagicalDamage(a, b)",
+              "successRate": "action:defaultSuccessRate(a, b)",
               "heal": false,
               "absorb": false
             }
@@ -717,7 +717,7 @@
               ]
             ]
           },
-          "name": "Bizzard",
+          "name": "Big Magical Explosion",
           "tags": [
             {
               "key": "cast_far",
@@ -751,6 +751,300 @@
         },
         "id": 8,
         "children": []
+      },
+      {
+        "data": {
+          "description": "Fire-elemental ranged magical attack.",
+          "icon": {
+            "id": 34,
+            "col": 0,
+            "row": 1
+          },
+          "script": "",
+          "type": 1,
+          "targetType": 2,
+          "restriction": 1,
+          "costs": [],
+          "elements": [
+            {
+              "id": 1,
+              "value": 100
+            },
+            {
+              "id": 5,
+              "value": 100
+            }
+          ],
+          "userElements": true,
+          "projectileID": -1,
+          "rotate": false,
+          "applyTransform": true,
+          "userLoadAnim": "",
+          "userCastAnim": "Skill1",
+          "stepOnCast": true,
+          "loadAnimID": -1,
+          "castAnimID": 113,
+          "individualAnimID": -1,
+          "mirror": true,
+          "introTime": "",
+          "castTime": "45",
+          "centerTime": "",
+          "targetTime": "",
+          "finishTime": "",
+          "damageAnim": true,
+          "effects": [
+            {
+              "key": "hp",
+              "basicResult": "action:defaultMagicalDamage(a, b)",
+              "successRate": "action:defaultSuccessRate(a, b)",
+              "heal": false,
+              "absorb": false
+            }
+          ],
+          "statusAdd": [],
+          "statusRemove": [],
+          "effectMask": {
+            "centerX": 1,
+            "centerY": 1,
+            "centerH": 1,
+            "grid": [
+              [
+                [
+                  true
+                ]
+              ]
+            ]
+          },
+          "castMask": {
+            "centerX": 1,
+            "centerY": 1,
+            "centerH": 1,
+            "grid": [
+              [
+                [
+                  true
+                ]
+              ]
+            ]
+          },
+          "name": "Blaze",
+          "tags": [
+            {
+              "key": "critical",
+              "value": ""
+            },
+            {
+              "key": "cast_far",
+              "value": "4"
+            },
+            {
+              "key": "cast_maxh",
+              "value": "4"
+            },
+            {
+              "key": "cast_minh",
+              "value": "-4"
+            }
+          ]
+        },
+        "id": 17,
+        "children": []
+      },
+      {
+        "data": {
+          "description": "Ice-elemental ranged magical attack.",
+          "icon": {
+            "id": 34,
+            "col": 1,
+            "row": 1
+          },
+          "script": "",
+          "type": 1,
+          "targetType": 2,
+          "restriction": 1,
+          "costs": [],
+          "elements": [
+            {
+              "id": 1,
+              "value": 100
+            },
+            {
+              "id": 6,
+              "value": 100
+            }
+          ],
+          "userElements": true,
+          "projectileID": -1,
+          "rotate": false,
+          "applyTransform": true,
+          "userLoadAnim": "",
+          "userCastAnim": "Skill1",
+          "stepOnCast": true,
+          "loadAnimID": -1,
+          "castAnimID": 111,
+          "individualAnimID": -1,
+          "mirror": true,
+          "introTime": "",
+          "castTime": "45",
+          "centerTime": "",
+          "targetTime": "",
+          "finishTime": "",
+          "damageAnim": true,
+          "effects": [
+            {
+              "key": "hp",
+              "basicResult": "action:defaultMagicalDamage(a, b)",
+              "successRate": "action:defaultSuccessRate(a, b)",
+              "heal": false,
+              "absorb": false
+            }
+          ],
+          "statusAdd": [],
+          "statusRemove": [],
+          "effectMask": {
+            "centerX": 1,
+            "centerY": 1,
+            "centerH": 1,
+            "grid": [
+              [
+                [
+                  true
+                ]
+              ]
+            ]
+          },
+          "castMask": {
+            "centerX": 1,
+            "centerY": 1,
+            "centerH": 1,
+            "grid": [
+              [
+                [
+                  true
+                ]
+              ]
+            ]
+          },
+          "name": "Frost",
+          "tags": [
+            {
+              "key": "critical",
+              "value": ""
+            },
+            {
+              "key": "cast_far",
+              "value": "4"
+            },
+            {
+              "key": "cast_maxh",
+              "value": "4"
+            },
+            {
+              "key": "cast_minh",
+              "value": "-4"
+            }
+          ]
+        },
+        "id": 19,
+        "children": []
+      },
+      {
+        "data": {
+          "description": "Thunder-elemental ranged magical attack.",
+          "icon": {
+            "id": 34,
+            "col": 1,
+            "row": 2
+          },
+          "script": "",
+          "type": 1,
+          "targetType": 2,
+          "restriction": 1,
+          "costs": [],
+          "elements": [
+            {
+              "id": 1,
+              "value": 100
+            },
+            {
+              "id": 7,
+              "value": 100
+            }
+          ],
+          "userElements": true,
+          "projectileID": -1,
+          "rotate": false,
+          "applyTransform": true,
+          "userLoadAnim": "",
+          "userCastAnim": "Skill1",
+          "stepOnCast": true,
+          "loadAnimID": -1,
+          "castAnimID": 112,
+          "individualAnimID": -1,
+          "mirror": true,
+          "introTime": "",
+          "castTime": "45",
+          "centerTime": "",
+          "targetTime": "",
+          "finishTime": "",
+          "damageAnim": true,
+          "effects": [
+            {
+              "key": "hp",
+              "basicResult": "action:defaultMagicalDamage(a, b)",
+              "successRate": "action:defaultSuccessRate(a, b)",
+              "heal": false,
+              "absorb": false
+            }
+          ],
+          "statusAdd": [],
+          "statusRemove": [],
+          "effectMask": {
+            "centerX": 1,
+            "centerY": 1,
+            "centerH": 1,
+            "grid": [
+              [
+                [
+                  true
+                ]
+              ]
+            ]
+          },
+          "castMask": {
+            "centerX": 1,
+            "centerY": 1,
+            "centerH": 1,
+            "grid": [
+              [
+                [
+                  true
+                ]
+              ]
+            ]
+          },
+          "name": "Bolt",
+          "tags": [
+            {
+              "key": "critical",
+              "value": ""
+            },
+            {
+              "key": "cast_far",
+              "value": "4"
+            },
+            {
+              "key": "cast_maxh",
+              "value": "4"
+            },
+            {
+              "key": "cast_minh",
+              "value": "-4"
+            }
+          ]
+        },
+        "id": 20,
+        "children": []
       }
     ]
   },
@@ -758,9 +1052,9 @@
     "data": {
       "description": "",
       "icon": {
-        "id": -1,
-        "col": 0,
-        "row": 0
+        "id": 34,
+        "col": 2,
+        "row": 1
       },
       "script": "",
       "type": 1,
@@ -861,7 +1155,7 @@
           "effects": [
             {
               "key": "hp",
-              "basicResult": "(a.atkm() * 2 - b.defm()) * rand(80, 120) / 100",
+              "basicResult": "a.dex() * 10",
               "successRate": "100",
               "heal": true,
               "absorb": false
@@ -1005,9 +1299,9 @@
     "data": {
       "description": "",
       "icon": {
-        "id": -1,
-        "col": 0,
-        "row": 0
+        "id": 34,
+        "col": 3,
+        "row": 1
       },
       "script": "",
       "type": 1,
@@ -1244,9 +1538,9 @@
     "data": {
       "description": "",
       "icon": {
-        "id": -1,
-        "col": 0,
-        "row": 0
+        "id": 77,
+        "col": 1,
+        "row": 6
       },
       "script": "",
       "type": 1,
@@ -1320,8 +1614,8 @@
         "data": {
           "description": "",
           "icon": {
-            "id": -1,
-            "col": 0,
+            "id": 34,
+            "col": 1,
             "row": 0
           },
           "script": "",
@@ -1355,8 +1649,8 @@
           "effects": [
             {
               "key": "hp",
-              "basicResult": "(a.atkp() * 2 - b.defp()) * rand(80, 120) / 100",
-              "successRate": "((a.prep() * 2 - b.evdp()) / b.evdp()) * 50",
+              "basicResult": "action:defaultPhysicalDamage(a, b)",
+              "successRate": "action:defaultSuccessRate(a, b)",
               "heal": false,
               "absorb": false
             }
@@ -1410,8 +1704,8 @@
         "data": {
           "description": "",
           "icon": {
-            "id": -1,
-            "col": 0,
+            "id": 34,
+            "col": 2,
             "row": 0
           },
           "script": "",
@@ -1445,8 +1739,8 @@
           "effects": [
             {
               "key": "hp",
-              "basicResult": "(a.atkp() * 2 - b.defp()) * rand(80, 120) / 100",
-              "successRate": "((a.prep() * 2 - b.evdp()) / b.evdp()) * 50",
+              "basicResult": "action:defaultPhysicalDamage(a, b)",
+              "successRate": "action:defaultSuccessRate(a, b)",
               "heal": false,
               "absorb": false
             }

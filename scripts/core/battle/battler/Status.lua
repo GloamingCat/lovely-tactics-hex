@@ -51,7 +51,7 @@ function Status:init(data, list, state)
     if b.type == 0 then
       self.elementDef[b.id] = b.value / 100 - 1
     elseif b.type == 1 then
-      self.elementAtk[b.id] = b.value / 100 - 1
+      self.elementAtk[b.id] = b.value / 100
     else
       self.elementBuff[b.id] = b.value / 100 - 1
     end

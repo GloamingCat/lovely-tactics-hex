@@ -67,7 +67,9 @@
             0,
             0
           ],
-          "skills": [],
+          "skills": [
+            7
+          ],
           "status": [],
           "elements": [],
           "items": [],
@@ -249,11 +251,11 @@
           "skills": [],
           "status": [],
           "elements": [
-			{
-				"id": 6,
-				"value": 200
-			}
-		  ],
+            {
+              "id": 6,
+              "value": 200
+            }
+          ],
           "items": [],
           "equip": [],
           "name": "Green Jelly",

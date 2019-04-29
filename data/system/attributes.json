@@ -1,34 +1,26 @@
 [
   {
-    "key": "str",
-    "shortName": "STR",
+    "key": "atk",
+    "shortName": "ATK",
     "script": "",
     "visibility": 1,
-    "name": "Strength",
+    "name": "Attack",
     "tags": []
   },
   {
-    "key": "mag",
-    "shortName": "MAG",
+    "key": "def",
+    "shortName": "DEF",
     "script": "",
     "visibility": 1,
-    "name": "Magic",
+    "name": "Defense",
     "tags": []
   },
   {
-    "key": "dex",
-    "shortName": "DEX",
+    "key": "spr",
+    "shortName": "SPR",
     "script": "",
     "visibility": 1,
-    "name": "Dexterity",
-    "tags": []
-  },
-  {
-    "key": "res",
-    "shortName": "RES",
-    "script": "",
-    "visibility": 1,
-    "name": "Resistance",
+    "name": "Spirit",
     "tags": []
   },
   {
@@ -40,10 +32,50 @@
     "tags": []
   },
   {
+    "key": "dex",
+    "shortName": "DEX",
+    "script": "",
+    "visibility": 1,
+    "name": "Dexterity",
+    "tags": []
+  },
+  {
+    "key": "hp",
+    "shortName": "MHP",
+    "script": "att.def() * 2 + att.spr() * 2",
+    "visibility": 2,
+    "name": "Health",
+    "tags": []
+  },
+  {
+    "key": "sp",
+    "shortName": "MSP",
+    "script": "att.spr() * 2 + att.dex() * 2",
+    "visibility": 2,
+    "name": "Skill",
+    "tags": []
+  },
+  {
+    "key": "pre",
+    "shortName": "PRE",
+    "script": "att.atk() * 2 + att.dex() * 2",
+    "visibility": 2,
+    "name": "Precision",
+    "tags": []
+  },
+  {
+    "key": "evd",
+    "shortName": "EVD",
+    "script": "att.agi() * 2 + att.dex() * 2",
+    "visibility": 2,
+    "name": "Evade",
+    "tags": []
+  },
+  {
     "key": "mov",
     "shortName": "MOV",
     "script": "",
-    "visibility": 1,
+    "visibility": 2,
     "name": "Movement",
     "tags": []
   },
@@ -51,95 +83,15 @@
     "key": "jmp",
     "shortName": "JMP",
     "script": "",
-    "visibility": 1,
+    "visibility": 2,
     "name": "Jump",
-    "tags": []
-  },
-  {
-    "key": "hp",
-    "shortName": "MHP",
-    "script": "att.str() * 2 + att.res() * 2",
-    "visibility": 1,
-    "name": "Health",
-    "tags": []
-  },
-  {
-    "key": "sp",
-    "shortName": "MSP",
-    "script": "att.mag() * 2 + att.dex() * 2",
-    "visibility": 1,
-    "name": "Skill",
-    "tags": []
-  },
-  {
-    "key": "atkp",
-    "shortName": "ATKP",
-    "script": "att.str() * 0.7 + att.dex() * 0.3",
-    "visibility": 2,
-    "name": "Physical Attack",
-    "tags": []
-  },
-  {
-    "key": "defp",
-    "shortName": "DEFP",
-    "script": "att.str() * 0.3 + att.res() * 0.7",
-    "visibility": 2,
-    "name": "Physical Defense",
-    "tags": []
-  },
-  {
-    "key": "atkm",
-    "shortName": "ATKM",
-    "script": "att.mag() * 0.5 + att.dex() * 0.5",
-    "visibility": 2,
-    "name": "Magical Attack",
-    "tags": []
-  },
-  {
-    "key": "defm",
-    "shortName": "DEFM",
-    "script": "att.mag() * 0.5 + att.res() * 0.5",
-    "visibility": 2,
-    "name": "Magical Defense",
-    "tags": []
-  },
-  {
-    "key": "prep",
-    "shortName": "PREP",
-    "script": "att.dex()",
-    "visibility": 2,
-    "name": "Physical Precision",
-    "tags": []
-  },
-  {
-    "key": "evdp",
-    "shortName": "EVDP",
-    "script": "att.agi() * 0.5 + att.dex() * 0.5",
-    "visibility": 2,
-    "name": "Physical Evade",
-    "tags": []
-  },
-  {
-    "key": "prem",
-    "shortName": "PREM",
-    "script": "att.mag() * 0.3 + att.dex() * 0.7",
-    "visibility": 2,
-    "name": "Magical Precision",
-    "tags": []
-  },
-  {
-    "key": "evdm",
-    "shortName": "EVDM",
-    "script": "att.agi() * 0.5 + att.mag() * 0.5",
-    "visibility": 2,
-    "name": "Magical Evade",
     "tags": []
   },
   {
     "key": "crit",
     "shortName": "CRIT",
-    "script": "att.prep() / 50 + 5",
-    "visibility": -1,
+    "script": "att.pre() / 50 + 5",
+    "visibility": 0,
     "name": "Critical",
     "tags": []
   }

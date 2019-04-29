@@ -1,64 +1,74 @@
 [
   {
+    "icon": {
+      "id": 34,
+      "col": 1,
+      "row": 0
+    },
     "name": "Physical",
-	"icon": {
-		"id": -1
-	},
     "tags": []
   },
   {
+    "icon": {
+      "id": 34,
+      "col": 0,
+      "row": 0
+    },
     "name": "Magical",
-	"icon": {
-		"id": -1
-	},
     "tags": []
   },
   {
+    "icon": {
+      "id": -1,
+      "col": 0,
+      "row": 0
+    },
     "name": "Human",
-	"icon": {
-		"id": -1
-	},
     "tags": []
   },
   {
+    "icon": {
+      "id": -1,
+      "col": 0,
+      "row": 0
+    },
     "name": "Beast",
-	"icon": {
-		"id": -1
-	},
     "tags": []
   },
   {
+    "icon": {
+      "id": -1,
+      "col": 0,
+      "row": 0
+    },
     "name": "Demon",
-	"icon": {
-		"id": -1
-	},
     "tags": []
   },
   {
+    "icon": {
+      "id": 34,
+      "col": 0,
+      "row": 1
+    },
     "name": "Fire",
-	"icon": {
-		"id": 34,
-		"col": 0,
-		"row": 1
-	},
     "tags": []
   },
   {
+    "icon": {
+      "id": 34,
+      "col": 1,
+      "row": 1
+    },
     "name": "Ice",
-	"icon": {
-		"id": 34,
-		"col": 1,
-		"row": 1
-	},
     "tags": []
   },
   {
+    "icon": {
+      "id": 34,
+      "col": 1,
+      "row": 2
+    },
     "name": "Thunder",
-	"icon": {
-		"id": 34,
-		"col": 1,
-		"row": 2
-	},
     "tags": []
   }
 ]

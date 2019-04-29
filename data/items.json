@@ -3,7 +3,7 @@
     "data": {
       "description": "",
       "icon": {
-        "id": -1,
+        "id": 36,
         "col": 0,
         "row": 0
       },
@@ -178,7 +178,7 @@
     "data": {
       "description": "",
       "icon": {
-        "id": -1,
+        "id": 33,
         "col": 0,
         "row": 0
       },
@@ -226,7 +226,7 @@
           "elements": [],
           "equipAttributes": [
             {
-              "key": "atkp",
+              "key": "atk",
               "add": 5,
               "mul": 0
             }
@@ -245,7 +245,7 @@
             "col": 0,
             "row": 0
           },
-          "price": 100,
+          "price": 200,
           "sellable": true,
           "skillID": -1,
           "consume": false,
@@ -261,7 +261,7 @@
           "elements": [],
           "equipAttributes": [
             {
-              "key": "defp",
+              "key": "def",
               "add": 10,
               "mul": 0
             }
@@ -296,7 +296,7 @@
           "elements": [],
           "equipAttributes": [
             {
-              "key": "defp",
+              "key": "def",
               "add": 5,
               "mul": 0
             }
@@ -331,7 +331,7 @@
           "elements": [],
           "equipAttributes": [
             {
-              "key": "defp",
+              "key": "def",
               "add": 5,
               "mul": 0
             }
@@ -369,13 +369,7 @@
             }
           ],
           "elements": [],
-          "equipAttributes": [
-            {
-              "key": "defp",
-              "add": 5,
-              "mul": 0
-            }
-          ],
+          "equipAttributes": [],
           "name": "Ribbon",
           "tags": []
         },

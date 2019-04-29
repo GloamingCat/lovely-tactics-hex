@@ -117,6 +117,29 @@ function SkillAction:addStatus(status, add)
       rate = loadformula(status[i].rate, 'action, a, b, rand') }
   end
 end
+-- Default basic result formula for physical attack skills.
+-- @param(a : table) Attributes of user battler.
+-- @param(b : table) Attributes of target battler.
+-- @ret(string) Damage formula.
+function SkillAction:defaultPhysicalDamage(a, b)
+  local rand = self.rand or random
+  return (a.atk() * 2 - b.def()) * rand(80, 120) / 100
+end
+-- Default basic result formula for magical attack skills.
+-- @param(a : table) Attributes of user battler.
+-- @param(b : table) Attributes of target battler.
+-- @ret(string) Damage formula.
+function SkillAction:defaultMagicalDamage(a, b)
+  local rand = self.rand or random
+  return (a.atk() * 2 - b.spr()) * rand(80, 120) / 100
+end
+-- Default success rate formula for attack skills.
+-- @param(a : table) Attributes of user battler.
+-- @param(b : table) Attributes of target battler.
+-- @ret(string) Success formula.
+function SkillAction:defaultSuccessRate(a, b)
+  return ((a.pre() * 2 - b.evd()) / b.evd()) * 50
+end
 
 ---------------------------------------------------------------------------------------------------
 -- Execution

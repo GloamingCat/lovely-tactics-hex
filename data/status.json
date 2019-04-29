@@ -141,6 +141,114 @@
         },
         "id": 1,
         "children": []
+      },
+      {
+        "data": {
+          "script": "",
+          "icon": {
+            "id": 34,
+            "col": 3,
+            "row": 1
+          },
+          "priority": 100,
+          "visible": true,
+          "cumulative": false,
+          "charAnim": "",
+          "transform": {
+            "offsetX": 0,
+            "offsetY": 0,
+            "offsetDepth": 0,
+            "scaleX": 100,
+            "scaleY": 100,
+            "rotation": 0,
+            "red": 255,
+            "green": 255,
+            "blue": 255,
+            "alpha": 255,
+            "hue": 0,
+            "saturation": 100,
+            "brightness": 100
+          },
+          "override": false,
+          "duration": -1,
+          "removeOnKO": true,
+          "removeOnDamage": true,
+          "battleOnly": true,
+          "deactivate": false,
+          "ko": false,
+          "behavior": [],
+          "drainAtt": "",
+          "drainValue": 0,
+          "percentage": true,
+          "attributes": [
+            {
+              "key": "atk",
+              "add": 0,
+              "mul": -50
+            }
+          ],
+          "elements": [],
+          "statusDef": [],
+          "cancel": [],
+          "name": "ATK-",
+          "tags": []
+        },
+        "id": 15,
+        "children": []
+      },
+      {
+        "data": {
+          "script": "",
+          "icon": {
+            "id": 34,
+            "col": 3,
+            "row": 1
+          },
+          "priority": 100,
+          "visible": true,
+          "cumulative": false,
+          "charAnim": "",
+          "transform": {
+            "offsetX": 0,
+            "offsetY": 0,
+            "offsetDepth": 0,
+            "scaleX": 100,
+            "scaleY": 100,
+            "rotation": 0,
+            "red": 255,
+            "green": 255,
+            "blue": 255,
+            "alpha": 255,
+            "hue": 0,
+            "saturation": 100,
+            "brightness": 100
+          },
+          "override": false,
+          "duration": -1,
+          "removeOnKO": true,
+          "removeOnDamage": true,
+          "battleOnly": true,
+          "deactivate": false,
+          "ko": false,
+          "behavior": [],
+          "drainAtt": "",
+          "drainValue": 0,
+          "percentage": true,
+          "attributes": [
+            {
+              "key": "def",
+              "add": 0,
+              "mul": -50
+            }
+          ],
+          "elements": [],
+          "statusDef": [],
+          "cancel": [],
+          "name": "DEF-",
+          "tags": []
+        },
+        "id": 16,
+        "children": []
       }
     ]
   },
@@ -300,8 +408,8 @@
           "script": "",
           "icon": {
             "id": 34,
-            "col": 1,
-            "row": 0
+            "col": 2,
+            "row": 1
           },
           "priority": 100,
           "visible": true,
@@ -354,8 +462,8 @@
           "script": "",
           "icon": {
             "id": 34,
-            "col": 1,
-            "row": 0
+            "col": 2,
+            "row": 1
           },
           "priority": 100,
           "visible": true,
@@ -554,7 +662,7 @@
             {
               "type": 0,
               "id": 6,
-              "value": 100
+              "value": 0
             },
             {
               "type": 1,
@@ -613,7 +721,7 @@
             {
               "type": 0,
               "id": 7,
-              "value": 100
+              "value": 0
             },
             {
               "type": 1,
@@ -672,7 +780,7 @@
             {
               "type": 2,
               "id": 5,
-              "value": 100
+              "value": 200
             }
           ],
           "statusDef": [],
@@ -726,7 +834,7 @@
             {
               "type": 2,
               "id": 6,
-              "value": 100
+              "value": 200
             }
           ],
           "statusDef": [],
@@ -780,7 +888,7 @@
             {
               "type": 2,
               "id": 7,
-              "value": 100
+              "value": 200
             }
           ],
           "statusDef": [],
