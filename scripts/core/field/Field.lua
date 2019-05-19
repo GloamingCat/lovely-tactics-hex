@@ -70,6 +70,14 @@ function Field:update()
     end
   end
 end
+-- Gets field prefs data that are saved.
+-- @ret(table)
+function Field:getPersistentData()
+  return {
+    images = FieldManager.renderer:getImageData(),
+    loadScript = self.loadScript
+  }
+end
 
 ---------------------------------------------------------------------------------------------------
 -- Object Tile Access

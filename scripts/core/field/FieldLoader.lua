@@ -30,17 +30,19 @@ function FieldLoader.loadField(id)
   local maxH = data.prefs.maxHeight
   local field = Field(data.id, data.prefs.name, data.sizeX, data.sizeY, maxH)
   field.persistent = data.prefs.persistent
+  field.save = data.prefs.persistent and SaveManager:getFieldData(id).prefs
+  local save = field.save or data.prefs
   field.tags = TagMap(data.prefs.tags)
   -- Script
-  local script = data.prefs.loadScript
+  local script = save.loadScript or data.prefs.loadScript
   if script and script.name ~= '' then
     field.loadScript = script
   end
   -- Battle info
-  field.playerParty = data.playerParty
-  field.parties = data.parties
+  field.playerParty = save.playerParty or data.playerParty
+  field.parties = save.parties or data.parties
   -- Default region
-  local defaultRegion = data.prefs.defaultRegion
+  local defaultRegion = save.defaultRegion or data.prefs.defaultRegion
   if defaultRegion and defaultRegion >= 0 then
     for i = 0, maxH do
       local layer = field.objectLayers[i]
@@ -93,7 +95,7 @@ function FieldLoader.loadCharacters(field, characters)
   for i, char in ipairs(characters) do
     local save = persistentData.chars[char.key]
     if not (save and save.deleted) then
-      if save and save.charID or char.charID then
+      if (save and save.charID or char.charID) >= 0 then
         Character(char, save)
       else
         Interactable(char, save)

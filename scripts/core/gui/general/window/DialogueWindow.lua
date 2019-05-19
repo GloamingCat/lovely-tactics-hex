@@ -39,12 +39,21 @@ local DialogueWindow = class(Window)
 -- @param(x : number) Pixel x of the window.
 -- @param(y : number) Pixel y of the window.
 function DialogueWindow:init(GUI, w, h, x, y)
+  self:initProperties()
   w = w or ScreenManager.width - GUI:windowMargin()
   h = h or ScreenManager.height / 4
   x = x or (w - ScreenManager.width) / 2 + GUI:windowMargin()
   y = y or (ScreenManager.height - h) / 2 - GUI:windowMargin()
-  self:initProperties()
   Window.init(self, GUI, w, h, Vector(x, y))
+end
+-- Sets window's properties.
+function DialogueWindow:initProperties()
+  self.textSpeed = 40
+  self.textSound = Sounds.text
+  self.soundFrequence = 4
+  self.align = 'left'
+  self.nameWidth = 80
+  self.nameHeight = 24
 end
 -- Overrides Window:createContent.
 -- Creates a simple text for dialogue.
@@ -54,15 +63,8 @@ function DialogueWindow:createContent(width, height)
   self.dialogue = SimpleText('', pos, width - self:paddingX() * 2, self.align, Fonts.gui_dialogue)
   self.dialogue.sprite.wrap = true
   self.content:add(self.dialogue)
-  self.nameWindow = DescriptionWindow(self.GUI, 80, 24)
+  self.nameWindow = DescriptionWindow(self.GUI, self.nameWidth, self.nameHeight)
   self.nameWindow:setVisible(false)
-end
--- Sets window's properties.
-function DialogueWindow:initProperties()
-  self.textSpeed = 40
-  self.textSound = Sounds.text
-  self.soundFrequence = 4
-  self.align = 'left'
 end
 
 ---------------------------------------------------------------------------------------------------

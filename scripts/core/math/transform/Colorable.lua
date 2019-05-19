@@ -87,7 +87,7 @@ end
 function Colorable:updateColor()
   if self.colorTime < 1 then
     self.colorTime = self.colorTime + self.colorSpeed * time()
-    if self.moveTime > 1 and self.cropColor then
+    if self.colorTime > 1 and self.cropColor then
       self.colorTime = 1
     end
     local r = self.origRed * (1 - self.colorTime) + self.destRed * self.colorTime
@@ -132,7 +132,8 @@ end
 -- @param(wait : boolean) flag to wait until the colorizing finishes (optional)
 function Colorable:gradualColorizeTo(r, g, b, a, speed, wait)
   self.origRed, self.origGreen, self.origBlue, self.origAlpha = self:getRGBA()
-  self.destRed, self.destGreen, self.destBlue, self.destAlpha = r, g, b, a
+  self.destRed, self.destGreen, self.destBlue, self.destAlpha = 
+    r or self.origRed, g or self.origGreen, b or self.origBlue, a or self.origAlpha
   self.colorTime = 0
   self.colorSpeed = speed
   if wait then

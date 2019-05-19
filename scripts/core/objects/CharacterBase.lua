@@ -99,9 +99,12 @@ function CharacterBase:update()
   Interactable.update(self)
 end
 -- Removes from draw and update list.
-function CharacterBase:destroy()
+function CharacterBase:destroy(permanent)
   if self.shadow then
     self.shadow:destroy()
+  end
+  if permanent then
+    self.deleted = true
   end
   FieldManager.characterList:removeElement(self)
   FieldManager.characterList[self.key] = false

@@ -50,10 +50,16 @@ end
 ---------------------------------------------------------------------------------------------------
 
 -- Overrides Movable:setXYZ.
--- Updates sprite position.
-function Object:setXYZ(x, y, z)
-  Transformable.setXYZ(self, x, y, z)
-  self.sprite:setXYZ(x, y, z)
+-- Updates sprite's position.
+function Object:setXYZ(...)
+  Transformable.setXYZ(self, ...)
+  self.sprite:setXYZ(...)
+end
+-- Overrides Colorable:setRGBA.
+-- Updates sprite's color.
+function Object:setRGBA(...)
+  Transformable.setRGBA(self, ...)
+  self.sprite:setRGBA(...)
 end
 
 ---------------------------------------------------------------------------------------------------

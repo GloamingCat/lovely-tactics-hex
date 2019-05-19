@@ -32,23 +32,28 @@ end
 -- Initializes field's foreground and background images.
 -- @param(field : Field) Current field.
 -- @param(images : table) Array of field's images.
-function FieldCamera:addImages(images)
-  local x, y = pixelCenter(FieldManager.currentField.sizeX, FieldManager.currentField.sizeY)
-  for _, data in ipairs(images) do
-    local sprite = ResourceManager:loadIcon(data, self)
-    sprite:setVisible(data.visible)
-    if data.foreground then
-      sprite:setXYZ(x, y, self.minDepth)
-    else
-      sprite:setXYZ(x, y, self.maxDepth)
-    end
-    sprite.glued = data.glued
-    self.images[data.name] = sprite
+function FieldCamera:initializeImages(images)
+  local save = FieldManager.currentField.save and FieldManager.currentField.save.images
+  for _, data in ipairs(save or images) do
+    self:addImage(data.name, data, data.foreground, data.visible, data.glued)
   end
 end
 
 ---------------------------------------------------------------------------------------------------
 -- General
+---------------------------------------------------------------------------------------------------
+
+-- Overrides Movable:updateMovement.
+function FieldCamera:updateMovement()
+  if self.focusObject then
+    self:setXYZ(self.focusObject.position.x, self.focusObject.position.y)
+  else
+    Renderer.updateMovement(self)
+  end
+end
+
+---------------------------------------------------------------------------------------------------
+-- Images
 ---------------------------------------------------------------------------------------------------
 
 -- Overrides Movable:setXYZ.
@@ -60,13 +65,41 @@ function FieldCamera:setXYZ(x, y, ...)
     end
   end
 end
--- Overrides Movable:updateMovement.
-function FieldCamera:updateMovement()
-  if self.focusObject then
-    self:setXYZ(self.focusObject.position.x, self.focusObject.position.y)
+-- Add a background or foreground image.
+-- @param(name : string) Image's identifier.
+-- @param(icon : data) Image's animation ID, column and row.
+-- @param(foreground : boolean) True if image appears above field, false if behind.
+-- @param(visible : boolean) True if initialize visible.
+-- @param(glued : boolean) True if image follows camera.
+-- @ret(Sprite) Sprite of new image.
+function FieldCamera:addImage(name, icon, foreground, visible, glued)
+  local sprite = ResourceManager:loadIcon(icon, self)
+  self.images[name] = sprite
+  sprite:setVisible(visible)
+  local field = FieldManager.currentField
+  if foreground then
+    sprite:setXYZ(field.centerX, field.centerY, self.minDepth)
   else
-    Renderer.updateMovement(self)
+    sprite:setXYZ(field.centerX, field.centerY, self.maxDepth)
   end
+  sprite.glued = glued
+  sprite.id, sprite.col, sprite.row = icon.id, icon.col, icon.row
+  return sprite
+end
+-- Gets the persistent data of each image.
+-- @ret(table) Array of data tables.
+function FieldCamera:getImageData()
+  local arr = {}
+  for k, v in pairs(self.images) do
+    arr[#arr + 1] = { name = k,
+      id = v.id,
+      col = v.col,
+      row = v.row,
+      glued = v.glued,
+      visible = v.visible,
+      foreground = v.position.z == self.minDepth }
+  end
+  return arr
 end
 
 ---------------------------------------------------------------------------------------------------

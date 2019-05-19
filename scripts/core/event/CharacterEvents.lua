@@ -24,12 +24,14 @@ function util.deleteChar(sheet, args)
   local char = sheet:findCharacter(args.key)
   if args.fade and args.fade > 0 then
     local speed = 255 / args.fade
-    char:colorizeTo(nil, nil, nil, 0, speed, args.wait)
+    char:colorizeTo(nil, nil, nil, 0, speed)
   end
-  if args.permanent then
-    char.deleted = true
+  if args.wait then
+    _G.Fiber:waitUntil(function()
+      return not char:colorizing()
+    end)
   end
-  char:destroy()
+  char:destroy(args.permanent)
 end
 
 ---------------------------------------------------------------------------------------------------

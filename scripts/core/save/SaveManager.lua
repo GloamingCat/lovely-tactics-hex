@@ -111,6 +111,7 @@ function SaveManager:storeFieldData(field)
       end
     end
     persistentData.vars = copyTable(field.vars)
+    persistentData.prefs = field:getPersistentData()
   end
 end
 -- Stores a character's information in the save data table.

@@ -63,17 +63,13 @@ function DialogueWindow:rollText(text)
   self.dialogue:updatePosition(self.position)
   DialogueWindow_rollText(self, text)
 end
--- Shows a dialogue in the given window.
--- @param(args.portrait : table) Character face.
--- @param(args.message : string) Dialogue text.
-function util.showDialogue(sheet, args)
-  assert(sheet.gui, 'You must open a GUI first.')
-  local window = sheet.gui.dialogues[args.id]
-  sheet.gui:setActiveWindow(window)
-  assert(window, 'You must open window ' .. args.id .. ' first.')
-  local speaker = args.name ~= '' and { name = args.name, 
-    x = args.nameX, y = args.nameY }
-  window:showDialogue(args.message, args.align, speaker)
+-- Override. Adjusts name window position.
+local DialogueWindow_setName = DialogueWindow.setName
+function DialogueWindow:setName(text, x, ...)
+  if self.indent then
+    x = self.indent - self.width / 2 + self.nameWidth / 2
+  end
+  DialogueWindow_setName(self, text, x, ...)
 end
 
 ---------------------------------------------------------------------------------------------------
