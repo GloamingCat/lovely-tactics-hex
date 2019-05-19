@@ -98,6 +98,7 @@ function FieldLoader.loadCharacters(field, characters)
       if (save and save.charID or char.charID) >= 0 then
         Character(char, save)
       else
+        char.passable = true
         Interactable(char, save)
       end
     end
@@ -112,25 +113,34 @@ end
 -- @param(field : Field) Current field.
 -- @param(transitions : table) Array of field's transitions.
 function FieldLoader.createTransitions(field, transitions)
-  for _, t in ipairs(transitions) do
+  field.transitions = {}
+  for i, t in ipairs(transitions) do
     local args = { fieldID = t.destination.fieldID,
       x = t.destination.x,
       y = t.destination.y,
       h = t.destination.h,
       direction = t.destination.direction,
       fade = t.fade }
-    local func = function(script)
-      if script.collider == script.player then
-        script:moveToField(args)
+    field.transitions[i] = args
+    if not t.noSource then
+      local func = function(script)
+        if script.collider == script.player then
+          script:moveToField(args)
+        end
       end
-    end
-    for x = t.tl.x, t.br.x do
-      for y = t.tl.y, t.br.y do
-        local script = { func = func, block = true, global = true }
-        local instData = { key = 'Transition',
-          x = x, y = y, h = t.tl.h,
-          collideScript = script }
-        Interactable(instData)
+      local script = { func = func, 
+        block = true, 
+        global = true,
+        transition = args }
+      for x = t.tl.x, t.br.x do
+        for y = t.tl.y, t.br.y do
+          for h = t.tl.h, t.br.h do
+            local instData = { key = 'Transition',
+              collideScript = script,
+              x = x, y = y, h = h }
+            Interactable(instData)
+          end
+        end
       end
     end
   end

@@ -151,13 +151,12 @@ function ObjectTile:collidesCharacter(char)
     return false
   else
     -- Normal characters.
-    if self.characterList.size > 1 then
-      return true
-    elseif self.characterList.size == 1 then
-      return self.characterList[1] ~= char
-    else
-      return false
+    for other in self.characterList:iterator() do
+      if other ~= char and not other.passable then
+        return true
+      end
     end
+    return false
   end
 end
 -- Checks if two characters in this tiles collide.

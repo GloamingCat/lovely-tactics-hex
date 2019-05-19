@@ -9,10 +9,12 @@ Functions that are loaded from the EventSheet.
 
 -- Imports
 local ChoiceWindow = require('core/gui/general/window/ChoiceWindow')
-local NumberWindow = require('core/gui/general/window/NumberWindow')
+local DescriptionWindow = require('core/gui/general/window/DescriptionWindow')
 local DialogueWindow = require('core/gui/general/window/DialogueWindow')
 local GUI = require('core/gui/GUI')
+local NumberWindow = require('core/gui/general/window/NumberWindow')
 local ShopGUI = require('core/gui/shop/ShopGUI')
+local Vector = require('core/math/Vector')
 
 local util = {}
 
@@ -38,6 +40,32 @@ end
 -- @param(args.sell : boolean) Sell enabling.
 function util.openShop(sheet, args)
   GUIManager:showGUIForResult(ShopGUI(args.items, args.sell))
+end
+
+---------------------------------------------------------------------------------------------------
+-- Title Window
+---------------------------------------------------------------------------------------------------
+
+function util.openTitleWindow(sheet, args)
+  openGUI(sheet)
+  local w = args.width or ScreenManager.width / 4
+  local h = args.height or 24
+  local x = args.x or 0
+  local y = args.y or -ScreenManager.height / 2 + h / 2 + 8
+  if sheet.gui.titleWindow then
+    sheet.gui.titleWindow:resize(w, h)
+    sheet.gui.titleWindow:setXYZ(x, y, 0)
+  else
+    sheet.gui.titleWindow = DescriptionWindow(sheet.gui, w, h, Vector(x, y, 0))
+    sheet.gui.titleWindow.text:setAlign('center')
+  end
+  sheet.gui.titleWindow:show()
+  sheet.gui.titleWindow:setText(args.text)
+end
+
+function util.closeTitleWindow(sheet, args)
+  assert(sheet.gui.titleWindow, 'Title windows is not open.')
+  sheet.gui.titleWindow:hide()
 end
 
 ---------------------------------------------------------------------------------------------------

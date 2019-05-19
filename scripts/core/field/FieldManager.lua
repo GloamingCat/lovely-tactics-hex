@@ -151,6 +151,7 @@ function FieldManager:loadTransition(transition, fromSave)
   for char in self.characterList:iterator() do
     char:onLoad()
   end
+  self.player:collideTile(self.player:getTile())
   self.player.fiberList:fork(self.player.fieldInputLoop, self.player)
   FieldLoader.createTransitions(self.currentField, fieldData.prefs.transitions)
   if fieldData.prefs.bgm and fieldData.prefs.bgm.name ~= '' then

@@ -297,6 +297,35 @@
         },
         "id": 7,
         "children": []
+      },
+      {
+        "data": {
+          "image": {
+            "id": 51,
+            "col": 0,
+            "row": 0
+          },
+          "transform": {
+            "offsetX": 0,
+            "offsetY": -8,
+            "offsetDepth": 8,
+            "scaleX": 100,
+            "scaleY": 100,
+            "rotation": 0,
+            "red": 255,
+            "green": 255,
+            "blue": 255,
+            "alpha": 255,
+            "hue": 0,
+            "saturation": 100,
+            "brightness": 100
+          },
+          "tiles": [],
+          "name": "Anti-Block",
+          "tags": []
+        },
+        "id": 47,
+        "children": []
       }
     ]
   },
@@ -537,7 +566,7 @@
         "brightness": 100
       },
       "tiles": [],
-      "name": "House",
+      "name": "House Wall",
       "tags": []
     },
     "id": 16,
@@ -1138,6 +1167,741 @@
           "tags": []
         },
         "id": 29,
+        "children": []
+      }
+    ]
+  },
+  {
+    "data": {
+      "image": {
+        "id": 48,
+        "col": 2,
+        "row": 2
+      },
+      "transform": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "offsetDepth": 0,
+        "scaleX": 100,
+        "scaleY": 100,
+        "rotation": 0,
+        "red": 255,
+        "green": 255,
+        "blue": 255,
+        "alpha": 255,
+        "hue": 0,
+        "saturation": 100,
+        "brightness": 100
+      },
+      "tiles": [],
+      "name": "House Other",
+      "tags": []
+    },
+    "id": 13,
+    "children": [
+      {
+        "data": {
+          "image": {
+            "id": 48,
+            "col": 6,
+            "row": 1
+          },
+          "transform": {
+            "offsetX": 0,
+            "offsetY": 0,
+            "offsetDepth": 0,
+            "scaleX": 100,
+            "scaleY": 100,
+            "rotation": 0,
+            "red": 255,
+            "green": 255,
+            "blue": 255,
+            "alpha": 255,
+            "hue": 0,
+            "saturation": 100,
+            "brightness": 100
+          },
+          "tiles": [],
+          "name": "Roof Window 1",
+          "tags": []
+        },
+        "id": 14,
+        "children": []
+      },
+      {
+        "data": {
+          "image": {
+            "id": 48,
+            "col": 6,
+            "row": 2
+          },
+          "transform": {
+            "offsetX": 0,
+            "offsetY": 0,
+            "offsetDepth": 0,
+            "scaleX": 100,
+            "scaleY": 100,
+            "rotation": 0,
+            "red": 255,
+            "green": 255,
+            "blue": 255,
+            "alpha": 255,
+            "hue": 0,
+            "saturation": 100,
+            "brightness": 100
+          },
+          "tiles": [],
+          "name": "Roof Window 2",
+          "tags": []
+        },
+        "id": 15,
+        "children": []
+      },
+      {
+        "data": {
+          "image": {
+            "id": 48,
+            "col": 6,
+            "row": 3
+          },
+          "transform": {
+            "offsetX": 0,
+            "offsetY": 0,
+            "offsetDepth": 0,
+            "scaleX": 100,
+            "scaleY": 100,
+            "rotation": 0,
+            "red": 255,
+            "green": 255,
+            "blue": 255,
+            "alpha": 255,
+            "hue": 0,
+            "saturation": 100,
+            "brightness": 100
+          },
+          "tiles": [
+            {
+              "neighbors": [
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false
+              ],
+              "ramp": false,
+              "dx": 0,
+              "dy": 0,
+              "height": 0
+            }
+          ],
+          "name": "Chimney",
+          "tags": []
+        },
+        "id": 30,
+        "children": []
+      },
+      {
+        "data": {
+          "image": {
+            "id": 48,
+            "col": 0,
+            "row": 2
+          },
+          "transform": {
+            "offsetX": 0,
+            "offsetY": 0,
+            "offsetDepth": 0,
+            "scaleX": 100,
+            "scaleY": 100,
+            "rotation": 0,
+            "red": 255,
+            "green": 255,
+            "blue": 255,
+            "alpha": 255,
+            "hue": 0,
+            "saturation": 100,
+            "brightness": 100
+          },
+          "tiles": [
+            {
+              "neighbors": [
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false
+              ],
+              "ramp": false,
+              "dx": 0,
+              "dy": 0,
+              "height": 0
+            }
+          ],
+          "name": "Door 1",
+          "tags": []
+        },
+        "id": 35,
+        "children": []
+      },
+      {
+        "data": {
+          "image": {
+            "id": 48,
+            "col": 1,
+            "row": 2
+          },
+          "transform": {
+            "offsetX": 0,
+            "offsetY": 0,
+            "offsetDepth": 0,
+            "scaleX": 100,
+            "scaleY": 100,
+            "rotation": 0,
+            "red": 255,
+            "green": 255,
+            "blue": 255,
+            "alpha": 255,
+            "hue": 0,
+            "saturation": 100,
+            "brightness": 100
+          },
+          "tiles": [
+            {
+              "neighbors": [
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false
+              ],
+              "ramp": false,
+              "dx": 0,
+              "dy": 0,
+              "height": 0
+            }
+          ],
+          "name": "Door 2",
+          "tags": []
+        },
+        "id": 36,
+        "children": []
+      },
+      {
+        "data": {
+          "image": {
+            "id": 48,
+            "col": 2,
+            "row": 2
+          },
+          "transform": {
+            "offsetX": 0,
+            "offsetY": 0,
+            "offsetDepth": 0,
+            "scaleX": 100,
+            "scaleY": 100,
+            "rotation": 0,
+            "red": 255,
+            "green": 255,
+            "blue": 255,
+            "alpha": 255,
+            "hue": 0,
+            "saturation": 100,
+            "brightness": 100
+          },
+          "tiles": [
+            {
+              "neighbors": [
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false
+              ],
+              "ramp": false,
+              "dx": 0,
+              "dy": 0,
+              "height": 0
+            }
+          ],
+          "name": "Open Window 1",
+          "tags": []
+        },
+        "id": 31,
+        "children": []
+      },
+      {
+        "data": {
+          "image": {
+            "id": 48,
+            "col": 3,
+            "row": 2
+          },
+          "transform": {
+            "offsetX": 0,
+            "offsetY": 0,
+            "offsetDepth": 0,
+            "scaleX": 100,
+            "scaleY": 100,
+            "rotation": 0,
+            "red": 255,
+            "green": 255,
+            "blue": 255,
+            "alpha": 255,
+            "hue": 0,
+            "saturation": 100,
+            "brightness": 100
+          },
+          "tiles": [
+            {
+              "neighbors": [
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false
+              ],
+              "ramp": false,
+              "dx": 0,
+              "dy": 0,
+              "height": 0
+            }
+          ],
+          "name": "Open Window 2",
+          "tags": []
+        },
+        "id": 32,
+        "children": []
+      },
+      {
+        "data": {
+          "image": {
+            "id": 48,
+            "col": 4,
+            "row": 2
+          },
+          "transform": {
+            "offsetX": 0,
+            "offsetY": 0,
+            "offsetDepth": 0,
+            "scaleX": 100,
+            "scaleY": 100,
+            "rotation": 0,
+            "red": 255,
+            "green": 255,
+            "blue": 255,
+            "alpha": 255,
+            "hue": 0,
+            "saturation": 100,
+            "brightness": 100
+          },
+          "tiles": [
+            {
+              "neighbors": [
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false
+              ],
+              "ramp": false,
+              "dx": 0,
+              "dy": 0,
+              "height": 0
+            }
+          ],
+          "name": "Closed Window 1",
+          "tags": []
+        },
+        "id": 33,
+        "children": []
+      },
+      {
+        "data": {
+          "image": {
+            "id": 48,
+            "col": 5,
+            "row": 2
+          },
+          "transform": {
+            "offsetX": 0,
+            "offsetY": 0,
+            "offsetDepth": 0,
+            "scaleX": 100,
+            "scaleY": 100,
+            "rotation": 0,
+            "red": 255,
+            "green": 255,
+            "blue": 255,
+            "alpha": 255,
+            "hue": 0,
+            "saturation": 100,
+            "brightness": 100
+          },
+          "tiles": [
+            {
+              "neighbors": [
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false
+              ],
+              "ramp": false,
+              "dx": 0,
+              "dy": 0,
+              "height": 0
+            }
+          ],
+          "name": "Closed Window 2",
+          "tags": []
+        },
+        "id": 34,
+        "children": []
+      },
+      {
+        "data": {
+          "image": {
+            "id": 48,
+            "col": 0,
+            "row": 3
+          },
+          "transform": {
+            "offsetX": 0,
+            "offsetY": 0,
+            "offsetDepth": 0,
+            "scaleX": 100,
+            "scaleY": 100,
+            "rotation": 0,
+            "red": 255,
+            "green": 255,
+            "blue": 255,
+            "alpha": 255,
+            "hue": 0,
+            "saturation": 100,
+            "brightness": 100
+          },
+          "tiles": [],
+          "name": "Pink Flowers 1",
+          "tags": []
+        },
+        "id": 37,
+        "children": []
+      },
+      {
+        "data": {
+          "image": {
+            "id": 48,
+            "col": 1,
+            "row": 3
+          },
+          "transform": {
+            "offsetX": 0,
+            "offsetY": 0,
+            "offsetDepth": 0,
+            "scaleX": 100,
+            "scaleY": 100,
+            "rotation": 0,
+            "red": 255,
+            "green": 255,
+            "blue": 255,
+            "alpha": 255,
+            "hue": 0,
+            "saturation": 100,
+            "brightness": 100
+          },
+          "tiles": [],
+          "name": "Pink Flowers 1",
+          "tags": []
+        },
+        "id": 38,
+        "children": []
+      },
+      {
+        "data": {
+          "image": {
+            "id": 48,
+            "col": 2,
+            "row": 3
+          },
+          "transform": {
+            "offsetX": 0,
+            "offsetY": 0,
+            "offsetDepth": 0,
+            "scaleX": 100,
+            "scaleY": 100,
+            "rotation": 0,
+            "red": 255,
+            "green": 255,
+            "blue": 255,
+            "alpha": 255,
+            "hue": 0,
+            "saturation": 100,
+            "brightness": 100
+          },
+          "tiles": [],
+          "name": "Yellow Flowers 1",
+          "tags": []
+        },
+        "id": 39,
+        "children": []
+      },
+      {
+        "data": {
+          "image": {
+            "id": 48,
+            "col": 3,
+            "row": 3
+          },
+          "transform": {
+            "offsetX": 0,
+            "offsetY": 0,
+            "offsetDepth": 0,
+            "scaleX": 100,
+            "scaleY": 100,
+            "rotation": 0,
+            "red": 255,
+            "green": 255,
+            "blue": 255,
+            "alpha": 255,
+            "hue": 0,
+            "saturation": 100,
+            "brightness": 100
+          },
+          "tiles": [],
+          "name": "Yellow Flowers 2",
+          "tags": []
+        },
+        "id": 40,
+        "children": []
+      },
+      {
+        "data": {
+          "image": {
+            "id": 48,
+            "col": 4,
+            "row": 3
+          },
+          "transform": {
+            "offsetX": 0,
+            "offsetY": 0,
+            "offsetDepth": 0,
+            "scaleX": 100,
+            "scaleY": 100,
+            "rotation": 0,
+            "red": 255,
+            "green": 255,
+            "blue": 255,
+            "alpha": 255,
+            "hue": 0,
+            "saturation": 100,
+            "brightness": 100
+          },
+          "tiles": [],
+          "name": "Blue Flowers 1",
+          "tags": []
+        },
+        "id": 41,
+        "children": []
+      },
+      {
+        "data": {
+          "image": {
+            "id": 48,
+            "col": 5,
+            "row": 3
+          },
+          "transform": {
+            "offsetX": 0,
+            "offsetY": 0,
+            "offsetDepth": 0,
+            "scaleX": 100,
+            "scaleY": 100,
+            "rotation": 0,
+            "red": 255,
+            "green": 255,
+            "blue": 255,
+            "alpha": 255,
+            "hue": 0,
+            "saturation": 100,
+            "brightness": 100
+          },
+          "tiles": [],
+          "name": "Blue Flowers 2",
+          "tags": []
+        },
+        "id": 42,
+        "children": []
+      }
+    ]
+  },
+  {
+    "data": {
+      "image": {
+        "id": 36,
+        "col": 3,
+        "row": 1
+      },
+      "transform": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "offsetDepth": 0,
+        "scaleX": 100,
+        "scaleY": 100,
+        "rotation": 0,
+        "red": 255,
+        "green": 255,
+        "blue": 255,
+        "alpha": 255,
+        "hue": 0,
+        "saturation": 100,
+        "brightness": 100
+      },
+      "tiles": [],
+      "name": "World",
+      "tags": []
+    },
+    "id": 43,
+    "children": [
+      {
+        "data": {
+          "image": {
+            "id": 31,
+            "col": 0,
+            "row": 0
+          },
+          "transform": {
+            "offsetX": 0,
+            "offsetY": 0,
+            "offsetDepth": 2,
+            "scaleX": 100,
+            "scaleY": 100,
+            "rotation": 0,
+            "red": 255,
+            "green": 255,
+            "blue": 255,
+            "alpha": 255,
+            "hue": 0,
+            "saturation": 100,
+            "brightness": 100
+          },
+          "tiles": [
+            {
+              "neighbors": [
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false
+              ],
+              "ramp": false,
+              "dx": 0,
+              "dy": 0,
+              "height": 0
+            }
+          ],
+          "name": "Forest",
+          "tags": []
+        },
+        "id": 44,
+        "children": []
+      },
+      {
+        "data": {
+          "image": {
+            "id": 127,
+            "col": 0,
+            "row": 0
+          },
+          "transform": {
+            "offsetX": 0,
+            "offsetY": 0,
+            "offsetDepth": 2,
+            "scaleX": 100,
+            "scaleY": 100,
+            "rotation": 0,
+            "red": 255,
+            "green": 255,
+            "blue": 255,
+            "alpha": 255,
+            "hue": 0,
+            "saturation": 100,
+            "brightness": 100
+          },
+          "tiles": [
+            {
+              "neighbors": [
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false
+              ],
+              "ramp": false,
+              "dx": 0,
+              "dy": 0,
+              "height": 0
+            }
+          ],
+          "name": "Mountains",
+          "tags": []
+        },
+        "id": 45,
+        "children": []
+      },
+      {
+        "data": {
+          "image": {
+            "id": 128,
+            "col": 0,
+            "row": 0
+          },
+          "transform": {
+            "offsetX": 0,
+            "offsetY": 0,
+            "offsetDepth": 2,
+            "scaleX": 100,
+            "scaleY": 100,
+            "rotation": 0,
+            "red": 255,
+            "green": 255,
+            "blue": 255,
+            "alpha": 255,
+            "hue": 0,
+            "saturation": 100,
+            "brightness": 100
+          },
+          "tiles": [],
+          "name": "Town",
+          "tags": []
+        },
+        "id": 46,
         "children": []
       }
     ]

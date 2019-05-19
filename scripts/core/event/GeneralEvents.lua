@@ -29,7 +29,7 @@ local Event = {}
 function Event:moveToField(args)
   local fade = args.fade and {time = args.fade, wait = true}
   if fade then
-    if self.tile then
+    if self.tile and self.tile ~= self.player:getTile() then
       self.root:fork(function()
         -- Character
         if self.player.autoTurn then

@@ -244,7 +244,7 @@
             "width": 960,
             "height": 1152
           },
-          "rows": 4,
+          "rows": 6,
           "cols": 5,
           "transform": {
             "offsetX": 96,
@@ -289,7 +289,7 @@
             "width": 960,
             "height": 1152
           },
-          "rows": 4,
+          "rows": 6,
           "cols": 5,
           "transform": {
             "offsetX": 96,
@@ -1422,15 +1422,15 @@
               "script": "",
               "quad": {
                 "path": "Portrait/Tum-Tum.png",
-                "x": 50,
+                "x": 40,
                 "y": 5,
-                "width": 160,
+                "width": 180,
                 "height": 220
               },
               "rows": 1,
               "cols": 1,
               "transform": {
-                "offsetX": 10,
+                "offsetX": 0,
                 "offsetY": 0,
                 "offsetDepth": 0,
                 "scaleX": 50,
@@ -1575,15 +1575,15 @@
               "script": "",
               "quad": {
                 "path": "Portrait/Cat Folk.png",
-                "x": 52,
+                "x": 40,
                 "y": 31,
-                "width": 156,
+                "width": 180,
                 "height": 180
               },
               "rows": 1,
               "cols": 1,
               "transform": {
-                "offsetX": 6,
+                "offsetX": 0,
                 "offsetY": 0,
                 "offsetDepth": 0,
                 "scaleX": 50,
@@ -2599,6 +2599,159 @@
               "tags": []
             },
             "id": 48,
+            "children": []
+          }
+        ]
+      },
+      {
+        "data": {
+          "script": "",
+          "quad": {
+            "path": "Obstacle/World.png",
+            "x": 0,
+            "y": 0,
+            "width": 36,
+            "height": 26
+          },
+          "rows": 1,
+          "cols": 1,
+          "transform": {
+            "offsetX": 18,
+            "offsetY": 16,
+            "offsetDepth": 0,
+            "scaleX": 100,
+            "scaleY": 100,
+            "rotation": 0,
+            "red": 255,
+            "green": 255,
+            "blue": 255,
+            "alpha": 255,
+            "hue": 0,
+            "saturation": 100,
+            "brightness": 100
+          },
+          "introPattern": "",
+          "introDuration": "",
+          "loopPattern": "",
+          "loopDuration": "",
+          "audio": [],
+          "name": "World",
+          "tags": []
+        },
+        "id": 30,
+        "children": [
+          {
+            "data": {
+              "script": "",
+              "quad": {
+                "path": "Obstacle/World.png",
+                "x": 0,
+                "y": 0,
+                "width": 36,
+                "height": 26
+              },
+              "rows": 1,
+              "cols": 1,
+              "transform": {
+                "offsetX": 18,
+                "offsetY": 16,
+                "offsetDepth": 0,
+                "scaleX": 100,
+                "scaleY": 100,
+                "rotation": 0,
+                "red": 255,
+                "green": 255,
+                "blue": 255,
+                "alpha": 255,
+                "hue": 0,
+                "saturation": 100,
+                "brightness": 100
+              },
+              "introPattern": "",
+              "introDuration": "",
+              "loopPattern": "",
+              "loopDuration": "",
+              "audio": [],
+              "name": "Forest",
+              "tags": []
+            },
+            "id": 31,
+            "children": []
+          },
+          {
+            "data": {
+              "script": "",
+              "quad": {
+                "path": "Obstacle/World.png",
+                "x": 0,
+                "y": 26,
+                "width": 36,
+                "height": 28
+              },
+              "rows": 1,
+              "cols": 1,
+              "transform": {
+                "offsetX": 18,
+                "offsetY": 17,
+                "offsetDepth": 0,
+                "scaleX": 100,
+                "scaleY": 100,
+                "rotation": 0,
+                "red": 255,
+                "green": 255,
+                "blue": 255,
+                "alpha": 255,
+                "hue": 0,
+                "saturation": 100,
+                "brightness": 100
+              },
+              "introPattern": "",
+              "introDuration": "",
+              "loopPattern": "",
+              "loopDuration": "",
+              "audio": [],
+              "name": "Mountains",
+              "tags": []
+            },
+            "id": 127,
+            "children": []
+          },
+          {
+            "data": {
+              "script": "",
+              "quad": {
+                "path": "Obstacle/World.png",
+                "x": 0,
+                "y": 53,
+                "width": 36,
+                "height": 22
+              },
+              "rows": 1,
+              "cols": 1,
+              "transform": {
+                "offsetX": 18,
+                "offsetY": 11,
+                "offsetDepth": 0,
+                "scaleX": 100,
+                "scaleY": 100,
+                "rotation": 0,
+                "red": 255,
+                "green": 255,
+                "blue": 255,
+                "alpha": 255,
+                "hue": 0,
+                "saturation": 100,
+                "brightness": 100
+              },
+              "introPattern": "",
+              "introDuration": "",
+              "loopPattern": "",
+              "loopDuration": "",
+              "audio": [],
+              "name": "Town",
+              "tags": []
+            },
+            "id": 128,
             "children": []
           }
         ]
@@ -4527,7 +4680,7 @@
         "data": {
           "script": "",
           "quad": {
-            "path": "Character/Template/Default.png",
+            "path": "Character/Cat/Chita.png",
             "x": 24,
             "y": 192,
             "width": 24,
@@ -4564,7 +4717,7 @@
             "data": {
               "script": "",
               "quad": {
-                "path": "Character/Cat/Default.png",
+                "path": "Character/Cat/Chita.png",
                 "x": 24,
                 "y": 0,
                 "width": 24,
@@ -4602,7 +4755,7 @@
             "data": {
               "script": "",
               "quad": {
-                "path": "Character/Cat/Default.png",
+                "path": "Character/Cat/Chita.png",
                 "x": 0,
                 "y": 0,
                 "width": 72,
@@ -4640,7 +4793,7 @@
             "data": {
               "script": "",
               "quad": {
-                "path": "Character/Cat/Default.png",
+                "path": "Character/Cat/Chita.png",
                 "x": 0,
                 "y": 0,
                 "width": 72,
@@ -4672,6 +4825,159 @@
               "tags": []
             },
             "id": 118,
+            "children": []
+          }
+        ]
+      },
+      {
+        "data": {
+          "script": "",
+          "quad": {
+            "path": "Character/Cat/Heron.png",
+            "x": 24,
+            "y": 192,
+            "width": 24,
+            "height": 32
+          },
+          "rows": 1,
+          "cols": 1,
+          "transform": {
+            "offsetX": 0,
+            "offsetY": 0,
+            "offsetDepth": 0,
+            "scaleX": 100,
+            "scaleY": 100,
+            "rotation": 0,
+            "red": 255,
+            "green": 255,
+            "blue": 255,
+            "alpha": 255,
+            "hue": 0,
+            "saturation": 100,
+            "brightness": 100
+          },
+          "introPattern": "",
+          "introDuration": "",
+          "loopPattern": "",
+          "loopDuration": "",
+          "audio": [],
+          "name": "Cat2",
+          "tags": []
+        },
+        "id": 130,
+        "children": [
+          {
+            "data": {
+              "script": "",
+              "quad": {
+                "path": "Character/Cat/Heron.png",
+                "x": 24,
+                "y": 0,
+                "width": 24,
+                "height": 256
+              },
+              "rows": 8,
+              "cols": 1,
+              "transform": {
+                "offsetX": 12,
+                "offsetY": 30,
+                "offsetDepth": 0,
+                "scaleX": 100,
+                "scaleY": 100,
+                "rotation": 0,
+                "red": 255,
+                "green": 255,
+                "blue": 255,
+                "alpha": 255,
+                "hue": 0,
+                "saturation": 100,
+                "brightness": 100
+              },
+              "introPattern": "",
+              "introDuration": "",
+              "loopPattern": "",
+              "loopDuration": "",
+              "audio": [],
+              "name": "Idle",
+              "tags": []
+            },
+            "id": 131,
+            "children": []
+          },
+          {
+            "data": {
+              "script": "",
+              "quad": {
+                "path": "Character/Cat/Heron.png",
+                "x": 0,
+                "y": 0,
+                "width": 72,
+                "height": 256
+              },
+              "rows": 8,
+              "cols": 3,
+              "transform": {
+                "offsetX": 12,
+                "offsetY": 30,
+                "offsetDepth": 0,
+                "scaleX": 100,
+                "scaleY": 100,
+                "rotation": 0,
+                "red": 255,
+                "green": 255,
+                "blue": 255,
+                "alpha": 255,
+                "hue": 0,
+                "saturation": 100,
+                "brightness": 100
+              },
+              "introPattern": "",
+              "introDuration": "",
+              "loopPattern": "0 1 2 1",
+              "loopDuration": "28",
+              "audio": [],
+              "name": "Walk",
+              "tags": []
+            },
+            "id": 132,
+            "children": []
+          },
+          {
+            "data": {
+              "script": "",
+              "quad": {
+                "path": "Character/Cat/Heron.png",
+                "x": 0,
+                "y": 0,
+                "width": 72,
+                "height": 256
+              },
+              "rows": 8,
+              "cols": 3,
+              "transform": {
+                "offsetX": 12,
+                "offsetY": 30,
+                "offsetDepth": 0,
+                "scaleX": 100,
+                "scaleY": 100,
+                "rotation": 0,
+                "red": 255,
+                "green": 255,
+                "blue": 255,
+                "alpha": 255,
+                "hue": 0,
+                "saturation": 100,
+                "brightness": 100
+              },
+              "introPattern": "",
+              "introDuration": "",
+              "loopPattern": "0 1 2 1",
+              "loopDuration": "21",
+              "audio": [],
+              "name": "Dash",
+              "tags": []
+            },
+            "id": 133,
             "children": []
           }
         ]
@@ -4865,6 +5171,44 @@
           "tags": []
         },
         "id": 110,
+        "children": []
+      },
+      {
+        "data": {
+          "script": "",
+          "quad": {
+            "path": "Background/Sky.png",
+            "x": 0,
+            "y": 0,
+            "width": 400,
+            "height": 225
+          },
+          "rows": 1,
+          "cols": 1,
+          "transform": {
+            "offsetX": 200,
+            "offsetY": 112,
+            "offsetDepth": 0,
+            "scaleX": 100,
+            "scaleY": 100,
+            "rotation": 0,
+            "red": 255,
+            "green": 255,
+            "blue": 255,
+            "alpha": 255,
+            "hue": 0,
+            "saturation": 100,
+            "brightness": 100
+          },
+          "introPattern": "",
+          "introDuration": "",
+          "loopPattern": "",
+          "loopDuration": "",
+          "audio": [],
+          "name": "Sky",
+          "tags": []
+        },
+        "id": 129,
         "children": []
       }
     ]
