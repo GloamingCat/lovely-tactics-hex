@@ -33,11 +33,11 @@ local Troop = class()
 -- @param(data : table) troop's data from database
 -- @param(party : number) the number of the field party spot this troops was spawned in
 function Troop:init(data, party)
-  data = data or Database.troops[SaveManager.current.playerTroopID]
+  data = data or Database.troops[TroopManager.playerTroopID]
   self.data = data
   self.party = party
   self.tags = TagMap(data.tags)
-  local save = SaveManager.current.troops[data.id .. ''] or data
+  local save = TroopManager.troopData[data.id .. ''] or data
   self.save = save
   self.inventory = Inventory(save.items)
   self.money = save.money
@@ -225,14 +225,9 @@ end
 -- Persistent Data
 ---------------------------------------------------------------------------------------------------
 
--- Stores this troop in the current save.
--- @param(saveFormation : boolean) true to save modified grid formation (optional)
-function Troop:storeSave(saveFormation)
-  SaveManager.current.troops[self.data.id .. ''] = self:createPersistentData(saveFormation)
-end
 -- Creates the table to represent troop's persistent data.
--- @param(saveFormation : boolean) true to save modified grid formation (optional)
--- @ret(table)
+-- @param(saveFormation : boolean) True to save modified grid formation (optional).
+-- @ret(table) Table with persistent data.
 function Troop:createPersistentData(saveFormation)
   if not self.data.persistent then
     return nil

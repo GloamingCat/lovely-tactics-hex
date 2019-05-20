@@ -36,7 +36,7 @@ function Player:init(initTile, dir)
   self.varFreq = 0.1
   self.varPitch = 0.1
   self.varVolume = 0.2
-  local troopData = Database.troops[SaveManager.current.playerTroopID]
+  local troopData = Database.troops[TroopManager.playerTroopID]
   local leader = troopData.members[1]
   local data = {
     id = -1,
@@ -83,7 +83,7 @@ function Player:checkFieldInput()
   else
     local dx, dy, move = self:inputAxis()
     local dash = InputManager.keys['dash']:isPressing()
-    local auto = SaveManager.config.autoDash
+    local auto = InputManager.autoDash
     if auto and not dash or not auto and dash then
       self.speed = self.dashSpeed
     else

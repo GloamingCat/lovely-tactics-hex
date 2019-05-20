@@ -40,7 +40,7 @@ function FieldCommandWindow:titleConfirm()
 end
 -- When player chooses to shut the game down.
 function FieldCommandWindow:closeConfirm()
-  GameManager:close()
+  GameManager:quit()
 end
 
 ---------------------------------------------------------------------------------------------------

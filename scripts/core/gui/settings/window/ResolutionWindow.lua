@@ -19,6 +19,7 @@ local ResolutionWindow = class(GridWindow)
 
 -- Implements GridWindow:createWidgets.
 function ResolutionWindow:createWidgets()
+  Button:fromKey(self, 'resolution1')
   Button:fromKey(self, 'resolution2')
   Button:fromKey(self, 'resolution3')
   Button:fromKey(self, 'fullScreen')
@@ -30,13 +31,7 @@ end
 
 -- Chooses new resolution.
 function ResolutionWindow:onButtonConfirm(button)
-  local scale = button.index + 1
-  SaveManager.config.resolution = scale
-  if scale == 4 then
-    ScreenManager:setFullscreen()
-  else
-    ScreenManager:setScale(scale, scale)
-  end
+  ScreenManager:setMode( button.index)
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -49,7 +44,7 @@ function ResolutionWindow:colCount()
 end
 -- Overrides GridWindow:rowCount.
 function ResolutionWindow:rowCount()
-  return 3
+  return 4
 end
 -- @ret(string) String representation (for debugging).
 function ResolutionWindow:__tostring()

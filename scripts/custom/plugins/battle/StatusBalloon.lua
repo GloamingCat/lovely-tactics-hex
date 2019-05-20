@@ -131,8 +131,8 @@ function CharacterBase:update()
 end
 -- Override. Destroys balloon with characters is destroyed.
 local CharacterBase_destroy = CharacterBase.destroy
-function CharacterBase:destroy()
-  CharacterBase_destroy(self)
+function CharacterBase:destroy(...)
+  CharacterBase_destroy(self, ...)
   if self.balloon then
     self.balloon:destroy()
   end

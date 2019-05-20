@@ -21,14 +21,13 @@ local SettingsWindow = class(GridWindow)
 
 -- Implements GridWindow:createWidgets.
 function SettingsWindow:createWidgets()
-  local conf = SaveManager.config
-  HSpinnerButton:fromKey(self, 'volumeBGM', 0, 100, conf.volumeBGM).bigIncrement = 10
-  HSpinnerButton:fromKey(self, 'volumeSFX', 0, 100, conf.volumeSFX).bigIncrement = 10
-  HSpinnerButton:fromKey(self, 'windowScroll', 10, 100, conf.windowScroll).bigIncrement = 10
-  HSpinnerButton:fromKey(self, 'fieldScroll', 10, 100, conf.fieldScroll).bigIncrement = 10
-  SwitchButton:fromKey(self, 'autoDash', conf.autoDash)
-  SwitchButton:fromKey(self, 'useMouse', conf.useMouse)
-  SwitchButton:fromKey(self, 'wasd', conf.wasd)
+  HSpinnerButton:fromKey(self, 'volumeBGM', 0, 100, AudioManager.volumeBGM).bigIncrement = 10
+  HSpinnerButton:fromKey(self, 'volumeSFX', 0, 100, AudioManager.volumeSFX).bigIncrement = 10
+  HSpinnerButton:fromKey(self, 'windowScroll', 10, 100, GUIManager.windowScroll).bigIncrement = 10
+  HSpinnerButton:fromKey(self, 'fieldScroll', 10, 100, GUIManager.fieldScroll).bigIncrement = 10
+  SwitchButton:fromKey(self, 'autoDash', InputManager.autoDash)
+  SwitchButton:fromKey(self, 'useMouse', InputManager.mouseEnabled)
+  SwitchButton:fromKey(self, 'wasd', InputManager.wasd)
   Button:fromKey(self, 'keys').text:setAlign('center')
   Button:fromKey(self, 'resolution').text:setAlign('center')
 end
@@ -39,21 +38,19 @@ end
 
 -- Change the BGM volume.
 function SettingsWindow:volumeBGMChange(spinner)
-  SaveManager.config.volumeBGM = spinner.value
   AudioManager:setBGMVolume(spinner.value)
 end
 -- Change the SFX volume.
 function SettingsWindow:volumeSFXChange(spinner)
-  SaveManager.config.volumeSFX = spinner.value
   AudioManager:setSFXVolume(spinner.value)
 end
 -- Change window scroll speed.
 function SettingsWindow:windowScrollChange(spinner)
-  SaveManager.config.windowScroll = spinner.value
+  GUIManager.windowScroll = spinner.value
 end
 -- Change field scroll speed.
 function SettingsWindow:fieldScrollChange(spinner)
-  SaveManager.config.fieldScroll = spinner.value
+  GUIManager.fieldScroll = spinner.value
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -62,11 +59,10 @@ end
 
 -- Change auto dash option.
 function SettingsWindow:autoDashChange(button)
-  SaveManager.config.autoDash = button.value
+  InputManager.autoDash = button.value
 end
 -- Change mouse enabled option.
 function SettingsWindow:useMouseChange(button)
-  SaveManager.config.useMouse = button.value
   InputManager.mouseEnabled = button.value
   if not button.value then
     InputManager.mouse:hide()
@@ -77,7 +73,6 @@ function SettingsWindow:useMouseChange(button)
 end
 -- Change WASD enabled.
 function SettingsWindow:wasdChange(button)
-  SaveManager.config.wasd = button.value
   InputManager:setArrowMap(button.value)
 end
 -- Checks if any direction key is already in use.

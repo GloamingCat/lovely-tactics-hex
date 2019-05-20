@@ -34,7 +34,6 @@ function Field:init(id, name, sizeX, sizeY, maxH)
   self.name = name
   self.sizeX = sizeX
   self.sizeY = sizeY
-  self.vars = {}
   self.terrainLayers = {}
   self.objectLayers = {}
   for i = 1, maxH do
@@ -75,8 +74,8 @@ end
 function Field:getPersistentData()
   return {
     images = FieldManager.renderer:getImageData(),
-    loadScript = self.loadScript
-  }
+    loadScript = self.loadScript,
+    vars = self.vars }
 end
 
 ---------------------------------------------------------------------------------------------------

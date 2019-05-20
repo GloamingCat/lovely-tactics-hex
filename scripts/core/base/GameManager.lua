@@ -10,8 +10,10 @@ Handles basic game flow.
 -- Imports
 local TitleGUI = require('core/gui/start/TitleGUI')
 
--- Constants
+-- Alias
+local copyTable = util.table.deepCopy
 local framerate = Config.screen.fpsLimit
+local now = love.timer.getTime
 
 local GameManager = class()
 
@@ -26,6 +28,7 @@ function GameManager:init()
   self.cleanCount = 0
   self.startedProfi = false
   self.frame = 0
+  self.playTime = 0
   self.garbage = setmetatable({}, {__mode = 'v'})
   --PROFI = require('core/base/ProFi')
   --require('core/base/Stats').printStats()
@@ -38,19 +41,27 @@ function GameManager:start(arg)
     GUIManager:showGUIForResult(TitleGUI())
   end)
 end
+-- Sets current save.
+function GameManager:setSave(save)
+  self.playTime = save.playTime
+  self.vars = copyTable(save.vars)
+  TroopManager.troopData = copyTable(save.troops)
+  TroopManager.playerTroopID = save.playerTroopID
+  FieldManager.fieldData = copyTable(save.fields)
+  FieldManager:loadTransition(save.playerTransition)
+end
 -- Sets the system config.
 -- @param(config : table)
 function GameManager:setConfig(config)
   AudioManager:setBGMVolume(config.volumeBGM)
   AudioManager:setSFXVolume(config.volumeSFX)
+  GUIManager.fieldScroll = config.fieldScroll
+  GUIManager.windowScroll = config.windowScroll
+  InputManager.autoDash = config.autoDash
   InputManager.mouseEnabled = config.useMouse
   InputManager:setArrowMap(config.wasd)
-  InputManager:setKeyMap(config.keyMap or KeyMap)
-  if config.resolution == 4 then
-    ScreenManager:setFullScreen()
-  else
-    ScreenManager:setScale(config.resolution, config.resolution)
-  end
+  InputManager:setKeyMap(config.keyMap)
+  ScreenManager:setMode(config.resolution)
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -151,6 +162,15 @@ function GameManager:setPaused(paused, audio, input)
   if input then
     InputManager:setPaused(paused)
   end
+  if paused then
+    self.playTime = self:currentPlayTime()
+  end
+  SaveManager.loadTime = now()
+end
+-- Gets the current total play time.
+-- @ret(number) The time in seconds.
+function GameManager:currentPlayTime()
+  return self.playTime + (now() - SaveManager.loadTime)
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -166,7 +186,7 @@ function GameManager:restart()
   self:start()
 end
 -- Closes game.
-function GameManager:close()
+function GameManager:quit()
   if _G.Fiber then
     _G.Fiber:wait(15)
   end

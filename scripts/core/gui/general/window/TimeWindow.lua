@@ -49,7 +49,7 @@ end
 function TimeWindow:update()
   Window.update(self)
   if self.open then
-    self:setTime(SaveManager:playTime())
+    self:setTime(GameManager:currentPlayTime())
   end
 end
 

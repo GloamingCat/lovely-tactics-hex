@@ -32,6 +32,7 @@ function FieldManager:init()
   self.paused = false
   self.blocks = 0
   self.fiberList = FiberList()
+  self.fieldData = {}
 end
 -- Calls all the update functions.
 function FieldManager:update()
@@ -61,9 +62,9 @@ function FieldManager:loadField(fieldID)
   local field, fieldData = FieldLoader.loadField(fieldID)
   self.currentField = field
   self.renderer = self:createCamera(fieldData)
+  self.renderer:initializeImages(field.images)
   FieldLoader.mergeLayers(field, fieldData.layers)
   FieldLoader.loadCharacters(field, fieldData.characters)
-  self.renderer:initializeImages(fieldData.prefs.images)
   collectgarbage('collect')
   return fieldData
 end
@@ -92,6 +93,40 @@ end
 -- State
 ---------------------------------------------------------------------------------------------------
 
+-- Gets the persistent data of a field.
+-- @param(id : number) Field's ID.
+-- @ret(table) The data table.
+function FieldManager:getFieldData(id)
+  id = id .. ''
+  local persistentData = self.fieldData[id]
+  if persistentData == nil then
+    persistentData = { chars = {}, vars = {} }
+    self.fieldData[id] = persistentData
+  end
+  return persistentData
+end
+-- Stores current field's information in the save data table.
+-- @param(field : Field) Field to store (current field by default).
+function FieldManager:storeFieldData(field)
+  field = field or self.currentField
+  if field.persistent then
+    local persistentData = self:getFieldData(field.id)
+    for char in self.characterList:iterator() do
+      if char.persistent then
+        persistentData.chars[char.key] = char:getPersistentData()
+      end
+    end
+    persistentData.vars = field.vars
+    persistentData.prefs = field:getPersistentData()
+  end
+end
+-- Stores a character's information in the save data table.
+-- @param(fieldID : number) The ID of the character's field.
+-- @param(char : Character) Character to store.
+function FieldManager:storeCharData(fieldID, char)
+  local persistentData = self:getFieldData(fieldID)
+  persistentData.chars[char.key] = char:getPersistentData()
+end
 -- Creates a new Transition table based on player's current position.
 -- @ret(table) The transition data.
 function FieldManager:getPlayerTransition()
@@ -137,7 +172,7 @@ end
 --  position.
 function FieldManager:loadTransition(transition, fromSave)
   if self.currentField then
-    SaveManager:storeFieldData(self.currentField)
+    self:storeFieldData()
   end
   local fieldData = self:loadField(transition.fieldID)
   self.player = self:createPlayer(transition)

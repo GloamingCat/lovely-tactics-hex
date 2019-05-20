@@ -27,22 +27,23 @@ local FieldLoader = {}
 -- @ret(table) Field file data.
 function FieldLoader.loadField(id)
   local data = Serializer.load('data/fields/' .. id .. '.json')
+  local prefs = data.prefs.persistent and FieldManager:getFieldData(id).prefs or data.prefs
   local maxH = data.prefs.maxHeight
   local field = Field(data.id, data.prefs.name, data.sizeX, data.sizeY, maxH)
   field.persistent = data.prefs.persistent
-  field.save = data.prefs.persistent and SaveManager:getFieldData(id).prefs
-  local save = field.save or data.prefs
+  field.vars = prefs.vars or {}
+  field.images = prefs.images or data.prefs.images
   field.tags = TagMap(data.prefs.tags)
   -- Script
-  local script = save.loadScript or data.prefs.loadScript
+  local script = prefs.loadScript or data.prefs.loadScript
   if script and script.name ~= '' then
     field.loadScript = script
   end
   -- Battle info
-  field.playerParty = save.playerParty or data.playerParty
-  field.parties = save.parties or data.parties
+  field.playerParty = prefs.playerParty or data.playerParty
+  field.parties = prefs.parties or data.parties
   -- Default region
-  local defaultRegion = save.defaultRegion or data.prefs.defaultRegion
+  local defaultRegion = prefs.defaultRegion or data.prefs.defaultRegion
   if defaultRegion and defaultRegion >= 0 then
     for i = 0, maxH do
       local layer = field.objectLayers[i]
@@ -91,7 +92,7 @@ end
 -- @param(field : Field) Current field.
 -- @param(characters : table) Array of character instances.
 function FieldLoader.loadCharacters(field, characters)
-  local persistentData = SaveManager:getFieldData(field.id)
+  local persistentData = FieldManager:getFieldData(field.id)
   for i, char in ipairs(characters) do
     local save = persistentData.chars[char.key]
     if not (save and save.deleted) then

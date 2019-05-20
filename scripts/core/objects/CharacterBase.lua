@@ -103,13 +103,10 @@ function CharacterBase:destroy(permanent)
   if self.shadow then
     self.shadow:destroy()
   end
-  if permanent then
-    self.deleted = true
-  end
   FieldManager.characterList:removeElement(self)
   FieldManager.characterList[self.key] = false
   WalkingObject.destroy(self)
-  Interactable.destroy(self)
+  Interactable.destroy(self, permanent)
 end
 -- Overrides Object:setXYZ.
 function CharacterBase:setXYZ(x, y, z)

@@ -33,8 +33,7 @@ end
 -- @param(field : Field) Current field.
 -- @param(images : table) Array of field's images.
 function FieldCamera:initializeImages(images)
-  local save = FieldManager.currentField.save and FieldManager.currentField.save.images
-  for _, data in ipairs(save or images) do
+  for _, data in ipairs(images) do
     self:addImage(data.name, data, data.foreground, data.visible, data.glued)
   end
 end

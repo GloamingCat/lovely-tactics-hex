@@ -31,6 +31,8 @@ function InputManager:init()
   self.paused = false
   self.usingKeyboard = true
   self.mouseEnabled = true
+  self.wasd = false
+  self.autoDash = false
   self.lastKey = nil
   self.mouse = GameMouse()
   self.keys = {}
@@ -43,13 +45,12 @@ function InputManager:init()
   for i = 1, 3 do
     self.keys['mouse' .. i] = GameKey()
   end
-  self:setKeyMap(KeyMap)
-  self:setArrowMap()
 end
 -- Sets axis keys.
 -- @param(useWASD : boolean)
 function InputManager:setArrowMap(useWASD)
   self.arrowMap = {}
+  self.wasd = useWASD
   local keys = useWASD and wasd or arrows
   for i, v in ipairs (arrows) do
     self.arrowMap[keys[i]] = v
@@ -59,6 +60,8 @@ end
 -- Sets keys codes for each game key.
 -- @param(map : table) Key map with main and alt tables.
 function InputManager:setKeyMap(map)
+  self.mainMap = map.main
+  self.altMap = map.alt
   self.keyMap = {}
   for k, v in pairs(map.main) do
     self.keyMap[v] = k

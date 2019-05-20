@@ -51,7 +51,8 @@ end
 -- Overrides Window:show.
 function KeyMapWindow:show(...)
   if not self.open then
-    self.map = copyTable(SaveManager.config.keyMap or KeyMap)
+    self.map = { main = copyTable(InputManager.mainMap),
+      alt = copyTable(InputManager.altMap) }
     self:refreshKeys()
     self:hideContent()
     GridWindow.show(self, ...)
@@ -92,8 +93,7 @@ function KeyMapWindow:onButtonConfirm(button)
 end
 -- Applies changes.
 function KeyMapWindow:applyConfirm()
-  SaveManager.config.keyMap = copyTable(self.map)
-  InputManager:setKeyMap(self.map)
+  InputManager:setKeyMap(copyTable(self.map))
   self.result = 1
 end
 -- Sets default key map.

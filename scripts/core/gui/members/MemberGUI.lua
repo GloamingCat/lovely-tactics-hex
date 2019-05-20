@@ -102,7 +102,7 @@ function MemberGUI:currentMember()
 end
 -- Overrides GUI:hide. Saves troop modifications.
 function MemberGUI:hide(...)
-  self.troop:storeSave()
+  TroopManager:saveTroop(self.troop)
   GUI.hide(self, ...)
 end
 -- Overrides GUI:show. Refreshes member info.

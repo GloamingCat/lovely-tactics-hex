@@ -66,7 +66,7 @@ function FieldGUI:createTimeWindow()
   local x = self.mainWindow.position.x
   local y = self.goldWindow.position.y
   self.timeWindow = TimeWindow(self, w, h, Vector(x, y))
-  self.timeWindow:setTime(SaveManager:playTime())
+  self.timeWindow:setTime(GameManager:currentPlayTime())
 end
 -- Creates the member list window the shows when player selects "Characters" button.
 function FieldGUI:createMembersWindow()
@@ -89,7 +89,7 @@ end
 
 -- Overrides GUI:hide. Saves troop modifications.
 function FieldGUI:hide(...)
-  self.troop:storeSave()
+  TroopManager:saveTroop(self.troop)
   GUI.hide(self, ...)
 end
 

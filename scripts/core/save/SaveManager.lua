@@ -33,26 +33,24 @@ function SaveManager:init()
     love.filesystem.createDirectory('saves/')
   end
   self.maxSaves = 3
-  -- Settings
-  if love.filesystem.exists('config.json') then
-    self.config = Serializer.load('config.json')
-  else
-    self:newConfig()
-  end
+  self.playTime = 0
+  self:loadConfig()
 end
+
+---------------------------------------------------------------------------------------------------
+-- New Data
+---------------------------------------------------------------------------------------------------
+
 -- Creates a new save.
 -- ret(table) A brand new save table.
-function SaveManager:createSave()
+function SaveManager:newSave()
   local save = {}
   save.playTime = 0
-  -- Global vars
-  save.vars = {}
-  -- Field data
-  save.fields = {}
-  -- Initial party
-  save.troops = {}
+  save.vars = {} -- Global vars
+  save.fields = {} -- Field data
+  save.troops = {} -- Initial party
+  --save.troops[Config.troop.initialTroopID .. ''] = Troop():createPersistentData()
   save.playerTroopID = Config.troop.initialTroopID
-  -- Initial position
   local startPos = Config.player.startPos
   save.playerTransition = {
     x = startPos.x or 1,
@@ -62,13 +60,6 @@ function SaveManager:createSave()
     fieldID = startPos.fieldID or 0 }
   return save
 end
--- Loads a new save.
-function SaveManager:newSave()
-  local save = self:createSave()
-  self.current = save
-  self.loadTime = now()
-  Troop():storeSave(true)
-end
 -- Creates default config file.
 function SaveManager:newConfig()
   local conf = {}
@@ -77,61 +68,75 @@ function SaveManager:newConfig()
   conf.windowScroll = 50
   conf.fieldScroll = 50
   conf.autoDash = false
+  conf.wasd = false
+  conf.keyMap = copyTable(KeyMap)
   conf.useMouse = true
   conf.resolution = 2
-  self.config = conf
-  self:storeConfig()
+  return conf
 end
 
 ---------------------------------------------------------------------------------------------------
--- Field Data
+-- Current Data
 ---------------------------------------------------------------------------------------------------
 
--- Gets the persistent data of a field.
--- @param(id : number) Field's ID.
--- @ret(table) The data table.
-function SaveManager:getFieldData(id)
-  id = id .. ''
-  local persistentData = self.current.fields[id]
-  if persistentData == nil then
-    persistentData = { chars = {}, vars = {} }
-    self.current.fields[id] = persistentData
+-- Creates a save table for the current game state.
+-- @ret(table) Initial save.
+function SaveManager:currentSaveData()
+  local save = {}
+  save.playTime = GameManager:currentPlayTime()
+  save.vars = copyTable(GameManager.vars)
+  save.fields = copyTable(FieldManager.fieldData)
+  save.troops = copyTable(TroopManager.troopData)
+  save.playerTroopID = TroopManager.playerTroopID
+  save.playerTransition = FieldManager:getPlayerTransition()
+  return save
+end
+-- Creates a save table for the current settings.
+-- @ret(table) Initial settings.
+function SaveManager:currentConfigData()
+  local conf = {}
+  conf.volumeBGM = AudioManager.volumeBGM
+  conf.volumeSFX = AudioManager.volumeSFX
+  conf.windowScroll = GUIManager.windowScroll
+  conf.fieldScroll = GUIManager.fieldScroll
+  conf.autoDash = InputManager.autoDash
+  conf.wasd = InputManager.wasd
+  conf.keyMap = { main = copyTable(InputManager.mainMap), alt = copyTable(InputManager.altMap) }
+  conf.useMouse = InputManager.mouseEnabled
+  conf.resolution = ScreenManager.mode
+  return conf
+end
+
+---------------------------------------------------------------------------------------------------
+-- Load
+---------------------------------------------------------------------------------------------------
+
+-- Loads the specified save.
+-- @param(file : string) File name. If nil, a new save is created.
+function SaveManager:loadSave(file)
+  if file == nil then
+    self.current = self:newSave()
+  elseif love.filesystem.exists('saves/' .. file .. '.save') then
+    self.current = Serializer.load('saves/' .. file .. '.save')
+  else
+    print('No such save file: ' .. file .. '.save')
+    self.current = self:newSave()
   end
-  return persistentData
+  self.loadTime = now()
 end
--- Stores current field's information in the save data table.
--- @param(field : Field) Field to store (current field by default).
-function SaveManager:storeFieldData(field)
-  field = field or FieldManager.currentField
-  if field.persistent then
-    local persistentData = self:getFieldData(field.id)
-    for char in FieldManager.characterList:iterator() do
-      if char.persistent then
-        persistentData.chars[char.key] = char:getPersistentData()
-      end
-    end
-    persistentData.vars = copyTable(field.vars)
-    persistentData.prefs = field:getPersistentData()
+-- Load config file. If 
+function SaveManager:loadConfig()
+  if love.filesystem.exists('config.json') then
+    self.config = Serializer.load('config.json')
+  else
+    self.config = self:newConfig()
   end
 end
--- Stores a character's information in the save data table.
--- @param(fieldID : number) The ID of the character's field.
--- @param(char : Character) Character to store.
-function SaveManager:storeCharData(fieldID, char)
-  local persistentData = self:getFieldData(fieldID)
-  persistentData.chars[char.key] = char:getPersistentData()
-end
 
 ---------------------------------------------------------------------------------------------------
--- Save / Load
+-- Save
 ---------------------------------------------------------------------------------------------------
 
--- Gets the total play time of the current save.
--- @ret(number) The time in seconds.
-function SaveManager:playTime(save)
-  save = save or self.current
-  return save.playTime + (now() - self.loadTime)
-end
 -- Gets the header of the save.
 -- @param(save : table) The save, uses the current save if nil.
 -- @ret(table) Header of the save.
@@ -149,42 +154,21 @@ function SaveManager:getHeader(save)
     money = troop.money,
     location = FieldManager.currentField.name }
 end
--- Loads the specified save.
--- @param(file : string) File name.
-function SaveManager:loadSave(file)
-  if love.filesystem.exists('saves/' .. file .. '.save') then
-    self.current = Serializer.load('saves/' .. file .. '.save')
-    self.loadTime = now()
-    FieldManager:loadTransition(self.current.playerTransition)
-    print('Loaded game.')
-  else
-    print('No such save file: ' .. file .. '.save')
-  end
-end
 -- Stores current save.
 -- @param(name : string) File name.
-function SaveManager:storeSave(file)
-  self.current.playTime = self:playTime()
+function SaveManager:storeSave(file, data)
+  self.current = data or self:currentSaveData()
+  self.current.playTime = GameManager:currentPlayTime()
   self.current.playerTransition = FieldManager:getPlayerTransition()
-  self:storeFieldData()
   self.saves[file] = self:getHeader(self.current)
   Serializer.store('saves/' .. file .. '.save', self.current)
   Serializer.store('saves.json', self.saves)
   self.loadTime = now()
-  print('Saved game.')
 end
 -- Stores config file.
-function SaveManager:storeConfig()
+function SaveManager:storeConfig(config)
+  self.config = config or self:currentConfigData()
   Serializer.store('config.json', self.config)
-  print('saved config')
-end
--- Called when game pauses/resumes.
--- @param(paused : boolean) Current game state.
-function SaveManager:onPause(paused)
-  if paused then
-    self.current.playTime = self:playTime()
-  end
-  self.loadTime = now()
 end
 
 return SaveManager

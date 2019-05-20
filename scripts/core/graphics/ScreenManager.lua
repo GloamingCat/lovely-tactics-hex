@@ -43,6 +43,7 @@ function ScreenManager:init()
   self.canvas = lgraphics.newCanvas(self.width * self.scaleX, self.height * self.scaleY)
   self.renderers = {}
   self.drawCalls = 0
+  self.mode = 1
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -78,7 +79,6 @@ end
 -- @param(x : number) the scale factor in axis x
 -- @param(y : number) the scale factor in axis y
 function ScreenManager:setScale(x, y, fullScreen)
-  fullScreen = fullScreen or false
   if self.scalingType == 0 then
     return
   elseif self.scalingType == 1 then
@@ -87,6 +87,7 @@ function ScreenManager:setScale(x, y, fullScreen)
   elseif self.scalingType == 2 then
     y = x
   end
+  fullScreen = fullScreen or false
   y = y or x
   if x == self.scaleX and y == self.scaleY and fullScreen == isFullScreen() then
     return
@@ -116,6 +117,16 @@ end
 -- Mode
 ---------------------------------------------------------------------------------------------------
 
+-- Sets window mode (windowd or fullscreen).
+-- @param(mode : number) 1, 2, 3 are window modes, 4 is fullscreen.
+function ScreenManager:setMode(mode)
+  if mode == 4 then
+    self:setFullScreen()
+  else
+    self:setScale(mode, mode)
+  end
+  self.mode = mode
+end
 -- Changes screen to window mode.
 function ScreenManager:setWindowed()
   if isFullScreen() then

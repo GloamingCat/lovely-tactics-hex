@@ -50,7 +50,6 @@ function Interactable:initScripts(instData, save)
   if instData.interactScript and instData.interactScript.name ~= '' then
     self.interactScript = instData.interactScript
   end
-  self.deleted = save and save.deleted
   self.vars = save and util.table.deepCopy(save.vars) or {}
 end
 
@@ -63,13 +62,16 @@ function Interactable:update()
   self.fiberList:update()
 end
 -- Removes from FieldManager.
-function Interactable:destroy()
+function Interactable:destroy(permanent)
+  if permanent then
+    self.deleted = true
+  end
   FieldManager.updateList:removeElement(self)
   for i = 1, self.fiberList.size do
     self.fiberList[i]:interrupt()
   end
   if self.persistent then
-    SaveManager:storeCharData(FieldManager.currentField.id, self)
+    FieldManager:storeCharData(FieldManager.currentField.id, self)
   end
 end
 -- @ret(string) String representation (for debugging).

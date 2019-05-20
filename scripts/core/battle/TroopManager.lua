@@ -31,6 +31,7 @@ local TroopManager = class()
 function TroopManager:init()
   self.characterList = List()
   self.troops = {}
+  self.troopData = {}
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -52,7 +53,7 @@ function TroopManager:createTroops()
   -- Create parties
   for i = 1, self.partyCount do
     if i == playerID then
-      self:createTroop(SaveManager.current.playerTroopID, parties[i], i)
+      self:createTroop(TroopManager.playerTroopID, parties[i], i)
     elseif #parties[i].troops > 0 then
       local r = rand(#parties[i].troops)
       self:createTroop(parties[i].troops[r], parties[i], i)
@@ -289,14 +290,6 @@ end
 -- Clear
 ---------------------------------------------------------------------------------------------------
 
-function TroopManager:saveTroops()
-  -- Store troop data in save
-  for i, troop in pairs(self.troops) do
-    if troop.data.persistent then
-      troop:storeSave()
-    end
-  end
-end
 -- Erases battlers and clears list.
 function TroopManager:clear()
   for bc in self.characterList:iterator() do
@@ -307,6 +300,19 @@ function TroopManager:clear()
   self.troopDirections = {}
   self.troops = {}
   self.centers = nil
+end
+-- Store troop data in save.
+-- @param(saveFormation : boolean) True to save modified grid formation (optional).
+function TroopManager:saveTroop(troop, saveFormation)
+  self.troopData[troop.data.id .. ''] = troop:createPersistentData(saveFormation)
+end
+-- Store data of all current troops.
+function TroopManager:saveTroops()
+  for i, troop in pairs(self.troops) do
+    if troop.data.persistent then
+      self:saveTroop(troop)
+    end
+  end
 end
 
 return TroopManager

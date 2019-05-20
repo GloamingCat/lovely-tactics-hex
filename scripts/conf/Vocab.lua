@@ -29,6 +29,7 @@ return {
   autoDash = 'Auto Dash',
   useMouse = 'Use Mouse',
   wasd = 'Use WASD',
+  resolution1 = '0.5x',
   resolution2 = '1x',
   resolution3 = '1.5x',
   fullScreen = 'Full Screen',

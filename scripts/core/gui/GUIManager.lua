@@ -24,6 +24,8 @@ function GUIManager:init()
   self.renderer = Renderer(200, -100, 100, 2)
   self.stack = Stack()
   self.paused = false
+  self.windowScroll = 0
+  self.fieldScroll = 0
   self.fiberList = FiberList()
   self.updateList = List()
 end

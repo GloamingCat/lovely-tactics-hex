@@ -118,7 +118,7 @@ function ShopGUI:hideShopGUI()
 end
 -- Overrides GUI:hide. Saves troop modifications.
 function ShopGUI:hide(...)
-  self.troop:storeSave()
+  TroopManager:saveTroop(self.troop)
   GUI.hide(self, ...)
 end
 

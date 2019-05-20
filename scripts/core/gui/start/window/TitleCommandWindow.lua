@@ -41,8 +41,8 @@ function TitleCommandWindow:newGameConfirm()
   self.GUI:hide()
   self.GUI:hideCover()
   self.result = 1
-  SaveManager:newSave()
-  FieldManager:loadTransition(SaveManager.current.playerTransition)
+  SaveManager:loadSave()
+  GameManager:setSave(SaveManager.current)
   FieldManager:update()
 end
 -- Load Game button.
@@ -55,6 +55,7 @@ function TitleCommandWindow:loadGameConfirm()
     self.GUI:hideCover()
     self.result = 1
     SaveManager:loadSave(result)
+    GameManager:setSave(SaveManager.current)
   else
     self.GUI.topText:setVisible(true)
     self:show()
@@ -71,7 +72,7 @@ end
 -- Quit button.
 function TitleCommandWindow:quitConfirm()
   self.GUI:hide()
-  GameManager:close()
+  GameManager:quit()
 end
 -- Cancel button.
 function TitleCommandWindow:onButtonCancel()
