@@ -86,8 +86,8 @@
       "sounds": [],
       "passable": true,
       "moveCost": 150,
-      "statusID": -1,
-      "removeOnExit": false,
+      "statusID": 13,
+      "removeOnExit": true,
       "allMembers": false,
       "name": "Puddle",
       "tags": []
@@ -100,8 +100,8 @@
       "animID": 76,
       "sounds": [
         {
-          "name": "sfx/Kenney/footstep05.ogg",
-          "volume": 100,
+          "name": "sfx/Kenney/footstep08.ogg",
+          "volume": 90,
           "pitch": 100,
           "time": 0
         }
@@ -137,6 +137,28 @@
       "tags": []
     },
     "id": 5,
+    "children": []
+  },
+  {
+    "data": {
+      "animID": 35,
+      "sounds": [
+        {
+          "name": "sfx/Kenney/footstep02.ogg",
+          "volume": 90,
+          "pitch": 100,
+          "time": 0
+        }
+      ],
+      "passable": true,
+      "moveCost": 100,
+      "statusID": -1,
+      "removeOnExit": false,
+      "allMembers": false,
+      "name": "Road",
+      "tags": []
+    },
+    "id": 7,
     "children": []
   }
 ]

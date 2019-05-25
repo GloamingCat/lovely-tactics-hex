@@ -764,7 +764,12 @@
           "type": 1,
           "targetType": 2,
           "restriction": 1,
-          "costs": [],
+          "costs": [
+            {
+              "key": "sp",
+              "value": "10"
+            }
+          ],
           "elements": [
             {
               "id": 1,
@@ -862,7 +867,12 @@
           "type": 1,
           "targetType": 2,
           "restriction": 1,
-          "costs": [],
+          "costs": [
+            {
+              "key": "sp",
+              "value": "10"
+            }
+          ],
           "elements": [
             {
               "id": 1,
@@ -960,7 +970,12 @@
           "type": 1,
           "targetType": 2,
           "restriction": 1,
-          "costs": [],
+          "costs": [
+            {
+              "key": "sp",
+              "value": "10"
+            }
+          ],
           "elements": [
             {
               "id": 1,

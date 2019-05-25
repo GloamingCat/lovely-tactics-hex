@@ -3,9 +3,9 @@
     "data": {
       "script": "",
       "icon": {
-        "id": -1,
-        "col": 0,
-        "row": 0
+        "id": 34,
+        "col": 3,
+        "row": 1
       },
       "priority": 100,
       "visible": true,
@@ -256,9 +256,9 @@
     "data": {
       "script": "",
       "icon": {
-        "id": -1,
-        "col": 0,
-        "row": 0
+        "id": 34,
+        "col": 2,
+        "row": 1
       },
       "priority": 100,
       "visible": true,
@@ -517,9 +517,9 @@
     "data": {
       "script": "",
       "icon": {
-        "id": -1,
+        "id": 34,
         "col": 0,
-        "row": 0
+        "row": 1
       },
       "priority": 100,
       "visible": true,

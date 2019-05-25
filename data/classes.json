@@ -3,10 +3,10 @@
     "data": {
       "build": [
         "5 * lvl",
-        "3 * lvl",
-        "0.5 * lvl",
         "4 * lvl",
-        "2.5 * lvl",
+        "1 * lvl",
+        "3 * lvl",
+        "2 * lvl",
         "0",
         "0",
         "0",
@@ -33,10 +33,10 @@
     "data": {
       "build": [
         "1 * lvl",
-        "5 * lvl",
-        "4 * lvl",
         "2 * lvl",
+        "5 * lvl",
         "3 * lvl",
+        "4 * lvl",
         "0",
         "0",
         "0",
@@ -55,13 +55,13 @@
       "skills": [
         {
           "id": 7,
-          "level": 0,
+          "level": 4,
           "requirements": [],
           "tags": []
         },
         {
           "id": 8,
-          "level": 5,
+          "level": 6,
           "requirements": [],
           "tags": []
         }

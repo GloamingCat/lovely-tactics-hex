@@ -1,5 +1,5 @@
 {
-  "lastField": 8,
+  "lastField": 9,
   "id": -1,
   "children": [
     {
@@ -19,8 +19,8 @@
       "data": {
         "name": "Town 1",
         "lastLayers": [
+          2,
           1,
-          0,
           -1
         ]
       },
@@ -30,7 +30,7 @@
           "data": {
             "name": "Town 2",
             "lastLayers": [
-              1,
+              2,
               0,
               -1
             ]
@@ -42,7 +42,7 @@
           "data": {
             "name": "Town 3",
             "lastLayers": [
-              1,
+              2,
               2,
               -1
             ]

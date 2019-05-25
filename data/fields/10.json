@@ -27,7 +27,17 @@
         }
       ]
     },
-    "images": [],
+    "images": [
+      {
+        "foreground": false,
+        "glued": true,
+        "visible": true,
+        "name": "Sky",
+        "id": 110,
+        "col": 0,
+        "row": 0
+      }
+    ],
     "transitions": [
       {
         "destination": {
