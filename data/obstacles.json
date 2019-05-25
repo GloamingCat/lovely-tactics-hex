@@ -1758,9 +1758,9 @@
   {
     "data": {
       "image": {
-        "id": 36,
-        "col": 3,
-        "row": 1
+        "id": 31,
+        "col": 0,
+        "row": 0
       },
       "transform": {
         "offsetX": 0,

@@ -3,6 +3,7 @@
   "sizeX": 14,
   "sizeY": 7,
   "prefs": {
+    "persistent": false,
     "defaultRegion": -1,
     "maxHeight": 1,
     "bgm": {
@@ -15,8 +16,16 @@
       "global": false,
       "block": true,
       "wait": true,
-      "name": "",
-      "tags": []
+      "onLoad": true,
+      "onInteract": false,
+      "onCollide": false,
+      "name": "events/Player Animations.lua",
+      "tags": [
+        {
+          "key": "name",
+          "value": "Default"
+        }
+      ]
     },
     "images": [],
     "transitions": [
@@ -70,11 +79,11 @@
       },
       {
         "destination": {
-          "fieldID": 7,
-          "x": 7,
-          "y": 2,
+          "fieldID": 10,
+          "x": 2,
+          "y": 6,
           "h": 1,
-          "direction": 315
+          "direction": 270
         },
         "tl": {
           "fieldID": 1,
@@ -788,74 +797,7 @@
     ],
     "region": []
   },
-  "characters": [
-    {
-      "key": "HeroMage",
-      "persistent": false,
-      "x": 8,
-      "y": 4,
-      "h": 1,
-      "party": -1,
-      "charID": 2,
-      "battlerID": -1,
-      "animation": "Idle",
-      "direction": 315,
-      "loadScript": {
-        "global": false,
-        "block": true,
-        "wait": true,
-        "name": "",
-        "tags": []
-      },
-      "collideScript": {
-        "global": false,
-        "block": true,
-        "wait": true,
-        "name": "",
-        "tags": []
-      },
-      "interactScript": {
-        "global": false,
-        "block": true,
-        "wait": true,
-        "name": "events/Forest NPC.lua",
-        "tags": []
-      }
-    },
-    {
-      "key": "Enemy",
-      "persistent": true,
-      "x": 6,
-      "y": 5,
-      "h": 1,
-      "party": -1,
-      "charID": 6,
-      "battlerID": -1,
-      "animation": "Idle",
-      "direction": 45,
-      "loadScript": {
-        "global": false,
-        "block": false,
-        "wait": false,
-        "name": "events/behavior/Stalker.lua",
-        "tags": []
-      },
-      "collideScript": {
-        "global": true,
-        "block": true,
-        "wait": true,
-        "name": "events/test/Battle.lua",
-        "tags": []
-      },
-      "interactScript": {
-        "global": false,
-        "block": true,
-        "wait": true,
-        "name": "",
-        "tags": []
-      }
-    }
-  ],
+  "characters": [],
   "parties": [],
   "playerParty": -1
 }

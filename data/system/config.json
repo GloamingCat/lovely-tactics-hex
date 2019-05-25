@@ -4,15 +4,15 @@
     "walkSpeed": 104,
     "dashSpeed": 208,
     "startPos": {
-      "fieldID": 1,
-      "x": 7,
+      "fieldID": 10,
+      "x": 2,
       "y": 7,
       "h": 1,
-      "direction": 135
+      "direction": 270
     }
   },
   "battle": {
-    "maxLevel": 4,
+    "maxLevel": 10,
     "attHP": "hp",
     "attSP": "sp",
     "attStep": "mov",
@@ -44,7 +44,7 @@
     "heightScale": 200,
     "scaleType": 1,
     "fpsLimit": 120,
-    "coverID": 75
+    "coverID": 109
   },
   "animations": [
     {

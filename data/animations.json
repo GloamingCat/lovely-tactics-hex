@@ -4718,6 +4718,44 @@
               "script": "",
               "quad": {
                 "path": "Character/Cat/Chita.png",
+                "x": 0,
+                "y": 0,
+                "width": 72,
+                "height": 256
+              },
+              "rows": 8,
+              "cols": 3,
+              "transform": {
+                "offsetX": 12,
+                "offsetY": 30,
+                "offsetDepth": 0,
+                "scaleX": 100,
+                "scaleY": 100,
+                "rotation": 0,
+                "red": 255,
+                "green": 255,
+                "blue": 255,
+                "alpha": 255,
+                "hue": 0,
+                "saturation": 100,
+                "brightness": 100
+              },
+              "introPattern": "",
+              "introDuration": "",
+              "loopPattern": "0 1 2 1",
+              "loopDuration": "20 7 20 7",
+              "audio": [],
+              "name": "Idle",
+              "tags": []
+            },
+            "id": 116,
+            "children": []
+          },
+          {
+            "data": {
+              "script": "",
+              "quad": {
+                "path": "Character/Cat/Chita.png",
                 "x": 24,
                 "y": 0,
                 "width": 24,
@@ -4745,10 +4783,10 @@
               "loopPattern": "",
               "loopDuration": "",
               "audio": [],
-              "name": "Idle",
+              "name": "SceneIdle",
               "tags": []
             },
-            "id": 116,
+            "id": 75,
             "children": []
           },
           {
@@ -4871,6 +4909,44 @@
               "script": "",
               "quad": {
                 "path": "Character/Cat/Heron.png",
+                "x": 0,
+                "y": 0,
+                "width": 72,
+                "height": 256
+              },
+              "rows": 8,
+              "cols": 3,
+              "transform": {
+                "offsetX": 12,
+                "offsetY": 30,
+                "offsetDepth": 0,
+                "scaleX": 100,
+                "scaleY": 100,
+                "rotation": 0,
+                "red": 255,
+                "green": 255,
+                "blue": 255,
+                "alpha": 255,
+                "hue": 0,
+                "saturation": 100,
+                "brightness": 100
+              },
+              "introPattern": "",
+              "introDuration": "",
+              "loopPattern": "0 1 2 1",
+              "loopDuration": "20 7 20 7",
+              "audio": [],
+              "name": "Idle",
+              "tags": []
+            },
+            "id": 131,
+            "children": []
+          },
+          {
+            "data": {
+              "script": "",
+              "quad": {
+                "path": "Character/Cat/Heron.png",
                 "x": 24,
                 "y": 0,
                 "width": 24,
@@ -4898,10 +4974,10 @@
               "loopPattern": "",
               "loopDuration": "",
               "audio": [],
-              "name": "Idle",
+              "name": "SceneIdle",
               "tags": []
             },
-            "id": 131,
+            "id": 107,
             "children": []
           },
           {
@@ -4988,11 +5064,11 @@
     "data": {
       "script": "",
       "quad": {
-        "path": "",
+        "path": "cover.jpg",
         "x": 0,
         "y": 0,
-        "width": 0,
-        "height": 0
+        "width": 1,
+        "height": 1
       },
       "rows": 1,
       "cols": 1,
@@ -5019,7 +5095,7 @@
       "name": "Background",
       "tags": []
     },
-    "id": 107,
+    "id": 108,
     "children": [
       {
         "data": {
@@ -5056,159 +5132,7 @@
           "name": "Cover",
           "tags": []
         },
-        "id": 75,
-        "children": []
-      },
-      {
-        "data": {
-          "script": "",
-          "quad": {
-            "path": "Background/Room1.png",
-            "x": 0,
-            "y": 0,
-            "width": 800,
-            "height": 450
-          },
-          "rows": 1,
-          "cols": 1,
-          "transform": {
-            "offsetX": 400,
-            "offsetY": 225,
-            "offsetDepth": 0,
-            "scaleX": 50,
-            "scaleY": 50,
-            "rotation": 0,
-            "red": 255,
-            "green": 255,
-            "blue": 255,
-            "alpha": 255,
-            "hue": 0,
-            "saturation": 100,
-            "brightness": 100
-          },
-          "introPattern": "",
-          "introDuration": "",
-          "loopPattern": "",
-          "loopDuration": "",
-          "audio": [],
-          "name": "Room1",
-          "tags": []
-        },
-        "id": 108,
-        "children": []
-      },
-      {
-        "data": {
-          "script": "",
-          "quad": {
-            "path": "Background/Room2.png",
-            "x": 0,
-            "y": 0,
-            "width": 800,
-            "height": 450
-          },
-          "rows": 1,
-          "cols": 1,
-          "transform": {
-            "offsetX": 400,
-            "offsetY": 225,
-            "offsetDepth": 0,
-            "scaleX": 50,
-            "scaleY": 50,
-            "rotation": 0,
-            "red": 255,
-            "green": 255,
-            "blue": 255,
-            "alpha": 255,
-            "hue": 0,
-            "saturation": 100,
-            "brightness": 100
-          },
-          "introPattern": "",
-          "introDuration": "",
-          "loopPattern": "",
-          "loopDuration": "",
-          "audio": [],
-          "name": "Room2",
-          "tags": []
-        },
         "id": 109,
-        "children": []
-      },
-      {
-        "data": {
-          "script": "",
-          "quad": {
-            "path": "Background/Shop.png",
-            "x": 0,
-            "y": 0,
-            "width": 800,
-            "height": 450
-          },
-          "rows": 1,
-          "cols": 1,
-          "transform": {
-            "offsetX": 400,
-            "offsetY": 225,
-            "offsetDepth": 0,
-            "scaleX": 50,
-            "scaleY": 50,
-            "rotation": 0,
-            "red": 255,
-            "green": 255,
-            "blue": 255,
-            "alpha": 255,
-            "hue": 0,
-            "saturation": 100,
-            "brightness": 100
-          },
-          "introPattern": "",
-          "introDuration": "",
-          "loopPattern": "",
-          "loopDuration": "",
-          "audio": [],
-          "name": "Shop",
-          "tags": []
-        },
-        "id": 110,
-        "children": []
-      },
-      {
-        "data": {
-          "script": "",
-          "quad": {
-            "path": "Background/Sky.png",
-            "x": 0,
-            "y": 0,
-            "width": 400,
-            "height": 225
-          },
-          "rows": 1,
-          "cols": 1,
-          "transform": {
-            "offsetX": 200,
-            "offsetY": 112,
-            "offsetDepth": 0,
-            "scaleX": 100,
-            "scaleY": 100,
-            "rotation": 0,
-            "red": 255,
-            "green": 255,
-            "blue": 255,
-            "alpha": 255,
-            "hue": 0,
-            "saturation": 100,
-            "brightness": 100
-          },
-          "introPattern": "",
-          "introDuration": "",
-          "loopPattern": "",
-          "loopDuration": "",
-          "audio": [],
-          "name": "Sky",
-          "tags": []
-        },
-        "id": 129,
         "children": []
       }
     ]

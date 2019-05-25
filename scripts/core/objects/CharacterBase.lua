@@ -70,19 +70,19 @@ function CharacterBase:initProperties(name, tiles, colliderHeight, save)
   self.koAnim = 'KO'
   WalkingObject.initProperties(self)
 end
--- Creates the animation sets.
+-- Override DirectedObject:initGraphics. Creates the animation sets.
 function CharacterBase:initGraphics(instData, animations, portraits, transform, shadowID, save)
   if shadowID and shadowID >= 0 then
     local shadowData = Database.animations[shadowID]
     self.shadow = ResourceManager:loadSprite(shadowData, FieldManager.renderer)
   end
-  -- DirectedObject:initGraphics
-  WalkingObject.initGraphics(self, instData.direction, 
-    animations, instData.animation, transform, true)
   self.portraits = {}
   for i = 1, #portraits do
     self.portraits[portraits[i].name] = portraits[i]
   end
+  local animName = save and save.animName or instData.animation
+  local direction = save and save.direction or instData.direction
+  WalkingObject.initGraphics(self, direction, animations, animName, transform, true)
 end
 
 ---------------------------------------------------------------------------------------------------

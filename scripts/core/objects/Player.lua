@@ -44,7 +44,8 @@ function Player:init(initTile, dir)
     battlerID = leader.battlerID,
     charID = leader.charID,
     animation = 'Idle',
-    direction = dir or 270 }
+    direction = dir or 270,
+    scripts = {} }
   data.x, data.y, data.h = initTile:coordinates()
   Character.init(self, data)
 end

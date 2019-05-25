@@ -3,6 +3,7 @@
   "sizeX": 13,
   "sizeY": 8,
   "prefs": {
+    "persistent": false,
     "defaultRegion": -1,
     "maxHeight": 1,
     "bgm": {
@@ -15,6 +16,9 @@
       "global": false,
       "block": true,
       "wait": true,
+      "onLoad": true,
+      "onInteract": false,
+      "onCollide": false,
       "name": "",
       "tags": []
     },

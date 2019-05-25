@@ -1,5 +1,5 @@
 {
-  "id": 12,
+  "id": 10,
   "sizeX": 8,
   "sizeY": 8,
   "prefs": {
@@ -16,6 +16,9 @@
       "global": false,
       "block": true,
       "wait": true,
+      "onLoad": true,
+      "onInteract": false,
+      "onCollide": false,
       "name": "events/Player Animations.lua",
       "tags": [
         {
@@ -24,17 +27,7 @@
         }
       ]
     },
-    "images": [
-      {
-        "foreground": false,
-        "glued": true,
-        "visible": true,
-        "name": "New",
-        "id": 129,
-        "col": 0,
-        "row": 0
-      }
-    ],
+    "images": [],
     "transitions": [
       {
         "destination": {
@@ -645,6 +638,7 @@
     {
       "key": "Town",
       "persistent": false,
+      "passable": false,
       "x": 4,
       "y": 6,
       "h": 1,
@@ -653,40 +647,32 @@
       "battlerID": -1,
       "animation": "Idle",
       "direction": 315,
-      "loadScript": {
-        "global": false,
-        "block": true,
-        "wait": true,
-        "name": "",
-        "tags": []
-      },
-      "collideScript": {
-        "global": false,
-        "block": false,
-        "wait": false,
-        "name": "events/Entrance.lua",
-        "tags": [
-          {
-            "key": "name",
-            "value": "Hexalia Town"
-          },
-          {
-            "key": "dest",
-            "value": "1"
-          }
-        ]
-      },
-      "interactScript": {
-        "global": false,
-        "block": true,
-        "wait": true,
-        "name": "",
-        "tags": []
-      }
+      "scripts": [
+        {
+          "global": false,
+          "block": false,
+          "wait": false,
+          "onLoad": false,
+          "onInteract": false,
+          "onCollide": true,
+          "name": "events/Entrance.lua",
+          "tags": [
+            {
+              "key": "name",
+              "value": "Hexalia Town"
+            },
+            {
+              "key": "dest",
+              "value": "1"
+            }
+          ]
+        }
+      ]
     },
     {
       "key": "Forest",
       "persistent": false,
+      "passable": false,
       "x": 2,
       "y": 6,
       "h": 1,
@@ -695,36 +681,27 @@
       "battlerID": -1,
       "animation": "Idle",
       "direction": 315,
-      "loadScript": {
-        "global": false,
-        "block": true,
-        "wait": true,
-        "name": "",
-        "tags": []
-      },
-      "collideScript": {
-        "global": false,
-        "block": false,
-        "wait": false,
-        "name": "events/Entrance.lua",
-        "tags": [
-          {
-            "key": "name",
-            "value": "Happy Woods"
-          },
-          {
-            "key": "dest",
-            "value": "2"
-          }
-        ]
-      },
-      "interactScript": {
-        "global": false,
-        "block": true,
-        "wait": true,
-        "name": "",
-        "tags": []
-      }
+      "scripts": [
+        {
+          "global": false,
+          "block": false,
+          "wait": false,
+          "onLoad": false,
+          "onInteract": false,
+          "onCollide": true,
+          "name": "events/Entrance.lua",
+          "tags": [
+            {
+              "key": "name",
+              "value": "Happy Woods"
+            },
+            {
+              "key": "dest",
+              "value": "2"
+            }
+          ]
+        }
+      ]
     }
   ],
   "parties": [],

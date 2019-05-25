@@ -456,9 +456,9 @@
             }
           ],
           "userElements": true,
-          "projectileID": 49,
+          "projectileID": -1,
           "rotate": false,
-          "applyTransform": true,
+          "applyTransform": false,
           "userLoadAnim": "",
           "userCastAnim": "Skill1",
           "stepOnCast": true,

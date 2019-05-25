@@ -129,15 +129,16 @@ function FieldLoader.createTransitions(field, transitions)
           script:moveToField(args)
         end
       end
-      local script = { func = func, 
+      local scripts = { { func = func, 
         block = true, 
         global = true,
-        transition = args }
+        onCollide = true,
+        transition = args } }
       for x = t.tl.x, t.br.x do
         for y = t.tl.y, t.br.y do
           for h = t.tl.h, t.br.h do
             local instData = { key = 'Transition',
-              collideScript = script,
+              scripts = scripts,
               x = x, y = y, h = h }
             Interactable(instData)
           end

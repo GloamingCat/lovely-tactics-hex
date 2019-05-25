@@ -1,18 +1,55 @@
 {
-  "lastField": 6,
+  "lastField": 8,
   "id": -1,
   "children": [
     {
-      "id": 0,
+      "id": 10,
       "data": {
-        "name": "Forest Battle Field",
+        "name": "World",
         "lastLayers": [
-          4,
-          1,
+          2,
+          0,
           -1
         ]
       },
       "children": []
+    },
+    {
+      "id": 7,
+      "data": {
+        "name": "Town 1",
+        "lastLayers": [
+          1,
+          0,
+          -1
+        ]
+      },
+      "children": [
+        {
+          "id": 8,
+          "data": {
+            "name": "Town 2",
+            "lastLayers": [
+              1,
+              0,
+              -1
+            ]
+          },
+          "children": []
+        },
+        {
+          "id": 9,
+          "data": {
+            "name": "Town 3",
+            "lastLayers": [
+              1,
+              2,
+              -1
+            ]
+          },
+          "children": []
+        }
+      ]
     },
     {
       "id": 1,
@@ -84,26 +121,13 @@
             ]
           },
           "children": []
-        }
-      ]
-    },
-    {
-      "id": 7,
-      "data": {
-        "name": "City 1",
-        "lastLayers": [
-          2,
-          1,
-          -1
-        ]
-      },
-      "children": [
+        },
         {
-          "id": 8,
+          "id": 0,
           "data": {
-            "name": "City 2",
+            "name": "Forest Battle Field",
             "lastLayers": [
-              1,
+              4,
               1,
               -1
             ]

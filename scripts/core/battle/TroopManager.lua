@@ -133,6 +133,7 @@ function TroopManager:createCharacter(tile, dir, member, party)
     party = party,
     animation = 'Idle',
     direction = dir,
+    scripts = {},
     tags = {} }
   charData.x, charData.y, charData.h = tile:coordinates()
   local character = Character(charData)

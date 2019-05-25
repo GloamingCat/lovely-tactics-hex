@@ -21,7 +21,7 @@
         "5",
         "0"
       ],
-      "expCurve": "(100 + math.round(lvl / 5)) * lvl",
+      "expCurve": "5 * lvl",
       "skills": [],
       "name": "Fighter",
       "tags": []
@@ -51,7 +51,7 @@
         "10",
         "0"
       ],
-      "expCurve": "(100 + math.round(lvl / 5)) * lvl",
+      "expCurve": "5 * lvl",
       "skills": [
         {
           "id": 7,

@@ -41,16 +41,28 @@ end
 -- @param(instData : table) Instance data from field file.
 function Interactable:initScripts(instData, save)
   self.fiberList = FiberList(self)
-  if instData.loadScript and instData.loadScript.name ~= '' then
-    self.loadScript = instData.loadScript
+  if save then
+    self.loadScripts = save.loadScripts
+    self.collideScripts = save.collideScripts
+    self.interactScripts = save.interactScripts
+    self.vars = copyTable(save.vars)
+  else
+    self.loadScripts = {}
+    self.collideScripts = {}
+    self.interactScripts = {}
+    for _, script in ipairs(instData.scripts) do
+      if script.onLoad then
+        self.loadScripts[#self.loadScripts + 1] = script
+      end
+      if script.onCollide then
+        self.collideScripts[#self.collideScripts + 1] = script
+      end
+      if script.onInteract then
+        self.interactScripts[#self.interactScripts + 1] = script
+      end
+    end
+    self.vars = {}
   end
-  if instData.collideScript and instData.collideScript.name ~= '' then
-    self.collideScript = instData.collideScript
-  end
-  if instData.interactScript and instData.interactScript.name ~= '' then
-    self.interactScript = instData.interactScript
-  end
-  self.vars = save and util.table.deepCopy(save.vars) or {}
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -84,6 +96,9 @@ function Interactable:getPersistentData()
   local data = {}
   data.vars = copyTable(self.vars)
   data.deleted = self.deleted
+  data.loadScripts = self.loadScripts
+  data.collideScripts = self.collideScripts
+  data.interactScripts = self.interactScripts
   return data
 end
 
@@ -94,16 +109,15 @@ end
 -- Called when a character interacts with this object.
 -- @param(event : table) Table with tile and origin (usually player) and dest (this) objects.
 function Interactable:onInteract(tile)
-  if not self.interactScript then
-    return false
-  end
   self.interacting = true
   FieldManager.player.interacting = true
-  local fiberList = self.interactScript.global and FieldManager.fiberList or self.fiberList
-  local fiber = fiberList:forkFromScript(self.interactScript, self)
-  fiber.tile = self.tile
-  if self.interactScript.wait then
-    fiber:waitForEnd()
+  for _, script in ipairs(self.interactScripts) do
+    local fiberList = script.global and FieldManager.fiberList or self.fiberList
+    local fiber = fiberList:forkFromScript(script, self)
+    fiber.tile = self.tile
+    if script.wait then
+      fiber:waitForEnd()
+    end
   end
   self.interacting = false
   FieldManager.player.interacting = false
@@ -112,17 +126,16 @@ end
 -- Called when a character collides with this object.
 -- @param(event : table) Table with tile and origin and dest (this) objects.
 function Interactable:onCollide(tile, collided, collider)
-  if not self.collideScript then
-    return false
-  end
   self.colliding = true
-  local fiberList = self.collideScript.global and FieldManager.fiberList or self.fiberList
-  local fiber = fiberList:forkFromScript(self.collideScript, self)
-  fiber.tile = self.tile
-  fiber.collided = collided
-  fiber.collider = collider
-  if self.collideScript.wait then
-    fiber:waitForEnd()
+  for _, script in ipairs(self.collideScripts) do
+    local fiberList = script.global and FieldManager.fiberList or self.fiberList
+    local fiber = fiberList:forkFromScript(script, self)
+    fiber.tile = self.tile
+    fiber.collided = collided
+    fiber.collider = collider
+    if script.wait then
+      fiber:waitForEnd()
+    end
   end
   self.colliding = false
   return true
@@ -130,15 +143,14 @@ end
 -- Called when this interactable is created.
 -- @param(event : table) Table with origin (this).
 function Interactable:onLoad()
-  if not self.loadScript then
-    return false
-  end
   self.loading = true
-  local fiberList = self.loadScript.global and FieldManager.fiberList or self.fiberList
-  local fiber = fiberList:forkFromScript(self.loadScript, self)
-  fiber.tile = self.tile
-  if self.loadScript.wait then
-    fiber:waitForEnd()
+  for _, script in ipairs(self.loadScripts) do
+    local fiberList = script.global and FieldManager.fiberList or self.fiberList
+    local fiber = fiberList:forkFromScript(script, self)
+    fiber.tile = self.tile
+    if script.wait then
+      fiber:waitForEnd()
+    end
   end
   self.loading = false
   return true

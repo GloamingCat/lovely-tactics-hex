@@ -5,7 +5,7 @@
       "ai": [],
       "classID": 0,
       "attackID": 0,
-      "level": 0,
+      "level": 2,
       "money": 0,
       "exp": 0,
       "attributes": [
@@ -219,7 +219,7 @@
           "ai": [
             {
               "condition": "",
-              "name": "rule/Escape.lua",
+              "name": "rule/Rush.lua",
               "tags": []
             }
           ],
