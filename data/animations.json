@@ -1392,8 +1392,8 @@
               "rows": 1,
               "cols": 1,
               "transform": {
-                "offsetX": 140,
-                "offsetY": 140,
+                "offsetX": 0,
+                "offsetY": 0,
                 "offsetDepth": 0,
                 "scaleX": 50,
                 "scaleY": 50,
@@ -1545,8 +1545,8 @@
               "rows": 1,
               "cols": 1,
               "transform": {
-                "offsetX": 140,
-                "offsetY": 140,
+                "offsetX": 0,
+                "offsetY": 0,
                 "offsetDepth": 0,
                 "scaleX": 50,
                 "scaleY": 50,

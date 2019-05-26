@@ -19,12 +19,12 @@ return function(script)
   
   while true do
     script.char:playIdleAnimation()
-    if script.char.colliding then
+    script:wait(pause + rand(-pauseVar, pauseVar))
+    if script.char.colliding or script.char.interacting then
       coroutine.yield()
     else
-      script:wait(pause + rand(-pauseVar, pauseVar))
-      local dir = 
-      script.char:tryTileMovement(angle)
+      local dir = rand(8) * 45
+      script.char:tryAngleMovement(dir)
     end
   end
   

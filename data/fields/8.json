@@ -2114,6 +2114,16 @@
           "onCollide": false,
           "name": "events/behavior/Wanderer.lua",
           "tags": []
+        },
+        {
+          "global": false,
+          "block": true,
+          "wait": true,
+          "onLoad": false,
+          "onInteract": true,
+          "onCollide": false,
+          "name": "events/test/Dialogue.lua",
+          "tags": []
         }
       ]
     },
@@ -2138,6 +2148,16 @@
           "onInteract": false,
           "onCollide": false,
           "name": "events/behavior/Wanderer.lua",
+          "tags": []
+        },
+        {
+          "global": false,
+          "block": true,
+          "wait": true,
+          "onLoad": false,
+          "onInteract": true,
+          "onCollide": false,
+          "name": "events/test/Dialogue.lua",
           "tags": []
         }
       ]
