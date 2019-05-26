@@ -151,7 +151,7 @@ end
 -- @param(text : string) Nil or empty to hide window, any other string to show.
 function DialogueWindow:setName(text, x, y)
   if text and text ~= '' then
-    self.nameWindow:setText(text)
+    self.nameWindow:updateText(text)
     self.nameWindow:packText()
     local nameX = x and (self.position.x + x) or self.nameWindow.position.x
     local nameY = y and (self.position.y + y) or self.nameWindow.position.y

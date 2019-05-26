@@ -86,7 +86,7 @@ function ShopItemWindow:onButtonCancel(button)
 end
 -- Updates item description.
 function ShopItemWindow:onButtonSelect(button)
-  self.GUI.descriptionWindow:setText(button.item.description)
+  self.GUI.descriptionWindow:updateText(button.item.description)
   self.GUI.countWindow:setItem(button.item, button.price)
 end
 

@@ -84,7 +84,7 @@ end
 -- @param(button : Button)
 function InventoryWindow:onButtonSelect(button)
   if self.GUI.descriptionWindow then
-    self.GUI.descriptionWindow:setText(button.description)
+    self.GUI.descriptionWindow:updateText(button.description)
   end
 end
 -- Tells if an item can be used.

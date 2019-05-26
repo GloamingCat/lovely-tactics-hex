@@ -51,10 +51,17 @@ end
 function SimpleText:setMaxWidth(w)
   self.sprite.maxWidth = w
 end
+-- Sets max height (must be redrawn later).
+-- @param(h : number)
+function SimpleText:setMaxHeight(h)
+  self.sprite.maxHeight = h
+end
 -- Sets text alignment (must be redrawn later).
--- @param(align : string)
-function SimpleText:setAlign(a)
-  self.sprite.alignX = a or 'left'
+-- @param(h : string) Horizontal alignment.
+-- @param(v : string) Vertical alignment.
+function SimpleText:setAlign(h, v)
+  self.sprite.alignX = h or 'left'
+  self.sprite.alignY = v or 'top'
 end
 -- Redraws text.
 function SimpleText:redraw()

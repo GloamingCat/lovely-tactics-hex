@@ -13,11 +13,13 @@ return function(script)
 	
 	script:openTitleWindow { text = script.args.name }
   while not FieldManager.player:moving() do
-    if InputManager.keys['confirm']:isTriggered() then
-      script:closeTitleWindow()
-      local t = FieldManager.currentField.transitions[tonumber(script.args.dest)]
-      script:moveToField (t)
-      return
+    if not FieldManager.player:isBusy() then
+      if InputManager.keys['confirm']:isTriggered() then
+        script:closeTitleWindow()
+        local t = FieldManager.currentField.transitions[tonumber(script.args.dest)]
+        script:moveToField (t)
+        return
+      end
     end
     coroutine.yield()
   end

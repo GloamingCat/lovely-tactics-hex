@@ -54,18 +54,21 @@ function util.openTitleWindow(sheet, args)
   local y = args.y or -ScreenManager.height / 2 + h / 2 + 8
   if sheet.gui.titleWindow then
     sheet.gui.titleWindow:resize(w, h)
-    sheet.gui.titleWindow:setXYZ(x, y, 0)
+    sheet.gui.titleWindow:setXYZ(x, y, 10)
   else
-    sheet.gui.titleWindow = DescriptionWindow(sheet.gui, w, h, Vector(x, y, 0))
-    sheet.gui.titleWindow.text:setAlign('center')
+    sheet.gui.titleWindow = DescriptionWindow(sheet.gui, w, h, Vector(x, y, 10))
+    sheet.gui.titleWindow.text:setMaxHeight(h - sheet.gui.titleWindow:paddingY() * 2)
+    sheet.gui.titleWindow.text:setAlign('center', 'center')
   end
   sheet.gui.titleWindow:show()
-  sheet.gui.titleWindow:setText(args.text)
+  sheet.gui.titleWindow:updateText(args.text)
 end
 
 function util.closeTitleWindow(sheet, args)
   assert(sheet.gui.titleWindow, 'Title windows is not open.')
   sheet.gui.titleWindow:hide()
+  sheet.gui.titleWindow:destroy()
+  sheet.gui.titleWindow:removeSelf()
 end
 
 ---------------------------------------------------------------------------------------------------

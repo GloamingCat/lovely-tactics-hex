@@ -72,7 +72,7 @@ end
 function BattleGUI:showDescriptionWindow(window)
   if self.descriptionWindow then
     local text = window:currentWidget().description
-    self.descriptionWindow:setText(text)
+    self.descriptionWindow:updateText(text)
     self.descriptionWindow:insertSelf()
     GUIManager.fiberList:fork(self.descriptionWindow.show, self.descriptionWindow)
   end

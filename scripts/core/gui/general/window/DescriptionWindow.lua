@@ -33,8 +33,9 @@ function DescriptionWindow:createContent(w, h)
 end
 -- Sets text to be shown.
 -- @param(txt : string)
-function DescriptionWindow:setText(txt)
+function DescriptionWindow:updateText(txt)
   self.text:setText(txt or '')
+  self.text:updatePosition(self.position)
   self.text:redraw()
 end
 -- Gets the text the is being shown in the window.

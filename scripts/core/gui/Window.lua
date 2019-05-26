@@ -37,7 +37,7 @@ function Window:init(GUI, width, height, position)
   Transformable.init(self, position)
   self.GUI = GUI
   self.speed = 10
-  self.spriteGrid = (not self.noSkin) and SpriteGrid(self:getSkin(), Vector(0, 0, 10))
+  self.spriteGrid = (not self.noSkin) and SpriteGrid(self:getSkin(), Vector(0, 0, 1))
   self.content = List()
   self.width = width
   self.height = height

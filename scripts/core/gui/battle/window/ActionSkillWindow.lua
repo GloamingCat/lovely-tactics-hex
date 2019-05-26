@@ -64,7 +64,7 @@ end
 
 -- Updates description when button is selected.
 function ActionSkillWindow:onButtonSelect(button)
-  self.GUI.descriptionWindow:setText(button.description)
+  self.GUI.descriptionWindow:updateText(button.description)
 end
 -- Called when player chooses a skill.
 -- @param(button : Button) the button selected

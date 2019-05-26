@@ -80,7 +80,7 @@ end
 -- Called when player selects an item button.
 -- @param(button : Button)
 function EquipSlotWindow:onButtonSelect(button)
-  self.GUI.descriptionWindow:setText(button.item and button.item.description)
+  self.GUI.descriptionWindow:updateText(button.item and button.item.description)
   self.GUI.bonusWindow:setEquip(button.key, button.item)
 end
 -- Called when player presses "confirm".
