@@ -50,7 +50,7 @@ end
 -- Overrides SkillAction:menuUse.
 function ItemAction:menuUse(input)
   if self.item.consume then
-    input.user.battler.troop.inventory:removeItem(self.item.id)
+    input.user.troop.inventory:removeItem(self.item.id)
   end
   return SkillAction.menuUse(self, input)
 end

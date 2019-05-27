@@ -69,9 +69,9 @@ function BattlerWindow:createContent(width, height)
       nil, round(self.width / 3) - self:paddingX(), self.height - self:paddingY() * 2)
   self.content:add(self.portrait)
   -- Content pos
-  local x = round(self.width / 3 - self.width / 2)
+  local x = round(self.width / 3 - self.width / 2 + self:paddingX())
   local y = round(self:paddingY() - self.height / 2)
-  local w = round((self.width - self:paddingX()) / 4)
+  local w = round((self.width - self:paddingX()) / 4 - self:paddingX())
   -- Name
   self.textName = SimpleText('', Vector(x, y), w * 3)
   self.content:add(self.textName)

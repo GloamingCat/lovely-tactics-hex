@@ -13,6 +13,7 @@ local Troop = require('core/battle/Troop')
 
 -- Alias
 local copyTable = util.table.deepCopy
+local fileInfo = love.filesystem.getInfo
 local now = love.timer.getTime
 
 local SaveManager = class()
@@ -24,12 +25,12 @@ local SaveManager = class()
 -- Constructor. 
 function SaveManager:init()
   self.current = nil
-  if love.filesystem.exists('saves.json') then
+  if fileInfo('saves.json') then
     self.saves = Serializer.load('saves.json')
   else
     self.saves = {}
   end
-  if not love.filesystem.exists('saves/') then
+  if not fileInfo('saves/') then
     love.filesystem.createDirectory('saves/')
   end
   self.maxSaves = 3
@@ -116,7 +117,7 @@ end
 function SaveManager:loadSave(file)
   if file == nil then
     self.current = self:newSave()
-  elseif love.filesystem.exists('saves/' .. file .. '.save') then
+  elseif fileInfo('saves/' .. file .. '.save') then
     self.current = Serializer.load('saves/' .. file .. '.save')
   else
     print('No such save file: ' .. file .. '.save')
@@ -126,7 +127,7 @@ function SaveManager:loadSave(file)
 end
 -- Load config file. If 
 function SaveManager:loadConfig()
-  if love.filesystem.exists('config.json') then
+  if fileInfo('config.json') then
     self.config = Serializer.load('config.json')
   else
     self.config = self:newConfig()

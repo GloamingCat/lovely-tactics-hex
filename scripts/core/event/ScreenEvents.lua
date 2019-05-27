@@ -10,10 +10,10 @@ Functions that are loaded from the EventSheet.
 -- Alias
 local deltaTime = love.timer.getDelta
 
-local util = {}
+local Event = {}
 
 ---------------------------------------------------------------------------------------------------
--- Screen
+-- Fading Effect
 ---------------------------------------------------------------------------------------------------
 
 -- General parameters:
@@ -22,9 +22,9 @@ local util = {}
 
 -- Fades out the screen.
 -- @param(args.renderer : Renderer) Camera to fade out. Field by default.
-function util.fadeout(sheet, args)
+function Event:fadeout(args)
   local renderer = args.renderer or FieldManager.renderer
-  local speed = args.time and (255 / args.time) or 0
+  local speed = args.time and (60 / args.time) or 0
   renderer:fadeout(speed)
   if args.wait then
     _G.Fiber:waitUntil(function()
@@ -34,9 +34,9 @@ function util.fadeout(sheet, args)
 end
 -- Fades in the screen.
 -- @param(args.renderer : Renderer) Camera to fade in. Field by default.
-function util.fadein(sheet, args)
+function Event:fadein(args)
   local renderer = args.renderer or FieldManager.renderer
-  local speed = args.time and (255 / args.time) or 0
+  local speed = args.time and (60 / args.time) or 0
   renderer:fadein(speed)
   if args.wait then
     _G.Fiber:waitUntil(function()
@@ -44,9 +44,14 @@ function util.fadein(sheet, args)
     end)
   end
 end
+
+---------------------------------------------------------------------------------------------------
+-- Shader Effect
+---------------------------------------------------------------------------------------------------
+
 -- Shows the effect of a shader.
 -- @param(args.name : string)
-function util.shaderin(sheet, args)
+function Event:shaderin(args)
   ScreenManager.shader = ResourceManager:loadShader(args.name)
   ScreenManager.shader:send('time', 0)
   local time = deltaTime()
@@ -59,7 +64,7 @@ function util.shaderin(sheet, args)
 end
 -- Hides the effect of a shader.
 -- @param(args.name : string)
-function util.shaderout(sheet, args)
+function Event:shaderout(args)
   ScreenManager.shader:send('time', 1)
   local time = deltaTime()
   while time > 0 do
@@ -71,4 +76,4 @@ function util.shaderout(sheet, args)
   ScreenManager.shader = nil
 end
 
-return util
+return Event

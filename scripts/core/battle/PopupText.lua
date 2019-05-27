@@ -117,9 +117,9 @@ function PopupText:popup(wait)
       coroutine.yield()
     end
     _G.Fiber:wait(pause)
-    local f = 100 / (sprite.color.alpha / 255)
+    local f = speed * 100 / sprite.color.alpha
     while sprite.color.alpha > 0 do
-      local a = max(sprite.color.alpha - speed * time() * f, 0)
+      local a = max(sprite.color.alpha - f * time(), 0)
       sprite:setRGBA(nil, nil, nil, a)
       coroutine.yield()
     end

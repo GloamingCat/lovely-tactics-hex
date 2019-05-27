@@ -43,7 +43,7 @@ function GameOverGUI:createTopText()
   local y = -ScreenManager.height / 2 + self:windowMargin() * 2
   self.topText:setXYZ(x, y)
   self.topText:setVisible(false)
-  self.topTextSpeed = 8
+  self.topTextSpeed = 2
 end
 -- Creates the window that shows battle results.
 function GameOverGUI:createMainWindow()
@@ -74,12 +74,12 @@ function GameOverGUI:showTopText()
   local a = 0
   self.topText:setVisible(true)
   self.topText:setRGBA(nil, nil, nil, 0)
-  while a < 255 do
-    a = a + time() * 60 * self.topTextSpeed
+  while a < 1 do
+    a = a + time() * self.topTextSpeed
     self.topText:setRGBA(nil, nil, nil, a)
     coroutine.yield()
   end
-  self.topText:setRGBA(nil, nil, nil, 255)
+  self.topText:setRGBA(nil, nil, nil, 1)
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -94,11 +94,11 @@ end
 -- Animation that shows the text at the top.
 function GameOverGUI:hideTopText()
   if AudioManager.gameoverTheme then
-    AudioManager:pauseBGM(60 / self.topTextSpeed)
+    AudioManager:pauseBGM(120 / self.topTextSpeed)
   end
-  local a = 255
+  local a = 1
   while a > 0 do
-    a = a - time() * 60 * self.topTextSpeed
+    a = a - time() * self.topTextSpeed
     self.topText:setRGBA(nil, nil, nil, a)
     coroutine.yield()
   end

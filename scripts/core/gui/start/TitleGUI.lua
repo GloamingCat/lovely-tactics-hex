@@ -81,9 +81,9 @@ function TitleGUI:showCover()
   local time = 0
   while time < 1 do
     time = math.min(1, time + love.timer.getDelta() * self.coverSpeed)
-    self.topText:setRGBA(nil, nil, nil, time * 255)
+    self.topText:setRGBA(nil, nil, nil, time)
     if self.cover then
-      self.cover:setRGBA(nil, nil, nil, time * 255)
+      self.cover:setRGBA(nil, nil, nil, time)
     end
     coroutine.yield()
   end
@@ -96,9 +96,9 @@ function TitleGUI:hideCover()
   local time = 1
   while time > 0 do
     time = math.max(0, time - love.timer.getDelta() * self.coverSpeed)
-    self.topText:setRGBA(nil, nil, nil, time * 255)
+    self.topText:setRGBA(nil, nil, nil, time)
     if self.cover then
-      self.cover:setRGBA(nil, nil, nil, time * 255)
+      self.cover:setRGBA(nil, nil, nil, time)
     end
     coroutine.yield()
   end

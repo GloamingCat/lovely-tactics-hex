@@ -224,14 +224,16 @@ end
 -- Applies the effects of the skill to the given battler.
 -- @param(results : table) Skill result table.
 -- @param(char : Character) Battler's character.
-function SkillAction:applyResults(input, results, char)
-  char.battler:applyResults(results, char)
-  if char.battler:isAlive() then
-    char:playAnimation(char.idleAnim)
-  else
-    char:playAnimation(char.koAnim)
+function SkillAction:applyResults(input, results, battler, char)
+  battler:applyResults(results, char)
+  if char then
+    if battler:isAlive() then
+      char:playAnimation(char.idleAnim)
+    else
+      char:playAnimation(char.koAnim)
+    end
   end
-  char.battler:onSkillEffect(input, results, char)
+  battler:onSkillEffect(input, results, char)
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -251,12 +253,12 @@ function SkillAction:menuUse(input)
   if input.target then
     local results = self:calculateEffectResults(input.user, input.target)
     local char = TroopManager:getBattlerCharacter(input.target)
-    self:applyResults(input, results, char)
+    self:applyResults(input, results, input.target, char)
   elseif input.targets then
     for i = 1, #input.targets do
       local results = self:calculateEffectResults(input.user, input.targets[i])
       local char = TroopManager:getBattlerCharacter(input.targets[i])
-      self:applyResults(input, results, char)
+      self:applyResults(input, results, input.targets[i], char)
     end
   else
     return { executed = false }

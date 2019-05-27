@@ -23,7 +23,7 @@ local util = {}
 function util.deleteChar(sheet, args)
   local char = sheet:findCharacter(args.key)
   if args.fade and args.fade > 0 then
-    local speed = 255 / args.fade
+    local speed = 1 / args.fade
     char:colorizeTo(nil, nil, nil, 0, speed)
   end
   if args.wait then

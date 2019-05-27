@@ -10,7 +10,7 @@ return function(script)
 
   script:turnCharTile { key = 'self', other = 'player' }
 
-  script:openDialogueWindow { id = 1, width = 255, height = 60 }
+  script:openDialogueWindow { id = 1, width = 250, height = 60 }
 
   script:showDialogue { id = 1, character = "self", portrait = "BigIcon", nameX = -0.45, nameY = -1.25, message = 
     "Hi."

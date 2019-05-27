@@ -135,8 +135,7 @@ end
 function ResourceManager:refreshImages() 
   for k, v in pairs(ImageCache) do
     local data = newImageData(k)
-    v:getData():paste(data, 0, 0, 0, 0, data:getWidth(), data:getHeight())
-    v:refresh()
+    v:replacePixels(data)
   end
 end
 

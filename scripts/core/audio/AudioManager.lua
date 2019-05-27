@@ -159,7 +159,7 @@ end
 function AudioManager:resumeBGM(time, wait)
   if self.pausedBGM then
     if self.BGM then
-      self.BGM:resume()
+      self.BGM:play()
     end
     self.pausedBGM = false
     self:fadein(time, wait)

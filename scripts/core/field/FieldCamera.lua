@@ -149,7 +149,7 @@ end
 -- @param(speed : number) the speed of the fading (optional, uses default speed)
 -- @param(wait : boolean) flag to wait until the fading finishes (optional, false by default)
 function FieldCamera:fadein(speed, wait)
-  self:colorizeTo(255, 255, 255, 255, speed or self.fadeSpeed, wait)
+  self:colorizeTo(1, 1, 1, 1, speed or self.fadeSpeed, wait)
 end
 
 return FieldCamera

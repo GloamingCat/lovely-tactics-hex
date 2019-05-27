@@ -28,7 +28,7 @@ function TextRenderer.createLineBuffers(lines)
   local canvas = lgraphics.getCanvas()
   local font = lgraphics.getFont()
   -- Render lines individually
-  lgraphics.setColor(255, 255, 255, 255)
+  lgraphics.setColor(1, 1, 1, 1)
 	local renderedLines = {}
   for i = 1, #lines do
     lgraphics.setShader()

@@ -10,6 +10,10 @@ A type of sounds that loops and may have a non-looping intro.
 -- Imports
 local Sound = require('core/audio/Sound')
 
+-- Alias
+local newSource = love.audio.newSource
+local fileInfo = love.filesystem.getInfo
+
 local Music = class(Sound)
 
 ---------------------------------------------------------------------------------------------------
@@ -29,15 +33,15 @@ function Music:init(name, volume, pitch, intro, loop)
     self.intro = intro
   elseif not loop then
     local introName = name:gsub('%.', '_intro.', 1)
-    if love.filesystem.exists(introName) then
-      self.intro = love.audio.newSource(introName)
+    if fileInfo(introName) then
+      self.intro = newSource(introName, 'stream')
       self.intro:setLooping(false)
     end
   end
   if loop then
     self.loop = loop
   else
-    self.loop = love.audio.newSource(name)
+    self.loop = newSource(name, 'stream')
     assert(self.loop, 'Could not load Music ' .. name)
     self.loop:setLooping(true)
   end
@@ -70,9 +74,9 @@ end
 -- Override.
 function Music:stop()
   if self.intro then
-    self.intro:rewind()
+    self.intro:seek(0)
   end
-  self.loop:rewind()
+  self.loop:seek(0)
   self.source:stop()
   self.source = self.intro or self.loop
 end

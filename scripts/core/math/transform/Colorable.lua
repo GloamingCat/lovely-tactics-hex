@@ -20,7 +20,7 @@ local Colorable = class()
 -- Initalizes color.
 -- @param(color : table) a color table containing {red, green, blue, alpha} components (optional)
 function Colorable:initColor(color, hsv)
-  color = color or { red = 255, green = 255, blue = 255, alpha = 255 }
+  color = color or { red = 1, green = 1, blue = 1, alpha = 1 }
   self.hsv = hsv or { h = 0, s = 1, v = 1 }
   self.color = color
   self.colorSpeed = 0

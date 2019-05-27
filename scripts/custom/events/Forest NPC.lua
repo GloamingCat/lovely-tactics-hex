@@ -11,7 +11,7 @@ return function(script)
 
   script:turnCharTile{ key = "self", other = "player" }
 
-  script:openDialogueWindow { id = 1, width = 255, height = 60 }
+  script:openDialogueWindow { id = 1, width = 250, height = 60 }
 
   script:showDialogue { id = 1, character = "HeroMage", portrait = "BigIcon", message = 
     "What do you want to do?"
