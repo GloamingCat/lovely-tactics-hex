@@ -134,7 +134,7 @@ function ScreenManager:setWindowed()
   end
 end
 -- Changes screen to full screen mode.
-function ScreenManager:setFullscreen()
+function ScreenManager:setFullScreen()
   if isFullScreen() then
     return
   end
