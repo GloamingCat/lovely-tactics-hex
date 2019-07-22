@@ -30,7 +30,7 @@ return {
   useMouse = 'Use Mouse',
   wasd = 'Use WASD',
   resolution1 = '0.5x',
-  resolution2 = '1x',
+  resolution2 = '1.0x',
   resolution3 = '1.5x',
   fullScreen = 'Full Screen',
   default = 'Default',

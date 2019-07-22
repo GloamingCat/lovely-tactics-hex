@@ -53,9 +53,9 @@ function TargetWindow:createContent(width, height)
   self.textLevel = SimpleText('', posClass, w, 'left', font)
   self.content:add(self.textLevel)
   -- State values texts
-  local posHP = Vector(x, y + 25)
+  local posHP = Vector(x, y + 25, -2)
   self.gaugeHP = self:addStateVariable(Vocab.hp, posHP, w, Color.barHP)
-  local posSP = Vector(x, y + 35)
+  local posSP = Vector(x, y + 35, -2)
   self.gaugeSP = self:addStateVariable(Vocab.sp, posSP, w, Color.barSP)
   -- Icon List
   local posIcons = Vector(x + 8, y + 55)
