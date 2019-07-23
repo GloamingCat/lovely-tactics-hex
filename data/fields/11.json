@@ -1,9 +1,9 @@
 {
-  "id": 8,
+  "id": 11,
   "sizeX": 20,
   "sizeY": 10,
   "prefs": {
-    "persistent": true,
+    "persistent": false,
     "defaultRegion": -1,
     "maxHeight": 2,
     "bgm": {
@@ -19,80 +19,12 @@
       "onLoad": true,
       "onInteract": false,
       "onCollide": false,
-      "name": "events/Intro.lua",
+      "name": "",
       "tags": []
     },
-    "images": [
-      {
-        "foreground": true,
-        "glued": true,
-        "visible": false,
-        "name": "BG1",
-        "id": 129,
-        "col": 0,
-        "row": 0
-      },
-      {
-        "foreground": true,
-        "glued": true,
-        "visible": false,
-        "name": "BG2",
-        "id": 134,
-        "col": 0,
-        "row": 0
-      }
-    ],
-    "transitions": [
-      {
-        "destination": {
-          "fieldID": 7,
-          "x": 7,
-          "y": 14,
-          "h": 1,
-          "direction": 135
-        },
-        "tl": {
-          "fieldID": 8,
-          "x": 18,
-          "y": 1,
-          "h": 1,
-          "direction": -1
-        },
-        "br": {
-          "fieldID": 8,
-          "x": 19,
-          "y": 1,
-          "h": 1,
-          "direction": -1
-        },
-        "fade": 30
-      },
-      {
-        "destination": {
-          "fieldID": 9,
-          "x": 7,
-          "y": 14,
-          "h": 1,
-          "direction": 135
-        },
-        "tl": {
-          "fieldID": 8,
-          "x": 2,
-          "y": 1,
-          "h": 1,
-          "direction": -1
-        },
-        "br": {
-          "fieldID": 8,
-          "x": 4,
-          "y": 1,
-          "h": 1,
-          "direction": -1
-        },
-        "fade": 30
-      }
-    ],
-    "name": "Town 3",
+    "images": [],
+    "transitions": [],
+    "name": "Town Battle Field",
     "tags": []
   },
   "layers": {
@@ -2110,50 +2042,28 @@
     ],
     "region": []
   },
-  "characters": [
+  "characters": [],
+  "parties": [
     {
-      "key": "Chita",
-      "persistent": true,
-      "passable": false,
-      "x": 8,
-      "y": 9,
-      "h": 1,
-      "party": -1,
-      "charID": 5,
-      "battlerID": -1,
-      "animation": "SceneIdle",
-      "direction": 90,
-      "scripts": []
-    },
-    {
-      "key": "Heron",
-      "persistent": true,
-      "passable": false,
+      "name": "Player",
+      "memberGen": 1,
       "x": 9,
       "y": 5,
       "h": 1,
-      "party": -1,
-      "charID": 13,
-      "battlerID": -1,
-      "animation": "SceneIdle",
-      "direction": 0,
-      "scripts": []
+      "rotation": 1,
+      "troops": []
     },
     {
-      "key": "Jelly",
-      "persistent": true,
-      "passable": false,
-      "x": 14,
-      "y": 7,
+      "name": "Jelly",
+      "memberGen": 1,
+      "x": 13,
+      "y": 5,
       "h": 1,
-      "party": -1,
-      "charID": 6,
-      "battlerID": -1,
-      "animation": "Idle",
-      "direction": 225,
-      "scripts": []
+      "rotation": 3,
+      "troops": [
+        2
+      ]
     }
   ],
-  "parties": [],
-  "playerParty": -1
+  "playerParty": 0
 }

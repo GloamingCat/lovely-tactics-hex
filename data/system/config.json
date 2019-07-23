@@ -4,11 +4,11 @@
     "walkSpeed": 104,
     "dashSpeed": 208,
     "startPos": {
-      "fieldID": 10,
-      "x": 2,
+      "fieldID": 8,
+      "x": 10,
       "y": 7,
       "h": 1,
-      "direction": 270
+      "direction": 45
     }
   },
   "battle": {

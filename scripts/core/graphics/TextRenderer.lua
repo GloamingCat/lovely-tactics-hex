@@ -54,7 +54,7 @@ end
 function TextRenderer.shadeBuffer(texture)
   local w, h = texture:getWidth(), texture:getHeight()
   local newTexture = lgraphics.newCanvas(w, h)
-  newTexture:setFilter('linear', 'nearest')
+  newTexture:setFilter('linear', 'linear')
   lgraphics.setCanvas(newTexture)
   textShader:send('stepSize', { 1 / math.pow(2, ScreenManager.scaleX - 1), 1 / math.pow(2, ScreenManager.scaleY)})
   textShader:send('pixelSize', { Fonts.outlineSize / w, Fonts.outlineSize / h })

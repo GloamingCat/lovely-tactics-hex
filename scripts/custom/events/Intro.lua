@@ -11,23 +11,33 @@ return function(script)
   
   script:fadeout {}
   
+  FieldManager.renderer.images.BG1:setVisible(true)
+  
   Fiber:wait(30)
+  
+  -------------------------------------------------------------------------------------------------
+  -- First part of the storytelling.
+  -------------------------------------------------------------------------------------------------
   
   script:openDialogueWindow { id = 1, x = 0, y = 0,
     width = ScreenManager.width * 3 / 4, 
     height = ScreenManager.height / 3 
   }
-  
+
   script:showDialogue { id = 1, character = '', message = 
-    "O mundo de Hexalia desde sempre foi feito de amor, alegria e doçura. Ele foi criado e mantido pelas bruxas da prosperidade: Pom Pom, Blim Blim e Tum Tum."
+    "O mundo de Hexalia desde sempre foi feito de amor, alegria e doçura. " ..
+    "Ele foi criado e mantido pelas bruxas da prosperidade: Pom Pom, Blim Blim e Tum Tum."
   }
   
   script:showDialogue { id = 1, message = 
-    "Nosso povo viveu em paz e harmonia durante séculos, pois sempre foi reinado por sentimentos positivos. A verdade é que os emoções negativas também existiam, mas eram muito raros. Todos achavam que era apenas lenda e que ninguém era capaz que sentir isso."
+    "Nosso povo viveu em paz e harmonia durante séculos, pois sempre foi reinado por sentimentos positivos. " ..
+    "A verdade é que as emoções negativas também existiam, mas eram muito raras. " ..
+    "Todos achavam que era apenas lenda e que ninguém era capaz que sentir isso."
   }
 
   script:showDialogue { id = 1, message = 
-    "Porém, depois de vários anos, para espanto de todos… descobrimos que essas emoções são, sim, sentidas. E descobrimos isso da pior forma…"
+    "Porém, depois de vários anos, para espanto de todos… descobrimos que essas emoções são, sim, sentidas. " ..
+    "E descobrimos isso da pior forma…"
   }
   
   script:closeDialogueWindow { id = 1 }
@@ -82,8 +92,12 @@ return function(script)
   
   script:closeDialogueWindow { id = 1 }
   
-  script:fadeout { time = 180, wait = true }
+  script:fadeout { time = 150, wait = true }
   Fiber:wait(60)
+  
+  -------------------------------------------------------------------------------------------------
+  -- Second part of the storytelling.
+  -------------------------------------------------------------------------------------------------
   
   script:openDialogueWindow { id = 1, x = 0, y = 0,
     width = ScreenManager.width * 3 / 4, 
@@ -95,7 +109,8 @@ return function(script)
   }
   
   script:showDialogue { id = 1, message = 
-    "Felizmente, as bruxas da prosperidade possuem o poder para combater as gelatinas do mal. Sempre que uma gelatina surge, elas a desmancham, se livrando dos sentimentos negativos que carregava."
+    "Felizmente, as bruxas da prosperidade possuem o poder para combater as gelatinas do mal. " .. 
+    "Sempre que uma gelatina surge, elas a desmancham, se livrando dos sentimentos negativos que carregava."
   }
   
   script:showDialogue { id = 1, message = 
@@ -103,12 +118,13 @@ return function(script)
   }
   
   script:showDialogue { id = 1, message = 
-    "Um dia, as gelatinas estavam tão poderosas que conseguiram vencer duas das bruxas da prosperidade, Blim Blim e Pom Pom, que estão até agora presas por gelatina."
+    "Um dia, as gelatinas estavam tão poderosas que conseguiram vencer duas das bruxas da prosperidade, " .. 
+    "Blim Blim e Pom Pom, que estão até agora presas por gelatina."
   }
   
   script:closeDialogueWindow { id = 1 }
 
-  script:fadein { time = 180, wait = true }
+  script:fadein { time = 150, wait = true }
   Fiber:wait(30)
 
   script:openDialogueWindow { id = 1, x = 0, y = ScreenManager.height / 3,
@@ -121,7 +137,8 @@ return function(script)
   }
   
   script:showDialogue { id = 1, character = "Chita", portrait = "Serious", message = 
-    "Já tentamos de tudo para reencontrá-las, mas não conseguimos. Mas sabemos que a última vez que foram vistas foi na floresta."
+    "Já tentamos de tudo para reencontrá-las, mas não conseguimos. " .. 
+    "Mas sabemos que a última vez que foram vistas foi na floresta."
   }
   
   script:showDialogue { id = 1, character = "Chita", portrait = "Shout", message = 
@@ -137,9 +154,14 @@ return function(script)
   }
   
   script:closeDialogueWindow { id = 1 }
+    
+  -------------------------------------------------------------------------------------------------
+  -- Heron shows up.
+  -------------------------------------------------------------------------------------------------
   
   AudioManager:playSFX { name = "sfx/Kenney/door.ogg" }
-  script:fadeout { time = 180, wait = true }
+  script:fadeout { time = 90, wait = true }
+  AudioManager:playBGM(Sounds.battleTheme)
   FieldManager.renderer.images.BG1:setVisible(false)
   FieldManager.renderer.images.BG2:setVisible(true)
   script:fadein { time = 60, wait = true }
@@ -163,10 +185,14 @@ return function(script)
   
   script:closeDialogueWindow { id = 1 }
   
-  script:fadeout { time = 180, wait = true }
+  -------------------------------------------------------------------------------------------------
+  -- Move outside.
+  -------------------------------------------------------------------------------------------------
+  
+  script:fadeout { time = 150, wait = true }
   FieldManager.renderer.images.BG2:setVisible(false)
   script:wait(60)
-  script:fadein { time = 240, wait = true }
+  script:fadein { time = 180, wait = true }
   
   script:openDialogueWindow { id = 1, x = 0, y = ScreenManager.height / 3,
     width = ScreenManager.width, 
@@ -187,10 +213,16 @@ return function(script)
   
   script:closeDialogueWindow { id = 1 }
   
-  script:startBattle { fieldID = 11, fade = 5, intro = true, 
+  AudioManager.battleTheme = nil
+  script:startBattle { fieldID = 11, fade = 90, intro = true, 
     gameOverCondition = 1, escapeEnabled = false }
+  AudioManager.battleTheme = Sounds.battleTheme
   
-  script:deleteChar { key = 'Slime', fade = 90, permanent = true, wait = true }
+  -------------------------------------------------------------------------------------------------
+  -- After battle.
+  -------------------------------------------------------------------------------------------------
+  
+  script:deleteChar { key = 'Jelly', fade = 90, permanent = true, wait = true }
   
   script:openDialogueWindow { id = 1, x = 0, y = ScreenManager.height / 3,
     width = ScreenManager.width, 
@@ -201,12 +233,19 @@ return function(script)
     "Muito obrigado, Tum Tum! Você é incrível!"
   }
   
+  local angle = 45
+  while angle < 225 do
+    angle = angle + 45
+    script:turnCharDir { key = "player", angle = angle }
+    Fiber:wait(4)
+  end
+  
   script:showDialogue { id = 1, character = "player", portrait = "Blush", message = 
     "Hahah, que nada!"
   }
   
   script:showDialogue { id = 1, character = "Chita", portrait = "Serious", message = 
-    "Muito bem, Tum Tum. Acha que está preparado agora?"
+    "Muito bem, Tum Tum. Acha que está preparada agora?"
   }
   
   script:showDialogue { id = 1, character = "player", portrait = "Wonder", message = 
@@ -222,6 +261,18 @@ return function(script)
   }
   
   script:closeDialogueWindow { id = 1 }
+
+  -------------------------------------------------------------------------------------------------
+  -- Finish.
+  -------------------------------------------------------------------------------------------------
+
+  script:fadeout { time = 180, wait = true }
+  script:deleteChar { key = 'Chita', permanent = true }
+  script:deleteChar { key = 'Heron', permanent = true }
+  script:turnCharDir { key = "player", angle = 270 }
+  Fiber:wait(30)
+  AudioManager:playBGM { name = 'bgm/Gyrowolf/Town001.ogg', volume = 100, pitch = 100 }
+  script:fadein { time = 180, wait = true }
   
   FieldManager.currentField.loadScript = { name = '' }
   

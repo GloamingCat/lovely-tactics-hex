@@ -5172,6 +5172,158 @@
         },
         "id": 110,
         "children": []
+      },
+      {
+        "data": {
+          "script": "",
+          "quad": {
+            "path": "Background/Room1.png",
+            "x": 0,
+            "y": 0,
+            "width": 800,
+            "height": 450
+          },
+          "rows": 1,
+          "cols": 1,
+          "transform": {
+            "offsetX": 400,
+            "offsetY": 225,
+            "offsetDepth": 0,
+            "scaleX": 50,
+            "scaleY": 50,
+            "rotation": 0,
+            "red": 255,
+            "green": 255,
+            "blue": 255,
+            "alpha": 255,
+            "hue": 0,
+            "saturation": 100,
+            "brightness": 100
+          },
+          "introPattern": "",
+          "introDuration": "",
+          "loopPattern": "",
+          "loopDuration": "",
+          "audio": [],
+          "name": "Room1",
+          "tags": []
+        },
+        "id": 129,
+        "children": []
+      },
+      {
+        "data": {
+          "script": "",
+          "quad": {
+            "path": "Background/Room2.png",
+            "x": 0,
+            "y": 0,
+            "width": 800,
+            "height": 450
+          },
+          "rows": 1,
+          "cols": 1,
+          "transform": {
+            "offsetX": 400,
+            "offsetY": 225,
+            "offsetDepth": 0,
+            "scaleX": 50,
+            "scaleY": 50,
+            "rotation": 0,
+            "red": 255,
+            "green": 255,
+            "blue": 255,
+            "alpha": 255,
+            "hue": 0,
+            "saturation": 100,
+            "brightness": 100
+          },
+          "introPattern": "",
+          "introDuration": "",
+          "loopPattern": "",
+          "loopDuration": "",
+          "audio": [],
+          "name": "Room2",
+          "tags": []
+        },
+        "id": 134,
+        "children": []
+      },
+      {
+        "data": {
+          "script": "",
+          "quad": {
+            "path": "Background/Shop.png",
+            "x": 0,
+            "y": 0,
+            "width": 800,
+            "height": 450
+          },
+          "rows": 1,
+          "cols": 1,
+          "transform": {
+            "offsetX": 400,
+            "offsetY": 225,
+            "offsetDepth": 0,
+            "scaleX": 50,
+            "scaleY": 50,
+            "rotation": 0,
+            "red": 255,
+            "green": 255,
+            "blue": 255,
+            "alpha": 255,
+            "hue": 0,
+            "saturation": 100,
+            "brightness": 100
+          },
+          "introPattern": "",
+          "introDuration": "",
+          "loopPattern": "",
+          "loopDuration": "",
+          "audio": [],
+          "name": "Shop",
+          "tags": []
+        },
+        "id": 135,
+        "children": []
+      },
+      {
+        "data": {
+          "script": "",
+          "quad": {
+            "path": "Background/Room1.png",
+            "x": 0,
+            "y": 0,
+            "width": 800,
+            "height": 450
+          },
+          "rows": 1,
+          "cols": 1,
+          "transform": {
+            "offsetX": 400,
+            "offsetY": 225,
+            "offsetDepth": 0,
+            "scaleX": 50,
+            "scaleY": 50,
+            "rotation": 0,
+            "red": 255,
+            "green": 255,
+            "blue": 255,
+            "alpha": 255,
+            "hue": 0,
+            "saturation": 100,
+            "brightness": 100
+          },
+          "introPattern": "",
+          "introDuration": "",
+          "loopPattern": "",
+          "loopDuration": "",
+          "audio": [],
+          "name": "Inn",
+          "tags": []
+        },
+        "id": 136,
+        "children": []
       }
     ]
   }

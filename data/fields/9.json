@@ -3,7 +3,7 @@
   "sizeX": 10,
   "sizeY": 15,
   "prefs": {
-    "persistent": false,
+    "persistent": true,
     "defaultRegion": -1,
     "maxHeight": 6,
     "bgm": {
@@ -73,7 +73,7 @@
         "fade": 30
       }
     ],
-    "name": "Town 3",
+    "name": "Town 2",
     "tags": []
   },
   "layers": {

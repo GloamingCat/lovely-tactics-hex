@@ -62,7 +62,7 @@ function Music:update()
     self.source:play()
   end
 end
--- Override.
+-- Overrides Sound:getDuration.
 function Music:getDuration(unit)
   return (self.intro and self.intro:getDuration(unit) or 0) + self.loop:getDuration(unit)
 end
@@ -71,7 +71,7 @@ end
 -- Playing
 ---------------------------------------------------------------------------------------------------
 
--- Override.
+-- Overrides Sound:stop.
 function Music:stop()
   if self.intro then
     self.intro:seek(0)

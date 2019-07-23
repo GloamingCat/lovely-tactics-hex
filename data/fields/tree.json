@@ -1,5 +1,5 @@
 {
-  "lastField": 9,
+  "lastField": 7,
   "id": -1,
   "children": [
     {
@@ -26,9 +26,21 @@
       },
       "children": [
         {
-          "id": 8,
+          "id": 9,
           "data": {
             "name": "Town 2",
+            "lastLayers": [
+              2,
+              2,
+              -1
+            ]
+          },
+          "children": []
+        },
+        {
+          "id": 8,
+          "data": {
+            "name": "Town 3",
             "lastLayers": [
               2,
               0,
@@ -38,12 +50,12 @@
           "children": []
         },
         {
-          "id": 9,
+          "id": 11,
           "data": {
-            "name": "Town 3",
+            "name": "Town Battle Field",
             "lastLayers": [
               2,
-              2,
+              0,
               -1
             ]
           },

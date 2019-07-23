@@ -3,11 +3,11 @@
   "sizeX": 15,
   "sizeY": 15,
   "prefs": {
-    "persistent": false,
+    "persistent": true,
     "defaultRegion": -1,
     "maxHeight": 1,
     "bgm": {
-      "name": "bgm/David Vitas/Town Theme.ogg",
+      "name": "bgm/Gyrowolf/Town001.ogg",
       "volume": 100,
       "pitch": 100,
       "time": 0
@@ -1464,6 +1464,41 @@
           "onInteract": true,
           "onCollide": false,
           "name": "events/test/Shop.lua",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "key": "Heron",
+      "persistent": false,
+      "passable": false,
+      "x": 8,
+      "y": 6,
+      "h": 1,
+      "party": -1,
+      "charID": 13,
+      "battlerID": -1,
+      "animation": "SceneIdle",
+      "direction": 0,
+      "scripts": [
+        {
+          "global": false,
+          "block": false,
+          "wait": false,
+          "onLoad": true,
+          "onInteract": false,
+          "onCollide": false,
+          "name": "events/behavior/Wanderer.lua",
+          "tags": []
+        },
+        {
+          "global": false,
+          "block": true,
+          "wait": true,
+          "onLoad": false,
+          "onInteract": true,
+          "onCollide": false,
+          "name": "events/test/Dialogue.lua",
           "tags": []
         }
       ]

@@ -70,22 +70,22 @@ end
 -- Volume
 ---------------------------------------------------------------------------------------------------
 
--- @ret(number) volume multiplier for current BGM
+-- @ret(number) Volume multiplier for current BGM.
 function AudioManager:getBGMVolume()
   return self.volumeBGM
 end
--- @param(v : number) volume multiplier for current BGM
+-- @param(v : number) Volume multiplier for current BGM.
 function AudioManager:setBGMVolume(v)
   self.volumeBGM = v
   if self.BGM then
     self.BGM:updateVolume()
   end
 end
--- @ret(number) volume multiplier for current SFX
+-- @ret(number) Volume multiplier for current SFX.
 function AudioManager:getSFXVolume()
   return self.volumeSFX
 end
--- @param(v : number) volume multiplier for current SFX
+-- @param(v : number) Volume multiplier for current SFX.
 function AudioManager:setSFXVolume(v)
   self.volumeSFX = v
   for i = 1, #self.sfx do
@@ -97,22 +97,22 @@ end
 -- Pitch
 ---------------------------------------------------------------------------------------------------
 
--- @ret(number) pitch multiplier for current BGM
+-- @ret(number) Pitch multiplier for current BGM.
 function AudioManager:getBGMPitch()
   return self.pitchBGM
 end
--- @param(p : number) pitch multiplier for current BGM
+-- @param(p : number) Pitch multiplier for current BGM.
 function AudioManager:setBGMPitch(p)
   self.pitchBGM = p
   if self.BGM then 
     self.BGM:updatePitch()
   end
 end
--- @ret(number) pitch multiplier for current SFX
+-- @ret(number) Pitch multiplier for current SFX.
 function AudioManager:getSFXPitch()
   return self.pitchSFX
 end
--- @param(p : number) pitch multiplier for current SFX
+-- @param(p : number) Pitch multiplier for current SFX.
 function AudioManager:setSFXPitch(p)
   self.pitchSFX = p
   for i = 1, #self.sfx do
@@ -124,7 +124,8 @@ end
 -- SFX
 ---------------------------------------------------------------------------------------------------
 
--- @param(sfx : table) table with file's name (from audio/sfx folder), volume and pitch
+-- Insert a new SFX in the list and plays it.
+-- @param(sfx : table) Table with file's name (from audio/sfx folder), volume and pitch.
 function AudioManager:playSFX(sfx)
   local sound = Sound(sfx.name, sfx.volume or 100, sfx.pitch or 100)
   self.sfx:add(sound)
@@ -142,10 +143,13 @@ end
 ---------------------------------------------------------------------------------------------------
 
 -- [COROUTINE] Stops current playing BGM (if any) and starts a new one.
--- @param(bgm : table) table with file's name (from audio/bgm folder), volume and pitch
--- @param(time : number) the duration of the fading transition
--- @param(wait : boolean) yields until the fading animation concludes
+-- @param(bgm : table) Table with file's name (from audio/bgm folder), volume and pitch.
+-- @param(time : number) The duration of the fading transition.
+-- @param(wait : boolean) Yields until the fading animation concludes.
 function AudioManager:playBGM(bgm, time, wait)
+  if self.BGM and self.BGM.name == bgm.name then
+    return
+  end
   self.pausedBGM = false
   if self.BGM then
     self.BGM:pause()
@@ -154,8 +158,8 @@ function AudioManager:playBGM(bgm, time, wait)
   self.BGM:play()
   self:fadein(time, wait)
 end
--- @param(time : number) the duration of the fading transition
--- @param(wait : boolean) yields until the fading animation concludes
+-- @param(time : number) The duration of the fading transition.
+-- @param(wait : boolean) Yields until the fading animation concludes.
 function AudioManager:resumeBGM(time, wait)
   if self.pausedBGM then
     if self.BGM then
@@ -198,8 +202,8 @@ end
 -- Fading
 ---------------------------------------------------------------------------------------------------
 
--- @param(time : number) the duration of the fading
--- @param(wait : boolean) true to only return when the fading finishes
+-- @param(time : number) The duration of the fading.
+-- @param(wait : boolean) True to only return when the fading finishes.
 function AudioManager:fadeout(time, wait)
   if time and time > 0 then
     self.fading = 1
@@ -215,8 +219,8 @@ function AudioManager:fadeout(time, wait)
     end
   end
 end
--- @param(time : number) the duration of the fading
--- @param(wait : boolean) true to only return when the fading finishes
+-- @param(time : number) The duration of the fading.
+-- @param(wait : boolean) True to only return when the fading finishes.
 function AudioManager:fadein(time, wait)
   if time and time > 0 then
     self.fading = 0
