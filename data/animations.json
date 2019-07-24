@@ -1345,7 +1345,7 @@
             "data": {
               "script": "",
               "quad": {
-                "path": "Portrait/Tum-Tum.png",
+                "path": "Portrait/Witch1/Normal.png",
                 "x": 60,
                 "y": 70,
                 "width": 140,
@@ -1383,7 +1383,7 @@
             "data": {
               "script": "",
               "quad": {
-                "path": "Portrait/Tum-Tum.png",
+                "path": "Portrait/Witch1/Normal.png",
                 "x": 0,
                 "y": 0,
                 "width": 250,
@@ -1421,7 +1421,7 @@
             "data": {
               "script": "",
               "quad": {
-                "path": "Portrait/Tum-Tum.png",
+                "path": "Portrait/Witch1/Normal.png",
                 "x": 40,
                 "y": 5,
                 "width": 180,
@@ -1453,6 +1453,272 @@
               "tags": []
             },
             "id": 125,
+            "children": []
+          },
+          {
+            "data": {
+              "script": "",
+              "quad": {
+                "path": "Portrait/Witch1/Happy.png",
+                "x": 40,
+                "y": 5,
+                "width": 180,
+                "height": 220
+              },
+              "rows": 1,
+              "cols": 1,
+              "transform": {
+                "offsetX": 0,
+                "offsetY": 0,
+                "offsetDepth": 0,
+                "scaleX": 50,
+                "scaleY": 50,
+                "rotation": 0,
+                "red": 255,
+                "green": 255,
+                "blue": 255,
+                "alpha": 255,
+                "hue": 0,
+                "saturation": 100,
+                "brightness": 100
+              },
+              "introPattern": "",
+              "introDuration": "",
+              "loopPattern": "",
+              "loopDuration": "",
+              "audio": [],
+              "name": "Happy",
+              "tags": []
+            },
+            "id": 137,
+            "children": []
+          },
+          {
+            "data": {
+              "script": "",
+              "quad": {
+                "path": "Portrait/Witch1/Confused.png",
+                "x": 40,
+                "y": 5,
+                "width": 180,
+                "height": 220
+              },
+              "rows": 1,
+              "cols": 1,
+              "transform": {
+                "offsetX": 0,
+                "offsetY": 0,
+                "offsetDepth": 0,
+                "scaleX": 50,
+                "scaleY": 50,
+                "rotation": 0,
+                "red": 255,
+                "green": 255,
+                "blue": 255,
+                "alpha": 255,
+                "hue": 0,
+                "saturation": 100,
+                "brightness": 100
+              },
+              "introPattern": "",
+              "introDuration": "",
+              "loopPattern": "",
+              "loopDuration": "",
+              "audio": [],
+              "name": "Wonder",
+              "tags": []
+            },
+            "id": 138,
+            "children": []
+          },
+          {
+            "data": {
+              "script": "",
+              "quad": {
+                "path": "Portrait/Witch1/Crying.png",
+                "x": 40,
+                "y": 5,
+                "width": 180,
+                "height": 220
+              },
+              "rows": 1,
+              "cols": 1,
+              "transform": {
+                "offsetX": 0,
+                "offsetY": 0,
+                "offsetDepth": 0,
+                "scaleX": 50,
+                "scaleY": 50,
+                "rotation": 0,
+                "red": 255,
+                "green": 255,
+                "blue": 255,
+                "alpha": 255,
+                "hue": 0,
+                "saturation": 100,
+                "brightness": 100
+              },
+              "introPattern": "",
+              "introDuration": "",
+              "loopPattern": "",
+              "loopDuration": "",
+              "audio": [],
+              "name": "Cry",
+              "tags": []
+            },
+            "id": 139,
+            "children": []
+          },
+          {
+            "data": {
+              "script": "",
+              "quad": {
+                "path": "Portrait/Witch1/Focused.png",
+                "x": 40,
+                "y": 5,
+                "width": 180,
+                "height": 220
+              },
+              "rows": 1,
+              "cols": 1,
+              "transform": {
+                "offsetX": 0,
+                "offsetY": 0,
+                "offsetDepth": 0,
+                "scaleX": 50,
+                "scaleY": 50,
+                "rotation": 0,
+                "red": 255,
+                "green": 255,
+                "blue": 255,
+                "alpha": 255,
+                "hue": 0,
+                "saturation": 100,
+                "brightness": 100
+              },
+              "introPattern": "",
+              "introDuration": "",
+              "loopPattern": "",
+              "loopDuration": "",
+              "audio": [],
+              "name": "Focus",
+              "tags": []
+            },
+            "id": 140,
+            "children": []
+          },
+          {
+            "data": {
+              "script": "",
+              "quad": {
+                "path": "Portrait/Witch1/Worried.png",
+                "x": 40,
+                "y": 5,
+                "width": 180,
+                "height": 220
+              },
+              "rows": 1,
+              "cols": 1,
+              "transform": {
+                "offsetX": 0,
+                "offsetY": 0,
+                "offsetDepth": 0,
+                "scaleX": 50,
+                "scaleY": 50,
+                "rotation": 0,
+                "red": 255,
+                "green": 255,
+                "blue": 255,
+                "alpha": 255,
+                "hue": 0,
+                "saturation": 100,
+                "brightness": 100
+              },
+              "introPattern": "",
+              "introDuration": "",
+              "loopPattern": "",
+              "loopDuration": "",
+              "audio": [],
+              "name": "Worry",
+              "tags": []
+            },
+            "id": 141,
+            "children": []
+          },
+          {
+            "data": {
+              "script": "",
+              "quad": {
+                "path": "Portrait/Witch1/Blushing.png",
+                "x": 40,
+                "y": 5,
+                "width": 180,
+                "height": 220
+              },
+              "rows": 1,
+              "cols": 1,
+              "transform": {
+                "offsetX": 0,
+                "offsetY": 0,
+                "offsetDepth": 0,
+                "scaleX": 50,
+                "scaleY": 50,
+                "rotation": 0,
+                "red": 255,
+                "green": 255,
+                "blue": 255,
+                "alpha": 255,
+                "hue": 0,
+                "saturation": 100,
+                "brightness": 100
+              },
+              "introPattern": "",
+              "introDuration": "",
+              "loopPattern": "",
+              "loopDuration": "",
+              "audio": [],
+              "name": "Blush",
+              "tags": []
+            },
+            "id": 142,
+            "children": []
+          },
+          {
+            "data": {
+              "script": "",
+              "quad": {
+                "path": "Portrait/Witch1/Determined.png",
+                "x": 40,
+                "y": 5,
+                "width": 180,
+                "height": 220
+              },
+              "rows": 1,
+              "cols": 1,
+              "transform": {
+                "offsetX": 0,
+                "offsetY": 0,
+                "offsetDepth": 0,
+                "scaleX": 50,
+                "scaleY": 50,
+                "rotation": 0,
+                "red": 255,
+                "green": 255,
+                "blue": 255,
+                "alpha": 255,
+                "hue": 0,
+                "saturation": 100,
+                "brightness": 100
+              },
+              "introPattern": "",
+              "introDuration": "",
+              "loopPattern": "",
+              "loopDuration": "",
+              "audio": [],
+              "name": "Determined",
+              "tags": []
+            },
+            "id": 143,
             "children": []
           }
         ]
@@ -1498,83 +1764,7 @@
             "data": {
               "script": "",
               "quad": {
-                "path": "Portrait/Cat Folk.png",
-                "x": 60,
-                "y": 45,
-                "width": 140,
-                "height": 140
-              },
-              "rows": 1,
-              "cols": 1,
-              "transform": {
-                "offsetX": 0,
-                "offsetY": 0,
-                "offsetDepth": 0,
-                "scaleX": 25,
-                "scaleY": 25,
-                "rotation": 0,
-                "red": 255,
-                "green": 255,
-                "blue": 255,
-                "alpha": 255,
-                "hue": 0,
-                "saturation": 100,
-                "brightness": 100
-              },
-              "introPattern": "",
-              "introDuration": "",
-              "loopPattern": "",
-              "loopDuration": "",
-              "audio": [],
-              "name": "Small Icon",
-              "tags": []
-            },
-            "id": 115,
-            "children": []
-          },
-          {
-            "data": {
-              "script": "",
-              "quad": {
-                "path": "Portrait/Cat Folk.png",
-                "x": 0,
-                "y": 0,
-                "width": 250,
-                "height": 250
-              },
-              "rows": 1,
-              "cols": 1,
-              "transform": {
-                "offsetX": 0,
-                "offsetY": 0,
-                "offsetDepth": 0,
-                "scaleX": 50,
-                "scaleY": 50,
-                "rotation": 0,
-                "red": 255,
-                "green": 255,
-                "blue": 255,
-                "alpha": 255,
-                "hue": 0,
-                "saturation": 100,
-                "brightness": 100
-              },
-              "introPattern": "",
-              "introDuration": "",
-              "loopPattern": "",
-              "loopDuration": "",
-              "audio": [],
-              "name": "Big Icon",
-              "tags": []
-            },
-            "id": 119,
-            "children": []
-          },
-          {
-            "data": {
-              "script": "",
-              "quad": {
-                "path": "Portrait/Cat Folk.png",
+                "path": "Portrait/Cat1/Serious.png",
                 "x": 40,
                 "y": 31,
                 "width": 180,
@@ -1602,10 +1792,124 @@
               "loopPattern": "",
               "loopDuration": "",
               "audio": [],
-              "name": "Normal",
+              "name": "Serious",
               "tags": []
             },
             "id": 124,
+            "children": []
+          },
+          {
+            "data": {
+              "script": "",
+              "quad": {
+                "path": "Portrait/Cat1/Pleased.png",
+                "x": 40,
+                "y": 31,
+                "width": 180,
+                "height": 180
+              },
+              "rows": 1,
+              "cols": 1,
+              "transform": {
+                "offsetX": 0,
+                "offsetY": 0,
+                "offsetDepth": 0,
+                "scaleX": 50,
+                "scaleY": 50,
+                "rotation": 0,
+                "red": 255,
+                "green": 255,
+                "blue": 255,
+                "alpha": 255,
+                "hue": 0,
+                "saturation": 100,
+                "brightness": 100
+              },
+              "introPattern": "",
+              "introDuration": "",
+              "loopPattern": "",
+              "loopDuration": "",
+              "audio": [],
+              "name": "Pleased",
+              "tags": []
+            },
+            "id": 144,
+            "children": []
+          },
+          {
+            "data": {
+              "script": "",
+              "quad": {
+                "path": "Portrait/Cat1/Facepalm.png",
+                "x": 40,
+                "y": 31,
+                "width": 180,
+                "height": 180
+              },
+              "rows": 1,
+              "cols": 1,
+              "transform": {
+                "offsetX": 0,
+                "offsetY": 0,
+                "offsetDepth": 0,
+                "scaleX": 50,
+                "scaleY": 50,
+                "rotation": 0,
+                "red": 255,
+                "green": 255,
+                "blue": 255,
+                "alpha": 255,
+                "hue": 0,
+                "saturation": 100,
+                "brightness": 100
+              },
+              "introPattern": "",
+              "introDuration": "",
+              "loopPattern": "",
+              "loopDuration": "",
+              "audio": [],
+              "name": "Facepalm",
+              "tags": []
+            },
+            "id": 145,
+            "children": []
+          },
+          {
+            "data": {
+              "script": "",
+              "quad": {
+                "path": "Portrait/Cat1/Angry.png",
+                "x": 40,
+                "y": 31,
+                "width": 180,
+                "height": 180
+              },
+              "rows": 1,
+              "cols": 1,
+              "transform": {
+                "offsetX": 0,
+                "offsetY": 0,
+                "offsetDepth": 0,
+                "scaleX": 50,
+                "scaleY": 50,
+                "rotation": 0,
+                "red": 255,
+                "green": 255,
+                "blue": 255,
+                "alpha": 255,
+                "hue": 0,
+                "saturation": 100,
+                "brightness": 100
+              },
+              "introPattern": "",
+              "introDuration": "",
+              "loopPattern": "",
+              "loopDuration": "",
+              "audio": [],
+              "name": "Shout",
+              "tags": []
+            },
+            "id": 146,
             "children": []
           }
         ]

@@ -36,7 +36,7 @@ return function(script)
   }
 
   script:showDialogue { id = 1, message = 
-    "Porém, depois de vários anos, para espanto de todos… descobrimos que essas emoções são, sim, sentidas. " ..
+    "Porém, depois de vários anos, para espanto de todos… descobrimos que essas emoções são, sim, sentidas.\n" ..
     "E descobrimos isso da pior forma…"
   }
   
@@ -199,7 +199,7 @@ return function(script)
     height = ScreenManager.height / 3 
   }
   
-  script:showDialogue { id = 1, character = "player", portrait = "Worry", nameX = -0.45, nameY = -1.25, message = 
+  script:showDialogue { id = 1, character = "player", portrait = "Cry", nameX = -0.45, nameY = -1.25, message = 
     "O que eu faço, o que eu faço?"
   }
   
@@ -207,8 +207,9 @@ return function(script)
     "Se acalme e tenha foco! Eu estarei aqui para te orientar! Você vai conseguir!"
   }
   
-  script:showDialogue { id = 1, character = "player", portrait = "Determined", message = 
-    "*Respira* \nOk, eu vou conseguir!"
+  script:showDialogue { id = 1, character = "player", portrait = "Focus", message = 
+    "*Respira*\n" .. 
+    "Ok, eu vou conseguir!"
   }
   
   script:closeDialogueWindow { id = 1 }
@@ -233,6 +234,8 @@ return function(script)
     "Muito obrigado, Tum Tum! Você é incrível!"
   }
   
+  script:closeDialogueWindow { id = 1 }
+  
   AudioManager:playBGM { name = 'bgm/Aaron Krogh/Happiness.ogg', volume = 100, pitch = 100 }
   
   Fiber:wait(30)
@@ -243,6 +246,11 @@ return function(script)
     Fiber:wait(4)
   end
   Fiber:wait(30)
+  
+  script:openDialogueWindow { id = 1, x = 0, y = ScreenManager.height / 3,
+    width = ScreenManager.width, 
+    height = ScreenManager.height / 3
+  }
   
   script:showDialogue { id = 1, character = "player", portrait = "Blush", message = 
     "Hahah, que nada!"

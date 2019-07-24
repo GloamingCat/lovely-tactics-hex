@@ -66,44 +66,50 @@
               "row": 0
             },
             {
-              "name": "Happy",
+              "name": "Normal",
               "id": 125,
+              "col": 0,
+              "row": 0
+            },
+            {
+              "name": "Happy",
+              "id": 137,
               "col": 0,
               "row": 0
             },
             {
               "name": "Wonder",
-              "id": 125,
+              "id": 138,
               "col": 0,
               "row": 0
             },
             {
               "name": "Cry",
-              "id": 125,
+              "id": 139,
               "col": 0,
               "row": 0
             },
             {
               "name": "Focus",
-              "id": 125,
+              "id": 140,
               "col": 0,
               "row": 0
             },
             {
               "name": "Worry",
-              "id": 125,
+              "id": 141,
               "col": 0,
               "row": 0
             },
             {
               "name": "Blush",
-              "id": 125,
+              "id": 142,
               "col": 0,
               "row": 0
             },
             {
               "name": "Determined",
-              "id": 125,
+              "id": 143,
               "col": 0,
               "row": 0
             }
@@ -845,20 +851,20 @@
               "row": 0
             },
             {
-              "name": "Shout",
-              "id": 124,
-              "col": 0,
-              "row": 0
-            },
-            {
               "name": "Pleased",
-              "id": 124,
+              "id": 144,
               "col": 0,
               "row": 0
             },
             {
               "name": "FacePalm",
-              "id": 124,
+              "id": 145,
+              "col": 0,
+              "row": 0
+            },
+            {
+              "name": "Shout",
+              "id": 146,
               "col": 0,
               "row": 0
             }
