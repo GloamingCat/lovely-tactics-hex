@@ -109,7 +109,7 @@ end
 -- Turn character to the given direction.
 -- @param(args.angle : number) The direction angle in degrees.
 function util.turnCharDir(sheet, args)
-  local char = sheet:findCharacter(sheet, args.key)
+  local char = sheet:findCharacter(args.key)
   char:setDirection(args.angle)
 end
 

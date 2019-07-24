@@ -88,13 +88,10 @@ end
 -- @param(z : number) The layer's height.
 -- @ret(ObjectTile) The tile in the coordinates (nil of out of bounds).
 function Field:getObjectTile(x, y, z)
-  if self.objectLayers[z] == nil then
-    return nil
+  if self.objectLayers[z] and self.objectLayers[z].grid[x] then
+    return self.objectLayers[z].grid[x][y]
   end
-  if self.objectLayers[z].grid[x] == nil then
-    return nil
-  end
-  return self.objectLayers[z].grid[x][y]
+  return nil
 end
 -- Returns a iterator that navigates through all object tiles.
 -- @ret(function) The grid iterator.
@@ -114,13 +111,11 @@ function Field:gridIterator()
     if j <= self.sizeY then 
       return layer.grid[i][j]
     else
-      j = 1
-      i = i + 1
+      j, i = 1, i + 1
       if i <= self.sizeX then
         return layer.grid[i][j]
       else
-        i = 1
-        l = l + 1
+        i, l = 1, l + 1
         if l <= maxl then
           layer = self.objectLayers[l]
           return layer.grid[i][j]
@@ -216,9 +211,8 @@ function Field:collisionXYZ(obj, origx, origy, origh, destx, desty, desth)
     return 2
   elseif tile:collidesCharacter(obj) then
     return 3
-  else
-    return nil
   end
+  return nil
 end
 -- Checks if an object collides with something in the given point.
 -- @param(object : Object) The object to check.

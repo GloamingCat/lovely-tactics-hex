@@ -34,11 +34,7 @@ function FieldLoader.loadField(id)
   field.vars = prefs.vars or {}
   field.images = prefs.images or data.prefs.images
   field.tags = TagMap(data.prefs.tags)
-  -- Script
-  local script = prefs.loadScript or data.prefs.loadScript
-  if script and script.name ~= '' then
-    field.loadScript = script
-  end
+  field.loadScript = prefs.loadScript or data.prefs.loadScript
   -- Battle info
   field.playerParty = prefs.playerParty or data.playerParty
   field.parties = prefs.parties or data.parties

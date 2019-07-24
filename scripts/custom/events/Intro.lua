@@ -233,12 +233,16 @@ return function(script)
     "Muito obrigado, Tum Tum! Você é incrível!"
   }
   
+  AudioManager:playBGM { name = 'bgm/Aaron Krogh/Happiness.ogg', volume = 100, pitch = 100 }
+  
+  Fiber:wait(30)
   local angle = 45
   while angle < 225 do
     angle = angle + 45
     script:turnCharDir { key = "player", angle = angle }
     Fiber:wait(4)
   end
+  Fiber:wait(30)
   
   script:showDialogue { id = 1, character = "player", portrait = "Blush", message = 
     "Hahah, que nada!"
