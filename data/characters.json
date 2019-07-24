@@ -833,18 +833,6 @@
           },
           "portraits": [
             {
-              "name": "SmallIcon",
-              "id": 115,
-              "col": 0,
-              "row": 0
-            },
-            {
-              "name": "BigIcon",
-              "id": 119,
-              "col": 0,
-              "row": 0
-            },
-            {
               "name": "Serious",
               "id": 124,
               "col": 0,
@@ -921,32 +909,26 @@
           },
           "portraits": [
             {
-              "name": "SmallIcon",
-              "id": 115,
-              "col": 0,
-              "row": 0
-            },
-            {
-              "name": "BigIcon",
+              "name": "Happy",
               "id": 119,
               "col": 0,
               "row": 0
             },
             {
-              "name": "Happy",
-              "id": 124,
+              "name": "Blush",
+              "id": 147,
               "col": 0,
               "row": 0
             },
             {
               "name": "Scared",
-              "id": 124,
+              "id": 148,
               "col": 0,
               "row": 0
             },
             {
-              "name": "Blush",
-              "id": 124,
+              "name": "Worry",
+              "id": 149,
               "col": 0,
               "row": 0
             }
