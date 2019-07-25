@@ -213,13 +213,13 @@ end
 -- State
 ---------------------------------------------------------------------------------------------------
 
--- Checks if battler is considered alive.
--- @ret(boolean) true if HP greater then zero, false otherwise
+-- Checks if battler is seen as defeated, either by no remaining HP or by a KO-like status effect.
+-- @ret(boolean) True if battler is considered alive, false otherwise.
 function Battler:isAlive()
   return self.state.hp > 0 and not self.statusList:isDead()
 end
--- Checks if the character is considered active in the battle.
--- @ret(boolean)
+-- Checks if battler can execute an action in the current turn.
+-- @ret(boolean) True if battler is considered active in the battle, false otherwise.
 function Battler:isActive()
   return self:isAlive() and not self.statusList:isDeactive()
 end
@@ -239,7 +239,7 @@ function Battler:elementBuff(id)
   return self.statusList:elementBuff(id) + self.equipSet:elementBuff(id)
 end
 -- Gets the battler's AI, if any.
--- @ret(BattlerAI)
+-- @ret(BattlerAI) Battler's AI. Nil if controlled by player.
 function Battler:getAI()
   return self.statusList:getAI() or self.AI
 end
@@ -284,8 +284,7 @@ end
 -- Save
 ---------------------------------------------------------------------------------------------------
 
--- Creates a table that stores the battler's current state to be saved.
--- @ret(table)
+-- @ret(table) Table that stores the battler's current state to be saved.
 function Battler:createPersistentData(backup, x, y)
   return {
     key = self.key,

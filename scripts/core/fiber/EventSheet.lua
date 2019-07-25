@@ -72,7 +72,7 @@ function EventSheet:findCharacter(key)
   return char
 end
 -- Load other commands.
-local files = {'General', 'GUI', 'Character', 'Screen', 'Sound'}
+local files = {'General', 'GUI', 'Character', 'Screen', 'Sound', 'Party'}
 for i = 1, #files do
   local commands = require('core/event/' .. files[i] .. 'Events')
   for k, v in pairs(commands) do

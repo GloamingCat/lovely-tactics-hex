@@ -119,6 +119,20 @@ end
 -- Battle characters
 ---------------------------------------------------------------------------------------------------
 
+-- Creates the battler of the character and add the character to the battle character list.
+-- @param(character : Character) Battler's character.
+-- @param(partyID : number) Battler's party.
+function TroopManager:createBattler(character)
+  if character.battlerID >= 0 and character.party >= 0 then
+    local troop = self.troops[character.party]
+    character.battler = troop.battlers[character.key]
+    self.characterList:add(character)
+    character.battler.statusList:updateGraphics(character)
+    if not character.battler:isAlive() then
+      character:playAnimation(character.koAnim)
+    end
+  end
+end
 -- Creates a new battle character.
 -- @param(tile : ObjectTile) the initial tile of the character
 -- @param(dir : number) the initial direction of the character
@@ -140,22 +154,8 @@ function TroopManager:createCharacter(tile, dir, member, party)
   character.speed = charSpeed
   return character
 end
--- Creates the battler of the character and add the character to the battle character list.
--- @param(character : Character)
--- @param(partyID : number)
-function TroopManager:createBattler(character)
-  if character.battlerID >= 0 and character.party >= 0 then
-    local troop = self.troops[character.party]
-    character.battler = troop.battlers[character.key]
-    self.characterList:add(character)
-    character.battler.statusList:updateGraphics(character)
-    if not character.battler:isAlive() then
-      character:playAnimation(character.koAnim)
-    end
-  end
-end
 -- Removes the given character.
-function TroopManager:removeCharacter(char)
+function TroopManager:deleteCharacter(char)
   self.characterList:removeElement(char)
   char:destroy()
 end
@@ -208,6 +208,17 @@ function TroopManager:getMemberCount(party)
     end
   end
   return count
+end
+-- Gets the characters in the field that are in this troop.
+-- @param(alive) True to include only alive character, false to only dead, nil to both.
+-- @ret(List) List of characters.
+function TroopManager:currentCharacters(party, alive)
+  local characters = List(self.characterList)
+  characters:conditionalRemove(
+    function(c)
+      return c.party ~= party or c.battler:isAlive() == not alive
+    end)
+  return characters
 end
 
 ---------------------------------------------------------------------------------------------------
