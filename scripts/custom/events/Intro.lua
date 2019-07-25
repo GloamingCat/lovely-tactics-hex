@@ -58,7 +58,7 @@ return function(script)
     " ...Gelatinas!"
   }
   
-  script:showDialogue { id = 1, character = "player", portrait = "Happy", namex = -0.8, message = 
+  script:showDialogue { id = 1, character = "player", portrait = "Happy", message = 
     "Êeee, gelatina!"
   }
   
@@ -69,6 +69,8 @@ return function(script)
   script:showDialogue { id = 1, character = "player", portrait = "Wonder", message = 
     "Como pode comida ser do mal?"
   }
+  
+  AudioManager:playSFX { name = "sfx/CGEffex/slap.ogg", pitch = 100, volume = 100 }
   
   script:showDialogue { id = 1, character = "Chita", portrait = "FacePalm", message = 
     "..."
@@ -252,7 +254,7 @@ return function(script)
     height = ScreenManager.height / 3
   }
   
-  script:showDialogue { id = 1, character = "player", portrait = "Blush", message = 
+  script:showDialogue { id = 1, character = "player", portrait = "Blush", nameX = -0.45, nameY = -1.25, message = 
     "Hahah, que nada!"
   }
   
