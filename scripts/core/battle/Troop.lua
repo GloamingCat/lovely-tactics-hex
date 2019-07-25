@@ -30,8 +30,8 @@ local Troop = class()
 ---------------------------------------------------------------------------------------------------
 
 -- Constructor. 
--- @param(data : table) troop's data from database
--- @param(party : number) the number of the field party spot this troops was spawned in
+-- @param(data : table) Troop's data from database.
+-- @param(party : number) The number of the field party spot this troops was spawned in.
 function Troop:init(data, party)
   data = data or Database.troops[TroopManager.playerTroopID]
   self.data = data
@@ -63,7 +63,7 @@ function Troop:init(data, party)
   end
 end
 -- Creates battler for each member data in the given list.
--- @param(members : table) an array of member data
+-- @param(members : table) An array of member data.
 function Troop:initBattlerLists(members)
   self.current = List()
   self.backup = List()
@@ -83,9 +83,9 @@ end
 ---------------------------------------------------------------------------------------------------
 
 -- Searchs for a member with the given key.
--- @param(key : string) member's key
--- @ret(number) the index of the member in the member list (nil if not found)
--- @ret(List) the list the member is in (nil if not found)
+-- @param(key : string) Member's key.
+-- @ret(number) The index of the member in the member list (nil if not found).
+-- @ret(List) The list containing the member (nil if not found).
 function Troop:findMember(key, arr)
   if arr then
     for i = 1, #arr do
@@ -108,8 +108,7 @@ function Troop:findMember(key, arr)
     end
   end
 end
--- Gets the list of all visible members.
--- @ret(List)
+-- @ret(List) List of all visible members.
 function Troop:visibleMembers()
   local list = List(self.current)
   list:addAll(self.backup)
@@ -121,7 +120,7 @@ end
 ---------------------------------------------------------------------------------------------------
 
 -- Sets the troop rotation (and adapts the ID matrix).
--- @param(r : number) new rotation
+-- @param(r : number) New rotation.
 function Troop:setRotation(r)
   for i = mod(r - self.rotation, 4), 1, -1 do
     self:rotate()
@@ -141,20 +140,19 @@ function Troop:rotate()
   self.rotation = mod(self.rotation + 1, 4)
   self.sizeX, self.sizeY = self.sizeY, self.sizeX
 end
--- Gets the character direction in degrees.
--- @ret(number)
+-- @ret(number) Character direction in degrees.
 function Troop:getCharacterDirection()
   return mod(baseDirection + self.rotation * 90, 360)
 end
 
 ---------------------------------------------------------------------------------------------------
--- Characters
+-- Current Members
 ---------------------------------------------------------------------------------------------------
 
 -- Adds a character to the field that represents the member with the given key.
--- @param(key : string) member's key
--- @param(tile : ObjectTile) the tile the character will be put in
--- @ret(Character) the newly created character for the member
+-- @param(key : string) Member's key.
+-- @param(tile : ObjectTile) The tile the character will be put in.
+-- @ret(Character) The newly created character for the member.
 function Troop:callMember(key, tile)
   local i = self:findMember(key, self.backup)
   assert(i, 'Could not call member ' .. key .. ': not in backup list.')
@@ -162,60 +160,14 @@ function Troop:callMember(key, tile)
   self.current:add(member)
   return member
 end
--- Removes a member character.
--- @param(char : Character)
-function Troop:removeMember(char)
-  local i = self:findMember(char.key, self.current)
-  assert(i, 'Could not remove member ' .. char.key .. ': not in current list.')
+-- Removes a member.
+-- @param(key : string) Member's key.
+function Troop:removeMember(key)
+  local i = self:findMember(key, self.current)
+  assert(i, 'Could not remove member ' .. key .. ': not in current list.')
   local member = self.current:remove(i)
   self.backup:add(member)
   return member
-end
--- Gets the characters in the field that are in this troop.
--- @param(alive) true to include only alive character, false to only dead, nil to both
--- @ret(List)
-function Troop:currentCharacters(alive)
-  local characters = List(TroopManager.characterList)
-  characters:conditionalRemove(
-    function(c)
-      return c.party ~= self.party or c.battler:isAlive() == not alive
-    end)
-  return characters
-end
-
----------------------------------------------------------------------------------------------------
--- Rewards
----------------------------------------------------------------------------------------------------
-
--- Creates a table of reward from the current state of the battle field.
--- @ret(table) Table with exp per battler, items and money.
-function Troop:getBattleRewards()
-  local r = { exp = {},
-    items = Inventory(),
-    money = 0 }
-  -- List of living party members
-  local characters = self:currentCharacters(true)
-  -- Rewards per troop
-  for p, troop in pairs(TroopManager.troops) do
-    if troop ~= self then
-      -- Troop items
-      r.items:addAllItems(troop.inventory)
-      -- Troop money
-      r.money = r.money + troop.money
-      -- Rewards per enemy
-      for enemy in troop:currentCharacters():iterator() do
-        -- Enemy EXP
-        for char in characters:iterator() do
-          r.exp[char.key] = (r.exp[char.key] or 0) + enemy.battler.data.exp
-        end
-        -- Enemy items
-        r.items:addAllItems(enemy.battler.inventory)
-        -- Enemy money
-        r.money = r.money + enemy.battler.data.money
-      end
-    end
-  end
-  return r
 end
 
 ---------------------------------------------------------------------------------------------------

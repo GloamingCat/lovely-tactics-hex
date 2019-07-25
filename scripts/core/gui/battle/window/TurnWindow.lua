@@ -42,7 +42,7 @@ end
 function TurnWindow:createContent(...)
   local troop = TurnManager:currentTroop()
   self.backupBattlers = troop.backup
-  self.currentBattlers = troop:currentCharacters(true)
+  self.currentBattlers = TroopManager:currentCharacters(troop.party, true)
   ActionWindow.createContent(self, ...)
   self.userCursor = BattleCursor()
   self.content:add(self.userCursor)
