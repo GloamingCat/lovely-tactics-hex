@@ -30,16 +30,16 @@ end
 
 -- Overrides BattleAction:onConfirm.
 function CallAction:onConfirm(input)
-  local troop = TroopManager.troops[(input.party or input.user.party)]
+  self.troop = TroopManager.troops[(input.party or input.user.party)]
   if input.GUI then
     local result = GUIManager:showGUIForResult(CallGUI(troop, input.user == nil))
     if result ~= 0 then
-      troop:callMember(result, input.target)
+      self:callMember(result, input.target)
       input.GUI:endGridSelecting()
       return self:execute()
     end
   else
-    troop:callMember(input.member, input.target)
+    self:callMember(input.member, input.target)
   end
 end
 
@@ -69,6 +69,30 @@ end
 -- Overrides BattleAction:isSelectable.
 function CallAction:isSelectable(input, tile)
   return tile.party == (input.party or input.user.party) and not tile:collides(0, 0)
+end
+
+---------------------------------------------------------------------------------------------------
+-- Troop
+---------------------------------------------------------------------------------------------------
+
+-- Adds a character to the field that represents the member with the given key.
+-- @param(key : string) Member's key.
+-- @param(tile : ObjectTile) The tile the character will be put in.
+-- @ret(Character) The newly created character for the member.
+function CallAction:callMember(key, tile)
+  local member = self.troop:callMember(key, tile)
+  local dir = self.troop:getCharacterDirection()
+  local character = TroopManager:createCharacter(tile, dir, member, self.troop.party)
+  TroopManager:createBattler(character)
+  return character
+end
+-- Removes a member character.
+-- @param(char : Character) The characters representing the member to be removed.
+-- @ret(table) Removed member's data.
+function CallAction:removeMember(character, tile)
+  local member = self.troop:removeMember(character, tile)
+  TroopManager:removeCharacter(character)
+  return member
 end
 
 return CallAction

@@ -160,10 +160,7 @@ function Troop:callMember(key, tile)
   assert(i, 'Could not call member ' .. key .. ': not in backup list.')
   local member = self.backup:remove(i)
   self.current:add(member)
-  local dir = self:getCharacterDirection()
-  local character = TroopManager:createCharacter(tile, dir, member, self.party)
-  TroopManager:createBattler(character)
-  return character
+  return member
 end
 -- Removes a member character.
 -- @param(char : Character)
@@ -172,7 +169,7 @@ function Troop:removeMember(char)
   assert(i, 'Could not remove member ' .. char.key .. ': not in current list.')
   local member = self.current:remove(i)
   self.backup:add(member)
-  TroopManager:removeCharacter(char)
+  return member
 end
 -- Gets the characters in the field that are in this troop.
 -- @param(alive) true to include only alive character, false to only dead, nil to both
