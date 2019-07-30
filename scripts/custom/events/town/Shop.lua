@@ -4,6 +4,7 @@
 Shop Test
 ---------------------------------------------------------------------------------------------------
 
+
 =================================================================================================]]
 
 return function(script)
@@ -14,12 +15,12 @@ return function(script)
   }
   
   script:showDialogue { id = 1, character = '', message = 
-    "Enter shop?"
+    "Entrar na loja?"
   }
 
   script:openChoiceWindow { width = 80, choices = {
-    "Yes.",
-    "No."
+    "Sim.",
+    "Não."
   }}
 
   script:closeDialogueWindow { id = 1 }
@@ -37,16 +38,16 @@ return function(script)
     { id = 7 }
   }}
 
-  script:fadeout { time = 120, wait = true }
+  script:fadeout { time = 90, wait = true }
   FieldManager.renderer.images.Shop:setVisible(true)
-  script:fadein { time = 120, wait = true }
+  script:fadein { time = 90, wait = true }
   
   script:openDialogueWindow { id = 1, x = 0, y = ScreenManager.height / 3,
     width = ScreenManager.width, 
     height = ScreenManager.height / 3
   }
   
-  if FieldManager.currentField.vars.shop then
+  if not FieldManager.currentField.vars.shop then
     
     script:showDialogue { id = 1, character = "Heron", portrait = "Happy", nameX = -0.45, nameY = -1.25, message = 
       "Olá, seja bem-vindo… "
@@ -68,12 +69,8 @@ return function(script)
       "Ah, não, não! Não se preocupe com isso! Você se esforça muito, merece ser recompensado!"
     }
     
-    script:showDialogue { id = 1, character = "Heron", portrait = "Blush", nameX = -0.45, nameY = -1.25, message = 
-      "...Você acha?"
-    }
-    
     script:showDialogue { id = 1, character = "player", portrait = "Determined", message = 
-      "U-hum! Vamos, eu quero comprar mais itens!"
+      "Vamos, eu quero ver o que tem!"
     }
   
     script:closeDialogueWindow { id = 1 }
@@ -89,9 +86,11 @@ return function(script)
       "Muito obrigado, Tum Tum! Volte quando puder!"
     }
     
-    script:showDialogue { id = 1, character = "player", portrait = "Determined", message = 
+    script:showDialogue { id = 1, character = "player", portrait = "Happy", message = 
       "Não há de quê! Até mais!"
     }
+    
+    FieldManager.currentField.vars.shop = true
   
   else
     
@@ -121,8 +120,8 @@ return function(script)
   
   script:closeDialogueWindow { id = 1 }
   
-  script:fadeout { time = 120, wait = true }
+  script:fadeout { time = 90, wait = true }
   FieldManager.renderer.images.Shop:setVisible(false)
-  script:fadein { time = 120, wait = true }
+  script:fadein { time = 90, wait = true }
 
 end

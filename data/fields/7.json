@@ -27,7 +27,17 @@
         }
       ]
     },
-    "images": [],
+    "images": [
+      {
+        "foreground": true,
+        "glued": true,
+        "visible": false,
+        "name": "Shop",
+        "id": 135,
+        "col": 0,
+        "row": 0
+      }
+    ],
     "transitions": [
       {
         "destination": {
@@ -1463,7 +1473,7 @@
           "onLoad": false,
           "onInteract": true,
           "onCollide": false,
-          "name": "events/test/Shop.lua",
+          "name": "events/town/Shop.lua",
           "tags": []
         }
       ]
