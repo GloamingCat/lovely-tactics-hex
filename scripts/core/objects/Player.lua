@@ -145,15 +145,17 @@ end
 -- [COROUTINE] Moves player to the mouse coordinate.
 function Player:moveByMouse()
   local field = FieldManager.currentField
+  local currentTile = self:getTile()
   for l = field.maxh, field.minh, -1 do
     local x, y = InputManager.mouse:fieldCoord(l)
     if field:exceedsBorder(x, y) then
       self:playIdleAnimation()
     elseif field:isGrounded(x, y, l) then
       local tile = field:getObjectTile(x, y, l)
-      local interacted = (tile == self:getTile() or tile == self:frontTile()) 
+      local interacted = (tile == currentTile or tile == self:frontTile()) 
         and self:interactTile(tile)
-      local moved = not interacted and self:tryPathMovement(tile, conf.pathLength or 12)
+      local moved = not interacted and tile ~= currentTile and 
+        self:tryPathMovement(tile, conf.pathLength or 12)
       if not moved then
         self:playIdleAnimation()
       end
