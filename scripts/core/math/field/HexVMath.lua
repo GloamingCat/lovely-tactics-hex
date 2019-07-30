@@ -25,6 +25,7 @@ local tileB = Config.grid.tileB
 local allNeighbors = Config.grid.allNeighbors
 local pph = Config.grid.pixelsPerHeight
 local dph = Config.grid.depthPerHeight
+local dpy = 1
 
 local HexVMath = require('core/math/field/FieldMath')
 
@@ -104,14 +105,14 @@ end
 -- @param(height : number) Field's maximum height.
 -- @ret(number) The maximum depth of the field's renderer.
 function HexVMath.maxDepth(sizeX, sizeY, maxHeight)
-  return sizeX * tileH / 2 + pph * 2 + dph * (maxHeight + 1)
+  return sizeX * tileH / 2 * dpy + pph * 2 + dph * (maxHeight + 1)
 end
 -- @param(sizeX : number) Field's maximum x.
 -- @param(sizeY : number) Field's maximum y.
 -- @param(height : number) Field's maximum height.
 -- @ret(number) The minimum depth of the field's renderer.
 function HexVMath.minDepth(sizeX, sizeY, maxHeight)
-  return -sizeY * (tileW + tileB) / 2 - pph - dph * (maxHeight - 1)
+  return -sizeY * (tileW + tileB) / 2 * dpy - pph - dph * (maxHeight - 1)
 end
 
 -----------------------------------------------------------------------------------------------
@@ -123,19 +124,27 @@ end
 -- @param(h : number) Tile height.
 function HexVMath.tile2Pixel(i, j, h)
   i, j, h = i - 1, j - 1, h - 1
-  local d = -(j - i) * tileH / 2
   local x = (i + j) * (tileW + tileB) / 2
-  local y = -d - h * pph
-  return x, y, d - h * dph
+  local y = (j - i) * tileH / 2
+  local d = -dpy * y
+  return x, y - h * pph, d - h * dph
 end
 -- @param(x : number) Pixel x.
 -- @param(y : number) Pixel y.
 -- @param(d : number) Pixel depth.
-function HexVMath.pixel2Tile(x, y, d)  
-  local h = -(y + d) / (pph + dph)
-  d = d + h * dph
+function HexVMath.pixel2Tile(x, y, d)
+  -- x = (i + j) * (tileW + tileB) / 2
+  -- y = (j - i) * tileH / 2 - h * pph
+  -- d = -dpy * (j - i) * tileH / 2 - h * dph
+  
+  -- y * dpy = dpy * (j - i) * tileH / 2 - dpy * h * pph
+  -- y * dpy + d = dpy * (j - i) * tileH / 2 - dpy * h * pph - dpy * (j - i) * tileH / 2 - h * dph
+  -- y * dpy + d = -dpy * h * pph - h * dph
+  -- y * dpy + d = h * (-dpy * pph - dph)
+  local h = (y * dpy + d) / (-dpy * pph - dph)
+  y = y + h * pph
   local sij = x * 2 / (tileW + tileB)
-  local dji = -d * 2 / tileH
+  local dji = y * 2 / tileH  
   local i = (sij - dji) / 2
   local j = (sij + dji) / 2
   return i + 1, j + 1, h + 1
