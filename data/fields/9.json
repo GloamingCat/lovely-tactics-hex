@@ -22,7 +22,17 @@
       "name": "",
       "tags": []
     },
-    "images": [],
+    "images": [
+      {
+        "foreground": true,
+        "glued": true,
+        "visible": false,
+        "name": "Inn",
+        "id": 136,
+        "col": 0,
+        "row": 0
+      }
+    ],
     "transitions": [
       {
         "destination": {
