@@ -25,7 +25,7 @@ local tileB = Config.grid.tileB
 local allNeighbors = Config.grid.allNeighbors
 local pph = Config.grid.pixelsPerHeight
 local dph = Config.grid.depthPerHeight
-local dpy = 1
+local dpy = 0.5
 
 local HexVMath = require('core/math/field/FieldMath')
 
@@ -105,7 +105,7 @@ end
 -- @param(height : number) Field's maximum height.
 -- @ret(number) The maximum depth of the field's renderer.
 function HexVMath.maxDepth(sizeX, sizeY, maxHeight)
-  return sizeX * tileH / 2 * dpy + pph * 2 + dph * (maxHeight + 1)
+  return sizeX * tileH / 2 + pph * 2 + dph * (maxHeight + 1)
 end
 -- @param(sizeX : number) Field's maximum x.
 -- @param(sizeY : number) Field's maximum y.
