@@ -9,6 +9,17 @@ Intro scene. Chita tells the background story.
 
 return function(script)
   
+  if InputManager.keys['cancel']:isPressing() then
+    -- Skip intro
+    script:deleteChar { key = 'Chita', permanent = true }
+    script:deleteChar { key = 'Heron', permanent = true }
+    script:deleteChar { key = 'Jelly', permanent = true }
+    script:turnCharDir { key = "player", angle = 270 }
+    AudioManager:playBGM { name = 'bgm/Gyrowolf/Town001.ogg', volume = 100, pitch = 100 }
+    FieldManager.currentField.loadScript = { name = '' }
+    return
+  end
+  
   script:fadeout {}
   
   FieldManager.renderer.images.BG1:setVisible(true)
