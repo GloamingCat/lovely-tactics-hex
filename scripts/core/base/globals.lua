@@ -29,12 +29,12 @@ Database = require('core/base/Database')
 -- Configuration files
 ---------------------------------------------------------------------------------------------------
 
-Vocab   = require('conf/Vocab')
 Color   = require('conf/Color')
 Fonts   = require('conf/Fonts')
 Icons   = require('conf/Icons')
 Sounds  = require('conf/Sounds')
 KeyMap  = require('conf/KeyMap')
+Vocab   = require('vocab/English')
 
 ---------------------------------------------------------------------------------------------------
 -- Field Math

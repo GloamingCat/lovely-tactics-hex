@@ -5,7 +5,7 @@
   "prefs": {
     "persistent": true,
     "defaultRegion": -1,
-    "maxHeight": 6,
+    "maxHeight": 8,
     "bgm": {
       "name": "",
       "volume": 100,
@@ -998,7 +998,7 @@
       {
         "info": {
           "name": "Obstacle Layer 2",
-          "height": 4,
+          "height": 8,
           "noAuto": false,
           "tags": []
         },
@@ -1042,7 +1042,7 @@
             -1,
             -1,
             24,
-            19,
+            32,
             25,
             -1,
             -1,
@@ -1060,7 +1060,7 @@
             27,
             30,
             17,
-            18,
+            31,
             -1,
             -1,
             -1,
@@ -1077,7 +1077,7 @@
             22,
             17,
             17,
-            18,
+            31,
             -1,
             -1,
             -1,
@@ -1360,7 +1360,7 @@
       {
         "info": {
           "name": "Scenery Layer 2",
-          "height": 4,
+          "height": 8,
           "noAuto": false,
           "tags": []
         },

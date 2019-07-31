@@ -22,6 +22,7 @@ local pixel2Tile = math.field.pixel2Tile
 local hideTime = 2
 local pph = Config.grid.pixelsPerHeight
 local dph = Config.grid.depthPerHeight
+local dpy = Config.grid.depthPerY / Config.grid.tileH
 
 local GameMouse = class()
 
@@ -102,7 +103,7 @@ function GameMouse:fieldCoord(h)
   h = h or 1
   local pos = self.position
   local wx, wy = FieldManager.renderer:screen2World(pos.x, pos.y)
-  local tx, ty, th = pixel2Tile(wx, wy, -(h - 1) * (pph + dph) - wy)
+  local tx, ty, th = pixel2Tile(wx, wy, -(h - 1) * (pph + dph) - wy * dpy)
   return round(tx), round(ty), round(th)
 end
 -- Gets the pixel in the GUI that the mouse is over.
