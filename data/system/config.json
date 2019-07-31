@@ -33,6 +33,7 @@
     "tileS": 0,
     "pixelsPerHeight": 8,
     "depthPerHeight": 18,
+    "depthPerY": 11,
     "allNeighbors": false,
     "overpassAllies": false,
     "overpassDeads": true

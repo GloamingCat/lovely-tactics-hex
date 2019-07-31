@@ -22,7 +22,7 @@ local pixel2Tile = math.field.pixel2Tile
 local hideTime = 2
 local pph = Config.grid.pixelsPerHeight
 local dph = Config.grid.depthPerHeight
-local dpy = 0.5
+local dpy = Config.grid.depthPerY / Config.grid.tileH
 
 local GameMouse = class()
 

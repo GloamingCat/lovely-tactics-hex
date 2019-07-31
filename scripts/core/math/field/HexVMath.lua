@@ -17,6 +17,7 @@ local max = math.max
 local abs = math.abs
 local pow = math.pow
 local round = math.round
+local ceil = math.ceil
 
 -- Constants
 local tileW = Config.grid.tileW
@@ -25,7 +26,7 @@ local tileB = Config.grid.tileB
 local allNeighbors = Config.grid.allNeighbors
 local pph = Config.grid.pixelsPerHeight
 local dph = Config.grid.depthPerHeight
-local dpy = 0.5
+local dpy = Config.grid.depthPerY / tileH
 
 local HexVMath = require('core/math/field/FieldMath')
 
@@ -105,14 +106,14 @@ end
 -- @param(height : number) Field's maximum height.
 -- @ret(number) The maximum depth of the field's renderer.
 function HexVMath.maxDepth(sizeX, sizeY, maxHeight)
-  return sizeX * tileH / 2 + pph * 2 + dph * (maxHeight + 1)
+  return ceil(sizeX * tileH / 2 * dpy + pph * 2 + dph * (maxHeight + 1))
 end
 -- @param(sizeX : number) Field's maximum x.
 -- @param(sizeY : number) Field's maximum y.
 -- @param(height : number) Field's maximum height.
 -- @ret(number) The minimum depth of the field's renderer.
 function HexVMath.minDepth(sizeX, sizeY, maxHeight)
-  return -sizeY * (tileW + tileB) / 2 * dpy - pph - dph * (maxHeight - 1)
+  return -ceil(sizeY * tileH / 2 * dpy + pph + dph * (maxHeight - 1))
 end
 
 -----------------------------------------------------------------------------------------------
