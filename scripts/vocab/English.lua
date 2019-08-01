@@ -111,6 +111,8 @@ return {
   loaded = 'Loaded',
   
   -- General
-  ok = 'OK'
+  ok = 'OK',
+  yes = 'Yes',
+  no = 'No'
   
 }

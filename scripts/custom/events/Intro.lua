@@ -36,19 +36,15 @@ return function(script)
   }
 
   script:showDialogue { id = 1, character = '', message = 
-    "O mundo de Hexalia desde sempre foi feito de amor, alegria e doçura. " ..
-    "Ele foi criado e mantido pelas bruxas da prosperidade: Pom Pom, Blim Blim e Tum Tum."
+    Vocab.dialogues.TheWorldOf
   }
   
   script:showDialogue { id = 1, message = 
-    "Nosso povo viveu em paz e harmonia durante séculos, pois sempre foi reinado por sentimentos positivos. " ..
-    "A verdade é que as emoções negativas também existiam, mas eram muito raras. " ..
-    "Todos achavam que era apenas lenda e que ninguém era capaz que sentir isso."
+    Vocab.dialogues.OurPeople
   }
 
   script:showDialogue { id = 1, message = 
-    "Porém, depois de vários anos, para espanto de todos… descobrimos que essas emoções são, sim, sentidas.\n" ..
-    "E descobrimos isso da pior forma…"
+    Vocab.dialogues.HoweverAfterMany
   }
   
   script:closeDialogueWindow { id = 1 }
@@ -62,23 +58,23 @@ return function(script)
   }
 
   script:showDialogue { id = 1, character = "Chita", portrait = "Serious", nameX = -0.45, nameY = -1.25, message = 
-    "Pois quando essas emoções são muito intensas, elas podem acabar se transformando em…"
+    Vocab.dialogues.BecauseWhen
   }
   
   script:showDialogue { id = 1, character = "Chita", portrait = "Shout", message = 
-    " ...Gelatinas!"
+    Vocab.dialogues.Jelly
   }
   
   script:showDialogue { id = 1, character = "player", portrait = "Happy", message = 
-    "Êeee, gelatina!"
+    Vocab.dialogues.YayJelly
   }
   
   script:showDialogue { id = 1, character = "Chita", portrait = "Shout", message = 
-    'Nada de "ê", essas gelatinas são do mal!'
+    Vocab.dialogues.NoYay
   }
   
   script:showDialogue { id = 1, character = "player", portrait = "Wonder", message = 
-    "Como pode comida ser do mal?"
+    Vocab.dialogues.HowCanFood
   }
   
   AudioManager:playSFX { name = "sfx/CGEffex/slap.ogg", pitch = 100, volume = 100 }
@@ -88,19 +84,19 @@ return function(script)
   }
   
   script:showDialogue { id = 1, character = "Chita", portrait = "Shout", message = 
-    "Elas não são de comer, Tum Tum! Você só pensa em comida?!"
+    Vocab.dialogues.TheyAreNotFood
   }
   
   script:showDialogue { id = 1, character = "player", portrait = "Cry", message = 
-    "Ai, é que eu tô com foooome…"
+    Vocab.dialogues.AwnItsBecause
   }
   
   script:showDialogue { id = 1, character = "Chita", portrait = "Shout", message = 
-    "Se concentre! Isso é muito sério!"
+    Vocab.dialogues.Focus
   }
   
   script:showDialogue { id = 1, character = "player", portrait = "Focus", message = 
-    "Ok, ok!"
+    Vocab.dialogues.OkOk
   }
   
   script:closeDialogueWindow { id = 1 }
@@ -122,17 +118,15 @@ return function(script)
   }
   
   script:showDialogue { id = 1, message = 
-    "Felizmente, as bruxas da prosperidade possuem o poder para combater as gelatinas do mal. " .. 
-    "Sempre que uma gelatina surge, elas a desmancham, se livrando dos sentimentos negativos que carregava."
+    Vocab.dialogues.FortunatelyTheWitches
   }
   
   script:showDialogue { id = 1, message = 
-    "Ou, pelo menos, assim era até recentemente…"
+    Vocab.dialogues.OrAtLeast
   }
   
   script:showDialogue { id = 1, message = 
-    "Um dia, as gelatinas estavam tão poderosas que conseguiram vencer duas das bruxas da prosperidade, " .. 
-    "Blim Blim e Pom Pom, que estão até agora presas por gelatina."
+    Vocab.dialogues.OneDay
   }
   
   script:closeDialogueWindow { id = 1 }
@@ -146,24 +140,23 @@ return function(script)
   }
   
   script:showDialogue { id = 1, character = "player", portrait = "Worry", nameX = -0.45, nameY = -1.25, message = 
-    "Oh, não!"
+    Vocab.dialogues.OhNo
   }
   
   script:showDialogue { id = 1, character = "Chita", portrait = "Serious", message = 
-    "Já tentamos de tudo para reencontrá-las, mas não conseguimos. " .. 
-    "Mas sabemos que a última vez que foram vistas foi na floresta."
+    Vocab.dialogues.WeTried
   }
   
   script:showDialogue { id = 1, character = "Chita", portrait = "Shout", message = 
-    "Você é nossa última esperança, Tum Tum! Resgate elas e lute contra as gelatinas!"
+    Vocab.dialogues.YouAreOurLastHope
   }
   
   script:showDialogue { id = 1, character = "player", portrait = "Worry", message = 
-    "Mas, mas… Eu não sei se consigo fazer isso sozinha!"
+    Vocab.dialogues.ButBut
   }
   
   script:showDialogue { id = 1, character = "Chita", portrait = "Shout", message = 
-    "Você não estará sozinha. Tem o apoio de todo o povo de Hexalia com você!"
+    Vocab.dialogues.YouAreNotAlone
   }
   
   script:closeDialogueWindow { id = 1 }
@@ -185,15 +178,15 @@ return function(script)
   }
   
   script:showDialogue { id = 1, character = "Heron", portrait = "Scared", nameX = -0.45, nameY = -1.25, message = 
-    "Ah!! Tum Tum, nos ajude!"
+    Vocab.dialogues.TumTumHelp
   }
   
   script:showDialogue { id = 1, character = "Chita", portrait = "Shout", message = 
-    "O que houve?!"
+    Vocab.dialogues.WhatHappened
   }
   
   script:showDialogue { id = 1, character = "Heron", portrait = "Scared", message = 
-    "Uma gelatina conseguiu ultrapassar nossos muros de proteção!"
+    Vocab.dialogues.AnEvilJelly
   }
   
   script:closeDialogueWindow { id = 1 }
@@ -213,16 +206,15 @@ return function(script)
   }
   
   script:showDialogue { id = 1, character = "player", portrait = "Cry", nameX = -0.45, nameY = -1.25, message = 
-    "O que eu faço, o que eu faço?"
+    Vocab.dialogues.WhatDoIDo
   }
   
   script:showDialogue { id = 1, character = "Chita", portrait = "Shout", message = 
-    "Se acalme e tenha foco! Eu estarei aqui para te orientar! Você vai conseguir!"
+    Vocab.dialogues.CalmDown
   }
   
   script:showDialogue { id = 1, character = "player", portrait = "Focus", message = 
-    "*Respira*\n" .. 
-    "Ok, eu vou conseguir!"
+    Vocab.dialogues.OkIllDoIt
   }
   
   script:closeDialogueWindow { id = 1 }
@@ -244,7 +236,7 @@ return function(script)
   }
   
   script:showDialogue { id = 1, character = "Heron", portrait = "Happy", nameX = -0.45, nameY = -1.25, message = 
-    "Muito obrigado, Tum Tum! Você é incrível!"
+    Vocab.dialogues.ThankYouAmazing
   }
   
   script:closeDialogueWindow { id = 1 }
@@ -266,23 +258,23 @@ return function(script)
   }
   
   script:showDialogue { id = 1, character = "player", portrait = "Blush", nameX = -0.45, nameY = -1.25, message = 
-    "Hahah, que nada!"
+    Vocab.dialogues.ThatWasNothing
   }
   
   script:showDialogue { id = 1, character = "Chita", portrait = "Serious", message = 
-    "Muito bem, Tum Tum. Acha que está preparada agora?"
+    Vocab.dialogues.WellDone
   }
   
   script:showDialogue { id = 1, character = "player", portrait = "Wonder", message = 
-    "Eu acho que…"
+    Vocab.dialogues.IThink
   }
   
   script:showDialogue { id = 1, character = "player", portrait = "Determined", message = 
-    "Essas gelatinas vão ter que correr de mim, porque eu vou resgatar Blim Blim e Pom Pom!"
+    Vocab.dialogues.ThoseJellies
   }
   
   script:showDialogue { id = 1, character = "Chita", portrait = "Pleased", message = 
-    "Muito melhor."
+    Vocab.dialogues.WayBetter
   }
   
   script:closeDialogueWindow { id = 1 }

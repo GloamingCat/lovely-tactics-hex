@@ -14,12 +14,12 @@ return function(script)
   }
   
   script:showDialogue { id = 1, character = '', message = 
-    "Descansar na casa de Dona Chita?"
+    Vocab.dialogues.Rest
   }
 
   script:openChoiceWindow { width = 80, choices = {
-    "Sim.",
-    "Não."
+    Vocab.yes,
+    Vocab.no
   }}
 
   script:closeDialogueWindow { id = 1 }
@@ -42,11 +42,11 @@ return function(script)
   }
 
   script:showDialogue { id = 1, portrait = 124, nameX = -0.45, nameY = -1.25, message = 
-    "Sempre que precisar, você pode voltar aqui para descansar ou para comprar mais comida e utilidades. Tenha cuidado."
+    Vocab.dialogues.YouMayReturn
   }
   
   script:showDialogue { id = 1, character = "player", portrait = "Happy", nameX = -0.45, nameY = -1.25, message = 
-    "Pode deixar, Dona Chita!"
+    Vocab.dialogues.DontWorry
   }
   
   script:closeDialogueWindow { id = 1 }

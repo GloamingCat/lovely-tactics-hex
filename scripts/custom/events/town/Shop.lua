@@ -15,12 +15,12 @@ return function(script)
   }
   
   script:showDialogue { id = 1, character = '', message = 
-    "Entrar na loja?"
+    Vocab.dialogues.Shop
   }
 
   script:openChoiceWindow { width = 80, choices = {
-    "Sim.",
-    "Não."
+    Vocab.yes,
+    Vocab.no
   }}
 
   script:closeDialogueWindow { id = 1 }
@@ -50,27 +50,27 @@ return function(script)
   if not FieldManager.currentField.vars.shop then
     
     script:showDialogue { id = 1, character = "Heron", portrait = "Happy", nameX = -0.45, nameY = -1.25, message = 
-      "Olá, seja bem-vindo… "
+      Vocab.dialogues.HelloWelcome
     }
     
     script:showDialogue { id = 1, character = "Heron", portrait = "Blush", nameX = -0.45, nameY = -1.25, message = 
-      "Ah, Tum Tum! Precisa de algo?"
+      Vocab.dialogues.AhTumTum
     }
     
     script:showDialogue { id = 1, character = "player", portrait = "Happy", message = 
-      "Olá, Heron! Preciso de algumas coisas, sim. Eu posso olhar a lista de itens?"
+      Vocab.dialogues.HelloHeron
     }
 
     script:showDialogue { id = 1, character = "Heron", portrait = "Blush", nameX = -0.45, nameY = -1.25, message = 
-      "C-claro! Não precisa pagar, pode pegar o que precisar, é por nossa conta!"
+      Vocab.dialogues.OfCourse
     }
     
     script:showDialogue { id = 1, character = "player", portrait = "Surprise", message = 
-      "Ah, não, não! Não se preocupe com isso! Você se esforça muito, merece ser recompensado!"
+      Vocab.dialogues.OhNoDontWorry
     }
     
     script:showDialogue { id = 1, character = "player", portrait = "Determined", message = 
-      "Vamos, eu quero ver o que tem!"
+      Vocab.dialogues.CmonIWant
     }
   
     script:closeDialogueWindow { id = 1 }
@@ -83,11 +83,11 @@ return function(script)
     }
     
     script:showDialogue { id = 1, character = "Heron", portrait = "Happy", nameX = -0.45, nameY = -1.25, message = 
-      "Muito obrigado, Tum Tum! Volte quando puder!"
+      Vocab.dialogues.ThankYouComeBack
     }
     
     script:showDialogue { id = 1, character = "player", portrait = "Happy", message = 
-      "Não há de quê! Até mais!"
+      Vocab.dialogues.YoureWelcome
     }
     
     FieldManager.currentField.vars.shop = true
@@ -100,7 +100,7 @@ return function(script)
     }
     
     script:showDialogue { id = 1, character = "Heron", portrait = "Happy", nameX = -0.45, nameY = -1.25, message = 
-      "Bem-vinda de volta, Tum Tum! Estamos à sua disposição!"
+      Vocab.dialogues.WelcomeBack
     }
     
     script:closeDialogueWindow { id = 1 }
@@ -113,7 +113,7 @@ return function(script)
     }
     
     script:showDialogue { id = 1, character = "Heron", portrait = "Happy", nameX = -0.45, nameY = -1.25, message = 
-      "Obrigado e volte quando quiser!"
+      Vocab.dialogues.ThankYou
     }
     
   end
