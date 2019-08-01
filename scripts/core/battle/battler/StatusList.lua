@@ -267,14 +267,14 @@ end
 ---------------------------------------------------------------------------------------------------
 
 -- Called when the turn of the character starts.
-function StatusList:onTurnStart(...)
+function StatusList:onTurnStart(char, ...)
   local i = 1
   while i <= self.size do
     local status = self[i]
     status.lifeTime = status.lifeTime + 1
-    status:onTurnStart(...)
+    status:onTurnStart(char, ...)
     if status.lifeTime > status.duration then
-      self:removeStatus(status)
+      self:removeStatus(status, char)
     else
       i = i + 1
     end

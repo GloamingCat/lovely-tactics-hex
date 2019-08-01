@@ -70,18 +70,14 @@
           "skills": [
             17,
             19,
-            20
+            20,
+            12,
+            13
           ],
           "status": [],
           "elements": [],
           "items": [],
-          "equip": [
-            {
-              "key": "hand1",
-              "id": 5,
-              "state": 0
-            }
-          ],
+          "equip": [],
           "name": "Tum Tum",
           "tags": []
         },

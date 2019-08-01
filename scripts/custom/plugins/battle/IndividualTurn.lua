@@ -145,14 +145,14 @@ end
 ---------------------------------------------------------------------------------------------------
 
 -- Override. Adds iterations to lifeTime instead of just incrementing it by 1.
-function StatusList:onTurnStart(...)
+function StatusList:onTurnStart(char, ...)
   local i = 1
   while i <= self.size do
     local status = self[i]
     status.lifeTime = status.lifeTime + _G.TurnManager.iterations
-    status:onTurnStart(...)
-    if status.lifeTime > status.duration * turnLimit then
-      self:removeStatus(status)
+    status:onTurnStart(char, ...)
+    if status.lifeTime > status.duration * turnLimit / 10 then
+      self:removeStatus(status, char)
     else
       i = i + 1
     end

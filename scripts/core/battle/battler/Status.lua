@@ -141,13 +141,21 @@ end
 -- Skill callbacks
 ---------------------------------------------------------------------------------------------------
 
--- Removes status in case it's removable by damage or KO.
+-- Removes status in case it's removable by damage.
 -- @param(input : ActionInput) The action input that was executed.
 -- @param(results : table) The results of the skill effect.
 function Status:onSkillEffect(input, results, char)
   local battler = self.statusList.battler
-  if results.damage and self.data.removeOnDamage or 
-      self.data.removeOnKO and not battler:isAlive() then
+  if results.damage and self.data.removeOnDamage then
+    self.statusList:removeStatus(self, char)
+  end
+end
+-- Removes status in case it's removable by KO.
+-- @param(input : ActionInput) The action input that was executed.
+-- @param(results : table) The results of the skill effect.
+function Status:onSkillResult(input, results, char)
+  local battler = self.statusList.battler
+  if self.data.removeOnKO and not battler:isAlive() then
     self.statusList:removeStatus(self, char)
   end
 end

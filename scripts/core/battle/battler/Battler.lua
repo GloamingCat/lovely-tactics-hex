@@ -275,9 +275,13 @@ end
 function Battler:onSkillUse(input, character)
   self.statusList:callback('SkillUse', input, character)
 end
--- Callback for when the characters ends receiving a skill's effect.
+-- Callback for when the character is about to receive a skill effect.
 function Battler:onSkillEffect(input, results, character)
   self.statusList:callback('SkillEffect', input, results, character)
+end
+-- Callback for when the character received a skill effect.
+function Battler:onSkillResult(input, results, character)
+  self.statusList:callback('SkillResult', input, results, character)
 end
 
 ---------------------------------------------------------------------------------------------------

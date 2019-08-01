@@ -444,6 +444,10 @@
             {
               "name": "Battle:KO",
               "id": 82
+            },
+            {
+              "name": "Sleep:Idle",
+              "id": 161
             }
           ],
           "name": "Green Jelly",
@@ -507,6 +511,10 @@
             {
               "name": "Battle:KO",
               "id": 82
+            },
+            {
+              "name": "Sleep:Idle",
+              "id": 161
             }
           ],
           "name": "Blue Jelly",
@@ -570,6 +578,10 @@
             {
               "name": "Battle:KO",
               "id": 82
+            },
+            {
+              "name": "Sleep:Idle",
+              "id": 161
             }
           ],
           "name": "Red Jelly",
@@ -633,6 +645,10 @@
             {
               "name": "Battle:KO",
               "id": 82
+            },
+            {
+              "name": "Sleep:Idle",
+              "id": 161
             }
           ],
           "name": "Yellow Jelly",
@@ -696,6 +712,10 @@
             {
               "name": "Battle:KO",
               "id": 82
+            },
+            {
+              "name": "Sleep:Idle",
+              "id": 161
             }
           ],
           "name": "Purple Jelly",
@@ -774,6 +794,10 @@
             {
               "name": "Battle:KO",
               "id": 82
+            },
+            {
+              "name": "Sleep:Idle",
+              "id": 161
             }
           ],
           "name": "Giant Jelly",

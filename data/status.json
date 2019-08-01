@@ -105,7 +105,7 @@
           "priority": 99,
           "visible": true,
           "cumulative": false,
-          "charAnim": "sleep",
+          "charAnim": "Sleep",
           "transform": {
             "offsetX": 0,
             "offsetY": 0,
@@ -122,7 +122,7 @@
             "brightness": 100
           },
           "override": false,
-          "duration": 2,
+          "duration": 3,
           "removeOnKO": true,
           "removeOnDamage": true,
           "battleOnly": true,

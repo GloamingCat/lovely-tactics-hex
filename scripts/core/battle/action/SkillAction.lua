@@ -225,7 +225,9 @@ end
 -- @param(results : table) Skill result table.
 -- @param(char : Character) Battler's character.
 function SkillAction:applyResults(input, results, battler, char)
+  battler:onSkillEffect(input, results, char)
   battler:applyResults(results, char)
+  battler:onSkillResult(input, results, char)
   if char then
     if battler:isAlive() then
       char:playAnimation(char.idleAnim)
@@ -233,7 +235,6 @@ function SkillAction:applyResults(input, results, battler, char)
       char:playAnimation(char.koAnim)
     end
   end
-  battler:onSkillEffect(input, results, char)
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -338,6 +339,7 @@ end
 -- @param(user : Battler) User of the skill.
 -- @param(target : Battler) Receiver of the status effects.
 -- @ret(table) Array with status results.
+-- @ret(boolean) True if the effect was damage, false otherwise.
 function SkillAction:calculateStatusResult(user, target)
   local rand = self.rand or random
   local result = {}
@@ -377,6 +379,7 @@ end
 -- @param(targetChar : Character) the character that will be affected
 -- @param(originTile : ObjectTile) the user's original tile
 function SkillAction:singleTargetEffect(results, input, targetChar, originTile)
+  targetChar.battler:onSkillEffect(input, results, targetChar)
   if #results.points == 0 and #results.status == 0 then
     -- Miss
     local pos = targetChar.position
@@ -401,11 +404,11 @@ function SkillAction:singleTargetEffect(results, input, targetChar, originTile)
         targetChar:damage(self.data, originTile, results)
       end)
     end
+    targetChar.battler:onSkillResult(input, results, targetChar)
     if targetChar.battler.state.hp > 0 then
       targetChar:playAnimation(targetChar.idleAnim)
     end
   end
-  targetChar.battler:onSkillEffect(input, results, targetChar)
   _G.Fiber:wait(self.targetTime)
   return results
 end
