@@ -20,7 +20,7 @@ local EscapeAction = class(BattleAction)
 -- Overrides BattleAction:init. Sets animation speed.
 function EscapeAction:init(...)
   BattleAction.init(self, ...)
-  self.animSpeed = 10
+  self.animSpeed = 2
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -46,7 +46,8 @@ function EscapeAction:execute(input)
   end
   char:colorizeTo(nil, nil, nil, 0, self.animSpeed, true)
   local troop = TurnManager:currentTroop()
-  troop:removeMember(char)
+  local member = troop:removeMember(char.key)
+  TroopManager:deleteCharacter(char)
   if TroopManager:getMemberCount(party) == 0 then
     return { executed = true, endTurn = true, escaped = true }
   else
