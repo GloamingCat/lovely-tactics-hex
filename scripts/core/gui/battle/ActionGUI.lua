@@ -178,8 +178,12 @@ function ActionGUI:mouseInput()
       if target ~= self.input.target then
         self:selectTarget(target)
       end
-      self:playConfirmSound()
-      self.result = self.input.action:onConfirm(self.input)
+      if self.input.target.gui.selectable then
+        self:playConfirmSound()
+        self.result = self.input.action:onConfirm(self.input)
+      else
+        self:playErrorSound()
+      end
     else
       self:playErrorSound()
     end
