@@ -515,15 +515,15 @@
             },
             {
               "key": "cast_far",
-              "value": "4"
+              "value": "3"
             },
             {
               "key": "cast_maxh",
-              "value": "4"
+              "value": "3"
             },
             {
               "key": "cast_minh",
-              "value": "-4"
+              "value": "-3"
             }
           ]
         },
@@ -840,15 +840,15 @@
             },
             {
               "key": "cast_far",
-              "value": "4"
+              "value": "3"
             },
             {
               "key": "cast_maxh",
-              "value": "4"
+              "value": "3"
             },
             {
               "key": "cast_minh",
-              "value": "-4"
+              "value": "-3"
             }
           ]
         },
@@ -943,15 +943,15 @@
             },
             {
               "key": "cast_far",
-              "value": "4"
+              "value": "3"
             },
             {
               "key": "cast_maxh",
-              "value": "4"
+              "value": "3"
             },
             {
               "key": "cast_minh",
-              "value": "-4"
+              "value": "-3"
             }
           ]
         },
@@ -1046,15 +1046,15 @@
             },
             {
               "key": "cast_far",
-              "value": "4"
+              "value": "3"
             },
             {
               "key": "cast_maxh",
-              "value": "4"
+              "value": "3"
             },
             {
               "key": "cast_minh",
-              "value": "-4"
+              "value": "-3"
             }
           ]
         },

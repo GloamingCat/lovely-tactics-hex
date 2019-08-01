@@ -962,6 +962,108 @@
         },
         "id": 13,
         "children": []
+      },
+      {
+        "data": {
+          "battlerID": -1,
+          "shadowID": 1,
+          "tiles": [
+            {
+              "dx": 0,
+              "dy": 0,
+              "height": 0
+            }
+          ],
+          "transform": {
+            "offsetX": 0,
+            "offsetY": 0,
+            "offsetDepth": 0,
+            "scaleX": 100,
+            "scaleY": 100,
+            "rotation": 0,
+            "red": 255,
+            "green": 255,
+            "blue": 255,
+            "alpha": 255,
+            "hue": 0,
+            "saturation": 100,
+            "brightness": 100
+          },
+          "portraits": [],
+          "animations": [
+            {
+              "name": "Idle",
+              "id": 152
+            },
+            {
+              "name": "SceneIdle",
+              "id": 153
+            },
+            {
+              "name": "Walk",
+              "id": 154
+            },
+            {
+              "name": "Dash",
+              "id": 155
+            }
+          ],
+          "name": "Amber",
+          "tags": []
+        },
+        "id": 14,
+        "children": []
+      },
+      {
+        "data": {
+          "battlerID": -1,
+          "shadowID": 1,
+          "tiles": [
+            {
+              "dx": 0,
+              "dy": 0,
+              "height": 0
+            }
+          ],
+          "transform": {
+            "offsetX": 0,
+            "offsetY": 0,
+            "offsetDepth": 0,
+            "scaleX": 100,
+            "scaleY": 100,
+            "rotation": 0,
+            "red": 255,
+            "green": 255,
+            "blue": 255,
+            "alpha": 255,
+            "hue": 0,
+            "saturation": 100,
+            "brightness": 100
+          },
+          "portraits": [],
+          "animations": [
+            {
+              "name": "Idle",
+              "id": 157
+            },
+            {
+              "name": "SceneIdle",
+              "id": 158
+            },
+            {
+              "name": "Walk",
+              "id": 159
+            },
+            {
+              "name": "Dash",
+              "id": 160
+            }
+          ],
+          "name": "Coco",
+          "tags": []
+        },
+        "id": 15,
+        "children": []
       }
     ]
   }

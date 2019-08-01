@@ -220,7 +220,7 @@ return function(script)
   script:closeDialogueWindow { id = 1 }
   
   AudioManager.battleTheme = nil
-  script:startBattle { fieldID = 11, fade = 90, intro = true, 
+  script:startBattle { fieldID = 11, fade = 5, intro = true, 
     gameOverCondition = 1, escapeEnabled = false }
   AudioManager.battleTheme = Sounds.battleTheme
   

@@ -21,7 +21,7 @@
         "5",
         "0"
       ],
-      "expCurve": "5 * lvl",
+      "expCurve": "lvl * (lvl + 1) * 2",
       "skills": [],
       "name": "Fighter",
       "tags": []
@@ -51,7 +51,7 @@
         "10",
         "0"
       ],
-      "expCurve": "5 * lvl",
+      "expCurve": "lvl * (lvl + 1) * 2",
       "skills": [
         {
           "id": 7,
