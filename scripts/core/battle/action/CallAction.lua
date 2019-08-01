@@ -32,7 +32,7 @@ end
 function CallAction:onConfirm(input)
   self.troop = TroopManager.troops[(input.party or input.user.party)]
   if input.GUI then
-    local result = GUIManager:showGUIForResult(CallGUI(troop, input.user == nil))
+    local result = GUIManager:showGUIForResult(CallGUI(self.troop, input.user == nil))
     if result ~= 0 then
       self:callMember(result, input.target)
       input.GUI:endGridSelecting()

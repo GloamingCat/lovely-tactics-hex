@@ -20,7 +20,7 @@ local FormationAction = class(CallAction)
 -- Overrides BattleAction:onConfirm.
 function FormationAction:onConfirm(input)
   self.troop = TroopManager.troops[(input.party or TurnManager.party)]
-  local result = GUIManager:showGUIForResult(CallGUI(troop, input.user == nil))
+  local result = GUIManager:showGUIForResult(CallGUI(self.troop, input.user == nil))
   if result ~= 0 then
     local char = input.target.characterList[1]
     if result == '' then
@@ -33,9 +33,11 @@ function FormationAction:onConfirm(input)
       if char and char.key ~= result then
         self:removeMember(char)
       end
-      local newChar = FieldManager:search(result)
-      if newChar then
-        newChar:moveToTile(input.target)
+      char = FieldManager:search(result)
+      if char then
+        char:removeFromTiles()
+        char:moveToTile(input.target)
+        char:addToTiles()
       else
         self:callMember(result, input.target)
       end
