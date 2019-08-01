@@ -17,11 +17,12 @@ local TerrainLayer = class()
 -- Initialization
 ---------------------------------------------------------------------------------------------------
 
--- @param(data : table) the layer's data from field's file
--- @param(sizeX : number) the field's width
--- @param(sizeY : number) the field's length
--- @param(order : number) the rendering order for the layer 
---  (used specially when there are more than one layer with same height)
+-- Constructor.
+-- @param(data : table) The layer's data from field's file.
+-- @param(sizeX : number) The field's grid width.
+-- @param(sizeY : number) The field's grid height.
+-- @param(order : number) The rendering order for the layer
+--  (used for correct depth when there are more than one layer with same height).
 function TerrainLayer:init(data, sizeX, sizeY, order)
   self.grid = {}
   self.order = order
@@ -51,6 +52,12 @@ end
 -- Auto Tile
 ---------------------------------------------------------------------------
 
+-- Checks if two grid cells have the same terrain type (for auto tiling).
+-- @param(i1 : number) Grid x of first cell.
+-- @param(j1 : number) Grid y of first cell.
+-- @param(i2 : number) Grid x of second cell.
+-- @param(j2 : number) Grid y of second cell.
+-- @ret(boolean) True if two tiles must be connected with auto tiling.
 function TerrainLayer:sameType(i1, j1, i2, j2)
   if self.noAuto then
     return true

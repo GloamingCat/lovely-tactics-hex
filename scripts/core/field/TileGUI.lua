@@ -26,19 +26,21 @@ local TileGUI = class()
 -- Initialization
 ---------------------------------------------------------------------------------------------------
 
--- @param(tile : ObjectTile) the tile this object belongs to.
+-- Constructor.
+-- @param(tile : ObjectTile) The tile this object belongs to.
 function TileGUI:init(tile, baseAnim, highlightAnim)
   local renderer = FieldManager.renderer
   local x, y, z = tile2Pixel(tile:coordinates())
+  local depth = #FieldManager.currentField.terrainLayers[tile.layer.height]
   if baseAnim and baseAnimID >= 0 then
     local baseAnim = Database.animations[baseAnimID]
     self.baseAnim = ResourceManager:loadAnimation(baseAnim, renderer)
-    self.baseAnim.sprite:setXYZ(x, y, z)
+    self.baseAnim.sprite:setXYZ(x, y, z + depth - 2)
   end
   if highlightAnim and highlightAnimID >= 0 then
     local hlAnim = Database.animations[highlightAnimID]
     self.highlightAnim = ResourceManager:loadAnimation(hlAnim, renderer)
-    self.highlightAnim.sprite:setXYZ(x, y, z)
+    self.highlightAnim.sprite:setXYZ(x, y, z + depth - 2)
   end
   self.x, self.y, self.h = tile:coordinates()
   self.grounded = FieldManager.currentField:isGrounded(tile:coordinates())
@@ -72,8 +74,7 @@ end
 -- Graphics
 ---------------------------------------------------------------------------------------------------
 
--- Updates graphics pixel depth according to the terrains' 
---  depth in this tile's coordinates.
+-- Updates graphics pixel depth according to the terrains' depth in this tile's coordinates.
 function TileGUI:updateDepth()
   if not self.grounded then
     return
@@ -91,14 +92,14 @@ function TileGUI:updateDepth()
   end
 end
 -- Selects / deselects this tile.
--- @param(value : boolean) true to select, false to deselect
+-- @param(value : boolean) True to select, false to deselect.
 function TileGUI:setSelected(value)
   if self.highlightAnim then
     self.highlightAnim.sprite:setVisible(value)
   end
 end
 -- Sets color to the color with the given label.
--- @param(name : string) color label
+-- @param(name : string) Color label.
 function TileGUI:setColor(name)
   self.colorName = name
   if name == nil or name == '' then
@@ -131,3 +132,4 @@ function TileGUI:hide()
 end
 
 return TileGUI
+

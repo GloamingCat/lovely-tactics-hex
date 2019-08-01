@@ -221,7 +221,7 @@ function BattleAction:nextTarget(input, axisX, axisY)
   return FieldAction.nextTarget(self, input, axisX, axisY)
 end
 -- Overrides FieldAction:nextLayer.
-function FieldAction:nextLayer(input, axis)
+function BattleAction:nextLayer(input, axis)
   if self.characterTiles then
     return self:nextTarget(input, axis, axis)
   end

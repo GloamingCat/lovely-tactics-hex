@@ -139,7 +139,7 @@ function TerrainTile:createQuarters(data, rows)
       w / 2, h / 2, texture:getWidth(), texture:getHeight())
     quarters[i] = Sprite(FieldManager.renderer, texture, quad)
     quarters[i]:setPosition(self.center)
-    quarters[i]:setOffset(w / 2 - x, h / 2 - y, self.depth)
+    quarters[i]:setOffset(w / 2 - x, h / 2 - y, self.depth + 1 - origins[i][2] * 2)
   end
   return quarters
 end

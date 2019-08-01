@@ -89,8 +89,8 @@ end
 -- Removes a member character.
 -- @param(char : Character) The characters representing the member to be removed.
 -- @ret(table) Removed member's data.
-function CallAction:removeMember(character, tile)
-  local member = self.troop:removeMember(character.key, tile)
+function CallAction:removeMember(character)
+  local member = self.troop:removeMember(character.key)
   TroopManager:deleteCharacter(character)
   return member
 end
