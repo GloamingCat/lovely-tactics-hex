@@ -11,10 +11,12 @@ The "Hex" in the name is because the battle grid is hexagonal. I plan, though, t
 Project's repository: https://github.com/GloamingCat/Lovely-Tactics-Hex
 
 <p align="center">
-<img width=400 height=220 src="https://78.media.tumblr.com/3988bb286dd8cc2420b70006cd9b7720/tumblr_p9ap7fTZ3l1x9yfk6o2_1280.png">
-<img width=400 height=220 src="https://78.media.tumblr.com/a30546d800b9fc4180f9ec6743d2ee18/tumblr_p773qyUzqO1x9yfk6o1_1280.png">
-<img width=400 height=220 src="https://78.media.tumblr.com/088231cb65b0c7ba49d3d5e5ff2ac964/tumblr_p9ap7fTZ3l1x9yfk6o1_1280.png">
-<img width=400 height=220 src="https://66.media.tumblr.com/4b876449b0abb676b13b56a9de107198/tumblr_p89m07DAAd1x9yfk6o1_1280.png">
+<img width=400 src="https://66.media.tumblr.com/939e12a4f0b1fb41464b8389c2e7cbf8/tumblr_pvkjjmKqRP1x9yfk6o4_1280.png">
+<img width=400 src="https://66.media.tumblr.com/ffde850fb9b1e15a786228f0baaaf132/tumblr_pvkjjmKqRP1x9yfk6o5_1280.png">
+<img width=400 src="https://66.media.tumblr.com/162763f7aa323d9e6dd1944d1066e145/tumblr_pvkjjmKqRP1x9yfk6o1_1280.png">
+<img width=400 src="https://66.media.tumblr.com/0ec170b34248f5c96146cf3d2475f26a/tumblr_pvkjjmKqRP1x9yfk6o3_1280.png">
+<img width=400 src="https://66.media.tumblr.com/b25c4d6440d58030a88dda099696fa54/tumblr_pvkjjmKqRP1x9yfk6o6_1280.png">
+<img width=400 src="https://66.media.tumblr.com/de6f15c8791b79b562776773c0d4dea8/tumblr_pvkjjmKqRP1x9yfk6o2_1280.png">
 </p>
 
 ## Installation
@@ -43,11 +45,15 @@ This should run the game.
 
 * Use arrow keys or mouse to navigate around the field or GUI;
 * Press shift to walk faster;
-* Press Z or Enter to confirm a GUI selection or interact with NPCs;
-* Press X or Backspace to cancel a GUI selection;
+* Press Z/Enter/Space to confirm a GUI selection or interact with NPCs;
+* Press X/Backspace/ESC to cancel a GUI selection;
 * Press a cancel button in field to show the Field Menu;
-* Interact with pink character to test dialogue and Shop Menu;
-* Collide with green characters to start a battle.
+* Collide with green jellies to start a battle;
+* Debug:
+  * When the game starts, keep holding a cancel button and then start a new game to skip the intro scene;
+  * Press F1 to quick-save and F5 to quick-load (does not work during battle);
+  * Hold K to kill all enemies in the next turn;
+  * Hold L to kill all allies in the next turn.
 
 ## Editor
 
@@ -77,7 +83,7 @@ Since this project is still under development, its design and features may chang
   * TerrainDuration: set life time of terrain (snow, fire, magical, etc);
   * PartyRegions: set party escape tiles using regions. 
 * Editor:
-  * Correct tab flickering on Windows;
+  * Fix tab flickering on Windows;
   * Optimize field editor (I have no idea how to do this).
 
 ## Credits

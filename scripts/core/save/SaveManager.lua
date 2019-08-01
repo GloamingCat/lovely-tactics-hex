@@ -143,7 +143,7 @@ end
 -- @ret(table) Header of the save.
 function SaveManager:getHeader(save)
   save = save or self.current
-  local troop = save.troops[self.current.playerTroopID .. '']
+  local troop = save.troops[self.current.playerTroopID .. ''] or Troop()
   local members = {}
   for i = 1, #troop.members do
     if not troop.members[i].backup then
