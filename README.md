@@ -79,6 +79,7 @@ Thanks to the following people for general art/audio resources used in the proje
 * Tuomo Untinen for sound effects: https://opengameart.org/content/rpg-sound-package;
 * Aaron Krogh for BGM: https://soundcloud.com/aaron-anderson-11;
 * David Vitas for BGM: http://www.davidvitas.com/portfolio/2016/5/12/rpg-music-pack;
+* Gyrowolf for BGM: https://gyrowolf.com/resources/;
 * Mr. Bubble for the battle animations: https://mrbubblewand.wordpress.com/download/;
 * Alex dos Ventos for the scenery art: http://diabraar.tumblr.com/;
 
