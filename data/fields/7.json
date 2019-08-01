@@ -1479,17 +1479,52 @@
       ]
     },
     {
-      "key": "Heron",
+      "key": "Amber",
       "persistent": false,
       "passable": false,
-      "x": 8,
-      "y": 6,
+      "x": 7,
+      "y": 7,
       "h": 1,
       "party": -1,
-      "charID": 13,
+      "charID": 14,
       "battlerID": -1,
       "animation": "SceneIdle",
       "direction": 0,
+      "scripts": [
+        {
+          "global": false,
+          "block": false,
+          "wait": false,
+          "onLoad": true,
+          "onInteract": false,
+          "onCollide": false,
+          "name": "events/behavior/Wanderer.lua",
+          "tags": []
+        },
+        {
+          "global": false,
+          "block": true,
+          "wait": true,
+          "onLoad": false,
+          "onInteract": true,
+          "onCollide": false,
+          "name": "events/test/Dialogue.lua",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "key": "Coco",
+      "persistent": false,
+      "passable": false,
+      "x": 11,
+      "y": 6,
+      "h": 1,
+      "party": -1,
+      "charID": 15,
+      "battlerID": -1,
+      "animation": "SceneIdle",
+      "direction": 225,
       "scripts": [
         {
           "global": false,

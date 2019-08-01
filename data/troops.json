@@ -21,12 +21,7 @@
           "value": 100
         },
         {
-          "count": 2,
-          "id": 5,
-          "value": 100
-        },
-        {
-          "count": 2,
+          "count": 1,
           "id": 6,
           "value": 100
         },
@@ -43,7 +38,18 @@
           "battlerID": -1,
           "x": 3,
           "y": 2,
-          "equip": [],
+          "equip": [
+            {
+              "key": "hand",
+              "id": 5,
+              "state": 0
+            },
+            {
+              "key": "head",
+              "id": 6,
+              "state": 0
+            }
+          ],
           "backup": false
         }
       ],
@@ -220,6 +226,47 @@
       "tags": []
     },
     "id": 5,
+    "children": []
+  },
+  {
+    "data": {
+      "ai": "",
+      "persistent": false,
+      "money": 100,
+      "items": [],
+      "members": [
+        {
+          "key": "1",
+          "charID": 4,
+          "battlerID": 10,
+          "x": 3,
+          "y": 1,
+          "equip": [],
+          "backup": false
+        },
+        {
+          "key": "2",
+          "charID": 6,
+          "battlerID": -1,
+          "x": 2,
+          "y": 2,
+          "equip": [],
+          "backup": false
+        },
+        {
+          "key": "2",
+          "charID": 6,
+          "battlerID": -1,
+          "x": 4,
+          "y": 2,
+          "equip": [],
+          "backup": false
+        }
+      ],
+      "name": "Jelly Boss Party 1",
+      "tags": []
+    },
+    "id": 6,
     "children": []
   }
 ]

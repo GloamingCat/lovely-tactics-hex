@@ -20,7 +20,7 @@ return {
   	"Everyone thought that they were just a rumor and that no one would actually feel that.",
   HoweverAfterMany = "However, after many years, as a surprise for everyone... we found out that these emotions are, in fact, feeled.\n" ..
     "And we found it out the hard way...",
-  BecauseWhen = "Because when these emotions are intense enough, they can end up turning into...",
+  BecauseWhen = "Because when these emotions are intense enough, they might end up turning into...",
   Jelly = "...Jelly!",
   YayJelly = "Yaaay, jelly!",
   NoYay = 'No "yay", these jellies are evil!',
@@ -51,7 +51,7 @@ return {
   CalmDown = "Calm down and focus! I'll be here to guide you! You can do it!",
   OkIllDoIt = "*Breathes in*\n" .. 
   	"Ok, I'll do it!",
-  ThankYouSoMuch = "Thank you so much, Tum Tum! You're amazing!",
+  ThankYouAmazing = "Thank you so much, Tum Tum! You're amazing!",
   ThatWasNothing = "Hahahah, that was nothing!",
   WellDone = "Well done, Tum Tum. Are feeling more confident now?",
   IThink = "I think...",
