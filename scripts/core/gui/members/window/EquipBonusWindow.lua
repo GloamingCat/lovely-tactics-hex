@@ -10,6 +10,7 @@ A window that shows the attribute and element bonus of the equip item.
 -- Imports
 local EquipSet = require('core/battle/battler/EquipSet')
 local List = require('core/datastruct/List')
+local SimpleImage = require('core/gui/widget/SimpleImage')
 local SimpleText = require('core/gui/widget/SimpleText')
 local Vector = require('core/math/Vector')
 local Window = require('core/gui/Window')
@@ -20,6 +21,7 @@ local round = math.round
 -- Constants
 local attConfig = Config.attributes
 local equipTypes = Config.equipTypes
+local arrowID = Config.animations.arrow
 
 local EquipBonusWindow = class(Window)
 
@@ -70,8 +72,9 @@ function EquipBonusWindow:createBonusText(att, x, y, w)
     local value1 = SimpleText(round(att[i].oldValue), valuePos1, valueW, 'left', font)
     self.content:add(value1)
     self.bonus:add(value1)
-    local arrowPos = Vector(x + w / 2 + valueW, y - 2, 0)
-    local arrow = SimpleText('→', arrowPos, arrowW, 'left')
+    local arrowIcon = {id = arrowID, col = 0, row = 0}
+    local arrowImg = ResourceManager:loadIcon(arrowIcon, GUIManager.renderer)
+    local arrow = SimpleImage(arrowImg, x + w / 2 + valueW, y, 0, arrowW, value1.sprite:getHeight())
     self.content:add(arrow)
     self.bonus:add(arrow)
     local valuePos2 = Vector(x + w / 2 + valueW + arrowW, y, 0)
@@ -100,9 +103,9 @@ function EquipBonusWindow:setEquip(slotKey, newEquip)
   local bonusList = {}
   for i = 1, #attConfig do
     local key = attConfig[i].key
-    local oldValue = self.member.att[key]()
+    local oldValue = round(self.member.att[key]())
     self.member.equipSet = simulationSet
-    local newValue = self.member.att[key]()
+    local newValue = round(self.member.att[key]())
     self.member.equipSet = currentSet
     if oldValue ~= newValue then
       bonusList[#bonusList + 1] = {
