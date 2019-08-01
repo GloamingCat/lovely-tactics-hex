@@ -55,7 +55,7 @@ end
 
 -- Overrides BattleAction:isSelectable.
 function FormationAction:isSelectable(input, tile)
-  return tile.party == TurnManager.party
+  return tile.party == TurnManager.party and tile.obstacleList:isEmpty()
 end
 
 ---------------------------------------------------------------------------------------------------

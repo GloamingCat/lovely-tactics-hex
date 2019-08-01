@@ -31,16 +31,15 @@ local TileGUI = class()
 function TileGUI:init(tile, baseAnim, highlightAnim)
   local renderer = FieldManager.renderer
   local x, y, z = tile2Pixel(tile:coordinates())
-  local depth = #FieldManager.currentField.terrainLayers[tile.layer.height]
   if baseAnim and baseAnimID >= 0 then
     local baseAnim = Database.animations[baseAnimID]
     self.baseAnim = ResourceManager:loadAnimation(baseAnim, renderer)
-    self.baseAnim.sprite:setXYZ(x, y, z + depth - 2)
+    self.baseAnim.sprite:setXYZ(x, y, z)
   end
   if highlightAnim and highlightAnimID >= 0 then
     local hlAnim = Database.animations[highlightAnimID]
     self.highlightAnim = ResourceManager:loadAnimation(hlAnim, renderer)
-    self.highlightAnim.sprite:setXYZ(x, y, z + depth - 2)
+    self.highlightAnim.sprite:setXYZ(x, y, z)
   end
   self.x, self.y, self.h = tile:coordinates()
   self.grounded = FieldManager.currentField:isGrounded(tile:coordinates())
