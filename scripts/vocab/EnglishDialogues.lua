@@ -3,7 +3,7 @@ return {
   
   -- Dialogue Test
   Hi = "Hi.",
-  WhatsYourAge = "What's your age?",
+  WhatsYourAge = "How old are you?",
   OhMeToo = "Oh, me too.",
   HowAreYouDoing = "How you {i}doing{r}? ~",
   Good = "Good.",
@@ -18,7 +18,7 @@ return {
   OurPeople = "Our people lived in peace and harmony for centuries, because it was reign by positive feelings. " ..
   	"The truth is that the negative emotions also existed, but they were rare. " ..
   	"Everyone thought that they were just a rumor and that no one would actually feel that.",
-  HoweverAfterMany = "However, after many years, as a surprise for everyone... we found out that these emotions are, in fact, feeled.\n" ..
+  HoweverAfterMany = "However, after many years, as a surprise for everyone... we found out that these emotions are, in fact, felt by people.\n" ..
     "And we found it out the hard way...",
   BecauseWhen = "Because when these emotions are intense enough, they might end up turning into...",
   Jelly = "...Jelly!",
@@ -53,7 +53,7 @@ return {
   	"Ok, I'll do it!",
   ThankYouAmazing = "Thank you so much, Tum Tum! You're amazing!",
   ThatWasNothing = "Hahahah, that was nothing!",
-  WellDone = "Well done, Tum Tum. Are feeling more confident now?",
+  WellDone = "Well done, Tum Tum. Are you feeling more confident now?",
   IThink = "I think...",
   ThoseJellies = "That those jellies will have to run away from me, because I'm going to rescue Blim Blim and Pom Pom!",
   WayBetter = "Way better.",

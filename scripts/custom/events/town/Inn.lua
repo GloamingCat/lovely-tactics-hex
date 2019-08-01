@@ -41,7 +41,7 @@ return function(script)
     height = ScreenManager.height / 3 
   }
 
-  script:showDialogue { id = 1, portrait = 124, nameX = -0.45, nameY = -1.25, message = 
+  script:showDialogue { id = 1, character = 5, portrait = "Serious", nameX = -0.45, nameY = -1.25, message = 
     Vocab.dialogues.YouMayReturn
   }
   

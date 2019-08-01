@@ -83,7 +83,11 @@ function EventSheet.showDialogue(sheet, args)
   assert(window, 'You must open window ' .. args.id .. ' first.')
   if args.character then -- Change portrait
     local portrait = nil
-    if args.character ~= '' then -- Change to other image
+    if type(args.character) == 'number' then
+      local char = Database.characters[args.character]
+      portrait = util.array.findByName(char.portraits, args.portrait)
+      args.name = args.name or char.name
+    elseif args.character ~= '' then -- Change to other image
       local char = sheet:findCharacter(args.character)
       portrait = { char = char, name = args.portrait }
       args.name = args.name or char.name

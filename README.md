@@ -62,6 +62,24 @@ I am also working on a complementary project, which is an editor for the json fi
 
 Since this project is still under development, its design and features may change a lot, so I'll write a proper documentation when it gets more stable.
 
+## To-do list
+
+* Text and dialogue:
+  * Optimize dialogue text rendering by not redrawing full lines;
+  * Draw sprites in the middle of text;
+  * Dialogue text commands: 
+    * Wait for number of frames;
+    * Wait for player input;
+    * Ignore player input and close automacitally.
+* Additional plugins:
+  * ClassEquip: restrict equipment items per battler class;
+  * FormationEditor: edit party formation in-game;
+  * TerrainDuration: set life time of terrain (snow, fire, magical, etc);
+  * PartyRegions: set party escape tiles using regions. 
+* Editor:
+  * Correct tab flickering on Windows;
+  * Optimize field editor (I have no idea how to do this).
+
 ## Credits
 
 Thanks to the following people for source code:

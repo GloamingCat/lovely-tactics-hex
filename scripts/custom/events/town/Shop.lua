@@ -49,11 +49,11 @@ return function(script)
   
   if not FieldManager.currentField.vars.shop then
     
-    script:showDialogue { id = 1, character = "Heron", portrait = "Happy", nameX = -0.45, nameY = -1.25, message = 
+    script:showDialogue { id = 1, character = 13, portrait = "Happy", nameX = -0.45, nameY = -1.25, message = 
       Vocab.dialogues.HelloWelcome
     }
     
-    script:showDialogue { id = 1, character = "Heron", portrait = "Blush", nameX = -0.45, nameY = -1.25, message = 
+    script:showDialogue { id = 1, character = 13, portrait = "Blush", nameX = -0.45, nameY = -1.25, message = 
       Vocab.dialogues.AhTumTum
     }
     
@@ -61,7 +61,7 @@ return function(script)
       Vocab.dialogues.HelloHeron
     }
 
-    script:showDialogue { id = 1, character = "Heron", portrait = "Blush", nameX = -0.45, nameY = -1.25, message = 
+    script:showDialogue { id = 1, character = 13, portrait = "Blush", nameX = -0.45, nameY = -1.25, message = 
       Vocab.dialogues.OfCourse
     }
     
@@ -82,7 +82,7 @@ return function(script)
       height = ScreenManager.height / 3
     }
     
-    script:showDialogue { id = 1, character = "Heron", portrait = "Happy", nameX = -0.45, nameY = -1.25, message = 
+    script:showDialogue { id = 1, character = 13, portrait = "Happy", nameX = -0.45, nameY = -1.25, message = 
       Vocab.dialogues.ThankYouComeBack
     }
     
@@ -99,7 +99,7 @@ return function(script)
       height = ScreenManager.height / 3
     }
     
-    script:showDialogue { id = 1, character = "Heron", portrait = "Happy", nameX = -0.45, nameY = -1.25, message = 
+    script:showDialogue { id = 1, character = 13, portrait = "Happy", nameX = -0.45, nameY = -1.25, message = 
       Vocab.dialogues.WelcomeBack
     }
     
@@ -112,7 +112,7 @@ return function(script)
       height = ScreenManager.height / 3
     }
     
-    script:showDialogue { id = 1, character = "Heron", portrait = "Happy", nameX = -0.45, nameY = -1.25, message = 
+    script:showDialogue { id = 1, character = 13, portrait = "Happy", nameX = -0.45, nameY = -1.25, message = 
       Vocab.dialogues.ThankYou
     }
     
