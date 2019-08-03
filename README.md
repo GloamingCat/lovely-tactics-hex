@@ -24,12 +24,15 @@ Project's repository: https://github.com/GloamingCat/Lovely-Tactics-Hex
 To run this project, you need to first install LÖVE2D. Follow steps here: https://love2d.org/.
 Once the engine is properly installed, all you have to do is run the project folder as any other game made in the engine.
 
+### Windows
 For Windows users who are new to LÖVE2D, here is a simple step-by-step to run the project:
 1) Download this project as a zip, in the green button at the top of this page;
 2) Download LÖVE2D zip from the site above, according to your platform (32-bit should work);
 3) Extract LÖVE2D files into a new empty folder;
 4) Extract the project's root folder into the same newly created folder. The project's root folder, that cointans the main.lua file inside, should be in the same folder as "love.exe" file;
 5) Drag the project's root folder and drop over "love.exe" file. This should run the game.
+
+### Linux
 
 For Linux users,
 1) Download this project as a zip, in the green button at the top of this page;
@@ -41,6 +44,16 @@ love ./
 ```
 This should run the game.
 
+## Demo Game
+
+For Windows users that do not use git, I created zip files for each demo game containing all necessary files to test it. Just download, extract and run it.
+* v0.1: https://www.dropbox.com/s/rlqlq2yj152bxg1/Demo%20v0.1.zip?dl=0
+* v0.2: https://www.dropbox.com/s/lvfjrzogphr1zqc/Demo%20v0.2.zip?dl=0
+* v0.3: https://www.dropbox.com/s/6scayhln8r0hcjg/Demo%20v0.3.zip?dl=0
+* v0.4: https://www.dropbox.com/s/07su2r8b7e7o0if/Demo%20v0.4.zip?dl=0
+* v0.5: https://www.dropbox.com/s/17i1ek9adaw745s/Demo%20v0.5.zip?dl=0
+  * This one includes the first version of the database editor!
+
 ## How to Play
 
 * Use arrow keys or mouse to navigate around the field or GUI;
@@ -49,7 +62,7 @@ This should run the game.
 * Press X/Backspace/ESC to cancel a GUI selection;
 * Press a cancel button in field to show the Field Menu;
 * Collide with green jellies to start a battle;
-* Debug:
+* For debugging:
   * When the game starts, keep holding a cancel button and then start a new game to skip the intro scene;
   * Press F1 to quick-save and F5 to quick-load (does not work during battle);
   * Hold K to kill all enemies in the next turn;
@@ -76,7 +89,7 @@ Since this project is still under development, its design and features may chang
   * Dialogue text commands: 
     * Wait for number of frames;
     * Wait for player input;
-    * Ignore player input and close automacitally.
+    * Ignore player input and close automatically.
 * Additional plugins:
   * ClassEquip: restrict equipment items per battler class;
   * FormationEditor: edit party formation in-game;
@@ -105,9 +118,7 @@ Thanks to the following people for general art/audio resources used in the proje
 * David Vitas for BGM: http://www.davidvitas.com/portfolio/2016/5/12/rpg-music-pack;
 * Gyrowolf for BGM: https://gyrowolf.com/resources/;
 * Mr. Bubble for the battle animations: https://mrbubblewand.wordpress.com/download/;
-* Alex dos Ventos for the scenery art: http://diabraar.tumblr.com/;
-
-Also, check the project that my mate Felipe Tavares is working on, a GUI to edit the game's database files: https://github.com/felipetavares/lovely-tactics-gui
+* Alex dos Ventos for the scenery art: http://diabraar.tumblr.com/.
 
 ## License
 
