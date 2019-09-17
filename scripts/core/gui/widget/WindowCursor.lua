@@ -8,9 +8,10 @@ A cursor for button windows.
 =================================================================================================]]
 
 -- Imports
+local Component = require('core/gui/Component')
 local Vector = require('core/math/Vector')
 
-local WindowCursor = class()
+local WindowCursor = class(Component)
 
 ---------------------------------------------------------------------------------------------------
 -- Initialize
@@ -21,14 +22,20 @@ local WindowCursor = class()
 function WindowCursor:init(window)
   self.window = window
   self.paused = false
+  Component.init(self, Vector(0, window:cellHeight() / 2))
+  window.content:add(self)
+end
+-- Overrides Component:createContent. 
+-- Creates cursor sprite.
+function WindowCursor:createContent()
   local animData = Database.animations[Config.animations.cursor]
   self.anim = ResourceManager:loadAnimation(animData, GUIManager.renderer)
   self.anim.sprite:setTransformation(animData.transform)
   self.anim.sprite:setVisible(false)
-  local x, y, w, h = self.anim.sprite.quad:getViewport()
-  self.displacement = Vector(-w / 2, window:cellHeight() / 2)
   self.hideOnDeactive = true
-  window.content:add(self)
+  local x, y, w, h = self.anim.sprite.quad:getViewport()
+  self.position.x = -w / 2
+  self.content:add(self.anim)
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -47,7 +54,7 @@ function WindowCursor:updatePosition(wpos)
   if button then
     local pos = button:relativePosition()
     pos:add(wpos)
-    pos:add(self.displacement)
+    pos:add(self.position)
     self.anim.sprite:setPosition(pos)
   else
     self.anim.sprite:setVisible(false)
@@ -57,14 +64,6 @@ end
 function WindowCursor:show()
   local active = not self.hideOnDeactive or self.window.active
   self.anim.sprite:setVisible(active and #self.window.matrix > 0)
-end
--- Hides sprite.
-function WindowCursor:hide()
-  self.anim.sprite:setVisible(false)
-end
--- Removes sprite.
-function WindowCursor:destroy()
-  self.anim:destroy()
 end
 
 return WindowCursor

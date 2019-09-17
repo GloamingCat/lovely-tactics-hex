@@ -8,10 +8,10 @@ A button window that shows all the visibles members in the troop.
 =================================================================================================]]
 
 -- Imports
-local Button = require('core/gui/widget/Button')
+local Button = require('core/gui/widget/control/Button')
 local List = require('core/datastruct/List')
 local ListWindow = require('core/gui/ListWindow')
-local MemberInfo = require('core/gui/general/widget/MemberInfo')
+local MemberInfo = require('core/gui/widget/data/MemberInfo')
 local Vector = require('core/math/Vector')
 
 local MemberWindow = class(ListWindow)

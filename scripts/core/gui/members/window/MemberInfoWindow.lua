@@ -8,7 +8,7 @@ A window that shows HP and MP of a troop member.
 =================================================================================================]]
 
 -- Imports
-local MemberInfo = require('core/gui/general/widget/MemberInfo')
+local MemberInfo = require('core/gui/widget/data/MemberInfo')
 local Pagination = require('core/gui/widget/Pagination')
 local SimpleText = require('core/gui/widget/SimpleText')
 local Vector = require('core/math/Vector')

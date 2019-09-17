@@ -8,10 +8,10 @@ Shows a list of numbers from 0 to 9 to be chosen.
 =================================================================================================]]
 
 -- Imports
-local Button = require('core/gui/widget/Button')
+local Button = require('core/gui/widget/control/Button')
 local GridWindow = require('core/gui/GridWindow')
 local List = require('core/datastruct/List')
-local VSpinner = require('core/gui/widget/VSpinner')
+local VSpinner = require('core/gui/widget/control/VSpinner')
 
 local NumberWindow = class(GridWindow)
 

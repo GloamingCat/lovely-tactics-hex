@@ -9,9 +9,11 @@ A variable meter that shows the variable state in a bar and in text.
 
 -- Imports
 local Bar = require('core/gui/widget/Bar')
+local Component = require('core/gui/Component')
 local SimpleText = require('core/gui/widget/SimpleText')
+local Vector = require('core/math/Vector')
 
-local Gauge = class()
+local Gauge = class(Component)
 
 ---------------------------------------------------------------------------------------------------
 -- Initialization
@@ -28,16 +30,23 @@ function Gauge:init(topLeft, width, color, x)
     topLeft.x = topLeft.x + x
     width = width - x
   end
-  self.topLeft = topLeft
-  self.width = width
-  local barPos = topLeft:clone()
-  barPos.y = barPos.y + 3
-  barPos.z = barPos.z + 1
-  self.bar = Bar(barPos, width, 6, 1)
-  self.bar:setColor(color)
-  self.text = SimpleText('', topLeft, width, 'right', Fonts.gui_tiny)
-  self.percentage = false
+  Component.init(self, topLeft, width, color)
 end
+-- Overrides Component:createContent.
+function Gauge:createContent(width, color)
+  self.width = width
+  self.bar = Bar(Vector(0, 3, 1), width, 6, 1)
+  self.bar:setColor(color)
+  self.text = SimpleText('', Vector(0, 0, 0), width, 'right', Fonts.gui_tiny)
+  self.percentage = false
+  self.content:add(self.text)
+  self.content:add(self.bar)
+end
+
+---------------------------------------------------------------------------------------------------
+-- Values
+---------------------------------------------------------------------------------------------------
+
 -- Updates the value of the gauge.
 -- @param(current : number) The current value.
 -- @param(max : number) The maximum value.
@@ -50,36 +59,6 @@ function Gauge:setValues(current, max)
     self.text:setText(current .. '/' .. max)
   end
   self.text:redraw()
-end
-
----------------------------------------------------------------------------------------------------
--- Widget
----------------------------------------------------------------------------------------------------
-
--- Hides text and bar.
-function Gauge:hide()
-  self.bar:hide()
-  self.text:hide()
-end
--- Shows text and bar.
-function Gauge:show()
-  self.bar:show()
-  self.text:show()
-end
--- Updates bar animation.
-function Gauge:update()
-  self.bar:update()
-end
--- Update text and bar positions.
--- @param(pos : Vector) Parent position.
-function Gauge:updatePosition(pos)
-  self.bar:updatePosition(pos)
-  self.text:updatePosition(pos)
-end
--- Destroys text and bar.
-function Gauge:destroy()
-  self.bar:destroy()
-  self.text:destroy()
 end
 
 return Gauge

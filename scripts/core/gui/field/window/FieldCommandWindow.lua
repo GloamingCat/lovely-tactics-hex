@@ -8,7 +8,7 @@ Main GUI's selectable window.
 =================================================================================================]]
 
 -- Imports
-local Button = require('core/gui/widget/Button')
+local Button = require('core/gui/widget/control/Button')
 local GridWindow = require('core/gui/GridWindow')
 local InventoryGUI = require('core/gui/field/InventoryGUI')
 local SaveGUI = require('core/gui/save/SaveGUI')

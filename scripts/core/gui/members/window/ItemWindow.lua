@@ -8,7 +8,7 @@ The window that shows the list of items to be used.
 =================================================================================================]]
 
 -- Imports
-local Button = require('core/gui/widget/Button')
+local Button = require('core/gui/widget/control/Button')
 local InventoryWindow = require('core/gui/general/window/InventoryWindow')
 local MenuTargetGUI = require('core/gui/general/MenuTargetGUI')
 local Vector = require('core/math/Vector')

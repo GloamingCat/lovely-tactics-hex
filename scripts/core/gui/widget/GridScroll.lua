@@ -8,16 +8,15 @@ Four arrows to navigate a GridWindow.
 =================================================================================================]]
 
 -- Imports
-local Sprite = require('core/graphics/Sprite')
+local Component = require('core/gui/Component')
 
 -- Alias
-local Image = love.graphics.newImage
 local delta = love.timer.getDelta
 
 -- Constants
 local animID = Config.animations.arrow
 
-local GridScroll = class()
+local GridScroll = class(Component)
 
 ---------------------------------------------------------------------------------------------------
 -- Initialization
@@ -26,6 +25,7 @@ local GridScroll = class()
 -- Constructor.
 -- @param(window : GridWindow) Parent window.
 function GridScroll:init(window)
+  Component.init(self)
   window.content:add(self)
   self.speed = 5
   self.window = window
@@ -33,25 +33,28 @@ function GridScroll:init(window)
   self.down = ResourceManager:loadIcon(icon, GUIManager.renderer)
   icon.col, icon.row = 0, 1
   self.up = ResourceManager:loadIcon(icon, GUIManager.renderer)
+  self.content:add(self.down)
+  self.content:add(self.up)
 end
 
 ---------------------------------------------------------------------------------------------------
 -- Position
 ---------------------------------------------------------------------------------------------------
 
--- Updates the position of each arrow.
+-- Overrides Component:updatePosition.
 -- @param(pos : Vector) The position of the window.
 function GridScroll:updatePosition(pos)
   local h = self.window.height / 2 - self.window:paddingY() / 2
   self.up:setXYZ(pos.x, pos.y - h, -1)
   self.down:setXYZ(pos.x, pos.y + h, -1)
-  self:show()
+  self:setVisible(true)
 end
 
 ---------------------------------------------------------------------------------------------------
 -- Position
 ---------------------------------------------------------------------------------------------------
 
+-- Overrides Component:update.
 -- Updates scroll count.
 function GridScroll:update()
   if self.count then
@@ -86,22 +89,16 @@ end
 -- Content methods
 ---------------------------------------------------------------------------------------------------
 
--- Shows the arrows.
-function GridScroll:show()
-  local w = self.window
-  local row = w:actualRowCount() - w:rowCount()
-  self.up:setVisible(w.offsetRow > 0)
-  self.down:setVisible(w.offsetRow < row)
-end
--- Hides the arrows.
-function GridScroll:hide()
-  self.up:setVisible(false)
-  self.down:setVisible(false)
-end
--- Destroys the arrows.
-function GridScroll:destroy()
-  self.up:destroy()
-  self.down:destroy()
+-- Overrides Component:setVisible.
+function GridScroll:setVisible(value)
+  if true then
+    local w = self.window
+    local row = w:actualRowCount() - w:rowCount()
+    self.up:setVisible(w.offsetRow > 0)
+    self.down:setVisible(w.offsetRow < row)
+  else
+    Component.setVisible(false)
+  end
 end
 
 return GridScroll

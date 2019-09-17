@@ -8,7 +8,7 @@ Window with the initial commands of the shop GUI (buy, sell, cancel).
 =================================================================================================]]
 
 -- Imports
-local Button = require('core/gui/widget/Button')
+local Button = require('core/gui/widget/control/Button')
 local GridWindow = require('core/gui/GridWindow')
 
 local ShopCommandWindow = class(GridWindow)

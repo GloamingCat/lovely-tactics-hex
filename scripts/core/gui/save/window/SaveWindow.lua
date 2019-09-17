@@ -8,10 +8,10 @@ Window that shows the list of save slots.
 =================================================================================================]]
 
 -- Imports
-local Button = require('core/gui/widget/Button')
+local Button = require('core/gui/widget/control/Button')
 local ConfirmWindow = require('core/gui/general/window/ConfirmWindow')
 local GridWindow = require('core/gui/GridWindow')
-local SaveInfo = require('core/gui/general/widget/SaveInfo')
+local SaveInfo = require('core/gui/widget/data/SaveInfo')
 
 local SaveWindow = class(GridWindow)
 

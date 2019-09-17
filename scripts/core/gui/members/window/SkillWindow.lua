@@ -9,7 +9,7 @@ The window that shows the list of skills to be used.
 
 -- Imports
 local ActionInput = require('core/battle/action/ActionInput')
-local Button = require('core/gui/widget/Button')
+local Button = require('core/gui/widget/control/Button')
 local ListWindow = require('core/gui/ListWindow')
 local MenuTargetGUI = require('core/gui/general/MenuTargetGUI')
 local Vector = require('core/math/Vector')

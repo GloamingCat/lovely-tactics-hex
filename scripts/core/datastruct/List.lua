@@ -100,6 +100,13 @@ function List:conditionalRemove(remove)
   self.size = size
   return oldsize - self.size
 end
+-- Removes all elements.
+function List:clear()
+  for i = 1, self.size do
+    self[i] = nil
+  end
+  self.size = 0
+end
 
 ---------------------------------------------------------------------------------------------------
 -- Search

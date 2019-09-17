@@ -8,8 +8,8 @@ A spinner with button properties (cancel and confirm actions).
 =================================================================================================]]
 
 -- Imports
-local Button = require('core/gui/widget/Button')
-local HSpinner = require('core/gui/widget/HSpinner')
+local Button = require('core/gui/widget/control/Button')
+local HSpinner = require('core/gui/widget/control/HSpinner')
 
 local HSpinnerButton = class(HSpinner, Button)
 

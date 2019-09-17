@@ -235,6 +235,20 @@ function Animation:destroy()
     self.sprite:destroy()
   end
 end
+-- String representation.
+-- @ret(string)
+function Animation:__tostring()
+  local id = ''
+  if self.data then
+    id = ' (' .. self.data.id .. ')'
+  end
+  return 'Animation' .. id
+end
+
+---------------------------------------------------------------------------------------------------
+-- Visibility
+---------------------------------------------------------------------------------------------------
+
 -- Sets the sprite's visibility.
 -- @param(value : boolean)
 function Animation:setVisible(value)
@@ -247,15 +261,6 @@ end
 -- Sets this animation as invisible.
 function Animation:hide()
   self.sprite:setVisible(false)
-end
--- String representation.
--- @ret(string)
-function Animation:__tostring()
-  local id = ''
-  if self.data then
-    id = ' (' .. self.data.id .. ')'
-  end
-  return 'Animation' .. id
 end
 
 return Animation

@@ -11,7 +11,7 @@ Window that is shown in the beginning of the battle.
 local ActionGUI = require('core/gui/battle/ActionGUI')
 local ActionInput = require('core/battle/action/ActionInput')
 local ActionWindow = require('core/gui/battle/window/ActionWindow')
-local Button = require('core/gui/widget/Button')
+local Button = require('core/gui/widget/control/Button')
 local FormationAction = require('core/battle/action/FormationAction')
 local VisualizeAction = require('core/battle/action/VisualizeAction')
 

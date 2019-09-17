@@ -9,7 +9,7 @@ The GUI that is open to choose an item from character's inventory.
 
 -- Imports
 local ActionInput = require('core/battle/action/ActionInput')
-local Button = require('core/gui/widget/Button')
+local Button = require('core/gui/widget/control/Button')
 local ItemAction = require('core/battle/action/ItemAction')
 local ListWindow = require('core/gui/ListWindow')
 local MenuTargetGUI = require('core/gui/general/MenuTargetGUI')

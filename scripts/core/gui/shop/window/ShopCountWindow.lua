@@ -8,7 +8,7 @@ Window that shows the total price to be paidin the Shop GUI.
 =================================================================================================]]
 
 -- Imports
-local Button = require('core/gui/widget/Button')
+local Button = require('core/gui/widget/control/Button')
 local CountWindow = require('core/gui/general/window/CountWindow')
 local SimpleImage = require('core/gui/widget/SimpleImage')
 local SimpleText = require('core/gui/widget/SimpleText')

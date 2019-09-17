@@ -8,8 +8,8 @@ Window that shows when the battle cursor is over a character.
 =================================================================================================]]
 
 -- Imports
-local Gauge = require('core/gui/general/widget/Gauge')
-local IconList = require('core/gui/general/widget/IconList')
+local Gauge = require('core/gui/widget/Gauge')
+local IconList = require('core/gui/widget/data/IconList')
 local SimpleText = require('core/gui/widget/SimpleText')
 local Sprite = require('core/graphics/Sprite')
 local Vector = require('core/math/Vector')

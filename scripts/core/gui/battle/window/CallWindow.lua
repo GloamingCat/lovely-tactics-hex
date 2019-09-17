@@ -8,7 +8,7 @@ Window with the list of battles in the party backup.
 =================================================================================================]]
 
 -- Imports
-local Button = require('core/gui/widget/Button')
+local Button = require('core/gui/widget/control/Button')
 local GridWindow = require('core/gui/GridWindow')
 
 -- Alias

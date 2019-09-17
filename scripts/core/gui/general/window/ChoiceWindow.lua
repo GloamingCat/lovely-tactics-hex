@@ -8,7 +8,7 @@ Shows a list of custom choices.
 =================================================================================================]]
 
 -- Imports
-local Button = require('core/gui/widget/Button')
+local Button = require('core/gui/widget/control/Button')
 local GridWindow = require('core/gui/GridWindow')
 local List = require('core/datastruct/List')
 

@@ -3,11 +3,12 @@
 
 SwitchButton
 ---------------------------------------------------------------------------------------------------
+A button two options.
 
 =================================================================================================]]
 
 -- Imports
-local Button = require('core/gui/widget/Button')
+local Button = require('core/gui/widget/control/Button')
 
 local SwitchButton = class(Button)
 

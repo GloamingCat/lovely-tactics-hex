@@ -8,26 +8,28 @@ A generic window content that stores a sprite with a given viewport.
 =================================================================================================]]
 
 -- Imports
+local Component = require('core/gui/Component')
 local Sprite = require('core/graphics/Sprite')
 
 -- Alias
 local max = math.max
 local min = math.min
 
-local SimpleImage = class()
+local SimpleImage = class(Component)
 
 ---------------------------------------------------------------------------------------------------
 -- Initialization
 ---------------------------------------------------------------------------------------------------
 
--- @param(sprite : Sprite) image's sprite
--- @param(x : number) the x position of the top-left corner inside window
--- @param(y : number) the y position of the top-left corner inside window
--- @param(depth : number) the depth of the image relative to window
--- @param(w : number) max width of the image
--- @param(h : number) max height of the image
+-- @param(sprite : Sprite) Image's sprite.
+-- @param(x : number) The x position of the top-left corner inside parent.
+-- @param(y : number) The y position of the top-left corner inside parent.
+-- @param(depth : number) The depth of the image relative to parent.
+-- @param(w : number) Maximun width of the image.
+-- @param(h : number) Maximun height of the image.
 function SimpleImage:init(sprite, x, y, depth, w, h)
-  self.depth = depth or -1
+  Component.init(self)
+  self.position.z = depth or -1
   self.width = w
   self.height = h
   self.x = x
@@ -39,9 +41,11 @@ function SimpleImage:setSprite(sprite)
   if self.sprite then
     self.sprite:destroy()
   end
+  self.content:clear()
   self.sprite = sprite
   if sprite then
     self:centerSpriteQuad()
+    self.content:add(sprite)
   end
 end
 -- Centers sprite inside the given rectangle.
@@ -54,36 +58,19 @@ function SimpleImage:centerSpriteQuad()
   local mx, my = (pw - mw) / 2, (ph - mh) / 2
   self.sprite:setQuad(px + mx, py + my, mw / self.sprite.scaleX, mh / self.sprite.scaleY)
   self.sprite:setCenterOffset()
-  self.sx = x + w / 2
-  self.sy = y + h / 2
+  self.position.x = x + w / 2
+  self.position.y = y + h / 2
 end
 
 ---------------------------------------------------------------------------------------------------
 -- Window Content methods
 ---------------------------------------------------------------------------------------------------
 
--- Sets image position.
+-- Overrides Component:updatePosition.
 function SimpleImage:updatePosition(pos)
   if self.sprite then
-    self.sprite:setXYZ(pos.x + self.sx, pos.y + self.sy, pos.z + self.depth)
-  end
-end
--- Shows image.
-function SimpleImage:show()
-  if self.sprite then
-    self.sprite:setVisible(true)
-  end
-end
--- Hides image.
-function SimpleImage:hide()
-  if self.sprite then
-    self.sprite:setVisible(false)
-  end
-end
--- Destroys sprite.
-function SimpleImage:destroy()
-  if self.sprite then
-    self.sprite:destroy()
+    local rpos = self.position
+    self.sprite:setXYZ(pos.x + rpos.x, pos.y + rpos.y, pos.z + rpos.z)
   end
 end
 

@@ -8,10 +8,10 @@ Window to change basic system settings.
 =================================================================================================]]
 
 -- Imports
-local Button = require('core/gui/widget/Button')
+local Button = require('core/gui/widget/control/Button')
 local GridWindow = require('core/gui/GridWindow')
-local HSpinnerButton = require('core/gui/widget/HSpinnerButton')
-local SwitchButton = require('core/gui/widget/SwitchButton')
+local HSpinnerButton = require('core/gui/widget/control/HSpinnerButton')
+local SwitchButton = require('core/gui/widget/control/SwitchButton')
 
 local SettingsWindow = class(GridWindow)
 

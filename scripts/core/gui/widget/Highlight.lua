@@ -8,31 +8,38 @@ The light background that is visible behind the selected widget.
 =================================================================================================]]
 
 -- Imports
+local Component = require('core/gui/Component')
 local SpriteGrid = require('core/graphics/SpriteGrid')
 local Vector = require('core/math/Vector')
 local Transformable = require('core/math/transform/Transformable')
 
-local Highlight = class(Transformable)
+local Highlight = class(Component, Transformable)
 
 ---------------------------------------------------------------------------------------------------
 -- Initialization
 ---------------------------------------------------------------------------------------------------
 
--- @param(window : GridWindow)
+-- Constructor.
+-- @param(window : GridWindow) Parent window.
 function Highlight:init(window)
   Transformable.init(self)
-  self.window = window
   local mx = window:colMargin() / 2 + 4
   local my = window:rowMargin() / 2 + 4
   local w, h = window:cellWidth() + mx, window:cellHeight() + my
-  self.spriteGrid = SpriteGrid(self:getSkin(), Vector(0, 0, 1))
-  self.spriteGrid:createGrid(GUIManager.renderer, w, h)
-  self.spriteGrid:updateTransform(self)
   self.displacement = Vector(w / 2 - mx / 2, h / 2 - my / 2)
+  Component.init(self, self.position, w, h)
+  self.window = window
   window.content:add(self)
 end
+-- Overrides Component:createContent.
+function Highlight:createContent(width, height)
+  self.spriteGrid = SpriteGrid(self:getSkin(), Vector(0, 0, 1))
+  self.spriteGrid:createGrid(GUIManager.renderer, width, height)
+  self.spriteGrid:updateTransform(self)
+  self.content:add(self.spriteGrid)
+end
 -- Window's skin.
--- @ret(table) 
+-- @ret(table) Animation data.
 function Highlight:getSkin()
   return Database.animations[Config.animations.highlight]
 end
@@ -41,6 +48,7 @@ end
 -- Content methods
 ---------------------------------------------------------------------------------------------------
 
+-- Overrides Component:updatePosition.
 -- Updates position to the selected button.
 function Highlight:updatePosition(wpos)
   local button = self.window:currentWidget()
@@ -55,16 +63,8 @@ function Highlight:updatePosition(wpos)
   end
 end
 -- Shows sprite grid.
-function Highlight:show()
-  self.spriteGrid:setVisible(#self.window.matrix > 0)
-end
--- Hides sprite grid.
-function Highlight:hide()
-  self.spriteGrid:setVisible(false)
-end
--- Removes sprite grid.
-function Highlight:destroy()
-  self.spriteGrid:destroy()
+function Highlight:setVisible(value)
+  Component.setVisible(self, value and #self.window.matrix > 0)
 end
 
 return Highlight

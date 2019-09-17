@@ -249,12 +249,12 @@ function TargetWindow:createContent(width, height)
   -- Turn count text
   if self.showTC then
     local w = self.width - self:paddingX() * 2
-    local pos = self.gaugeSP.topLeft:clone()
+    local pos = self.gaugeSP.position:clone()
     pos.x = pos.x - 30
     pos.y = pos.y + 10
     self.gaugeTC = self:addStateVariable(Vocab.turnCount, pos, w, Color.barTC)
     self.gaugeTC.percentage = true
-    self.iconList.topLeft.y = self.iconList.topLeft.y + 10
+    self.iconList.position.y = self.iconList.position.y + 10
   end
 end
 -- Override.

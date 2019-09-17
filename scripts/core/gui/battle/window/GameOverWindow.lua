@@ -11,7 +11,7 @@ result = 3 -> title screen
 =================================================================================================]]
 
 -- Imports
-local Button = require('core/gui/widget/Button')
+local Button = require('core/gui/widget/control/Button')
 local GridWindow = require('core/gui/GridWindow')
 
 local GameOverWindow = class(GridWindow)

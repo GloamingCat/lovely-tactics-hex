@@ -9,11 +9,12 @@ Commonly used to show status icons in windows.
 =================================================================================================]]
 
 -- Imports
+local Component = require('core/gui/Component')
 local SimpleImage = require('core/gui/widget/SimpleImage')
 local SpriteGrid = require('core/graphics/SpriteGrid')
 local Vector = require('core/math/Vector')
 
-local IconList = class()
+local IconList = class(Component)
 
 ---------------------------------------------------------------------------------------------------
 -- Initialization
@@ -26,9 +27,9 @@ local IconList = class()
 -- @param(frameWidth : number) The width of each icon (optional, 16 by default).
 -- @param(frameHeight : number) The height of each icon (optional, 16 by default).
 function IconList:init(topLeft, width, height, frameWidth, frameHeight)
+  Component.init(self, topLeft)
   self.icons = {}
   self.frames = {}
-  self.topLeft = topLeft
   self.width = width
   self.height = height
   self.frameWidth = frameWidth or 16
@@ -63,17 +64,18 @@ function IconList:setSprites(icons)
         y = y + self.frameHeight - 1
       end
     end
-    local pos = Vector(x + self.topLeft.x, y + self.topLeft.y, -1)
     if sprite then
       sprite:setVisible(self.visible)
-      self.icons[i] = SimpleImage(sprite, pos.x - self.iconWidth / 2, pos.y - self.iconHeight / 2, 0, 
+      self.icons[i] = SimpleImage(sprite, x - self.iconWidth / 2, y - self.iconHeight / 2, -1, 
         self.iconWidth, self.iconHeight)
     else
-      self.icons[i] = SimpleImage(nil, pos.x, pos.y, 0, self.iconWidth, self.iconHeight)
+      self.icons[i] = SimpleImage(nil, x, y, -1, self.iconWidth, self.iconHeight)
     end
+    self.content:add(self.icons[i])
     if frameSkin then
-      self.frames[i] = SpriteGrid(frameSkin, pos)
+      self.frames[i] = SpriteGrid(frameSkin, Vector(x, y, -1))
       self.frames[i]:createGrid(GUIManager.renderer, self.frameWidth, self.frameHeight)
+      self.content:add(self.frames[i])
     end
     x = x + self.frameWidth - 1
   end
@@ -81,55 +83,11 @@ end
 -- Sets the content of this list.
 -- @param(icons : table) Array of icon tables (id, col and row).
 function IconList:setIcons(icons)
-  local anims = {}
+  local sprites = {}
   for i = 1, #icons do
-    anims[i] = ResourceManager:loadIcon(icons[i], GUIManager.renderer)
+    sprites[i] = ResourceManager:loadIcon(icons[i], GUIManager.renderer)
   end
-  self:setSprites(anims)
-end
-
----------------------------------------------------------------------------------------------------
--- Widget
----------------------------------------------------------------------------------------------------
-
--- Shows each icon.
-function IconList:show()
-  for i = 1, #self.icons do
-    if self.frames then
-      self.frames[i]:setVisible(true)
-    end
-    self.icons[i]:show()
-  end
-  self.visible = true
-end
--- Hides each icon.
-function IconList:hide()
-  for i = 1, #self.icons do
-    if self.frames then
-      self.frames[i]:setVisible(false)
-    end
-    self.icons[i]:hide()
-  end
-  self.visible = false
-end
--- Destroys each icon.
-function IconList:destroy()
-  for i = 1, #self.icons do
-    if self.frames then
-      self.frames[i]:destroy()
-    end
-    self.icons[i]:destroy()
-  end
-end
--- Updates each icon's position.
--- @param(wpos : Vector) Parent position.
-function IconList:updatePosition(wpos)
-  for i = 1, #self.icons do
-    self.icons[i]:updatePosition(wpos)
-    if self.frames then
-      self.frames[i]:updatePosition(wpos)
-    end
-  end
+  self:setSprites(sprites)
 end
 
 return IconList

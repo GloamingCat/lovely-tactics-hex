@@ -8,7 +8,7 @@ Window with resolution options.
 =================================================================================================]]
 
 -- Imports
-local Button = require('core/gui/widget/Button')
+local Button = require('core/gui/widget/control/Button')
 local GridWindow = require('core/gui/GridWindow')
 
 local ResolutionWindow = class(GridWindow)

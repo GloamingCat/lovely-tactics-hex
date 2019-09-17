@@ -8,7 +8,7 @@ Window to choose a number given min/max limits.
 =================================================================================================]]
 
 -- Imports
-local HSpinner = require('core/gui/widget/HSpinner')
+local HSpinner = require('core/gui/widget/control/HSpinner')
 local GridWindow = require('core/gui/GridWindow')
 
 local CountWindow = class(GridWindow)

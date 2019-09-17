@@ -8,7 +8,7 @@ The small windows with the commands for character management.
 =================================================================================================]]
 
 -- Imports
-local Button = require('core/gui/widget/Button')
+local Button = require('core/gui/widget/control/Button')
 local EquipGUI = require('core/gui/members/EquipGUI')
 local ItemGUI = require('core/gui/members/ItemGUI')
 local GridWindow = require('core/gui/GridWindow')

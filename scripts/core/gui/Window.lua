@@ -14,15 +14,16 @@ Every content element for the window must have all the following methods:
 =================================================================================================]]
 
 -- Imports
+local Component = require('core/gui/Component')
+local List = require('core/datastruct/List')
+local SpriteGrid = require('core/graphics/SpriteGrid')
 local Transformable = require('core/math/transform/Transformable')
 local Vector = require('core/math/Vector')
-local SpriteGrid = require('core/graphics/SpriteGrid')
-local List = require('core/datastruct/List')
 
 -- Alias
 local floor = math.floor
 
-local Window = class(Transformable)
+local Window = class(Component, Transformable)
 
 ---------------------------------------------------------------------------------------------------
 -- Initialization
@@ -38,17 +39,16 @@ function Window:init(GUI, width, height, position)
   self.GUI = GUI
   self.speed = 10
   self.spriteGrid = (not self.noSkin) and SpriteGrid(self:getSkin(), Vector(0, 0, 1))
-  self.content = List()
   self.width = width
   self.height = height
   self.active = false
   self:insertSelf()
-  self:createContent(width, height)
+  Component.init(self, position, width, height)
   self:setPosition(position or Vector(0, 0, 0))
   self:setVisible(false)
   self.lastOpen = true
 end
--- Creates all content elements.
+-- Overrides Component:createContent.
 -- By default, only creates the skin.
 function Window:createContent(width, height)
   self.width = width
@@ -68,31 +68,21 @@ function Window:update()
   if self.spriteGrid then
     self.spriteGrid:update()
   end
-  for c in self.content:iterator() do
-    if c.update then
-      c:update()
-    end
-  end
+  Component.update(self)
 end
 -- Updates all content element's position.
 function Window:updatePosition()
   if self.spriteGrid then
     self.spriteGrid:updatePosition(self.position)
   end
-  for c in self.content:iterator() do
-    if c.updatePosition then
-      c:updatePosition(self.position)
-    end
-  end
+  Component.updatePosition(self)
 end
 -- Erases content.
 function Window:destroy()
   if self.spriteGrid then
     self.spriteGrid:destroy()
   end
-  for c in self.content:iterator() do
-    c:destroy()
-  end
+  Component.destroy(self)
 end
 -- Sets this window as the active one.
 function Window:activate()
@@ -176,7 +166,7 @@ end
 -- Show/hide
 ---------------------------------------------------------------------------------------------------
 
--- [COROUTINE] Opens this window.
+-- [COROUTINE] Opens this window. Overrides Component:show.
 function Window:show()
   if self.scaleY >= 1 then
     return
@@ -189,7 +179,7 @@ function Window:show()
     self:showContent()
   end
 end
--- [COROUTINE] Closes this window.
+-- [COROUTINE] Closes this window. Overrides Component:hide.
 function Window:hide(gui)
   if self.scaleY <= 0 then
     return
@@ -218,18 +208,18 @@ end
 ---------------------------------------------------------------------------------------------------
 
 -- Shows all content elements.
-function Window:showContent()
+function Window:showContent(...)
   for c in self.content:iterator() do
     if c.updatePosition then
       c:updatePosition(self.position)
     end
-    c:show()
+    c:show(...)
   end
 end
 -- Hides all content elements.
-function Window:hideContent()
+function Window:hideContent(...)
   for c in self.content:iterator() do
-    c:hide()
+    c:hide(...)
   end
 end
 
