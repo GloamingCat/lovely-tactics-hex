@@ -14,7 +14,7 @@ When player presses the button key <load>, the game in the quick save slot is lo
 -- Imports
 local Player = require('core/objects/Player')
 local PopupText = require('core/battle/PopupText')
-local LoadWindow = require('core/gui/save/window/LoadWindow')
+local LoadWindow = require('core/gui/menu/window/interactable/LoadWindow')
 
 -- Parameters
 KeyMap.main['save'] = args.save

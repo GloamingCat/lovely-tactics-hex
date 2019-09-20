@@ -9,7 +9,7 @@ The window that shows the list of gained items.
 
 -- Imports
 local Button = require('core/gui/widget/control/Button')
-local InventoryWindow = require('core/gui/general/window/InventoryWindow')
+local InventoryWindow = require('core/gui/common/window/interactable/InventoryWindow')
 local Vector = require('core/math/Vector')
 
 -- Constants
@@ -54,7 +54,7 @@ end
 -- Properties
 ---------------------------------------------------------------------------------------------------
 
--- New col count.
+-- Overrides GridWindow:colCount.
 function RewardItemWindow:colCount()
   return 1
 end

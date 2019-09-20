@@ -27,8 +27,8 @@ local ActionGUI = class(GUI)
 ---------------------------------------------------------------------------------------------------
 
 -- Overrides GUI:init.
-function ActionGUI:init(input)
-  GUI.init(self)
+function ActionGUI:init(parent, input)
+  GUI.init(self, parent)
   self.name = 'Action GUI'
   self.input = input
   input.GUI = self
@@ -44,8 +44,8 @@ end
 -- Auxiliary Windows
 ---------------------------------------------------------------------------------------------------
 
--- Creates step window.
--- @ret(StepWindow) newly created window
+-- Creates step window if not created yet.
+-- @ret(StepWindow) This GUI's step window.
 function ActionGUI:createStepWindow()
   if not self.stepWindow then
     local window = StepWindow(self)
@@ -54,8 +54,8 @@ function ActionGUI:createStepWindow()
   end
   return self.stepWindow
 end
--- Creates target window.
--- @ret(TargetWindow) newly created window
+-- Creates target window if not created yet.
+-- @ret(TargetWindow) This GUI's target window.
 function ActionGUI:createTargetWindow()
   if not self.targetWindow then
     local window = TargetWindow(self)
@@ -95,7 +95,7 @@ function ActionGUI:checkInput()
   return self:mouseInput() or self:keyboardInput()
 end
 -- Sets given tile as current target.
--- @param(target : ObjectTile) the new target tile
+-- @param(target : ObjectTile)
 function ActionGUI:selectTarget(target)
   target = target or self.input.target
   if self.cursor then

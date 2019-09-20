@@ -10,10 +10,10 @@ Its result is the action time that the character spent.
 
 -- Imports
 local GUI = require('core/gui/GUI')
-local TurnWindow = require('core/gui/battle/window/TurnWindow')
-local ActionSkillWindow = require('core/gui/battle/window/ActionSkillWindow')
-local ActionItemWindow = require('core/gui/battle/window/ActionItemWindow')
-local DescriptionWindow = require('core/gui/general/window/DescriptionWindow')
+local TurnWindow = require('core/gui/battle/window/interactable/TurnWindow')
+local ActionSkillWindow = require('core/gui/battle/window/interactable/ActionSkillWindow')
+local ActionItemWindow = require('core/gui/battle/window/interactable/ActionItemWindow')
+local DescriptionWindow = require('core/gui/common/window/DescriptionWindow')
 local Vector = require('core/math/Vector')
 
 local BattleGUI = class(GUI)
@@ -22,6 +22,7 @@ local BattleGUI = class(GUI)
 -- Initialization
 ---------------------------------------------------------------------------------------------------
 
+-- Implements GUI:createWindows.
 function BattleGUI:createWindows()
   self.name = 'Battle GUI'
   self:createTurnWindow()

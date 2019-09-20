@@ -8,7 +8,7 @@ Handles basic game flow.
 =================================================================================================]]
 
 -- Imports
-local TitleGUI = require('core/gui/start/TitleGUI')
+local TitleGUI = require('core/gui/menu/TitleGUI')
 
 -- Alias
 local copyTable = util.table.deepCopy
@@ -38,7 +38,7 @@ function GameManager:start(arg)
   self.fpsFont = ResourceManager:loadFont(Fonts.fps)
   self:setConfig(SaveManager.config)
   GUIManager.fiberList:fork(function()
-    GUIManager:showGUIForResult(TitleGUI())
+    GUIManager:showGUIForResult(TitleGUI(nil))
   end)
 end
 -- Sets current save.

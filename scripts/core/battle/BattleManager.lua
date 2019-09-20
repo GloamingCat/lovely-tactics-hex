@@ -14,10 +14,10 @@ Results: 1 => win, 0 => draw, -1 => lost
 
 -- Imports
 local Animation = require('core/graphics/Animation')
-local TileGUI = require('core/field/TileGUI')
+local GameOverGUI = require('core/gui/battle/GameOverGUI')
 local IntroGUI = require('core/gui/battle/IntroGUI')
 local RewardGUI = require('core/gui/battle/RewardGUI')
-local GameOverGUI = require('core/gui/battle/GameOverGUI')
+local TileGUI = require('core/field/TileGUI')
 
 -- Constants
 local defaultParams = {
@@ -67,7 +67,7 @@ function BattleManager:runBattle()
   self.winner = nil
   self:battleStart()
   self.party = TroopManager.playerParty
-  GUIManager:showGUIForResult(IntroGUI())
+  GUIManager:showGUIForResult(IntroGUI(nil))
   self.party = TroopManager.playerParty - 1
   TroopManager:onBattleStart()
   repeat
@@ -105,9 +105,9 @@ end
 function BattleManager:battleEnd()
   local result = 1
   if self:playerWon() then
-    GUIManager:showGUIForResult(RewardGUI())
+    GUIManager:showGUIForResult(RewardGUI(nil))
   elseif self:isGameOver() then
-    result = GUIManager:showGUIForResult(GameOverGUI())
+    result = GUIManager:showGUIForResult(GameOverGUI(nil))
   end
   if self.params.fade then
     FieldManager.renderer:fadeout(self.params.fade / 4, true)

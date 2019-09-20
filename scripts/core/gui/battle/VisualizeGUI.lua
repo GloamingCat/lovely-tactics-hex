@@ -8,7 +8,7 @@ GUI that is shown when player selects a battler during Visualize action.
 =================================================================================================]]
 
 -- Imports
-local BattlerWindow = require('core/gui/battle/window/BattlerWindow')
+local BattlerWindow = require('core/gui/common/window/BattlerWindow')
 local GUI = require('core/gui/GUI')
 
 local VisualizeGUI = class(GUI)

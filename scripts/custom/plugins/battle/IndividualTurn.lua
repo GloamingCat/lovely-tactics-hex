@@ -32,7 +32,7 @@ local Status = require('core/battle/battler/Status')
 local StatusList = require('core/battle/battler/StatusList')
 local TargetWindow = require('core/gui/battle/window/TargetWindow')
 local TurnManager = require('core/battle/TurnManager')
-local TurnWindow = require('core/gui/battle/window/TurnWindow')
+local TurnWindow = require('core/gui/battle/window/interactable/TurnWindow')
 local Vector = require('core/math/Vector')
 local WaitAction = require('core/battle/action/WaitAction')
 

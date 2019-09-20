@@ -9,7 +9,7 @@ The BattleAction that is executed when players chooses the "Escape" button.
 
 -- Imports
 local BattleAction = require('core/battle/action/BattleAction')
-local ConfirmGUI = require('core/gui/general/ConfirmGUI')
+local ConfirmGUI = require('core/gui/common/ConfirmGUI')
 
 local EscapeAction = class(BattleAction)
 
@@ -29,7 +29,7 @@ end
 
 -- Overrides BattleAction:onActionGUI.
 function EscapeAction:onActionGUI(input)
-  local confirm = GUIManager:showGUIForResult(ConfirmGUI())
+  local confirm = GUIManager:showGUIForResult(ConfirmGUI(input.GUI))
   if confirm == 1 then
     return self:onConfirm(input)
   else

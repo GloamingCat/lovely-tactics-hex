@@ -29,13 +29,12 @@ local EquipBonusWindow = class(Window)
 -- Initialization
 ----------------------------------------------------------------------------------------------------
 
--- Constructor.
--- @param(GUI : GUI)
--- @param(...) Other arguments to Window:init.
-function EquipBonusWindow:init(GUI, w, h, pos, member)
-  self.member = member or GUI.memberGUI:currentMember()
+-- Overrides Window:init.
+-- @param(member : table) Troop unit data.
+function EquipBonusWindow:init(gui, w, h, pos, member)
+  self.member = member or gui.parent:currentMember()
   self.bonus = List()
-  Window.init(self, GUI, w, h, pos)
+  Window.init(self, gui, w, h, pos)
 end
 -- Prints a list of attributes to receive a bonus.
 -- @param(att : table) Array of attributes bonus (with key, oldValue and newValue).

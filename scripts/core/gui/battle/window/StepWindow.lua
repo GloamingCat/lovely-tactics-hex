@@ -25,6 +25,7 @@ function StepWindow:init(GUI)
       ScreenManager.height / 2 - 24))
 end
 -- Overrides Window:createContent.
+-- Creates step text.
 function StepWindow:createContent(width, height)
   Window.createContent(self, width, height)
   local steps = TurnManager:currentCharacter().steps
@@ -35,7 +36,7 @@ function StepWindow:createContent(width, height)
   self.content:add(text)
   self.content:add(value)
 end
--- String identifier.
+-- @ret(string) String representation (for debugging).
 function StepWindow:__tostring()
   return 'Step Window'
 end

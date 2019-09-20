@@ -8,9 +8,9 @@ The GUI to manage a character's equipment.
 =================================================================================================]]
 
 -- Imports
-local DescriptionWindow = require('core/gui/general/window/DescriptionWindow')
-local EquipSlotWindow = require('core/gui/members/window/EquipSlotWindow')
-local EquipItemWindow = require('core/gui/members/window/EquipItemWindow')
+local DescriptionWindow = require('core/gui/common/window/DescriptionWindow')
+local EquipSlotWindow = require('core/gui/members/window/interactable/EquipSlotWindow')
+local EquipItemWindow = require('core/gui/members/window/interactable/EquipItemWindow')
 local EquipBonusWindow = require('core/gui/members/window/EquipBonusWindow')
 local GUI = require('core/gui/GUI')
 local Vector = require('core/math/Vector')
@@ -21,13 +21,12 @@ local EquipGUI = class(GUI)
 -- Initialization
 ---------------------------------------------------------------------------------------------------
 
--- Constructor.
--- @param(memberGUI : MemberGUI) Parent GUI.
-function EquipGUI:init(memberGUI)
-  self.memberGUI = memberGUI
+-- Overrides GUI:init.
+-- @param(parent : MemberGUI) Parent Member GUI.
+function EquipGUI:init(parent)
   self.name = 'Equip GUI'
-  self.inventory = memberGUI.troop.inventory
-  GUI.init(self)
+  self.inventory = parent.troop.inventory
+  GUI.init(self, parent)
 end
 -- Overrides GUI:createWindows.
 function EquipGUI:createWindows()
@@ -41,7 +40,7 @@ end
 function EquipGUI:createSlotWindow()
   local window = EquipSlotWindow(self)
   local x = self:windowMargin() - ScreenManager.width / 2 + window.width / 2
-  local y = self.memberGUI:getHeight() + window.height / 2 - ScreenManager.height / 2
+  local y = self.parent:getHeight() + window.height / 2 - ScreenManager.height / 2
   window:setXYZ(x, y)
   self.slotWindow = window
 end
@@ -63,7 +62,7 @@ function EquipGUI:createBonusWindow()
 end
 -- Creates the window with the selected equipment item's description.
 function EquipGUI:createDescriptionWindow()
-  local initY = self.memberGUI:getHeight()
+  local initY = self.parent:getHeight()
   local w = ScreenManager.width - self:windowMargin() * 2
   local h = ScreenManager.height - initY - self.slotWindow.height - self:windowMargin() * 2
   local pos = Vector(0, ScreenManager.height / 2 - h / 2 - self:windowMargin())

@@ -8,9 +8,9 @@ The GUI that is shown when the player chooses a troop member to manage.
 =================================================================================================]]
 
 -- Imports
-local BattlerWindow = require('core/gui/battle/window/BattlerWindow')
+local BattlerWindow = require('core/gui/common/window/BattlerWindow')
 local GUI = require('core/gui/GUI')
-local MemberCommandWindow = require('core/gui/members/window/MemberCommandWindow')
+local MemberCommandWindow = require('core/gui/members/window/interactable/MemberCommandWindow')
 local MemberInfoWindow = require('core/gui/members/window/MemberInfoWindow')
 local Vector = require('core/math/Vector')
 
@@ -20,16 +20,17 @@ local MemberGUI = class(GUI)
 -- Initialization
 ---------------------------------------------------------------------------------------------------
 
--- @param(troop : TroopBase) current troop (player's troop by default)
--- @param(memberID : number) current selected member on the list (first one by default)
-function MemberGUI:init(troop, battlerList, memberID)
+-- @param(troop : TroopBase) Current troop (player's troop by default).
+-- @param(memberList : table) Arra of troop unit tables from current troop.
+-- @param(memberID : number) Current selected member on the list (first one by default).
+function MemberGUI:init(parent, troop, memberList, memberID)
   self.name = 'Member GUI'
   self.troop = troop
-  self.members = battlerList
+  self.members = memberList
   self.memberID = memberID or 1
-  GUI.init(self)
+  GUI.init(self, parent)
 end
--- Overrides GUI:createWindows.
+-- Implements GUI:createWindows.
 function MemberGUI:createWindows()
   self:createCommandWindow()
   self:createInfoWindow()
@@ -97,6 +98,7 @@ function MemberGUI:refreshMember()
   end
 end
 -- Gets the current selected troop member.
+-- @ret(table) The troop unit data.
 function MemberGUI:currentMember()
   return self.members[self.memberID]
 end

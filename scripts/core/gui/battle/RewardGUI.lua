@@ -22,10 +22,10 @@ local floor = math.floor
 local RewardGUI = class(GUI)
 
 ---------------------------------------------------------------------------------------------------
--- Initialize
+-- Initialization
 ---------------------------------------------------------------------------------------------------
 
--- Overrides GUI:createWindows.
+-- Implements GUI:createWindows.
 function RewardGUI:createWindows()
   self.name = 'Reward GUI'
   self:createTopText()
@@ -65,11 +65,6 @@ function RewardGUI:createItemWindow(x, y, w, h)
   local pos = Vector(x, y)
   local window = RewardItemWindow(self, w, h, pos)
   self.itemWindow = window
-end
--- Overrides GUI:destroy to destroy top text.
-function RewardGUI:destroy(...)
-  GUI.destroy(self, ...)
-  self.topText:destroy()
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -154,6 +149,16 @@ function RewardGUI:hideTopText()
     coroutine.yield()
   end
   self.topText:setVisible(false)
+end
+
+---------------------------------------------------------------------------------------------------
+-- General
+---------------------------------------------------------------------------------------------------
+
+-- Overrides GUI:destroy to destroy top text.
+function RewardGUI:destroy(...)
+  GUI.destroy(self, ...)
+  self.topText:destroy()
 end
 
 return RewardGUI

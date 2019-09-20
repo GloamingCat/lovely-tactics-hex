@@ -8,12 +8,14 @@ Functions that are loaded from the EventSheet.
 =================================================================================================]]
 
 -- Imports
-local ChoiceWindow = require('core/gui/general/window/ChoiceWindow')
-local DescriptionWindow = require('core/gui/general/window/DescriptionWindow')
-local DialogueWindow = require('core/gui/general/window/DialogueWindow')
+local ChoiceWindow = require('core/gui/common/window/interactable/ChoiceWindow')
+local DescriptionWindow = require('core/gui/common/window/DescriptionWindow')
+local DialogueWindow = require('core/gui/common/window/interactable/DialogueWindow')
+local FieldGUI = require('core/gui/menu/FieldGUI')
 local GUI = require('core/gui/GUI')
-local NumberWindow = require('core/gui/general/window/NumberWindow')
-local ShopGUI = require('core/gui/shop/ShopGUI')
+local NumberWindow = require('core/gui/common/window/interactable/NumberWindow')
+local SaveGUI = require('core/gui/menu/SaveGUI')
+local ShopGUI = require('core/gui/menu/ShopGUI')
 local Vector = require('core/math/Vector')
 
 local util = {}
@@ -32,15 +34,24 @@ local function openGUI(sheet)
 end
 
 ---------------------------------------------------------------------------------------------------
--- Shop
+-- Menu
 ---------------------------------------------------------------------------------------------------
 
+-- Opens the FieldGUI.
+function util.openFieldMenu(sheet, args)
+  GUIManager:showGUIForResult(FieldGUI(nil))
+end
+-- Opens the SaveGUI.
+function util.openSaveMenu(sheet, args)
+  GUIManager:showGUIForResult(SaveGUI(nil))
+end
 -- Opens the ShopGUI.
 -- @param(args.items : table) Array of items.
 -- @param(args.sell : boolean) Sell enabling.
-function util.openShop(sheet, args)
-  GUIManager:showGUIForResult(ShopGUI(args.items, args.sell))
+function util.openShopMenu(sheet, args)
+  GUIManager:showGUIForResult(ShopGUI(nil, args.items, args.sell))
 end
+
 
 ---------------------------------------------------------------------------------------------------
 -- Title Window

@@ -20,7 +20,8 @@ local GUI = class()
 ---------------------------------------------------------------------------------------------------
 
 -- Constructor.
-function GUI:init()
+function GUI:init(parent)
+  self.parent = parent
   self.windowList = List()
   self:createWindows()
   self.open = false
@@ -84,19 +85,24 @@ function GUI:waitForResult()
       self.activeWindow:checkInput()
     end
   end
-  return self.activeWindow.result
+  local result = self.activeWindow.result
+  self.activeWindow.result = nil
+  return result
 end
 -- [COROUTINE] Waits until window closes and returns a result.
 -- @param(window : Window) The new active window.
 -- @ret The result of window (will never be nil).
 function GUI:showWindowForResult(window)
+  assert(window.GUI == self, "Can't show window from another GUI!")
   local previous = self.activeWindow
   window:show()
   window:activate()
   local result = self:waitForResult()
   window.result = nil
   window:hide()
-  previous:activate()
+  if previous then
+    previous:activate()
+  end
   return result
 end
 

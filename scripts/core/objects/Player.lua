@@ -11,7 +11,7 @@ It only exists in exploration fields, not in battle fields.
 -- Imports
 local Character = require('core/objects/Character')
 local Fiber = require('core/fiber/Fiber')
-local FieldGUI = require('core/gui/field/FieldGUI')
+local FieldGUI = require('core/gui/menu/FieldGUI')
 local Vector = require('core/math/Vector')
 
 -- Alias
@@ -224,7 +224,7 @@ end
 function Player:openGUI()
   self:playIdleAnimation()
   AudioManager:playSFX(Sounds.menu)
-  GUIManager:showGUIForResult(FieldGUI())
+  GUIManager:showGUIForResult(FieldGUI(nil))
 end
 
 ---------------------------------------------------------------------------------------------------

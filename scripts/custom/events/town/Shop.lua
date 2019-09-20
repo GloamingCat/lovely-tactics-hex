@@ -75,7 +75,7 @@ return function(script)
   
     script:closeDialogueWindow { id = 1 }
     
-    script:openShop (shop)
+    script:openShopMenu (shop)
     
     script:openDialogueWindow { id = 1, x = 0, y = ScreenManager.height / 3,
       width = ScreenManager.width, 
@@ -105,7 +105,7 @@ return function(script)
     
     script:closeDialogueWindow { id = 1 }
     
-    script:openShop (shop)
+    script:openShopMenu (shop)
     
     script:openDialogueWindow { id = 1, x = 0, y = ScreenManager.height / 3,
       width = ScreenManager.width, 

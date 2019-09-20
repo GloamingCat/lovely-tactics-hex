@@ -9,9 +9,8 @@ The GUI that is shown in the beginning of the battle.
 
 -- Imports
 local GUI = require('core/gui/GUI')
-local IntroWindow = require('core/gui/battle/window/IntroWindow')
-local MemberGUI = require('core/gui/members/MemberGUI')
-local MemberWindow = require('core/gui/members/window/MemberWindow')
+local IntroWindow = require('core/gui/battle/window/interactable/IntroWindow')
+local PartyWindow = require('core/gui/members/window/interactable/PartyWindow')
 local Troop = require('core/battle/Troop')
 
 local IntroGUI = class(GUI)
@@ -20,13 +19,13 @@ local IntroGUI = class(GUI)
 -- Initialization
 ---------------------------------------------------------------------------------------------------
 
--- Constructor.
-function IntroGUI:init(...)
+-- Overrides GUI:init.
+function IntroGUI:init(parent)
   self.name = 'Intro GUI'
   self.troop = TroopManager.troops[TroopManager.playerParty]
-  GUI.init(self, ...)
+  GUI.init(self, parent)
 end
--- Overrides GUI:createWindows.
+-- Implements GUI:createWindows.
 function IntroGUI:createWindows()
   self:createMainWindow()
   self:createMembersWindow()
@@ -39,27 +38,8 @@ function IntroGUI:createMainWindow()
 end
 -- Creates window with members to manage.
 function IntroGUI:createMembersWindow()
-  self.membersWindow = MemberWindow(self.troop, self)
-  self.membersWindow:setVisible(false)
-end
-
----------------------------------------------------------------------------------------------------
--- Member Input
----------------------------------------------------------------------------------------------------
-
--- When player selects a character from the member list window.
--- @param(index : number) the index of the button
-function IntroGUI:onMemberConfirm(index)
-  self:hide()
-  local gui = MemberGUI(self.troop, self.membersWindow.list, index)
-  GUIManager:showGUIForResult(gui)
-  self:show()
-end
--- When player cancels from the member list window.
-function IntroGUI:onMemberCancel()
-  self.membersWindow:hide()
-  self.mainWindow:show()
-  self.mainWindow:activate()
+  self.partyWindow = PartyWindow(self, self.troop)
+  self.partyWindow:setVisible(false)
 end
 
 return IntroGUI

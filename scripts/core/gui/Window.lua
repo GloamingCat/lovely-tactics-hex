@@ -29,14 +29,14 @@ local Window = class(Component, Transformable)
 -- Initialization
 ---------------------------------------------------------------------------------------------------
 
--- @param(GUI : GUI) parent GUI
--- @param(width : number) total width in pixels (if nil, must be set later)
--- @param(height : number) total height in pixels (if nil, must be set later)
--- @param(position : Vector) the position of the center of the window 
---  (optional, center of the screen by default)
-function Window:init(GUI, width, height, position)
+-- @param(gui : GUI) Parent GUI.
+-- @param(width : number) Total width in pixels (if nil, must be set later).
+-- @param(height : number) Total height in pixels (if nil, must be set later).
+-- @param(position : Vector) The position of the center of the window.
+--  (optional, center of the screen by default).
+function Window:init(gui, width, height, position)
   Transformable.init(self, position)
-  self.GUI = GUI
+  self.GUI = gui
   self.speed = 10
   self.spriteGrid = (not self.noSkin) and SpriteGrid(self:getSkin(), Vector(0, 0, 1))
   self.width = width
@@ -230,6 +230,9 @@ end
 -- Checks if player pressed any GUI button.
 -- By default, only checks the "cancel" key.
 function Window:checkInput()
+  if not self.open then
+    return
+  end
   local x, y = InputManager.mouse:guiCoord()
   x, y = x - self.position.x, y - self.position.y
   if InputManager.keys['confirm']:isTriggered() then

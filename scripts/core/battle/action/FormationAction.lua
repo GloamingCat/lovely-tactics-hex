@@ -20,7 +20,7 @@ local FormationAction = class(CallAction)
 -- Overrides BattleAction:onConfirm.
 function FormationAction:onConfirm(input)
   self.troop = TroopManager.troops[(input.party or TurnManager.party)]
-  local result = GUIManager:showGUIForResult(CallGUI(self.troop, input.user == nil))
+  local result = GUIManager:showGUIForResult(CallGUI(input.GUI, self.troop, input.user == nil))
   if result ~= 0 then
     local char = input.target.characterList[1]
     if result == '' then

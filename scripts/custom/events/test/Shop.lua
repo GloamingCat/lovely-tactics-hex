@@ -8,7 +8,7 @@ Shop Test
 
 return function(script)
 
-  script:openShop { sell = true, items = {
+  script:openShopMenu { sell = true, items = {
     { id = 2 },
     { id = 3 },
     { id = 4 },

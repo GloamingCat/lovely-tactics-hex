@@ -9,7 +9,7 @@ The GUI that is shown when player loses the battle.
 
 -- Imports
 local GUI = require('core/gui/GUI')
-local GameOverWindow = require('core/gui/battle/window/GameOverWindow')
+local GameOverWindow = require('core/gui/battle/window/interactable/GameOverWindow')
 local Vector = require('core/math/Vector')
 local Text = require('core/graphics/Text')
 
@@ -23,11 +23,10 @@ local GameOverGUI = class(GUI)
 -- Initialize
 ---------------------------------------------------------------------------------------------------
 
--- Overrides GUI:createWindows.
+-- Implements GUI:createWindows.
 function GameOverGUI:createWindows()
   self.name = 'Game Over GUI'
   self:createTopText()
-  -- Reward windows
   self.troop = TroopManager:getPlayerTroop()
   self:createMainWindow()
   self:setActiveWindow(self.mainWindow)

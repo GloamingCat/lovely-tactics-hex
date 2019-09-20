@@ -3,14 +3,14 @@
 
 SkillGUI
 ---------------------------------------------------------------------------------------------------
-The GUI to manage and use a item from party's inventory.
+The GUI to manage and use skills from a member's skill set.
 
 =================================================================================================]]
 
 -- Imports
-local DescriptionWindow = require('core/gui/general/window/DescriptionWindow')
+local DescriptionWindow = require('core/gui/common/window/DescriptionWindow')
 local GUI = require('core/gui/GUI')
-local SkillWindow = require('core/gui/members/window/SkillWindow')
+local SkillWindow = require('core/gui/members/window/interactable/SkillWindow')
 local Vector = require('core/math/Vector')
 
 local SkillGUI = class(GUI)
@@ -19,13 +19,11 @@ local SkillGUI = class(GUI)
 -- Initialization
 ---------------------------------------------------------------------------------------------------
 
--- Constructor.
--- @param(memberGUI : MemberGUI) Parent GUI.
-function SkillGUI:init(memberGUI)
-  self.memberGUI = memberGUI
+-- Overrides GUI:init.
+-- @param(parent : MemberGUI) Parent Member GUI.
+function SkillGUI:init(parent)
   self.name = 'Skill GUI'
-  self.inventory = memberGUI.troop.inventory
-  GUI.init(self)
+  GUI.init(self, parent)
 end
 -- Overrides GUI:createWindows.
 function SkillGUI:createWindows()
@@ -36,12 +34,12 @@ end
 -- Creates the main item window.
 function SkillGUI:createSkillWindow()
   local window = SkillWindow(self)
-  window:setXYZ(0, self.memberGUI:getHeight() - ScreenManager.height / 2 + window.height / 2)
+  window:setXYZ(0, self.parent:getHeight() - ScreenManager.height / 2 + window.height / 2)
   self.mainWindow = window
 end
 -- Creates the item description window.
 function SkillGUI:createDescriptionWindow()
-  local initY = self.memberGUI:getHeight()
+  local initY = self.parent:getHeight()
   local w = ScreenManager.width - self:windowMargin() * 2
   local h = ScreenManager.height - initY - self.mainWindow.height - self:windowMargin() * 2
   local pos = Vector(0, ScreenManager.height / 2 - h / 2 - self:windowMargin())

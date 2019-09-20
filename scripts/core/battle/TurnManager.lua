@@ -115,7 +115,7 @@ function TurnManager:runPlayerTurn()
       return { escaped = false }
     end
     self:characterTurnStart()
-    local result = GUIManager:showGUIForResult(BattleGUI())
+    local result = GUIManager:showGUIForResult(BattleGUI(self.GUI))
     if result.characterIndex then
       self.characterIndex = result.characterIndex
     else
