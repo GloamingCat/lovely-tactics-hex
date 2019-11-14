@@ -12,7 +12,6 @@ The [COUROUTINE] functions must ONLY be called from a fiber.
 local ActionInput = require('core/battle/action/ActionInput')
 local CharacterBase = require('core/objects/CharacterBase')
 local MoveAction = require('core/battle/action/MoveAction')
-local Projectile = require('core/battle/Projectile')
 
 -- Alias
 local mathf = math.field
@@ -169,13 +168,6 @@ function Character:castSkill(skill, dir, target)
     local anim = self:playAnimation(skill.userCastAnim)
     anim:reset()
     minTime = anim.duration
-  end
-  -- Projectile
-  if skill.projectileID >= 0 then
-    _G.Fiber:wait(minTime)
-    local projectile = Projectile(skill, self)
-    projectile:throw(target, skill.speed or 10, true)
-    minTime = 0
   end
   -- Cast animation (effect on tile)
   if skill.castAnimID >= 0 then
