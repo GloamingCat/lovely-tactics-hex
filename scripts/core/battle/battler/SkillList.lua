@@ -21,6 +21,9 @@ local SkillList = class(List)
 -- Initialization
 ---------------------------------------------------------------------------------------------------
 
+-- Overrides List:init.
+-- @param(battler : Battler)
+-- @param(save : table)
 function SkillList:init(battler, save)
   List.init(self)
   self.battler = battler
@@ -35,7 +38,7 @@ end
 -- Check / Change
 ---------------------------------------------------------------------------------------------------
 
--- @param(id : number) skill's ID
+-- @param(id : number) Skill's ID.
 -- @ret(boolean)
 function SkillList:containsSkill(id)
   for i = 1, self.size do
@@ -45,17 +48,20 @@ function SkillList:containsSkill(id)
   end
   return false
 end
--- @param(skill : table) entry in the list of skill to learn
+-- @param(skill : table | number) Entry in the list of skill to learn or skill's ID.
 function SkillList:learn(skill)
-  if self:containsSkill(skill.id) then
-    return
-  end
-  for i = 1, #skill.requirements do
-    if not self:containsSkill(skill.requirements[i]) then
+  if type(skill) == 'table' then
+    if self:containsSkill(skill.id) then
       return
     end
+    for i = 1, #skill.requirements do
+      if not self:containsSkill(skill.requirements[i]) then
+        return
+      end
+    end
+    skill = skill.id
   end
-  skill = SkillAction:fromData(skill.id)
+  skill = SkillAction:fromData(skill)
   self:add(skill)
   return skill
 end
@@ -64,10 +70,11 @@ end
 -- State
 ---------------------------------------------------------------------------------------------------
 
+-- @ret(table) Array with skills' IDs.
 function SkillList:getState()
   local state = {}
   for i = 1, self.size do
-    state[#state + 1] = self[i].data.id
+    state[i] = self[i].data.id
   end
   return state
 end

@@ -42,5 +42,20 @@ function Event:healAll(args)
   end
   TroopManager:saveTroop(troop)
 end
+-- Makes a member learn a new skill.
+-- @param(args.member : string) Member's key.
+-- @param(args.id : number) Skill's ID.
+-- @oaram(args.req : table) Array of requirements (optional).
+function Event:learnSkill(args)
+  local troop = Troop()
+  local battler = troop.battlers[args.key]
+  assert(battler, "No battler with key: " .. tostring(args.key))
+  if args.req then
+    battler.skillList:learn { id = args.id, requirements = args.req }
+  else
+    battler.skillList:learn(args.id)
+  end
+  TroopManager:saveTroop(troop)
+end
 
 return Event
