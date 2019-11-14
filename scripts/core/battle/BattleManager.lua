@@ -177,11 +177,9 @@ end
 -- @param(wait : boolean) true to wait until first loop finishes (optional)
 -- @ret(Animation) the newly created animation
 function BattleManager:playAnimation(manager, animID, x, y, z, mirror, wait)
-  local animData = Database.animations[animID]
-  assert(animData, 'Animation does not exist: ' .. animID)
-  local animation = ResourceManager:loadAnimation(animData, manager.renderer)
+  local animation = ResourceManager:loadAnimation(animID, manager.renderer)
   animation.sprite:setXYZ(x, y, z - 10)
-  animation.sprite:setTransformation(animData.transform)
+  animation.sprite:setTransformation(animation.data.transform)
   if mirror then
     animation.sprite:setScale(-animation.sprite.scaleX, animation.sprite.scaleY)
   end

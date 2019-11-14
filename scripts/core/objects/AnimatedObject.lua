@@ -72,8 +72,8 @@ end
 -- @param(name : string) The name of the animation for the character.
 -- @param(id : number) The animation's ID in the database.
 function AnimatedObject:addAnimation(name, id)
-  local data = Database.animations[id]
-  local animation = ResourceManager:loadAnimation(data, self.sprite)
+  local animation = ResourceManager:loadAnimation(id, self.sprite)
+  local data = animation.data
   local quad, texture = ResourceManager:loadQuad(data.quad, nil, data.cols, data.rows)
   self.animationData[name] = {
     transform = data.transform,

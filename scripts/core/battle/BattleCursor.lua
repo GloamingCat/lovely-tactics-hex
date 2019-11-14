@@ -15,7 +15,6 @@ local mathf = math.field
 local max = math.max
 
 -- Constants
-local cursorAnimID = Config.animations.battleCursor
 local tileW = Config.grid.tileW
 local tileH = Config.grid.tileH
 local pph = Config.grid.pixelsPerHeight
@@ -28,9 +27,9 @@ local BattleCursor = class()
 
 -- Constructor.
 function BattleCursor:init()
+  local cursorAnimID = Config.animations.battleCursor
   if cursorAnimID >= 0 then
-    local animData = Database.animations[cursorAnimID]
-    self.anim = ResourceManager:loadAnimation(animData, FieldManager.renderer)
+    self.anim = ResourceManager:loadAnimation(cursorAnimID, FieldManager.renderer)
   end
 end
 -- Updates animation.

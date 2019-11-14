@@ -68,6 +68,7 @@ end
 -- @param(dest : Renderer | Sprite) Where animation will be shown.
 -- @ret(Animation) Animation object created from given data.
 function ResourceManager:loadAnimation(data, dest)
+  assert(data, 'Null animation')
   if type(data) == 'string' then
     if not dest.renderer then -- If dest is a Renderer
       local texture = self:loadTexture(data)
@@ -77,6 +78,7 @@ function ResourceManager:loadAnimation(data, dest)
     end
     return Static(dest)
   elseif type(data) == 'number' then
+    assert(Database.animations[data], 'Animation does not exist: ' .. data)
     data = Database.animations[data]
   end
   if not dest.renderer then -- If dest is a Renderer

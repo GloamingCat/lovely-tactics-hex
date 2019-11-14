@@ -28,9 +28,8 @@ end
 -- Overrides Component:createContent. 
 -- Creates cursor sprite.
 function WindowCursor:createContent()
-  local animData = Database.animations[Config.animations.cursor]
-  self.anim = ResourceManager:loadAnimation(animData, GUIManager.renderer)
-  self.anim.sprite:setTransformation(animData.transform)
+  self.anim = ResourceManager:loadAnimation(Config.animations.cursor, GUIManager.renderer)
+  self.anim.sprite:setTransformation(self.anim.data.transform)
   self.anim.sprite:setVisible(false)
   self.hideOnDeactive = true
   local x, y, w, h = self.anim.sprite.quad:getViewport()
