@@ -204,6 +204,7 @@ end
 function FieldManager:loadBattle(fieldID, params)
   local previousState = self:getState()
   self:loadField(fieldID)
+  FieldLoader.setPartyTiles(self.currentField)
   self.player = nil
   BattleManager:setUp(params)
   local script = self.currentField.loadScript

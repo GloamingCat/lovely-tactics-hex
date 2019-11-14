@@ -41,13 +41,8 @@ function FieldLoader.loadField(id)
   -- Default region
   local defaultRegion = prefs.defaultRegion or data.prefs.defaultRegion
   if defaultRegion and defaultRegion >= 0 then
-    for i = 0, maxH do
-      local layer = field.objectLayers[i]
-      for i = 1, data.sizeX do
-        for j = 1, data.sizeY do
-          layer.grid[i][j].regionList:add(defaultRegion)
-        end
-      end
+    for tile in field:gridIterator() do
+      tile.regionList:add(defaultRegion)
     end
   end
   return field, data
@@ -97,6 +92,41 @@ function FieldLoader.loadCharacters(field, characters)
       else
         char.passable = true
         Interactable(char, save)
+      end
+    end
+  end
+end
+
+---------------------------------------------------------------------------------------------------
+-- Parties
+---------------------------------------------------------------------------------------------------
+
+-- Setup party tiles.
+-- @param(field : Field)
+function FieldLoader.setPartyTiles(field)
+  for party, partyInfo in ipairs(field.parties) do
+    local minx, miny, maxx, maxy
+    if partyInfo.rotation == 0 then
+      minx, maxx = math.floor(field.sizeX / 3) - 1, math.ceil(field.sizeX * 2 / 3) + 1
+      miny, maxy = 0, math.floor(field.sizeY / 3)
+    elseif partyInfo.rotation == 1 then
+      minx, maxx = 0, math.floor(field.sizeX / 3)
+      miny, maxy = math.floor(field.sizeY / 3) - 1, math.ceil(field.sizeY * 2 / 3) + 1
+    elseif partyInfo.rotation == 2 then
+      minx, maxx = math.floor(field.sizeX / 3) - 1, math.ceil(field.sizeX * 2 / 3) + 1
+      miny, maxy = math.floor(field.sizeY * 2 / 3), field.sizeY
+    else
+      minx, maxx = math.floor(field.sizeX * 2 / 3), field.sizeX
+      miny, maxy = math.floor(field.sizeY / 3) - 1, math.ceil(field.sizeY * 2 / 3) + 1
+    end
+    for x = minx + 1, maxx do
+      for y = miny + 1, maxy do
+        for h = -1, 1 do
+          local tile = field:getObjectTile(x, y, partyInfo.h + h)
+          if tile then
+            tile.party = party
+          end
+        end
       end
     end
   end

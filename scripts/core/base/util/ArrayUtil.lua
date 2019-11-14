@@ -14,18 +14,6 @@ local util = {}
 -- General
 ---------------------------------------------------------------------------------------------------
 
--- Gets the index of the given element in the given array.
--- @param(arr : table) the array
--- @param(el : unknown) the element
--- @ret(number) the index of the element if found, nil if not found
-function util.indexOf(arr, el)
-  for i = 1, #arr do
-    if arr[i] == el then
-      return i
-    end
-  end
-  return nil
-end
 -- Creates a new array of given size with all elements starting with the given value.
 -- @param(size : number) size of the array
 -- @param(value : unknown) initial value of all elements
@@ -80,10 +68,35 @@ function util.addAll(array, elements)
   end
 end
 
+function util.insert(array, index, element)
+  for i = #array, index, -1 do
+    array[i + 1] = array[i]
+  end
+  array[index] = element
+end
+
+function util.remove(array, index)
+  for i = index, #array do
+    array[i] = array[i + 1]
+  end
+end
+
 ---------------------------------------------------------------------------------------------------
 -- Search
 ---------------------------------------------------------------------------------------------------
 
+-- Gets the index of the given element in the given array.
+-- @param(arr : table) the array
+-- @param(el : unknown) the element
+-- @ret(number) the index of the element if found, nil if not found
+function util.indexOf(arr, el)
+  for i = 1, #arr do
+    if arr[i] == el then
+      return i
+    end
+  end
+  return nil
+end
 -- Searches for an element with the given key.
 -- @param(arr : table) Array of table elements.
 -- @param(key : string) Key of the element.
