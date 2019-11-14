@@ -34,7 +34,7 @@ local BattleAction = class(FieldAction)
 -- @param(area : table) The layers of tiles relative to the target tile containing the tiles that
 --  are affected by this action.
 function BattleAction:init(colorName, range, area)
-  FieldAction.init(self, range, area)
+  FieldAction.init(self, area)
   self.range = range or mathf.centerMask
   self.colorName = colorName
   self.showTargetWindow = true

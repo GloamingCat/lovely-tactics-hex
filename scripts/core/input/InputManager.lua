@@ -64,11 +64,15 @@ function InputManager:setKeyMap(map)
   self.altMap = map.alt
   self.keyMap = {}
   for k, v in pairs(map.main) do
-    self.keyMap[v] = k
-    self.keys[k]:onRelease()
+    if self.keys[k] then
+      self.keyMap[v] = k
+      self.keys[k]:onRelease()
+    end
   end
   for k, v in pairs(map.alt) do
-    self.keyMap[v] = k
+    if self.keys[k] then
+      self.keyMap[v] = k
+    end
   end
 end
 
