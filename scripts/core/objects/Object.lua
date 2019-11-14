@@ -8,10 +8,9 @@ A common class for obstacles and characters.
 =================================================================================================]]
 
 -- Imports
-local TagMap = require('core/datastruct/TagMap')
+local Sprite = require('core/graphics/Sprite')
 local Transformable = require('core/math/transform/Transformable')
 local Vector = require('core/math/Vector')
-local Sprite = require('core/graphics/Sprite')
 
 -- Alias
 local round = math.round
@@ -34,7 +33,7 @@ function Object:init(data, pos)
   self.data = data
   self.name = data.name
   if data.tags then
-    self.tags = TagMap(data.tags)
+    self.tags = Database.loadTags(data.tags)
   end
 end
 -- Dispose sprite and remove from tiles' object lists.

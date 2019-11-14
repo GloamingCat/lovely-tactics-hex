@@ -11,7 +11,6 @@ with possible animation, that stores the id of the associated terrain.
 -- Imports
 local Animation = require('core/graphics/Animation')
 local Sprite = require('core/graphics/Sprite')
-local TagMap = require('core/datastruct/TagMap')
 local Vector = require('core/math/Vector')
 
 -- Alias
@@ -100,14 +99,14 @@ function TerrainTile:updateGraphics()
   if self.data == nil then
     self.moveCost = 0
     self.depth = self.order
-    self.tags = {}
+    self.tags = Database.loadTags(nil)
     self.animations = nil
     return
   end
   -- Create new terrain images.
   self.moveCost = self.data.moveCost / 100
   self.depth = self.order
-  self.tags = self.data and TagMap(self.data.tags)
+  self.tags = self.data and Database.loadTags(self.data.tags)
   if self.data.animID >= 0 then
     local rows = mathf.autoTileRows(self.layer, self.x, self.y, self.layer.sameType)
     local imageData = Database.animations[self.data.animID]

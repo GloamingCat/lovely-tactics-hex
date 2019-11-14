@@ -24,6 +24,8 @@ util.array = require('core/base/util/ArrayUtil')
 ---------------------------------------------------------------------------------------------------
 
 Database = require('core/base/Database')
+Database.loadDataFiles()
+Database.loadConfigFiles()
 
 ---------------------------------------------------------------------------------------------------
 -- Configuration files

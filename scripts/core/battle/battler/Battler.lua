@@ -17,7 +17,6 @@ local PopupText = require('core/battle/PopupText')
 local SkillAction = require('core/battle/action/SkillAction')
 local SkillList = require('core/battle/battler/SkillList')
 local StatusList = require('core/battle/battler/StatusList')
-local TagMap = require('core/datastruct/TagMap')
 
 -- Alias
 local copyArray = util.array.shallowCopy
@@ -67,7 +66,7 @@ function Battler:initProperties(data, save)
   self.name = save and save.name or data.name
   self.x = save and save.x
   self.y = save and save.y
-  self.tags = TagMap(data.tags)
+  self.tags = Database.loadTags(data.tags)
 end
 -- Initializes battle state.
 -- @param(data : table) the battler's data from database

@@ -15,7 +15,7 @@ return function(script)
     script:deleteChar { key = 'Heron', permanent = true }
     script:deleteChar { key = 'Jelly', permanent = true }
     script:turnCharDir { key = "player", angle = 270 }
-    AudioManager:playBGM { name = 'bgm/Gyrowolf/Town001.ogg', volume = 100, pitch = 100 }
+    AudioManager:playBGM (Sounds.townTheme)
     FieldManager.currentField.loadScript = { name = '' }
     return
   end
@@ -241,7 +241,7 @@ return function(script)
   
   script:closeDialogueWindow { id = 1 }
   
-  AudioManager:playBGM { name = 'bgm/Aaron Krogh/Happiness.ogg', volume = 100, pitch = 100 }
+  AudioManager:playBGM (Sounds.happyTheme)
   
   Fiber:wait(30)
   local angle = 45
@@ -288,7 +288,7 @@ return function(script)
   script:deleteChar { key = 'Heron', permanent = true }
   script:turnCharDir { key = "player", angle = 270 }
   Fiber:wait(30)
-  AudioManager:playBGM { name = 'bgm/Gyrowolf/Town001.ogg', volume = 100, pitch = 100 }
+  AudioManager:playBGM (Sounds.townTheme)
   script:fadein { time = 180, wait = true }
   
   FieldManager.currentField.loadScript = { name = '' }

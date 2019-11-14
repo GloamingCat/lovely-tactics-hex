@@ -12,7 +12,6 @@ local Battler = require('core/battle/battler/Battler')
 local Inventory = require('core/battle/Inventory')
 local List = require('core/datastruct/List')
 local Matrix2 = require('core/math/Matrix2')
-local TagMap = require('core/datastruct/TagMap')
 
 -- Alias
 local mod = math.mod
@@ -36,7 +35,7 @@ function Troop:init(data, party)
   data = data or Database.troops[TroopManager.playerTroopID]
   self.data = data
   self.party = party
-  self.tags = TagMap(data.tags)
+  self.tags = Database.loadTags(data.tags)
   local save = TroopManager.troopData[data.id .. ''] or data
   self.save = save
   self.inventory = Inventory(save.items)

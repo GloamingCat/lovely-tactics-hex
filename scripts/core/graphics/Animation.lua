@@ -51,7 +51,7 @@ function Animation:init(sprite, data)
     end
     -- Tags
     if data.tags and #data.tags > 0 then
-      self.tags = Database:loadTags(data.tags)
+      self.tags = Database.loadTags(data.tags)
     end
     self.paused = sprite == nil
   else
@@ -70,7 +70,7 @@ end
 -- @param(sprite : Sprite) The sprite of the animation, if cloned too (optional).
 -- @ret(Animation) Clone of the given animation.
 function Animation:clone(sprite)
-  local anim = Animation(sprite or self.sprite, self.data)
+  local anim = self(sprite or self.sprite, self.data)
   anim.col = self.col
   anim.row = self.row
   anim.index = self.index
@@ -87,13 +87,13 @@ end
 -- @param(data : table) Animation data.
 function Animation:initPattern(data)
   -- Pattern
-  self.introPattern = Database:loadPattern(data.introPattern, self.colCount)
-  self.loopPattern = Database:loadPattern(data.loopPattern, self.colCount)
+  self.introPattern = Database.loadPattern(data.introPattern, self.colCount)
+  self.loopPattern = Database.loadPattern(data.loopPattern, self.colCount)
   -- Duration
   local introCount = self.introPattern and #self.introPattern or self.colCount
   local loopCount = self.loopPattern and #self.loopPattern or self.colCount
-  self.introDuration = Database:loadDuration(data.introDuration, introCount)
-  self.loopDuration = Database:loadDuration(data.loopDuration, loopCount)
+  self.introDuration = Database.loadDuration(data.introDuration, introCount)
+  self.loopDuration = Database.loadDuration(data.loopDuration, loopCount)
   if self.introDuration then
     self:setFrames(self.introDuration, self.introPattern)
   elseif self.loopDuration then

@@ -1,9 +1,6 @@
 
 return {
   
-  -- Dialogues
-  dialogues = require('vocab/EnglishDialogues.lua'),
-  
   -- Title Window
   newGame = 'New Game',
   loadGame = 'Load Game',
@@ -113,6 +110,9 @@ return {
   -- General
   ok = 'OK',
   yes = 'Yes',
-  no = 'No'
+  no = 'No',
+  
+  -- Dialogues
+  dialogues = require('vocab/EnglishDialogues.lua'),
   
 }

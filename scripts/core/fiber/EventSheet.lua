@@ -29,7 +29,7 @@ function EventSheet:init(root, script, char)
     self.commands = func
   end
   self.block = script.block
-  self.args = Database:loadTags(script.tags)
+  self.args = Database.loadTags(script.tags)
   self.player = FieldManager.player
   self.field = FieldManager.currentField
   self.char = char

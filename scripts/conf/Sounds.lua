@@ -83,6 +83,18 @@ return {
 		name = "bgm/Aaron Krogh/Music Box.ogg",
 		pitch = 90,
 		volume = 100
-	}
+	},
+  
+  townTheme = { 
+    name = 'bgm/Gyrowolf/Town001.ogg', 
+    volume = 100, 
+    pitch = 100 
+  },
+  happyTheme = { 
+    name = 'bgm/Aaron Krogh/Happiness.ogg', 
+    volume = 100, 
+    pitch = 100 
+  }
+  
   
 }

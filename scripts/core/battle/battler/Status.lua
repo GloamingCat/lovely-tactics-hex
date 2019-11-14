@@ -11,7 +11,6 @@ The effects of them on battle and field depend on each individual implementation
 -- Imports
 local BattlerAI = require('core/battle/ai/BattlerAI')
 local PopupText = require('core/battle/PopupText')
-local TagMap = require('core/datastruct/TagMap')
 
 local Status = class()
 
@@ -33,7 +32,7 @@ function Status:init(data, list, state)
   else
     self.duration = math.huge
   end
-  self.tags = TagMap(self.data.tags)
+  self.tags = Database.loadTags(self.data.tags)
   -- Attribute bonus
   self.attAdd = {}
   self.attMul = {}

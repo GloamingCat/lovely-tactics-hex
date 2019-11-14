@@ -113,7 +113,7 @@ function BattleManager:battleEnd()
     FieldManager.renderer:fadeout(self.params.fade / 4, true)
   end
   TroopManager:onBattleEnd()
-  self:clear()
+  TroopManager:saveTroops()
   self.onBattle = false
   return result
 end
@@ -126,7 +126,6 @@ function BattleManager:clear()
   if self.cursor then
     self.cursor:destroy()
   end
-  TroopManager:saveTroops()
   TroopManager:clear()
 end
 

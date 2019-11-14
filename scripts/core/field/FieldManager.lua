@@ -215,6 +215,7 @@ function FieldManager:loadBattle(fieldID, params)
   end
   collectgarbage('collect')
   local result = BattleManager:runBattle()
+  BattleManager:clear()
   self:setState(previousState)
   previousState = nil
   collectgarbage('collect')

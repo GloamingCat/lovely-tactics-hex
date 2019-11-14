@@ -14,7 +14,6 @@ local List = require('core/datastruct/List')
 local BattleMoveAction = require('core/battle/action/BattleMoveAction')
 local PathFinder = require('core/battle/ai/PathFinder')
 local PopupText = require('core/battle/PopupText')
-local TagMap = require('core/datastruct/TagMap')
 
 -- Alias
 local max = math.max
@@ -76,7 +75,7 @@ function SkillAction:init(skillID)
   end
   self.elements = e
   -- Tags
-  self.tags = TagMap(data.tags)
+  self.tags = Database.loadTags(data.tags)
 end
 -- Creates an SkillAction given the skill's ID in the database, depending on the skill's script.
 -- @param(skillID : number) the skill's ID in database

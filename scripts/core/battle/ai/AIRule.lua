@@ -12,7 +12,6 @@ ActionInput to be used according to the state.
 -- Imports
 local ActionInput = require('core/battle/action/ActionInput')
 local BattleAction = require('core/battle/action/BattleAction')
-local TagMap = require('core/datastruct/TagMap')
 
 local AIRule = class()
 
@@ -24,7 +23,7 @@ local AIRule = class()
 function AIRule:init(battler, condition, tags)
   self.battler = battler
   self.condition = condition
-  self.tags = TagMap(tags)
+  self.tags = Database.loadTags(tags)
   self.input = nil
 end
 -- Creates an AIRule from the given rule data.

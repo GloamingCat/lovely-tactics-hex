@@ -5,6 +5,9 @@ Knockback
 ---------------------------------------------------------------------------------------------------
 The animation of knockback when a characters receives damage.
 
+-- Animation parameters:
+The length of the step in pixels is defined by <step> tag. The default is 12.
+
 =================================================================================================]]
 
 -- Imports
@@ -30,8 +33,8 @@ local Knockback = class(Animation)
 function Knockback:init(...)
   Animation.init(self, ...)
   self.knockTime = 0
-  if self.param ~= nil then
-    self.step = tonumber(self.param) or defaultStep
+  if self.tags and self.tags.step then
+    self.step = tonumber(self.tags.step) or defaultStep
   else
     self.step = defaultStep
   end
