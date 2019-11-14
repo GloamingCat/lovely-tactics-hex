@@ -73,22 +73,26 @@
   },
   {
     "on": true,
-    "name": "plugins/battle/StatusBalloon",
+    "name": "plugins/battle/PartyRegion.lua",
     "tags": [
       {
-        "key": "balloonID",
-        "value": "25"
+        "key": "party1",
+        "value": "0"
+      },
+      {
+        "key": "party2",
+        "value": "1"
       }
     ]
   },
   {
     "on": true,
-    "name": "plugins/battle/RingArea",
+    "name": "plugins/skill/RingArea.lua",
     "tags": []
   },
   {
     "on": true,
-    "name": "plugins/battle/Critical",
+    "name": "plugins/skill/Critical.lua",
     "tags": [
       {
         "key": "attName",
@@ -110,12 +114,32 @@
   },
   {
     "on": true,
-    "name": "plugins/battle/Counter",
+    "name": "plugins/skill/SkillProjectile.lua",
     "tags": []
   },
   {
     "on": true,
-    "name": "plugins/battle/Reflect",
+    "name": "plugins/status/StatusBalloon.lua",
+    "tags": [
+      {
+        "key": "balloonID",
+        "value": "25"
+      }
+    ]
+  },
+  {
+    "on": true,
+    "name": "plugins/status/StatusAnimation.lua",
+    "tags": []
+  },
+  {
+    "on": true,
+    "name": "plugins/status/Counter.lua",
+    "tags": []
+  },
+  {
+    "on": true,
+    "name": "plugins/status/Reflect.lua",
     "tags": [
       {
         "key": "animID",

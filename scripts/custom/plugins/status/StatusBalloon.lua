@@ -147,9 +147,8 @@ local TroopManager_createBattler = TroopManager.createBattler
 function TroopManager:createBattler(character)
   TroopManager_createBattler(self, character)
   if character.battler then
-    local balloonAnim = Database.animations[balloonID]
-    character.balloon = ResourceManager:loadAnimation(balloonAnim, FieldManager.renderer)
-    character.balloon.sprite:setTransformation(balloonAnim.transform)
+    character.balloon = ResourceManager:loadAnimation(balloonID, FieldManager.renderer)
+    character.balloon.sprite:setTransformation(character.balloon.data.transform)
     local icons = character.battler.statusList:getIcons()
     character.balloon:setIcons(icons)
     character:setPosition(character.position)
