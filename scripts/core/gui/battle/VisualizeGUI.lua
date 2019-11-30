@@ -17,12 +17,12 @@ local VisualizeGUI = class(GUI)
 -- Initialization
 ---------------------------------------------------------------------------------------------------
 
--- Constructor.
+-- Overrides GUI:init.
 -- @param(character : Character) Member's character in the battle field.
-function VisualizeGUI:init(character)
+function VisualizeGUI:init(parent, character)
   self.name = 'Visualize GUI'
   self.character = character
-  GUI.init(self)
+  GUI.init(self, parent)
 end
 -- Override GUI:createWindows.
 function VisualizeGUI:createWindows()
