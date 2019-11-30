@@ -166,7 +166,7 @@ function Battler:popupResults(pos, results, character)
     local r = results.status[i]
     local popupName, text
     if r.add then
-      local s = self.statusList:addStatus(r.id, nil, character)
+      local s = self.statusList:addStatus(r.id, nil, character, r.caster)
       popupText:addStatus(s)
     else
       local s = self.statusList:removeAllStatus(r.id, character)

@@ -21,12 +21,15 @@ local Status = class()
 -- Constructor.
 -- @param(data : table) Status' data from database file.
 -- @param(list : StatusList) The list that included this status.
+-- @param(caster : string) Key of the character who casted this status 
+--  (null if it did not come from a character). 
 -- @param(state : table) The persistent state of the status.
-function Status:init(data, list, state)
+function Status:init(data, list, caster, state)
   -- General
   self.data = data
   self.statusList = list
   self.lifeTime = state and state.lifeTime or 0
+  self.caster = state and state.caster or caster
   if self.data.duration >= 0 then
     self.duration = self.data.duration
   else
@@ -56,8 +59,8 @@ function Status:init(data, list, state)
     end
   end
   -- AI
-  if data.ai and #data.ai > 0 then
-    self.AI = BattlerAI(self, data.ai)
+  if data.behavior and #data.behavior > 0 then
+    self.AI = BattlerAI(list.battler, data.behavior)
   end
 end
 -- Loads Status class from data.
@@ -83,7 +86,8 @@ end
 -- @ret(table) State data.
 function Status:getState()
   return { id = self.data.id,
-    lifeTime = self.lifeTime }
+    lifeTime = self.lifeTime,
+    caster = self.caster }
 end
 
 ---------------------------------------------------------------------------------------------------

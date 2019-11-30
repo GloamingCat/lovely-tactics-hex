@@ -349,7 +349,8 @@ function SkillAction:calculateStatusResult(user, target)
     if rand() * 100 <= r then
       result[#result + 1] = {
         id = s.id,
-        add = s.add }
+        add = s.add,
+        caster = user.key }
       dmg = dmg or s.add
     end
   end

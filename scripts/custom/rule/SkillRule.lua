@@ -24,6 +24,7 @@ function SkillRule:init(...)
   AIRule.init(self, ...)
   local id = self.tags and self.tags.id
   self.skill = id and self.battler.skillList[id] or self.battler.attackSkill
+  assert(self.skill, tostring(self.battler) .. ' does not have a skill!')
 end
 -- Prepares the rule to be executed (or not, if it1s not possible).
 -- @param(user : Character)

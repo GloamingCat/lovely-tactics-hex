@@ -107,8 +107,11 @@ end
 -- Add a new status.
 -- @param(id : number) The status' ID.
 -- @param(state : table) The status persistent data.
+-- @param(character : Character) The character with this status.
+-- @param(caster : string) Key of the character who casted this status 
+--  (null if it did not come from a character). 
 -- @ret(Status) Newly added status (or old one, if non-cumulative).
-function StatusList:addStatus(id, state, character)
+function StatusList:addStatus(id, state, character, caster)
   local data = Database.status[id]
   assert(data, "Status does not exist: " .. (id or "nil"))
   local status = self:findStatus(id)
@@ -116,7 +119,7 @@ function StatusList:addStatus(id, state, character)
     status.lifeTime = 0
   else
     local i = self:findPosition(data.priority)
-    status = Status:fromData(data, self, state)
+    status = Status:fromData(data, self, caster, state)
     self:add(status, i)
     if status.onAdd then
       status:onAdd(self.battler, character)
