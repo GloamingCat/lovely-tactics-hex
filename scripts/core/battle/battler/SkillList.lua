@@ -67,9 +67,14 @@ function SkillList:learn(skill)
 end
 
 ---------------------------------------------------------------------------------------------------
--- State
+-- General
 ---------------------------------------------------------------------------------------------------
 
+-- Converting to string.
+-- @ret(string) A string representation.
+function SkillList:__tostring()
+  return 'SkillList: ' .. tostring(self.battler)
+end
 -- @ret(table) Array with skills' IDs.
 function SkillList:getState()
   local state = {}

@@ -78,7 +78,7 @@ function EquipSet:setEquip(key, item, inventory, character)
     self:unequip(key, inventory, character)
   end
   if self.battler then
-    self.battler:updateState()
+    self.battler:refreshState()
   end
 end
 -- Inserts equipment item in the given slot.
@@ -388,9 +388,14 @@ function EquipSet:equipElements(equip)
 end
 
 ---------------------------------------------------------------------------------------------------
--- State
+-- General
 ---------------------------------------------------------------------------------------------------
 
+-- Converting to string.
+-- @ret(string) A string representation.
+function EquipSet:__tostring()
+  return 'EquipSet: ' .. tostring(self.battler)
+end
 -- @ret(table) Persistent state.
 function EquipSet:getState()
   return {

@@ -101,18 +101,13 @@ function Battler:initState(data, save)
     self.state.hp = math.huge
     self.state.sp = math.huge
   end
-  self:updateState()
+  self:refreshState()
 end
 
 ---------------------------------------------------------------------------------------------------
 -- HP and SP damage
 ---------------------------------------------------------------------------------------------------
 
--- Limits each state variable to its maximum.
-function Battler:updateState()
-  self.state.hp = min(self.mhp(), self.state.hp)
-  self.state.sp = min(self.msp(), self.state.sp)
-end
 -- Damages HP.
 -- @param(value : number) the number of the damage
 -- @ret(boolean) true if reached 0, otherwise
@@ -207,6 +202,11 @@ function Battler:damageCosts(costs)
     self:damage(costs[i].key, value)
   end
 end
+-- Limits each state variable to its maximum.
+function Battler:refreshState()
+  self.state.hp = min(self.mhp(), self.state.hp)
+  self.state.sp = min(self.msp(), self.state.sp)
+end
 
 ---------------------------------------------------------------------------------------------------
 -- State
@@ -284,9 +284,14 @@ function Battler:onSkillResult(input, results, character)
 end
 
 ---------------------------------------------------------------------------------------------------
--- Save
+-- General
 ---------------------------------------------------------------------------------------------------
 
+-- Converting to string.
+-- @ret(string) A string representation.
+function Battler:__tostring()
+  return 'Battler ' .. self.data.id .. ': ' .. self.key .. ' (' .. self.name .. ')' 
+end
 -- @ret(table) Table that stores the battler's current state to be saved.
 function Battler:createPersistentData(backup, x, y)
   return {

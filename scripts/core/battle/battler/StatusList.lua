@@ -300,9 +300,14 @@ function StatusList:callback(name, ...)
 end
 
 ---------------------------------------------------------------------------------------------------
--- State
+-- General
 ---------------------------------------------------------------------------------------------------
 
+-- Converting to string.
+-- @ret(string) A string representation.
+function StatusList:__tostring()
+  return 'StatusList: ' .. tostring(self.battler)
+end
 -- Gets all the status states.
 -- @ret(table) An array with the state tables.
 function StatusList:getState()

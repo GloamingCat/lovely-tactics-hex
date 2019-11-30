@@ -90,9 +90,14 @@ function AttributeSet:getBonus(key, base, battler)
 end
 
 ---------------------------------------------------------------------------------------------------
--- State
+-- General
 ---------------------------------------------------------------------------------------------------
 
+-- Converting to string.
+-- @ret(string) A string representation.
+function AttributeSet:__tostring()
+  return 'AttributeSet: ' .. tostring(self.battler)
+end
 -- @ret(table) persistent state of the battler's attributes
 function AttributeSet:getState()
   return copyTable(self.battlerBase)

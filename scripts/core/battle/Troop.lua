@@ -170,9 +170,14 @@ function Troop:removeMember(key)
 end
 
 ---------------------------------------------------------------------------------------------------
--- Persistent Data
+-- General
 ---------------------------------------------------------------------------------------------------
 
+-- Converting to string.
+-- @ret(string) A string representation.
+function Troop:__tostring()
+  return 'Troop ' .. self.data.id .. ': party ' .. self.party .. ' (' .. self.data.name .. ')'
+end
 -- Creates the table to represent troop's persistent data.
 -- @param(saveFormation : boolean) True to save modified grid formation (optional).
 -- @ret(table) Table with persistent data.

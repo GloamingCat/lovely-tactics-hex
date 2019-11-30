@@ -87,9 +87,14 @@ function Class:levelsup(exp)
 end
 
 ---------------------------------------------------------------------------------------------------
--- State
+-- General
 ---------------------------------------------------------------------------------------------------
 
+-- Converting to string.
+-- @ret(string) A string representation.
+function Class:__tostring()
+  return 'Class: ' .. tostring(self.battler)
+end
 -- @ret(table) Persistent data table.
 function Class:getState()
   local state = {}
