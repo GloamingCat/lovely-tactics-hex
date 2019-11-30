@@ -7,16 +7,34 @@ Intro scene. Chita tells the background story.
 
 =================================================================================================]]
 
+-- Auxiliary function to clear intro scene.
+local function clear(script)
+  script:deleteChar { key = 'Chita', permanent = true }
+  script:deleteChar { key = 'Heron', permanent = true }
+  script:deleteChar { key = 'Jelly', permanent = true }
+  script:turnCharDir { key = "player", angle = 270 }
+  AudioManager:playBGM (Sounds.townTheme)
+  FieldManager.currentField.loadScript = { name = '' }
+end
+
+-- For debug. 
+-- mode = 0 is default intro scene.
+local mode = 0
+
 return function(script)
+  
+  if mode == 1 then
+    AudioManager.battleTheme = nil
+    script:startBattle { fieldID = 12, fade = 5, intro = true, 
+      gameOverCondition = 1, escapeEnabled = true }
+    AudioManager.battleTheme = Sounds.battleTheme
+    clear(script)
+    return
+  end
   
   if InputManager.keys['cancel']:isPressing() then
     -- Skip intro
-    script:deleteChar { key = 'Chita', permanent = true }
-    script:deleteChar { key = 'Heron', permanent = true }
-    script:deleteChar { key = 'Jelly', permanent = true }
-    script:turnCharDir { key = "player", angle = 270 }
-    AudioManager:playBGM (Sounds.townTheme)
-    FieldManager.currentField.loadScript = { name = '' }
+    clear(script)
     return
   end
   
