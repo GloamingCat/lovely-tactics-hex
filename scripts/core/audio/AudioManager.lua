@@ -78,7 +78,7 @@ end
 function AudioManager:setBGMVolume(v)
   self.volumeBGM = v
   if self.BGM then
-    self.BGM:updateVolume()
+    self.BGM:refreshVolume()
   end
 end
 -- @ret(number) Volume multiplier for current SFX.
@@ -89,7 +89,7 @@ end
 function AudioManager:setSFXVolume(v)
   self.volumeSFX = v
   for i = 1, #self.sfx do
-    self.sfx[i]:updateVolume()
+    self.sfx[i]:refreshVolume()
   end
 end
 
@@ -105,7 +105,7 @@ end
 function AudioManager:setBGMPitch(p)
   self.pitchBGM = p
   if self.BGM then 
-    self.BGM:updatePitch()
+    self.BGM:refreshPitch()
   end
 end
 -- @ret(number) Pitch multiplier for current SFX.
@@ -116,7 +116,7 @@ end
 function AudioManager:setSFXPitch(p)
   self.pitchSFX = p
   for i = 1, #self.sfx do
-    self.sfx[i]:updatePitch()
+    self.sfx[i]:refreshPitch()
   end
 end
 
@@ -194,7 +194,7 @@ function AudioManager:updateBGM()
   end
   if self.fadingSpeed > 0 and self.fading < 1 or self.fadingSpeed < 0 and self.fading > 0 then
     self.fading = min(1, max(0, self.fading + deltaTime() * self.fadingSpeed))
-    self.BGM:updateVolume()
+    self.BGM:refreshVolume()
   end
 end
 
@@ -215,7 +215,7 @@ function AudioManager:fadeout(time, wait)
     self.fading = 0
     self.fadingSpeed = 0
     if self.BGM then
-      self.BGM:updateVolume()
+      self.BGM:refreshVolume()
     end
   end
 end
@@ -232,7 +232,7 @@ function AudioManager:fadein(time, wait)
     self.fading = 1
     self.fadingSpeed = 0
     if self.BGM then
-      self.BGM:updateVolume()
+      self.BGM:refreshVolume()
     end
   end
 end

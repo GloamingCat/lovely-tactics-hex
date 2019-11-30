@@ -34,14 +34,14 @@ function Music:init(name, volume, pitch, intro, loop)
   elseif not loop then
     local introName = name:gsub('%.', '_intro.', 1)
     if fileInfo(introName) then
-      self.intro = newSource(introName, 'stream')
+      self.intro = newSource(introName, 'static')
       self.intro:setLooping(false)
     end
   end
   if loop then
     self.loop = loop
   else
-    self.loop = newSource(name, 'stream')
+    self.loop = newSource(name, 'static')
     assert(self.loop, 'Could not load Music ' .. name)
     self.loop:setLooping(true)
   end
@@ -57,8 +57,8 @@ function Music:update()
   if self.source == self.intro and self:isFinished() then
     self.intro:stop()
     self.source = self.loop
-    self:updatePitch()
-    self:updateVolume()
+    self:refreshPitch()
+    self:refreshVolume()
     self.source:play()
   end
 end
@@ -85,13 +85,13 @@ end
 -- Volume & Pitch
 ---------------------------------------------------------------------------------------------------
 
--- Overrides Sound:updateVolume.
-function Music:updateVolume()
+-- Overrides Sound:refreshVolume.
+function Music:refreshVolume()
   self.source:setVolume((self.volume / 100) * (AudioManager.volumeBGM / 100)
     * AudioManager.fading)
 end
--- Overrides Sound:updatePitch.
-function Music:updatePitch()
+-- Overrides Sound:refreshPitch.
+function Music:refreshPitch()
   self.source:setPitch((self.pitch / 100) * (AudioManager.pitchBGM / 100))
 end
 

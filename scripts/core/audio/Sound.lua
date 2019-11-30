@@ -33,8 +33,8 @@ function Sound:initSource(source, volume, pitch)
   self.volume = volume or 100
   self.pitch = pitch or 100
   self.source = source
-  self:updateVolume()
-  self:updatePitch()
+  self:refreshVolume()
+  self:refreshPitch()
   self.paused = true
 end
 
@@ -94,19 +94,19 @@ end
 -- @param(v : number) New local volume.
 function Sound:setVolume(v)
   self.volume = v or self.volume
-  self:updateVolume()
+  self:refreshVolume()
 end
 -- @param(p : number) New local pitch.
 function Sound:setPitch(p)
   self.pitch = p or self.pitch
-  self:updatePitch()
+  self:refreshPitch()
 end
 -- Updates source's volume according to AudioManager's volume.
-function Sound:updateVolume()
+function Sound:refreshVolume()
   self.source:setVolume((self.volume / 100) * (AudioManager.volumeSFX / 100))
 end
 -- Updates source's pitch according to AudioManager's pitch.
-function Sound:updatePitch()
+function Sound:refreshPitch()
   self.source:setPitch((self.pitch / 100) * (AudioManager.pitchSFX / 100))
 end
 
