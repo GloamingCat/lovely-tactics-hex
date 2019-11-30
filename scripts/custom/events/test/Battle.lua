@@ -20,7 +20,7 @@ return function(script)
   end
   
   script.player:playIdleAnimation()
-  script:startBattle { fieldID = 0, fade = 5, intro = true, 
+  script:startBattle { fieldID = script.tags.fieldID or 0, fade = 5, intro = true, 
     gameOverCondition = 1, escapeEnabled = true }
   
   if BattleManager:playerWon() then

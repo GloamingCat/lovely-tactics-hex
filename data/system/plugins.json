@@ -72,7 +72,7 @@
     "tags": []
   },
   {
-    "on": true,
+    "on": false,
     "name": "plugins/battle/PartyRegion.lua",
     "tags": [
       {

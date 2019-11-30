@@ -5,7 +5,7 @@
       "icon": {
         "id": 34,
         "col": 3,
-        "row": 1
+        "row": 2
       },
       "priority": 100,
       "visible": true,
@@ -147,8 +147,129 @@
           "script": "",
           "icon": {
             "id": 34,
+            "col": 2,
+            "row": 1
+          },
+          "priority": 100,
+          "visible": true,
+          "cumulative": false,
+          "charAnim": "",
+          "transform": {
+            "offsetX": 0,
+            "offsetY": 0,
+            "offsetDepth": 0,
+            "scaleX": 100,
+            "scaleY": 100,
+            "rotation": 0,
+            "red": 255,
+            "green": 255,
+            "blue": 255,
+            "alpha": 255,
+            "hue": 0,
+            "saturation": 100,
+            "brightness": 100
+          },
+          "override": false,
+          "duration": -1,
+          "removeOnKO": true,
+          "removeOnDamage": false,
+          "battleOnly": false,
+          "deactivate": false,
+          "ko": false,
+          "behavior": [],
+          "drainAtt": "",
+          "drainValue": 0,
+          "percentage": true,
+          "attributes": [
+            {
+              "key": "pre",
+              "add": 0,
+              "mul": -90
+            }
+          ],
+          "elements": [],
+          "statusDef": [],
+          "cancel": [],
+          "name": "Blindness",
+          "tags": []
+        },
+        "id": 17,
+        "children": []
+      },
+      {
+        "data": {
+          "script": "",
+          "icon": {
+            "id": 34,
             "col": 3,
             "row": 1
+          },
+          "priority": 100,
+          "visible": true,
+          "cumulative": false,
+          "charAnim": "",
+          "transform": {
+            "offsetX": 0,
+            "offsetY": 0,
+            "offsetDepth": 0,
+            "scaleX": 100,
+            "scaleY": 100,
+            "rotation": 0,
+            "red": 255,
+            "green": 255,
+            "blue": 255,
+            "alpha": 255,
+            "hue": 0,
+            "saturation": 100,
+            "brightness": 100
+          },
+          "override": false,
+          "duration": 5,
+          "removeOnKO": true,
+          "removeOnDamage": false,
+          "battleOnly": true,
+          "deactivate": false,
+          "ko": false,
+          "behavior": [
+            {
+              "condition": "",
+              "name": "rule/Betray.lua",
+              "tags": []
+            }
+          ],
+          "drainAtt": "",
+          "drainValue": 0,
+          "percentage": true,
+          "attributes": [],
+          "elements": [],
+          "statusDef": [],
+          "cancel": [],
+          "name": "Charm",
+          "tags": [
+            {
+              "key": "animID",
+              "value": "169"
+            },
+            {
+              "key": "animHeight",
+              "value": "1"
+            },
+            {
+              "key": "charm",
+              "value": "true"
+            }
+          ]
+        },
+        "id": 18,
+        "children": []
+      },
+      {
+        "data": {
+          "script": "",
+          "icon": {
+            "id": 34,
+            "col": 3,
+            "row": 2
           },
           "priority": 100,
           "visible": true,
@@ -191,7 +312,12 @@
           "statusDef": [],
           "cancel": [],
           "name": "ATK-",
-          "tags": []
+          "tags": [
+            {
+              "key": "animID",
+              "value": "170"
+            }
+          ]
         },
         "id": 15,
         "children": []
@@ -202,7 +328,7 @@
           "icon": {
             "id": 34,
             "col": 3,
-            "row": 1
+            "row": 2
           },
           "priority": 100,
           "visible": true,
@@ -245,7 +371,12 @@
           "statusDef": [],
           "cancel": [],
           "name": "DEF-",
-          "tags": []
+          "tags": [
+            {
+              "key": "animID",
+              "value": "170"
+            }
+          ]
         },
         "id": 16,
         "children": []
@@ -258,7 +389,7 @@
       "icon": {
         "id": 34,
         "col": 2,
-        "row": 1
+        "row": 2
       },
       "priority": 100,
       "visible": true,
@@ -345,7 +476,7 @@
           "tags": [
             {
               "key": "reflect",
-              "value": ""
+              "value": "true"
             }
           ]
         },
@@ -409,7 +540,7 @@
           "icon": {
             "id": 34,
             "col": 2,
-            "row": 1
+            "row": 2
           },
           "priority": 100,
           "visible": true,
@@ -452,7 +583,12 @@
           "statusDef": [],
           "cancel": [],
           "name": "ATK+",
-          "tags": []
+          "tags": [
+            {
+              "key": "animID",
+              "value": "171"
+            }
+          ]
         },
         "id": 5,
         "children": []
@@ -463,7 +599,7 @@
           "icon": {
             "id": 34,
             "col": 2,
-            "row": 1
+            "row": 2
           },
           "priority": 100,
           "visible": true,
@@ -506,7 +642,12 @@
           "statusDef": [],
           "cancel": [],
           "name": "DEF+",
-          "tags": []
+          "tags": [
+            {
+              "key": "animID",
+              "value": "171"
+            }
+          ]
         },
         "id": 6,
         "children": []

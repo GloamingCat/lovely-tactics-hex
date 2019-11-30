@@ -205,13 +205,43 @@
           "portraits": [
             {
               "name": "SmallIcon",
-              "id": 64,
+              "id": 163,
               "col": 0,
               "row": 0
             },
             {
               "name": "BigIcon",
-              "id": 65,
+              "id": 164,
+              "col": 0,
+              "row": 0
+            },
+            {
+              "name": "Determined",
+              "id": 168,
+              "col": 0,
+              "row": 0
+            },
+            {
+              "name": "Surprise",
+              "id": 168,
+              "col": 0,
+              "row": 0
+            },
+            {
+              "name": "Angry",
+              "id": 168,
+              "col": 0,
+              "row": 0
+            },
+            {
+              "name": "Cry",
+              "id": 168,
+              "col": 0,
+              "row": 0
+            },
+            {
+              "name": "Confused",
+              "id": 168,
               "col": 0,
               "row": 0
             }
@@ -297,13 +327,13 @@
           "portraits": [
             {
               "name": "SmallIcon",
-              "id": 64,
+              "id": 167,
               "col": 0,
               "row": 0
             },
             {
               "name": "BigIcon",
-              "id": 65,
+              "id": 166,
               "col": 0,
               "row": 0
             }

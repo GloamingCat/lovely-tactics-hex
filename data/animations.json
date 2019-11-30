@@ -155,14 +155,14 @@
         "data": {
           "script": "",
           "quad": {
-            "path": "Battle/magic ball.png",
+            "path": "",
             "x": 0,
             "y": 0,
-            "width": 48,
-            "height": 16
+            "width": 0,
+            "height": 0
           },
           "rows": 1,
-          "cols": 3,
+          "cols": 1,
           "transform": {
             "offsetX": 0,
             "offsetY": 0,
@@ -180,14 +180,462 @@
           },
           "introPattern": "",
           "introDuration": "",
-          "loopPattern": "0 1 2 1",
-          "loopDuration": "16",
+          "loopPattern": "",
+          "loopDuration": "",
           "audio": [],
-          "name": "Magic Projectile",
+          "name": "Status",
           "tags": []
         },
-        "id": 49,
-        "children": []
+        "id": 172,
+        "children": [
+          {
+            "data": {
+              "script": "",
+              "quad": {
+                "path": "Battle/hearts.png",
+                "x": 0,
+                "y": 0,
+                "width": 288,
+                "height": 32
+              },
+              "rows": 1,
+              "cols": 9,
+              "transform": {
+                "offsetX": 16,
+                "offsetY": 32,
+                "offsetDepth": -2,
+                "scaleX": 100,
+                "scaleY": 100,
+                "rotation": 0,
+                "red": 255,
+                "green": 255,
+                "blue": 255,
+                "alpha": 255,
+                "hue": 0,
+                "saturation": 100,
+                "brightness": 100
+              },
+              "introPattern": "",
+              "introDuration": "",
+              "loopPattern": "",
+              "loopDuration": "72",
+              "audio": [],
+              "name": "Heart Bubbles",
+              "tags": []
+            },
+            "id": 169,
+            "children": []
+          },
+          {
+            "data": {
+              "script": "",
+              "quad": {
+                "path": "Battle/bubbling hearts.png",
+                "x": 0,
+                "y": 0,
+                "width": 96,
+                "height": 32
+              },
+              "rows": 1,
+              "cols": 3,
+              "transform": {
+                "offsetX": 16,
+                "offsetY": 32,
+                "offsetDepth": -2,
+                "scaleX": 100,
+                "scaleY": 100,
+                "rotation": 0,
+                "red": 255,
+                "green": 255,
+                "blue": 255,
+                "alpha": 255,
+                "hue": 0,
+                "saturation": 100,
+                "brightness": 100
+              },
+              "introPattern": "",
+              "introDuration": "",
+              "loopPattern": "0 1 2",
+              "loopDuration": "24",
+              "audio": [],
+              "name": "Heart Bubbles2",
+              "tags": []
+            },
+            "id": 176,
+            "children": []
+          },
+          {
+            "data": {
+              "script": "animation/BattleEffect",
+              "quad": {
+                "path": "Battle/polen.png",
+                "x": 0,
+                "y": 288,
+                "width": 480,
+                "height": 72
+              },
+              "rows": 1,
+              "cols": 5,
+              "transform": {
+                "offsetX": 48,
+                "offsetY": 72,
+                "offsetDepth": -11,
+                "scaleX": 50,
+                "scaleY": 50,
+                "rotation": 0,
+                "red": 200,
+                "green": 50,
+                "blue": 150,
+                "alpha": 255,
+                "hue": 0,
+                "saturation": 50,
+                "brightness": 100
+              },
+              "introPattern": "0 1 2 3 4 3 2 1",
+              "introDuration": "120",
+              "loopPattern": "",
+              "loopDuration": "",
+              "audio": [],
+              "name": "Doom",
+              "tags": []
+            },
+            "id": 170,
+            "children": []
+          },
+          {
+            "data": {
+              "script": "animation/BattleEffect",
+              "quad": {
+                "path": "Battle/heal.png",
+                "x": 0,
+                "y": 512,
+                "width": 640,
+                "height": 128
+              },
+              "rows": 1,
+              "cols": 5,
+              "transform": {
+                "offsetX": 64,
+                "offsetY": 96,
+                "offsetDepth": 1,
+                "scaleX": 100,
+                "scaleY": 100,
+                "rotation": 0,
+                "red": 255,
+                "green": 255,
+                "blue": 255,
+                "alpha": 255,
+                "hue": 0,
+                "saturation": 80,
+                "brightness": 120
+              },
+              "introPattern": "0 1 2 3 4 3 2 1",
+              "introDuration": "120",
+              "loopPattern": "",
+              "loopDuration": "",
+              "audio": [],
+              "name": "Bless",
+              "tags": []
+            },
+            "id": 171,
+            "children": []
+          },
+          {
+            "data": {
+              "script": "animation/BattleEffect",
+              "quad": {
+                "path": "Battle/poison.png",
+                "x": 0,
+                "y": 0,
+                "width": 480,
+                "height": 576
+              },
+              "rows": 6,
+              "cols": 5,
+              "transform": {
+                "offsetX": 48,
+                "offsetY": 72,
+                "offsetDepth": -11,
+                "scaleX": 50,
+                "scaleY": 50,
+                "rotation": 0,
+                "red": 255,
+                "green": 255,
+                "blue": 255,
+                "alpha": 255,
+                "hue": 0,
+                "saturation": 100,
+                "brightness": 100
+              },
+              "introPattern": "",
+              "introDuration": "30",
+              "loopPattern": "",
+              "loopDuration": "",
+              "audio": [
+                {
+                  "name": "sfx/artisticdude/bubble2.wav",
+                  "volume": 100,
+                  "pitch": 100,
+                  "time": 0
+                }
+              ],
+              "name": "Poison",
+              "tags": []
+            },
+            "id": 14,
+            "children": []
+          },
+          {
+            "data": {
+              "script": "animation/BattleEffect",
+              "quad": {
+                "path": "Battle/polen.png",
+                "x": 0,
+                "y": 0,
+                "width": 480,
+                "height": 384
+              },
+              "rows": 4,
+              "cols": 5,
+              "transform": {
+                "offsetX": 48,
+                "offsetY": 72,
+                "offsetDepth": -11,
+                "scaleX": 50,
+                "scaleY": 50,
+                "rotation": 0,
+                "red": 255,
+                "green": 255,
+                "blue": 255,
+                "alpha": 255,
+                "hue": 0,
+                "saturation": 100,
+                "brightness": 100
+              },
+              "introPattern": "",
+              "introDuration": "60",
+              "loopPattern": "",
+              "loopDuration": "",
+              "audio": [
+                {
+                  "name": "sfx/Tuomo Untinen/darkness.wav",
+                  "volume": 100,
+                  "pitch": 80,
+                  "time": 0
+                }
+              ],
+              "name": "Polen",
+              "tags": []
+            },
+            "id": 15,
+            "children": []
+          },
+          {
+            "data": {
+              "script": "animation/BattleEffect",
+              "quad": {
+                "path": "Battle/polen.png",
+                "x": 0,
+                "y": 0,
+                "width": 480,
+                "height": 384
+              },
+              "rows": 4,
+              "cols": 5,
+              "transform": {
+                "offsetX": 48,
+                "offsetY": 72,
+                "offsetDepth": -11,
+                "scaleX": 50,
+                "scaleY": 50,
+                "rotation": 0,
+                "red": 255,
+                "green": 255,
+                "blue": 255,
+                "alpha": 255,
+                "hue": 100,
+                "saturation": 100,
+                "brightness": 150
+              },
+              "introPattern": "",
+              "introDuration": "60",
+              "loopPattern": "",
+              "loopDuration": "",
+              "audio": [
+                {
+                  "name": "sfx/David Mckee/Shine.wav",
+                  "volume": 100,
+                  "pitch": 100,
+                  "time": 0
+                }
+              ],
+              "name": "Love",
+              "tags": []
+            },
+            "id": 175,
+            "children": []
+          },
+          {
+            "data": {
+              "script": "animation/BattleEffect",
+              "quad": {
+                "path": "Battle/shield.png",
+                "x": 0,
+                "y": 0,
+                "width": 480,
+                "height": 672
+              },
+              "rows": 7,
+              "cols": 5,
+              "transform": {
+                "offsetX": 48,
+                "offsetY": 72,
+                "offsetDepth": -11,
+                "scaleX": 50,
+                "scaleY": 50,
+                "rotation": 0,
+                "red": 255,
+                "green": 255,
+                "blue": 255,
+                "alpha": 255,
+                "hue": 0,
+                "saturation": 100,
+                "brightness": 100
+              },
+              "introPattern": "",
+              "introDuration": "70",
+              "loopPattern": "",
+              "loopDuration": "",
+              "audio": [
+                {
+                  "name": "sfx/GameAudio/heal.wav",
+                  "volume": 70,
+                  "pitch": 110,
+                  "time": 0
+                }
+              ],
+              "name": "Shield",
+              "tags": []
+            },
+            "id": 17,
+            "children": []
+          }
+        ]
+      },
+      {
+        "data": {
+          "script": "",
+          "quad": {
+            "path": "",
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0
+          },
+          "rows": 1,
+          "cols": 1,
+          "transform": {
+            "offsetX": 0,
+            "offsetY": 0,
+            "offsetDepth": 0,
+            "scaleX": 100,
+            "scaleY": 100,
+            "rotation": 0,
+            "red": 255,
+            "green": 255,
+            "blue": 255,
+            "alpha": 255,
+            "hue": 0,
+            "saturation": 100,
+            "brightness": 100
+          },
+          "introPattern": "",
+          "introDuration": "",
+          "loopPattern": "",
+          "loopDuration": "",
+          "audio": [],
+          "name": "Projectile",
+          "tags": []
+        },
+        "id": 174,
+        "children": [
+          {
+            "data": {
+              "script": "animation/Projectile.lua",
+              "quad": {
+                "path": "Battle/pulsating heart.png",
+                "x": 0,
+                "y": 0,
+                "width": 48,
+                "height": 12
+              },
+              "rows": 1,
+              "cols": 3,
+              "transform": {
+                "offsetX": 8,
+                "offsetY": 6,
+                "offsetDepth": 0,
+                "scaleX": 100,
+                "scaleY": 100,
+                "rotation": 0,
+                "red": 255,
+                "green": 255,
+                "blue": 255,
+                "alpha": 255,
+                "hue": 0,
+                "saturation": 100,
+                "brightness": 100
+              },
+              "introPattern": "",
+              "introDuration": "",
+              "loopPattern": "0 1 2 1",
+              "loopDuration": "16",
+              "audio": [],
+              "name": "Pulsating Heart",
+              "tags": []
+            },
+            "id": 173,
+            "children": []
+          },
+          {
+            "data": {
+              "script": "animation/Projectile.lua",
+              "quad": {
+                "path": "Battle/magic ball.png",
+                "x": 0,
+                "y": 0,
+                "width": 48,
+                "height": 16
+              },
+              "rows": 1,
+              "cols": 3,
+              "transform": {
+                "offsetX": 8,
+                "offsetY": 8,
+                "offsetDepth": 0,
+                "scaleX": 100,
+                "scaleY": 100,
+                "rotation": 0,
+                "red": 255,
+                "green": 255,
+                "blue": 255,
+                "alpha": 255,
+                "hue": 0,
+                "saturation": 100,
+                "brightness": 100
+              },
+              "introPattern": "",
+              "introDuration": "",
+              "loopPattern": "0 1 2 1",
+              "loopDuration": "16",
+              "audio": [],
+              "name": "Magic Projectile",
+              "tags": []
+            },
+            "id": 49,
+            "children": []
+          }
+        ]
       },
       {
         "data": {
@@ -553,82 +1001,6 @@
         "data": {
           "script": "animation/BattleEffect",
           "quad": {
-            "path": "Battle/poison.png",
-            "x": 0,
-            "y": 0,
-            "width": 480,
-            "height": 576
-          },
-          "rows": 6,
-          "cols": 5,
-          "transform": {
-            "offsetX": 48,
-            "offsetY": 72,
-            "offsetDepth": -11,
-            "scaleX": 50,
-            "scaleY": 50,
-            "rotation": 0,
-            "red": 255,
-            "green": 255,
-            "blue": 255,
-            "alpha": 255,
-            "hue": 0,
-            "saturation": 100,
-            "brightness": 100
-          },
-          "introPattern": "",
-          "introDuration": "30",
-          "loopPattern": "",
-          "loopDuration": "",
-          "audio": [],
-          "name": "Poison",
-          "tags": []
-        },
-        "id": 14,
-        "children": []
-      },
-      {
-        "data": {
-          "script": "animation/BattleEffect",
-          "quad": {
-            "path": "Battle/polen.png",
-            "x": 0,
-            "y": 0,
-            "width": 480,
-            "height": 384
-          },
-          "rows": 4,
-          "cols": 5,
-          "transform": {
-            "offsetX": 48,
-            "offsetY": 72,
-            "offsetDepth": -11,
-            "scaleX": 50,
-            "scaleY": 50,
-            "rotation": 0,
-            "red": 255,
-            "green": 255,
-            "blue": 255,
-            "alpha": 255,
-            "hue": 0,
-            "saturation": 100,
-            "brightness": 100
-          },
-          "introPattern": "",
-          "introDuration": "60",
-          "loopPattern": "",
-          "loopDuration": "",
-          "audio": [],
-          "name": "Polen",
-          "tags": []
-        },
-        "id": 15,
-        "children": []
-      },
-      {
-        "data": {
-          "script": "animation/BattleEffect",
-          "quad": {
             "path": "Battle/heal.png",
             "x": 0,
             "y": 0,
@@ -668,51 +1040,6 @@
           "tags": []
         },
         "id": 16,
-        "children": []
-      },
-      {
-        "data": {
-          "script": "animation/BattleEffect",
-          "quad": {
-            "path": "Battle/shield.png",
-            "x": 0,
-            "y": 0,
-            "width": 480,
-            "height": 672
-          },
-          "rows": 7,
-          "cols": 5,
-          "transform": {
-            "offsetX": 48,
-            "offsetY": 72,
-            "offsetDepth": -11,
-            "scaleX": 50,
-            "scaleY": 50,
-            "rotation": 0,
-            "red": 255,
-            "green": 255,
-            "blue": 255,
-            "alpha": 255,
-            "hue": 0,
-            "saturation": 100,
-            "brightness": 100
-          },
-          "introPattern": "",
-          "introDuration": "70",
-          "loopPattern": "",
-          "loopDuration": "",
-          "audio": [
-            {
-              "name": "sfx/GameAudio/heal.wav",
-              "volume": 70,
-              "pitch": 110,
-              "time": 0
-            }
-          ],
-          "name": "Shield",
-          "tags": []
-        },
-        "id": 17,
         "children": []
       },
       {
@@ -1765,6 +2092,274 @@
         "data": {
           "script": "",
           "quad": {
+            "path": "Portrait/Witch2/Determined.png",
+            "x": 0,
+            "y": 0,
+            "width": 250,
+            "height": 250
+          },
+          "rows": 1,
+          "cols": 1,
+          "transform": {
+            "offsetX": 0,
+            "offsetY": 0,
+            "offsetDepth": 0,
+            "scaleX": 100,
+            "scaleY": 100,
+            "rotation": 0,
+            "red": 255,
+            "green": 255,
+            "blue": 255,
+            "alpha": 255,
+            "hue": 0,
+            "saturation": 100,
+            "brightness": 100
+          },
+          "introPattern": "",
+          "introDuration": "",
+          "loopPattern": "",
+          "loopDuration": "",
+          "audio": [],
+          "name": "Witch2",
+          "tags": []
+        },
+        "id": 162,
+        "children": [
+          {
+            "data": {
+              "script": "",
+              "quad": {
+                "path": "Portrait/Witch2/Determined.png",
+                "x": 60,
+                "y": 70,
+                "width": 140,
+                "height": 140
+              },
+              "rows": 1,
+              "cols": 1,
+              "transform": {
+                "offsetX": 0,
+                "offsetY": 0,
+                "offsetDepth": 0,
+                "scaleX": 25,
+                "scaleY": 25,
+                "rotation": 0,
+                "red": 255,
+                "green": 255,
+                "blue": 255,
+                "alpha": 255,
+                "hue": 0,
+                "saturation": 100,
+                "brightness": 100
+              },
+              "introPattern": "",
+              "introDuration": "",
+              "loopPattern": "",
+              "loopDuration": "",
+              "audio": [],
+              "name": "Small Icon",
+              "tags": []
+            },
+            "id": 163,
+            "children": []
+          },
+          {
+            "data": {
+              "script": "",
+              "quad": {
+                "path": "Portrait/Witch2/Determined.png",
+                "x": 0,
+                "y": 0,
+                "width": 250,
+                "height": 250
+              },
+              "rows": 1,
+              "cols": 1,
+              "transform": {
+                "offsetX": 0,
+                "offsetY": 0,
+                "offsetDepth": 0,
+                "scaleX": 50,
+                "scaleY": 50,
+                "rotation": 0,
+                "red": 255,
+                "green": 255,
+                "blue": 255,
+                "alpha": 255,
+                "hue": 0,
+                "saturation": 100,
+                "brightness": 100
+              },
+              "introPattern": "",
+              "introDuration": "",
+              "loopPattern": "",
+              "loopDuration": "",
+              "audio": [],
+              "name": "Big Icon",
+              "tags": []
+            },
+            "id": 164,
+            "children": []
+          },
+          {
+            "data": {
+              "script": "",
+              "quad": {
+                "path": "Portrait/Witch2/Determined.png",
+                "x": 40,
+                "y": 5,
+                "width": 180,
+                "height": 220
+              },
+              "rows": 1,
+              "cols": 1,
+              "transform": {
+                "offsetX": 0,
+                "offsetY": 0,
+                "offsetDepth": 0,
+                "scaleX": 50,
+                "scaleY": 50,
+                "rotation": 0,
+                "red": 255,
+                "green": 255,
+                "blue": 255,
+                "alpha": 255,
+                "hue": 0,
+                "saturation": 100,
+                "brightness": 100
+              },
+              "introPattern": "",
+              "introDuration": "",
+              "loopPattern": "",
+              "loopDuration": "",
+              "audio": [],
+              "name": "Determined",
+              "tags": []
+            },
+            "id": 168,
+            "children": []
+          }
+        ]
+      },
+      {
+        "data": {
+          "script": "",
+          "quad": {
+            "path": "Portrait/Witch3/Shy.png",
+            "x": 0,
+            "y": 0,
+            "width": 250,
+            "height": 250
+          },
+          "rows": 1,
+          "cols": 1,
+          "transform": {
+            "offsetX": 0,
+            "offsetY": 0,
+            "offsetDepth": 0,
+            "scaleX": 100,
+            "scaleY": 100,
+            "rotation": 0,
+            "red": 255,
+            "green": 255,
+            "blue": 255,
+            "alpha": 255,
+            "hue": 0,
+            "saturation": 100,
+            "brightness": 100
+          },
+          "introPattern": "",
+          "introDuration": "",
+          "loopPattern": "",
+          "loopDuration": "",
+          "audio": [],
+          "name": "Witch3",
+          "tags": []
+        },
+        "id": 165,
+        "children": [
+          {
+            "data": {
+              "script": "",
+              "quad": {
+                "path": "Portrait/Witch3/Shy.png",
+                "x": 60,
+                "y": 70,
+                "width": 140,
+                "height": 140
+              },
+              "rows": 1,
+              "cols": 1,
+              "transform": {
+                "offsetX": 0,
+                "offsetY": 0,
+                "offsetDepth": 0,
+                "scaleX": 25,
+                "scaleY": 25,
+                "rotation": 0,
+                "red": 255,
+                "green": 255,
+                "blue": 255,
+                "alpha": 255,
+                "hue": 0,
+                "saturation": 100,
+                "brightness": 100
+              },
+              "introPattern": "",
+              "introDuration": "",
+              "loopPattern": "",
+              "loopDuration": "",
+              "audio": [],
+              "name": "Small Icon",
+              "tags": []
+            },
+            "id": 167,
+            "children": []
+          },
+          {
+            "data": {
+              "script": "",
+              "quad": {
+                "path": "Portrait/Witch3/Shy.png",
+                "x": 0,
+                "y": 0,
+                "width": 250,
+                "height": 250
+              },
+              "rows": 1,
+              "cols": 1,
+              "transform": {
+                "offsetX": 0,
+                "offsetY": 0,
+                "offsetDepth": 0,
+                "scaleX": 50,
+                "scaleY": 50,
+                "rotation": 0,
+                "red": 255,
+                "green": 255,
+                "blue": 255,
+                "alpha": 255,
+                "hue": 0,
+                "saturation": 100,
+                "brightness": 100
+              },
+              "introPattern": "",
+              "introDuration": "",
+              "loopPattern": "",
+              "loopDuration": "",
+              "audio": [],
+              "name": "Big Icon",
+              "tags": []
+            },
+            "id": 166,
+            "children": []
+          }
+        ]
+      },
+      {
+        "data": {
+          "script": "",
+          "quad": {
             "path": "Portrait/Cat1/Serious.png",
             "x": 0,
             "y": 0,
@@ -1806,7 +2401,7 @@
                 "x": 40,
                 "y": 31,
                 "width": 180,
-                "height": 180
+                "height": 190
               },
               "rows": 1,
               "cols": 1,
@@ -1844,7 +2439,7 @@
                 "x": 40,
                 "y": 31,
                 "width": 180,
-                "height": 180
+                "height": 190
               },
               "rows": 1,
               "cols": 1,
@@ -1882,7 +2477,7 @@
                 "x": 40,
                 "y": 31,
                 "width": 180,
-                "height": 180
+                "height": 190
               },
               "rows": 1,
               "cols": 1,
@@ -1920,7 +2515,7 @@
                 "x": 40,
                 "y": 31,
                 "width": 180,
-                "height": 180
+                "height": 190
               },
               "rows": 1,
               "cols": 1,
@@ -1997,7 +2592,7 @@
                 "x": 40,
                 "y": 31,
                 "width": 180,
-                "height": 180
+                "height": 190
               },
               "rows": 1,
               "cols": 1,
@@ -2035,7 +2630,7 @@
                 "x": 40,
                 "y": 31,
                 "width": 180,
-                "height": 180
+                "height": 190
               },
               "rows": 1,
               "cols": 1,
@@ -2073,7 +2668,7 @@
                 "x": 40,
                 "y": 31,
                 "width": 180,
-                "height": 180
+                "height": 190
               },
               "rows": 1,
               "cols": 1,
@@ -2111,7 +2706,7 @@
                 "x": 40,
                 "y": 31,
                 "width": 180,
-                "height": 180
+                "height": 190
               },
               "rows": 1,
               "cols": 1,
