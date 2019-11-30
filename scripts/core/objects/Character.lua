@@ -261,6 +261,7 @@ function Character:onMove(path)
   self.battler.statusList:callback('Move', self, path)
 end
 -- Callback for when the character enters the given tiles.
+-- Adds terrain status.
 -- @param(tiles : table) Array of terrain tiles.
 function Character:onTerrainEnter(tiles)
   if self.battler then
@@ -273,6 +274,7 @@ function Character:onTerrainEnter(tiles)
   end
 end
 -- Callback for when the character exits the given tiles.
+-- Removes terrain status.
 -- @param(tiles : table) Array of terrain tiles.
 function Character:onTerrainExit(tiles)
   if self.battler then
@@ -280,7 +282,7 @@ function Character:onTerrainExit(tiles)
       local data = FieldManager.currentField:getTerrainStatus(tiles[i]:coordinates())
       for s = 1, #data do
         if data[s].removeOnExit then
-          self.battler.statusList:addStatus(data[s].statusID, self)
+          self.battler.statusList:removeStatus(data[s].statusID, self)
         end
       end
     end

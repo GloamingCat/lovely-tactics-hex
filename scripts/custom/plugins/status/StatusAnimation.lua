@@ -68,19 +68,19 @@ function StatusList:updateGraphics(character)
   local animList = {}
   local p = 0
   for i = 1, #self do
-    p = p + 1
     local animID = tonumber(self[i].tags.animID)
     if animID then
       if self[i].tags.animOverride then
         animList = {}
         paramsPerID = {}
-        p = 1
+        p = 0
       end
       local params = paramsPerID[animID]
       if params then
         util.array.remove(animList, params[1])
         params[1] = #animList + 1
       else
+        p = p + 1
         params = { p, self[i].tags.animTransform, self[i].tags.animHeight }
         paramsPerID[animID] = params
       end
