@@ -95,24 +95,16 @@ end
 
 -- Shows shop windows.
 function ShopGUI:showShopGUI()
-  GUIManager.fiberList:fork(function()
-    self.countWindow:show()
-  end)
-  GUIManager.fiberList:fork(function()
-    self.descriptionWindow:show()
-  end)
+  GUIManager.fiberList:fork(self.countWindow.show, self.countWindow)
+  GUIManager.fiberList:fork(self.descriptionWindow.show, self.descriptionWindow)
   coroutine.yield()
   self.itemWindow:show()
   self.itemWindow:activate()
 end
 -- Hides shop windows.
 function ShopGUI:hideShopGUI()
-  GUIManager.fiberList:fork(function()
-    self.countWindow:hide()
-  end)
-  GUIManager.fiberList:fork(function()
-    self.descriptionWindow:hide()
-  end)
+  GUIManager.fiberList:fork(self.countWindow.hide, self.countWindow)
+  GUIManager.fiberList:fork(self.descriptionWindow.hide, self.descriptionWindow)
   coroutine.yield()
   self.itemWindow:hide()
   self.commandWindow:activate()

@@ -37,9 +37,7 @@ end
 function GameManager:start(arg)
   self.fpsFont = ResourceManager:loadFont(Fonts.fps)
   self:setConfig(SaveManager.config)
-  GUIManager.fiberList:fork(function()
-    GUIManager:showGUIForResult(TitleGUI(nil))
-  end)
+  GUIManager.fiberList:fork(GUIManager.showGUIForResult, GUIManager, TitleGUI(nil))
 end
 -- Sets current save.
 function GameManager:setSave(save)

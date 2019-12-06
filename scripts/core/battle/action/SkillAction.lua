@@ -400,9 +400,7 @@ function SkillAction:singleTargetEffect(results, input, targetChar, originTile)
       if self:isArea() then
         originTile = input.target
       end
-      _G.Fiber:fork(function()
-        targetChar:damage(self.data, originTile, results)
-      end)
+      _G.Fiber:fork(targetChar.damage, targetChar, self.data, originTile, results)
     end
     targetChar.battler:onSkillResult(input, results, targetChar)
     if targetChar.battler.state.hp > 0 then

@@ -79,7 +79,7 @@ end
 function Fiber:running()
   return self.coroutine ~= nil
 end
--- Creates a new fiber in from the same root.
+-- Creates a new fiber in from the same root that executes given function.
 -- @param(func : function) The function of the new Fiber.
 -- @ret(Fiber) Newly created Fiber.
 function Fiber:fork(func, ...)
@@ -90,6 +90,10 @@ function Fiber:interrupt()
   if self.interruptable then
     self.coroutine = nil
   end
+end
+-- @ret(string) String identification.
+function Fiber:__tostring()
+  return 'Fiber: ' .. tostring(self.origin.name)
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -130,9 +134,16 @@ function Fiber:waitUntil(func)
     yield()
   end
 end
--- @ret(string) String identification.
-function Fiber:__tostring()
-  return 'Fiber: ' .. tostring(self.origin.name)
+-- Calls a given function after a certain time.
+-- @param(time : number) Time in frames.
+-- @param(func : function) Function to be called.
+-- @param(...) Function's parameters.
+function Fiber:invoke(time, func, ...)
+  local args = {...}
+  self:fork(function()
+    self:wait(time)
+    func(unpack(args))
+  end)
 end
 
 return Fiber

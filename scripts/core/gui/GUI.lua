@@ -118,9 +118,7 @@ function GUI:show()
   self.closed = false
   for window in self.windowList:iterator() do
     if window.lastOpen then
-      GUIManager.fiberList:fork(function()
-        window:show()
-      end)
+      GUIManager.fiberList:fork(window.show, window)
     end
   end
   local done
@@ -140,9 +138,7 @@ function GUI:hide()
   if not self.closed then
     self.open = false
     for window in self.windowList:iterator() do
-      GUIManager.fiberList:fork(function()
-        window:hide(true)
-      end)
+      GUIManager.fiberList:fork(window.hide, window, true)
     end
     local done
     repeat

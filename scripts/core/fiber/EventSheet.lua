@@ -60,6 +60,12 @@ end
 -- Commands
 ---------------------------------------------------------------------------------------------------
 
+-- Creates a new fiber in from the same root that executes given script.
+-- @param(script : table) Table with name (or func) and tags. 
+-- @ret(Fiber) Newly created Fiber.
+function EventSheet:forkFromScript(script, ...)
+  return self.root:forkFromScript(script, self.char, ...)
+end
 -- Searches for the character with the given key.
 -- @param(key : string) Character's key.
 -- @ret(Character) Character with given key.

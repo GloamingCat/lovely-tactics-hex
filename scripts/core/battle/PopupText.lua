@@ -102,9 +102,7 @@ function PopupText:popup(wait)
     return
   end
   if not wait then
-    _G.Fiber:fork(function()
-      self:popup(true)
-    end)
+    _G.Fiber:fork(self.popup, self, true)
   else
     local p = {self.width, self.align}
     local sprite = Text(self.text, p, self.renderer)

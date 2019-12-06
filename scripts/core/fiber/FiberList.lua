@@ -50,6 +50,7 @@ function FiberList:fork(func, ...)
   return Fiber(self, func, ...)
 end
 -- Creates new Fiber from a script table.
+-- @param(script : table) Table with script's name and param.
 -- @ret(EventSheet) The newly created Fiber.
 function FiberList:forkFromScript(script, ...)
   return EventSheet(self, script, ...)
