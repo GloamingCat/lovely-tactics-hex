@@ -8,16 +8,17 @@ Functions that are loaded from the EventSheet.
 =================================================================================================]]
 
 -- Imports
+local Battler = require('core/battle/battler/Battler')
 local Troop = require('core/battle/Troop')
 
-local Event = {}
+local EventSheet = {}
 
 ---------------------------------------------------------------------------------------------------
 -- Party
 ---------------------------------------------------------------------------------------------------
 
 -- @param(args.value : number) Value to be added to the party's money.
-function Event:increaseMoney(args)
+function EventSheet:increaseMoney(args)
   local save = TroopManager.troopData[TroopManager.playerTroopID .. '']
   save.money = save.money + args.value
 end
@@ -28,7 +29,7 @@ end
 
 -- Heal all members' HP and SP.
 -- @param(args.onlyCurrent : boolean) True to ignore backup members (false by default).
-function Event:healAll(args)
+function EventSheet:healAll(args)
   local troop = Troop()
   for battler in troop.current:iterator() do
     battler.state.hp = battler.mhp()
@@ -46,7 +47,7 @@ end
 -- @param(args.member : string) Member's key.
 -- @param(args.id : number) Skill's ID.
 -- @oaram(args.req : table) Array of requirements (optional).
-function Event:learnSkill(args)
+function EventSheet:learnSkill(args)
   local troop = Troop()
   local battler = troop.battlers[args.key]
   assert(battler, "No battler with key: " .. tostring(args.key))
@@ -58,4 +59,4 @@ function Event:learnSkill(args)
   TroopManager:saveTroop(troop)
 end
 
-return Event
+return EventSheet

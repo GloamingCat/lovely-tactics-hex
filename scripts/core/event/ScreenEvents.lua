@@ -10,7 +10,7 @@ Functions that are loaded from the EventSheet.
 -- Alias
 local deltaTime = love.timer.getDelta
 
-local Event = {}
+local EventSheet = {}
 
 ---------------------------------------------------------------------------------------------------
 -- Fading Effect
@@ -22,7 +22,7 @@ local Event = {}
 
 -- Fades out the screen.
 -- @param(args.renderer : Renderer) Camera to fade out. Field by default.
-function Event:fadeout(args)
+function EventSheet:fadeout(args)
   local renderer = args.renderer or FieldManager.renderer
   local speed = args.time and (60 / args.time) or 0
   renderer:fadeout(speed)
@@ -34,7 +34,7 @@ function Event:fadeout(args)
 end
 -- Fades in the screen.
 -- @param(args.renderer : Renderer) Camera to fade in. Field by default.
-function Event:fadein(args)
+function EventSheet:fadein(args)
   local renderer = args.renderer or FieldManager.renderer
   local speed = args.time and (60 / args.time) or 0
   renderer:fadein(speed)
@@ -51,7 +51,7 @@ end
 
 -- Shows the effect of a shader.
 -- @param(args.name : string)
-function Event:shaderin(args)
+function EventSheet:shaderin(args)
   ScreenManager.shader = ResourceManager:loadShader(args.name)
   ScreenManager.shader:send('time', 0)
   local time = deltaTime()
@@ -64,7 +64,7 @@ function Event:shaderin(args)
 end
 -- Hides the effect of a shader.
 -- @param(args.name : string)
-function Event:shaderout(args)
+function EventSheet:shaderout(args)
   ScreenManager.shader:send('time', 1)
   local time = deltaTime()
   while time > 0 do

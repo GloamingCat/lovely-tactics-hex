@@ -1,7 +1,7 @@
 
 --[[===============================================================================================
 
-Event Utilities
+EventSheet Utilities
 ---------------------------------------------------------------------------------------------------
 Functions that are loaded from the EventSheet.
 
@@ -11,7 +11,7 @@ Functions that are loaded from the EventSheet.
 local AIRule = require('core/battle/ai/AIRule')
 local TagMap = require('core/datastruct/TagMap')
 
-local Event = {}
+local EventSheet = {}
 
 ---------------------------------------------------------------------------------------------------
 -- Field
@@ -26,7 +26,7 @@ local Event = {}
 -- @param(args.y : number) Player's destination y.
 -- @param(args.h : number) Player's destination height.
 -- @param(args.direction : number) Player's destination direction (in degrees).
-function Event:moveToField(args)
+function EventSheet:moveToField(args)
   local fade = args.fade and {time = args.fade, wait = true}
   if fade then
     if self.tile and self.tile ~= self.player:getTile() then
@@ -51,7 +51,7 @@ end
 -- @param(args.gameOverCondition : number) GameOver condition:
 --  0 => no gameover, 1 => only when lost, 2 => lost or draw.
 -- @param(args.escapeEnabled : boolean) True to enable the whole party to escape.
-function Event:startBattle(args)
+function EventSheet:startBattle(args)
   local fiber = FieldManager.fiberList:fork(function()
     local bgm = AudioManager.battleTheme and AudioManager:pauseBGM()
     ::retry::
@@ -83,4 +83,4 @@ function Event:startBattle(args)
   fiber:waitForEnd()
 end
 
-return Event
+return EventSheet

@@ -23,8 +23,8 @@ local SimpleImage = require('core/gui/widget/SimpleImage')
 ---------------------------------------------------------------------------------------------------
 
 -- Shows the portrait of the speaker.
--- @param(icon : table) Table with id, col and row values.
---  It may also contain char and name values, which indicates a portrait of the given character.
+-- @param(icon : table) Table with id, col and row values. It may also contain char and name 
+--   values, which indicates a portrait of the given character.
 function DialogueWindow:setPortrait(icon)
   if self.portrait then
     self.portrait:destroy()
@@ -54,6 +54,14 @@ function DialogueWindow:setPortrait(icon)
     self.indent = w
   end
 end
+-- Override. Sets default name window position.
+local DialogueWindow_createContent = DialogueWindow.createContent
+function DialogueWindow:createContent(width, height)
+  DialogueWindow_createContent(self, width, height)
+  local nameX = self.position.x - 0.45 * self.width / 2
+  local nameY = self.position.y - 1.25 * self.height / 2
+  self.nameWindow:setXYZ(nameX, nameY)
+end
 -- Override. Adjusts text position and width.
 local DialogueWindow_rollText = DialogueWindow.rollText
 function DialogueWindow:rollText(text)
@@ -76,11 +84,11 @@ end
 -- GUIEvents
 ---------------------------------------------------------------------------------------------------
 
+-- Override. Sets portrait.
 local EventSheet_showDialogue = EventSheet.showDialogue
-function EventSheet.showDialogue(sheet, args)
-  assert(sheet.gui, 'You must open a GUI first.')
-  local window = sheet.gui.dialogues[args.id]
-  assert(window, 'You must open window ' .. args.id .. ' first.')
+function EventSheet:showDialogue(args)
+  self:openDialogueWindow(args)
+  local window = self.gui.dialogues[args.id]
   if args.character then -- Change portrait
     local portrait = nil
     if type(args.character) == 'number' then
@@ -88,7 +96,7 @@ function EventSheet.showDialogue(sheet, args)
       portrait = util.array.findByName(char.portraits, args.portrait)
       args.name = args.name or char.name
     elseif args.character ~= '' then -- Change to other image
-      local char = sheet:findCharacter(args.character)
+      local char = self:findCharacter(args.character)
       portrait = { char = char, name = args.portrait }
       args.name = args.name or char.name
     end
@@ -100,5 +108,5 @@ function EventSheet.showDialogue(sheet, args)
     end
     window:setPortrait(portrait)
   end
-  EventSheet_showDialogue(sheet, args)
+  EventSheet_showDialogue(self, args)
 end

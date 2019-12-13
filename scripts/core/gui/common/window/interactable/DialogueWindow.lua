@@ -161,5 +161,21 @@ function DialogueWindow:setName(text, x, y)
     self.nameWindow:setVisible(false)
   end
 end
+-- Overrides Window:resize. Adjusts name window position.
+function DialogueWindow:resize(width, height)
+  local nameX = (self.nameWindow.position.x - self.position.x) / self.width * 2
+  local nameY = (self.nameWindow.position.y - self.position.y) / self.height * 2
+  Window.resize(self, width, height)
+  nameX = nameX * self.width / 2 + self.position.x
+  nameY = nameY * self.height / 2 + self.position.y
+  self.nameWindow:setXYZ(nameX, nameY, -5)
+end
+-- Overrides Window:setXYZ. Adjusts name window position.
+function DialogueWindow:setXYZ(...)
+  local nameX = self.nameWindow.position.x - self.position.x
+  local nameY = self.nameWindow.position.y - self.position.y
+  Window.setXYZ(self, ...)
+  self.nameWindow:setXYZ(nameX + self.position.x, nameY + self.position.y, -5)
+end
 
 return DialogueWindow
