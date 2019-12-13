@@ -76,7 +76,7 @@ function ShopGUI:createCountWindow()
   local height = self.itemWindow.height
   local x = ScreenManager.width / 2 - self:windowMargin() - width / 2
   local y = self.itemWindow.position.y
-  self.countWindow = ShopCountWindow(self, width, height, Vector(x, y), self.members[1])
+  self.countWindow = ShopCountWindow(self, width, height, Vector(x, y))
   self.countWindow:setVisible(false)
 end
 -- Creates the window with the description of the selected item.

@@ -11,7 +11,6 @@ Manipulates the matrix of battler IDs to the instatiated in the beginning of the
 local Battler = require('core/battle/battler/Battler')
 local Inventory = require('core/battle/Inventory')
 local List = require('core/datastruct/List')
-local Matrix2 = require('core/math/Matrix2')
 
 -- Alias
 local mod = math.mod
@@ -40,20 +39,10 @@ function Troop:init(data, party)
   self.save = save
   self.inventory = Inventory(save.items)
   self.money = save.money
+  self.sizeX = sizeX
+  self.sizeY = sizeY
   -- Members
-  self.battlers = {}
-  if save.hidden then
-    self.hidden = List(save.hidden)
-  else
-    self.hidden = List()
-  end
-  self:initBattlerLists(save.members)
-  -- Grid
-  self.grid = Matrix2(sizeX, sizeY)
-  for i = 1, #self.current do
-    local member = self.current[i]
-    self.grid:set(member, member.x, member.y)
-  end
+  self:initBattlers(save.members)
   -- Rotation
   self.rotation = 0
   -- AI
@@ -61,59 +50,97 @@ function Troop:init(data, party)
     self.AI = require('custom/' .. data.ai)
   end
 end
--- Creates battler for each member data in the given list.
+-- Creates battler for each member data in the given list that is not hidden.
 -- @param(members : table) An array of member data.
-function Troop:initBattlerLists(members)
-  self.current = List()
-  self.backup = List()
-  for i = 1, #members do
-    local battler = Battler(self, members[i])
-    if members[i].list == 0 then
-      self.current:add(battler)
-    elseif members[i].list == 1 then
-      self.backup:add(battler)
-    elseif members[i].list == 2 then
-      self.hidden:add(battler)
+function Troop:initBattlers(members)
+  self.members = List(copyArray(members))
+  self.battlers = {}
+  for member in self.members:iterator() do
+    if member.list < 2 then
+      local battler = Battler(self, member)
+      self.battlers[member.key] = battler
     end
-    self.battlers[members[i].key] = battler
+    self.members[member.key] = member
   end
 end
 
 ---------------------------------------------------------------------------------------------------
--- Members
+-- Member Lists
 ---------------------------------------------------------------------------------------------------
 
--- Searchs for a member with the given key.
--- @param(key : string) Member's key.
--- @ret(number) The index of the member in the member list (nil if not found).
--- @ret(List) The list containing the member (nil if not found).
-function Troop:findMember(key, arr)
-  if arr then
-    for i = 1, #arr do
-      if arr[i].key == key then
-        return i, arr
-      end
-    end
-  else
-    local i = self:findMember(key, self.current)
-    if i then
-      return i, self.current
-    end
-    i = self:findMember(key, self.backup)
-    if i then
-      return i, self.backup
-    end
-    i = self:findMember(key, self.hidden)
-    if i then
-      return i, self.hidden
+-- @ret(List) List of all members in the current party grid.
+function Troop:currentMembers()
+  local list = List()
+  for member in self.members:iterator() do
+    if member.list == 0 then
+      list:add(member)
     end
   end
-end
--- @ret(List) List of all visible members.
-function Troop:visibleMembers()
-  local list = List(self.current)
-  list:addAll(self.backup)
   return list
+end
+-- @ret(List) List of backup members.
+function Troop:backupMembers()
+  local list = List()
+  for member in self.members:iterator() do
+    if member.list == 1 then
+      list:add(member)
+    end
+  end
+  return list
+end
+-- @ret(List) List of all hidden members.
+function Troop:hiddenMembers()
+  local list = List()
+  for member in self.members:iterator() do
+    if member.list == 2 then
+      list:add(member)
+    end
+  end
+  return list
+end
+-- @ret(List) List of all visible (current and backup) members.
+function Troop:visibleMembers()
+  local list = List(self.members)
+  list:removeAll(self:hiddenMembers())
+  return list
+end
+-- @ret(List) List of all battlers in the current party grid.
+function Troop:currentBattlers()
+  local list = self:currentMembers()
+  for i = 1, #list do
+    list[i] = self.battlers[list[i].key]
+  end
+  return list
+end
+-- @ret(List) List of all backup battlers.
+function Troop:backupBattlers()
+  local list = self:backupMembers()
+  for i = 1, #list do
+    list[i] = self.battlers[list[i].key]
+  end
+  return list
+end
+-- @ret(List) List of all visible (current and backup) battlers.
+function Troop:visibleBattlers()
+  local list = self:visibleMembers()
+  for i = 1, #list do
+    list[i] = self.battlers[list[i].key]
+  end
+  return list
+end
+-- Moves a member to another list.
+-- @param(key : string) Member's key.
+-- @param(list : number) List type. 0 is current, 1 is backup, 2 is hidden.
+-- @param(x : number) Grid-x position of the member (optional).
+-- @param(y : number) Grid-y position of the member (optional).
+-- @ret(Battle) The called member.
+function Troop:moveMember(key, list, x, y)
+  assert(self.members[key], "Member " .. key .. " not in troop's member list.")
+  local member = self.members[key]
+  member.list = list
+  member.x = x or member.x
+  member.y = y or member.y
+  return member
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -129,51 +156,16 @@ function Troop:setRotation(r)
 end
 -- Rotates by 90.
 function Troop:rotate()
-  local sizeX, sizeY = self.grid.width, self.grid.height
-  local grid = Matrix2(sizeY, sizeX)
-  for i = 1, sizeX do
-    for j = 1, sizeY do
-      local member = self.grid:get(i, j)
-      grid:set(member, sizeY - j + 1, i)
-    end
+  for member in self.members:iterator() do
+    local i, j = member.x, member.y
+    member.x, member.y = self.sizeY - j + 1, i
   end
-  self.grid = grid
   self.rotation = mod(self.rotation + 1, 4)
   self.sizeX, self.sizeY = self.sizeY, self.sizeX
 end
 -- @ret(number) Character direction in degrees.
 function Troop:getCharacterDirection()
   return mod(baseDirection + self.rotation * 90, 360)
-end
-
----------------------------------------------------------------------------------------------------
--- Current Members
----------------------------------------------------------------------------------------------------
-
--- Adds a character to the field that represents the member with the given key.
--- @param(key : string) Member's key.
--- @param(x : number) Grid-x position of the member.
--- @param(y : number) Grid-y position of the member.
--- @ret(Battle) The called member.
-function Troop:callMember(key, x, y)
-  local i = self:findMember(key, self.backup)
-  assert(i, 'Could not call member ' .. key .. ": not in 'backup' list.")
-  local battler = self.backup:remove(i)
-  self.current:add(battler)
-  self.grid:set(battler, x, y)
-  return battler
-end
--- Removes a member.
--- @param(key : string) Member's key.
--- @ret(Battler) Removed member.
-function Troop:removeMember(key)
-  local i = self:findMember(key, self.current)
-  assert(i, 'Could not remove member ' .. key .. ": not in 'current' list.")
-  local battler = self.current:remove(i)
-  self.backup:add(battler)
-  local x, y = self.grid:positionOf(battler)
-  self.grid:set(nil, x, y)
-  return battler
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -188,35 +180,21 @@ end
 -- Creates the table to represent troop's persistent data.
 -- @param(saveFormation : boolean) True to save modified grid formation (optional).
 -- @ret(table) Table with persistent data.
-function Troop:createPersistentData(saveFormation)
+function Troop:getState(saveFormation)
   if not self.data.persistent then
     return nil
   end
   local data = {}
   data.money = self.money
   data.items = self.inventory:getState()
-  if saveFormation then
-    local members = {}
-    for i = 1, #self.current do
-      local member = self.current[i]
-      members[i] = self.battlers[member.key]:createPersistentData(0, member.x, member.y)
-    end
-    local n = #members
-    for i = 1, #self.backup do
-      local member = self.backup[i]
-      members[i + n] = self.battlers[member.key]:createPersistentData(1)
-    end
-    data.members = members
-    data.hidden = copyArray(self.hidden)
-  else
-    local members = {}
-    for i = 1, #self.save.members do
-      local member = self.save.members[i]
-      members[i] = self.battlers[member.key]:createPersistentData(member.list, member.x, member.y)
-    end
-    data.members = members
-    if self.save.hidden then
-      data.hidden = copyArray(self.save.hidden)
+  data.members = {}
+  local members = saveFormation and self.members or self.save.members
+  for i = 1, #members do
+    local member = members[i]
+    if self.battlers[member.key] then
+      data.members[i] = self.battlers[member.key]:getState(member.list, member.x, member.y)
+    else
+      data.members[i] = member
     end
   end
   return data

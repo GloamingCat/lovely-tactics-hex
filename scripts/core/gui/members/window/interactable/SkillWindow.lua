@@ -66,7 +66,7 @@ function SkillWindow:onButtonConfirm(button)
   local input = ActionInput(button.skill, self.member)
   if button.skill:isArea() then
     -- Use in all members
-    input.targets = self.member.troop.current
+    input.targets = self.member.troop:currentBattlers()
     input.action:menuUse(input)
     self.GUI.parent:refreshMember()
   else

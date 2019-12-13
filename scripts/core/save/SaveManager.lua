@@ -50,7 +50,7 @@ function SaveManager:newSave()
   save.vars = {} -- Global vars
   save.fields = {} -- Field data
   save.troops = {} -- Initial party
-  --save.troops[Config.troop.initialTroopID .. ''] = Troop():createPersistentData()
+  --save.troops[Config.troop.initialTroopID .. ''] = Troop():getState()
   save.playerTroopID = Config.troop.initialTroopID
   local startPos = Config.player.startPos
   save.playerTransition = {
@@ -146,7 +146,7 @@ function SaveManager:getHeader(save)
   local troop = save.troops[self.current.playerTroopID .. ''] or Troop()
   local members = {}
   for i = 1, #troop.members do
-    if not troop.members[i].backup then
+    if troop.members[i].list == 0 then
       members[#members + 1] = troop.members[i].charID
     end
   end

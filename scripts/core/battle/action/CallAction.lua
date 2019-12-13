@@ -33,14 +33,18 @@ function CallAction:onConfirm(input)
   self.troop = TroopManager.troops[(input.party or input.user.party)]
   if input.GUI then
     local result = GUIManager:showGUIForResult(CallGUI(input.GUI, self.troop, input.user == nil))
-    if result ~= 0 then
-      self:callMember(result, input.target)
-      input.GUI:endGridSelecting()
-      return self:execute()
+    if result == 0 then
+      return nil
     end
-  else
-    self:callMember(input.member, input.target)
+    input.GUI:endGridSelecting()
+    input.member = result
   end
+  return self:execute(input)
+end
+-- Overrides BattleAction:execute.
+function CallAction:execute(input)
+  self:callMember(input.member, input.target)
+  return BattleAction.execute(self, input)
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -80,9 +84,14 @@ end
 -- @param(tile : ObjectTile) The tile the character will be put in.
 -- @ret(Character) The newly created character for the member.
 function CallAction:callMember(key, tile)
-  local member = self.troop:callMember(key, tile)
+  assert(key, 'No character was chosen!')
+  assert(tile, 'No tile was chosen!')
+  local x = tile.x - self.troop.x
+  local y = tile.y - self.troop.y
+  self.troop:moveMember(key, 0, x, y)
+  local battler = self.troop.battlers[key]
   local dir = self.troop:getCharacterDirection()
-  local character = TroopManager:createCharacter(tile, dir, member, self.troop.party)
+  local character = TroopManager:createCharacter(tile, dir, battler, self.troop.party)
   TroopManager:createBattler(character)
   return character
 end
@@ -90,7 +99,7 @@ end
 -- @param(char : Character) The characters representing the member to be removed.
 -- @ret(table) Removed member's data.
 function CallAction:removeMember(character)
-  local member = self.troop:removeMember(character.key)
+  local member = self.troop:moveMember(character.key, 1)
   TroopManager:deleteCharacter(character)
   return member
 end

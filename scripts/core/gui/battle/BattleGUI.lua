@@ -22,6 +22,11 @@ local BattleGUI = class(GUI)
 -- Initialization
 ---------------------------------------------------------------------------------------------------
 
+-- Overrides GUI:init.
+function BattleGUI:init(...)
+  self.troop = TurnManager:currentTroop()
+  GUI.init(self, ...)
+end
 -- Implements GUI:createWindows.
 function BattleGUI:createWindows()
   self.name = 'Battle GUI'

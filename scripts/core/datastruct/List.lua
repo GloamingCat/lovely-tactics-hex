@@ -82,6 +82,13 @@ function List:removeElement(element)
     return false
   end
 end
+-- Removes given element from the list.
+-- @param(arr : table) Array of elements to be removed from this list.
+function List:removeAll(arr)
+  for i, element in ipairs(arr) do
+    self:removeElement(element)
+  end
+end
 -- Removes all elements that satisfy a given condition.
 -- @param(remove : function) A function that receives an element 
 --  and returns true if it must be removed or false if not.

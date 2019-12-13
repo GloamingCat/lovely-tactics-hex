@@ -72,21 +72,19 @@ function TroopManager:createTroop(troopID, partyInfo, party)
   local troop = Troop(Database.troops[troopID], party)
   local field = FieldManager.currentField
   troop:setRotation(partyInfo.rotation)
+  troop.x = partyInfo.x
+  troop.y = partyInfo.y
   local dir = troop:getCharacterDirection()
-  self.troops[party] = troop
-  local sizeX = troop.grid.width
-  local sizeY = troop.grid.height
-  for i = 1, sizeX do
-    for j = 1, sizeY do
-      local slot = troop.grid:get(i, j)
-      if slot then
-        local tile = field:getObjectTile(i - 1 + partyInfo.x, j - 1 + partyInfo.y, partyInfo.h)
-        if tile and not tile:collides(0, 0) then
-          self:createCharacter(tile, dir, slot, party)
-        end
+  for member in troop.members:iterator() do
+    if member.list == 0 then
+      local i, j = member.x, member.y
+      local tile = field:getObjectTile(i - 1 + partyInfo.x, j - 1 + partyInfo.y, partyInfo.h)
+      if tile and not tile:collides(0, 0) then
+        self:createCharacter(tile, dir, member, party)
       end
     end
   end
+  self.troops[party] = troop
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -254,20 +252,18 @@ end
 -- Calls the onBattleStart callback on each troop member.
 function TroopManager:onBattleStart()
   for _, troop in pairs(self.troops) do
-    local members = troop:visibleMembers()
-    for i = 1, #members do
-      local char = self:getBattlerCharacter(members[i])
-      members[i]:onBattleStart(char)
+    for battler in troop:visibleBattlers():iterator() do
+      local char = self:getBattlerCharacter(battler)
+      battler:onBattleStart(char)
     end
   end
 end
 -- Calls the onBattleEnd callback on each troop member.
 function TroopManager:onBattleEnd()
   for _, troop in pairs(self.troops) do
-    local members = troop:visibleMembers()
-    for i = 1, #members do
-      local char = self:getBattlerCharacter(members[i])
-      members[i]:onBattleEnd(char)
+    for battler in troop:visibleBattlers():iterator() do
+      local char = self:getBattlerCharacter(battler)
+      battler:onBattleEnd(char)
     end
   end
 end
@@ -290,7 +286,7 @@ end
 -- Store troop data in save.
 -- @param(saveFormation : boolean) True to save modified grid formation (optional).
 function TroopManager:saveTroop(troop, saveFormation)
-  self.troopData[troop.data.id .. ''] = troop:createPersistentData(saveFormation)
+  self.troopData[troop.data.id .. ''] = troop:getState(saveFormation)
 end
 -- Store data of all current troops.
 function TroopManager:saveTroops()

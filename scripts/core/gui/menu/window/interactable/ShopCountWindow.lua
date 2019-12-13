@@ -121,11 +121,8 @@ function ShopCountWindow:updateStats(id)
   local troop = self.GUI.troop
   local owned = troop.inventory:getCount(id)
   local equipped = 0
-  for i = 1, #troop.current do
-    equipped = equipped + troop.current[i].equipSet:getCount(id)
-  end
-  for i = 1, #troop.backup do
-    equipped = equipped + troop.bakcup[i].equipSet:getCount(id)
+  for battler in troop:visibleBattlers():iterator() do
+    equipped = equipped + battler.equipSet:getCount(id)
   end
   self.owned:setText(Vocab.owned .. ': ' .. (owned + equipped))
   self.equipped:setText(Vocab.equipped .. ': ' .. equipped)

@@ -31,16 +31,18 @@ local InventoryWindow = class(ListWindow)
 -- @param(h : number) Window's height (4 / 5 of the screen by default).
 -- @param(pos : Vector) Position of the window's center (screen center by default).
 -- @param(rowCount : number) The number of visible button rows (maximum possible rows by default).
-function InventoryWindow:init(gui, user, inventory, itemList, w, h, pos, rowCount)
+function InventoryWindow:init(GUI, user, inventory, itemList, w, h, pos, rowCount)
   self.member = user
+  self.leader = GUI.troop:currentBattlers()[1]
+  assert(self.leader, 'Empty party!')
   self.inventory = inventory
-  local m = gui:windowMargin()
-  w = w or ScreenManager.width - gui:windowMargin() * 2
+  local m = GUI:windowMargin()
+  w = w or ScreenManager.width - GUI:windowMargin() * 2
   h = h or ScreenManager.height * 4 / 5 - self:paddingY() * 2 - m * 3
   self.visibleRowCount = rowCount or math.floor(h / self:cellHeight())
   local fith = self.visibleRowCount * self:cellHeight() + self:paddingY() * 2
   pos = pos or Vector(0, fith / 2 - ScreenManager.height / 2 + m / 2, 0)
-  ListWindow.init(self, gui, itemList or inventory, w, h, pos)
+  ListWindow.init(self, GUI, itemList or inventory, w, h, pos)
 end
 -- Creates a button from an item ID.
 -- @param(itemSlot : table) a slot from the inventory (with item's ID and count)
@@ -73,7 +75,7 @@ end
 -- Executes item's skill when player confirms an item.
 -- @param(button : Button)
 function InventoryWindow:onButtonConfirm(button)
-  local input = ActionInput(button.skill, self.member or self.GUI.troop.current[1])
+  local input = ActionInput(button.skill, self.member or self.leader)
   if input.action:isArea() then
     self:areaTargetItem(input)
   else
@@ -94,7 +96,7 @@ function InventoryWindow:buttonEnabled(button)
   if not self.member and (not button.item or button.item.needsUser) then
     return false
   end
-  return button.skill and button.skill:canMenuUse(self.member or self.GUI.troop.current[1])
+  return button.skill and button.skill:canMenuUse(self.member or self.leader)
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -114,7 +116,7 @@ end
 -- Use item in a all members.
 -- @param(input : ActionInput)
 function InventoryWindow:areaTargetItem(input)
-  input.targets = input.user.troop.current
+  input.targets = input.user.troop:currentBattlers()
   input.action:menuUse(input)
   self:refreshItems()
 end

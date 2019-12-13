@@ -64,8 +64,6 @@ function Battler:initProperties(data, save)
   self.charID = save.charID
   self.data = data
   self.name = save and save.name or data.name
-  self.x = save and save.x
-  self.y = save and save.y
   self.tags = Database.loadTags(data.tags)
 end
 -- Initializes battle state.
@@ -297,11 +295,11 @@ end
 -- @param(x : number) X position in the grid (optional).
 -- @param(y : number) Y position in the grid (optional). 
 -- @ret(table) Table that stores the battler's current state to be saved.
-function Battler:createPersistentData(list, x, y)
+function Battler:getState(list, x, y)
   return {
     key = self.key,
-    x = x or self.x,
-    y = y or self.y,
+    x = x,
+    y = y,
     list = list,
     name = self.name,
     charID = self.charID,
@@ -312,7 +310,8 @@ function Battler:createPersistentData(list, x, y)
     class = self.class:getState(),
     equips = self.equipSet:getState(),
     status = self.statusList:getState(),
-    skills = self.skillList:getState() }
+    skills = self.skillList:getState()
+  }
 end
 
 return Battler

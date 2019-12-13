@@ -24,25 +24,21 @@ function EventSheet:increaseMoney(args)
 end
 -- @param(args.key : string) New member's key.
 -- @param(args.x : number) Member's grid X (if nil, it's added to backup list).
--- @param(args.y : number) Member's grid Y.
+-- @param(args.y : number) Member's grid Y (if nil, it's added to backup list).
+-- @param(args.backup : number) If true, add member to the backup list.
 function EventSheet:addMember(args)
   local troop = Troop()
-  local i, list = troop:findMember(args.key)
-  assert(i, "Member '" .. tostring(args.key) .. "' not found.")
-  if list == troop.hidden then
-    local battler = Battler(troop, list[i])
-    troop.backup:add(battler)
-    list:remove(i)
-  end
-  if args.x then
-    if list ~= troop.current then
-      troop:callMember(args.key, args.x, args.y)
-    end
+  if args.backup then
+    troop:moveMember(args.key, 1)
   else
-    if list == troop.current then
-      troop:removeMember(args.key)
-    end
+    troop:moveMember(args.key, 0, args.x, args.y)
   end
+  TroopManager:saveTroop(troop, true)
+end
+-- @param(args.key : string) Member's key.
+function EventSheet:hideMember(args)
+  local troop = Troop()
+  troop:moveMember(args.key, 2)
   TroopManager:saveTroop(troop, true)
 end
 
@@ -54,12 +50,12 @@ end
 -- @param(args.onlyCurrent : boolean) True to ignore backup members (false by default).
 function EventSheet:healAll(args)
   local troop = Troop()
-  for battler in troop.current:iterator() do
+  for battler in troop:currentBattlers():iterator() do
     battler.state.hp = battler.mhp()
     battler.state.sp = battler.msp()
   end
   if not args.onlyCurrent then
-    for battler in troop.backup:iterator() do
+    for battler in troop:backupBattlers():iterator() do
       battler.state.hp = battler.mhp()
       battler.state.sp = battler.msp()
     end

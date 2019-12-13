@@ -28,23 +28,23 @@ function CallWindow:init(GUI, troop, allMembers)
 end
 -- Creates a button for each backup member.
 function CallWindow:createWidgets()
+  local current = self.troop:currentBattlers()
+  local backup = self.troop:backupBattlers()
   if self.allMembers then
-    for i = 1, #self.troop.current do
-      local member = self.troop.current[i]
-      self:createMemberButton(member)
+    for i = 1, #current do
+      self:createBattlerButton(current[i])
     end
   end
-  for i = 1, #self.troop.backup do
-    local member = self.troop.backup[i]
-    self:createMemberButton(member)
+  for i = 1, #backup do
+    self:createBattlerButton(backup[i])
   end
-  if self.allMembers and #self.troop.current > 1 then
+  if self.allMembers and #current > 1 then
     self:createNoneButton()
   end
 end
--- @param(battler : Battler) character's battler or battler base created from member
+-- @param(battler : Battler) Battler associated with this button.
 -- @ret(Button)
-function CallWindow:createMemberButton(battler)
+function CallWindow:createBattlerButton(battler)
   local button = Button(self)
   button:createText(battler.name)
   button.battler = battler

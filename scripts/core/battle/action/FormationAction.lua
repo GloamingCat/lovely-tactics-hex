@@ -64,8 +64,8 @@ end
 
 -- Overrides BattleAction:firstTarget.
 function FormationAction:firstTarget(input)
-  local member = TurnManager:currentTroop().current[1]
-  local char = FieldManager:search(member.key)
+  local leader = TurnManager:currentTroop():currentMembers()[1]
+  local char = FieldManager:search(leader.key)
   return char:getTile()
 end
 

@@ -24,17 +24,17 @@ local PartyWindow = class(ListWindow)
 -- Gets the member list from the troop.
 -- @param(troop : Troop)
 function PartyWindow:init(gui, troop)
-  local memberList = troop:visibleMembers()
+  local list = troop:visibleBattlers()
   self.troop = troop
-  ListWindow.init(self, gui, memberList)
+  ListWindow.init(self, gui, list)
 end
 -- Overrides ListWindow:createListButton.
 -- Creates a button for the given member.
--- @param(member : table)
+-- @param(battler : Battler)
 -- @ret(Button)
 function PartyWindow:createListButton(battler)
   local button = Button(self)
-  button.member = battler
+  button.battler = battler
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -50,7 +50,7 @@ function PartyWindow:refreshMembers()
       button.content:removeElement(button.memberInfo)
     end
     local w, h = self:cellWidth(), self:cellHeight()
-    button.memberInfo = MemberInfo(button.member, w - self:paddingX(), h)
+    button.memberInfo = MemberInfo(button.battler, w - self:paddingX(), h)
     button.content:add(button.memberInfo)
     button:updatePosition(self.position)
   end
