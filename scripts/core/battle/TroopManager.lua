@@ -65,7 +65,9 @@ function TroopManager:createTroops()
   self.centers = self:getPartyCenters()
 end
 -- Creates the troop's characters.
--- @param(troop : TroopManager)
+-- @param(troopID : number) Troop's ID.
+-- @param(partyInfo : table) Table with party's members.
+-- @param(party : number) Party's ID.
 function TroopManager:createTroop(troopID, partyInfo, party)
   local troop = Troop(Database.troops[troopID], party)
   local field = FieldManager.currentField
@@ -79,10 +81,8 @@ function TroopManager:createTroop(troopID, partyInfo, party)
       local slot = troop.grid:get(i, j)
       if slot then
         local tile = field:getObjectTile(i - 1 + partyInfo.x, j - 1 + partyInfo.y, partyInfo.h)
-        if tile then
-          if not tile:collides(0, 0) then
-            self:createCharacter(tile, dir, slot, party)
-          end
+        if tile and not tile:collides(0, 0) then
+          self:createCharacter(tile, dir, slot, party)
         end
       end
     end

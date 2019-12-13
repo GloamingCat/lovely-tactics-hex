@@ -292,13 +292,17 @@ end
 function Battler:__tostring()
   return 'Battler ' .. self.data.id .. ': ' .. self.key .. ' (' .. self.name .. ')' 
 end
+-- Creates the save table. It also works as an extended troop unit data table.
+-- @param(list : number) List type. 0 is current, 1 is backup, 2 is hidden.
+-- @param(x : number) X position in the grid (optional).
+-- @param(y : number) Y position in the grid (optional). 
 -- @ret(table) Table that stores the battler's current state to be saved.
-function Battler:createPersistentData(backup, x, y)
+function Battler:createPersistentData(list, x, y)
   return {
     key = self.key,
     x = x or self.x,
     y = y or self.y,
-    backup = backup,
+    list = list,
     name = self.name,
     charID = self.charID,
     battlerID = self.data.id,

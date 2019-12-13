@@ -50,7 +50,25 @@
               "state": 0
             }
           ],
-          "backup": false
+          "list": 0
+        },
+        {
+          "key": "BlimBlim",
+          "charID": 2,
+          "battlerID": -1,
+          "x": 1,
+          "y": 2,
+          "equip": [],
+          "list": 2
+        },
+        {
+          "key": "PomPom",
+          "charID": 3,
+          "battlerID": -1,
+          "x": 5,
+          "y": 2,
+          "equip": [],
+          "list": 2
         }
       ],
       "name": "Player Party",
@@ -73,7 +91,7 @@
           "x": 3,
           "y": 2,
           "equip": [],
-          "backup": false
+          "list": 0
         }
       ],
       "name": "Jelly Party 1",
@@ -96,7 +114,7 @@
           "x": 2,
           "y": 2,
           "equip": [],
-          "backup": false
+          "list": 0
         },
         {
           "key": "e2",
@@ -105,7 +123,7 @@
           "x": 4,
           "y": 2,
           "equip": [],
-          "backup": false
+          "list": 0
         }
       ],
       "name": "Jelly Party 2",
@@ -128,7 +146,7 @@
           "x": 2,
           "y": 2,
           "equip": [],
-          "backup": false
+          "list": 0
         },
         {
           "key": "e2",
@@ -137,7 +155,7 @@
           "x": 4,
           "y": 2,
           "equip": [],
-          "backup": false
+          "list": 0
         }
       ],
       "name": "Jelly Party 3",
@@ -160,7 +178,7 @@
           "x": 3,
           "y": 3,
           "equip": [],
-          "backup": false
+          "list": 0
         },
         {
           "key": "e2",
@@ -169,7 +187,7 @@
           "x": 4,
           "y": 2,
           "equip": [],
-          "backup": false
+          "list": 0
         },
         {
           "key": "e3",
@@ -178,7 +196,7 @@
           "x": 2,
           "y": 1,
           "equip": [],
-          "backup": false
+          "list": 0
         }
       ],
       "name": "Jelly Party 4",
@@ -201,7 +219,7 @@
           "x": 3,
           "y": 3,
           "equip": [],
-          "backup": false
+          "list": 0
         },
         {
           "key": "e2",
@@ -210,7 +228,7 @@
           "x": 4,
           "y": 2,
           "equip": [],
-          "backup": false
+          "list": 0
         },
         {
           "key": "e3",
@@ -219,7 +237,7 @@
           "x": 2,
           "y": 1,
           "equip": [],
-          "backup": false
+          "list": 0
         }
       ],
       "name": "Jelly Party 5",
@@ -236,31 +254,31 @@
       "items": [],
       "members": [
         {
-          "key": "e1",
+          "key": "Boss",
           "charID": 4,
-          "battlerID": 10,
+          "battlerID": -1,
           "x": 3,
           "y": 1,
           "equip": [],
-          "backup": false
+          "list": 0
         },
         {
-          "key": "e2",
+          "key": "e1",
           "charID": 6,
           "battlerID": -1,
           "x": 2,
           "y": 2,
           "equip": [],
-          "backup": false
+          "list": 1
         },
         {
-          "key": "e3",
+          "key": "e2",
           "charID": 6,
           "battlerID": -1,
           "x": 4,
           "y": 2,
           "equip": [],
-          "backup": false
+          "list": 1
         }
       ],
       "name": "Jelly Boss Party 1",

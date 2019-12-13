@@ -42,12 +42,12 @@ function Troop:init(data, party)
   self.money = save.money
   -- Members
   self.battlers = {}
-  self:initBattlerLists(save.members)
   if save.hidden then
     self.hidden = List(save.hidden)
   else
     self.hidden = List()
   end
+  self:initBattlerLists(save.members)
   -- Grid
   self.grid = Matrix2(sizeX, sizeY)
   for i = 1, #self.current do
@@ -68,10 +68,12 @@ function Troop:initBattlerLists(members)
   self.backup = List()
   for i = 1, #members do
     local battler = Battler(self, members[i])
-    if members[i].backup then
-      self.backup:add(battler)
-    else
+    if members[i].list == 0 then
       self.current:add(battler)
+    elseif members[i].list == 1 then
+      self.backup:add(battler)
+    elseif members[i].list == 2 then
+      self.hidden:add(battler)
     end
     self.battlers[members[i].key] = battler
   end
@@ -131,8 +133,8 @@ function Troop:rotate()
   local grid = Matrix2(sizeY, sizeX)
   for i = 1, sizeX do
     for j = 1, sizeY do
-      local battler = self.grid:get(i, j)
-      grid:set(battler, sizeY - j + 1, i)
+      local member = self.grid:get(i, j)
+      grid:set(member, sizeY - j + 1, i)
     end
   end
   self.grid = grid
@@ -150,23 +152,28 @@ end
 
 -- Adds a character to the field that represents the member with the given key.
 -- @param(key : string) Member's key.
--- @param(tile : ObjectTile) The tile the character will be put in.
--- @ret(Character) The newly created character for the member.
-function Troop:callMember(key, tile)
+-- @param(x : number) Grid-x position of the member.
+-- @param(y : number) Grid-y position of the member.
+-- @ret(Battle) The called member.
+function Troop:callMember(key, x, y)
   local i = self:findMember(key, self.backup)
-  assert(i, 'Could not call member ' .. key .. ': not in backup list.')
-  local member = self.backup:remove(i)
-  self.current:add(member)
-  return member
+  assert(i, 'Could not call member ' .. key .. ": not in 'backup' list.")
+  local battler = self.backup:remove(i)
+  self.current:add(battler)
+  self.grid:set(battler, x, y)
+  return battler
 end
 -- Removes a member.
 -- @param(key : string) Member's key.
+-- @ret(Battler) Removed member.
 function Troop:removeMember(key)
   local i = self:findMember(key, self.current)
-  assert(i, 'Could not remove member ' .. key .. ': not in current list.')
-  local member = self.current:remove(i)
-  self.backup:add(member)
-  return member
+  assert(i, 'Could not remove member ' .. key .. ": not in 'current' list.")
+  local battler = self.current:remove(i)
+  self.backup:add(battler)
+  local x, y = self.grid:positionOf(battler)
+  self.grid:set(nil, x, y)
+  return battler
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -192,12 +199,12 @@ function Troop:createPersistentData(saveFormation)
     local members = {}
     for i = 1, #self.current do
       local member = self.current[i]
-      members[i] = self.battlers[member.key]:createPersistentData()
+      members[i] = self.battlers[member.key]:createPersistentData(0, member.x, member.y)
     end
     local n = #members
     for i = 1, #self.backup do
       local member = self.backup[i]
-      members[i + n] = self.battlers[member.key]:createPersistentData(true)
+      members[i + n] = self.battlers[member.key]:createPersistentData(1)
     end
     data.members = members
     data.hidden = copyArray(self.hidden)
@@ -205,7 +212,7 @@ function Troop:createPersistentData(saveFormation)
     local members = {}
     for i = 1, #self.save.members do
       local member = self.save.members[i]
-      members[i] = self.battlers[member.key]:createPersistentData(member.backup, member.x, member.y)
+      members[i] = self.battlers[member.key]:createPersistentData(member.list, member.x, member.y)
     end
     data.members = members
     if self.save.hidden then
