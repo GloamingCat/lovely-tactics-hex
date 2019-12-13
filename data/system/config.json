@@ -87,6 +87,14 @@
     {
       "name": "arrow",
       "id": 28
+    },
+    {
+      "name": "balloon",
+      "id": 25
+    },
+    {
+      "name": "emotions",
+      "id": 191
     }
   ],
   "icons": [

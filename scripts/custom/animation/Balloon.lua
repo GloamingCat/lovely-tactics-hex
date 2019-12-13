@@ -3,7 +3,8 @@
 
 Balloon
 ---------------------------------------------------------------------------------------------------
-An animation that plays until the end, waits a little to show whatever, 
+An animation that plays until the end, waits a little to show an inside enimation, then loops 
+backwards.
 
 =================================================================================================]]
 
@@ -25,7 +26,7 @@ function Balloon:init(...)
   Animation.init(self, ...)
   self.waitTime = 30
   self.balloonDuration = self.duration
-  self.duration = self.balloonDuration * 2
+  self.duration = 0
   self.state = 0
   self.direction = 1
   self.iconAnim = nil
@@ -107,9 +108,16 @@ end
 -- Sets the icon animation.
 -- @param(anim : Animation)
 function Balloon:setIcon(anim)
-  self.duration = self.balloonDuration * 2 + anim.duration
-  self.iconAnim = anim
-  anim.paused = false
+  if anim then
+    self.duration = self.balloonDuration * 2 + anim.duration
+    self.iconAnim = anim
+    self.paused = false
+    anim.paused = false
+  else
+    self.duration = 0
+    self.iconAnim = nil
+    self.paused = true
+  end
 end
 -- Updates position to follow character's.
 -- @param(Character)
@@ -135,10 +143,24 @@ function Balloon:onEnd()
   end
   self.time = 0
 end
+-- Clears icon and hides.
+function Balloon:finish()
+  if self.iconAnim then
+    self.iconAnim:destroy()
+    self.iconAnim = nil
+  end
+  self:reset()
+  self:hide()
+  self.direction = 1
+  self.paused = true
+  self.state = 0
+end
 -- Destroys the icon.
 function Balloon:destroy()
   Animation.destroy(self)
-  self.iconAnim:destroy()
+  if self.iconAnim then
+    self.iconAnim:destroy()
+  end
 end
 
 return Balloon

@@ -111,6 +111,82 @@
         },
         "id": 106,
         "children": []
+      },
+      {
+        "data": {
+          "script": "animation/Balloon",
+          "quad": {
+            "path": "Character/balloon.png",
+            "x": 0,
+            "y": 0,
+            "width": 96,
+            "height": 32
+          },
+          "rows": 1,
+          "cols": 3,
+          "transform": {
+            "offsetX": 16,
+            "offsetY": 32,
+            "offsetDepth": 0,
+            "scaleX": 100,
+            "scaleY": 100,
+            "rotation": 0,
+            "red": 255,
+            "green": 255,
+            "blue": 255,
+            "alpha": 255,
+            "hue": 0,
+            "saturation": 100,
+            "brightness": 100
+          },
+          "introPattern": "",
+          "introDuration": "",
+          "loopPattern": "",
+          "loopDuration": "12",
+          "audio": [],
+          "name": "Balloon",
+          "tags": []
+        },
+        "id": 25,
+        "children": []
+      },
+      {
+        "data": {
+          "script": "",
+          "quad": {
+            "path": "Character/emotions.png",
+            "x": 0,
+            "y": 0,
+            "width": 80,
+            "height": 120
+          },
+          "rows": 6,
+          "cols": 4,
+          "transform": {
+            "offsetX": 10,
+            "offsetY": 10,
+            "offsetDepth": 0,
+            "scaleX": 100,
+            "scaleY": 100,
+            "rotation": 0,
+            "red": 255,
+            "green": 255,
+            "blue": 255,
+            "alpha": 255,
+            "hue": 0,
+            "saturation": 100,
+            "brightness": 100
+          },
+          "introPattern": "0 1 2 3 3 3",
+          "introDuration": "40",
+          "loopPattern": "",
+          "loopDuration": "",
+          "audio": [],
+          "name": "Emotions",
+          "tags": []
+        },
+        "id": 191,
+        "children": []
       }
     ]
   },
@@ -1400,44 +1476,6 @@
           "tags": []
         },
         "id": 24,
-        "children": []
-      },
-      {
-        "data": {
-          "script": "animation/Balloon",
-          "quad": {
-            "path": "GUI/balloon.png",
-            "x": 0,
-            "y": 0,
-            "width": 96,
-            "height": 32
-          },
-          "rows": 1,
-          "cols": 3,
-          "transform": {
-            "offsetX": 16,
-            "offsetY": 32,
-            "offsetDepth": 0,
-            "scaleX": 100,
-            "scaleY": 100,
-            "rotation": 0,
-            "red": 255,
-            "green": 255,
-            "blue": 255,
-            "alpha": 255,
-            "hue": 0,
-            "saturation": 100,
-            "brightness": 100
-          },
-          "introPattern": "",
-          "introDuration": "",
-          "loopPattern": "",
-          "loopDuration": "12",
-          "audio": [],
-          "name": "Balloon",
-          "tags": []
-        },
-        "id": 25,
         "children": []
       },
       {

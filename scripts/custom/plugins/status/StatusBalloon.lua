@@ -3,10 +3,11 @@
 
 StatusBalloon
 ---------------------------------------------------------------------------------------------------
-The balloon animation to show a battler's status.
+The balloon animation to show a battler's status. The "balloon" animation must be set in the 
+project's config.
 
--- Plugin parameters
-The balloon animation's ID is defined by <balloonID>.
+-- Requires: 
+EmotionBallon
 
 =================================================================================================]]
 
@@ -14,7 +15,6 @@ The balloon animation's ID is defined by <balloonID>.
 local Animation = require('core/graphics/Animation')
 local Balloon = require('custom/animation/Balloon')
 local BattleCursor = require('core/battle/BattleCursor')
-local CharacterBase = require('core/objects/CharacterBase')
 local List = require('core/datastruct/List')
 local Sprite = require('core/graphics/Sprite')
 local StatusList = require('core/battle/battler/StatusList')
@@ -22,9 +22,6 @@ local TroopManager = require('core/battle/TroopManager')
 
 -- Alias
 local Image = love.graphics.newImage
-
--- Parameters
-local balloonID = tonumber(args.balloonID)
 
 ---------------------------------------------------------------------------------------------------
 -- Initialization
@@ -59,7 +56,7 @@ end
 local Balloon_onEnd = Balloon.onEnd
 function Balloon:onEnd()
   Balloon_onEnd(self)
-  if self.state == 1 then -- Show next icon
+  if self.state == 1 and #self.status > 0 then -- Show next icon
     self:nextIcon()
   end
 end
@@ -94,6 +91,19 @@ function Balloon:setIcons(icons)
     self:hide()
   end
 end
+-- Override. Sets correct state when a single icon is set (for emotion balloons).
+local Balloon_setIcon = Balloon.setIcon
+function Balloon:setIcon(anim)
+  Balloon_setIcon(self, anim)
+  if anim then
+    self.state = 0
+    self:show()
+  else
+    self.state = 4
+    self:reset()
+    self:hide()
+  end
+end
 
 ---------------------------------------------------------------------------------------------------
 -- StatusList
@@ -110,35 +120,6 @@ function StatusList:updateGraphics(character)
 end
 
 ---------------------------------------------------------------------------------------------------
--- CharacterBase
----------------------------------------------------------------------------------------------------
-
--- Override. Updates balloon position when character moves.
-local CharacterBase_setXYZ = CharacterBase.setXYZ
-function CharacterBase:setXYZ(x, y, z)
-  CharacterBase_setXYZ(self, x, y, z)
-  if self.balloon then
-    self.balloon:updatePosition(self)
-  end
-end
--- Override. Updates balloon animation.
-local CharacterBase_update = CharacterBase.update
-function CharacterBase:update()
-  CharacterBase_update(self)
-  if not self.paused and self.balloon then
-    self.balloon:update()
-  end
-end
--- Override. Destroys balloon with characters is destroyed.
-local CharacterBase_destroy = CharacterBase.destroy
-function CharacterBase:destroy(...)
-  CharacterBase_destroy(self, ...)
-  if self.balloon then
-    self.balloon:destroy()
-  end
-end
-
----------------------------------------------------------------------------------------------------
 -- TroopManager
 ---------------------------------------------------------------------------------------------------
 
@@ -147,9 +128,14 @@ local TroopManager_createBattler = TroopManager.createBattler
 function TroopManager:createBattler(character)
   TroopManager_createBattler(self, character)
   if character.battler then
-    character.balloon = ResourceManager:loadAnimation(balloonID, FieldManager.renderer)
-    character.balloon.sprite:setTransformation(character.balloon.data.transform)
+    if not character.balloon then
+      local balloonID = Config.animations.balloon
+      character.balloon = ResourceManager:loadAnimation(balloonID, FieldManager.renderer)
+      character.balloon.sprite:setTransformation(character.balloon.data.transform)
+    end
     local icons = character.battler.statusList:getIcons()
+    assert(character.balloon.setIcons, "Character's balloon is not a Balloon animation: "
+      .. tostring(character.balloon))
     character.balloon:setIcons(icons)
     character:setPosition(character.position)
   end

@@ -30,6 +30,11 @@
   },
   {
     "on": true,
+    "name": "plugins/EmotionBalloon.lua",
+    "tags": []
+  },
+  {
+    "on": true,
     "name": "plugins/DialoguePortrait.lua",
     "tags": [
       {
@@ -120,12 +125,7 @@
   {
     "on": true,
     "name": "plugins/status/StatusBalloon.lua",
-    "tags": [
-      {
-        "key": "balloonID",
-        "value": "25"
-      }
-    ]
+    "tags": []
   },
   {
     "on": true,
