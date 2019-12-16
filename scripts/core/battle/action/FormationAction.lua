@@ -22,7 +22,7 @@ function FormationAction:onConfirm(input)
   self.troop = TroopManager.troops[(input.party or TurnManager.party)]
   local result = GUIManager:showGUIForResult(CallGUI(input.GUI, self.troop, input.user == nil))
   if result ~= 0 then
-    local char = input.target.characterList[1]
+    local char = input.target:getFirstBattleCharacter()
     if result == '' then
       if char then
         self:removeMember(char)

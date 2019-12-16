@@ -248,7 +248,7 @@
   },
   {
     "data": {
-      "ai": "",
+      "ai": "troop/DefaultAI.lua",
       "persistent": false,
       "money": 100,
       "items": [],

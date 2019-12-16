@@ -21,7 +21,7 @@ local TileGUI = require('core/field/TileGUI')
 
 -- Constants
 local defaultParams = {
-  fade = 5,
+  fade = 60,
   intro = false,
   gameOverCondition = 0, 
   escapeEnabled = true }
@@ -66,9 +66,7 @@ function BattleManager:runBattle()
   self.result = nil
   self.winner = nil
   self:battleStart()
-  self.party = TroopManager.playerParty
   GUIManager:showGUIForResult(IntroGUI(nil))
-  self.party = TroopManager.playerParty - 1
   TroopManager:onBattleStart()
   repeat
     self.result, self.winner = TurnManager:runTurn()
@@ -84,6 +82,13 @@ function BattleManager:battleStart()
   end
   if self.params.intro then
     self:battleIntro()
+  end
+  local script = FieldManager.currentField.loadScript
+  if script and script.name ~= '' and script.onLoad then
+    local fiber = FieldManager.fiberList:forkFromScript(script)
+    if script.wait then
+      fiber:execAll()
+    end
   end
 end
 -- Player intro animation, to show each party.
@@ -110,7 +115,7 @@ function BattleManager:battleEnd()
     result = GUIManager:showGUIForResult(GameOverGUI(nil))
   end
   if self.params.fade then
-    FieldManager.renderer:fadeout(self.params.fade / 4, true)
+    FieldManager.renderer:fadeout(self.params.fade, true)
   end
   TroopManager:onBattleEnd()
   TroopManager:saveTroops()

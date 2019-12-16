@@ -34,7 +34,6 @@ function Balloon:init(...)
   self.state = 4
   self.statusIndex = 0
   self.status = {}
-  self:initIcon()
   self.sprite:setCenterOffset()
   self:hide()
 end
@@ -126,13 +125,18 @@ end
 -- Override. Creates a balloon for each battle character.
 local TroopManager_createBattler = TroopManager.createBattler
 function TroopManager:createBattler(character)
-  TroopManager_createBattler(self, character)
-  if character.battler then
+  if character.party >= 0 then
     if not character.balloon then
       local balloonID = Config.animations.balloon
       character.balloon = ResourceManager:loadAnimation(balloonID, FieldManager.renderer)
       character.balloon.sprite:setTransformation(character.balloon.data.transform)
     end
+    if not character.balloon.iconAnim then
+        character.balloon:initIcon()
+    end
+  end
+  TroopManager_createBattler(self, character)
+  if character.battler then
     local icons = character.battler.statusList:getIcons()
     assert(character.balloon.setIcons, "Character's balloon is not a Balloon animation: "
       .. tostring(character.balloon))

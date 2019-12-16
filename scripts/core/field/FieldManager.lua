@@ -207,13 +207,6 @@ function FieldManager:loadBattle(fieldID, params)
   FieldLoader.setPartyTiles(self.currentField)
   self.player = nil
   BattleManager:setUp(params)
-  local script = self.currentField.loadScript
-  if script and script.name ~= '' and script.onLoad then
-    local fiber = self.fiberList:forkFromScript(script)
-    if script.wait then
-      fiber:execAll()
-    end
-  end
   collectgarbage('collect')
   local result = BattleManager:runBattle()
   BattleManager:clear()

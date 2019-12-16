@@ -13,39 +13,6 @@ local deltaTime = love.timer.getDelta
 local EventSheet = {}
 
 ---------------------------------------------------------------------------------------------------
--- Fading Effect
----------------------------------------------------------------------------------------------------
-
--- General parameters:
--- @param(args.time : number) The duration of the fading in frames. Instantaneous if 0.
--- @param(args.wait : boolean) True to wait until the fading finishes.
-
--- Fades out the screen.
--- @param(args.renderer : Renderer) Camera to fade out. Field by default.
-function EventSheet:fadeout(args)
-  local renderer = args.renderer or FieldManager.renderer
-  local speed = args.time and (60 / args.time) or 0
-  renderer:fadeout(speed)
-  if args.wait then
-    _G.Fiber:waitUntil(function()
-      return not renderer:colorizing()
-    end)
-  end
-end
--- Fades in the screen.
--- @param(args.renderer : Renderer) Camera to fade in. Field by default.
-function EventSheet:fadein(args)
-  local renderer = args.renderer or FieldManager.renderer
-  local speed = args.time and (60 / args.time) or 0
-  renderer:fadein(speed)
-  if args.wait then
-    _G.Fiber:waitUntil(function()
-      return not renderer:colorizing()
-    end)
-  end
-end
-
----------------------------------------------------------------------------------------------------
 -- Shader Effect
 ---------------------------------------------------------------------------------------------------
 
@@ -76,4 +43,30 @@ function EventSheet:shaderout(args)
   ScreenManager.shader = nil
 end
 
-return Event
+---------------------------------------------------------------------------------------------------
+-- Camera
+---------------------------------------------------------------------------------------------------
+
+-- Makes camera start following given character.
+-- @param(args.key : string) Character's key.
+-- @param(args.speed : number) Camera movement speed (optional).
+-- @param(args.wait : bool) Wait until movement is complete (optional).
+function EventSheet:focusCharacter(args)
+  local character = self:findCharacter(args.key)
+  FieldManager.renderer.focusObject = nil
+  FieldManager.renderer:moveToObject(character, args.speed, args.wait)
+  FieldManager.renderer.focusObject = character
+end
+-- Makes focus on given tile.
+-- @param(args.x : number) Tile grid x.
+-- @param(args.y : number) Tile grid y.
+-- @param(args.h : number) Tile's height (optional).
+-- @param(args.speed : number) Camera movement speed (optional).
+-- @param(args.wait : bool) Wait until movement is complete (optional).
+function EventSheet:focusTile(args)
+  local tile = FieldManager.currentField:getObjectTile(args.x, args.y, args.h or 1)
+  FieldManager.renderer.focusObject = nil
+  FieldManager.renderer:moveToTile(tile, args.speed, args.wait)
+end
+
+return EventSheet

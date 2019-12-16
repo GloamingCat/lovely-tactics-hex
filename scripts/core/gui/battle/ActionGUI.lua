@@ -105,8 +105,8 @@ function ActionGUI:selectTarget(target)
   self.input.target = target
   self.input.action:onSelectTarget(self.input)
   if self.targetWindow then
-    if target.characterList.size > 0 then
-      local char = target.characterList[1]
+    local char = target:getFirstBattleCharacter()
+    if char then
       GUIManager.fiberList:fork(self.updateTargetWindow, self, char)
     else
       GUIManager.fiberList:fork(self.targetWindow.hide, self.targetWindow)

@@ -29,7 +29,7 @@ end
 
 -- Overrides BattleAction:execute.
 function VisualizeAction:execute(input)
-  local character = input.target.characterList[1]
+  local character = input.target:getFirstBattleCharacter()
   GUIManager:showGUIForResult(VisualizeGUI(input.GUI, character))
   if input.GUI then
     input.GUI:startGridSelecting(input.target)
@@ -57,7 +57,7 @@ end
 
 -- Overrides BattleAction:isSelectable.
 function VisualizeAction:isSelectable(input, tile)
-  return not tile.characterList:isEmpty()
+  return tile:getFirstBattleCharacter() ~= nil
 end
 
 return VisualizeAction

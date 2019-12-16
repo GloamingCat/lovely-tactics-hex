@@ -140,16 +140,24 @@ end
 ---------------------------------------------------------------------------------------------------
 
 -- Fades the screen out (changes color multiplier to black). 
--- @param(speed : number) The speed of the fading (optional, uses default speed).
--- @param(wait : boolean) flag to wait until the fading finishes (optional, false by default)
-function FieldCamera:fadeout(speed, wait)
-  self:colorizeTo(0, 0, 0, 0, speed or self.fadeSpeed, wait)
+-- @param(time : number) The duration of the fading in frames.
+-- @param(wait : boolean) Flag to wait until the fading finishes (optional, false by default).
+function FieldCamera:fadeout(time, wait)
+  local speed = self.fadeSpeed
+  if time then
+    speed = (time > 0) and (60 / time) or nil
+  end
+  self:colorizeTo(0, 0, 0, 0, speed, wait)
 end
 -- Fades the screen in (changes color multiplier to white). 
--- @param(speed : number) the speed of the fading (optional, uses default speed)
--- @param(wait : boolean) flag to wait until the fading finishes (optional, false by default)
-function FieldCamera:fadein(speed, wait)
-  self:colorizeTo(1, 1, 1, 1, speed or self.fadeSpeed, wait)
+-- @param(time : number) The duration of the fading in frames.
+-- @param(wait : boolean) Flag to wait until the fading finishes (optional, false by default).
+function FieldCamera:fadein(time, wait)
+  local speed = self.fadeSpeed
+  if time then
+    speed = (time > 0) and (60 / time) or nil
+  end
+  self:colorizeTo(1, 1, 1, 1, speed, wait)
 end
 
 return FieldCamera

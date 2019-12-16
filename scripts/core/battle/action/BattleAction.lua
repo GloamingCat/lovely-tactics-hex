@@ -183,6 +183,9 @@ end
 -- @param(char : Character) The character to check.
 -- @ret(boolean) True if selectable, false otherwise.
 function BattleAction:isCharacterSelectable(input, char)
+  if not char.battler then
+    return false
+  end
   local alive = char.battler:isAlive()
   local ally = input.user.party == char.party
   return (alive == self.living or (not alive) == self.dead) and 

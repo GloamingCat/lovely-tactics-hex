@@ -18,8 +18,8 @@ local EventSheet = {}
 ---------------------------------------------------------------------------------------------------
 
 -- General parameters:
--- @param(args.fade : boolean) Fade time (optional, no fading by default);
--- @param(args.fieldID : number) Field to loaded's ID;
+-- @param(args.fade : number) Duration of the fading in frames.
+-- @param(args.fieldID : number) Field to loaded's ID.
 
 -- Teleports player to other field.
 -- @param(args.x : number) Player's destination x.
@@ -27,8 +27,7 @@ local EventSheet = {}
 -- @param(args.h : number) Player's destination height.
 -- @param(args.direction : number) Player's destination direction (in degrees).
 function EventSheet:moveToField(args)
-  local fade = args.fade and {time = args.fade, wait = true}
-  if fade then
+  if args.fade then
     if self.tile and self.tile ~= self.player:getTile() then
       self.root:fork(function()
         -- Character
@@ -38,12 +37,12 @@ function EventSheet:moveToField(args)
         self.player:walkToTile(self.tile:coordinates())
       end)
     end
-    self:fadeout(fade)
+    FieldManager.renderer:fadeout(args.fade, true)
   end
   FieldManager:loadTransition(args)
-  if fade then
+  if args.fade then
     FieldManager.renderer:fadeout(0)
-    self:fadein(fade)
+    FieldManager.renderer:fadein(args.fade)
   end
 end
 -- Loads battle field.
@@ -58,24 +57,22 @@ function EventSheet:startBattle(args)
     if Sounds.battleIntro then
       AudioManager:playSFX(Sounds.battleIntro)
     end
-    local shaderArgs = {name = 'BattleIntro'}
     if args.fade then
-      local shader = ScreenManager.shader
-      self:shaderin(shaderArgs)
-      if AudioManager.battleTheme then
-        AudioManager:playBGM(AudioManager.battleTheme)
-      end
-      ScreenManager.shader = shader
+      FieldManager.renderer:fadeout(args.fade, true)
+    end
+    if AudioManager.battleTheme then
+      AudioManager:playBGM(AudioManager.battleTheme)
     end
     local result = FieldManager:loadBattle(args.fieldID, args)
     if result == 2 then -- Retry
       goto retry
     elseif result == 3 then -- Title Screen
       GameManager:restart()
-    elseif bgm then
-      AudioManager:playBGM(bgm)
+    else
+      if bgm then
+        AudioManager:playBGM(bgm)
+      end
       if args.fade then
-        FieldManager.renderer:fadeout(0)
         FieldManager.renderer:fadein(args.fade, true)
       end
     end

@@ -44,13 +44,13 @@ end
 --  character in the current field.
 
 -- Moves straight to the given tile.
--- @param(args.x : number) Tile x difference.
--- @param(args.y : number) Tile y difference.
+-- @param(args.x : number) Tile x difference (0 by default).
+-- @param(args.y : number) Tile y difference (0 by default).
 -- @param(args.h : number) Tile height difference (0 by default).
 function EventSheet:moveCharTile(args)
   local char = self:findCharacter(args.key)
   char:removeFromTiles()
-  char:walkTiles(args.x, args.y, args.h)
+  char:walkTiles(args.x or 0, args.y or 0, args.h or 0)
   char:addToTiles()
 end
 -- Moves in the given direction.

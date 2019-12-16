@@ -83,6 +83,9 @@ function CharacterBase:initGraphics(instData, animations, portraits, transform, 
   local animName = save and save.animName or instData.animation
   local direction = save and save.direction or instData.direction
   WalkingObject.initGraphics(self, direction, animations, animName, transform, true)
+  if instData.visible == false then
+    self:setVisible(false)
+  end
 end
 
 ---------------------------------------------------------------------------------------------------

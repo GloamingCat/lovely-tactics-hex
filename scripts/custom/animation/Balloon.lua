@@ -125,7 +125,9 @@ function Balloon:updatePosition(char)
   local p = char.position
   local h = char:getPixelHeight()
   self.sprite:setXYZ(p.x, p.y - h, p.z)
-  self.iconAnim.sprite:setXYZ(p.x, p.y - h - self.height / 2, p.z)
+  if self.iconAnim then
+    self.iconAnim.sprite:setXYZ(p.x, p.y - h - self.height / 2, p.z)
+  end
 end
 -- Overrides Animation:onEnd.
 -- Sets state and the sprite animation ends.

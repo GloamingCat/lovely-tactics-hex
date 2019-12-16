@@ -127,20 +127,18 @@ function ObjectTile:collidesObstacle(dx, dy, object)
   return false
 end
 -- Checks if this tile is passable from the given tile.
--- @param(x : number) the x in tiles
--- @param(y : number) the y in tiles
--- @param(obj : Object) the object that is trying to access this tile (optional)
--- @ret(boolean) true if collides, false otherwise
+-- @param(x : number) The x in tiles.
+-- @param(y : number) The y in tiles.
+-- @param(obj : Object) The object that is trying to access this tile (optional).
+-- @ret(boolean) True if collides, false otherwise.
 function ObjectTile:collidesObstacleFrom(obj, x, y, h)
   return self:collidesObstacle(self.x - x, self.y - y, obj)
 end
 -- Checks collision with characters.
--- @param(char : Character) the character to check collision with (optional)
--- @ret(boolean) true if collides with any of the characters, false otherwise
+-- @param(char : Character) The character to check collision with (optional).
+-- @ret(boolean) True if collides with any of the characters, false otherwise.
 function ObjectTile:collidesCharacter(char)
-  if not char then
-    return not self.characterList:isEmpty()
-  elseif char.battler then
+  if char and char.battler then
     -- Battle characters.
     local party = char.party
     for other in self.characterList:iterator() do
@@ -215,6 +213,15 @@ function ObjectTile:hasAlly(yourParty)
   for c in self.characterList:iterator() do
     if c.party == yourParty then
       return true
+    end
+  end
+end
+-- Gets the first character in the list that contains battler info.
+-- @ret(Character) First battle character or nil if there is no battle character.
+function ObjectTile:getFirstBattleCharacter()
+  for c in self.characterList:iterator() do
+    if c.battler then
+      return c
     end
   end
 end

@@ -4,6 +4,8 @@
 TroopManager
 ---------------------------------------------------------------------------------------------------
 Creates and manages battle troops.
+Parties are troop slots in the field, and they are identified by a number from 0 to the total
+number of parties minus 1. A troop contains member information and can be instantied in any party.
 
 =================================================================================================]]
 
@@ -44,19 +46,20 @@ function TroopManager:createTroops()
   -- Player's party ID
   local playerID = FieldManager.currentField.playerParty
   if playerID == -1 then
-    playerID = rand(#parties)
+    playerID = rand(0, #parties - 1)
   else
-    playerID = playerID + 1
+    playerID = playerID
   end
   self.playerParty = playerID
-  self.partyCount = #parties
   -- Create parties
-  for i = 1, self.partyCount do
-    if i == playerID then
-      self:createTroop(TroopManager.playerTroopID, parties[i], i)
-    elseif #parties[i].troops > 0 then
-      local r = rand(#parties[i].troops)
-      self:createTroop(parties[i].troops[r], parties[i], i)
+  self.partyCount = #parties
+  for i, partyInfo in ipairs(parties) do
+    local id = i - 1
+    if id == playerID then
+      self:createTroop(TroopManager.playerTroopID, partyInfo, id)
+    elseif #partyInfo.troops > 0 then
+      local r = rand(#partyInfo.troops)
+      self:createTroop(partyInfo.troops[r], partyInfo, id)
     end
   end
   for char in FieldManager.characterList:iterator() do
@@ -74,6 +77,10 @@ function TroopManager:createTroop(troopID, partyInfo, party)
   troop:setRotation(partyInfo.rotation)
   troop.x = partyInfo.x
   troop.y = partyInfo.y
+  self.troops[party] = troop
+  if partyInfo.memberGen == 0 then
+    return
+  end
   local dir = troop:getCharacterDirection()
   for member in troop.members:iterator() do
     if member.list == 0 then
@@ -84,7 +91,6 @@ function TroopManager:createTroop(troopID, partyInfo, party)
       end
     end
   end
-  self.troops[party] = troop
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -95,14 +101,18 @@ end
 -- @param(character : Character) Battler's character.
 -- @param(partyID : number) Battler's party.
 function TroopManager:createBattler(character)
-  if character.battlerID >= 0 and character.party >= 0 then
-    local troop = self.troops[character.party]
-    character.battler = troop.battlers[character.key]
-    self.characterList:add(character)
-    character.battler.statusList:updateGraphics(character)
-    if not character.battler:isAlive() then
-      character:playAnimation(character.koAnim)
-    end
+  if character.party < 0 then
+    return
+  end
+  local troop = self.troops[character.party]
+  assert(troop, 'Party not set: ' .. tostring(character.party))
+  character.battler = troop.battlers[character.key]
+  assert(character.battler, 'Member ' .. tostring(character.key) .. 
+    ' not in troop ' .. troop.data.id)
+  self.characterList:add(character)
+  character.battler.statusList:updateGraphics(character)
+  if not character.battler:isAlive() then
+    character:playAnimation(character.koAnim)
   end
 end
 -- Creates a new battle character.
@@ -235,12 +245,9 @@ function TroopManager:getPartyCenters()
         count = 1 }
     end
   end
-  for i = 1, #centers do
-    local c = centers[i]
-    if c then
-      c.vector:mul(1 / c.count)
-      centers[i] = c.vector
-    end
+  for p, c in pairs(centers) do
+    c.vector:mul(1 / c.count)
+    centers[p] = c.vector
   end
   return centers
 end

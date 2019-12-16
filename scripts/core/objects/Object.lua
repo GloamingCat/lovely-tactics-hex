@@ -23,7 +23,7 @@ local pph = Config.grid.pixelsPerHeight
 local Object = class(Transformable)
 
 ---------------------------------------------------------------------------------------------------
--- General
+-- Initialization
 ---------------------------------------------------------------------------------------------------
 
 -- Constructor.
@@ -36,6 +36,11 @@ function Object:init(data, pos)
     self.tags = Database.loadTags(data.tags)
   end
 end
+
+---------------------------------------------------------------------------------------------------
+-- General
+---------------------------------------------------------------------------------------------------
+
 -- Dispose sprite and remove from tiles' object lists.
 function Object:destroy()
   if self.sprite then
@@ -45,20 +50,31 @@ function Object:destroy()
 end
 
 ---------------------------------------------------------------------------------------------------
--- Position
+-- Sprite
 ---------------------------------------------------------------------------------------------------
 
+-- Shows or hides sprite.
+-- @param(value : boolean)
+function Object:setVisible(value)
+  if self.sprite then
+    self.sprite:setVisible(value)
+  end
+end
 -- Overrides Movable:setXYZ.
 -- Updates sprite's position.
 function Object:setXYZ(...)
   Transformable.setXYZ(self, ...)
-  self.sprite:setXYZ(...)
+  if self.sprite then
+    self.sprite:setXYZ(...)
+  end
 end
 -- Overrides Colorable:setRGBA.
 -- Updates sprite's color.
 function Object:setRGBA(...)
   Transformable.setRGBA(self, ...)
-  self.sprite:setRGBA(...)
+  if self.sprite then
+    self.sprite:setRGBA(...)
+  end
 end
 
 ---------------------------------------------------------------------------------------------------

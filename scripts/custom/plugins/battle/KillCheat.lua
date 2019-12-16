@@ -39,7 +39,7 @@ function TurnManager:runTurn()
     killAll(TroopManager.playerParty)
     return 1, TroopManager.playerParty
   elseif InputManager.keys['lose']:isPressing() then
-    local party = #TroopManager.troops - TroopManager.playerParty + 1
+    local party = #TroopManager.troops - TroopManager.playerParty
     killAll(party)
     return -1, party
   else
