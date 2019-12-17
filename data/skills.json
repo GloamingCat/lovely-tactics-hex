@@ -14,9 +14,6 @@
       "costs": [],
       "elements": [],
       "userElements": true,
-      "projectileID": -1,
-      "rotate": false,
-      "applyTransform": false,
       "userLoadAnim": "",
       "userCastAnim": "",
       "stepOnCast": true,
@@ -77,9 +74,6 @@
           "costs": [],
           "elements": [],
           "userElements": true,
-          "projectileID": -1,
-          "rotate": false,
-          "applyTransform": false,
           "userLoadAnim": "",
           "userCastAnim": "Item",
           "stepOnCast": false,
@@ -150,9 +144,6 @@
           "costs": [],
           "elements": [],
           "userElements": true,
-          "projectileID": -1,
-          "rotate": false,
-          "applyTransform": false,
           "userLoadAnim": "",
           "userCastAnim": "Item",
           "stepOnCast": false,
@@ -223,9 +214,6 @@
           "costs": [],
           "elements": [],
           "userElements": true,
-          "projectileID": -1,
-          "rotate": false,
-          "applyTransform": false,
           "userLoadAnim": "",
           "userCastAnim": "Item",
           "stepOnCast": false,
@@ -298,9 +286,6 @@
       "costs": [],
       "elements": [],
       "userElements": true,
-      "projectileID": -1,
-      "rotate": false,
-      "applyTransform": false,
       "userLoadAnim": "",
       "userCastAnim": "",
       "stepOnCast": true,
@@ -366,9 +351,6 @@
             }
           ],
           "userElements": true,
-          "projectileID": -1,
-          "rotate": false,
-          "applyTransform": false,
           "userLoadAnim": "",
           "userCastAnim": "Skill1",
           "stepOnCast": true,
@@ -494,9 +476,6 @@
             }
           ],
           "userElements": true,
-          "projectileID": -1,
-          "rotate": false,
-          "applyTransform": false,
           "userLoadAnim": "",
           "userCastAnim": "Skill1",
           "stepOnCast": true,
@@ -597,9 +576,6 @@
             }
           ],
           "userElements": false,
-          "projectileID": -1,
-          "rotate": false,
-          "applyTransform": false,
           "userLoadAnim": "Load1",
           "userCastAnim": "Skill1",
           "stepOnCast": true,
@@ -742,9 +718,6 @@
             }
           ],
           "userElements": false,
-          "projectileID": -1,
-          "rotate": false,
-          "applyTransform": false,
           "userLoadAnim": "Load1",
           "userCastAnim": "Skill1",
           "stepOnCast": true,
@@ -857,9 +830,6 @@
             }
           ],
           "userElements": true,
-          "projectileID": -1,
-          "rotate": false,
-          "applyTransform": true,
           "userLoadAnim": "",
           "userCastAnim": "Skill1",
           "stepOnCast": true,
@@ -960,9 +930,6 @@
             }
           ],
           "userElements": true,
-          "projectileID": -1,
-          "rotate": false,
-          "applyTransform": true,
           "userLoadAnim": "",
           "userCastAnim": "Skill1",
           "stepOnCast": true,
@@ -1063,9 +1030,6 @@
             }
           ],
           "userElements": true,
-          "projectileID": -1,
-          "rotate": false,
-          "applyTransform": true,
           "userLoadAnim": "",
           "userCastAnim": "Skill1",
           "stepOnCast": true,
@@ -1145,7 +1109,7 @@
       "icon": {
         "id": 34,
         "col": 2,
-        "row": 1
+        "row": 2
       },
       "script": "",
       "type": 1,
@@ -1154,9 +1118,6 @@
       "costs": [],
       "elements": [],
       "userElements": true,
-      "projectileID": -1,
-      "rotate": false,
-      "applyTransform": false,
       "userLoadAnim": "",
       "userCastAnim": "",
       "stepOnCast": true,
@@ -1227,9 +1188,6 @@
             }
           ],
           "userElements": false,
-          "projectileID": -1,
-          "rotate": false,
-          "applyTransform": false,
           "userLoadAnim": "Load1",
           "userCastAnim": "Skill1",
           "stepOnCast": false,
@@ -1317,9 +1275,6 @@
           ],
           "elements": [],
           "userElements": false,
-          "projectileID": -1,
-          "rotate": false,
-          "applyTransform": false,
           "userLoadAnim": "Load1",
           "userCastAnim": "Skill1",
           "stepOnCast": false,
@@ -1392,7 +1347,7 @@
       "icon": {
         "id": 34,
         "col": 3,
-        "row": 1
+        "row": 2
       },
       "script": "",
       "type": 1,
@@ -1401,9 +1356,6 @@
       "costs": [],
       "elements": [],
       "userElements": true,
-      "projectileID": -1,
-      "rotate": false,
-      "applyTransform": false,
       "userLoadAnim": "",
       "userCastAnim": "",
       "stepOnCast": true,
@@ -1469,9 +1421,6 @@
           ],
           "elements": [],
           "userElements": false,
-          "projectileID": -1,
-          "rotate": false,
-          "applyTransform": false,
           "userLoadAnim": "",
           "userCastAnim": "Skill1",
           "stepOnCast": true,
@@ -1556,9 +1505,6 @@
           ],
           "elements": [],
           "userElements": false,
-          "projectileID": -1,
-          "rotate": false,
-          "applyTransform": false,
           "userLoadAnim": "",
           "userCastAnim": "Skill1",
           "stepOnCast": true,
@@ -1689,9 +1635,6 @@
           ],
           "elements": [],
           "userElements": false,
-          "projectileID": -1,
-          "rotate": false,
-          "applyTransform": false,
           "userLoadAnim": "",
           "userCastAnim": "Skill1",
           "stepOnCast": true,
@@ -1763,9 +1706,6 @@
           ],
           "elements": [],
           "userElements": false,
-          "projectileID": 173,
-          "rotate": false,
-          "applyTransform": false,
           "userLoadAnim": "",
           "userCastAnim": "Skill1",
           "stepOnCast": true,
@@ -2016,17 +1956,9 @@
       "type": 1,
       "targetType": 0,
       "restriction": 0,
-      "costs": [
-        {
-          "key": "sp",
-          "value": "10"
-        }
-      ],
+      "costs": [],
       "elements": [],
       "userElements": true,
-      "projectileID": -1,
-      "rotate": false,
-      "applyTransform": false,
       "userLoadAnim": "",
       "userCastAnim": "",
       "stepOnCast": true,
@@ -2040,15 +1972,7 @@
       "targetTime": "",
       "finishTime": "",
       "damageAnim": true,
-      "effects": [
-        {
-          "key": "hp",
-          "basicResult": "100",
-          "successRate": "100",
-          "heal": false,
-          "absorb": false
-        }
-      ],
+      "effects": [],
       "statusAdd": [],
       "statusRemove": [],
       "effectMask": {
@@ -2100,9 +2024,6 @@
             }
           ],
           "userElements": true,
-          "projectileID": -1,
-          "rotate": false,
-          "applyTransform": false,
           "userLoadAnim": "",
           "userCastAnim": "",
           "stepOnCast": true,
@@ -2228,9 +2149,6 @@
             }
           ],
           "userElements": true,
-          "projectileID": -1,
-          "rotate": false,
-          "applyTransform": false,
           "userLoadAnim": "",
           "userCastAnim": "",
           "stepOnCast": true,
@@ -2339,6 +2257,322 @@
           ]
         },
         "id": 18,
+        "children": []
+      },
+      {
+        "data": {
+          "description": "Decreases ATK.",
+          "icon": {
+            "id": 34,
+            "col": 3,
+            "row": 2
+          },
+          "script": "",
+          "type": 1,
+          "targetType": 2,
+          "restriction": 1,
+          "costs": [],
+          "elements": [],
+          "userElements": false,
+          "userLoadAnim": "",
+          "userCastAnim": "Skill1",
+          "stepOnCast": true,
+          "loadAnimID": -1,
+          "castAnimID": 14,
+          "individualAnimID": -1,
+          "mirror": true,
+          "introTime": "",
+          "castTime": "",
+          "centerTime": "",
+          "targetTime": "",
+          "finishTime": "",
+          "damageAnim": true,
+          "effects": [],
+          "statusAdd": [
+            {
+              "id": 15,
+              "rate": "100"
+            }
+          ],
+          "statusRemove": [],
+          "effectMask": {
+            "centerX": 1,
+            "centerY": 1,
+            "centerH": 1,
+            "grid": [
+              [
+                [
+                  true
+                ]
+              ]
+            ]
+          },
+          "castMask": {
+            "centerX": 1,
+            "centerY": 1,
+            "centerH": 1,
+            "grid": [
+              [
+                [
+                  true
+                ]
+              ]
+            ]
+          },
+          "name": "Attack Down",
+          "tags": [
+            {
+              "key": "cast_far",
+              "value": "10"
+            },
+            {
+              "key": "cast_maxh",
+              "value": "3"
+            },
+            {
+              "key": "cast_minh",
+              "value": "-3"
+            }
+          ]
+        },
+        "id": 24,
+        "children": []
+      },
+      {
+        "data": {
+          "description": "Increases ATK.",
+          "icon": {
+            "id": 34,
+            "col": 3,
+            "row": 2
+          },
+          "script": "",
+          "type": 2,
+          "targetType": 2,
+          "restriction": 1,
+          "costs": [],
+          "elements": [],
+          "userElements": false,
+          "userLoadAnim": "",
+          "userCastAnim": "Skill1",
+          "stepOnCast": true,
+          "loadAnimID": -1,
+          "castAnimID": 14,
+          "individualAnimID": -1,
+          "mirror": true,
+          "introTime": "",
+          "castTime": "",
+          "centerTime": "",
+          "targetTime": "",
+          "finishTime": "",
+          "damageAnim": true,
+          "effects": [],
+          "statusAdd": [
+            {
+              "id": 5,
+              "rate": "100"
+            }
+          ],
+          "statusRemove": [],
+          "effectMask": {
+            "centerX": 1,
+            "centerY": 1,
+            "centerH": 1,
+            "grid": [
+              [
+                [
+                  true
+                ]
+              ]
+            ]
+          },
+          "castMask": {
+            "centerX": 1,
+            "centerY": 1,
+            "centerH": 1,
+            "grid": [
+              [
+                [
+                  true
+                ]
+              ]
+            ]
+          },
+          "name": "Attack Up",
+          "tags": [
+            {
+              "key": "cast_far",
+              "value": "10"
+            },
+            {
+              "key": "cast_maxh",
+              "value": "3"
+            },
+            {
+              "key": "cast_minh",
+              "value": "-3"
+            }
+          ]
+        },
+        "id": 25,
+        "children": []
+      },
+      {
+        "data": {
+          "description": "Decreases DEF.",
+          "icon": {
+            "id": 34,
+            "col": 3,
+            "row": 2
+          },
+          "script": "",
+          "type": 1,
+          "targetType": 2,
+          "restriction": 1,
+          "costs": [],
+          "elements": [],
+          "userElements": false,
+          "userLoadAnim": "",
+          "userCastAnim": "Skill1",
+          "stepOnCast": true,
+          "loadAnimID": -1,
+          "castAnimID": 14,
+          "individualAnimID": -1,
+          "mirror": true,
+          "introTime": "",
+          "castTime": "",
+          "centerTime": "",
+          "targetTime": "",
+          "finishTime": "",
+          "damageAnim": true,
+          "effects": [],
+          "statusAdd": [
+            {
+              "id": 16,
+              "rate": "100"
+            }
+          ],
+          "statusRemove": [],
+          "effectMask": {
+            "centerX": 1,
+            "centerY": 1,
+            "centerH": 1,
+            "grid": [
+              [
+                [
+                  true
+                ]
+              ]
+            ]
+          },
+          "castMask": {
+            "centerX": 1,
+            "centerY": 1,
+            "centerH": 1,
+            "grid": [
+              [
+                [
+                  true
+                ]
+              ]
+            ]
+          },
+          "name": "Defense Down",
+          "tags": [
+            {
+              "key": "cast_far",
+              "value": "10"
+            },
+            {
+              "key": "cast_maxh",
+              "value": "3"
+            },
+            {
+              "key": "cast_minh",
+              "value": "-3"
+            }
+          ]
+        },
+        "id": 23,
+        "children": []
+      },
+      {
+        "data": {
+          "description": "Increases DEF.",
+          "icon": {
+            "id": 34,
+            "col": 3,
+            "row": 2
+          },
+          "script": "",
+          "type": 2,
+          "targetType": 2,
+          "restriction": 1,
+          "costs": [],
+          "elements": [],
+          "userElements": false,
+          "userLoadAnim": "",
+          "userCastAnim": "Skill1",
+          "stepOnCast": true,
+          "loadAnimID": -1,
+          "castAnimID": 14,
+          "individualAnimID": -1,
+          "mirror": true,
+          "introTime": "",
+          "castTime": "",
+          "centerTime": "",
+          "targetTime": "",
+          "finishTime": "",
+          "damageAnim": true,
+          "effects": [],
+          "statusAdd": [
+            {
+              "id": 6,
+              "rate": "100"
+            }
+          ],
+          "statusRemove": [],
+          "effectMask": {
+            "centerX": 1,
+            "centerY": 1,
+            "centerH": 1,
+            "grid": [
+              [
+                [
+                  true
+                ]
+              ]
+            ]
+          },
+          "castMask": {
+            "centerX": 1,
+            "centerY": 1,
+            "centerH": 1,
+            "grid": [
+              [
+                [
+                  true
+                ]
+              ]
+            ]
+          },
+          "name": "Defense Up",
+          "tags": [
+            {
+              "key": "cast_far",
+              "value": "10"
+            },
+            {
+              "key": "cast_maxh",
+              "value": "3"
+            },
+            {
+              "key": "cast_minh",
+              "value": "-3"
+            }
+          ]
+        },
+        "id": 26,
         "children": []
       }
     ]

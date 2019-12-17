@@ -14,7 +14,7 @@ local TargetFinder = require('core/battle/ai/TargetFinder')
 local RushRule = class(SkillRule)
 
 ---------------------------------------------------------------------------------------------------
--- Execution
+-- General
 ---------------------------------------------------------------------------------------------------
 
 -- Overrides SkillRule:onSelect.
@@ -26,6 +26,10 @@ function RushRule:onSelect(user)
     return
   end
   self.input.target = queue:front()
+end
+-- @ret(string) String identifier.
+function RushRule:__tostring()
+  return 'RushRule (' .. tostring(self.skill)  .. '): ' .. self.battler.key
 end
 
 return RushRule

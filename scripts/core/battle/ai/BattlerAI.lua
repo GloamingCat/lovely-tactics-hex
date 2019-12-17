@@ -9,6 +9,7 @@ Implements basic functions to be used in AI classes.
 
 -- Imports
 local AIRule = require('core/battle/ai/AIRule')
+local BattleAction = require('core/battle/action/BattleAction')
 local BattleCursor = require('core/battle/BattleCursor')
 
 local BattlerAI = class()
@@ -23,24 +24,6 @@ local BattlerAI = class()
 function BattlerAI:init(battler, rules)
   self.battler = battler
   self.rules = rules
-end
--- @ret(string) String identifier.
-function BattlerAI:__tostring()
-  return 'AI: ' .. self.battler.key
-end
--- Shows the cursor over the current character.
-function BattlerAI:showCursor(char)
-  FieldManager.renderer:moveToObject(char, nil, true)
-  local cursor = BattleCursor()
-  cursor:setTile(char:getTile())
-  cursor:show()
-  local t = 0.5
-  while t > 0 do
-    t = t - love.timer.getDelta()
-    cursor:update()
-    coroutine.yield()
-  end
-  cursor:destroy()
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -65,18 +48,43 @@ function BattlerAI:applyRules(char)
     local rule = AIRule:fromData(self.rules[i], self.battler)
     rule:onSelect(char)
     local condition = rule.condition ~= '' and rule.condition
-    if (not condition or self:decodeCondition(condition, char)) and rule:canExecute() then
-      return rule:execute()
+    if not condition or self:decodeCondition(rule, condition, char) then
+      if rule:canExecute() then
+        return rule:execute()
+      end
     end
   end
-  return AIRule(self.battler):execute()
+  return BattleAction():execute({})
 end
 -- Evaluates a given expression.
 -- @param(condition : string) Boolean expression.
 -- @param(char : Character) The character executing this script.
 -- @ret(boolean) The value of the expression.
-function BattlerAI:decodeCondition(condition, char)
-  return loadformula(condition, 'AI, user')(self, char)
+function BattlerAI:decodeCondition(rule, condition, ...)
+  return loadformula(condition, 'self, AI, user')(rule, self, ...)
+end
+
+---------------------------------------------------------------------------------------------------
+-- General
+---------------------------------------------------------------------------------------------------
+
+-- Shows the cursor over the current character.
+function BattlerAI:showCursor(char)
+  FieldManager.renderer:moveToObject(char, nil, true)
+  local cursor = BattleCursor()
+  cursor:setTile(char:getTile())
+  cursor:show()
+  local t = 0.5
+  while t > 0 do
+    t = t - love.timer.getDelta()
+    cursor:update()
+    coroutine.yield()
+  end
+  cursor:destroy()
+end
+-- @ret(string) String identifier.
+function BattlerAI:__tostring()
+  return 'BattlerAI: ' .. self.battler.key
 end
 
 return BattlerAI

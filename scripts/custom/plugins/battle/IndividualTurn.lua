@@ -133,7 +133,7 @@ end
 local Character_onSelfTurnEnd = Character.onSelfTurnEnd
 function Character:onSelfTurnEnd(result)
   local maxSteps = self.battler.maxSteps()
-  local stepCost = (maxSteps - self.steps) / maxSteps
+  local stepCost = maxSteps > 0 and (maxSteps - self.steps) / maxSteps or 100
   local cost = result.timeCost or 0
   local totalCost = ceil((stepCost + cost) / 2 * turnLimit)
   self.battler:decrementTurnCount(totalCost)

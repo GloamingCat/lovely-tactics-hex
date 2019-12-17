@@ -104,7 +104,7 @@ end
 -- Setup party tiles.
 -- @param(field : Field)
 function FieldLoader.setPartyTiles(field)
-  for party, partyInfo in ipairs(field.parties) do
+  for i, partyInfo in ipairs(field.parties) do
     local minx, miny, maxx, maxy
     if partyInfo.rotation == 0 then
       minx, maxx = math.floor(field.sizeX / 3) - 1, math.ceil(field.sizeX * 2 / 3) + 1
@@ -119,12 +119,13 @@ function FieldLoader.setPartyTiles(field)
       minx, maxx = math.floor(field.sizeX * 2 / 3), field.sizeX
       miny, maxy = math.floor(field.sizeY / 3) - 1, math.ceil(field.sizeY * 2 / 3) + 1
     end
+    local id = i - 1
     for x = minx + 1, maxx do
       for y = miny + 1, maxy do
         for h = -1, 1 do
           local tile = field:getObjectTile(x, y, partyInfo.h + h)
           if tile then
-            tile.party = party
+            tile.party = id
           end
         end
       end

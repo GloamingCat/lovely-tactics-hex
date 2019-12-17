@@ -233,7 +233,7 @@
           "behavior": [
             {
               "condition": "",
-              "name": "rule/Betray.lua",
+              "name": "rule/BetrayRule.lua",
               "tags": []
             }
           ],

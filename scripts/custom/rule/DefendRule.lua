@@ -1,43 +1,42 @@
 
 --[[===============================================================================================
 
-BetrayRule
+DefendRule
 ---------------------------------------------------------------------------------------------------
-Rule to attack the closest character, changing the battler' party to the status caster's party.
-If no caster is found, then this rule is the same as RushRule.
+The rule for an AI that moves to the safest tile that still has a reachable target.
 
 =================================================================================================]]
 
 -- Imports
+local BattleTactics = require('core/battle/ai/BattleTactics')
 local SkillRule = require('custom/rule/SkillRule')
 local TargetFinder = require('core/battle/ai/TargetFinder')
 
-local BetrayRule = class(SkillRule)
+local DefendRule = class(SkillRule)
 
 ---------------------------------------------------------------------------------------------------
 -- Execution
 ---------------------------------------------------------------------------------------------------
 
 -- Overrides SkillRule:onSelect.
-function BetrayRule:onSelect(user)
-  local originalParty = user.party
-  for s in user.battler.statusList:iterator() do
-    if s.tags.charm then
-      local caster = FieldManager:search(s.caster)
-      assert(caster, 'Charm status does not have a caster')
-      assert(caster.party, 'Caster has no party')
-      user.party = caster.partys
-      break
-    end
-  end
+function DefendRule:onSelect(user)
   SkillRule.onSelect(self, user)
+  -- Find tile to attack
   local queue = TargetFinder.closestCharacters(self.input)
-  user.party = originalParty
   if queue:isEmpty() then
     self.input = nil
     return
   end
   self.input.target = queue:front()
+  -- Find tile to move
+  queue = BattleTactics.runFromEnemiesToAllies(user, self.input)
+  if not queue:isEmpty() then
+    self.input.moveTarget = queue:front()
+  end
+end
+-- @ret(string) String identifier.
+function DefendRule:__tostring()
+  return 'DefendRule: ' .. self.battler.key
 end
 
-return BetrayRule
+return DefendRule

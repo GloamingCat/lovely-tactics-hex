@@ -75,6 +75,7 @@ function EventSheet:showCharBalloon(args)
     assert(keyToRow[args.emotion], "Emotion '" .. tostring(args.emotion) .. "' does not exist!")
     iconAnim:setRow(keyToRow[args.emotion])
   end
+  iconAnim:hide()
   character.balloon:setIcon(iconAnim)
   character:setPosition(character.position)
   if not args.loop then

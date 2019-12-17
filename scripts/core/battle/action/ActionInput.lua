@@ -38,9 +38,7 @@ end
 ---------------------------------------------------------------------------------------------------
 
 function ActionInput:canExecute()
-  if self.action then
-    return self.action:canExecute(self)
-  end
+  return self.action and self.action:canExecute(self)
 end
 -- Executes the action.
 -- @ret(number) the action time cost

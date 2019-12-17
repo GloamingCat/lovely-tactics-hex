@@ -76,6 +76,7 @@ end
 -- @param(icons : table) Array of icon data.
 function Balloon:setIcons(icons)
   self.status = icons
+  self:reset()
   if #icons > 0 then
     if self.state == 4 then
       self:nextIcon()
@@ -86,7 +87,6 @@ function Balloon:setIcons(icons)
     self.state = 4
     self.iconAnim:reset()
     self.iconAnim:hide()
-    self:reset()
     self:hide()
   end
 end
@@ -99,7 +99,6 @@ function Balloon:setIcon(anim)
     self:show()
   else
     self.state = 4
-    self:reset()
     self:hide()
   end
 end

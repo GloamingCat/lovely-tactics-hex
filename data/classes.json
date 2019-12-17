@@ -2,41 +2,11 @@
   {
     "data": {
       "build": [
-        "5 * lvl",
-        "4 * lvl",
-        "1 * lvl",
         "3 * lvl",
-        "2 * lvl",
-        "0",
-        "0",
-        "0",
-        "0",
-        "6 + math.round(lvl / 25)",
-        "3",
-        "0",
-        "5",
-        "10",
-        "10",
-        "5",
-        "5",
-        "0"
-      ],
-      "expCurve": "lvl * (lvl + 1) * 2",
-      "skills": [],
-      "name": "Fighter",
-      "tags": []
-    },
-    "id": 0,
-    "children": []
-  },
-  {
-    "data": {
-      "build": [
-        "1 * lvl",
         "2 * lvl",
         "5 * lvl",
         "3 * lvl",
-        "4 * lvl",
+        "3 * lvl",
         "0",
         "0",
         "0",
@@ -75,16 +45,16 @@
   {
     "data": {
       "build": [
-        "1 * lvl",
+        "5 * lvl",
         "2 * lvl",
         "5 * lvl",
         "3 * lvl",
-        "4 * lvl",
+        "2 * lvl",
         "0",
         "0",
         "0",
         "0",
-        "5 + math.round(lvl / 25)",
+        "4 + math.round(lvl / 25)",
         "3",
         "0",
         "10",
@@ -120,9 +90,9 @@
       "build": [
         "1 * lvl",
         "2 * lvl",
-        "5 * lvl",
-        "3 * lvl",
         "4 * lvl",
+        "3 * lvl",
+        "5 * lvl",
         "0",
         "0",
         "0",
@@ -156,6 +126,66 @@
       "tags": []
     },
     "id": 3,
+    "children": []
+  },
+  {
+    "data": {
+      "build": [
+        "5 * lvl",
+        "4 * lvl",
+        "1 * lvl",
+        "3 * lvl",
+        "2 * lvl",
+        "0",
+        "0",
+        "0",
+        "0",
+        "6 + math.round(lvl / 25)",
+        "3",
+        "0",
+        "5",
+        "10",
+        "10",
+        "5",
+        "5",
+        "0"
+      ],
+      "expCurve": "lvl * (lvl + 1) * 2",
+      "skills": [],
+      "name": "Jelly",
+      "tags": []
+    },
+    "id": 0,
+    "children": []
+  },
+  {
+    "data": {
+      "build": [
+        "5 * lvl",
+        "5 * lvl",
+        "3 * lvl",
+        "1 * lvl",
+        "2 * lvl",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "5",
+        "10",
+        "10",
+        "5",
+        "5",
+        "0"
+      ],
+      "expCurve": "lvl * (lvl + 1) * 2",
+      "skills": [],
+      "name": "Giant Jelly",
+      "tags": []
+    },
+    "id": 4,
     "children": []
   }
 ]

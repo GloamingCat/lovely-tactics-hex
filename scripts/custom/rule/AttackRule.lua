@@ -17,7 +17,7 @@ local expectation = math.randomExpectation
 local AttackRule = class(SkillRule)
 
 ---------------------------------------------------------------------------------------------------
--- Execution
+-- General
 ---------------------------------------------------------------------------------------------------
 
 -- Overrides SkillRule:onSelect.
@@ -52,6 +52,10 @@ function AttackRule:onSelect(user)
       self.input.target = queue:front()
     end
   end
+end
+-- @ret(string) String identifier.
+function AttackRule:__tostring()
+  return 'AttackRule (' .. tostring(self.skill)  .. '): ' .. self.battler.key
 end
 
 return AttackRule

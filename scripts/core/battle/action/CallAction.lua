@@ -22,6 +22,7 @@ function CallAction:init()
   BattleAction.init(self, 'general')
   self.showTargetWindow = false
   self.allTiles = true
+  self.animSpeed = 2
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -43,7 +44,7 @@ function CallAction:onConfirm(input)
 end
 -- Overrides BattleAction:execute.
 function CallAction:execute(input)
-  self:callMember(input.member, input.target)
+  self:callMember(input.member, input.target, true)
   return BattleAction.execute(self, input)
 end
 
@@ -82,8 +83,9 @@ end
 -- Adds a character to the field that represents the member with the given key.
 -- @param(key : string) Member's key.
 -- @param(tile : ObjectTile) The tile the character will be put in.
+-- @param(fade : boolean) Flag to show character fading in.
 -- @ret(Character) The newly created character for the member.
-function CallAction:callMember(key, tile)
+function CallAction:callMember(key, tile, fade)
   assert(key, 'No character was chosen!')
   assert(tile, 'No tile was chosen!')
   local x = tile.x - self.troop.x
@@ -92,6 +94,10 @@ function CallAction:callMember(key, tile)
   local battler = self.troop.battlers[key]
   local dir = self.troop:getCharacterDirection()
   local character = TroopManager:createCharacter(tile, dir, battler, self.troop.party)
+  if fade then
+    character:colorizeTo(nil, nil, nil, 0)
+    character:colorizeTo(nil, nil, nil, 1, self.animSpeed, true)
+  end
   TroopManager:createBattler(character)
   return character
 end

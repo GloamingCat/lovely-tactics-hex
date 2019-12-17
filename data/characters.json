@@ -422,7 +422,7 @@
       {
         "data": {
           "battlerID": 6,
-          "shadowID": 1,
+          "shadowID": 200,
           "tiles": [
             {
               "dx": 0,
@@ -489,7 +489,7 @@
       {
         "data": {
           "battlerID": 7,
-          "shadowID": 1,
+          "shadowID": 200,
           "tiles": [
             {
               "dx": 0,
@@ -555,18 +555,33 @@
       },
       {
         "data": {
-          "battlerID": 8,
-          "shadowID": 1,
+          "battlerID": 5,
+          "shadowID": 106,
           "tiles": [
             {
               "dx": 0,
               "dy": 0,
-              "height": 1
+              "height": 3
+            },
+            {
+              "dx": 1,
+              "dy": 0,
+              "height": 2
+            },
+            {
+              "dx": 0,
+              "dy": -1,
+              "height": 2
+            },
+            {
+              "dx": 1,
+              "dy": -1,
+              "height": 2
             }
           ],
           "transform": {
             "offsetX": 0,
-            "offsetY": 0,
+            "offsetY": 6,
             "offsetDepth": 0,
             "scaleX": 100,
             "scaleY": 100,
@@ -575,7 +590,7 @@
             "green": 255,
             "blue": 255,
             "alpha": 255,
-            "hue": 45,
+            "hue": 0,
             "saturation": 100,
             "brightness": 100
           },
@@ -583,47 +598,55 @@
           "animations": [
             {
               "name": "Idle",
-              "id": 77
+              "id": 193
             },
             {
               "name": "Walk",
-              "id": 78
+              "id": 194
             },
             {
               "name": "Dash",
-              "id": 79
+              "id": 195
+            },
+            {
+              "name": "Sleeping",
+              "id": 198
+            },
+            {
+              "name": "Freeze",
+              "id": 199
             },
             {
               "name": "Battle:Idle",
-              "id": 77
+              "id": 193
             },
             {
               "name": "Battle:Dash",
-              "id": 79
+              "id": 195
             },
             {
               "name": "Battle:Damage",
-              "id": 81
+              "id": 196
             },
             {
               "name": "Battle:KO",
-              "id": 82
+              "id": 197
             },
             {
               "name": "Sleep:Idle",
-              "id": 161
+              "id": 198
             }
           ],
-          "name": "Red Jelly",
+          "name": "Purple Jelly",
           "tags": []
         },
-        "id": 7,
+        "id": 4,
         "children": []
       },
       {
         "data": {
           "battlerID": 9,
-          "shadowID": 1,
+          "shadowID": 200,
           "tiles": [
             {
               "dx": 0,
@@ -689,8 +712,8 @@
       },
       {
         "data": {
-          "battlerID": 10,
-          "shadowID": 1,
+          "battlerID": 8,
+          "shadowID": 106,
           "tiles": [
             {
               "dx": 0,
@@ -709,7 +732,7 @@
             "green": 255,
             "blue": 255,
             "alpha": 255,
-            "hue": 330,
+            "hue": 0,
             "saturation": 100,
             "brightness": 100
           },
@@ -748,52 +771,37 @@
               "id": 161
             }
           ],
-          "name": "Purple Jelly",
+          "name": "Red Jelly",
           "tags": []
         },
-        "id": 10,
+        "id": 7,
         "children": []
       },
       {
         "data": {
-          "battlerID": 6,
-          "shadowID": 106,
+          "battlerID": 10,
+          "shadowID": 200,
           "tiles": [
             {
               "dx": 0,
               "dy": 0,
-              "height": 3
-            },
-            {
-              "dx": 1,
-              "dy": 0,
-              "height": 2
-            },
-            {
-              "dx": 0,
-              "dy": -1,
-              "height": 2
-            },
-            {
-              "dx": 1,
-              "dy": -1,
-              "height": 2
+              "height": 1
             }
           ],
           "transform": {
             "offsetX": 0,
-            "offsetY": 6,
+            "offsetY": 0,
             "offsetDepth": 0,
-            "scaleX": 200,
-            "scaleY": 200,
+            "scaleX": 100,
+            "scaleY": 100,
             "rotation": 0,
             "red": 255,
             "green": 255,
             "blue": 255,
             "alpha": 255,
-            "hue": 330,
-            "saturation": 60,
-            "brightness": 60
+            "hue": 0,
+            "saturation": 100,
+            "brightness": 100
           },
           "portraits": [],
           "animations": [
@@ -830,10 +838,77 @@
               "id": 161
             }
           ],
-          "name": "Giant Jelly",
+          "name": "Pink Jelly",
           "tags": []
         },
-        "id": 4,
+        "id": 10,
+        "children": []
+      },
+      {
+        "data": {
+          "battlerID": 11,
+          "shadowID": 106,
+          "tiles": [
+            {
+              "dx": 0,
+              "dy": 0,
+              "height": 1
+            }
+          ],
+          "transform": {
+            "offsetX": 0,
+            "offsetY": 0,
+            "offsetDepth": 0,
+            "scaleX": 100,
+            "scaleY": 100,
+            "rotation": 0,
+            "red": 255,
+            "green": 255,
+            "blue": 255,
+            "alpha": 255,
+            "hue": 0,
+            "saturation": 100,
+            "brightness": 100
+          },
+          "portraits": [],
+          "animations": [
+            {
+              "name": "Idle",
+              "id": 77
+            },
+            {
+              "name": "Walk",
+              "id": 78
+            },
+            {
+              "name": "Dash",
+              "id": 79
+            },
+            {
+              "name": "Battle:Idle",
+              "id": 77
+            },
+            {
+              "name": "Battle:Dash",
+              "id": 79
+            },
+            {
+              "name": "Battle:Damage",
+              "id": 81
+            },
+            {
+              "name": "Battle:KO",
+              "id": 82
+            },
+            {
+              "name": "Sleep:Idle",
+              "id": 161
+            }
+          ],
+          "name": "Silver Jelly",
+          "tags": []
+        },
+        "id": 17,
         "children": []
       }
     ]
@@ -1015,6 +1090,82 @@
           "tags": []
         },
         "id": 13,
+        "children": []
+      },
+      {
+        "data": {
+          "battlerID": -1,
+          "shadowID": 1,
+          "tiles": [
+            {
+              "dx": 0,
+              "dy": 0,
+              "height": 0
+            }
+          ],
+          "transform": {
+            "offsetX": 0,
+            "offsetY": 0,
+            "offsetDepth": 0,
+            "scaleX": 100,
+            "scaleY": 100,
+            "rotation": 0,
+            "red": 255,
+            "green": 255,
+            "blue": 255,
+            "alpha": 255,
+            "hue": 0,
+            "saturation": 100,
+            "brightness": 100
+          },
+          "portraits": [
+            {
+              "name": "Happy",
+              "id": 119,
+              "col": 0,
+              "row": 0
+            },
+            {
+              "name": "Blush",
+              "id": 147,
+              "col": 0,
+              "row": 0
+            },
+            {
+              "name": "Scared",
+              "id": 148,
+              "col": 0,
+              "row": 0
+            },
+            {
+              "name": "Worry",
+              "id": 149,
+              "col": 0,
+              "row": 0
+            }
+          ],
+          "animations": [
+            {
+              "name": "Idle",
+              "id": 131
+            },
+            {
+              "name": "SceneIdle",
+              "id": 107
+            },
+            {
+              "name": "Walk",
+              "id": 132
+            },
+            {
+              "name": "Dash",
+              "id": 133
+            }
+          ],
+          "name": "Night",
+          "tags": []
+        },
+        "id": 16,
         "children": []
       },
       {

@@ -11,7 +11,9 @@ ActionInput to be used according to the state.
 
 -- Imports
 local ActionInput = require('core/battle/action/ActionInput')
-local BattleAction = require('core/battle/action/BattleAction')
+
+-- Alias
+local rand = love.math.random
 
 local AIRule = class()
 
@@ -19,11 +21,11 @@ local AIRule = class()
 -- Initialization
 ---------------------------------------------------------------------------------------------------
 
--- @param(action : BattleAction) the BattleAction executed in the rule
 function AIRule:init(battler, condition, tags)
   self.battler = battler
   self.condition = condition
   self.tags = Database.loadTags(tags)
+  print(self.tags)
   self.input = nil
 end
 -- Creates an AIRule from the given rule data.
@@ -38,6 +40,32 @@ function AIRule:fromData(data, battler)
 end
 
 ---------------------------------------------------------------------------------------------------
+-- Execution
+---------------------------------------------------------------------------------------------------
+
+-- Checks if a rule can be executed.
+-- @ret(boolean) 
+function AIRule:canExecute()
+  return self.input and self.input:canExecute()
+end
+-- Executes the rule.
+-- @ret(table) The action result table.
+function AIRule:execute()
+  return self.input and self.input:execute()
+end
+
+---------------------------------------------------------------------------------------------------
+-- Auxiliary
+---------------------------------------------------------------------------------------------------
+
+-- Randomly returns true with a given chance.
+-- @param(percent : number) Chance from 0 to 100.
+-- @ret(boolean)
+function AIRule:chance(percent)
+  return rand() * 100 < percent 
+end
+
+---------------------------------------------------------------------------------------------------
 -- General
 ---------------------------------------------------------------------------------------------------
 
@@ -48,29 +76,6 @@ end
 -- @ret(string) String identifier.
 function AIRule:__tostring()
   return 'AIRule: ' .. self.battler.key
-end
-
----------------------------------------------------------------------------------------------------
--- Execution
----------------------------------------------------------------------------------------------------
-
--- Checks if a rule can be executed.
--- @ret(boolean) 
-function AIRule:canExecute()
-  if self.input then
-    return self.input:canExecute()
-  else
-    return true
-  end
-end
--- Executes the rule.
--- @ret(table) The action result table.
-function AIRule:execute()
-  if self.input then
-    return self.input:execute()
-  else
-    return BattleAction:execute()
-  end
 end
 
 return AIRule

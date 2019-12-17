@@ -81,11 +81,11 @@
     "name": "plugins/battle/PartyRegion.lua",
     "tags": [
       {
-        "key": "party1",
+        "key": "party0",
         "value": "0"
       },
       {
-        "key": "party2",
+        "key": "party1",
         "value": "1"
       }
     ]

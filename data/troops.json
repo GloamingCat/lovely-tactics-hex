@@ -250,7 +250,7 @@
     "data": {
       "ai": "troop/DefaultAI.lua",
       "persistent": false,
-      "money": 100,
+      "money": 0,
       "items": [],
       "members": [
         {
@@ -275,8 +275,26 @@
           "key": "e2",
           "charID": 6,
           "battlerID": -1,
+          "x": 1,
+          "y": 3,
+          "equip": [],
+          "list": 1
+        },
+        {
+          "key": "e3",
+          "charID": 6,
+          "battlerID": -1,
           "x": 4,
           "y": 2,
+          "equip": [],
+          "list": 1
+        },
+        {
+          "key": "e4",
+          "charID": 8,
+          "battlerID": -1,
+          "x": 5,
+          "y": 3,
           "equip": [],
           "list": 1
         }

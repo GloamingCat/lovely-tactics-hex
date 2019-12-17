@@ -22,7 +22,7 @@ local SkillRule = class(AIRule)
 -- @param(...) AIRule constructor arguments.
 function SkillRule:init(...)
   AIRule.init(self, ...)
-  local id = self.tags and self.tags.id
+  local id = self.tags and tonumber(self.tags.id)
   self.skill = id and self.battler.skillList[id] or self.battler.attackSkill
   assert(self.skill, tostring(self.battler) .. ' does not have a skill!')
 end

@@ -108,6 +108,7 @@ end
 -- Sets the icon animation.
 -- @param(anim : Animation)
 function Balloon:setIcon(anim)
+  self:reset()
   if anim then
     self.duration = self.balloonDuration * 2 + anim.duration
     self.iconAnim = anim

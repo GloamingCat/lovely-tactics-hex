@@ -44,7 +44,7 @@
           "ai": [],
           "classID": 1,
           "attackID": 6,
-          "level": 3,
+          "level": 4,
           "money": 0,
           "exp": 0,
           "attributes": [
@@ -215,7 +215,7 @@
           "ai": [
             {
               "condition": "",
-              "name": "rule/Rush.lua",
+              "name": "rule/RushRule.lua",
               "tags": []
             }
           ],
@@ -266,7 +266,7 @@
           "ai": [
             {
               "condition": "",
-              "name": "rule/Rush.lua",
+              "name": "rule/RushRule.lua",
               "tags": []
             }
           ],
@@ -311,16 +311,36 @@
           "persistent": false,
           "ai": [
             {
-              "condition": "",
-              "name": "rule/Rush.lua",
+              "condition": "if self:chance(75)",
+              "name": "rule/CallRule.lua",
               "tags": []
+            },
+            {
+              "condition": "self:chance(50)",
+              "name": "rule/RushRule.lua",
+              "tags": [
+                {
+                  "key": "id",
+                  "value": "1"
+                }
+              ]
+            },
+            {
+              "condition": "",
+              "name": "rule/RushRule.lua",
+              "tags": [
+                {
+                  "key": "id",
+                  "value": "2"
+                }
+              ]
             }
           ],
-          "classID": 0,
-          "attackID": 15,
+          "classID": 4,
+          "attackID": 18,
           "level": 4,
-          "money": 8,
-          "exp": 40,
+          "money": 40,
+          "exp": 0,
           "attributes": [
             0,
             0,
@@ -341,15 +361,18 @@
             0,
             0
           ],
-          "skills": [],
+          "skills": [
+            25,
+            24
+          ],
           "status": [],
           "elements": [],
           "items": [],
           "equip": [],
-          "name": "Red Jelly",
+          "name": "Purple Jelly",
           "tags": []
         },
-        "id": 8,
+        "id": 5,
         "children": []
       },
       {
@@ -357,16 +380,21 @@
           "persistent": false,
           "ai": [
             {
+              "condition": "self:chance(30)",
+              "name": "rule/EscapeRule.lua",
+              "tags": []
+            },
+            {
               "condition": "",
-              "name": "rule/Rush.lua",
+              "name": "rule/RushRule.lua",
               "tags": []
             }
           ],
           "classID": 0,
           "attackID": 15,
-          "level": 5,
-          "money": 10,
-          "exp": 50,
+          "level": 4,
+          "money": 8,
+          "exp": 40,
           "attributes": [
             0,
             0,
@@ -404,15 +432,15 @@
           "ai": [
             {
               "condition": "",
-              "name": "rule/Rush.lua",
+              "name": "rule/RushRule.lua",
               "tags": []
             }
           ],
-          "classID": 0,
-          "attackID": 18,
-          "level": 6,
-          "money": 12,
-          "exp": 60,
+          "classID": 4,
+          "attackID": 15,
+          "level": 5,
+          "money": 50,
+          "exp": 0,
           "attributes": [
             0,
             0,
@@ -438,10 +466,102 @@
           "elements": [],
           "items": [],
           "equip": [],
-          "name": "Purple Jelly",
+          "name": "Red Jelly",
+          "tags": []
+        },
+        "id": 8,
+        "children": []
+      },
+      {
+        "data": {
+          "persistent": false,
+          "ai": [
+            {
+              "condition": "",
+              "name": "rule/AttackRule.lua",
+              "tags": []
+            }
+          ],
+          "classID": 0,
+          "attackID": 18,
+          "level": 5,
+          "money": 10,
+          "exp": 50,
+          "attributes": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "skills": [],
+          "status": [],
+          "elements": [],
+          "items": [],
+          "equip": [],
+          "name": "Pink Jelly",
           "tags": []
         },
         "id": 10,
+        "children": []
+      },
+      {
+        "data": {
+          "persistent": false,
+          "ai": [
+            {
+              "condition": "",
+              "name": "rule/AttackRule.lua",
+              "tags": []
+            }
+          ],
+          "classID": 4,
+          "attackID": 18,
+          "level": 6,
+          "money": 60,
+          "exp": 0,
+          "attributes": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "skills": [],
+          "status": [],
+          "elements": [],
+          "items": [],
+          "equip": [],
+          "name": "Silver Jelly",
+          "tags": []
+        },
+        "id": 11,
         "children": []
       }
     ]
