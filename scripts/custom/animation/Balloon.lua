@@ -124,7 +124,7 @@ end
 -- @param(Character)
 function Balloon:updatePosition(char)
   local p = char.position
-  local h = char:getPixelHeight()
+  local h = char:getPixelHeight() + (char.jumpHeight or 0)
   self.sprite:setXYZ(p.x, p.y - h, p.z)
   if self.iconAnim then
     self.iconAnim.sprite:setXYZ(p.x, p.y - h - self.height / 2, p.z)

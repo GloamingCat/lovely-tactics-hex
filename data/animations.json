@@ -88,10 +88,10 @@
           "cols": 1,
           "transform": {
             "offsetX": 10,
-            "offsetY": 12,
+            "offsetY": 6,
             "offsetDepth": 0,
-            "scaleX": 200,
-            "scaleY": 200,
+            "scaleX": 120,
+            "scaleY": 100,
             "rotation": 0,
             "red": 255,
             "green": 255,
@@ -106,7 +106,45 @@
           "loopPattern": "",
           "loopDuration": "",
           "audio": [],
-          "name": "Shadow Big",
+          "name": "Jelly Shadow",
+          "tags": []
+        },
+        "id": 200,
+        "children": []
+      },
+      {
+        "data": {
+          "script": "",
+          "quad": {
+            "path": "Character/shadow.png",
+            "x": 0,
+            "y": 0,
+            "width": 20,
+            "height": 12
+          },
+          "rows": 1,
+          "cols": 1,
+          "transform": {
+            "offsetX": 10,
+            "offsetY": 10,
+            "offsetDepth": 0,
+            "scaleX": 360,
+            "scaleY": 300,
+            "rotation": 0,
+            "red": 255,
+            "green": 255,
+            "blue": 255,
+            "alpha": 255,
+            "hue": 0,
+            "saturation": 100,
+            "brightness": 100
+          },
+          "introPattern": "",
+          "introDuration": "",
+          "loopPattern": "",
+          "loopDuration": "",
+          "audio": [],
+          "name": "Giant Jelly Shadow",
           "tags": []
         },
         "id": 106,

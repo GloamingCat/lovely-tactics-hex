@@ -11,13 +11,13 @@ A CharacterBase provides very basic functions that are necessary for every chara
 
 -- Imports
 local Interactable = require('core/objects/Interactable')
+local JumpingObject = require('core/objects/JumpingObject')
 local Vector = require('core/math/Vector')
-local WalkingObject = require('core/objects/WalkingObject')
 
 -- Alias
 local tile2Pixel = math.field.tile2Pixel
 
-local CharacterBase = class(WalkingObject, Interactable)
+local CharacterBase = class(JumpingObject, Interactable)
 
 ---------------------------------------------------------------------------------------------------
 -- Inititialization
@@ -37,7 +37,7 @@ function CharacterBase:init(instData, save)
     pos.x, pos.y, pos.z = tile2Pixel(instData.x, instData.y, instData.h)
   end
   -- Object:init
-  WalkingObject.init(self, data, pos)
+  JumpingObject.init(self, data, pos)
   -- Battle info
   self.id = data.id
   self.key = instData.key or ''
@@ -68,7 +68,7 @@ function CharacterBase:initProperties(name, tiles, colliderHeight, save)
   self.passable = false
   self.damageAnim = 'Damage'
   self.koAnim = 'KO'
-  WalkingObject.initProperties(self)
+  JumpingObject.initProperties(self)
 end
 -- Override DirectedObject:initGraphics. Creates the animation sets.
 function CharacterBase:initGraphics(instData, animations, portraits, transform, shadowID, save)
@@ -82,9 +82,42 @@ function CharacterBase:initGraphics(instData, animations, portraits, transform, 
   end
   local animName = save and save.animName or instData.animation
   local direction = save and save.direction or instData.direction
-  WalkingObject.initGraphics(self, direction, animations, animName, transform, true)
+  JumpingObject.initGraphics(self, direction, animations, animName, transform, true)
   if instData.visible == false then
     self:setVisible(false)
+  end
+end
+
+---------------------------------------------------------------------------------------------------
+-- Shadow
+---------------------------------------------------------------------------------------------------
+
+-- Overrides Object:setXYZ.
+-- Updates shadow's position.
+function CharacterBase:setXYZ(x, y, z)
+  z = z or self.position.z
+  JumpingObject.setXYZ(self, x, y, z)
+  if self.shadow then
+    self.shadow:setXYZ(x, y, z + 1)
+  end
+end
+-- Overrides Object:setVisible.
+-- Updates shadow's visibility.
+function CharacterBase:setVisible(value)
+  JumpingObject.setVisible(self, value)
+  if self.shadow then
+    self.shadow:setVisible(value)
+  end
+end
+-- Overrides Object:setRGBA.
+-- Updates shadow's color.
+function CharacterBase:setRGBA(...)
+  JumpingObject.setRGBA(self, ...)
+  if self.sprite then
+    self.sprite:setRGBA(...)
+  end
+  if self.shadow then
+    self.shadow:setRGBA(nil, nil, nil, self.color.alpha)
   end
 end
 
@@ -98,7 +131,7 @@ function CharacterBase:update()
   if self.paused then
     return
   end
-  WalkingObject.update(self)
+  JumpingObject.update(self)
   Interactable.update(self)
 end
 -- Removes from draw and update list.
@@ -108,16 +141,15 @@ function CharacterBase:destroy(permanent)
   end
   FieldManager.characterList:removeElement(self)
   FieldManager.characterList[self.key] = false
-  WalkingObject.destroy(self)
+  JumpingObject.destroy(self)
   Interactable.destroy(self, permanent)
 end
--- Overrides Object:setXYZ.
-function CharacterBase:setXYZ(x, y, z)
-  z = z or self.position.z
-  WalkingObject.setXYZ(self, x, y, z)
-  if self.shadow then
-    self.shadow:setXYZ(x, y, z + 1)
-  end
+-- Changes character's key.
+-- @param(key : string) Ney key.
+function CharacterBase:setKey(key)
+  FieldManager.characterList[self.key] = nil
+  FieldManager.characterList[key] = self
+  self.key = key
 end
 -- Converting to string.
 -- @ret(string) a string representation
