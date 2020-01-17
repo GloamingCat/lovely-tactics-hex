@@ -14,7 +14,7 @@ local List = require('core/datastruct/List')
 
 -- Alias
 local mod = math.mod
-local copyArray = util.array.deepCopy
+local copyTable = util.table.deepCopy
 
 -- Constants
 local baseDirection = math.field.baseDirection() -- characters' direction at rotation 0
@@ -53,7 +53,7 @@ end
 -- Creates battler for each member data in the given list that is not hidden.
 -- @param(members : table) An array of member data.
 function Troop:initBattlers(members)
-  self.members = List(copyArray(members))
+  self.members = List(copyTable(members))
   self.battlers = {}
   for member in self.members:iterator() do
     if member.list < 2 then
@@ -158,7 +158,7 @@ end
 function Troop:rotate()
   for member in self.members:iterator() do
     local i, j = member.x, member.y
-    member.x, member.y = self.sizeY - j + 1, i
+    member.x, member.y = j, self.sizeX - i + 1
   end
   self.rotation = mod(self.rotation + 1, 4)
   self.sizeX, self.sizeY = self.sizeY, self.sizeX
@@ -188,6 +188,7 @@ function Troop:getState(saveFormation)
   data.money = self.money
   data.items = self.inventory:getState()
   data.members = {}
+  data.rotation = saveFormation and self.rotation or self.save.rotation
   local members = saveFormation and self.members or self.save.members
   for i = 1, #members do
     local member = members[i]

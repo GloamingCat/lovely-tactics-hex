@@ -108,17 +108,19 @@ function BattleManager:battleIntro()
 end
 -- Runs after winner was determined and battle loop ends.
 function BattleManager:battleEnd()
+  TroopManager:onBattleEnd()
   local result = 1
   if self:playerWon() then
     GUIManager:showGUIForResult(RewardGUI(nil))
   elseif self:isGameOver() then
     result = GUIManager:showGUIForResult(GameOverGUI(nil))
   end
+  if result < 2 then
+    TroopManager:saveTroops()
+  end
   if self.params.fade then
     FieldManager.renderer:fadeout(self.params.fade, true)
   end
-  TroopManager:onBattleEnd()
-  TroopManager:saveTroops()
   self.onBattle = false
   return result
 end

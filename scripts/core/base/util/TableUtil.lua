@@ -14,32 +14,32 @@ local util = {}
 ---------------------------------------------------------------------------------------------------
 
 -- Creates a copy of the given table.
--- @param(table : table) the table with the (key, value) entries to be copied
--- @ret(table) the copy of the table
+-- @param(table : table) The table with the (key, value) entries to be copied.
+-- @ret(table) The copy of the table.
 function util.shallowCopy(table)
   local copy = {}
   util.shallowAdd(copy, table)
   return copy
 end
 -- Adds the seconde table's key and values to the first one.
--- @param(table : table) the table to be modified
--- @param(entries : table) a table of (key, value) entries to be added
+-- @param(table : table) The table to be modified.
+-- @param(entries : table) A table of (key, value) entries to be added.
 function util.shallowAdd(table, entries)
   for k, v in pairs(entries) do
     table[k] = v
   end
 end
 -- Creates a copy of the given table.
--- @param(table : table) the table with the (key, value) entries to be copied
--- @ret(table) the copy of the table
+-- @param(table : table) The table with the (key, value) entries to be copied.
+-- @ret(table) The copy of the table.
 function util.deepCopy(table)
   local copy = {}
   util.deepAdd(copy, table)
   return copy
 end
 -- Adds the seconde table's key and values to the first one.
--- @param(table : table) the table to be modified
--- @param(entries : table) a table of (key, value) entries to be added
+-- @param(table : table) The table to be modified.
+-- @param(entries : table) A table of (key, value) entries to be added.
 function util.deepAdd(table, entries)
   for k, v in pairs(entries) do
     local typ = type(v)
@@ -51,8 +51,8 @@ function util.deepAdd(table, entries)
   end
 end
 -- Combines multiple tables' keys and values into a single one.
--- @param(tables : table) a table of tables
--- @ret(table) the joined tables
+-- @param(tables : table) A table of tables.
+-- @ret(table) The joined tables.
 function util.join(tables)
   local new = {}
   for i = 1, #tables do

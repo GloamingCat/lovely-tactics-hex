@@ -31,8 +31,12 @@ end
 -- Buttons
 ---------------------------------------------------------------------------------------------------
 
+-- Check if the game mey the continued even if the player lost.
 function GameOverWindow:continueEnabled()
   return BattleManager.params.gameOverCondition == 0
+end
+-- Prevents player from returning the window.
+function GameOverWindow:onCancel()
 end
 
 ---------------------------------------------------------------------------------------------------

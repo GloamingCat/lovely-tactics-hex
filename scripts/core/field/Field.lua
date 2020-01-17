@@ -221,8 +221,8 @@ end
 -- @ret(number) The collision type:
 --  nil => none, 0 => border, 1 => terrain, 2 => obstacle, 3 => character
 function Field:collision(object, origCoord, destCoord)
-  local ox, oy, oz = origCoord:coordinates()
-  return self:collisionXYZ(object, ox, oy, oz, destCoord:coordinates())
+  local ox, oy, oh = origCoord:coordinates()
+  return self:collisionXYZ(object, ox, oy, oh, destCoord:coordinates())
 end
 
 ---------------------------------------------------------------------------------------------------

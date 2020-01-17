@@ -56,7 +56,7 @@ end
 ---------------------------------------------------------------------------------------------------
 
 -- Generates a unique character ID for a character in this tile.
--- @ret(string) new ID
+-- @ret(string) New ID.
 function ObjectTile:generateCharacterID()
   local h, x, y = self:coordinates()
   return '' .. h .. '.' .. x .. '.' .. y .. '.' .. self.characterList.size
@@ -66,14 +66,14 @@ function ObjectTile:__tostring()
   return 'ObjectTile (' .. self.x .. ', ' ..  self.y .. ', ' .. self.layer.height .. ')' 
 end
 -- Tile's coordinates.
--- @ret(number) tile's grid x
--- @ret(number) tile's grid y
--- @ret(number) tile's height
+-- @ret(number) Tile's grid x.
+-- @ret(number) Tile's grid y.
+-- @ret(number) Tile's height.
 function ObjectTile:coordinates()
   return self.x, self.y, self.layer.height
 end
 -- Gets the terrain move cost in this tile.
--- @ret(number) the move cost
+-- @ret(number) The move cost.
 function ObjectTile:getMoveCost()
   return FieldManager.currentField:getMoveCost(self:coordinates())
 end
