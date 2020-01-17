@@ -14,11 +14,11 @@ The length of the step in pixels is defined by <step> tag. The default is 12.
 local Animation = require('core/graphics/Animation')
 
 -- Alias
-local round = math.round
 local abs = math.abs
-local row2Angle = math.field.row2Angle
 local angle2Coord = math.angle2Coord
-local time = love.timer.getDelta
+local deltaTime = love.timer.getDelta
+local round = math.round
+local row2Angle = math.field.row2Angle
 
 -- Constants
 local defaultStep = 12
@@ -66,7 +66,7 @@ function Knockback:update()
 end
 -- Increments time.
 function Knockback:updateTime()
-  self.knockTime = self.knockTime + time() * self.knockSpeed
+  self.knockTime = self.knockTime + deltaTime() * self.knockSpeed
 end
 -- Sets position according to time.
 function Knockback:updatePosition()

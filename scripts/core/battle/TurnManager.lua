@@ -7,9 +7,11 @@ Provides methods for battle's turn management.
 At the end of each turn, a "battle result" table must be returned by either the GUI (player) or
 the AI (enemies). 
 This table must include the following entries:
+* <endTurn> tells turn manager to pass turn to next party.
 * <endCharacterTurn> tells the turn window to close and pass turn to the next character.
-* <executed> is true if the chosen action was enterily executed (usually true, unless it was a move
-action to an unreachable tile).
+* <characterIndex> indicates the next turn's character (from same party).
+* <executed> is true if the chosen action was entirely executed (usually true, unless it was a move
+action to an unreachable tile, or the action could not be executed for some reason).
 * <escaped> is true if all members of the current party have escaped.
 
 =================================================================================================]]

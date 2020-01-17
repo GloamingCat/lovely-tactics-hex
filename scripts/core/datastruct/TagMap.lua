@@ -77,11 +77,29 @@ function TagMap:addAll(tags)
 end
 
 ---------------------------------------------------------------------------------------------------
--- Convertion
+-- General
 ---------------------------------------------------------------------------------------------------
 
+-- @ret(table) Array of {key, value} entries.
 function TagMap:toList()
-  return {} -- TODO
+  local list = {}
+  for k, v in pairs(self.tags) do
+    for i = 1, #v do
+      list[#list + 1] = { key = k, v = v[i] }
+    end
+  end
+  return list
+end
+-- @ret(string) String identifier.
+function TagMap:__tostring()
+  local s = '{'
+  for k, v in pairs(self.tags) do
+    for i = 1, #v do
+      s = s .. ', ' .. k .. ' = ' .. v[i]
+    end
+  end
+  s = s:gsub(', ', '', 1)
+  return s .. '}'
 end
 
 return TagMap
