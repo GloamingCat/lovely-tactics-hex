@@ -62,7 +62,7 @@ function SaveWindow:refreshSave(button)
   button.saveInfo = SaveInfo(button.file, w - self:paddingX(), h)
   button.content:add(button.saveInfo)
   button:updatePosition(self.position)
-  button:updateEnabled()
+  button:refreshEnabled()
 end
 -- Overrides Window:show.
 function SaveWindow:show(...)

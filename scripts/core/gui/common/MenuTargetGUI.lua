@@ -39,7 +39,7 @@ end
 
 -- Sets the button as enabled according to the skill.
 -- @param(input : ActionInput)
-function MenuTargetGUI:updateEnabled()
+function MenuTargetGUI:refreshEnabled()
   local enabled = self.input.action:canMenuUse(self.input.user)
   local buttons = self.partyWindow.matrix
   for i = 1, #buttons do

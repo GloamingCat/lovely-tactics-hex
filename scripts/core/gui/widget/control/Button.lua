@@ -138,7 +138,7 @@ end
 
 -- Refreshes color, position and visibility.
 function Button:refreshState()
-  self:updateColor()
+  self:refreshColor()
   self:updatePosition(self.window.position)
   if self.window.open then
     self:show()
@@ -147,7 +147,7 @@ function Button:refreshState()
   end
 end
 -- Updates text and icon color based on button state.
-function Button:updateColor()
+function Button:refreshColor()
   local name = self.enabled and 'enabled' or 'disabled'
   if self.text then
     local color = Color['gui_text_' .. name]
@@ -163,7 +163,7 @@ function Button:updateColor()
   end
 end
 -- Updates enabled state based on the enable condition function.
-function Button:updateEnabled()
+function Button:refreshEnabled()
   if self.enableCondition then
     self:setEnabled(self.enableCondition(self.window, self))
   end
@@ -173,7 +173,7 @@ end
 function Button:setEnabled(value)
   if value ~= self.enabled then
     self.enabled = value
-    self:updateColor()
+    self:refreshColor()
   end
 end
 -- Selects/deselects this button.
@@ -182,7 +182,7 @@ function Button:setSelected(value)
   if value ~= self.selected then
     self.selected = value
     if self.enabled then
-      self:updateColor()
+      self:refreshColor()
     end
   end
 end

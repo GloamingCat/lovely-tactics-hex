@@ -80,7 +80,7 @@ end
 -- @param(member : Battler)
 function MemberCommandWindow:setMember(member)
   for i = 1, #self.matrix do
-    self.matrix[i]:updateEnabled()
+    self.matrix[i]:refreshEnabled()
     self.matrix[i]:refreshState()
   end
 end

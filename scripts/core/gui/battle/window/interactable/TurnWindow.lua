@@ -146,6 +146,17 @@ function TurnWindow:callAllyEnabled()
 end
 
 ---------------------------------------------------------------------------------------------------
+-- Show / Hide
+---------------------------------------------------------------------------------------------------
+
+-- Overrides Window:show.
+function TurnWindow:show(...)
+  local user = TurnManager:currentCharacter()
+  self.userCursor:setCharacter(user)
+  ActionWindow.show(self, ...)
+end
+
+---------------------------------------------------------------------------------------------------
 -- General info
 ---------------------------------------------------------------------------------------------------
 
@@ -156,12 +167,6 @@ end
 -- Overrides GridWindow:rowCount.
 function TurnWindow:rowCount()
   return 7
-end
--- Overrides Window:show.
-function TurnWindow:show(add)
-  local user = TurnManager:currentCharacter()
-  self.userCursor:setCharacter(user)
-  ActionWindow.show(self, add)
 end
 -- @ret(string) String representation (for debugging).
 function TurnWindow:__tostring()

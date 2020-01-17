@@ -40,6 +40,22 @@ function GridWindow:createContent(width, height)
   Window.createContent(self, width or self:calculateWidth(), height or self:calculateHeight())
   self:packWidgets()
 end
+-- Refreshes widgets' color, position, and enabled condition.
+function GridWindow:refreshWidgets()
+  for i = 1, #self.matrix do
+    self.matrix[i]:refreshEnabled()
+    self.matrix[i]:refreshState()
+  end
+  if not self:currentWidget() then
+    self.currentCol = 1
+    self.currentRow = 1
+  end
+  local current = self:currentWidget()
+  if current then
+    self:setSelectedWidget(current)
+  end
+  self:packWidgets()
+end
 -- Reposition widgets so they are aligned and inside the window and adjusts sliders.
 function GridWindow:packWidgets()
   self.matrix.height = math.ceil(#self.matrix / self:colCount())

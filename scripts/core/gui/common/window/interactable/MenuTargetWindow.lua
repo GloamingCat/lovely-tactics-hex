@@ -24,7 +24,7 @@ function MenuTargetWindow:onButtonConfirm(button)
   local result = input.action:menuUse(input)
   if result.executed then
     self:refreshMembers()
-    self.GUI:updateEnabled()
+    self.GUI:refreshEnabled()
   end
 end
 

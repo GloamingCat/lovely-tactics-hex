@@ -44,7 +44,7 @@ end
 function ItemWindow:setMember(member)
   self.member = member
   for i = 1, #self.matrix do
-    self.matrix[i]:updateEnabled()
+    self.matrix[i]:refreshEnabled()
     self.matrix[i]:refreshState()
   end
 end

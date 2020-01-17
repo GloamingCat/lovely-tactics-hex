@@ -82,7 +82,7 @@ function SkillWindow:onButtonConfirm(button)
     self.GUI:show()
   end
   for i = 1, #self.matrix do
-    self.matrix[i]:updateEnabled()
+    self.matrix[i]:refreshEnabled()
     self.matrix[i]:refreshState()
   end
 end

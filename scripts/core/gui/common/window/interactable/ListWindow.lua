@@ -37,18 +37,7 @@ function ListWindow:refreshButtons(list)
   self.list = list or self.list
   self:clearWidgets()
   self:createWidgets()
-  for i = 1, #self.matrix do
-    self.matrix[i]:refreshState()
-  end
-  if not self:currentWidget() then
-    self.currentCol = 1
-    self.currentRow = 1
-  end
-  local current = self:currentWidget()
-  if current then
-    self:setSelectedWidget(current)
-  end
-  self:packWidgets()
+  GridWindow.refreshWidgets(self)
 end
 
 ----------------------------------------------------------------------------------------------------
