@@ -68,13 +68,14 @@ function EventSheet:forkFromScript(script, ...)
 end
 -- Searches for the character with the given key.
 -- @param(key : string) Character's key.
--- @ret(Character) Character with given key.
-function EventSheet:findCharacter(key)
+-- @param(optional : boolean) If true, does not throw error if not found.
+-- @ret(Character) Character with given key, nil if optional and not found.
+function EventSheet:findCharacter(key, optional)
   if key == 'self' then
     return self.char
   end
   local char = FieldManager:search(key)
-  assert(char, 'Character not found:', key or 'nil key')
+  assert(char or optional, 'Character not found:', key or 'nil key')
   return char
 end
 -- Load other commands.

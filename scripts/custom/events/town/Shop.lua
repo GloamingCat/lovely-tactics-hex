@@ -14,8 +14,8 @@ return function(script)
     height = ScreenManager.height / 4
   }
   
-  script:showDialogue { id = 1, character = '', message = 
-    Vocab.dialogues.Shop
+  script:showDialogue { id = 1, character = 'player', message = 
+    Vocab.dialogues.town.Shop
   }
 
   script:openChoiceWindow { width = 80, choices = {
@@ -38,39 +38,34 @@ return function(script)
     { id = 7 }
   }}
 
-  script:fadeout { time = 90, wait = true }
+  FieldManager.renderer:fadeout(90, true)
   FieldManager.renderer.images.Shop:setVisible(true)
-  script:fadein { time = 90, wait = true }
-  
-  script:openDialogueWindow { id = 1, x = 0, y = ScreenManager.height / 3,
-    width = ScreenManager.width, 
-    height = ScreenManager.height / 3
-  }
+  FieldManager.renderer:fadein(90, true)
   
   if not FieldManager.currentField.vars.shop then
     
     script:showDialogue { id = 1, character = 13, portrait = "Happy", nameX = -0.45, nameY = -1.25, message = 
-      Vocab.dialogues.HelloWelcome
+      Vocab.dialogues.town.HelloWelcome
     }
     
     script:showDialogue { id = 1, character = 13, portrait = "Blush", nameX = -0.45, nameY = -1.25, message = 
-      Vocab.dialogues.AhTumTum
+      Vocab.dialogues.town.AhTumTum
     }
     
     script:showDialogue { id = 1, character = "player", portrait = "Happy", message = 
-      Vocab.dialogues.HelloHeron
+      Vocab.dialogues.town.HelloHeron
     }
 
     script:showDialogue { id = 1, character = 13, portrait = "Blush", nameX = -0.45, nameY = -1.25, message = 
-      Vocab.dialogues.OfCourse
+      Vocab.dialogues.town.OfCourse
     }
     
     script:showDialogue { id = 1, character = "player", portrait = "Surprise", message = 
-      Vocab.dialogues.OhNoDontWorry
+      Vocab.dialogues.town.OhNoDontWorry
     }
     
     script:showDialogue { id = 1, character = "player", portrait = "Determined", message = 
-      Vocab.dialogues.CmonIWant
+      Vocab.dialogues.town.CmonIWant
     }
   
     script:closeDialogueWindow { id = 1 }
@@ -83,45 +78,35 @@ return function(script)
     }
     
     script:showDialogue { id = 1, character = 13, portrait = "Happy", nameX = -0.45, nameY = -1.25, message = 
-      Vocab.dialogues.ThankYouComeBack
+      Vocab.dialogues.town.ThankYouComeBack
     }
     
     script:showDialogue { id = 1, character = "player", portrait = "Happy", message = 
-      Vocab.dialogues.YoureWelcome
+      Vocab.dialogues.town.YoureWelcome
     }
     
     FieldManager.currentField.vars.shop = true
   
   else
     
-    script:openDialogueWindow { id = 1, x = 0, y = ScreenManager.height / 3,
-      width = ScreenManager.width, 
-      height = ScreenManager.height / 3
-    }
-    
     script:showDialogue { id = 1, character = 13, portrait = "Happy", nameX = -0.45, nameY = -1.25, message = 
-      Vocab.dialogues.WelcomeBack
+      Vocab.dialogues.town.WelcomeBack
     }
     
     script:closeDialogueWindow { id = 1 }
     
     script:openShopMenu (shop)
     
-    script:openDialogueWindow { id = 1, x = 0, y = ScreenManager.height / 3,
-      width = ScreenManager.width, 
-      height = ScreenManager.height / 3
-    }
-    
     script:showDialogue { id = 1, character = 13, portrait = "Happy", nameX = -0.45, nameY = -1.25, message = 
-      Vocab.dialogues.ThankYou
+      Vocab.dialogues.town.ThankYou
     }
     
   end
   
   script:closeDialogueWindow { id = 1 }
   
-  script:fadeout { time = 90, wait = true }
+  FieldManager.renderer:fadeout(90, true)
   FieldManager.renderer.images.Shop:setVisible(false)
-  script:fadein { time = 90, wait = true }
+  FieldManager.renderer:fadein(90, true)
 
 end

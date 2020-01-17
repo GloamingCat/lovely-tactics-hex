@@ -20,12 +20,12 @@ return function(script)
   end
   
   script.player:playIdleAnimation()
-  script:startBattle { fieldID = script.tags.fieldID or 0, fade = 5, intro = true, 
+  script:startBattle { fieldID = script.args.fieldID or 0, fade = 60, intro = true, 
     gameOverCondition = 1, escapeEnabled = true }
   
   if BattleManager:playerWon() then
     print 'You won!'
-    script:deleteChar { key = "self", permanent = true }
+    script:deleteChar { key = "self", fade = 60, permanent = true }
   elseif BattleManager:enemyWon() then
     print 'You lost...'
   elseif BattleManager:drawed() then

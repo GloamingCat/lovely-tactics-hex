@@ -14,7 +14,7 @@ return function(script)
   }
   
   script:showDialogue { id = 1, character = '', message = 
-    Vocab.dialogues.Rest
+    Vocab.dialogues.town.Rest
   }
 
   script:openChoiceWindow { width = 80, choices = {
@@ -28,13 +28,13 @@ return function(script)
     return
   end
   
-  script:fadeout { time = 60, wait = true }
+  FieldManager.renderer:fadeout(60, true)
   AudioManager:playSFX { name = "sfx/GameAudio/heal.wav", pitch = 100, volume = 100 }
   script:wait(90)
   script:healAll {}
   FieldManager.renderer.images.Inn:setVisible(true)
   
-  script:fadein { time = 60, wait = true }
+  FieldManager.renderer:fadein(60, true)
 
   script:openDialogueWindow { id = 1, x = 0, y = ScreenManager.height / 3,
     width = ScreenManager.width, 
@@ -42,17 +42,17 @@ return function(script)
   }
 
   script:showDialogue { id = 1, character = 5, portrait = "Serious", nameX = -0.45, nameY = -1.25, message = 
-    Vocab.dialogues.YouMayReturn
+    Vocab.dialogues.town.YouMayReturn
   }
   
   script:showDialogue { id = 1, character = "player", portrait = "Happy", nameX = -0.45, nameY = -1.25, message = 
-    Vocab.dialogues.DontWorry
+    Vocab.dialogues.town.DontWorry
   }
   
   script:closeDialogueWindow { id = 1 }
 
-  script:fadeout { time = 90, wait = true }
+  FieldManager.renderer:fadeout(90, true)
   FieldManager.renderer.images.Inn:setVisible(false)
-  script:fadein { time = 90, wait = true }
+  FieldManager.renderer:fadein(90, true)
 
 end

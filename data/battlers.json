@@ -311,7 +311,7 @@
           "persistent": false,
           "ai": [
             {
-              "condition": "if self:chance(75)",
+              "condition": "self:chance(75)",
               "name": "rule/CallRule.lua",
               "tags": []
             },

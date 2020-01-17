@@ -53,7 +53,10 @@ end
 -- @param(script : table) Table with script's name and param.
 -- @ret(EventSheet) The newly created Fiber.
 function FiberList:forkFromScript(script, ...)
-  return EventSheet(self, script, ...)
+  local sheet = EventSheet(self, script, ...)
+  if script.wait then
+    sheet:waitForEnd()
+  end
 end
 
 return FiberList

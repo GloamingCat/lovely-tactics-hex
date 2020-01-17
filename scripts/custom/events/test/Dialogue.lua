@@ -12,38 +12,38 @@ return function(script)
 
   script:openDialogueWindow { id = 1, width = 250, height = 60 }
 
-  script:showDialogue { id = 1, character = "self", portrait = "BigIcon", nameX = -0.45, nameY = -1.25, message = 
-    Vocab.dialogues.Hi
+  script:showDialogue { id = 1, character = "self", portrait = "BigIcon", message = 
+    Vocab.dialogues.town.Hi
   }
 
   script:showDialogue { id = 1, character = "self", portrait = "BigIcon", message = 
-    Vocab.dialogues.WhatsYourAge
+    Vocab.dialogues.town.WhatsYourAge
   }
 
   script:openNumberWindow { length = 2 }
 
   script:showDialogue { id = 1, character = "self", portrait = "BigIcon", message = 
-    Vocab.dialogues.OhMeToo .. "\n" ..
-    Vocab.dialogues.HowAreYouDoing
+    Vocab.dialogues.town.OhMeToo .. "\n" ..
+    Vocab.dialogues.town.HowAreYouDoing
   }
 
   script:openChoiceWindow { width = 50, choices = {
-    Vocab.dialogues.Good,
-    Vocab.dialogues.Bad
+    Vocab.dialogues.town.Good,
+    Vocab.dialogues.town.Bad
   }}
 
   if script.gui.choice == 1 then
     script:showDialogue { id = 1, character = "self", portrait = "BigIcon", message = 
-      Vocab.dialogues.ThatsGood
+      Vocab.dialogues.town.ThatsGood
     }
   else
     script:showDialogue { id = 1, character = "self", portrait = "BigIcon", message = 
-      Vocab.dialogues.ThatsBad
+      Vocab.dialogues.town.ThatsBad
     }
   end
 
   script:showDialogue { id = 1, character = "self", portrait = "BigIcon", message = 
-    Vocab.dialogues.ImHungry
+    Vocab.dialogues.town.ImHungry
   }
 
   script:closeDialogueWindow { id = 1 }

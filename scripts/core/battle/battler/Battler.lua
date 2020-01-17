@@ -256,7 +256,7 @@ end
 -- Callback for when the battle ends.
 function Battler:onBattleEnd(char)
   if self.AI and self.AI.onBattleEnd then
-    self.AI:BattleEnd(self, char)
+    self.AI:onBattleEnd(self, char)
   end
   self.statusList:callback('BattleEnd', char)
   if Config.battle.battleEndRevive then

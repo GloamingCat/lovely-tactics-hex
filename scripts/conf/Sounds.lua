@@ -48,7 +48,19 @@ return {
 	unequip = equip,
 	buy = coin,
 	sell = coin,
-
+  
+  -- Emotions
+  ['?'] = {
+		name = "sfx/GameAudio/confusion.wav",
+		pitch = 80,
+		volume = 90
+  },
+  ['!'] = {
+		name = "sfx/GameAudio/surprise.wav",
+		pitch = 120,
+		volume = 100
+  },
+  
 	-- Battle
 	allyKO = ko,
 	enemyKO = ko,
@@ -74,6 +86,16 @@ return {
 		pitch = 100,
 		volume = 90
 	},
+	bossTheme = {
+		name = "bgm/Gyrowolf/Battle003.ogg",
+		pitch = 100,
+		volume = 90
+	},
+	finalBossTheme = {
+		name = "bgm/Gyrowolf/Battle003.ogg",
+		pitch = 100,
+		volume = 90
+	},
 	victoryTheme = {
 		name = "bgm/David Vitas/Victory Fanfare.ogg",
 		pitch = 100,
@@ -85,11 +107,19 @@ return {
 		volume = 100
 	},
   
+  -- Field themes
   townTheme = { 
     name = 'bgm/Gyrowolf/Town001.ogg', 
     volume = 100, 
     pitch = 100 
   },
+  jungleTheme = {
+    name = 'bgm/Aaron Krogh/Jungle.ogg', 
+    volume = 100, 
+    pitch = 100 
+  },
+  
+  -- Scene themes
   happyTheme = { 
     name = 'bgm/Aaron Krogh/Happiness.ogg', 
     volume = 100, 

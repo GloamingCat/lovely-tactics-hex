@@ -216,32 +216,50 @@
               "row": 0
             },
             {
+              "name": "Angry",
+              "id": 177,
+              "col": 0,
+              "row": 0
+            },
+            {
+              "name": "Annoyed",
+              "id": 178,
+              "col": 0,
+              "row": 0
+            },
+            {
+              "name": "Confused",
+              "id": 179,
+              "col": 0,
+              "row": 0
+            },
+            {
+              "name": "Cry",
+              "id": 180,
+              "col": 0,
+              "row": 0
+            },
+            {
               "name": "Determined",
               "id": 168,
               "col": 0,
               "row": 0
             },
             {
-              "name": "Surprise",
-              "id": 168,
+              "name": "Happy",
+              "id": 182,
               "col": 0,
               "row": 0
             },
             {
-              "name": "Angry",
-              "id": 168,
+              "name": "Scared",
+              "id": 181,
               "col": 0,
               "row": 0
             },
             {
-              "name": "Cry",
-              "id": 168,
-              "col": 0,
-              "row": 0
-            },
-            {
-              "name": "Confused",
-              "id": 168,
+              "name": "Surprised",
+              "id": 188,
               "col": 0,
               "row": 0
             }
@@ -258,6 +276,14 @@
             {
               "name": "Dash",
               "id": 71
+            },
+            {
+              "name": "Stuck",
+              "id": 189
+            },
+            {
+              "name": "Sleeping",
+              "id": 97
             },
             {
               "name": "Battle:Idle",
@@ -334,6 +360,36 @@
             {
               "name": "BigIcon",
               "id": 166,
+              "col": 0,
+              "row": 0
+            },
+            {
+              "name": "Happy",
+              "id": 187,
+              "col": 0,
+              "row": 0
+            },
+            {
+              "name": "Shy",
+              "id": 183,
+              "col": 0,
+              "row": 0
+            },
+            {
+              "name": "Sad",
+              "id": 184,
+              "col": 0,
+              "row": 0
+            },
+            {
+              "name": "Worried",
+              "id": 186,
+              "col": 0,
+              "row": 0
+            },
+            {
+              "name": "Surprised",
+              "id": 185,
               "col": 0,
               "row": 0
             }

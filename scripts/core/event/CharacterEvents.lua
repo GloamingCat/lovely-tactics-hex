@@ -21,7 +21,10 @@ local EventSheet = {}
 -- @param(args.permanent : boolean) If false, character shows up again when field if reloaded.
 -- @param(args.fade : number) Duration of fading animation.
 function EventSheet:deleteChar(args)
-  local char = self:findCharacter(args.key)
+  local char = self:findCharacter(args.key, args.optional)
+  if not char then
+    return
+  end
   if args.fade and args.fade > 0 then
     local speed = 60 / args.fade
     char:colorizeTo(nil, nil, nil, 0, speed)
