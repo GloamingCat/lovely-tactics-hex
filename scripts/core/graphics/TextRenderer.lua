@@ -21,6 +21,8 @@ local TextRenderer = {}
 -- Final Buffer
 ---------------------------------------------------------------------------------------------------
 
+-- Creates the image buffers of each line.
+-- @param(lines : table) Array of parsed lines.
 function TextRenderer.createLineBuffers(lines)
   -- Previous graphics state
   local r, g, b, a = lgraphics.getColor()
@@ -29,6 +31,7 @@ function TextRenderer.createLineBuffers(lines)
   local font = lgraphics.getFont()
   -- Render lines individually
   lgraphics.setColor(1, 1, 1, 1)
+  TextRenderer.underlined = false
 	local renderedLines = {}
   for i = 1, #lines do
     lgraphics.setShader()
@@ -49,14 +52,16 @@ function TextRenderer.createLineBuffers(lines)
   return renderedLines
 end
 -- Renders texture with the shader in a buffer with the correct size.
--- @param(texture : Canvas) rendered text
--- @ret(Canvas) pre-shaded texture
+-- @param(texture : Canvas) Unshaded rendered text.
+-- @ret(Canvas) Pre-shaded texture.
 function TextRenderer.shadeBuffer(texture)
   local w, h = texture:getWidth(), texture:getHeight()
   local newTexture = lgraphics.newCanvas(w, h)
   newTexture:setFilter('linear', 'linear')
   lgraphics.setCanvas(newTexture)
-  textShader:send('stepSize', { 1 / math.pow(2, ScreenManager.scaleX - 1), 1 / math.pow(2, ScreenManager.scaleY)})
+  local stepX = 1 / math.pow(2, ScreenManager.scaleX - 1)
+  local stepY = 1 / math.pow(2, ScreenManager.scaleY)
+  textShader:send('stepSize', { stepX, stepY })
   textShader:send('pixelSize', { Fonts.outlineSize / w, Fonts.outlineSize / h })
   --lgraphics.setBlendMode('alpha', 'premultiplied')
   lgraphics.draw(texture)
@@ -68,34 +73,49 @@ end
 -- Individual buffers
 ---------------------------------------------------------------------------------------------------
 
--- @param(line : table) a list of text fragments
--- @ret(Canvas) rendered line
+-- Draw the image buffer of a single line.
+-- @param(line : table) A list of text fragments.
+-- @ret(Canvas) Rendered line.
 function TextRenderer.createLineBuffer(line)
   local buffer = lgraphics.newCanvas(line.width + Fonts.outlineSize * 2, line.height * 1.5)
   buffer:setFilter('linear', 'linear')
   lgraphics.setCanvas(buffer)
+  lgraphics.setLineWidth(ScreenManager.scaleY)
   local x, y = Fonts.outlineSize, line.height
   for j = 1, #line do
     local fragment = line[j]
     local t = type(fragment.content)
-    if t == 'string' then
-      -- Print text
-      if fragment ~= '' then
-        local fy = y - fragment.height
-        lgraphics.print(fragment.content, x, fy)
-        x = x + fragment.width
+    if fragment.width then
+      -- Drawable
+      if t == 'string' then
+        -- Print text
+        if fragment.content ~= '' then
+          local fy = y - fragment.height
+          lgraphics.print(fragment.content, x, fy)
+          if TextRenderer.underlined then
+            lgraphics.line(x, y, x + fragment.width, y)
+          end
+          x = x + fragment.width
+        end
+      elseif t == 'table' then
+        -- Print sprite
+        -- TODO
       end
-    elseif t == 'table' then
-      if fragment.width then
-        -- Print sprite (TODO)
-      else
-        -- Change color
+    else
+      -- Settings
+      if t == 'string' then
+        -- Flags
+        if fragment.content == 'underline' then
+          TextRenderer.underlined = not TextRenderer.underlined
+        end
+      elseif t == 'table' then
+        -- Color
         local c = fragment.content
         lgraphics.setColor(c.red, c.green, c.blue, c.alpha)
+      elseif t == 'userdata' then
+        -- Font
+        lgraphics.setFont(fragment.content)
       end
-    elseif t == 'userdata' then
-      -- Change font
-      lgraphics.setFont(fragment.content)
     end
   end
   return buffer

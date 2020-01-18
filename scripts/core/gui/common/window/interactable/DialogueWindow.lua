@@ -5,16 +5,6 @@ DialogueWindow
 ---------------------------------------------------------------------------------------------------
 Show a dialogue.
 
-Message codes:
-{i} = set italic
-{b} = set bold
-{u} = set underlined
-{+x} = increases font size by x points
-{-x} = decreases font size by x points
-{fx} = set font (x must be a key in the globals Fonts table)
-{cx} = sets the color (x must be a key in the globals Color table)
-{sx} = shows sprite icon (x must be a key in the globals Icon table) [TODO]
-
 =================================================================================================]]
 
 -- Imports
