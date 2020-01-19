@@ -26,9 +26,15 @@ local SimpleText = class(Component)
 -- @param(font : string) Font of the text (optional).
 function SimpleText:init(text, position, width, align, font)
   assert(text, 'nil text')
-  Component.init(self, position)
-  local p = { width, align or 'left', font or Fonts.gui_default }
-  self.sprite = Text(text .. '', p, GUIManager.renderer)
+  local properties = { width, align or 'left', font or Fonts.gui_default }
+  Component.init(self, position, text, properties)
+end
+-- Implements Component:createContent.
+-- @param(text : string) Initial text, in raw form.
+-- @param(properties : table) Array with text properties in order:
+--  Maximum width, horizontal alignment, initial font.
+function SimpleText:createContent(text, properties)
+  self.sprite = Text(text .. '', properties, GUIManager.renderer)
   self.text = text
   self.content:add(self.sprite)
 end
@@ -48,7 +54,7 @@ function SimpleText:setRelativeXYZ(x, y, z)
   pos.z = pos.z or z
 end
 -- Overrides Component:updatePosition.
--- @param(pos : Vector) window position
+-- @param(pos : Vector) Window position.
 function SimpleText:updatePosition(pos)
   local rpos = self.position
   self.sprite:setXYZ(pos.x + rpos.x, pos.y + rpos.y, pos.z + rpos.z)
@@ -80,7 +86,7 @@ function SimpleText:setAlign(h, v)
   self.sprite.alignX = h or 'left'
   self.sprite.alignY = v or 'top'
 end
--- Redraws text.
+-- Redraws text buffer.
 function SimpleText:redraw()
   self.sprite:setText(self.text)
 end

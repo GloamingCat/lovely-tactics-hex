@@ -63,13 +63,13 @@ function DialogueWindow:createContent(width, height)
   self.nameWindow:setXYZ(nameX, nameY)
 end
 -- Override. Adjusts text position and width.
-local DialogueWindow_rollText = DialogueWindow.rollText
-function DialogueWindow:rollText(text)
+local DialogueWindow_showDialogue = DialogueWindow.showDialogue
+function DialogueWindow:showDialogue(...)
   local x = self.portrait and (indent or self.indent) or 0
   self.dialogue:setMaxWidth(self.width - self:paddingX() * 2 - x)
   self.dialogue.position.x = x - self.width / 2 + self:paddingX()
   self.dialogue:updatePosition(self.position)
-  DialogueWindow_rollText(self, text)
+  DialogueWindow_showDialogue(self, ...)
 end
 -- Override. Adjusts name window position.
 local DialogueWindow_setName = DialogueWindow.setName

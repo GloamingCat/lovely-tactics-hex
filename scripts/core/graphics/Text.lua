@@ -38,21 +38,15 @@ local Text = class(Sprite)
 --    (optional, left by default);
 --  (properties[3] : number) The initial font 
 --    (if nil, uses defaultFont).
-local old_init = Text.init
 function Text:init(text, properties, renderer)
-  old_init(self, renderer)
+  Sprite.init(self, renderer)
   assert(text, 'Nil text')
   self.maxWidth = properties[1]
   self.alignX = properties[2] or 'left'
   self.alignY = 'top'
   self.defaultFont = properties[3] or defaultFont
-  self.text = text
   self.wrap = false
-  if text == '' then
-    self.lines = {}
-  else
-    self:setText(text)
-  end
+  self:setText(text)
 end
 -- Sets/changes the text content.
 -- @param(text : string) The rich text.
@@ -61,11 +55,14 @@ function Text:setText(text)
   if text == '' then
     self.text = text
     self.lines = nil
+    self.events = nil
     return
   end
+  local maxWidth = self.wrap and (self.maxWidth / self.scaleX)
   local fragments = TextParser.parse(text)
-  local lines = TextParser.createLines(fragments, self.defaultFont, self.wrap and (self.maxWidth / self.scaleX))
+  local lines, events = TextParser.createLines(fragments, self.defaultFont, maxWidth)
   self.parsedLines = lines
+  self.events = events
   self:redrawBuffers()
 end
 -- Redraws each line buffer.
@@ -90,7 +87,7 @@ end
 ---------------------------------------------------------------------------------------------------
 
 -- Checks if sprite is visible on screen.
--- @ret(boolean) true if visible, false otherwise
+-- @ret(boolean)
 function Text:isVisible()
   return self.lines and self.visible
 end
@@ -128,6 +125,9 @@ end
 -- Alignment
 ---------------------------------------------------------------------------------------------------
 
+-- Sets maximum line width. If wrap is set as true, new lines will be created to accomodate text 
+-- out of width limit. Else, the line that surpasses width limit is shrinked horizontally to fit.
+-- @param(w : number) Maximum width in GUI pixel coordinates.
 function Text:setMaxWidth(w)
   if self.maxWidth ~= w then
     self.maxWidth = w
@@ -136,7 +136,8 @@ function Text:setMaxWidth(w)
     end
   end
 end
-
+-- Sets maximum text box height. It is used only to set vertical alignment.
+-- @param(h : number) Maximum height in GUI pixel coordinates.
 function Text:setMaxHeight(h)
   if self.maxHeight ~= h then
     self.maxHeight = h
@@ -145,23 +146,25 @@ function Text:setMaxHeight(h)
     end
   end
 end
-
+-- Sets text alingment relative to its maximum width.
+-- @param(align : string) Horizontal alignment type (left, right, center).
 function Text:setAlignX(align)
   if self.alignX ~= align then
     self.alignX = align
     self.renderer.needsRedraw = true
   end
 end
-
+-- Sets text alignment relative to its maximum height.
+-- @param(align : string) Vertical alignment type (top, bottom, center).
 function Text:setAlignY(align)
   if self.alignY ~= align then
     self.alignY = align
     self.renderer.needsRedraw = true
   end
 end
--- Gets the line offset in x according to the alingment.
--- @param(w : number) line's width
--- @ret(number) the x offset
+-- Gets the line offset in x according to the alignment.
+-- @param(w : number) Line's width in GUI pixels.
+-- @ret(number) The x offset in GUI pixels.
 function Text:alignOffsetX(w)
   if self.maxWidth then
     if self.alignX == 'right' then
@@ -172,9 +175,9 @@ function Text:alignOffsetX(w)
   end
   return 0
 end
--- Gets the text offset in y according to the alingment.
--- @param(h : number) text's height
--- @ret(number) the y offset
+-- Gets the text box offset in y according to the alingment.
+-- @param(h : number) Text's height in GUI pixels (optional, sum of all lines' heights by default).
+-- @ret(number) The y offset in GUI pixels.
 function Text:alignOffsetY(h)
   h = h or self:getHeight()
   if self.maxHeight then

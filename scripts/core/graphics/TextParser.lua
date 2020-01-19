@@ -55,6 +55,12 @@ function TextParser.parse(text)
         insert(fragments, { type = 'color', value = Color[resourceKey:sub(2)] })
       elseif t == 's' then
         insert(fragments, { type = 'sprite', value = Config.icons[resourceKey:sub(2)] })
+      elseif t == 'a' then
+        insert(fragments, { event = true, type = 'audio', value = Sounds[resourceKey:sub(2)] })
+      elseif t == 't' then
+        insert(fragments, { event = true, type = 'time', value = tonumber(resourceKey:sub(2)) })
+      elseif t == 'p' then
+        insert(fragments, { event = true, type = 'input' })
       elseif t == '%' then
         local key = resourceKey:sub(2)
         assert(vars[key], 'Text variable ' .. key .. ' not found.')
@@ -91,18 +97,23 @@ end
 
 -- Creates line list. Each line is a table containing an array of fragments, a height and a width.
 -- It also contains its length for character counting.
--- @param(fragments : table) Array of parsing fragments.
--- @ret(table) The array of lines.
+-- @param(fragments : table) Array of fragments.
+-- @ret(table) Array of lines.
+-- @ret(table) Array of text events.
 function TextParser.createLines(fragments, initialFont, maxWidth)
   local currentFont = ResourceManager:loadFont(initialFont)
   local currentFontInfo = { unpack(initialFont) }
   local currentLine = { width = 0, height = 0, length = 0, { content = currentFont } }
   local lines = { currentLine, length = 0 }
+  local events = {}
+  local point = 0
 	for i = 1, #fragments do
     local fragment = fragments[i]
 		if type(fragment) == 'string' then -- Piece of text
-      currentLine = TextParser.addTextFragment(lines, currentLine, fragment, 
+      local line, length = TextParser.addTextFragment(lines, currentLine, fragment, 
         currentFont, maxWidth)
+      currentLine = line
+      point = point + length
     elseif fragment.type == 'sprite' then
       local quad, texture = ResourceManager:loadIconQuad(fragment.value)
       local x, y, w, h = quad:getViewport()
@@ -113,10 +124,13 @@ function TextParser.createLines(fragments, initialFont, maxWidth)
       end
       TextParser.insertFragment(lines, currentLine, { content = texture, quad = quad, 
           length = 1, width = w, height = h})
+      point = point + 1
     elseif fragment.type == 'color' then
       insert(currentLine, { content = fragment.value })
     elseif fragment.type == 'underline' then
       insert(currentLine, { content = 'underline' })
+    elseif fragment.event then
+      insert(events, { type = fragment.type, content = fragment.value, point = point })
     else
       if fragment.type == 'italic' then
         currentFontInfo[4] = not currentFontInfo[4]
@@ -134,7 +148,7 @@ function TextParser.createLines(fragments, initialFont, maxWidth)
       insert(currentLine, { content = currentFont })
     end
 	end
-	return lines
+	return lines, events
 end
 -- Cuts the text in the given character index.
 -- @param(lines : table) Array of parsed lines.
@@ -144,10 +158,12 @@ function TextParser.cutText(lines, point)
   local newLines = { length = 0 }
   for l = 1, #lines do
     if point < lines[l].length then
+      -- Found line to be cut.
       local newLine = { width = 0, height = 0, length = 0 }
       for i = 1, #lines[l] do
         local fragment = lines[l][i]
         if fragment.length and point < fragment.length then
+          -- Found fragment to be cut.
           local content = fragment.content:sub(1, point)
           TextParser.insertFragment(newLines, newLine, content, fragment.font)
           break
@@ -172,28 +188,29 @@ end
 
 -- Inserts new text fragment to the given line (may have to add new lines).
 -- @param(lines : table) The array of lines.
--- @param(currentLine : table) the line of the fragment.
+-- @param(currentLine : table) The line of the fragment.
 -- @param(fragment : string) The text fragment.
 -- @ret(table) The new current line.
+-- @ret(number) Total length of the fragment inserted.
 function TextParser.addTextFragment(lines, currentLine, fragment, font, width)
   if fragment == '\n' then
     -- New line
     currentLine = { width = 0, height = 0, length = 0 }
     insert(lines, currentLine)
-    return currentLine
+    return currentLine, 0
   end
   if width then
     return TextParser.wrapText(lines, currentLine, fragment, font, width * Fonts.scale)
   else
-    TextParser.insertFragment(lines, currentLine, fragment, font)
-    return currentLine
+    return currentLine, TextParser.insertFragment(lines, currentLine, fragment, font)
   end
 end
 -- Wraps text fragment (may have to add new lines).
 -- @param(lines : table) The array of lines.
--- @param(currentLine : table) the line of the fragment.
+-- @param(currentLine : table) The line of the fragment.
 -- @param(fragment : string) The text fragment.
 -- @ret(table) The new current line.
+-- @ret(number) Total length of the fragment inserted.
 function TextParser.wrapText(lines, currentLine, fragment, font, width)
   local x = currentLine.width
   local breakPoint = nil
@@ -207,13 +224,18 @@ function TextParser.wrapText(lines, currentLine, fragment, font, width)
     nextBreakPoint = fragment:find(' ', nextBreakPoint + 1, true) or #fragment + 1
   end
   if breakPoint and breakPoint ~= nextBreakPoint then
-    TextParser.insertFragment(lines, currentLine, fragment:sub(1, breakPoint - 1), font)
+    -- Insert first part.
+    local part1 = fragment:sub(1, breakPoint - 1)
+    local length1 = TextParser.insertFragment(lines, currentLine, part1, font)
+    -- Create new line.
     currentLine = { width = 0, height = 0, length = 0 }
     insert(lines, currentLine)
-    return TextParser.wrapText(lines, currentLine, fragment:sub(breakPoint + 1), font, width)
+    -- Insert second part.
+    local part2 = fragment:sub(breakPoint + 1)
+    local line, length2 = TextParser.wrapText(lines, currentLine, part2, font, width)
+    return line, length1 + length2
   else
-    TextParser.insertFragment(lines, currentLine, fragment, font)
-    return currentLine
+    return currentLine, TextParser.insertFragment(lines, currentLine, fragment, font)
   end
 end
 -- Inserts a new fragment into the line.
@@ -221,17 +243,20 @@ end
 -- @param(currentLine : table) The line that the fragment will be inserted.
 -- @param(fragment : table | string) The fragment to insert.
 -- @param(font : Font) The font of the fragment's text (in case the fragment is a string).
+-- @ret(number) The length of the inserted fragment.
 function TextParser.insertFragment(lines, currentLine, fragment, font)
   if type(fragment) == 'string' then
     local fw = font:getWidth(fragment)
     local fh = font:getHeight(fragment) * font:getLineHeight()
     fragment = { content = fragment, width = fw, height = fh, length = #fragment, font = font }
   end
+  local length = fragment.length or 0
   currentLine.width = currentLine.width + (fragment.width or 0)
   currentLine.height = max(currentLine.height, (fragment.height or 0))
-  currentLine.length = currentLine.length + (fragment.length or 0)
+  currentLine.length = currentLine.length + length
   insert(currentLine, fragment)
-  lines.length = lines.length + (fragment.length or 0)
+  lines.length = lines.length + length
+  return length
 end
 
 return TextParser
