@@ -37,7 +37,24 @@ function NumberWindow:createWidgets()
 end
 
 ---------------------------------------------------------------------------------------------------
--- Input Callbacks
+-- Input handlers
+---------------------------------------------------------------------------------------------------
+
+-- Called with player confirms chosen number.
+function NumberWindow:onButtonConfirm(button)
+  self:onSpinnerConfirm(nil)
+end
+-- Called with player presses a confirm key.
+function NumberWindow:onSpinnerConfirm(spinner)
+  self.result = self:getValue()
+end
+-- Called with player presses a cancel key.
+function NumberWindow:onSpinnerCancel(spinner)
+  self.result = self.cancelValue
+end
+
+---------------------------------------------------------------------------------------------------
+-- Value
 ---------------------------------------------------------------------------------------------------
 
 -- Gets current number.
@@ -50,18 +67,6 @@ function NumberWindow:getValue()
     e = e * 10
   end
   return value
-end
--- Called with player confirms chosen number.
-function NumberWindow:onButtonConfirm(button)
-  self:onSpinnerConfirm(self.spinner)
-end
--- Called with player presses a confirm key.
-function NumberWindow:onSpinnerConfirm(spinner)
-  self.result = self:getValue()
-end
--- Called with player presses a cancel key.
-function NumberWindow:onSpinnerCancel(spinner)
-  self.result = self.cancelValue
 end
 
 ---------------------------------------------------------------------------------------------------

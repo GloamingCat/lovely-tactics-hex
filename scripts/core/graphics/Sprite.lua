@@ -8,6 +8,19 @@ The image may be scaled, rotated, translated and coloured.
 Its position determines where on the screen it's going to be rendered (x and y axis, relative to 
 the world's coordinate system) and the depth/render order (z axis).
 
+Transform table values:
+- offsetX, offsetY: center pixel coordinates of the quad, relative to top left corner;
+- offsetYDepth: value added to sprite's depth;
+- scaleX, scaleY: scale values from 0 to 100;
+- rotation: rotation angle in degrees, from 0 to 360;
+- red: color red component, from 0 to 255;
+- green: color green component, from 0 to 255;
+- blue: color blue component, from 0 to 255;
+- alpha: color alpha component, from 0 to 255;
+- hue: color hue offset, from 0 to 360;
+- saturation: color saturation multiplier, from 0 to 100;
+- brightness: color value multiplier, from 0 to 100.
+
 =================================================================================================]]
 
 -- Imports
@@ -28,9 +41,9 @@ local Sprite = class(Colorable)
 -- Initialization
 ---------------------------------------------------------------------------------------------------
 
--- @param(renderer : Renderer) the renderer that is going to handle this sprite
--- @param(texture : Texture) sprite's texture
--- @param(quad : Quad) the piece of the texture to render
+-- @param(renderer : Renderer) The renderer that is going to handle this sprite.
+-- @param(texture : Texture) Sprite's texture.
+-- @param(quad : Quad) The piece of the texture to render.
 function Sprite:init(renderer, texture, quad)
   Colorable.initColor(self)
   self.texture = texture
@@ -48,8 +61,8 @@ function Sprite:init(renderer, texture, quad)
   self.visible = true
 end
 -- Creates a deep copy of this sprite (does not clone texture).
--- @param(renderer : Renderer) the renderer of the copy (optional)
--- @ret(Sprite) the newly created copy
+-- @param(renderer : Renderer) The renderer of the copy (optional).
+-- @ret(Sprite) The newly created copy.
 function Sprite:clone(renderer)
   local sw, sh = self.quad:getTextureDimensions()
   local x, y, w, h = self.quad:getViewport()
@@ -69,12 +82,12 @@ end
 ---------------------------------------------------------------------------------------------------
 
 -- Checks if sprite is visible on screen.
--- @ret(boolean) true if visible, false otherwise
+-- @ret(boolean)
 function Sprite:isVisible()
   return self.visible and self.quad and self.texture
 end
--- Sets if sprite is visible
--- @param(value : boolean) if visible
+-- Sets sprite's visibility.
+-- @param(value : boolean)
 function Sprite:setVisible(value)
   if value ~= self.visible then
     self.renderer.needsRedraw = true
@@ -87,7 +100,7 @@ end
 ---------------------------------------------------------------------------------------------------
 
 -- Sets the texture and updates quad.
--- @param(texture : Texture) the new texture
+-- @param(texture : Texture) The new texture.
 function Sprite:setTexture(texture)
   if texture ~= self.texture then
     self.texture = texture
@@ -98,10 +111,10 @@ function Sprite:setTexture(texture)
   end
 end
 -- Sets the quad based on texture.
--- @param(x : number) quad's new x
--- @param(y : number) quad's new y
--- @param(w : number) quad's new width
--- @param(h : number) quad's new height
+-- @param(x : number) Quad's new x.
+-- @param(y : number) Quad's new y.
+-- @param(w : number) Quad's new width.
+-- @param(h : number) Quad's new height.
 function Sprite:setQuad(x, y, w, h)
   self.renderer.needsRedraw = true
   self.needsRecalcBox = true
@@ -123,31 +136,31 @@ end
 ---------------------------------------------------------------------------------------------------
 
 -- Sets sprite's offset, scale, rotation and color
--- @param(data : table) transformation data
+-- @param(data : table) Transformation data.
 function Sprite:setTransformation(data)
   local x, y, w, h = self.quad:getViewport()
   self:setOffset(data.offsetX, data.offsetY, data.offsetDepth)
   self:setScale(data.scaleX / 100, data.scaleY / 100)
-  self:setRotation(math.rad(data.rotation or 0))
-  self:setRGBA(data.red, data.green, data.blue, data.alpha)
+  self:setRotation(math.rad(data.rotation))
+  self:setRGBA(data.red / 255, data.green / 255, data.blue / 255, data.alpha / 255)
   self:setHSV(data.hue / 360, data.saturation / 100, data.brightness / 100)
 end
 -- Merges sprite's current transformation with a new one.
--- @param(data : table) transformation data
+-- @param(data : table) Transformation data.
 function Sprite:applyTransformation(data)
   local x, y, w, h = self.quad:getViewport()
   self:setOffset(data.offsetX + self.offsetX, self.offsetY + data.offsetY, 
     data.offsetDepth + self.offsetDepth)
   self:setScale(data.scaleX / 100 * self.scaleX, data.scaleY / 100 * self.scaleY)
-  self:setRotation(math.rad((data.rotation or 0) + self.rotation))
+  self:setRotation(math.rad(data.rotation) + self.rotation)
   self:setRGBA(data.red / 255 * self.color.red, data.green / 255 * self.color.green, 
     data.blue / 255 * self.color.blue, data.alpha / 255 * self.color.alpha)
   self:setHSV(data.hue / 360 + self.hsv.h, data.saturation / 100 * self.hsv.s, 
     data.brightness / 100 * self.hsv.v)
 end
 -- Sets the quad's scale.
--- @param(sx : number) the X-axis scale
--- @param(sy : number) the Y-axis scale
+-- @param(sx : number) The X-axis scale.
+-- @param(sy : number) The Y-axis scale.
 function Sprite:setScale(sx, sy)
   sx = sx or 1
   sy = sy or 1
@@ -159,7 +172,7 @@ function Sprite:setScale(sx, sy)
   self.scaleY = sy
 end
 -- Sets que quad's rotation
--- @param(angle : number) the rotation's angle in degrees
+-- @param(angle : number) The rotation's angle in degrees.
 function Sprite:setRotation(angle)
   if self.rotation ~= angle then
     self.renderer.needsRedraw = true
@@ -212,8 +225,8 @@ end
 ---------------------------------------------------------------------------------------------------
 
 -- Sets the quad's offset from the top left corner.
--- @param(ox : number) the X-axis offset
--- @param(oy : number) the Y-axis offset
+-- @param(ox : number) The X-axis offset.
+-- @param(oy : number) The Y-axis offset.
 function Sprite:setOffset(ox, oy, depth)
   if ox ~= nil and ox ~= self.offsetX then
     self.offsetX = ox
@@ -231,6 +244,7 @@ function Sprite:setOffset(ox, oy, depth)
   end
 end
 -- Sets the offset as the center of the image.
+-- @param(offsetDepth : number)
 function Sprite:setCenterOffset(offsetDepth)
   local _, _, w, h = self.quad:getViewport()
   self:setOffset(round(w / 2), round(h / 2), offsetDepth)
@@ -254,9 +268,9 @@ end
 ---------------------------------------------------------------------------------------------------
 
 -- Sets the sprite's pixel position the update's its position in the sprite list.
--- @param(x : number) the pixel x of the image
--- @param(y : number) the pixel y of the image
--- @param(z : number) the pixel depth of the image
+-- @param(x : number) The pixel x of the image.
+-- @param(y : number) The pixel y of the image.
+-- @param(z : number) The pixel depth of the image.
 function Sprite:setXYZ(x, y, z)
   x = round(x or self.position.x)
   y = round(y or self.position.y)
@@ -273,7 +287,7 @@ function Sprite:setXYZ(x, y, z)
   end
 end
 -- Sets the sprite's pixel position the update's its position in the sprite list.
--- @param(pos : Vector) the pixel position of the image
+-- @param(pos : Vector) The pixel position of the image.
 function Sprite:setPosition(pos)
   self:setXYZ(pos.x, pos.y, pos.z)
 end
@@ -292,7 +306,7 @@ function Sprite:setRenderer(renderer)
   self.renderer.needsRedraw = true
 end
 -- Inserts sprite from its list.
--- @param(i : number) the position in the list
+-- @param(i : number) The position in the list.
 function Sprite:insertSelf(i)
   i = (i or self.position.z) + self.offsetDepth
   if self.renderer.list[i] then
@@ -321,7 +335,7 @@ function Sprite:removeSelf()
   self.renderer.needsRedraw = true
 end
 -- Called when the renderer needs to draw this sprite.
--- @param(renderer : Renderer) the renderer that is drawing this sprite
+-- @param(renderer : Renderer) The renderer that is drawing this sprite.
 function Sprite:draw(renderer)
   if self.texture == nil then
     return

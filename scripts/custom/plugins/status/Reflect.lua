@@ -23,7 +23,7 @@ local ActionInput = require('core/battle/action/ActionInput')
 local Battler = require('core/battle/battler/Battler')
 local SkillAction = require('core/battle/action/SkillAction')
 
--- Arguments
+-- Parameters
 local animID = tonumber(args.animID)
 
 ---------------------------------------------------------------------------------------------------

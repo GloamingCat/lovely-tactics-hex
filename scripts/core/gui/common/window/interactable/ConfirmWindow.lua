@@ -22,20 +22,7 @@ local ConfirmWindow = class(GridWindow)
 -- Constructor.
 function ConfirmWindow:createWidgets()
   Button:fromKey(self, 'confirm')
-  Button:fromKey(self, 'cancel')
-end
-
----------------------------------------------------------------------------------------------------
--- Properties
----------------------------------------------------------------------------------------------------
-
--- Overrides GridWindow:colCount.
-function ConfirmWindow:colCount()
-  return 1
-end
--- Overrides GridWindow:rowCount.
-function ConfirmWindow:rowCount()
-  return 2
+  Button:fromKey(self, 'cancel').confirmSound = Sounds.buttonCancel
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -51,6 +38,19 @@ end
 -- @param(button : Button)
 function ConfirmWindow:cancelConfirm(button)
   self.result = 0
+end
+
+---------------------------------------------------------------------------------------------------
+-- Properties
+---------------------------------------------------------------------------------------------------
+
+-- Overrides GridWindow:colCount.
+function ConfirmWindow:colCount()
+  return 1
+end
+-- Overrides GridWindow:rowCount.
+function ConfirmWindow:rowCount()
+  return 2
 end
 -- @ret(string) String representation (for debugging).
 function ConfirmWindow:__tostring()
