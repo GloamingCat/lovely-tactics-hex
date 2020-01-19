@@ -55,6 +55,11 @@ end
 function love.keyreleased(code, scancode)
   InputManager:onRelease(code, scancode)
 end
+-- Called when player types a character.
+-- @param(t : string) Input character.
+function love.textinput(t)
+  InputManager:onTextInput(t)
+end
 
 ---------------------------------------------------------------------------------------------------
 -- Mouse input

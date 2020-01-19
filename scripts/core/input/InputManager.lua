@@ -15,10 +15,15 @@ local GameMouse = require('core/input/GameMouse')
 local max = math.max
 local dt = love.timer.getDelta
 local now = love.timer.getTime
+local setTextInput = love.keyboard.setTextInput
 
 -- Constants
 local arrows = { 'up', 'left', 'down', 'right' }
 local wasd = { 'w', 'a', 's', 'd' }
+local textControl = { 
+  ['return'] = true,
+  up = true, left = true, down = true, right = true 
+}
 
 local InputManager = class()
 
@@ -33,7 +38,9 @@ function InputManager:init()
   self.mouseEnabled = true
   self.wasd = false
   self.autoDash = false
+  self.readingText = false
   self.lastKey = nil
+  self.textInput = nil
   self.mouse = GameMouse()
   self.keys = {}
   for k, v in pairs(KeyMap.main) do
@@ -91,6 +98,7 @@ function InputManager:update()
   end
   self.mouse:update()
   self.lastKey = nil
+  self.textInput = nil
 end
 -- Pauses / unpauses the input update.
 function InputManager:setPaused(paused)
@@ -169,6 +177,14 @@ end
 -- @param(scancode : string) the code of the key
 -- @param(isrepeat : boolean) if the call is a repeat
 function InputManager:onPress(code, scancode, isrepeat)
+  if self.readingText then
+    if code == 'backspace' then
+      self:onTextInput(code)
+      return
+    elseif not textControl[code] then
+      return
+    end
+  end
   local key = self.arrowMap[code] or self.keyMap[code]
   if key and not isrepeat then
     self.keys[key]:onPress(isrepeat)
@@ -179,9 +195,43 @@ end
 -- @param(code : string) the code of the key based on keyboard layout
 -- @param(scancode : string) the code of the key
 function InputManager:onRelease(code, scancode)
+  if self.readingText and not textControl[code] then
+    return
+  end
   local key = self.arrowMap[code] or self.keyMap[code]
   if key then
     self.keys[key]:onRelease()
+  end
+end
+-- Called when player types a character.
+-- @param(t : string) Input character.
+function InputManager:onTextInput(char)
+  if self.readingText then
+    self.textInput = char
+  end
+end
+-- Read text input from keyboard. When enabled, consumes all key events that represent either a
+-- character or backspace key.
+function InputManager:startTextInput()
+  if self.readingText then
+    return
+  end
+  setTextInput(true)
+  local wasd = self.wasd
+  self.readingText = true
+  self:setArrowMap(false)
+  self.wasd = wasd
+end
+-- Stops reading text input and returns to default key events.
+function InputManager:endTextInput()
+  if not self.readingText then
+    return
+  end
+  setTextInput(false)
+  self.readingText = false
+  if self.wasd then
+    self.wasd = false
+    self:setArrowMap(true)
   end
 end
 

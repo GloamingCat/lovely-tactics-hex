@@ -148,6 +148,10 @@ end
 -- Getscurrent selected widget.
 -- @ret(GridWidget) the selected widget
 function GridWindow:currentWidget()
+  if self.currentCol < 1 or self.currentCol > self.matrix.width or
+      self.currentRow < 1 or self.currentRow > self.matrix.height then
+    return nil
+  end
   return self.matrix:get(self.currentCol, self.currentRow)
 end
 -- Gets the number of buttons.
@@ -253,8 +257,8 @@ end
 ---------------------------------------------------------------------------------------------------
 
 -- Called when player confirms.
-function GridWindow:onConfirm()
-  local widget = self:currentWidget()
+function GridWindow:onConfirm(widget)
+  widget = widget or self:currentWidget()
   if widget.enabled then
     if widget.confirmSound then
       AudioManager:playSFX(widget.confirmSound)
@@ -269,8 +273,8 @@ function GridWindow:onConfirm()
   end
 end
 -- Called when player cancels.
-function GridWindow:onCancel()
-  local widget = self:currentWidget()
+function GridWindow:onCancel(widget)
+  widget = widget or self:currentWidget()
   if widget.cancelSound then
     AudioManager:playSFX(widget.cancelSound)
   end
@@ -278,9 +282,16 @@ function GridWindow:onCancel()
     widget.onCancel(self, widget)
   end
 end
+-- Called when a text input is received.
+function GridWindow:onTextInput(c, widget)
+  widget = widget or self:currentWidget()
+  if widget.onTextInput then
+    widget.onTextInput(self, widget)
+  end
+end
 -- Called when player moves cursor.
-function GridWindow:onMove(dx, dy)
-  local widget = self:currentWidget()
+function GridWindow:onMove(dx, dy, widget)
+  widget = widget or self:currentWidget()
   if widget and widget.onMove then
     widget.onMove(self, widget, dx, dy)
   end

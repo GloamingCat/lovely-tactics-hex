@@ -235,7 +235,9 @@ function Window:checkInput()
   end
   local x, y = InputManager.mouse:guiCoord()
   x, y = x - self.position.x, y - self.position.y
-  if InputManager.keys['confirm']:isTriggered() then
+  if InputManager.textInput then
+    self:onTextInput(InputManager.textInput)
+  elseif InputManager.keys['confirm']:isTriggered() then
     self:onConfirm()
   elseif InputManager.keys['cancel']:isTriggered() then
     self:onCancel()
@@ -265,6 +267,8 @@ end
 -- By default, only dets the result to 0.
 function Window:onCancel()
   self.result = 0
+end
+function Window:onTextInput(c)
 end
 -- Callod when player presses arrows.
 function Window:onMove(dx, dy)
