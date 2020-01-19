@@ -30,6 +30,16 @@
   },
   {
     "on": true,
+    "name": "plugins/DebugBox",
+    "tags": [
+      {
+        "key": "key",
+        "value": "escape"
+      }
+    ]
+  },
+  {
+    "on": true,
     "name": "plugins/EmotionBalloon.lua",
     "tags": []
   },
