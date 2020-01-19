@@ -91,12 +91,12 @@ function GridWindow:setActive(value)
         if widget.onSelect then
           widget.onSelect(self, widget)
         end
-      end
-      if self.cursor and self.open then
-        self.cursor:show()
-      end
-      if self.highlight and self.open then
-        self.highlight:show()
+        if self.cursor and self.open then
+          self.cursor:show()
+        end
+        if self.highlight and self.open then
+          self.highlight:show()
+        end
       end
     else
       if self.cursor then

@@ -16,6 +16,7 @@ local GUI = require('core/gui/GUI')
 local NumberWindow = require('core/gui/common/window/interactable/NumberWindow')
 local SaveGUI = require('core/gui/menu/SaveGUI')
 local ShopGUI = require('core/gui/menu/ShopGUI')
+local TextInputWindow = require('core/gui/common/window/interactable/TextInputWindow')
 local Vector = require('core/math/Vector')
 
 local EventSheet = {}
@@ -191,7 +192,15 @@ function EventSheet:openNumberWindow(args)
 end
 -- Opens a text window and waits for player choice before closing and deleting.
 function EventSheet:openStringWindow(args)
-  -- TODO
+  self:createGUI()
+  local window = TextInputWindow(self.gui, args.emptyAllowed, args.cancelAllowed)
+  window:show()
+  self.gui:setActiveWindow(window)
+  local result = self.gui:waitForResult()
+  window:hide()
+  window:removeSelf()
+  window:destroy()
+  self.gui.textInput = result ~= 0 and result
 end
 
 return EventSheet
