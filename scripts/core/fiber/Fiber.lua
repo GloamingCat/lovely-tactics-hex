@@ -129,8 +129,10 @@ function Fiber:wait(t)
 end
 -- Waits until a given condition returns true.
 -- @param(func : function) A function that returns a boolean.
-function Fiber:waitUntil(func)
-  while not func() do
+-- @param(...) Function's parameters.
+function Fiber:waitUntil(func, ...)
+  local args = {...}
+  while not func(unpack(args)) do
     yield()
   end
 end
