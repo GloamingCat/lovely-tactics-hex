@@ -33,7 +33,6 @@ Database.loadConfigFiles()
 
 Color   = require('conf/Color')
 Fonts   = require('conf/Fonts')
-Icons   = require('conf/Icons')
 Sounds  = require('conf/Sounds')
 KeyMap  = require('conf/KeyMap')
 Vocab   = require('vocab/English')

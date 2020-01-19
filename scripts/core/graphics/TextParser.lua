@@ -5,15 +5,15 @@ TextParser
 ---------------------------------------------------------------------------------------------------
 Module to parse a rich text string to generate table of fragments.
 
-Text codes:
-{i} = set italic
-{b} = set bold
-{u} = set underlined
-{+x} = increases font size by x points
-{-x} = decreases font size by x points
-{fx} = set font (x must be a key in the globals Fonts table)
-{cx} = sets the color (x must be a key in the globals Color table)
-{sx} = shows sprite icon (x must be a key in the globals Icon table) [TODO]
+Rich text codes:
+{i} = set italic;
+{b} = set bold;
+{u} = set underlined;
+{+x} = increases font size by x points;
+{-x} = decreases font size by x points;
+{fx} = set font (x must be a key in the global Fonts table);
+{cx} = sets the color (x must be a key in the global Color table);
+{sx} = shows an icon image (x must be a key in the Config.icons table).
 
 =================================================================================================]]
 
@@ -27,9 +27,9 @@ local TextParser = {}
 -- Fragments
 ---------------------------------------------------------------------------------------------------
 
--- Creates a list of text fragments (not wrapped).
--- @param(text : string) Raw rich text.
--- @ret(table) Array of parsing fragments.
+-- Split raw text into an array of fragments.
+-- @param(text : string) Raw text.
+-- @ret(table) Array of fragments.
 function TextParser.parse(text)
   local vars = Config.variables
   local fragments = {}
@@ -54,11 +54,11 @@ function TextParser.parse(text)
       elseif t == 'c' then
         insert(fragments, { type = 'color', value = Color[resourceKey:sub(2)] })
       elseif t == 's' then
-        insert(fragments, { type = 'icon', value = Icon[resourceKey:sub(2)] })
+        insert(fragments, { type = 'sprite', value = Config.icons[resourceKey:sub(2)] })
       elseif t == '%' then
         local key = resourceKey:sub(2)
         assert(vars[key], 'Text variable ' .. key .. ' not found.')
-        TextParser.parseFragment(fragments, '' .. vars[key])
+        TextParser.parseFragment(fragments, tostring(vars[key]))
       else
         error('Text command not identified: ' .. (t or 'nil'))
       end
@@ -104,7 +104,15 @@ function TextParser.createLines(fragments, initialFont, maxWidth)
       currentLine = TextParser.addTextFragment(lines, currentLine, fragment, 
         currentFont, maxWidth)
     elseif fragment.type == 'sprite' then
-      -- TODO
+      local quad, texture = ResourceManager:loadIconQuad(fragment.value)
+      local x, y, w, h = quad:getViewport()
+      w = w * Fonts.scale
+      h = h * Fonts.scale
+      if currentLine.width + w > maxWidth * Fonts.scale then
+        currentLine = TextParser.addTextFragment(lines, currentLine, '\n')
+      end
+      TextParser.insertFragment(lines, currentLine, { content = texture, quad = quad, 
+          length = 1, width = w, height = h})
     elseif fragment.type == 'color' then
       insert(currentLine, { content = fragment.value })
     elseif fragment.type == 'underline' then

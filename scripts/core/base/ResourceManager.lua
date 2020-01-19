@@ -126,6 +126,14 @@ function ResourceManager:loadIconAnimation(icon, renderer)
   local sprite = self:loadIcon(icon, renderer)
   return Static(sprite)
 end
+-- Loads the quad and texture of the given icon.
+-- @param(icon : table) Icon's data (animation ID, col and row).
+-- @ret(Quad) Newly created Quad.
+-- @ret(Image) Texture associated to this Quad.
+function ResourceManager:loadIconQuad(icon)
+  local data = Database.animations[icon.id]
+  return self:loadQuad(data.quad, nil, data.cols, data.rows, icon.col, icon.row)
+end
 -- Clears Image cache table.
 -- Only use this if there is no other reference to the images.
 function ResourceManager:clearImageCache()
@@ -145,9 +153,9 @@ end
 -- Font
 ---------------------------------------------------------------------------------------------------
 
--- Overrides LÖVE's newFont function to use cache.
--- @param(data : table) {name, format, size, it, bold}
--- @ret(Font) 
+-- Uses LÖVE's newFont to load a new font's data, or gets it from the cache.
+-- @param(data : table) Array with options in order: name, format, size, italic, bold.
+-- @ret(Font) Font data.
 function ResourceManager:loadFont(data)
   local path = data[1]
   if data[4] then

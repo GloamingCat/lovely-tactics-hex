@@ -74,13 +74,14 @@ end
 ---------------------------------------------------------------------------------------------------
 
 -- Draw the image buffer of a single line.
+-- The size of the buffer image is Fonts.scale * size of the text in-game.
 -- @param(line : table) A list of text fragments.
 -- @ret(Canvas) Rendered line.
 function TextRenderer.createLineBuffer(line)
   local buffer = lgraphics.newCanvas(line.width + Fonts.outlineSize * 2, line.height * 1.5)
   buffer:setFilter('linear', 'linear')
   lgraphics.setCanvas(buffer)
-  lgraphics.setLineWidth(ScreenManager.scaleY)
+  lgraphics.setLineWidth(Fonts.scale)
   local x, y = Fonts.outlineSize, line.height
   for j = 1, #line do
     local fragment = line[j]
@@ -90,17 +91,16 @@ function TextRenderer.createLineBuffer(line)
       if t == 'string' then
         -- Print text
         if fragment.content ~= '' then
-          local fy = y - fragment.height
-          lgraphics.print(fragment.content, x, fy)
+          lgraphics.print(fragment.content, x, y - fragment.height)
           if TextRenderer.underlined then
             lgraphics.line(x, y, x + fragment.width, y)
           end
-          x = x + fragment.width
         end
-      elseif t == 'table' then
+      elseif t == 'userdata' then
         -- Print sprite
-        -- TODO
+        lgraphics.draw(fragment.content, fragment.quad, x, y - fragment.height, 0, Fonts.scale, Fonts.scale)
       end
+      x = x + fragment.width
     else
       -- Settings
       if t == 'string' then

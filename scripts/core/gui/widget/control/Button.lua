@@ -41,7 +41,7 @@ end
 -- @ret(Button)
 function Button:fromKey(window, key)
   local button = self(window, window[key .. 'Confirm'], window[key .. 'Enabled'])
-  local icon = Icons[key]
+  local icon = Config.icons[key]
   if icon then
     button:createIcon(icon)
   end

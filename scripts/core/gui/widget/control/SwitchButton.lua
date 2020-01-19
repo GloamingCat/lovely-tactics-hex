@@ -32,7 +32,7 @@ end
 -- @ret(SwitchButton)
 function SwitchButton:fromKey(window, key, initValue)
   local button = self(window, initValue)
-  local icon = Icons[key]
+  local icon = Config.icons[key]
   if icon then
     button:createIcon(icon)
   end

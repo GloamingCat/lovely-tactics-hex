@@ -38,7 +38,7 @@ end
 -- @ret(HSpinnerButton)
 function HSpinnerButton:fromKey(window, key, maxValue, minValue, initValue)
   local button = self(window, maxValue, minValue, initValue)
-  local icon = Icons[key]
+  local icon = Config.icons[key]
   if icon then
     button:createIcon(icon)
   end
