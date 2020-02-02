@@ -135,7 +135,7 @@ end
 -- @param(y : number) Grid-y position of the member (optional).
 -- @ret(Battle) The called member.
 function Troop:moveMember(key, list, x, y)
-  assert(self.members[key], "Member " .. key .. " not in troop's member list.")
+  assert(self.members[key], 'Member ' .. tostring(key) .. ' not in ' .. tostring(self))
   local member = self.members[key]
   member.list = list
   member.x = x or member.x

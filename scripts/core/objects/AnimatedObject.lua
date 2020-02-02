@@ -104,7 +104,7 @@ end
 function AnimatedObject:replayAnimation(name, row)
   name = name or self.animName
   local data = self.animationData[name]
-  assert(data, "Animation does not exist: " .. name)
+  assert(data, "Animation does not exist: " .. tostring(name))
   self.animName = name
   local anim = data.animation
   self.sprite.quad = data.quad
@@ -138,7 +138,7 @@ end
 -- Changes the animations in the current set.
 -- @param(name : string) The name of the set.
 function AnimatedObject:setAnimations(name)
-  assert(self.animationSets[name], 'Animation set does not exist: ' .. name)
+  assert(self.animationSets[name], 'Animation set does not exist: ' .. tostring(name))
   for k, v in pairs(self.animationSets[name]) do
     self.animationData[k] = v
   end

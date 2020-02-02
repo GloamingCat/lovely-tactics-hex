@@ -67,6 +67,16 @@ function Database.toArray(children, arr)
   end
   return arr
 end
+-- Formats data name to string.
+-- @param(data : table) Some data table from database.
+-- @ret(string)
+function Database.toString(data)
+  if data then
+    return '[' .. data.id .. '] "' .. data.name .. '"' 
+  else
+    return 'NIL'
+  end
+end
 
 ---------------------------------------------------------------------------------------------------
 -- Config files

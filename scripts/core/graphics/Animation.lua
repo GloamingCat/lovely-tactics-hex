@@ -113,7 +113,7 @@ function Animation:setFrames(timing, pattern)
     self.duration = 0
     local indexCount = pattern and #pattern or self.colCount
     for i = 1, indexCount do
-      assert(timing[i], 'Frame time not defined: ' .. i)
+      assert(timing[i], 'Frame time of ' .. tostring(self) .. ' not defined: ' .. i)
       self.duration = self.duration + timing[i]
     end
   end

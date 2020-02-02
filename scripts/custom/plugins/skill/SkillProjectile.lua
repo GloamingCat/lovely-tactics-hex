@@ -64,6 +64,6 @@ end
 -- @ret(number) The duration of the movement in frames.
 function Character:throwSkillProjectile(animID, target, wait)
   local animation = ResourceManager:loadAnimation(animID, FieldManager.renderer)
-  assert(animation.throw, 'Animation is not of type Projectile.')
+  assert(animation.throw, 'Animation is not of type Projectile: ' .. tostring(animation.throw))
   return animation:throw(self, target, 600, true)
 end

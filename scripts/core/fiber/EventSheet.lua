@@ -25,7 +25,7 @@ function EventSheet:init(root, script, char)
     self.commands = script.func
   else
     local func = require('custom/' .. script.name)
-    assert(func, "Could not load event sheet file: " .. (script.name or 'nil'))
+    assert(func, "Could not load event sheet file: " .. tostring(script.name))
     self.commands = func
   end
   self.block = script.block
@@ -75,7 +75,7 @@ function EventSheet:findCharacter(key, optional)
     return self.char
   end
   local char = FieldManager:search(key)
-  assert(char or optional, 'Character not found:', key or 'nil key')
+  assert(char or optional, 'Character not found: ' .. tostring(key))
   return char
 end
 -- Load other commands.

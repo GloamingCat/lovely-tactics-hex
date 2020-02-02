@@ -113,7 +113,7 @@ end
 -- @ret(Status) Newly added status (or old one, if non-cumulative).
 function StatusList:addStatus(id, state, character, caster)
   local data = Database.status[id]
-  assert(data, "Status does not exist: " .. (id or "nil"))
+  assert(data, "Status does not exist: " .. tostring(id))
   local status = self:findStatus(id)
   if status and not data.cumulative then
     status.lifeTime = 0

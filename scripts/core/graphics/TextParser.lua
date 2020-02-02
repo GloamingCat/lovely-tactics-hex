@@ -63,7 +63,7 @@ function TextParser.parse(text)
         insert(fragments, { event = true, type = 'input' })
       elseif t == '%' then
         local key = resourceKey:sub(2)
-        assert(vars[key], 'Text variable ' .. key .. ' not found.')
+        assert(vars[key], 'Text variable ' .. tostring(key) .. ' not found.')
         TextParser.parseFragment(fragments, tostring(vars[key]))
       else
         error('Text command not identified: ' .. (t or 'nil'))

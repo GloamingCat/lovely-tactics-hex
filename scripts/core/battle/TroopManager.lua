@@ -107,8 +107,7 @@ function TroopManager:createBattler(character)
   local troop = self.troops[character.party]
   assert(troop, 'Party not set: ' .. tostring(character.party))
   character.battler = troop.battlers[character.key]
-  assert(character.battler, 'Member ' .. tostring(character.key) .. 
-    ' not in troop ' .. troop.data.id)
+  assert(character.battler, 'Member ' .. tostring(character.key) .. ' not in ' .. tostring(troop))
   self.characterList:add(character)
   character.battler.statusList:updateGraphics(character)
   if not character.battler:isAlive() then

@@ -25,7 +25,7 @@ local SimpleText = class(Component)
 -- @param(align : string) Alignment inside the box (optional, left by default).
 -- @param(font : string) Font of the text (optional).
 function SimpleText:init(text, position, width, align, font)
-  assert(text, 'nil text')
+  assert(text, 'Nil text')
   local properties = { width, align or 'left', font or Fonts.gui_default }
   Component.init(self, position, text, properties)
 end

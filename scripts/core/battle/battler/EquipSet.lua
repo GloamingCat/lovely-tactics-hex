@@ -62,7 +62,7 @@ end
 -- @param(key : string) Slot's key.
 -- @ret(number) The ID of the equip item (-1 if none).
 function EquipSet:getEquip(key)
-  assert(self.slots[key], 'Slot does not exist: ' .. (key or 'nil'))
+  assert(self.slots[key], 'Slot does not exist: ' .. tostring(key))
   return Database.items[self.slots[key].id]
 end
 -- Sets the equip item in the given slot.
@@ -72,7 +72,7 @@ end
 -- @param(character : Character) Battler's character, in case it's during battle (optional).
 function EquipSet:setEquip(key, item, inventory, character)
   if item then
-    assert(item.slot ~= '', 'Item is not an equipment: ' .. item.id)
+    assert(item.slot ~= '', 'Item is not an equipment: ' .. Database.toString(item))
     self:equip(key, item, inventory, character)
   else
     self:unequip(key, inventory, character)
@@ -181,7 +181,7 @@ end
 -- @ret(boolean) If the item may be equiped.
 function EquipSet:canEquip(key, item)
   local slotType = self.types[item.slot]
-  assert(slotType, 'Slot does not exist: ' .. (item.slot or 'nil'))
+  assert(slotType, 'Slot does not exist: ' .. tostring(item.slot))
   if slotType.state >= 3 then
     return false
   end

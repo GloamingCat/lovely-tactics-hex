@@ -57,6 +57,7 @@ function FiberList:forkFromScript(script, ...)
   if script.wait then
     sheet:waitForEnd()
   end
+  return sheet
 end
 
 return FiberList

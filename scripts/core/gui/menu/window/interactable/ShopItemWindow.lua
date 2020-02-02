@@ -22,7 +22,7 @@ function ShopItemWindow:createListButton(item)
   local price = item.price
   local id = item.id
   item = Database.items[id]
-  assert(item, 'Item does not exist: ' .. id)
+  assert(item, 'Item does not exist: ' .. tostring(id))
   if not price or price < 0 then
     price = item.price
   end
