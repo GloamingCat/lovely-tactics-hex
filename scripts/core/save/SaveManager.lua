@@ -59,6 +59,11 @@ function SaveManager:newSave()
     h = startPos.h or 0,
     direction = startPos.direction or 270,
     fieldID = startPos.fieldID or 0 }
+  save.screenColor = { 
+    red = 1, 
+    green =1, 
+    blue = 1, 
+    alpha = 0 }
   return save
 end
 -- Creates default config file.

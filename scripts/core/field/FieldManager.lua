@@ -80,6 +80,13 @@ function FieldManager:createCamera(data)
   local maxd = mathf.maxDepth(data.sizeX, data.sizeY, h)
   local camera = FieldCamera(data.sizeX * data.sizeY * l, mind, maxd, 1)
   camera:setXYZ(mathf.pixelCenter(data.sizeX, data.sizeY))
+  if self.renderer then
+    camera:setColor(self.renderer.color)
+  elseif SaveManager.current.screenColor then
+    camera:setColor(SaveManager.current.screenColor)
+  else
+    camera:setRGBA(1, 1, 1, 1)
+  end
   return camera
 end
 -- Creates a character representing player.
