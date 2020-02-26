@@ -29,7 +29,6 @@ function TitleGUI:createWindows()
   self:createCommandWindow()
   self:createLoadWindow()
   self:setActiveWindow(self.commandWindow)
-  self:showCover()
 end
 -- Creates cover sprite.
 function TitleGUI:createCover()
@@ -73,6 +72,13 @@ end
 -- Cover
 ---------------------------------------------------------------------------------------------------
 
+-- Overrides GUI:show to show cover before windows.
+function TitleGUI:show(...)
+  if self.cover.color.alpha == 0 then
+    self:showCover()
+  end
+  GUI.show(self, ...)
+end
 -- Fades in cover and title.
 function TitleGUI:showCover()
   if AudioManager.titleTheme then

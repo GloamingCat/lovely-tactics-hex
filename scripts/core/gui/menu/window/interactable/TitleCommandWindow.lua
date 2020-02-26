@@ -56,6 +56,7 @@ function TitleCommandWindow:loadGameConfirm()
     self.result = 1
     SaveManager:loadSave(result)
     GameManager:setSave(SaveManager.current)
+    FieldManager.renderer:fadeout(0)
   else
     self.GUI.topText:setVisible(true)
     self:show()
