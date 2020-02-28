@@ -54,9 +54,6 @@ end
 -- @ret(EventSheet) The newly created Fiber.
 function FiberList:forkFromScript(script, ...)
   local sheet = EventSheet(self, script, ...)
-  if script.wait then
-    sheet:waitForEnd()
-  end
   return sheet
 end
 

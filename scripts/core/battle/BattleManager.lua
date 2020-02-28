@@ -87,7 +87,7 @@ function BattleManager:battleStart()
   if script and script.name ~= '' and script.onLoad then
     local fiber = FieldManager.fiberList:forkFromScript(script)
     if script.wait then
-      fiber:execAll()
+      fiber:waitForEnd()
     end
   end
 end

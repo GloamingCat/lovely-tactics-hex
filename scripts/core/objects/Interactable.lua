@@ -136,7 +136,7 @@ function Interactable:onCollide(tile, collided, collider)
   for _, script in ipairs(self.collideScripts) do
     local fiberList = script.global and FieldManager.fiberList or self.fiberList
     local fiber = fiberList:forkFromScript(script, self)
-    fiber.tile = self.tile
+    fiber.tile = tile
     fiber.collided = collided
     fiber.collider = collider
     if script.wait then
