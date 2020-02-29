@@ -35,6 +35,7 @@ return function(script)
     script:startBattle { fieldID = 12, fade = 60, intro = true, 
       gameOverCondition = 1, escapeEnabled = true }
     --AudioManager.battleTheme = Sounds.battleTheme
+    FieldManager.renderer:fadein(0)
     clear(script)
     return
     
@@ -44,6 +45,7 @@ return function(script)
     -- Test boss scene
     -----------------------------------------------------------------------------------------------
 
+    FieldManager.renderer:fadein(0)
     script:moveToField { fieldID = 6, x = 7, y = 3, h = 1, direction = 135 }
     clear(script)
     return
@@ -55,6 +57,7 @@ return function(script)
   -------------------------------------------------------------------------------------------------
   
   if InputManager.keys['cancel']:isPressing() then
+    FieldManager.renderer:fadein(0)
     clear(script)
     return
   end
@@ -63,10 +66,8 @@ return function(script)
   -- Intro scenes
   -------------------------------------------------------------------------------------------------
   
-  FieldManager.renderer:fadeout(0)
-  
-  script:forkFromScript { name = 'events/town/Intro', wait = true }
-  script:forkFromScript { name = 'events/town/Battle', wait = true }
+  script:forkFromScript { name = 'events/town/Intro', wait = true } : waitForEnd()
+  script:forkFromScript { name = 'events/town/Battle', wait = true } : waitForEnd()
 
   -------------------------------------------------------------------------------------------------
   -- Finish
