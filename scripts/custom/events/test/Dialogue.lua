@@ -10,8 +10,6 @@ return function(script)
 
   script:turnCharTile { key = 'self', other = 'player' }
 
-  script:openDialogueWindow { id = 1, width = 250, height = 60 }
-
   script:showDialogue { id = 1, character = "self", portrait = "BigIcon", message = 
     Vocab.dialogues.town.Hi
   }

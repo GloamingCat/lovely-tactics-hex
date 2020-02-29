@@ -9,12 +9,7 @@ Shop Test
 
 return function(script)
   
-  script:openDialogueWindow { id = 1, x = 0, y = -ScreenManager.height / 3,
-    width = ScreenManager.width / 3,
-    height = ScreenManager.height / 4
-  }
-  
-  script:showDialogue { id = 1, character = 'player', message = 
+  script:showDialogue { id = 2, character = '', message = 
     Vocab.dialogues.town.Shop
   }
 
@@ -23,7 +18,7 @@ return function(script)
     Vocab.no
   }}
 
-  script:closeDialogueWindow { id = 1 }
+  script:closeDialogueWindow { id = 2 }
 
   if script.gui.choice == 2 then
     return
