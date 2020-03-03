@@ -5,7 +5,7 @@
   "prefs": {
     "persistent": false,
     "defaultRegion": -1,
-    "maxHeight": 0,
+    "maxHeight": 1,
     "bgm": {
       "name": "bgm/Aaron Krogh/Jungle.ogg",
       "volume": 100,
