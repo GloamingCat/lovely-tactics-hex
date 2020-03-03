@@ -1,25 +1,13 @@
 {
-  "lastField": 13,
+  "lastField": 24,
   "id": -1,
   "children": [
     {
       "id": 10,
       "data": {
-        "name": "World",
+        "name": "Overworld",
         "lastLayers": [
-          2,
-          0,
-          -1
-        ]
-      },
-      "children": []
-    },
-    {
-      "id": 12,
-      "data": {
-        "name": "Test Battle",
-        "lastLayers": [
-          4,
+          3,
           0,
           -1
         ]
@@ -76,56 +64,20 @@
       ]
     },
     {
-      "id": 1,
+      "id": 6,
       "data": {
-        "name": "Forest 1",
+        "name": "Happy Fields 1",
         "lastLayers": [
-          3,
+          2,
           0,
           -1
         ]
       },
       "children": [
         {
-          "id": 2,
-          "data": {
-            "name": "Forest 2",
-            "lastLayers": [
-              1,
-              0,
-              -1
-            ]
-          },
-          "children": []
-        },
-        {
-          "id": 3,
-          "data": {
-            "name": "Forest 3",
-            "lastLayers": [
-              1,
-              0,
-              -1
-            ]
-          },
-          "children": []
-        },
-        {
-          "id": 4,
-          "data": {
-            "name": "Forest 4",
-            "lastLayers": [
-              1,
-              0,
-              -1
-            ]
-          },
-          "children": []
-        },
-        {
           "id": 5,
           "data": {
-            "name": "Forest 5",
+            "name": "Happy Fields 2",
             "lastLayers": [
               2,
               0,
@@ -135,9 +87,45 @@
           "children": []
         },
         {
-          "id": 6,
+          "id": 4,
           "data": {
-            "name": "Forest 6",
+            "name": "Happy Fields 3",
+            "lastLayers": [
+              2,
+              0,
+              -1
+            ]
+          },
+          "children": []
+        },
+        {
+          "id": 3,
+          "data": {
+            "name": "Happy Fields 4",
+            "lastLayers": [
+              2,
+              0,
+              -1
+            ]
+          },
+          "children": []
+        },
+        {
+          "id": 2,
+          "data": {
+            "name": "Happy Fields 5",
+            "lastLayers": [
+              2,
+              0,
+              -1
+            ]
+          },
+          "children": []
+        },
+        {
+          "id": 1,
+          "data": {
+            "name": "Happy Fields 6",
             "lastLayers": [
               2,
               0,
@@ -149,10 +137,10 @@
         {
           "id": 13,
           "data": {
-            "name": "Forest 7",
+            "name": "Happy Fields 7",
             "lastLayers": [
               1,
-              0,
+              1,
               -1
             ]
           },
@@ -163,7 +151,7 @@
           "data": {
             "name": "Forest Battle Field",
             "lastLayers": [
-              1,
+              3,
               1,
               0
             ]
@@ -176,6 +164,127 @@
             "name": "Forest Boss Battle Field",
             "lastLayers": [
               1,
+              1,
+              -1
+            ]
+          },
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "data": {
+        "name": "Deep Jungle 1",
+        "lastLayers": [
+          0,
+          0,
+          -1
+        ]
+      },
+      "children": [
+        {
+          "id": 16,
+          "data": {
+            "name": "Deep Jungle 2",
+            "lastLayers": [
+              2,
+              1,
+              -1
+            ]
+          },
+          "children": []
+        },
+        {
+          "id": 17,
+          "data": {
+            "name": "Deep Jungle 3",
+            "lastLayers": [
+              1,
+              1,
+              -1
+            ]
+          },
+          "children": []
+        },
+        {
+          "id": 18,
+          "data": {
+            "name": "Deep Jungle 4",
+            "lastLayers": [
+              2,
+              1,
+              -1
+            ]
+          },
+          "children": []
+        },
+        {
+          "id": 19,
+          "data": {
+            "name": "Deep Jungle 5",
+            "lastLayers": [
+              1,
+              0,
+              -1
+            ]
+          },
+          "children": []
+        },
+        {
+          "id": 20,
+          "data": {
+            "name": "Deep Jungle 6",
+            "lastLayers": [
+              2,
+              1,
+              -1
+            ]
+          },
+          "children": []
+        },
+        {
+          "id": 21,
+          "data": {
+            "name": "Deep Jungle 7",
+            "lastLayers": [
+              2,
+              0,
+              -1
+            ]
+          },
+          "children": []
+        },
+        {
+          "id": 22,
+          "data": {
+            "name": "Deep Jungle 8",
+            "lastLayers": [
+              2,
+              1,
+              -1
+            ]
+          },
+          "children": []
+        },
+        {
+          "id": 23,
+          "data": {
+            "name": "Deep Jungle 9",
+            "lastLayers": [
+              2,
+              0,
+              -1
+            ]
+          },
+          "children": []
+        },
+        {
+          "id": 24,
+          "data": {
+            "name": "Jungle Battle Field",
+            "lastLayers": [
+              1,
               0,
               -1
             ]
@@ -183,6 +292,18 @@
           "children": []
         }
       ]
+    },
+    {
+      "id": 12,
+      "data": {
+        "name": "Test Battle",
+        "lastLayers": [
+          4,
+          0,
+          -1
+        ]
+      },
+      "children": []
     }
   ]
 }

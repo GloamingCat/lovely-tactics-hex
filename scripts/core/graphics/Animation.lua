@@ -99,6 +99,8 @@ function Animation:initPattern(data)
   elseif self.loopDuration then
     self:setFrames(self.loopDuration, self.loopPattern)
     self.loop = true
+  else
+    self.duration = 0
   end
 end
 -- Sets the time for each frame. 

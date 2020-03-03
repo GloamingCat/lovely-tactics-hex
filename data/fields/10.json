@@ -65,9 +65,33 @@
       },
       {
         "destination": {
-          "fieldID": 1,
+          "fieldID": 6,
           "x": 8,
-          "y": 6,
+          "y": 2,
+          "h": 1,
+          "direction": 315
+        },
+        "tl": {
+          "fieldID": 12,
+          "x": 1,
+          "y": 1,
+          "h": 1,
+          "direction": -1
+        },
+        "br": {
+          "fieldID": 12,
+          "x": 1,
+          "y": 1,
+          "h": 1,
+          "direction": -1
+        },
+        "fade": 30
+      },
+      {
+        "destination": {
+          "fieldID": 13,
+          "x": 6,
+          "y": 12,
           "h": 1,
           "direction": 135
         },
@@ -86,9 +110,33 @@
           "direction": -1
         },
         "fade": 30
+      },
+      {
+        "destination": {
+          "fieldID": 15,
+          "x": 9,
+          "y": 11,
+          "h": 1,
+          "direction": 225
+        },
+        "tl": {
+          "fieldID": 12,
+          "x": 1,
+          "y": 1,
+          "h": 1,
+          "direction": -1
+        },
+        "br": {
+          "fieldID": 12,
+          "x": 1,
+          "y": 1,
+          "h": 1,
+          "direction": -1
+        },
+        "fade": 30
       }
     ],
-    "name": "World",
+    "name": "Overworld",
     "tags": []
   },
   "layers": {
@@ -197,50 +245,40 @@
             -1,
             -1,
             -1,
-            2,
-            2,
-            2,
-            2,
-            2
+            -1,
+            -1,
+            -1,
+            -1,
+            -1
+          ],
+          [
+            -1,
+            -1,
+            -1,
+            -1,
+            -1,
+            -1,
+            -1,
+            -1
+          ],
+          [
+            -1,
+            -1,
+            -1,
+            -1,
+            -1,
+            -1,
+            -1,
+            -1
           ],
           [
             -1,
             2,
             2,
             2,
-            2,
-            2,
-            2,
-            2
-          ],
-          [
             -1,
-            2,
-            2,
-            2,
-            2,
-            2,
-            2,
-            2
-          ],
-          [
-            2,
-            2,
-            2,
-            2,
-            2,
-            2,
-            2,
-            2
-          ],
-          [
-            2,
-            2,
-            2,
-            2,
-            2,
-            2,
-            2,
+            -1,
+            -1,
             -1
           ],
           [
@@ -250,7 +288,17 @@
             2,
             2,
             2,
+            -1,
+            -1
+          ],
+          [
             2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            -1,
             -1
           ],
           [
@@ -290,9 +338,39 @@
             0,
             0,
             0,
-            0,
+            -1,
+            -1,
+            -1
+          ],
+          [
+            -1,
+            -1,
+            -1,
+            -1,
+            -1,
+            -1,
             0,
             -1
+          ],
+          [
+            -1,
+            -1,
+            -1,
+            -1,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            -1,
+            -1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
           ],
           [
             -1,
@@ -302,51 +380,21 @@
             0,
             0,
             0,
-            -1
+            0
           ],
           [
             0,
             0,
             0,
+            -1,
+            -1,
             0,
-            0,
-            0,
-            0,
-            -1
+            -1,
+            0
           ],
           [
             0,
-            0,
-            0,
-            0,
-            0,
-            0,
             -1,
-            -1
-          ],
-          [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            -1,
-            -1
-          ],
-          [
-            -1,
-            0,
-            0,
-            0,
-            -1,
-            -1,
-            -1,
-            -1
-          ],
-          [
-            0,
-            0,
             0,
             0,
             -1,
@@ -378,11 +426,31 @@
           [
             -1,
             -1,
-            0,
             -1,
             1,
+            1,
+            1,
+            -1,
+            -1
+          ],
+          [
             -1,
             -1,
+            -1,
+            -1,
+            1,
+            1,
+            1,
+            -1
+          ],
+          [
+            -1,
+            -1,
+            -1,
+            1,
+            1,
+            1,
+            1,
             -1
           ],
           [
@@ -397,18 +465,8 @@
           ],
           [
             -1,
-            1,
-            1,
-            1,
             -1,
             -1,
-            -1,
-            -1
-          ],
-          [
-            -1,
-            -1,
-            1,
             1,
             -1,
             -1,
@@ -428,18 +486,8 @@
           [
             -1,
             -1,
-            1,
             -1,
             -1,
-            -1,
-            -1,
-            -1
-          ],
-          [
-            -1,
-            -1,
-            1,
-            1,
             -1,
             -1,
             -1,
@@ -472,79 +520,79 @@
             -1,
             -1,
             44,
-            45,
-            45,
+            44,
+            44,
             45,
             45,
             45
           ],
           [
             -1,
-            44,
             45,
-            44,
-            44,
             -1,
             -1,
+            -1,
+            44,
+            44,
             45
           ],
           [
-            44,
             45,
             45,
             44,
             44,
-            45,
-            -1,
-            45
+            44,
+            44,
+            44,
+            44
           ],
           [
+            45,
             44,
+            44,
+            45,
             44,
             -1,
             44,
-            44,
+            44
+          ],
+          [
+            45,
+            45,
             46,
-            45,
-            45
+            44,
+            44,
+            -1,
+            44,
+            44
           ],
           [
-            44,
+            45,
+            -1,
+            45,
             44,
             -1,
             44,
             45,
-            44,
-            44,
-            45
+            44
           ],
           [
-            44,
-            44,
+            45,
             -1,
             44,
             44,
             44,
             45,
-            45
-          ],
-          [
-            44,
-            44,
-            44,
-            -1,
-            -1,
-            -1,
             45,
             -1
           ],
           [
-            44,
-            44,
-            44,
-            44,
-            44,
-            44,
+            45,
+            45,
+            45,
+            45,
+            45,
+            45,
             -1,
             -1
           ]
@@ -650,8 +698,8 @@
       "persistent": false,
       "passable": false,
       "visible": true,
-      "x": 4,
-      "y": 6,
+      "x": 5,
+      "y": 3,
       "h": 1,
       "party": -1,
       "charID": -1,
@@ -681,11 +729,81 @@
       ]
     },
     {
-      "key": "Forest",
+      "key": "Forest1",
       "persistent": false,
       "passable": false,
       "visible": true,
-      "x": 2,
+      "x": 7,
+      "y": 2,
+      "h": 1,
+      "party": -1,
+      "charID": -1,
+      "battlerID": -1,
+      "animation": "Idle",
+      "direction": 315,
+      "scripts": [
+        {
+          "global": false,
+          "block": false,
+          "wait": false,
+          "onLoad": false,
+          "onInteract": false,
+          "onCollide": true,
+          "name": "events/Entrance.lua",
+          "tags": [
+            {
+              "key": "name",
+              "value": "Happy Fields"
+            },
+            {
+              "key": "dest",
+              "value": "2"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "Forest2",
+      "persistent": false,
+      "passable": false,
+      "visible": true,
+      "x": 6,
+      "y": 5,
+      "h": 1,
+      "party": -1,
+      "charID": -1,
+      "battlerID": -1,
+      "animation": "Idle",
+      "direction": 315,
+      "scripts": [
+        {
+          "global": false,
+          "block": false,
+          "wait": false,
+          "onLoad": false,
+          "onInteract": false,
+          "onCollide": true,
+          "name": "events/Entrance.lua",
+          "tags": [
+            {
+              "key": "name",
+              "value": "Happy Fields"
+            },
+            {
+              "key": "dest",
+              "value": "3"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "Jungle1",
+      "persistent": false,
+      "passable": false,
+      "visible": true,
+      "x": 4,
       "y": 6,
       "h": 1,
       "party": -1,
@@ -705,11 +823,81 @@
           "tags": [
             {
               "key": "name",
-              "value": "Happy Woods"
+              "value": "Deep Jungle"
             },
             {
               "key": "dest",
-              "value": "2"
+              "value": "4"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "Jungle2",
+      "persistent": false,
+      "passable": false,
+      "visible": true,
+      "x": 2,
+      "y": 5,
+      "h": 1,
+      "party": -1,
+      "charID": -1,
+      "battlerID": -1,
+      "animation": "Idle",
+      "direction": 315,
+      "scripts": [
+        {
+          "global": false,
+          "block": false,
+          "wait": false,
+          "onLoad": false,
+          "onInteract": false,
+          "onCollide": true,
+          "name": "events/Entrance.lua",
+          "tags": [
+            {
+              "key": "name",
+              "value": "Deep Jungle"
+            },
+            {
+              "key": "dest",
+              "value": "5"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "Cave",
+      "persistent": false,
+      "passable": false,
+      "visible": true,
+      "x": 2,
+      "y": 3,
+      "h": 1,
+      "party": -1,
+      "charID": -1,
+      "battlerID": -1,
+      "animation": "Idle",
+      "direction": 315,
+      "scripts": [
+        {
+          "global": false,
+          "block": false,
+          "wait": false,
+          "onLoad": false,
+          "onInteract": false,
+          "onCollide": true,
+          "name": "events/Entrance.lua",
+          "tags": [
+            {
+              "key": "name",
+              "value": "Deep Jungle"
+            },
+            {
+              "key": "dest",
+              "value": "6"
             }
           ]
         }

@@ -44,7 +44,7 @@
           "ai": [],
           "classID": 1,
           "attackID": 6,
-          "level": 4,
+          "level": 3,
           "money": 0,
           "exp": 0,
           "attributes": [
@@ -223,7 +223,7 @@
           "attackID": 15,
           "level": 2,
           "money": 3,
-          "exp": 20,
+          "exp": 5,
           "attributes": [
             0,
             0,
@@ -274,7 +274,7 @@
           "attackID": 15,
           "level": 3,
           "money": 5,
-          "exp": 30,
+          "exp": 8,
           "attributes": [
             0,
             0,
@@ -340,7 +340,7 @@
           "attackID": 18,
           "level": 4,
           "money": 40,
-          "exp": 0,
+          "exp": 15,
           "attributes": [
             0,
             0,
@@ -394,7 +394,7 @@
           "attackID": 15,
           "level": 4,
           "money": 8,
-          "exp": 40,
+          "exp": 10,
           "attributes": [
             0,
             0,
@@ -440,7 +440,7 @@
           "attackID": 15,
           "level": 5,
           "money": 50,
-          "exp": 0,
+          "exp": 20,
           "attributes": [
             0,
             0,
@@ -486,7 +486,7 @@
           "attackID": 18,
           "level": 5,
           "money": 10,
-          "exp": 50,
+          "exp": 13,
           "attributes": [
             0,
             0,
@@ -532,7 +532,7 @@
           "attackID": 18,
           "level": 6,
           "money": 60,
-          "exp": 0,
+          "exp": 25,
           "attributes": [
             0,
             0,

@@ -304,5 +304,137 @@
     },
     "id": 6,
     "children": []
+  },
+  {
+    "data": {
+      "ai": "troop/DefaultAI.lua",
+      "persistent": false,
+      "money": 0,
+      "items": [],
+      "members": [
+        {
+          "key": "e1",
+          "charID": 8,
+          "battlerID": -1,
+          "x": 2,
+          "y": 2,
+          "equip": [],
+          "list": 0
+        },
+        {
+          "key": "e2",
+          "charID": 8,
+          "battlerID": -1,
+          "x": 4,
+          "y": 2,
+          "equip": [],
+          "list": 0
+        }
+      ],
+      "name": "Jelly Party 6",
+      "tags": []
+    },
+    "id": 7,
+    "children": []
+  },
+  {
+    "data": {
+      "ai": "troop/DefaultAI.lua",
+      "persistent": false,
+      "money": 0,
+      "items": [],
+      "members": [
+        {
+          "key": "e1",
+          "charID": 9,
+          "battlerID": -1,
+          "x": 3,
+          "y": 3,
+          "equip": [],
+          "list": 0
+        },
+        {
+          "key": "e2",
+          "charID": 8,
+          "battlerID": -1,
+          "x": 4,
+          "y": 2,
+          "equip": [],
+          "list": 0
+        },
+        {
+          "key": "e3",
+          "charID": 9,
+          "battlerID": -1,
+          "x": 2,
+          "y": 1,
+          "equip": [],
+          "list": 0
+        }
+      ],
+      "name": "Jelly Party 7",
+      "tags": []
+    },
+    "id": 8,
+    "children": []
+  },
+  {
+    "data": {
+      "ai": "troop/DefaultAI.lua",
+      "persistent": false,
+      "money": 0,
+      "items": [],
+      "members": [
+        {
+          "key": "Boss",
+          "charID": 7,
+          "battlerID": -1,
+          "x": 3,
+          "y": 1,
+          "equip": [],
+          "list": 0
+        },
+        {
+          "key": "e1",
+          "charID": 9,
+          "battlerID": -1,
+          "x": 2,
+          "y": 2,
+          "equip": [],
+          "list": 1
+        },
+        {
+          "key": "e2",
+          "charID": 8,
+          "battlerID": -1,
+          "x": 1,
+          "y": 3,
+          "equip": [],
+          "list": 1
+        },
+        {
+          "key": "e3",
+          "charID": 9,
+          "battlerID": -1,
+          "x": 4,
+          "y": 2,
+          "equip": [],
+          "list": 1
+        },
+        {
+          "key": "e4",
+          "charID": 8,
+          "battlerID": -1,
+          "x": 5,
+          "y": 3,
+          "equip": [],
+          "list": 1
+        }
+      ],
+      "name": "Jelly Boss Party 2",
+      "tags": []
+    },
+    "id": 9,
+    "children": []
   }
 ]

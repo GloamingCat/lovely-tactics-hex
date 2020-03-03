@@ -175,7 +175,8 @@ end
 -- Converting to string.
 -- @ret(string) A string representation.
 function Troop:__tostring()
-  return 'Troop ' .. self.data.id .. ': party ' .. self.party .. ' (' .. self.data.name .. ')'
+  local party = self.party and ' (party ' .. self.party .. ')' or ''
+  return 'Troop ' .. self.data.id .. ': ' .. self.data.name .. party
 end
 -- Creates the table to represent troop's persistent data.
 -- @param(saveFormation : boolean) True to save modified grid formation (optional).

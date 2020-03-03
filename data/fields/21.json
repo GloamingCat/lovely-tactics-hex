@@ -1,0 +1,409 @@
+{
+  "id": 21,
+  "sizeX": 9,
+  "sizeY": 5,
+  "prefs": {
+    "persistent": false,
+    "defaultRegion": -1,
+    "maxHeight": 1,
+    "bgm": {
+      "name": "bgm/Aaron Krogh/Jungle.ogg",
+      "volume": 100,
+      "pitch": 100,
+      "time": 0
+    },
+    "loadScript": {
+      "global": false,
+      "block": true,
+      "wait": true,
+      "onLoad": true,
+      "onInteract": false,
+      "onCollide": false,
+      "name": "",
+      "tags": []
+    },
+    "images": [],
+    "transitions": [
+      {
+        "destination": {
+          "fieldID": 18,
+          "x": 2,
+          "y": 3,
+          "h": 1,
+          "direction": 45
+        },
+        "tl": {
+          "fieldID": 21,
+          "x": 9,
+          "y": 2,
+          "h": 1,
+          "direction": -1
+        },
+        "br": {
+          "fieldID": 21,
+          "x": 9,
+          "y": 3,
+          "h": 1,
+          "direction": -1
+        },
+        "fade": 30
+      },
+      {
+        "destination": {
+          "fieldID": 19,
+          "x": 11,
+          "y": 5,
+          "h": 1,
+          "direction": 135
+        },
+        "tl": {
+          "fieldID": 21,
+          "x": 7,
+          "y": 1,
+          "h": 1,
+          "direction": -1
+        },
+        "br": {
+          "fieldID": 21,
+          "x": 8,
+          "y": 1,
+          "h": 1,
+          "direction": -1
+        },
+        "fade": 30
+      },
+      {
+        "destination": {
+          "fieldID": 23,
+          "x": 7,
+          "y": 14,
+          "h": 1,
+          "direction": 135
+        },
+        "tl": {
+          "fieldID": 21,
+          "x": 2,
+          "y": 1,
+          "h": 1,
+          "direction": -1
+        },
+        "br": {
+          "fieldID": 21,
+          "x": 3,
+          "y": 1,
+          "h": 1,
+          "direction": -1
+        },
+        "fade": 30
+      }
+    ],
+    "name": "Deep Jungle 7",
+    "tags": []
+  },
+  "layers": {
+    "terrain": [
+      {
+        "info": {
+          "name": "Grass",
+          "height": 1,
+          "noAuto": false,
+          "tags": []
+        },
+        "visible": true,
+        "grid": [
+          [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ]
+      },
+      {
+        "info": {
+          "name": "Bush",
+          "height": 1,
+          "noAuto": false,
+          "tags": []
+        },
+        "visible": true,
+        "grid": [
+          [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          [
+            -1,
+            -1,
+            1,
+            1,
+            1
+          ],
+          [
+            -1,
+            -1,
+            -1,
+            1,
+            1
+          ],
+          [
+            1,
+            1,
+            -1,
+            -1,
+            1
+          ],
+          [
+            1,
+            1,
+            -1,
+            -1,
+            3
+          ],
+          [
+            1,
+            -1,
+            -1,
+            3,
+            3
+          ],
+          [
+            -1,
+            -1,
+            -1,
+            3,
+            -1
+          ],
+          [
+            -1,
+            1,
+            -1,
+            3,
+            -1
+          ],
+          [
+            1,
+            -1,
+            -1,
+            3,
+            -1
+          ]
+        ]
+      },
+      {
+        "info": {
+          "name": "Poison Bush",
+          "height": 1,
+          "noAuto": false,
+          "tags": []
+        },
+        "visible": true,
+        "grid": [
+          [
+            -1,
+            -1,
+            -1,
+            5,
+            5
+          ],
+          [
+            -1,
+            -1,
+            -1,
+            -1,
+            5
+          ],
+          [
+            -1,
+            -1,
+            -1,
+            -1,
+            -1
+          ],
+          [
+            -1,
+            -1,
+            -1,
+            -1,
+            -1
+          ],
+          [
+            -1,
+            -1,
+            -1,
+            -1,
+            -1
+          ],
+          [
+            -1,
+            -1,
+            -1,
+            -1,
+            -1
+          ],
+          [
+            -1,
+            -1,
+            -1,
+            -1,
+            5
+          ],
+          [
+            -1,
+            -1,
+            -1,
+            -1,
+            5
+          ],
+          [
+            -1,
+            -1,
+            -1,
+            -1,
+            -1
+          ]
+        ]
+      }
+    ],
+    "obstacle": [
+      {
+        "info": {
+          "name": "New Layer",
+          "height": 1,
+          "noAuto": false,
+          "tags": []
+        },
+        "visible": true,
+        "grid": [
+          [
+            2,
+            1,
+            2,
+            49,
+            1
+          ],
+          [
+            -1,
+            -1,
+            -1,
+            -1,
+            54
+          ],
+          [
+            -1,
+            -1,
+            -1,
+            -1,
+            2
+          ],
+          [
+            50,
+            -1,
+            -1,
+            -1,
+            50
+          ],
+          [
+            1,
+            -1,
+            -1,
+            54,
+            -1
+          ],
+          [
+            2,
+            -1,
+            -1,
+            -1,
+            -1
+          ],
+          [
+            -1,
+            -1,
+            -1,
+            -1,
+            54
+          ],
+          [
+            -1,
+            -1,
+            -1,
+            -1,
+            -1
+          ],
+          [
+            1,
+            -1,
+            -1,
+            -1,
+            2
+          ]
+        ]
+      }
+    ],
+    "region": []
+  },
+  "characters": [],
+  "parties": [],
+  "playerParty": -1
+}

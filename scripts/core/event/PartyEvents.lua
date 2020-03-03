@@ -41,11 +41,6 @@ function EventSheet:hideMember(args)
   troop:moveMember(args.key, 2)
   TroopManager:saveTroop(troop, true)
 end
-
----------------------------------------------------------------------------------------------------
--- Battler
----------------------------------------------------------------------------------------------------
-
 -- Heal all members' HP and SP.
 -- @param(args.onlyCurrent : boolean) True to ignore backup members (false by default).
 function EventSheet:healAll(args)
@@ -62,8 +57,15 @@ function EventSheet:healAll(args)
   end
   TroopManager:saveTroop(troop)
 end
--- Makes a member learn a new skill.
--- @param(args.member : string) Member's key.
+
+---------------------------------------------------------------------------------------------------
+-- Battler
+---------------------------------------------------------------------------------------------------
+
+-- General parameters:
+-- @param(args.key : string) The key of the member to be modified.
+
+-- Makes a member learn a new skill if the requirements are met.
 -- @param(args.id : number) Skill's ID.
 -- @oaram(args.req : table) Array of requirements (optional).
 function EventSheet:learnSkill(args)
@@ -74,6 +76,42 @@ function EventSheet:learnSkill(args)
     battler.skillList:learn { id = args.id, requirements = args.req }
   else
     battler.skillList:learn(args.id)
+  end
+  TroopManager:saveTroop(troop)
+end
+-- Sets a member's level. 
+-- Learns new skills if level increased, but keeps old skills if decreased.
+-- @param(args.level : number) Member's new level.
+function EventSheet:setLevel(args)
+  local troop = Troop()
+  local battler = troop.battlers[args.key]
+  assert(battler, "No battler with key: " .. tostring(args.key))
+  if args.level < battler.class.level then
+    battler.class.level = args.level
+    battler.class.exp = battler.class.expCurve(args.level)
+  else
+    local exp = battler.class.expCurve(args.level) - battler.class.exp
+    battler.class:addExperience(exp)
+  end
+  TroopManager:saveTroop(troop)
+end
+-- Sets that item equiped in the specified slot.
+-- @param(args.id : number) Item ID.
+-- @param(args.slot : string) Slot key.
+-- @oaram(args.store : boolean) Flag to store previous equipped item in party's inventory.
+function EventSheet:setEquip(args)
+  local troop = Troop()
+  local battler = troop.battlers[args.key]
+  assert(battler, "No battler with key: " .. tostring(args.key))
+  local item = Database.items[args.id]
+  assert(item, "Item does not exist: " .. tostring(args.id))
+  assert(item.slot ~= '', "Item " .. Database.toString(item) .. "is not an equipment.")
+  assert(item.slot:contains(args.slot), "Item " .. Database.toString(item)
+    .. " is not of slot type " .. args.slot)
+  if args.store then
+    battler.equipSet.setEquip(args.slot, item, troop.inventory)
+  else
+    battler.equipSet.setEquip(args.slot, item)
   end
   TroopManager:saveTroop(troop)
 end

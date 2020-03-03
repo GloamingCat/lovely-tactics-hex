@@ -35,7 +35,8 @@ function Obstacle:init(data, tileData, initTile, group)
   self.group = group
   self.sprite = group.sprite
   self.collisionHeight = tileData.height
-  self.ramp = tileData.ramp
+  self.ramp = tileData.mode == 1
+  self.bridge = tileData.mode == 2
   initTile.obstacleList:add(self)
   self:initNeighbors(tileData.neighbors)
   self:addToTiles()

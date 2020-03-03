@@ -42,8 +42,8 @@
       {
         "destination": {
           "fieldID": 10,
-          "x": 4,
-          "y": 6,
+          "x": 5,
+          "y": 3,
           "h": 1,
           "direction": 180
         },
@@ -1457,6 +1457,7 @@
       "key": "Shop",
       "persistent": true,
       "passable": false,
+      "visible": true,
       "x": 11,
       "y": 11,
       "h": 1,
@@ -1482,6 +1483,7 @@
       "key": "Amber",
       "persistent": false,
       "passable": false,
+      "visible": true,
       "x": 7,
       "y": 7,
       "h": 1,
@@ -1517,6 +1519,7 @@
       "key": "Coco",
       "persistent": false,
       "passable": false,
+      "visible": true,
       "x": 11,
       "y": 6,
       "h": 1,

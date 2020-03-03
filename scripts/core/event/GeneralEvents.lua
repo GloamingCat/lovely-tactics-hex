@@ -52,7 +52,7 @@ end
 -- @param(args.escapeEnabled : boolean) True to enable the whole party to escape.
 function EventSheet:startBattle(args)
   local fiber = FieldManager.fiberList:fork(function()
-    local bgm = AudioManager.battleTheme and AudioManager:pauseBGM()
+    local bgm = AudioManager.battleTheme and not AudioManager.pausedBGM and AudioManager:pauseBGM()
     ::retry::
     if Sounds.battleIntro then
       AudioManager:playSFX(Sounds.battleIntro)

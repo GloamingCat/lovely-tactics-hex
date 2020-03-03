@@ -9,11 +9,25 @@ Tum Tum finds Blim Blim. First boss.
 
 return function(script)
   
-  FieldManager.currentField.loadScript = { name = '' }
+  FieldManager.currentField.loadScript = {
+    global = false,
+    block = true,
+    wait = true,
+    onLoad = true,
+    onInteract = false,
+    onCollide = false,
+    name = "events/Player Animations.lua",
+    tags = {
+      key = "name",
+      value = "Default"
+    }
+  }
   
   local blim = script:findCharacter('BlimBlim')
   local boss = script:findCharacter('Boss')
   blim.shadow:setVisible(false)
+  
+  AudioManager:pauseBGM(60)
   
   script:wait(30)
 
@@ -21,7 +35,7 @@ return function(script)
   script:wait(60)
   
   local bossTile = boss:getTile()
-  script:focusTile { x = bossTile.x, y = bossTile.y + 1, wait = true }
+  script:focusTile { x = bossTile.x, y = bossTile.y - 1, wait = true }
   script:wait(30)
   
   script:showDialogue { id = 1, character = "player", portrait = "Surprise", message = 
@@ -32,7 +46,7 @@ return function(script)
 
   FieldManager.player.speed = 80
   script:focusCharacter { key = 'player', wait = true }
-  script:moveCharTile { key = 'player', y = -3, wait = true }
+  script:moveCharTile { key = 'player', y = 3, wait = true }
 
   script:showCharBalloon { key = 'player', emotion = '...' }
   script:wait(90)
@@ -76,7 +90,7 @@ return function(script)
   script:closeDialogueWindow { id = 1 }
   
   FieldManager.player.speed = 120
-  script:moveCharTile { key = 'player', y = -3, wait = true }
+  script:moveCharTile { key = 'player', y = 3, wait = true }
 
   script:showDialogue { id = 1, character = "player", portrait = "Worry", message = 
     Vocab.dialogues.dungeon.BlimAreYou
@@ -93,7 +107,7 @@ return function(script)
   blim:jump(30)
   script:wait(90)
   
-  --TODO: blim:playAnimation('LookAround')
+  blim:playAnimation('LookAround')
   
   script:showDialogue { id = 1, character = "BlimBlim", portrait = "Angry", message = 
     Vocab.dialogues.dungeon.WhereIsIt
@@ -104,10 +118,10 @@ return function(script)
   blim:playAnimation("Idle")
   blim:setDirection(45)
   script:wait(60)
-  blim:setDirection(135)
+  blim:setDirection(315)
   script:showCharBalloon { key = 'BlimBlim', emotion = '?' }
   script:wait(120)
-  blim:setDirection(315)
+  blim:setDirection(135)
 
   script:showDialogue { id = 1, character = "BlimBlim", portrait = "Confused", message = 
     Vocab.dialogues.dungeon.DidItRun
@@ -130,7 +144,9 @@ return function(script)
     Vocab.dialogues.dungeon.NowIRemember
   }
   
-  --blim:playAnimation('LookAround')
+  script:closeDialogueWindow { id = 1 }
+  
+  blim:playAnimation('LookAround')
   script:wait(60)
   
   script:showDialogue { id = 1, character = "BlimBlim", portrait = "Angry", message = 
@@ -142,7 +158,7 @@ return function(script)
   }
   
   blim:playAnimation('Idle')
-  blim:setDirection(315)
+  blim:setDirection(135)
   
   script:showDialogue { id = 1, character = "BlimBlim", portrait = "Surprised", message = 
     Vocab.dialogues.dungeon.WhatSad
@@ -181,7 +197,7 @@ return function(script)
   
   FieldManager.renderer:fadeout(150, true)
   script:deleteChar { key = 'BlimBlim', permanent = true }
-  AudioManager:playBGM (Sounds.jungleTheme)
+  AudioManager:playBGM (Sounds.fieldsTheme)
   script:addMember { key = 'BlimBlim' }
   FieldManager.renderer:fadein(180, true)
   

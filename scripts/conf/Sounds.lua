@@ -77,7 +77,7 @@ return {
   
 	-- Themes
 	titleTheme = {
-		name = "bgm/David Vitas/Town Theme.ogg",
+		name = "bgm/Gyrowolf/Field003.ogg",
 		pitch = 100,
 		volume = 90
 	},
@@ -92,7 +92,7 @@ return {
 		volume = 90
 	},
 	finalBossTheme = {
-		name = "bgm/Gyrowolf/Battle003.ogg",
+		name = "bgm/David Vitas/Boss Theme.ogg",
 		pitch = 100,
 		volume = 90
 	},
@@ -113,6 +113,11 @@ return {
     volume = 100, 
     pitch = 100 
   },
+  fieldsTheme = {
+    name = 'bgm/Aaron Krogh/Morning.ogg', 
+    volume = 100, 
+    pitch = 100 
+  },
   jungleTheme = {
     name = 'bgm/Aaron Krogh/Jungle.ogg', 
     volume = 100, 
@@ -124,7 +129,16 @@ return {
     name = 'bgm/Aaron Krogh/Happiness.ogg', 
     volume = 100, 
     pitch = 100 
+  },
+  sillyTheme = { 
+    name = 'bgm/Gyrowolf/Town002.ogg', 
+    volume = 100, 
+    pitch = 100 
+  },
+  mysteriousTheme = {
+    name = '',
+    volume = 100,
+    pitch = 100
   }
-  
   
 }
