@@ -127,9 +127,9 @@ function ObjectTile:collidesObstacle(dx, dy, object)
   return false
 end
 -- Checks if this tile is passable from the given tile.
+-- @param(obj : Object) The object that is trying to access this tile (optional).
 -- @param(x : number) The x in tiles.
 -- @param(y : number) The y in tiles.
--- @param(obj : Object) The object that is trying to access this tile (optional).
 -- @ret(boolean) True if collides, false otherwise.
 function ObjectTile:collidesObstacleFrom(obj, x, y, h)
   return self:collidesObstacle(self.x - x, self.y - y, obj)
@@ -175,6 +175,22 @@ function ObjectTile:collidesCharacters(char, other)
     return false
   end
   return true
+end
+-- Checks if there is a bridge object that connects given tile to this tile.
+-- @param(obj : Object) The object that is trying to access this tile (optional).
+-- @param(x : number) The x in tiles.
+-- @param(y : number) The y in tiles.
+-- @param(h : number) The h in tiles.
+-- @ret(boolean) True if connects, false otherwise.
+function ObjectTile:hasBridgeFrom(obj, x, y, h)
+  local dx = self.x - x
+  local dy = self.y - y
+  for obj in self.obstacleList:iterator() do
+    if obj.bridge and obj:isPassable(dx, dy, obj) then
+      return true
+    end
+  end
+  return false
 end
 
 ---------------------------------------------------------------------------------------------------

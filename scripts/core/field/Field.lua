@@ -199,14 +199,15 @@ function Field:collisionXYZ(obj, origx, origy, origh, destx, desty, desth)
   if self:exceedsBorder(destx, desty) then
     return 0
   end
-  if self:collidesTerrain(destx, desty, desth) then
-    return 1
-  end
   local layer = self.objectLayers[desth]
   if layer == nil then
     return 0
   end
   local tile = self:getObjectTile(destx, desty, desth)
+  if not tile:hasBridgeFrom(obj, origx, origy, origh) and 
+      self:collidesTerrain(destx, desty, desth) then
+    return 1
+  end
   if tile:collidesObstacleFrom(obj, origx, origy, origh) then
     return 2
   elseif tile:collidesCharacter(obj) then
