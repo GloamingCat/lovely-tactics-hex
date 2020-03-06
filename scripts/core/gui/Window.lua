@@ -88,6 +88,12 @@ end
 function Window:activate()
   self.GUI:setActiveWindow(self)
 end
+-- Deactivate this window if it's the current active one.
+function Window:deactivate()
+  if self.GUI.activeWindow == self then
+    self.GUI:setActiveWindow(nil)
+  end
+end
 -- Activates/deactivates window.
 -- @param(value : boolean) true to activate, false to deactivate
 function Window:setActive(value)

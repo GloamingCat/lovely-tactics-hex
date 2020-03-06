@@ -95,6 +95,9 @@ end
 function GUI:showWindowForResult(window)
   assert(window.GUI == self, "Can't show window from another GUI!")
   local previous = self.activeWindow
+  if previous then
+    previous:deactivate()
+  end
   window:show()
   window:activate()
   local result = self:waitForResult()
