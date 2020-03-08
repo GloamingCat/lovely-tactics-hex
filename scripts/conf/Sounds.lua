@@ -56,7 +56,7 @@ return {
 		volume = 90
   },
   ['!'] = {
-		name = "sfx/GameAudio/surprise.wav",
+		name = "sfx/GameAudio/text2.wav",
 		pitch = 120,
 		volume = 100
   },

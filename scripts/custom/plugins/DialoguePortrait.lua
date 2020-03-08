@@ -62,6 +62,22 @@ function DialogueWindow:createContent(width, height)
   local nameY = self.position.y - 1.25 * self.height / 2
   self.nameWindow:setXYZ(nameX, nameY)
 end
+-- Override. Adjusts name window position.
+local DialogueWindow_setXYZ = DialogueWindow.setXYZ
+function DialogueWindow:setXYZ(...)
+  DialogueWindow_setXYZ(self, ...)
+  local nameX = self.position.x - 0.45 * self.width / 2
+  local nameY = self.position.y - 1.25 * self.height / 2
+  self.nameWindow:setXYZ(nameX, nameY)
+end
+-- Override. Adjusts name window position.
+local DialogueWindow_resize = DialogueWindow.resize
+function DialogueWindow:resize(...)
+  DialogueWindow_resize(self, ...)
+  local nameX = self.position.x - 0.45 * self.width / 2
+  local nameY = self.position.y - 1.25 * self.height / 2
+  self.nameWindow:setXYZ(nameX, nameY)
+end
 -- Override. Adjusts text position and width.
 local DialogueWindow_showDialogue = DialogueWindow.showDialogue
 function DialogueWindow:showDialogue(...)

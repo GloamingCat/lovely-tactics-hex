@@ -191,6 +191,7 @@ function Character:finishSkill(origin, skill)
     local autoTurn = self.autoTurn
     self:walkToPoint(x, y, z)
     self:setXYZ(x, y, z)
+    self.autoTurn = autoTurn
   end
   self:playAnimation(self.idleAnim)
 end
