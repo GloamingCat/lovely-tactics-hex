@@ -48,6 +48,11 @@ return {
 	unequip = equip,
 	buy = coin,
 	sell = coin,
+  bump = {
+		name = "sfx/Kenney/footstep05.ogg",
+		pitch = 100,
+		volume = 100
+  },
   
   -- Emotions
   ['?'] = {

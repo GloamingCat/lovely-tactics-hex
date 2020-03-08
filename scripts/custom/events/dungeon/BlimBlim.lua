@@ -196,6 +196,7 @@ return function(script)
   script:closeDialogueWindow { id = 1 }
   
   FieldManager.renderer:fadeout(150, true)
+  FieldManager.player.speed = 104
   script:deleteChar { key = 'BlimBlim', permanent = true }
   AudioManager:playBGM (Sounds.fieldsTheme)
   script:addMember { key = 'BlimBlim' }

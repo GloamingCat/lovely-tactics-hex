@@ -86,7 +86,7 @@
         "data": {
           "persistent": true,
           "ai": [],
-          "classID": 1,
+          "classID": 2,
           "attackID": 6,
           "level": 5,
           "money": 0,
@@ -129,7 +129,7 @@
         "data": {
           "persistent": true,
           "ai": [],
-          "classID": 1,
+          "classID": 3,
           "attackID": 6,
           "level": 7,
           "money": 0,
@@ -431,13 +431,33 @@
           "persistent": false,
           "ai": [
             {
+              "condition": "self:chance(75)",
+              "name": "rule/CallRule.lua",
+              "tags": []
+            },
+            {
+              "condition": "self:chance(50)",
+              "name": "rule/RushRule.lua",
+              "tags": [
+                {
+                  "key": "id",
+                  "value": "1"
+                }
+              ]
+            },
+            {
               "condition": "",
               "name": "rule/RushRule.lua",
-              "tags": []
+              "tags": [
+                {
+                  "key": "id",
+                  "value": "2"
+                }
+              ]
             }
           ],
           "classID": 4,
-          "attackID": 15,
+          "attackID": 18,
           "level": 5,
           "money": 50,
           "exp": 20,
@@ -461,7 +481,10 @@
             0,
             0
           ],
-          "skills": [],
+          "skills": [
+            25,
+            24
+          ],
           "status": [],
           "elements": [],
           "items": [],

@@ -101,7 +101,24 @@ return {
     NoShe = "No... She was also caught by jellies. I still haven't found her.",
     WhatScared = "Whaaaat?!",
     OkLets = "Okay, let's look her for together!",
-    Yeah = "Yeah!"
+    Yeah = "Yeah!",
+    
+    -- Pom Pom
+    AhPomPom = "Ah, Pom Pom!",
+    Careful = "Be careful, the jelly is awake!",
+    WhatHappened = "What... what happened...?",
+    PomPom = "Pom Pom!",
+    IFeelDizzy = "Ah... I feel dizzy...",
+    DontWorry = "Don't worry, Pom Pom, we're here!",
+    TheCat = "The... the cat...",
+    WhatCat = "Uh? What cat?",
+    ISawHim = "The cat! I saw him! He's the one creating these jellies!",
+    HeWasAsleep = "He... he was asleep... but the jellies attacked me... and I ran away.",
+    GoodThing = "Good thing you girls found me!",
+    SoACat = "Wait... so a cat is creating those jellies? How?",
+    IDontKnow = "I don't know... but I'm sure it's him.",
+    LetsGoFindHim = "Let's go find him, then!"
+    
   }
   
 }

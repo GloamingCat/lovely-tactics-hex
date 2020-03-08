@@ -412,6 +412,14 @@
               "id": 100
             },
             {
+              "name": "Stuck",
+              "id": 190
+            },
+            {
+              "name": "Bump",
+              "id": 217
+            },
+            {
               "name": "Battle:Idle",
               "id": 98
             },
@@ -778,12 +786,27 @@
             {
               "dx": 0,
               "dy": 0,
-              "height": 1
+              "height": 3
+            },
+            {
+              "dx": 1,
+              "dy": 0,
+              "height": 2
+            },
+            {
+              "dx": 0,
+              "dy": -1,
+              "height": 2
+            },
+            {
+              "dx": 1,
+              "dy": -1,
+              "height": 2
             }
           ],
           "transform": {
             "offsetX": 0,
-            "offsetY": 0,
+            "offsetY": 6,
             "offsetDepth": 0,
             "scaleX": 100,
             "scaleY": 100,
@@ -800,35 +823,43 @@
           "animations": [
             {
               "name": "Idle",
-              "id": 77
+              "id": 219
             },
             {
               "name": "Walk",
-              "id": 78
+              "id": 221
             },
             {
               "name": "Dash",
-              "id": 79
+              "id": 222
+            },
+            {
+              "name": "Sleeping",
+              "id": 225
+            },
+            {
+              "name": "Freeze",
+              "id": 220
             },
             {
               "name": "Battle:Idle",
-              "id": 77
+              "id": 219
             },
             {
               "name": "Battle:Dash",
-              "id": 79
+              "id": 222
             },
             {
               "name": "Battle:Damage",
-              "id": 81
+              "id": 223
             },
             {
               "name": "Battle:KO",
-              "id": 82
+              "id": 224
             },
             {
               "name": "Sleep:Idle",
-              "id": 161
+              "id": 225
             }
           ],
           "name": "Red Jelly",
@@ -912,12 +943,27 @@
             {
               "dx": 0,
               "dy": 0,
-              "height": 1
+              "height": 3
+            },
+            {
+              "dx": 1,
+              "dy": 0,
+              "height": 2
+            },
+            {
+              "dx": 0,
+              "dy": -1,
+              "height": 2
+            },
+            {
+              "dx": 1,
+              "dy": -1,
+              "height": 2
             }
           ],
           "transform": {
             "offsetX": 0,
-            "offsetY": 0,
+            "offsetY": 6,
             "offsetDepth": 0,
             "scaleX": 100,
             "scaleY": 100,
@@ -934,35 +980,43 @@
           "animations": [
             {
               "name": "Idle",
-              "id": 77
+              "id": 193
             },
             {
               "name": "Walk",
-              "id": 78
+              "id": 194
             },
             {
               "name": "Dash",
-              "id": 79
+              "id": 195
+            },
+            {
+              "name": "Sleeping",
+              "id": 198
+            },
+            {
+              "name": "Freeze",
+              "id": 199
             },
             {
               "name": "Battle:Idle",
-              "id": 77
+              "id": 193
             },
             {
               "name": "Battle:Dash",
-              "id": 79
+              "id": 195
             },
             {
               "name": "Battle:Damage",
-              "id": 81
+              "id": 196
             },
             {
               "name": "Battle:KO",
-              "id": 82
+              "id": 197
             },
             {
               "name": "Sleep:Idle",
-              "id": 161
+              "id": 198
             }
           ],
           "name": "Silver Jelly",

@@ -1,5 +1,5 @@
 {
-  "lastField": 24,
+  "lastField": 25,
   "id": -1,
   "children": [
     {
@@ -285,6 +285,18 @@
             "name": "Jungle Battle Field",
             "lastLayers": [
               1,
+              0,
+              -1
+            ]
+          },
+          "children": []
+        },
+        {
+          "id": 25,
+          "data": {
+            "name": "Jungle Boss Battle Field",
+            "lastLayers": [
+              2,
               0,
               -1
             ]

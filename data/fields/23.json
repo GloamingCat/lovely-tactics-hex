@@ -7,7 +7,7 @@
     "defaultRegion": -1,
     "maxHeight": 1,
     "bgm": {
-      "name": "",
+      "name": "bgm/Aaron Krogh/Jungle.ogg",
       "volume": 100,
       "pitch": 100,
       "time": 0
@@ -574,7 +574,7 @@
     "obstacle": [
       {
         "info": {
-          "name": "New Layer",
+          "name": "Obstacles",
           "height": 1,
           "noAuto": false,
           "tags": []
@@ -681,7 +681,7 @@
             -1,
             -1,
             -1,
-            2
+            -1
           ],
           [
             1,
@@ -738,7 +738,7 @@
       },
       {
         "info": {
-          "name": "New Layer",
+          "name": "Scenery",
           "height": 1,
           "noAuto": false,
           "tags": []
@@ -910,7 +910,7 @@
       "passable": false,
       "visible": true,
       "x": 8,
-      "y": 14,
+      "y": 13,
       "h": 1,
       "party": -1,
       "charID": 2,
@@ -928,10 +928,10 @@
       "y": 5,
       "h": 1,
       "party": -1,
-      "charID": 2,
+      "charID": 3,
       "battlerID": -1,
       "animation": "Stuck",
-      "direction": 135,
+      "direction": 315,
       "scripts": []
     },
     {
@@ -943,10 +943,10 @@
       "y": 5,
       "h": 1,
       "party": 1,
-      "charID": 4,
+      "charID": 7,
       "battlerID": -1,
       "animation": "Sleeping",
-      "direction": 135,
+      "direction": 315,
       "scripts": []
     }
   ],

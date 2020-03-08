@@ -6566,17 +6566,17 @@
             "data": {
               "script": "",
               "quad": {
-                "path": "Character/Witch3/KO.png",
+                "path": "Character/Witch3/Blink.png",
                 "x": 0,
                 "y": 0,
-                "width": 32,
+                "width": 24,
                 "height": 256
               },
               "rows": 8,
               "cols": 1,
               "transform": {
-                "offsetX": 16,
-                "offsetY": 22,
+                "offsetX": 12,
+                "offsetY": 36,
                 "offsetDepth": 0,
                 "scaleX": 100,
                 "scaleY": 100,
@@ -6584,7 +6584,7 @@
                 "red": 255,
                 "green": 255,
                 "blue": 255,
-                "alpha": 127,
+                "alpha": 255,
                 "hue": 0,
                 "saturation": 100,
                 "brightness": 100
@@ -6598,6 +6598,44 @@
               "tags": []
             },
             "id": 190,
+            "children": []
+          },
+          {
+            "data": {
+              "script": "",
+              "quad": {
+                "path": "Character/Witch3/Damage.png",
+                "x": 0,
+                "y": 0,
+                "width": 24,
+                "height": 256
+              },
+              "rows": 8,
+              "cols": 1,
+              "transform": {
+                "offsetX": 12,
+                "offsetY": 30,
+                "offsetDepth": 0,
+                "scaleX": 100,
+                "scaleY": 100,
+                "rotation": 0,
+                "red": 255,
+                "green": 255,
+                "blue": 255,
+                "alpha": 255,
+                "hue": 0,
+                "saturation": 100,
+                "brightness": 100
+              },
+              "introPattern": "",
+              "introDuration": "",
+              "loopPattern": "",
+              "loopDuration": "",
+              "audio": [],
+              "name": "Bump",
+              "tags": []
+            },
+            "id": 217,
             "children": []
           }
         ]
@@ -6873,11 +6911,11 @@
         "data": {
           "script": "",
           "quad": {
-            "path": "Character/Jelly/Default.png",
-            "x": 32,
-            "y": 192,
-            "width": 32,
-            "height": 32
+            "path": "Character/Boss1/Default.png",
+            "x": 96,
+            "y": 576,
+            "width": 96,
+            "height": 96
           },
           "rows": 1,
           "cols": 1,
@@ -7170,6 +7208,311 @@
               "tags": []
             },
             "id": 198,
+            "children": []
+          }
+        ]
+      },
+      {
+        "data": {
+          "script": "",
+          "quad": {
+            "path": "Character/Boss2/Default.png",
+            "x": 96,
+            "y": 576,
+            "width": 96,
+            "height": 96
+          },
+          "rows": 1,
+          "cols": 1,
+          "transform": {
+            "offsetX": 0,
+            "offsetY": 0,
+            "offsetDepth": 0,
+            "scaleX": 100,
+            "scaleY": 100,
+            "rotation": 0,
+            "red": 255,
+            "green": 255,
+            "blue": 255,
+            "alpha": 255,
+            "hue": 0,
+            "saturation": 100,
+            "brightness": 100
+          },
+          "introPattern": "",
+          "introDuration": "",
+          "loopPattern": "",
+          "loopDuration": "",
+          "audio": [],
+          "name": "Boss2",
+          "tags": []
+        },
+        "id": 218,
+        "children": [
+          {
+            "data": {
+              "script": "",
+              "quad": {
+                "path": "Character/Boss2/Default.png",
+                "x": 0,
+                "y": 0,
+                "width": 288,
+                "height": 768
+              },
+              "rows": 8,
+              "cols": 3,
+              "transform": {
+                "offsetX": 48,
+                "offsetY": 80,
+                "offsetDepth": 0,
+                "scaleX": 100,
+                "scaleY": 100,
+                "rotation": 0,
+                "red": 255,
+                "green": 255,
+                "blue": 255,
+                "alpha": 255,
+                "hue": 0,
+                "saturation": 100,
+                "brightness": 100
+              },
+              "introPattern": "",
+              "introDuration": "",
+              "loopPattern": "1 2 1 0",
+              "loopDuration": "20",
+              "audio": [],
+              "name": "Idle",
+              "tags": []
+            },
+            "id": 219,
+            "children": []
+          },
+          {
+            "data": {
+              "script": "",
+              "quad": {
+                "path": "Character/Boss2/Default.png",
+                "x": 96,
+                "y": 0,
+                "width": 96,
+                "height": 768
+              },
+              "rows": 8,
+              "cols": 1,
+              "transform": {
+                "offsetX": 48,
+                "offsetY": 80,
+                "offsetDepth": 0,
+                "scaleX": 100,
+                "scaleY": 100,
+                "rotation": 0,
+                "red": 255,
+                "green": 255,
+                "blue": 255,
+                "alpha": 255,
+                "hue": 0,
+                "saturation": 100,
+                "brightness": 100
+              },
+              "introPattern": "",
+              "introDuration": "",
+              "loopPattern": "",
+              "loopDuration": "",
+              "audio": [],
+              "name": "Freeze",
+              "tags": []
+            },
+            "id": 220,
+            "children": []
+          },
+          {
+            "data": {
+              "script": "",
+              "quad": {
+                "path": "Character/Boss2/Jump.png",
+                "x": 0,
+                "y": 0,
+                "width": 384,
+                "height": 768
+              },
+              "rows": 8,
+              "cols": 4,
+              "transform": {
+                "offsetX": 48,
+                "offsetY": 80,
+                "offsetDepth": 0,
+                "scaleX": 100,
+                "scaleY": 100,
+                "rotation": 0,
+                "red": 255,
+                "green": 255,
+                "blue": 255,
+                "alpha": 255,
+                "hue": 0,
+                "saturation": 100,
+                "brightness": 100
+              },
+              "introPattern": "",
+              "introDuration": "",
+              "loopPattern": "0 1 2 3 2 1",
+              "loopDuration": "24",
+              "audio": [],
+              "name": "Walk",
+              "tags": []
+            },
+            "id": 221,
+            "children": []
+          },
+          {
+            "data": {
+              "script": "",
+              "quad": {
+                "path": "Character/Boss2/Jump.png",
+                "x": 0,
+                "y": 0,
+                "width": 384,
+                "height": 768
+              },
+              "rows": 8,
+              "cols": 4,
+              "transform": {
+                "offsetX": 48,
+                "offsetY": 80,
+                "offsetDepth": 0,
+                "scaleX": 100,
+                "scaleY": 100,
+                "rotation": 0,
+                "red": 255,
+                "green": 255,
+                "blue": 255,
+                "alpha": 255,
+                "hue": 0,
+                "saturation": 100,
+                "brightness": 100
+              },
+              "introPattern": "",
+              "introDuration": "",
+              "loopPattern": "0 1 2 3 2 1",
+              "loopDuration": "18",
+              "audio": [],
+              "name": "Dash",
+              "tags": []
+            },
+            "id": 222,
+            "children": []
+          },
+          {
+            "data": {
+              "script": "animation/Knockback.lua",
+              "quad": {
+                "path": "Character/Boss2/Damage.png",
+                "x": 0,
+                "y": 0,
+                "width": 96,
+                "height": 768
+              },
+              "rows": 8,
+              "cols": 1,
+              "transform": {
+                "offsetX": 48,
+                "offsetY": 80,
+                "offsetDepth": 0,
+                "scaleX": 100,
+                "scaleY": 100,
+                "rotation": 0,
+                "red": 255,
+                "green": 255,
+                "blue": 255,
+                "alpha": 255,
+                "hue": 0,
+                "saturation": 100,
+                "brightness": 100
+              },
+              "introPattern": "",
+              "introDuration": "12",
+              "loopPattern": "",
+              "loopDuration": "",
+              "audio": [],
+              "name": "Damage",
+              "tags": []
+            },
+            "id": 223,
+            "children": []
+          },
+          {
+            "data": {
+              "script": "",
+              "quad": {
+                "path": "Character/Boss2/KO.png",
+                "x": 0,
+                "y": 0,
+                "width": 96,
+                "height": 768
+              },
+              "rows": 8,
+              "cols": 1,
+              "transform": {
+                "offsetX": 48,
+                "offsetY": 80,
+                "offsetDepth": 0,
+                "scaleX": 100,
+                "scaleY": 100,
+                "rotation": 0,
+                "red": 255,
+                "green": 255,
+                "blue": 255,
+                "alpha": 255,
+                "hue": 0,
+                "saturation": 75,
+                "brightness": 75
+              },
+              "introPattern": "",
+              "introDuration": "",
+              "loopPattern": "",
+              "loopDuration": "",
+              "audio": [],
+              "name": "KO",
+              "tags": []
+            },
+            "id": 224,
+            "children": []
+          },
+          {
+            "data": {
+              "script": "",
+              "quad": {
+                "path": "Character/Boss2/KO.png",
+                "x": 0,
+                "y": 0,
+                "width": 96,
+                "height": 768
+              },
+              "rows": 8,
+              "cols": 1,
+              "transform": {
+                "offsetX": 48,
+                "offsetY": 80,
+                "offsetDepth": 0,
+                "scaleX": 100,
+                "scaleY": 100,
+                "rotation": 0,
+                "red": 255,
+                "green": 255,
+                "blue": 255,
+                "alpha": 255,
+                "hue": 0,
+                "saturation": 100,
+                "brightness": 100
+              },
+              "introPattern": "",
+              "introDuration": "",
+              "loopPattern": "",
+              "loopDuration": "",
+              "audio": [],
+              "name": "Sleep",
+              "tags": []
+            },
+            "id": 225,
             "children": []
           }
         ]
