@@ -80,8 +80,7 @@ function GameManager:update(dt)
     self.frame = self.frame + 1
   end
   if InputManager.keys['pause']:isTriggered() then
-    self.paused = not self.paused
-    SaveManager:onPause(self.paused)
+    self:setPaused(not self.paused, true, false)
   end
   if not AudioManager.paused then
     AudioManager:update()
@@ -161,10 +160,10 @@ function GameManager:setPaused(paused, audio, input)
   if input then
     InputManager:setPaused(paused)
   end
+  SaveManager.loadTime = now()
   if paused then
     self.playTime = self:currentPlayTime()
   end
-  SaveManager.loadTime = now()
 end
 
 ---------------------------------------------------------------------------------------------------

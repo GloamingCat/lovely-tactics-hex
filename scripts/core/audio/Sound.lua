@@ -67,11 +67,6 @@ function Sound:stop()
   self.paused = true
   self.source:stop()
 end
--- Resumes sound.
-function Sound:resume()
-  self.paused = false
-  self.source:resume()
-end
 -- Pauses sound.
 function Sound:pause()
   self.paused = true
@@ -80,10 +75,10 @@ end
 -- Pauses/resumes sound.
 -- @param(paused : boolean) True to pause, false to resume.
 function Sound:setPaused(paused)
-  if paused or self.paused then
-    self.source:pause()
+  if paused then
+    self:pause()
   else
-    self.source:resume()
+    self:play()
   end
 end
 

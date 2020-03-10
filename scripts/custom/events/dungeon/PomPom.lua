@@ -17,10 +17,10 @@ return function(script)
     onInteract = false,
     onCollide = false,
     name = "events/Player Animations.lua",
-    tags = {
+    tags = {{
       key = "name",
       value = "Default"
-    }
+    }}
   }
   
   local blim = script:findCharacter('BlimBlim')
