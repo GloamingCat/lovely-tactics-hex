@@ -40,6 +40,20 @@
   },
   {
     "on": true,
+    "name": "plugins/SpeedButton.lua",
+    "tags": [
+      {
+        "key": "key",
+        "value": "j"
+      },
+      {
+        "key": "speed",
+        "value": "3"
+      }
+    ]
+  },
+  {
+    "on": true,
     "name": "plugins/EmotionBalloon.lua",
     "tags": []
   },

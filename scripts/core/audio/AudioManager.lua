@@ -91,6 +91,15 @@ function AudioManager:setSFXVolume(v)
     self.sfx[i]:refreshVolume()
   end
 end
+-- Refreshes BGM and SFX pitch.
+function AudioManager:refreshVolume()
+  if self.BGM then 
+    self.BGM:refreshVolume()
+  end
+  for i = 1, #self.sfx do
+    self.sfx[i]:refreshVolume()
+  end
+end
 
 ---------------------------------------------------------------------------------------------------
 -- Pitch
@@ -114,6 +123,15 @@ end
 -- @param(p : number) Pitch multiplier for current SFX.
 function AudioManager:setSFXPitch(p)
   self.pitchSFX = p
+  for i = 1, #self.sfx do
+    self.sfx[i]:refreshPitch()
+  end
+end
+-- Refreshes BGM and SFX pitch.
+function AudioManager:refreshPitch()
+  if self.BGM then 
+    self.BGM:refreshPitch()
+  end
   for i = 1, #self.sfx do
     self.sfx[i]:refreshPitch()
   end

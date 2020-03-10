@@ -92,7 +92,8 @@ function Music:refreshVolume()
 end
 -- Overrides Sound:refreshPitch.
 function Music:refreshPitch()
-  self.source:setPitch((self.pitch / 100) * (AudioManager.pitchBGM / 100))
+  self.source:setPitch((self.pitch / 100) * (AudioManager.pitchBGM / 100)
+    * GameManager.speed)
 end
 
 return Music

@@ -31,6 +31,7 @@ function GameManager:init()
   self.frame = 0
   self.playTime = 0
   self.garbage = setmetatable({}, {__mode = 'v'})
+  self.speed = 1
   --PROFI = require('core/base/ProFi')
   --require('core/base/Stats').printStats()
 end
@@ -178,7 +179,13 @@ end
 -- Duration of the last frame.
 -- @ret(number) Duration in seconds.
 function GameManager:frameTime()
-  return deltaTime()
+  return deltaTime() * self.speed
+end
+-- Sets game speed. Does not affect input, only sound and graphics.
+-- @parem(speed : number) Speed multiplier.
+function GameManager:setSpeed(speed)
+  self.speed = speed
+  AudioManager:refreshPitch()
 end
 
 ---------------------------------------------------------------------------------------------------
