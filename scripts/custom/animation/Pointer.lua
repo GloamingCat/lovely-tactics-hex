@@ -17,7 +17,6 @@ local Animation = require('core/graphics/Animation')
 -- Alias
 local round = math.round
 local abs = math.abs
-local deltaTime = love.timer.getDelta
 
 local Pointer = class(Animation)
 
@@ -55,7 +54,7 @@ function Pointer:update()
   if self.paused or not self.duration or not self.timing then
     return
   end
-  local dt = deltaTime() * 60
+  local dt = GameManager:frameTime() * 60
   self.currentX = self.currentX + self.speedx * dt
   self.currentY = self.currentY + self.speedy *dt
   if self.currentX > self.maxx or self.currentX < self.minx then

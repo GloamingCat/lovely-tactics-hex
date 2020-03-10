@@ -8,7 +8,6 @@ An object with scale properties.
 =================================================================================================]]
 
 -- Alias
-local time = love.timer.getDelta
 local yield = coroutine.yield
 
 local Scalable = class()
@@ -49,7 +48,7 @@ end
 -- Applies speed and updates scale.
 function Scalable:updateScaling()
   if self.scaleTime < 1 then
-    self.scaleTime = self.scaleTime + self.scaleSpeed * time()
+    self.scaleTime = self.scaleTime + self.scaleSpeed * GameManager:frameTime()
     if self.scaleTime > 1 and self.cropScale then
       self.scaleTime = 1
     end

@@ -8,7 +8,6 @@ An object with color properties.
 =================================================================================================]]
 
 -- Alias
-local time = love.timer.getDelta
 local yield = coroutine.yield
 
 local Colorable = class()
@@ -86,7 +85,7 @@ end
 -- Applies color speed and updates color.
 function Colorable:updateColor()
   if self.colorTime < 1 then
-    self.colorTime = self.colorTime + self.colorSpeed * time()
+    self.colorTime = self.colorTime + self.colorSpeed * GameManager:frameTime()
     if self.colorTime > 1 and self.cropColor then
       self.colorTime = 1
     end

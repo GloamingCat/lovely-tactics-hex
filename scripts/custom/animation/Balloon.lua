@@ -11,9 +11,6 @@ backwards.
 -- Imports
 local Animation = require('core/graphics/Animation')
 
--- Alias
-local deltaTime = love.timer.getDelta
-
 local Balloon = class(Animation)
 
 ---------------------------------------------------------------------------------------------------
@@ -81,7 +78,7 @@ end
 function Balloon:updateIcon()
   if self.iconAnim then
     self.iconAnim:update()
-    self.time = self.time + deltaTime() * 60
+    self.time = self.time + GameManager:frameTime() * 60
     if self.time >= self.iconAnim.duration then
       self.iconAnim:reset()
       self.iconAnim:hide()
@@ -93,7 +90,7 @@ function Balloon:updateIcon()
 end
 -- Updates wait time until animation restarts.
 function Balloon:updateWait()
-  self.time = self.time + deltaTime() * 60
+  self.time = self.time + GameManager:frameTime() * 60
   if self.time > self.waitTime then
     self.state = 0
     self:reset()

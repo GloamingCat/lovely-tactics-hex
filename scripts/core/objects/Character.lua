@@ -16,7 +16,6 @@ local MoveAction = require('core/battle/action/MoveAction')
 -- Alias
 local mathf = math.field
 local max = math.max
-local time = love.timer.getDelta
 local tile2Pixel = math.field.tile2Pixel
 
 local Character = class(CharacterBase)

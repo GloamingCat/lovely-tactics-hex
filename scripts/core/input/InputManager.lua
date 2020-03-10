@@ -13,8 +13,6 @@ local GameMouse = require('core/input/GameMouse')
 
 -- Alias
 local max = math.max
-local dt = love.timer.getDelta
-local now = love.timer.getTime
 local setTextInput = love.keyboard.setTextInput
 
 -- Constants

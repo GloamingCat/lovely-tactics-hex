@@ -16,7 +16,6 @@ local Animation = require('core/graphics/Animation')
 -- Alias
 local abs = math.abs
 local angle2Coord = math.angle2Coord
-local deltaTime = love.timer.getDelta
 local round = math.round
 local row2Angle = math.field.row2Angle
 
@@ -66,7 +65,7 @@ function Knockback:update()
 end
 -- Increments time.
 function Knockback:updateTime()
-  self.knockTime = self.knockTime + deltaTime() * self.knockSpeed
+  self.knockTime = self.knockTime + GameManager:frameTime() * self.knockSpeed
 end
 -- Sets position according to time.
 function Knockback:updatePosition()

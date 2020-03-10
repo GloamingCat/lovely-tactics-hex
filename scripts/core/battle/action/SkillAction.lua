@@ -19,7 +19,6 @@ local PopupText = require('core/battle/PopupText')
 local max = math.max
 local isnan = math.isnan
 local mathf = math.field
-local time = love.timer.getDelta
 local now = love.timer.getTime
 local random = math.random
 local round = math.round

@@ -11,6 +11,7 @@ Handles basic game flow.
 local TitleGUI = require('core/gui/menu/TitleGUI')
 
 -- Alias
+local deltaTime = love.timer.getDelta
 local copyTable = util.table.deepCopy
 local framerate = Config.screen.fpsLimit
 local now = love.timer.getTime
@@ -165,10 +166,20 @@ function GameManager:setPaused(paused, audio, input)
   end
   SaveManager.loadTime = now()
 end
+
+---------------------------------------------------------------------------------------------------
+-- Time
+---------------------------------------------------------------------------------------------------
+
 -- Gets the current total play time.
 -- @ret(number) The time in seconds.
 function GameManager:currentPlayTime()
   return self.playTime + (now() - SaveManager.loadTime)
+end
+-- Duration of the last frame.
+-- @ret(number) Duration in seconds.
+function GameManager:frameTime()
+  return deltaTime()
 end
 
 ---------------------------------------------------------------------------------------------------

@@ -18,7 +18,7 @@ local Vector = require('core/math/Vector')
 local conf = Config.player
 local coord2Angle = math.coord2Angle
 local rand = love.math.random
-local timer = love.timer
+local now = love.timer.getTime
 local yield = coroutine.yield
 
 local Player = class(Character)
@@ -113,7 +113,7 @@ function Player:inputAxis()
   local dx = InputManager:axisX(0, 0)
   local dy = InputManager:axisY(0, 0)
   if self.pressTime then
-    if timer.getTime() - self.pressTime > self.inputDelay * self.walkSpeed / self.speed then
+    if now() - self.pressTime > self.inputDelay * self.walkSpeed / self.speed then
       self.pressX = dx
       self.pressY = dy
       if dx == 0 and dy == 0 then
@@ -130,7 +130,7 @@ function Player:inputAxis()
     return self.pressX, self.pressY, false
   else
     if dx ~= 0 or dy ~= 0 then
-      self.pressTime = timer.getTime()
+      self.pressTime = now()
     end
     self.pressX = dx
     self.pressY = dy
@@ -200,7 +200,7 @@ end
 function Player:update()
   Character.update(self)
   if self:moving() then
-    self.stepCount = self.stepCount + self.speed / conf.walkSpeed * 60 * timer.getDelta()
+    self.stepCount = self.stepCount + self.speed / conf.walkSpeed * 60 * GameManager:frameTime()
     if self.stepCount > self.freq then
       local sounds = FieldManager.currentField:getTerrainSounds(self:tileCoordinates())
       if sounds and #sounds > 0 then

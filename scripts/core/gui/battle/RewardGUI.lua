@@ -16,7 +16,6 @@ local Vector = require('core/math/Vector')
 local Text = require('core/graphics/Text')
 
 -- Alias
-local time = love.timer.getDelta
 local floor = math.floor
 
 local RewardGUI = class(GUI)
@@ -121,7 +120,7 @@ function RewardGUI:showTopText()
   self.topText:setVisible(true)
   self.topText:setRGBA(nil, nil, nil, 0)
   while a < 1 do
-    a = a + time() * self.topTextSpeed
+    a = a + GameManager:frameTime() * self.topTextSpeed
     self.topText:setRGBA(nil, nil, nil, a)
     coroutine.yield()
   end
@@ -144,7 +143,7 @@ function RewardGUI:hideTopText()
   end
   local a = 1
   while a > 0 do
-    a = a - time() * self.topTextSpeed
+    a = a - GameManager:frameTime() * self.topTextSpeed
     self.topText:setRGBA(nil, nil, nil, a)
     coroutine.yield()
   end

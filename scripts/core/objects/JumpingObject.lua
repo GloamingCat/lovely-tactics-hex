@@ -18,7 +18,6 @@ local len = math.len2D
 local round = math.round
 local pixel2Tile = math.field.pixel2Tile
 local tile2Pixel = math.field.tile2Pixel
-local time = love.timer.getDelta
 local yield = coroutine.yield
 
 -- Constants
@@ -56,13 +55,13 @@ function JumpingObject:updateJump()
   if self.gravity == 0 then
     return
   end
-  self.jumpHeight = self.jumpHeight + self.jumpVelocity * time()
+  self.jumpHeight = self.jumpHeight + self.jumpVelocity * GameManager:frameTime()
   if self.jumpHeight <= 0 then
     self.jumpHeight = 0
     self.jumpVelocity = 0
     self.gravity = 0
   else
-    self.jumpVelocity = self.jumpVelocity - self.gravity * time()
+    self.jumpVelocity = self.jumpVelocity - self.gravity * GameManager:frameTime()
   end
   self:setXYZ()
 end

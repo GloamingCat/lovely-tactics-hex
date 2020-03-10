@@ -17,7 +17,6 @@ local Animation = require('core/graphics/Animation')
 local Vector = require('core/math/Vector')
 
 -- Alias
-local deltaTime = love.timer.getDelta
 local min = math.min
 local pixel2Tile = math.field.pixel2Tile
 local tile2Pixel = math.field.tile2Pixel
@@ -81,7 +80,7 @@ end
 function Projectile:update()
   Animation.update(self)
   if self.moveSpeed then
-    self.moveTime = min(self.moveTime + deltaTime() * self.moveSpeed, 1)
+    self.moveTime = min(self.moveTime + GameManager:frameTime() * self.moveSpeed, 1)
     self.sprite:setPosition(self.origin:lerp(self.target, self.moveTime))
   end
 end

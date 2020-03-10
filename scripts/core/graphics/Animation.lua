@@ -14,7 +14,6 @@ local Sprite = require('core/graphics/Sprite')
 -- Alias
 local mod = math.mod
 local mod1 = math.mod1
-local deltaTime = love.timer.getDelta
 local Quad = love.graphics.newQuad
 
 local Animation = class()
@@ -131,7 +130,7 @@ function Animation:update()
   if self.paused or not self.duration or not self.timing then
     return
   end
-  self.time = self.time + deltaTime() * 60 * self.speed
+  self.time = self.time + GameManager:frameTime() * 60 * self.speed
   if self.time >= self.timing[self.index] then
     self.time = self.time - self.timing[self.index]
     self:nextFrame()

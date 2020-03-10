@@ -13,7 +13,6 @@ Key states:
 =================================================================================================]]
 
 -- Alias
-local dt = love.timer.getDelta
 local now = love.timer.getTime
 
 -- Constants
@@ -69,7 +68,7 @@ function GameKey:isPressingGap(startGap, repeatGap)
   repeatGap = repeatGap or defaultRepreatGap
   local time = now() - self.pressTime
   if time >= startGap then
-    return time % repeatGap <= dt() 
+    return time % repeatGap <= GameManager:frameTime()
   else
     return false
   end

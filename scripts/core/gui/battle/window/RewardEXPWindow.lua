@@ -14,7 +14,6 @@ local Vector = require('core/math/Vector')
 local Window = require('core/gui/Window')
 
 -- Alias
-local deltaTime = love.timer.getDelta
 local yield = coroutine.yield
 
 local RewardEXPWindow = class(Window)
@@ -80,7 +79,7 @@ function RewardEXPWindow:addEXP()
       local exp2 = self.content[i + 1]
       if exp2.value > 0 then
         done = false
-        local gain = math.min(math.floor(self.expSpeed * deltaTime()), exp2.value)
+        local gain = math.min(math.floor(self.expSpeed * GameManager:frameTime()), exp2.value)
         local nextLevel = exp1.battler.class:levelsup(gain)
         exp1.battler.class:addExperience(gain)
         -- Level-up
@@ -100,7 +99,7 @@ function RewardEXPWindow:addEXP()
         exp2:redraw()
       end
     end
-    soundTime = soundTime + deltaTime() * 60
+    soundTime = soundTime + GameManager:frameTime() * 60
     if self.expSound and soundTime >= self.soundPeriod then
       soundTime = soundTime - self.soundPeriod
       AudioManager:playSFX(self.expSound)

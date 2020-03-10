@@ -8,7 +8,6 @@ An object with rotation properties.
 =================================================================================================]]
 
 -- Alias
-local time = love.timer.getDelta
 local yield = coroutine.yield
 
 local Rotatable = class()
@@ -43,7 +42,7 @@ end
 -- Applies speed and updates rotation.
 function Rotatable:updateRotation()
   if self.rotationTime < 1 then
-    self.rotationTime = self.rotationTime + self.rotationSpeed * time()
+    self.rotationTime = self.rotationTime + self.rotationSpeed * GameManager:frameTime()
     if self.rotationTime > 1 and self.croprotation then
       self.rotationTime = 1
     end

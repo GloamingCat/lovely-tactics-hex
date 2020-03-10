@@ -16,7 +16,6 @@ Event codes:
 local SimpleText = require('core/gui/widget/SimpleText')
 
 -- Alias
-local deltaTime = love.timer.getDelta
 local yield = coroutine.yield
 
 local Dialogue = class(SimpleText)
@@ -68,8 +67,8 @@ function Dialogue:rollText(text)
     end
     -- Update time.
     local previousTime = time
-    time = time + deltaTime() * self.textSpeed
-    soundTime = soundTime + deltaTime() * self.textSpeed
+    time = time + GameManager:frameTime() * self.textSpeed
+    soundTime = soundTime + GameManager:frameTime() * self.textSpeed
     if time >= self.sprite.parsedLines.length then
     	self:triggerEvents(previousTime, time + 1)
     	break

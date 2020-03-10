@@ -40,8 +40,6 @@ local WaitAction = require('core/battle/action/WaitAction')
 local max = math.max
 local min = math.min
 local ceil = math.ceil
-local yield = coroutine.yield
-local time = love.timer.getDelta
 
 -- Parameters
 local turnLimit = tonumber(args.turnLimit)

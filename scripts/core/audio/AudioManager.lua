@@ -13,7 +13,6 @@ local Music = require('core/audio/Music')
 local Sound = require('core/audio/Sound')
 
 -- Alias
-local deltaTime = love.timer.getDelta
 local yield = coroutine.yield
 local max = math.max
 local min = math.min
@@ -193,7 +192,7 @@ function AudioManager:updateBGM()
     return
   end
   if self.fadingSpeed > 0 and self.fading < 1 or self.fadingSpeed < 0 and self.fading > 0 then
-    self.fading = min(1, max(0, self.fading + deltaTime() * self.fadingSpeed))
+    self.fading = min(1, max(0, self.fading + GameManager:frameTime() * self.fadingSpeed))
     self.BGM:refreshVolume()
   end
 end

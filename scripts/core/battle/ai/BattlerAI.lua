@@ -76,7 +76,7 @@ function BattlerAI:showCursor(char)
   cursor:show()
   local t = 0.5
   while t > 0 do
-    t = t - love.timer.getDelta()
+    t = t - GameManager:frameTime()
     cursor:update()
     coroutine.yield()
   end

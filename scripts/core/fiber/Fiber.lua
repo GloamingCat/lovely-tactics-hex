@@ -14,7 +14,6 @@ local create = coroutine.create
 local status = coroutine.status
 local resume = coroutine.resume
 local yield = coroutine.yield
-local time = love.timer.getDelta
 
 local Fiber = class()
 
@@ -122,7 +121,7 @@ function Fiber:wait(t)
     yield()
   else
     while t > 0 do
-      t = t - time() * 60
+      t = t - GameManager:frameTime() * 60
       yield()
     end
   end

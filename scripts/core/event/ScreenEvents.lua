@@ -7,9 +7,6 @@ Functions that are loaded from the EventSheet.
 
 =================================================================================================]]
 
--- Alias
-local deltaTime = love.timer.getDelta
-
 local EventSheet = {}
 
 ---------------------------------------------------------------------------------------------------
@@ -21,11 +18,11 @@ local EventSheet = {}
 function EventSheet:shaderin(args)
   ScreenManager.shader = ResourceManager:loadShader(args.name)
   ScreenManager.shader:send('time', 0)
-  local time = deltaTime()
+  local time = GameManager:frameTime()
   while time < 1 do
     ScreenManager.shader:send('time', time)
     coroutine.yield()
-    time = time + deltaTime() * (args.speed or 1)
+    time = time + GameManager:frameTime() * (args.speed or 1)
   end
   ScreenManager.shader:send('time', 1)
 end
@@ -33,11 +30,11 @@ end
 -- @param(args.name : string)
 function EventSheet:shaderout(args)
   ScreenManager.shader:send('time', 1)
-  local time = deltaTime()
+  local time = GameManager:frameTime()
   while time > 0 do
     ScreenManager.shader:send('time', time)
     coroutine.yield()
-    time = time - deltaTime() * (args.speed or 1)
+    time = time - GameManager:frameTime() * (args.speed or 1)
   end
   ScreenManager.shader:send('time', 0)
   ScreenManager.shader = nil

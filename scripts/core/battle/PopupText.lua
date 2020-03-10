@@ -11,7 +11,6 @@ A text sprite that is shown in the field with a popup animation.
 local Text = require('core/graphics/Text')
 
 -- Alias
-local time = love.timer.getDelta
 local max = math.max
 
 -- Constants
@@ -110,14 +109,14 @@ function PopupText:popup(wait)
     sprite:setXYZ(self.x - (self.width or 0) / 2, y, self.z)
     local d = 0
     while d < distance do
-      d = d + distance * speed * time()
+      d = d + distance * speed * GameManager:frameTime()
       sprite:setXYZ(nil, y - d)
       coroutine.yield()
     end
     _G.Fiber:wait(pause)
     local f = speed * 100 / sprite.color.alpha
     while sprite.color.alpha > 0 do
-      local a = max(sprite.color.alpha - f * time(), 0)
+      local a = max(sprite.color.alpha - f * GameManager:frameTime(), 0)
       sprite:setRGBA(nil, nil, nil, a)
       coroutine.yield()
     end

@@ -18,7 +18,6 @@ local BattleCursor = require('core/battle/BattleCursor')
 
 -- Alias
 local yield = coroutine.yield
-local delta = love.timer.getDelta
 
 local ActionGUI = class(GUI)
 
@@ -82,7 +81,7 @@ function ActionGUI:waitForResult()
     if self.cursor then
       self.cursor:update()
     end
-    coroutine.yield()
+    yield()
     self:checkInput()
   end
   if self.cursor then
@@ -229,7 +228,7 @@ end
 function ActionGUI:slideX(d)
   local camera = FieldManager.renderer
   local speed = self.slideSpeed * GUIManager.fieldScroll * 2 / 100
-  local x = camera.position.x + d * speed * delta() * 60
+  local x = camera.position.x + d * speed * GameManager:frameTime() * 60
   local field = FieldManager.currentField 
   if x >= field.minx and x <= field.maxx then
     camera:setXYZ(x, nil)
@@ -241,7 +240,7 @@ end
 function ActionGUI:slideY(d)
   local camera = FieldManager.renderer
   local speed = self.slideSpeed * GUIManager.fieldScroll * 2 / 100
-  local y = camera.position.y + d * speed * delta() * 60
+  local y = camera.position.y + d * speed * GameManager:frameTime() * 60
   local field = FieldManager.currentField 
   if y >= field.miny and y <= field.maxy then
     camera:setXYZ(nil, y)

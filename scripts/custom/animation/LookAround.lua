@@ -16,7 +16,6 @@ of the animation.
 local Animation = require('core/graphics/Animation')
 
 -- Alias
-local deltaTime = love.timer.getDelta
 local rand = love.math.random
 
 local LookAround = class(Animation)
@@ -49,7 +48,7 @@ end
 -- Overrides Animation:update.
 function LookAround:update()
   Animation.update(self)
-  self.lookTime = self.lookTime + deltaTime()
+  self.lookTime = self.lookTime + GameManager:frameTime()
   if self.lookTime >= self.frequence then
     self.lookTime = 0
     self:setRandomRow()

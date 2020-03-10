@@ -10,9 +10,6 @@ Four arrows to navigate a GridWindow.
 -- Imports
 local Component = require('core/gui/Component')
 
--- Alias
-local delta = love.timer.getDelta
-
 -- Constants
 local animID = Config.animations.arrow
 
@@ -59,7 +56,7 @@ end
 function GridScroll:update()
   if self.count then
     local speed = self.speed * GUIManager.windowScroll * 2 / 100
-    self.count = self.count + speed * delta()
+    self.count = self.count + speed * GameManager:frameTime()
     if self.count >= 1 then
       self.count = 0
       self.window:nextWidget(0, self.dy)

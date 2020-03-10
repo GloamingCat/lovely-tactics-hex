@@ -11,7 +11,6 @@ An object with position and movement properties.
 local Vector = require('core/math/Vector')
 
 -- Alias
-local time = love.timer.getDelta
 local yield = coroutine.yield
 
 local Movable = class()
@@ -59,7 +58,7 @@ end
 -- Applies move speed and updates position.
 function Movable:updateMovement()
   if self.moveTime < 1 then
-    self.moveTime = self.moveTime + self.moveSpeed * time()
+    self.moveTime = self.moveTime + self.moveSpeed * GameManager:frameTime()
     if self.moveTime > 1 and self.cropMovement then
       self.moveTime = 1
     end
