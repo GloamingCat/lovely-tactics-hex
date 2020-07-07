@@ -210,11 +210,19 @@ function Renderer:redrawCanvas()
   lgraphics.translate(round(tx * sx), round(ty * sy))
   lgraphics.clear()
   lgraphics.setShader(spriteShader)
-  local drawCalls = 0
-  local started = false
   local w, h = ScreenManager.width * self.scaleX / 2, ScreenManager.height * self.scaleY / 2
   self.minx, self.maxx = self.position.x - w, self.position.x + w
   self.miny, self.maxy = self.position.y - h, self.position.y + h
+  self:drawLists()
+  self:clearBatch()
+  lgraphics.setCanvas(firstCanvas)
+  lgraphics.setShader(firstShader)
+  lgraphics.pop()
+  self.toDraw = nil
+  self.needsRedraw = false
+end
+function Renderer:drawLists()
+  local started = false
   for i = self.maxDepth, self.minDepth, -1 do
     local list = self.list[i]
     if list then
@@ -223,33 +231,47 @@ function Renderer:redrawCanvas()
         self.batch:setTexture(blankTexture)
         started = true
       end
-      self:drawList(list)
+      local drawList = List()
+      for _, sprite in ipairs(list) do
+        if sprite:isVisible() then
+          if sprite.needsRecalcBox then
+            sprite:recalculateBox()
+          end
+          if sprite.position.x - sprite.diag < self.maxx and 
+              sprite.position.x + sprite.diag > self.minx and
+              sprite.position.y - sprite.diag < self.maxy and 
+              sprite.position.y + sprite.diag > self.miny then
+            drawList:add(sprite)
+          end
+        end
+      end
+      self:drawSortedList(drawList)
     end
   end
-  self:clearBatch()
-  lgraphics.setCanvas(firstCanvas)
-  lgraphics.setShader(firstShader)
-  lgraphics.pop()
-  self.toDraw = nil
-  self.needsRedraw = false
 end
 -- Draws all sprites in the same depth.
--- @param(list : Sprite Table) the list of sprites to be drawn
+-- @param(list : Sprite Table) the list of sprites to be drawn.
 function Renderer:drawList(list)
-  local n = #list
-  for i = 1, n do
-    local sprite = list[i]
-    if sprite:isVisible() then
-      if sprite.needsRecalcBox then
-        sprite:recalculateBox()
-      end
-      if sprite.position.x - sprite.diag < self.maxx and 
-          sprite.position.x + sprite.diag > self.minx and
-          sprite.position.y - sprite.diag < self.maxy and 
-          sprite.position.y + sprite.diag > self.miny then
+  for sprite in list:iterator() do
+    sprite:draw(self)
+  end
+end
+-- Draws all sprites in the same depth, sorting by texture.
+-- @param(list : Sprite Table) the list of sprites to be drawn
+function Renderer:drawSortedList(list)
+  local last = 1
+  while last <= list.size do
+    list[last]:draw(self)
+    for i = last + 1, list.size do
+      local sprite = list[i]
+      if self:batchPossible(sprite) then
+        last = last + 1
+        list[i] = list[last]
+        list[last] = sprite
         sprite:draw(self)
       end
     end
+    last = last + 1
   end
 end
 -- Draws current and clears.
@@ -261,34 +283,6 @@ function Renderer:clearBatch()
     self.batch:clear()
     self.toDraw.size = 0
   end
-end
--- Organizes current sprite list by texture.
--- @param(list : Sprite Table) list of sprites to be sorted
-function Renderer:sortList(list)
-  local texture = self.batch:getTexture()
-  local hsv = self
-  local n = #list
-  local l = 1
-  local r = n
-  repeat
-    while l < r do
-      while list[r].texture ~= texture and l < r do
-        r = r - 1
-      end
-      while list[l].texture == texture and l < r do
-        l = l + 1
-      end
-      if l <= r then
-        list[l], list[r] = list[r], list[l]
-        r = r - 1
-        l = l + 1
-      end
-    end
-    if l < r then
-      texture = list[l].texture
-      r = n
-    end
-  until l >= r
 end
 -- Checks if sprite may be added to the current batch.
 -- @param(sprite : Sprite)

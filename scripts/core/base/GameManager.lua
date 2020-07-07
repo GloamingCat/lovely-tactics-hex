@@ -122,7 +122,6 @@ end
 
 -- Draws game.
 function GameManager:draw()
-  drawCalls = 0
   ScreenManager:draw()
   love.graphics.setFont(self.fpsFont)
   --self:printStats()
