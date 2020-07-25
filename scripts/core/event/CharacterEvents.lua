@@ -53,7 +53,8 @@ end
 function EventSheet:moveCharTile(args)
   local char = self:findCharacter(args.key)
   if char.autoTurn then
-    char:turnToTile(args.x or 0, args.y or 0)
+    local charTile = char:getTile()
+    char:turnToTile(charTile.x + (args.x or 0), charTile.y + (args.y or 0))
   end
   char:removeFromTiles()
   char:walkTiles(args.x or 0, args.y or 0, args.h or 0)

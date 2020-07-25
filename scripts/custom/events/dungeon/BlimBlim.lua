@@ -147,7 +147,7 @@ return function(script)
   script:closeDialogueWindow { id = 1 }
   
   blim:playAnimation('LookAround')
-  script:wait(60)
+  script:wait(30)
   
   script:showDialogue { id = 1, character = "BlimBlim", portrait = "Angry", message = 
     Vocab.dialogues.dungeon.ImGonnaFinishIt
@@ -174,7 +174,7 @@ return function(script)
   script:wait(120)
 
   script:showDialogue { id = 1, character = "BlimBlim", portrait = "Confused", message = 
-    Vocab.dialogues.dungeon.PomPom
+    Vocab.dialogues.dungeon.HuhPomPom
   }
   
   script:showDialogue { id = 1, character = "player", portrait = "Worry", message = 

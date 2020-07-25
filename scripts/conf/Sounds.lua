@@ -134,16 +134,6 @@ return {
     name = 'bgm/Aaron Krogh/Happiness.ogg', 
     volume = 100, 
     pitch = 100 
-  },
-  sillyTheme = { 
-    name = 'bgm/Gyrowolf/Town002.ogg', 
-    volume = 100, 
-    pitch = 100 
-  },
-  mysteriousTheme = {
-    name = '',
-    volume = 100,
-    pitch = 100
   }
   
 }
