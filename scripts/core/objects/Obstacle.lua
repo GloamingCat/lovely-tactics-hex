@@ -44,17 +44,15 @@ end
 -- Creates neighborhood.
 -- @param(neighbors : table) The table of booleans indicating passability.
 function Obstacle:initNeighbors(neighbors)
-  self.neighbors = {}
-  local function addNeighbor(x, y, i)
-    if self.neighbors[x] == nil then
-      self.neighbors[x] = {}
-    end
-    self.neighbors[x][y] = neighbors[i]
-  end
+  self.passability = {}
+  self.passability[0] = {}
+  self.passability[0][0] = true
   for i, n in ipairs(neighborShift) do
-    addNeighbor(n.x, n.y, i)
+    if self.passability[n.x] == nil then
+      self.passability[n.x] = {}
+    end
+    self.passability[n.x][n.y] = neighbors[i]
   end
-  addNeighbor(0, 0, #neighborShift + 1)
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -69,10 +67,10 @@ function Obstacle:isPassable(dx, dy, obj)
   if self == obj then
     return true
   end
-  if self.neighbors[dx] == nil then
+  if self.passability[dx] == nil then
     return false
   end
-  return self.neighbors[dx][dy] == true
+  return self.passability[dx][dy] == true
 end
 -- Overrides Object:getHeight.
 function Obstacle:getHeight(x, y)
@@ -87,47 +85,52 @@ end
 function Obstacle:addToTiles(tiles)
   local tile = tiles and tiles[1] or self:getTile()
   tile.obstacleList:add(self)
-  local rampNeighbors, topTile = self:getRampNeighbors(tile)
-  if rampNeighbors then
-    for r = 1, #rampNeighbors do
-      topTile.ramps:add(rampNeighbors[r])
-      rampNeighbors[r].ramps:add(topTile)
-    end
+  if not self.ramp then
+    return
+  end
+  local layerNeighbors = self:getPassableNeighbors(tile)
+  local topTile = self:getTopTile(tile)
+  for r = 1, #layerNeighbors do
+    -- Connect top tile with neighbor tiles in the same layer.
+    topTile.rampNeighbors:add(layerNeighbors[r])
+    --print(topTile, layerNeighbors[r])
+    layerNeighbors[r].rampNeighbors:add(topTile)
   end
 end
 -- Overrides Object:removeFromTiles.
 function Obstacle:removeFromTiles(tiles)
   local tile = tiles and tiles[1] or self:getTile()
   tile.obstacleList:removeElement(self)
-  local rampNeighbors, topTile = self:getRampNeighbors(tile)
-  if rampNeighbors then
-    for r = 1, #rampNeighbors do
-      topTile.ramps:removeElement(rampNeighbors[r])
-      rampNeighbors[r].ramps:removeElement(topTile)
-    end
+  if not self.ramp then
+    return
+  end
+  local layerNeighbors = self:getPassableNeighbors(tile)
+  local topTile = self:getTopTile(tile)
+  for r = 1, #layerNeighbors do
+    topTile.rampNeighbors:removeElement(layerNeighbors[r])
+    layerNeighbors[r].rampNeighbors:removeElement(topTile)
   end
 end
 -- Gets an array of tiles to each the obstacle's ramp transits.
 -- @ret(table) Array of tiles if the obstacle is a ramp, nil if it's not.
-function Obstacle:getRampNeighbors(tile)
-  if not self.ramp then
-    return nil
-  end
+function Obstacle:getPassableNeighbors(tile)
   tile = tile or self:getTile()
   local field = FieldManager.currentField
   local height = tile.layer.height
   local neighbors = {}
-  if field.objectLayers[height] then
-    for _, n in ipairs(neighborShift) do
-      if self:isPassable(n.x, n.y) then
-        n = field:getObjectTile(n.x + tile.x, n.y + tile.y, height)
-        if n then
-          neighbors[#neighbors + 1] = n
-        end
-      end
+  for _, n in ipairs(neighborShift) do
+    local t = field:getObjectTile(n.x + tile.x, n.y + tile.y, height)
+    if t and self:isPassable(n.x, n.y) then
+      neighbors[#neighbors + 1] = t
     end
   end
-  return neighbors, field:getObjectTile(tile.x, tile.y, self.collisionHeight + height)
+  return neighbors
+end
+-- Gets the tile on the top on the obstacle, according to its collision height.
+-- @ret(ObjectTile)
+function Obstacle:getTopTile(tile)
+  return FieldManager.currentField:getObjectTile(tile.x, tile.y, 
+    self.collisionHeight + tile.layer.height)
 end
 
 ---------------------------------------------------------------------------------------------------

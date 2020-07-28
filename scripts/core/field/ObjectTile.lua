@@ -37,7 +37,7 @@ function ObjectTile:init(layer, x, y)
   self.battlerTypeList = List()
   self.parties = {}
   self.neighborList = nil
-  self.ramps = List()
+  self.rampNeighbors = List()
 end
 -- Stores the list of neighbor tiles.
 function ObjectTile:createNeighborList()
@@ -77,17 +77,22 @@ end
 function ObjectTile:getMoveCost()
   return FieldManager.currentField:getMoveCost(self:coordinates())
 end
--- Searchs for a tile from the ramp list with the given x and y.
+-- Searchs for a tile from the ramp neighbor list with the given x and y.
+-- If two or more tiles are eligible, returns the top-most.
 -- @param(x : number) Tile x.
 -- @param(y : number) Tile y.
 -- @ret(ObjectTile) The ramp's destination tile if found, nil if not found.
-function ObjectTile:getRamp(x, y)
-  for i = 1, #self.ramps do
-    local r = self.ramps[i]
+function ObjectTile:getRampNeighbor(x, y)
+  local ramp = nil
+  for i = 1, #self.rampNeighbors do
+    local r = self.rampNeighbors[i]
     if r.x == x and r.y == y then
-      return r
+      if not ramp or r.layer.height < ramp.layer.height then
+        ramp = r
+      end
     end
   end
+  return ramp
 end
 -- Updates graphics animation.
 function ObjectTile:update()

@@ -38,8 +38,8 @@ local HexVMath = require('core/math/field/FieldMath')
 -- @ret(table) array of Vectors
 function HexVMath.createNeighborShift()
   local s = HexVMath.createFullNeighborShift()
-  table.remove(s, 2)
   table.remove(s, 5)
+  table.remove(s, 1)
   return s
 end
 -- Creates an array with Vectors representing all Vertex by its distance from the center.
@@ -165,29 +165,37 @@ end
 -- @ret(table) An array of 4 elements, one number for each quarter.
 function HexVMath.autoTileRows(grid, i, j, sameType)
   local shift = HexVMath.neighborShift
-  local rows = { 0, 0, 0, 0 }
-  local step1, step2 = 1, 2
+  local rows = { 
+    0, 0, 
+    0, 0 
+  }
   local n = 0
-  local function localSameType()
-    return sameType(grid, i, j, i + shift[n+1].x, j + shift[n+1].y)
+  local function localSameType(x, y)
+    return sameType(grid, i, j, i + x, j + y)
   end
-  for k = -1, 1 do
-    n = (k + #shift) % #shift
-    if localSameType() then
-        rows[2] = rows[2] + pow(2, 1 + k)
-    end
-    n = (step1 + (k + 3) % 3 - 1) % #shift
-    if localSameType() then
-        rows[4] = rows[4] + pow(2, 1 + k)
-    end
-    n = (k + step1 + step2) % #shift
-    if localSameType() then
-        rows[3] = rows[3] + pow(2, 1 + k)
-    end
-    n = (step1 + step2 + step1 + (k + 3) % 3 - 1) % #shift
-    if localSameType() then
-        rows[1] = rows[1] + pow(2, 1 + k)
-    end
+  if localSameType(1, -1) then
+    rows[1] = rows[1] + 1
+    rows[2] = rows[2] + 1
+  end
+  if localSameType(-1, 1) then
+    rows[3] = rows[3] + 1
+    rows[4] = rows[4] + 1    
+  end
+  if localSameType(1, 0) then
+    rows[2] = rows[2] + 2
+    rows[4] = rows[4] + 2
+  end
+  if localSameType(-1, 0) then
+    rows[1] = rows[1] + 2
+    rows[3] = rows[3] + 2
+  end
+  if localSameType(0, 1) then
+    rows[2] = rows[2] + 4
+    rows[4] = rows[4] + 4
+  end
+  if localSameType(0, -1) then
+    rows[1] = rows[1] + 4
+    rows[3] = rows[3] + 4
   end
   if rows[1] == 0 and rows[2] == 0 and rows[3] == 0 and rows[4] == 0 then
     rows[1], rows[2], rows[3], rows[4] = 8, 8, 8, 8

@@ -54,14 +54,14 @@ function FieldMath.createFullNeighborShift()
   local function put(x, y)
     s[#s + 1] = Vector(x, y)
   end
-  put(1, 0)
   put(1, 1)
-  put(0, 1)
-  put(-1, 1)
-  put(-1, 0)
-  put(-1, -1)
-  put(0, -1)
+  put(1, 0)
   put(1, -1)
+  put(0, -1)
+  put(-1, -1)
+  put(-1, 0)
+  put(-1, 1)
+  put(0, 1)
   return s
 end
 
@@ -89,19 +89,32 @@ end
 function FieldMath.frontTile(tile, dx, dy)
   if FieldManager.currentField:exceedsBorder(tile.x + dx, tile.y + dy) then
     return nil
+  end
+  -- Neighbor tile on the same layer.
+  local neighbor = tile.layer.grid[tile.x + dx][tile.y + dy]
+  -- Neighbor tile on different layer.
+  local rampNeighbor = tile:getRampNeighbor(tile.x + dx, tile.y + dy)
+  --print(rampNeighbor)
+  if not rampNeighbor then
+    -- No ramps.
+    return neighbor
+  end
+  if rampNeighbor.layer.height > tile.layer.height then
+    -- Front tile is above current tile (going up to rampNeighbor).
+    return rampNeighbor
+  end
+  -- Current tile is the top tile of a ramp (going down to rampNeighbor).
+  -- Check if neighbor is also the top tile of a ramp.
+  local neighborRampNeighbor = neighbor:getRampNeighbor(tile.x, tile.y)
+  if not neighborRampNeighbor then
+    -- No ramps on neighbor tile. Cannot be a top tile of a ramp.
+    return rampNeighbor
+  end
+  if neighborRampNeighbor.layer.height < neighbor.layer.height then
+    -- If neighbor's ramp neighbor is below, then neighbor is a top tile.
+    return neighbor
   else
-    local nextTile = tile.layer.grid[tile.x + dx][tile.y + dy]
-    local nextTile2 = tile:getRamp(nextTile.x, nextTile.y)
-    if nextTile2 then
-      local tile2 = nextTile:getRamp(tile.x, tile.y)
-      if tile2 and tile2 ~= tile then
-        return nextTile
-      else
-        return nextTile2
-      end
-    else
-      return nextTile
-    end
+    return rampNeighbor
   end
 end
 
