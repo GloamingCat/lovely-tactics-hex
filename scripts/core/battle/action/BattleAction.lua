@@ -243,7 +243,7 @@ function BattleAction:getAllAccessedTiles(input, tile)
   local tiles = {}
   local height = tile.layer.height
   for x, y, h in mathf.maskIterator(self.range, tile:coordinates()) do
-    local t = self.field:getObjectTile(i, j, h)
+    local t = self.field:getObjectTile(x, y, h)
     if t and self:isSelectable(input, t) then
       tiles[#tiles + 1] = t
     end

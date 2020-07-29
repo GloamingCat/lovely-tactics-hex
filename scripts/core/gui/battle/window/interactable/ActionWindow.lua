@@ -48,18 +48,17 @@ end
 function ActionWindow:skillActionEnabled(skill)
   if skill.allTiles then
     return true
-  else
-    local user = TurnManager:currentCharacter()
-    local input = ActionInput(skill, user)
-    if self:moveEnabled() then
-      for tile in FieldManager.currentField:gridIterator() do
-        if skill:isSelectable(input, tile) then
-          return true
-        end
+  end
+  local user = TurnManager:currentCharacter()
+  local input = ActionInput(skill, user)
+  if self:moveEnabled() then
+    for tile in FieldManager.currentField:gridIterator() do
+      if skill:isSelectable(input, tile) then
+        return true
       end
-    else
-      return #skill:getAllAccessedTiles(input, user:getTile()) > 0
     end
+  else
+    return #skill:getAllAccessedTiles(input, user:getTile()) > 0
   end
   return false
 end
@@ -69,8 +68,9 @@ function ActionWindow:moveEnabled()
   if user.steps < 1 then
     return false
   end
+  local userTile = user:getTile()
   for path in TurnManager:pathMatrix():iterator() do
-    if path and path.totalCost <= user.steps + 0.001 then
+    if path and path.lastStep ~= userTile and path.totalCost <= user.steps + 0.001 then
       return true
     end
   end
