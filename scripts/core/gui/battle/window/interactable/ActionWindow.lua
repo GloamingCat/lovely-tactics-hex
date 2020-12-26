@@ -46,7 +46,7 @@ function ActionWindow:selectAction(action, input)
 end
 -- Checks if a given skill action is enabled to use.
 function ActionWindow:skillActionEnabled(skill)
-  if skill.allTiles then
+  if skill.allTiles or skill.wholeField then
     return true
   end
   local user = TurnManager:currentCharacter()

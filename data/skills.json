@@ -55,6 +55,7 @@
         ]
       },
       "autoPath": true,
+      "wholeField": false,
       "name": "Item",
       "tags": []
     },
@@ -116,6 +117,7 @@
             ]
           },
           "autoPath": true,
+          "wholeField": false,
           "name": "Healing Item",
           "tags": [
             {
@@ -187,6 +189,7 @@
             ]
           },
           "autoPath": true,
+          "wholeField": false,
           "name": "Reviving Item",
           "tags": [
             {
@@ -258,6 +261,7 @@
             ]
           },
           "autoPath": true,
+          "wholeField": false,
           "name": "Offensive Item",
           "tags": [
             {
@@ -331,6 +335,7 @@
         ]
       },
       "autoPath": true,
+      "wholeField": false,
       "name": "Attack",
       "tags": []
     },
@@ -451,6 +456,7 @@
             ]
           },
           "autoPath": true,
+          "wholeField": false,
           "name": "Blade Attack",
           "tags": [
             {
@@ -531,6 +537,7 @@
             ]
           },
           "autoPath": true,
+          "wholeField": false,
           "name": "Magical Attack",
           "tags": [
             {
@@ -678,6 +685,7 @@
             ]
           },
           "autoPath": true,
+          "wholeField": false,
           "name": "Magical Explosion",
           "tags": [
             {
@@ -775,6 +783,7 @@
             ]
           },
           "autoPath": true,
+          "wholeField": false,
           "name": "Big Magical Explosion",
           "tags": [
             {
@@ -888,6 +897,7 @@
             ]
           },
           "autoPath": true,
+          "wholeField": false,
           "name": "Blaze",
           "tags": [
             {
@@ -989,6 +999,7 @@
             ]
           },
           "autoPath": true,
+          "wholeField": false,
           "name": "Frost",
           "tags": [
             {
@@ -1090,6 +1101,7 @@
             ]
           },
           "autoPath": true,
+          "wholeField": false,
           "name": "Bolt",
           "tags": [
             {
@@ -1171,6 +1183,7 @@
         ]
       },
       "autoPath": true,
+      "wholeField": false,
       "name": "Support",
       "tags": []
     },
@@ -1250,6 +1263,7 @@
             ]
           },
           "autoPath": true,
+          "wholeField": false,
           "name": "Heal",
           "tags": [
             {
@@ -1335,6 +1349,7 @@
             ]
           },
           "autoPath": true,
+          "wholeField": false,
           "name": "Reflect",
           "tags": [
             {
@@ -1412,6 +1427,7 @@
         ]
       },
       "autoPath": true,
+      "wholeField": false,
       "name": "Debuff",
       "tags": []
     },
@@ -1483,6 +1499,7 @@
             ]
           },
           "autoPath": true,
+          "wholeField": false,
           "name": "Poison",
           "tags": [
             {
@@ -1614,6 +1631,7 @@
             ]
           },
           "autoPath": true,
+          "wholeField": false,
           "name": "Sleeping Polen",
           "tags": [
             {
@@ -1699,6 +1717,7 @@
             ]
           },
           "autoPath": true,
+          "wholeField": false,
           "name": "Blinding Light",
           "tags": []
         },
@@ -1951,6 +1970,7 @@
             ]
           },
           "autoPath": true,
+          "wholeField": false,
           "name": "Charm",
           "tags": [
             {
@@ -2020,6 +2040,7 @@
         ]
       },
       "autoPath": true,
+      "wholeField": false,
       "name": "Monster",
       "tags": []
     },
@@ -2140,6 +2161,7 @@
             ]
           },
           "autoPath": true,
+          "wholeField": false,
           "name": "Monster Attack",
           "tags": [
             {
@@ -2271,6 +2293,7 @@
             ]
           },
           "autoPath": true,
+          "wholeField": false,
           "name": "Poison Attack",
           "tags": [
             {
@@ -2343,6 +2366,7 @@
             ]
           },
           "autoPath": true,
+          "wholeField": false,
           "name": "Attack Down",
           "tags": [
             {
@@ -2423,6 +2447,7 @@
             ]
           },
           "autoPath": true,
+          "wholeField": false,
           "name": "Attack Up",
           "tags": [
             {
@@ -2503,6 +2528,7 @@
             ]
           },
           "autoPath": true,
+          "wholeField": false,
           "name": "Defense Down",
           "tags": [
             {
@@ -2583,6 +2609,7 @@
             ]
           },
           "autoPath": true,
+          "wholeField": false,
           "name": "Defense Up",
           "tags": [
             {

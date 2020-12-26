@@ -25,6 +25,7 @@ local FieldAction = class()
 function FieldAction:init(area)
   self.area = area or mathf.centerMask
   self.field = FieldManager.currentField
+  self.wholeField = false
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -125,12 +126,19 @@ end
 -- @ret(table) An array of tiles.
 function FieldAction:getAllAffectedTiles(input, tile)
   tile = tile or input.target
-  local sizeX, sizeY = self.field.sizeX, self.field.sizeY
   local tiles = {}
-  for x, y, h in mathf.maskIterator(self.area, tile:coordinates()) do
-    local n = self.field:getObjectTile(x, y, h)
-    if n and self.field:isGrounded(x, y, h) then
-      tiles[#tiles + 1] = n
+  if self.wholeField then
+    for tile in self.field:gridIterator() do
+      if tile and self.field:isGrounded(tile:coordinates()) then
+        tiles[#tiles + 1] = tile
+      end
+    end
+  else
+    for x, y, h in mathf.maskIterator(self.area, tile:coordinates()) do
+      local n = self.field:getObjectTile(x, y, h)
+      if n and self.field:isGrounded(x, y, h) then
+        tiles[#tiles + 1] = n
+      end
     end
   end
   return tiles
@@ -139,7 +147,7 @@ end
 -- @ret(boolean) True if it's an area action, false otherwise.
 function FieldAction:isArea()
   local grid = self.area.grid
-  return #grid > 1 or #grid > 0 and #grid[1] > 1 or #grid[1][1] > 1
+  return self.wholeField or #grid > 1 or #grid > 0 and #grid[1] > 1 or #grid[1][1] > 1
 end
 -- Gets the first selected target tile.
 -- @ret(ObjectTile) The first tile.

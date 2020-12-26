@@ -131,14 +131,14 @@ function ActionGUI:keyboardInput()
     self.result = self.input.action:onCancel(self.input)
   elseif InputManager.keys['next']:isTriggered() then
     local target = self.input.action:nextLayer(self.input, 1)
-    if target then
+    if target and target ~= self.input.target then
       FieldManager.renderer:moveToTile(target)
       self:playSelectSound()
       self:selectTarget(target)
     end
   elseif InputManager.keys['prev']:isTriggered() then
     local target = self.input.action:nextLayer(self.input, -1)
-    if target then
+    if target and target ~= self.input.target then
       FieldManager.renderer:moveToTile(target)
       self:playSelectSound()
       self:selectTarget(target)
@@ -147,7 +147,7 @@ function ActionGUI:keyboardInput()
     local dx, dy = InputManager:axis(0.5, 0.0625)
     if dx ~= 0 or dy ~= 0 then
       local target = self.input.action:nextTarget(self.input, dx, dy)
-      if target then
+      if target and target ~= self.input.target then
         FieldManager.renderer:moveToTile(target)
         self:playSelectSound()
         self:selectTarget(target)
