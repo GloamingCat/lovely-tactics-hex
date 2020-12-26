@@ -226,9 +226,7 @@ function Button:show()
   end
   if self.enableCondition then
     local enabled = self.enableCondition(self.window, self)
-    if not enabled then
-      self:setEnabled(false)
-    end
+    self:setEnabled(enabled)
   end
   GridWidget.show(self)
 end

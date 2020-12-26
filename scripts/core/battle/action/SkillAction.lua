@@ -39,6 +39,7 @@ function SkillAction:init(skillID)
   local data = Database.skills[skillID]
   self.data = data
   BattleAction.init(self, nil, data.castMask, data.effectMask)
+  self.autoPath = data.autoPath
   self:setType(data.type)
   self:setTargetType(data.targetType)
   -- Time before initial animation starts.

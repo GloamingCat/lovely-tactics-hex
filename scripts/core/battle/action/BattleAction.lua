@@ -39,6 +39,7 @@ function BattleAction:init(colorName, range, area)
   self.colorName = colorName
   self.showTargetWindow = true
   self.showStepWindow = false
+  self.autoPath = true
 end
 -- Sets color according to action's type (general, attack or support).
 -- @param(t : number) Type code, from 0 to 2.
@@ -122,9 +123,17 @@ function BattleAction:resetTileProperties(input)
 end
 -- Sets all movable tiles as selectable or not and resets color to default.
 function BattleAction:resetMovableTiles(input)
-  local matrix = TurnManager:pathMatrix()
-  for tile in self.field:gridIterator() do
-    tile.gui.movable = matrix:get(tile:coordinates()) ~= nil
+  if self.autoPath then
+    local matrix = TurnManager:pathMatrix()
+    for tile in self.field:gridIterator() do
+      tile.gui.movable = matrix:get(tile:coordinates()) ~= nil
+    end
+  else
+    for tile in self.field:gridIterator() do
+      tile.gui.movable = false
+    end
+    local charTile = TurnManager:currentCharacter():getTile()
+    charTile.gui.movable = true
   end
 end
 -- Paints and resets properties for the target tiles.

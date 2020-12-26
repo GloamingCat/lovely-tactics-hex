@@ -51,7 +51,7 @@ function ActionWindow:skillActionEnabled(skill)
   end
   local user = TurnManager:currentCharacter()
   local input = ActionInput(skill, user)
-  if self:moveEnabled() then
+  if skill.autoPath and self:moveEnabled() then
     for tile in FieldManager.currentField:gridIterator() do
       if skill:isSelectable(input, tile) then
         return true

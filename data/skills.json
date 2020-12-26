@@ -54,6 +54,7 @@
           ]
         ]
       },
+      "autoPath": true,
       "name": "Item",
       "tags": []
     },
@@ -114,6 +115,7 @@
               ]
             ]
           },
+          "autoPath": true,
           "name": "Healing Item",
           "tags": [
             {
@@ -184,6 +186,7 @@
               ]
             ]
           },
+          "autoPath": true,
           "name": "Reviving Item",
           "tags": [
             {
@@ -254,6 +257,7 @@
               ]
             ]
           },
+          "autoPath": true,
           "name": "Offensive Item",
           "tags": [
             {
@@ -326,6 +330,7 @@
           ]
         ]
       },
+      "autoPath": true,
       "name": "Attack",
       "tags": []
     },
@@ -445,6 +450,7 @@
               ]
             ]
           },
+          "autoPath": true,
           "name": "Blade Attack",
           "tags": [
             {
@@ -524,6 +530,7 @@
               ]
             ]
           },
+          "autoPath": true,
           "name": "Magical Attack",
           "tags": [
             {
@@ -670,6 +677,7 @@
               ]
             ]
           },
+          "autoPath": true,
           "name": "Magical Explosion",
           "tags": [
             {
@@ -766,6 +774,7 @@
               ]
             ]
           },
+          "autoPath": true,
           "name": "Big Magical Explosion",
           "tags": [
             {
@@ -878,6 +887,7 @@
               ]
             ]
           },
+          "autoPath": true,
           "name": "Blaze",
           "tags": [
             {
@@ -978,6 +988,7 @@
               ]
             ]
           },
+          "autoPath": true,
           "name": "Frost",
           "tags": [
             {
@@ -1078,6 +1089,7 @@
               ]
             ]
           },
+          "autoPath": true,
           "name": "Bolt",
           "tags": [
             {
@@ -1158,6 +1170,7 @@
           ]
         ]
       },
+      "autoPath": true,
       "name": "Support",
       "tags": []
     },
@@ -1236,6 +1249,7 @@
               ]
             ]
           },
+          "autoPath": true,
           "name": "Heal",
           "tags": [
             {
@@ -1320,6 +1334,7 @@
               ]
             ]
           },
+          "autoPath": true,
           "name": "Reflect",
           "tags": [
             {
@@ -1396,6 +1411,7 @@
           ]
         ]
       },
+      "autoPath": true,
       "name": "Debuff",
       "tags": []
     },
@@ -1466,6 +1482,7 @@
               ]
             ]
           },
+          "autoPath": true,
           "name": "Poison",
           "tags": [
             {
@@ -1596,6 +1613,7 @@
               ]
             ]
           },
+          "autoPath": true,
           "name": "Sleeping Polen",
           "tags": [
             {
@@ -1680,6 +1698,7 @@
               ]
             ]
           },
+          "autoPath": true,
           "name": "Blinding Light",
           "tags": []
         },
@@ -1931,6 +1950,7 @@
               ]
             ]
           },
+          "autoPath": true,
           "name": "Charm",
           "tags": [
             {
@@ -1999,6 +2019,7 @@
           ]
         ]
       },
+      "autoPath": true,
       "name": "Monster",
       "tags": []
     },
@@ -2118,6 +2139,7 @@
               ]
             ]
           },
+          "autoPath": true,
           "name": "Monster Attack",
           "tags": [
             {
@@ -2248,6 +2270,7 @@
               ]
             ]
           },
+          "autoPath": true,
           "name": "Poison Attack",
           "tags": [
             {
@@ -2319,6 +2342,7 @@
               ]
             ]
           },
+          "autoPath": true,
           "name": "Attack Down",
           "tags": [
             {
@@ -2398,6 +2422,7 @@
               ]
             ]
           },
+          "autoPath": true,
           "name": "Attack Up",
           "tags": [
             {
@@ -2477,6 +2502,7 @@
               ]
             ]
           },
+          "autoPath": true,
           "name": "Defense Down",
           "tags": [
             {
@@ -2556,6 +2582,7 @@
               ]
             ]
           },
+          "autoPath": true,
           "name": "Defense Up",
           "tags": [
             {
