@@ -2,7 +2,7 @@
   {
     "data": {
       "image": {
-        "id": 41,
+        "id": 211,
         "col": 0,
         "row": 0
       },
@@ -333,8 +333,8 @@
     "data": {
       "image": {
         "id": 211,
-        "col": 0,
-        "row": 0
+        "col": 1,
+        "row": 1
       },
       "transform": {
         "offsetX": 0,
@@ -868,7 +868,7 @@
   {
     "data": {
       "image": {
-        "id": -1,
+        "id": 213,
         "col": 0,
         "row": 0
       },
@@ -909,7 +909,223 @@
       "tags": []
     },
     "id": 57,
-    "children": []
+    "children": [
+      {
+        "data": {
+          "image": {
+            "id": 213,
+            "col": 0,
+            "row": 0
+          },
+          "transform": {
+            "offsetX": 0,
+            "offsetY": 0,
+            "offsetDepth": 0,
+            "scaleX": 100,
+            "scaleY": 100,
+            "rotation": 0,
+            "red": 255,
+            "green": 255,
+            "blue": 255,
+            "alpha": 255,
+            "hue": 0,
+            "saturation": 100,
+            "brightness": 100
+          },
+          "tiles": [
+            {
+              "neighbors": [
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false
+              ],
+              "mode": 0,
+              "dx": 0,
+              "dy": 0,
+              "height": 3
+            }
+          ],
+          "name": "Rock 4",
+          "tags": []
+        },
+        "id": 61,
+        "children": []
+      },
+      {
+        "data": {
+          "image": {
+            "id": 214,
+            "col": 0,
+            "row": 0
+          },
+          "transform": {
+            "offsetX": 0,
+            "offsetY": 0,
+            "offsetDepth": 12,
+            "scaleX": 100,
+            "scaleY": 100,
+            "rotation": 0,
+            "red": 255,
+            "green": 255,
+            "blue": 255,
+            "alpha": 255,
+            "hue": 0,
+            "saturation": 100,
+            "brightness": 100
+          },
+          "tiles": [],
+          "name": "Rock 5",
+          "tags": []
+        },
+        "id": 62,
+        "children": []
+      },
+      {
+        "data": {
+          "image": {
+            "id": 215,
+            "col": 0,
+            "row": 0
+          },
+          "transform": {
+            "offsetX": 0,
+            "offsetY": 0,
+            "offsetDepth": 0,
+            "scaleX": 100,
+            "scaleY": 100,
+            "rotation": 0,
+            "red": 255,
+            "green": 255,
+            "blue": 255,
+            "alpha": 255,
+            "hue": 0,
+            "saturation": 100,
+            "brightness": 100
+          },
+          "tiles": [
+            {
+              "neighbors": [
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false
+              ],
+              "mode": 0,
+              "dx": 0,
+              "dy": 0,
+              "height": 6
+            },
+            {
+              "neighbors": [
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false
+              ],
+              "mode": 0,
+              "dx": 1,
+              "dy": 0,
+              "height": 6
+            },
+            {
+              "neighbors": [
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false
+              ],
+              "mode": 0,
+              "dx": 0,
+              "dy": -1,
+              "height": 6
+            },
+            {
+              "neighbors": [
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false
+              ],
+              "mode": 0,
+              "dx": 1,
+              "dy": -1,
+              "height": 6
+            }
+          ],
+          "name": "Rock 6",
+          "tags": []
+        },
+        "id": 63,
+        "children": []
+      },
+      {
+        "data": {
+          "image": {
+            "id": 231,
+            "col": 0,
+            "row": 0
+          },
+          "transform": {
+            "offsetX": 0,
+            "offsetY": 0,
+            "offsetDepth": 0,
+            "scaleX": 100,
+            "scaleY": 100,
+            "rotation": 0,
+            "red": 255,
+            "green": 255,
+            "blue": 255,
+            "alpha": 255,
+            "hue": 0,
+            "saturation": 100,
+            "brightness": 100
+          },
+          "tiles": [
+            {
+              "neighbors": [
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false
+              ],
+              "mode": 0,
+              "dx": 0,
+              "dy": 0,
+              "height": 7
+            }
+          ],
+          "name": "Cave Wall",
+          "tags": []
+        },
+        "id": 64,
+        "children": []
+      }
+    ]
   },
   {
     "data": {

@@ -657,7 +657,7 @@
   },
   "characters": [
     {
-      "key": "CharKey",
+      "key": "Milkzkin",
       "persistent": false,
       "passable": false,
       "visible": true,
@@ -665,11 +665,32 @@
       "y": 6,
       "h": 1,
       "party": -1,
-      "charID": -1,
+      "charID": 18,
       "battlerID": -1,
-      "animation": "Idle",
-      "direction": 315,
-      "scripts": []
+      "animation": "SceneIdle",
+      "direction": 270,
+      "scripts": [
+        {
+          "global": false,
+          "block": false,
+          "wait": false,
+          "onLoad": true,
+          "onInteract": false,
+          "onCollide": false,
+          "name": "events/behavior/Wanderer.lua",
+          "tags": []
+        },
+        {
+          "global": false,
+          "block": true,
+          "wait": true,
+          "onLoad": false,
+          "onInteract": true,
+          "onCollide": false,
+          "name": "events/dungeon/JungleShop.lua",
+          "tags": []
+        }
+      ]
     }
   ],
   "parties": [],

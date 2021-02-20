@@ -158,6 +158,30 @@
           "direction": -1
         },
         "fade": 30
+      },
+      {
+        "destination": {
+          "fieldID": 26,
+          "x": 6,
+          "y": 7,
+          "h": 1,
+          "direction": 135
+        },
+        "tl": {
+          "fieldID": 12,
+          "x": 1,
+          "y": 1,
+          "h": 1,
+          "direction": -1
+        },
+        "br": {
+          "fieldID": 12,
+          "x": 1,
+          "y": 1,
+          "h": 1,
+          "direction": -1
+        },
+        "fade": 30
       }
     ],
     "name": "Overworld",
@@ -887,6 +911,41 @@
             {
               "key": "dest",
               "value": "5"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "Cave",
+      "persistent": false,
+      "passable": false,
+      "visible": true,
+      "x": 2,
+      "y": 3,
+      "h": 1,
+      "party": -1,
+      "charID": -1,
+      "battlerID": -1,
+      "animation": "Idle",
+      "direction": 315,
+      "scripts": [
+        {
+          "global": false,
+          "block": false,
+          "wait": false,
+          "onLoad": false,
+          "onInteract": false,
+          "onCollide": true,
+          "name": "events/Entrance.lua",
+          "tags": [
+            {
+              "key": "name",
+              "value": "Deep Jungle"
+            },
+            {
+              "key": "dest",
+              "value": "6"
             }
           ]
         }

@@ -117,7 +117,12 @@ return {
     GoodThing = "Good thing you girls found me!",
     SoACat = "Wait... so a cat is creating those jellies? How?",
     IDontKnow = "I don't know... but I'm sure it's him.",
-    LetsGoFindHim = "Let's go find him, then!"
+    LetsGoFindHim = "Let's go find him, then!",
+    
+    -- Shop
+    JungleShop = "I'm trying to gather some money so I can cover the costs for my traveling hobby. \nMaybe I have some you'd like!",
+    CaveShop = "I found some random cool stuff here too. Do you wanna take a look?",
+    ShopThanks = "Thanks!"
     
   }
   

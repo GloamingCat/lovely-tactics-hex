@@ -1,9 +1,9 @@
 
 --[[===============================================================================================
 
-Shop Test
+Town Shop
 ---------------------------------------------------------------------------------------------------
-
+Heron's shop scene.
 
 =================================================================================================]]
 
@@ -33,11 +33,14 @@ return function(script)
     { id = 7 }
   }}
 
+  -- Show BG
   FieldManager.renderer:fadeout(90, true)
   FieldManager.renderer.images.Shop:setVisible(true)
   FieldManager.renderer:fadein(90, true)
   
   if not FieldManager.currentField.vars.shop then
+    
+    -- First scene
     
     script:showDialogue { id = 1, character = 13, portrait = "Happy", nameX = -0.45, nameY = -1.25, message = 
       Vocab.dialogues.town.HelloWelcome
@@ -84,6 +87,8 @@ return function(script)
   
   else
     
+    -- Defaut scene
+    
     script:showDialogue { id = 1, character = 13, portrait = "Happy", nameX = -0.45, nameY = -1.25, message = 
       Vocab.dialogues.town.WelcomeBack
     }
@@ -100,6 +105,7 @@ return function(script)
   
   script:closeDialogueWindow { id = 1 }
   
+  -- Hide BG
   FieldManager.renderer:fadeout(90, true)
   FieldManager.renderer.images.Shop:setVisible(false)
   FieldManager.renderer:fadein(90, true)

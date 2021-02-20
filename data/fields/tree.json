@@ -316,6 +316,18 @@
         ]
       },
       "children": []
+    },
+    {
+      "id": 26,
+      "data": {
+        "name": "Lost Cave 1",
+        "lastLayers": [
+          1,
+          0,
+          -1
+        ]
+      },
+      "children": []
     }
   ]
 }

@@ -34,15 +34,15 @@
         },
         "tl": {
           "fieldID": 23,
-          "x": 7,
-          "y": 11,
+          "x": 6,
+          "y": 15,
           "h": 1,
           "direction": -1
         },
         "br": {
           "fieldID": 23,
           "x": 8,
-          "y": 11,
+          "y": 15,
           "h": 1,
           "direction": -1
         },
@@ -906,7 +906,7 @@
   "characters": [
     {
       "key": "BlimBlim",
-      "persistent": false,
+      "persistent": true,
       "passable": false,
       "visible": true,
       "x": 8,
